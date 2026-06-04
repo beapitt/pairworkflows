@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Which Claude Model Should You Use? Haiku vs Sonnet vs Opus — PairWorkflows</title>
+<meta name="description" content="Stop wasting Claude credits. Learn when to use Haiku, Sonnet or Opus at work with a simple 10-second decision rule. Free 5-minute course for professionals.">
+<link rel="canonical" href="https://www.pairworkflows.com/claude-model-choice-haiku-sonnet-opus.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Which Claude Model Should You Use? Haiku vs Sonnet vs Opus">
+<meta property="og:description" content="Stop wasting Claude credits. Learn when to use Haiku, Sonnet or Opus at work with a simple 10-second decision rule.">
+<meta property="og:url" content="https://www.pairworkflows.com/claude-model-choice-haiku-sonnet-opus.html">
+<meta property="og:site_name" content="PairWorkflows">
+<meta property="og:image" content="https://www.pairworkflows.com/images/og-claude-models.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Which Claude Model Should You Use? Haiku vs Sonnet vs Opus">
+<meta name="twitter:description" content="Stop wasting Claude credits. Free 5-minute course for professionals.">
+<meta name="twitter:image" content="https://www.pairworkflows.com/images/og-claude-models.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Course","name":"Which Claude Model Should You Use? Haiku vs Sonnet vs Opus","description":"A free 5-minute practical course teaching professionals when to use each Claude AI model — Haiku, Sonnet, or Opus — to get better results without burning their daily usage limit.","url":"https://www.pairworkflows.com/claude-model-choice-haiku-sonnet-opus.html","provider":{"@type":"Organization","name":"PairWorkflows","url":"https://www.pairworkflows.com"},"offers":{"@type":"Offer","price":"0","priceCurrency":"GBP","availability":"https://schema.org/InStock"},"timeRequired":"PT5M","inLanguage":"en","educationalLevel":"Beginner","audience":{"@type":"Audience","audienceType":"Corporate professionals using Claude AI"}}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#ffffff;min-height:100vh}
+.navbar{background:#042e1f;border-bottom:1px solid rgba(255,255,255,.08);padding:0 3rem;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
+.logo-pair{font-size:18px;font-weight:800;color:#ffffff;letter-spacing:-.3px}
+.logo-workflows{font-size:18px;font-weight:400;color:#9fe1cb;letter-spacing:-.2px}
+.back-link{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,.6);text-decoration:none;transition:color .15s}
+.back-link:hover{color:#ffffff}
+.course-wrap{max-width:1280px;margin:0 auto;padding:2rem 3rem 4rem}
+.course-shell{background:#ffffff;border-radius:16px;box-shadow:0 4px 40px rgba(0,0,0,.4);overflow:hidden;display:grid;grid-template-columns:260px 1fr;min-height:600px}
+.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
+.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
+.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
+.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
+.prog-wrap{padding:1rem 1.25rem .75rem}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
+.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
+.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
+.nav-list{padding:.5rem 0;flex:1}
+.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
+.nav-item:hover{background:#eef1f4}
+.nav-item.active{border-left-color:#1d9e75;background:#ffffff}
+.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
+.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#ffffff}
+.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
+.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
+.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
+.content-area{display:flex;flex-direction:column}
+.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:2rem 2.5rem}
+.section-tag{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.5rem}
+.section-hero h2{font-size:24px;font-weight:600;color:#ffffff;line-height:1.3;max-width:560px}
+.content-body{padding:2rem 2.5rem;flex:1;max-width:750px}
+.content-body p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
+.info-box{background:#e1f5ee;padding:1rem 1.25rem;margin:1.25rem 0;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0}
+.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
+.model-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.25rem 0}
+.mc{border:1px solid #e8ecef;border-radius:12px;padding:1rem;background:#fafbfc}
+.mc.rec{border:2px solid #1d9e75;background:#f5fdf9}
+.mc-badge{font-size:10px;background:#e1f5ee;color:#085041;padding:2px 8px;border-radius:20px;display:inline-block;margin-bottom:.4rem;font-weight:500}
+.mc-name{font-size:12px;font-weight:600;color:#374151;margin-bottom:.2rem}
+.mc-cost{font-size:24px;font-weight:600;color:#1a1a2e;margin-bottom:.25rem;line-height:1}
+.mc-desc{font-size:12px;color:#6b7280;line-height:1.5}
+.token-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.25rem 0}
+.tg{border:1px solid #e8ecef;border-radius:12px;padding:1rem;text-align:center;background:#fafbfc}
+.tg-icon{font-size:24px;color:#1d9e75;margin-bottom:.5rem}
+.tg-label{font-size:13px;font-weight:500;color:#1a1a2e;margin-bottom:.25rem}
+.tg-desc{font-size:12px;color:#6b7280;line-height:1.5}
+.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2.5rem;border-top:1px solid #f0f2f5;background:#fafbfc}
+.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-back:hover{background:#f0f2f5}
+.btn-back:disabled{opacity:.35;cursor:default}
+.btn-fwd{background:#1d9e75;color:#ffffff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-fwd:hover{background:#0f6e56}
+.quiz-q{margin-bottom:1.5rem}
+.quiz-q p{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
+.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
+.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
+.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.opt.selected{border-color:#378add;background:#edf5fd;color:#0c447c}
+.opt.selected .radio{border-color:#378add;background:#378add}
+.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
+.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}
+.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
+.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
+.submit-global{background:#1a1a2e;color:#ffffff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}
+.submit-global:hover{background:#0f6e56}
+.submit-global:disabled{opacity:.35;cursor:default}
+.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
+.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
+.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
+.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.retake-btn:hover{background:#e1f5ee}
+.site-footer{background:#021a12;padding:1.5rem 3rem;text-align:center;border-top:1px solid rgba(255,255,255,.06)}
+.footer-links{display:flex;justify-content:center;gap:2rem;margin-bottom:.625rem;flex-wrap:wrap}
+.footer-links a{font-size:12px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .15s}
+.footer-links a:hover{color:#9fe1cb}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.2)}
+@media(max-width:768px){
+.navbar{padding:0 1.25rem}
+.course-wrap{padding:1.25rem 1rem 3rem}
+.course-shell{grid-template-columns:1fr}
+.sidebar{display:none}
+.section-hero{padding:1.25rem 1.5rem}
+.section-hero h2{font-size:18px}
+.content-body{padding:1.25rem;max-width:100%}
+.content-footer{padding:1rem 1.25rem}
+.model-grid{grid-template-columns:1fr}
+.token-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <a class="logo" href="/index.html"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a>
+  <a class="back-link" href="/index.html"><i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses</a>
+</nav>
+
+<div class="course-wrap">
+  <div class="course-shell">
+    <div class="sidebar">
+      <div class="sidebar-top">
+        <div class="course-label">Claude AI — Course 1 of 26</div>
+        <div class="course-title-side">Which Claude model should you use? Stop wasting credits.</div>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
+        <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+      </div>
+      <div class="nav-list">
+        <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">Introduction</div></div>
+        <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">The three models</div></div>
+        <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Token budget explained</div></div>
+        <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quiz: test your knowledge</div></div>
+      </div>
+    </div>
+    <div class="content-area">
+      <div class="section-hero"><div class="section-tag" id="heroTag">Section 01</div><h2 id="heroTitle">It is time to use AI smarter.</h2></div>
+      <div class="content-body" id="cnt"></div>
+      <div class="content-footer">
+        <button class="btn-back" id="btnBack" onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button>
+        <button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-links"><a href="/index.html">Home</a><a href="/contact.html">Contact</a><a href="/legal.html#privacy">Privacy Policy</a><a href="/legal.html#terms">Terms of Use</a></div>
+  <div class="footer-copy">&copy; 2026 PairWorkflows. All rights reserved.</div>
+</footer>
+
+<script>
+var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
+var heroes=[
+  {tag:'Section 01',title:'It is time to use AI smarter.'},
+  {tag:'Section 02',title:'Three models. Very different costs.'},
+  {tag:'Section 03',title:'Your token budget — where it goes.'},
+  {tag:'Section 04 — Quiz',title:'Test your knowledge.'}
+];
+var quiz=[
+  {q:'Your team needs to draft 100 product descriptions. Which model should you use?',opts:['Opus — most powerful, best results','Sonnet — good balance','Haiku — fast and efficient for volume work'],correct:2},
+  {q:'You are writing a sensitive legal brief for a major client. Which model is most appropriate?',opts:['Haiku — saves credits','Sonnet or Opus — complex, high-stakes task','They all produce the same output'],correct:1},
+  {q:'On a Pro/Team plan, what happens when you use Opus for every task?',opts:['Nothing — the plan covers unlimited use','You hit your daily usage limit faster','You get charged extra per message'],correct:1},
+  {q:'Where does your token budget come from in a conversation?',opts:['Only from the messages you type','From your input, system context, and model output combined','Only from documents you upload'],correct:1}
+];
+var bodies=[
+  function(){return '<p>Most professionals use Claude every day — but almost everyone defaults to the most powerful model for every task, even when a lighter one would do the job just as well.</p><p>This mini-course gives you a clear, practical framework for choosing the right Claude model every time, so you stop burning your daily usage limit on tasks that do not need it.</p><div class="info-box"><p><strong>What you will learn:</strong> the difference between Haiku, Sonnet, and Opus — the three models available on Claude Pro and Team plans — and a simple rule to pick the right one in under 10 seconds. Note: Claude has additional models for developers and enterprise use cases, but these three cover the vast majority of professional work.</p></div>';},
+  function(){return '<p>Claude has three main models available on Pro and Team plans. Each is more capable — and heavier on your daily usage limit — than the last. The numbers below are relative weights, not per-message charges.</p><div class="model-grid"><div class="mc"><div class="mc-name">Haiku 4.5</div><div class="mc-cost">1&times;</div><div class="mc-desc">Fastest. Best for simple, high-volume tasks: drafting, classifying, routing, summarising.</div></div><div class="mc rec"><div class="mc-badge">Recommended default</div><div class="mc-name">Sonnet 4.6</div><div class="mc-cost">3&times;</div><div class="mc-desc">The smart default for most professional work — reports, briefs, analysis, emails.</div></div><div class="mc"><div class="mc-name">Opus 4.7</div><div class="mc-cost">5&times;</div><div class="mc-desc">Most powerful. Reserve for complex reasoning, strategy, and high-stakes outputs only.</div></div></div><div class="info-box"><p><strong>Note:</strong> API pricing for developers is different from subscription plan limits. Do not confuse the two — they work differently.</p></div>';},
+  function(){return '<p>Every conversation has a token budget. It comes from three sources — and all of them are within your control to manage.</p><div class="token-grid"><div class="tg"><div class="tg-icon"><i class="ti ti-keyboard"></i></div><div class="tg-label">Your input</div><div class="tg-desc">Everything you type, paste, or upload. The biggest variable you control.</div></div><div class="tg"><div class="tg-icon"><i class="ti ti-settings"></i></div><div class="tg-label">System context</div><div class="tg-desc">Project instructions and background context loaded automatically.</div></div><div class="tg"><div class="tg-icon"><i class="ti ti-message"></i></div><div class="tg-label">Model output</div><div class="tg-desc">Claude responses. Longer outputs consume more of your daily budget.</div></div></div><div class="info-box"><p><strong>The 10-second rule:</strong> before every conversation ask — does this need deep reasoning or fast execution? Fast execution goes to Haiku or Sonnet. Deep reasoning goes to Sonnet or Opus. When in doubt: Sonnet is almost always the right default.</p></div>';},
+  function(){
+    if(quizDone){
+      var score=0;for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
+      var msgs=['Review the course carefully and try again.','Good effort — revisit sections 2 and 3 before retrying.','Almost there! One more review and you will nail it.','Perfect score! You are ready to apply this today.'];
+      return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
+    }
+    var html='';
+    for(var i=0;i<quiz.length;i++){
+      var q=quiz[i];
+      html+='<div class="quiz-q"><p>'+(i+1)+'. '+q.q+'</p>';
+      for(var j=0;j<q.opts.length;j++){
+        var cls='opt';
+        if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
+        else if(sel[i]===j)cls+=' selected';
+        html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
+      }
+      html+='</div>';
+    }
+    var allSel=Object.keys(sel).length===quiz.length;
+    if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
+    else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
+    return html;
+  }
+];
+function render(){
+  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
+  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
+  document.getElementById('heroTag').textContent=heroes[cur].tag;
+  document.getElementById('heroTitle').textContent=heroes[cur].title;
+  for(var i=0;i<4;i++){
+    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i);
+    ni.className='nav-item'+(i===cur?' active':'');
+    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
+    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
+    else{nd.className='nav-dot';nd.textContent=(i+1);}
+  }
+  document.getElementById('cnt').innerHTML=bodies[cur]();
+  document.getElementById('btnBack').disabled=(cur===0);
+  var fwd=document.getElementById('btnFwd');
+  if(cur===3){fwd.style.display='none';}
+  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
+  if(cur===3){
+    document.getElementById('cnt').addEventListener('click',function(e){
+      if(quizSubmitted||quizDone)return;
+      var opt=e.target.closest('.opt');
+      if(!opt)return;
+      sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
+      render();
+    });
+  }
+}
+function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();}
+function goFwd(){if(cur<3)go(cur+1);}
+function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
+function showResult(){quizDone=true;render();}
+function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
+render();
+</script>
+</body>
+</html>
