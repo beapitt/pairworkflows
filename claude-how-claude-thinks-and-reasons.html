@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- SEO -->
+<title>How Claude Thinks: Understanding AI Reasoning — PairWorkflows</title>
+<meta name="description" content="Discover how Claude processes corporate data and structures choices. Master the underlying mechanics of AI reasoning to build better team workflows.">
+<link rel="canonical" href="https://www.pairworkflows.com/claude-how-claude-thinks-and-reasons.html">
+
+<!-- Open Graph -->
+<meta property="og:title" content="How Claude Thinks: Understanding AI Reasoning — PairWorkflows">
+<meta property="og:description" content="Discover how Claude processes corporate data and structures choices. Master the underlying mechanics of AI reasoning to build better team workflows.">
+<meta property="og:url" content="https://www.pairworkflows.com/claude-how-claude-thinks-and-reasons.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PairWorkflows">
+<meta property="og:image" content="https://www.pairworkflows.com/og/claude-how-claude-thinks-and-reasons.png">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How Claude Thinks: Understanding AI Reasoning — PairWorkflows">
+<meta name="twitter:description" content="Discover how Claude processes corporate data and structures choices. Master the underlying mechanics of AI reasoning to build better team workflows.">
+<meta name="twitter:image" content="https://www.pairworkflows.com/og/claude-how-claude-thinks-and-reasons.png">
+
+<!-- JSON-LD Course Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "How Claude Thinks: Understanding AI Reasoning",
+  "description": "Discover how Claude processes corporate data and structures choices. Master the underlying mechanics of AI reasoning to build better team workflows.",
+  "url": "https://www.pairworkflows.com/claude-how-claude-thinks-and-reasons.html",
+  "timeRequired": "PT5M",
+  "isAccessibleForFree": true,
+  "inLanguage": "en",
+  "provider": {
+    "@type": "Organization",
+    "name": "PairWorkflows",
+    "url": "https://www.pairworkflows.com"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock"
+  },
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "online",
+    "courseWorkload": "PT5M"
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background: #042e1f;
+    color: #1a1a2e;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Navbar ── */
+  .navbar { background: #021a12; border-bottom: 1px solid #0a4a30; padding: 0 3rem; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+  .logo { display: flex; align-items: baseline; gap: 1px; text-decoration: none; }
+  .logo-pair { font-size: 18px; font-weight: 800; color: #ffffff; letter-spacing: -.3px; }
+  .logo-workflows { font-size: 18px; font-weight: 400; color: #9fe1cb; letter-spacing: -.2px; }
+  .back-link { display: flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,.6); text-decoration: none; transition: color .15s; }
+  .back-link:hover { color: #ffffff; }
+
+  /* ── Layout ── */
+  .course-wrap { max-width: 1280px; margin: 0 auto; padding: 2rem 3rem 4rem; flex: 1; width: 100%; }
+  .course-shell { background: #ffffff; border-radius: 16px; box-shadow: 0 4px 40px rgba(0,0,0,.4); overflow: hidden; display: grid; grid-template-columns: 260px 1fr; min-height: 600px; }
+
+  /* ── Sidebar ── */
+  .sidebar { background: #f8fafb; border-right: 1px solid #e8ecef; display: flex; flex-direction: column; }
+  .sidebar-top { padding: 1.5rem 1.25rem 1rem; border-bottom: 1px solid #e8ecef; }
+  .course-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: #0f6e56; margin-bottom: .5rem; }
+  .course-title-side { font-size: 13px; font-weight: 500; color: #1a1a2e; line-height: 1.45; }
+  .prog-wrap { padding: 1rem 1.25rem .75rem; }
+  .prog-label { display: flex; justify-content: space-between; font-size: 11px; color: #6b7280; margin-bottom: .4rem; }
+  .prog-track { height: 5px; background: #e8ecef; border-radius: 3px; overflow: hidden; }
+  .prog-fill { height: 5px; background: linear-gradient(90deg, #1d9e75, #0f6e56); border-radius: 3px; transition: width .35s ease; }
+  .nav-list { padding: .5rem 0; flex: 1; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: .7rem 1.25rem; cursor: pointer; border-left: 3px solid transparent; transition: all .15s; }
+  .nav-item:hover { background: #eef1f4; }
+  .nav-item.active { border-left-color: #1d9e75; background: #ffffff; }
+  .nav-dot { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid #d1d5db; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: #6b7280; flex-shrink: 0; transition: all .15s; }
+  .nav-dot.done { background: #1d9e75; border-color: #1d9e75; color: #ffffff; }
+  .nav-dot.active { border-color: #1d9e75; color: #0f6e56; font-weight: 600; }
+  .nav-text { font-size: 13px; color: #6b7280; line-height: 1.35; }
+  .nav-item.active .nav-text { color: #1a1a2e; font-weight: 500; }
+
+  /* ── Content Area ── */
+  .content-area { display: flex; flex-direction: column; }
+  .section-hero { background: linear-gradient(135deg, #085041 0%, #0f6e56 45%, #185fa5 100%); padding: 2rem 2.5rem; }
+  .main-course-h1 { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: #9fe1cb; margin-bottom: .25rem; }
+  .section-tag { font-size: 11px; font-weight: 500; color: rgba(255, 255, 255, 0.7); margin-bottom: .5rem; }
+  .section-hero h2 { font-size: 24px; font-weight: 600; color: #ffffff; line-height: 1.3; max-width: 580px; }
+  .content-body { padding: 2rem 2.5rem; flex: 1; max-width: 750px; }
+
+  /* Sezioni SEO */
+  .seo-section { display: none; }
+  .seo-section.active-section { display: block; }
+  .seo-section p { font-size: 14px; color: #374151; line-height: 1.8; margin-bottom: 1.25rem; }
+
+  /* Elementi di Design */
+  .body-heading { font-size: 16px; font-weight: 600; color: #1a1a2e; margin: 1.75rem 0 .6rem; }
+  .info-box { background: #e1f5ee; padding: 1rem 1.25rem; margin: 1.25rem 0; border-left: 3px solid #1d9e75; border-radius: 0 10px 10px 0; }
+  .info-box p { color: #085041; margin: 0; font-size: 13px; line-height: 1.65; }
+  .warn-box { background: #fff8e6; padding: 1rem 1.25rem; margin: 1.25rem 0; border-left: 3px solid #f59e0b; border-radius: 0 10px 10px 0; }
+  .warn-box p { color: #7c5c10; margin: 0; font-size: 13px; line-height: 1.65; }
+
+  .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 1.5rem 0; }
+  .comp-card { background: #f8fafb; border: 1px solid #e8ecef; border-radius: 10px; padding: 1.25rem; }
+  .comp-title { font-size: 14px; font-weight: 600; color: #0f6e56; margin-bottom: .5rem; text-transform: uppercase; letter-spacing: .02em; }
+  .comp-title.alt { color: #185fa5; }
+  .comp-desc { font-size: 13px; color: #4b5563; line-height: 1.6; }
+
+  .custom-list { list-style: none; margin: 1.25rem 0; }
+  .custom-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 13.5px; color: #374151; line-height: 1.7; padding: .5rem 0; border-bottom: 1px solid #f0f2f5; }
+  .custom-list li:last-child { border-bottom: none; }
+  .list-icon { color: #1d9e75; font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+
+  /* ── Footer Nav ── */
+  .content-footer { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 2.5rem; border-top: 1px solid #f0f2f5; background: #fafbfc; }
+  .btn-back { background: transparent; border: 1px solid #d1d5db; color: #6b7280; padding: 8px 18px; border-radius: 8px; font-size: 13px; cursor: pointer; transition: all .15s; font-family: inherit; }
+  .btn-back:hover { background: #f0f2f5; }
+  .btn-back:disabled { opacity: .35; cursor: default; }
+  .btn-fwd { background: #1d9e75; color: #ffffff; border: none; padding: 8px 22px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s; font-family: inherit; }
+  .btn-fwd:hover { background: #0f6e56; }
+
+  /* ── Quiz CSS ── */
+  .quiz-q { margin-bottom: 1.5rem; }
+  .quiz-q h3 { font-size: 14px; font-weight: 500; color: #1a1a2e; margin-bottom: .75rem; line-height: 1.55; }
+  .opt { display: flex; align-items: center; gap: 12px; padding: .7rem 1rem; border: 1px solid #e8ecef; border-radius: 10px; margin-bottom: .5rem; cursor: pointer; font-size: 13px; color: #374151; transition: all .15s; line-height: 1.45; }
+  .opt:hover:not(.locked) { background: #f5fdf9; border-color: #9fe1cb; }
+  .radio { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid #d1d5db; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .opt.selected { border-color: #378add; background: #edf5fd; color: #0c447c; }
+  .opt.selected .radio { border-color: #378add; background: #378add; }
+  .opt.selected .radio::after, .opt.correct .radio::after, .opt.wrong .radio::after { content:''; width:6px; height:6px; border-radius:50%; background:#fff; display:block; }
+  .opt.correct { border-color: #1d9e75; background: #e1f5ee; color: #085041; }
+  .opt.correct .radio { border-color: #1d9e75; background: #1d9e75; }
+  .opt.wrong { border-color: #e24b4a; background: #fcebeb; color: #a32d2d; }
+  .opt.wrong .radio { border-color: #e24b4a; background: #e24b4a; }
+  .submit-global { background: #1a1a2e; color: #ffffff; border: none; padding: 10px 28px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; margin-top: 1rem; transition: all .15s; font-family: inherit; }
+  .submit-global:hover { background: #0f6e56; }
+  .submit-global:disabled { opacity: .35; cursor: default; }
+  .result-box { background: #f8fafb; border-radius: 14px; padding: 2rem; text-align: center; border: 1px solid #e8ecef; margin-top: 1rem; }
+  .result-score { font-size: 48px; font-weight: 600; color: #1d9e75; margin-bottom: .5rem; line-height: 1; }
+  .result-msg { font-size: 15px; color: #374151; margin-bottom: 1.25rem; line-height: 1.6; }
+  .retake-btn { background: transparent; border: 1.5px solid #1d9e75; color: #0f6e56; padding: 8px 22px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s; font-family: inherit; }
+  .retake-btn:hover { background: #e1f5ee; }
+
+  /* ── Site Footer ── */
+  .site-footer { background: #021a12; padding: 1.5rem 3rem; text-align: center; border-top: 1px solid rgba(255,255,255,.06); margin-top: auto; }
+  .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: .625rem; flex-wrap: wrap; }
+  .footer-links a { font-size: 12px; color: rgba(255,255,255,.4); text-decoration: none; transition: color .15s; }
+  .footer-links a:hover { color: #9fe1cb; }
+  .footer-copy { font-size: 12px; color: rgba(255,255,255,.2); }
+
+  @media(max-width:768px){
+    .navbar { padding: 0 1.25rem; }
+    .course-wrap { padding: 1.25rem 1rem 3rem; }
+    .course-shell { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .section-hero { padding: 1.25rem 1.5rem; }
+    .content-body { padding: 1.25rem; max-width: 100%; }
+    .content-footer { padding: 1rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a class="logo" href="/index.html"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a>
+  <a class="back-link" href="/index.html"><i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses</a>
+</nav>
+
+<div class="course-wrap">
+  <div class="course-shell">
+    
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-top">
+        <div class="course-label">Claude AI — Course 9 of 9</div>
+        <div class="course-title-side">Why Claude Responds the Way It Does</div>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
+        <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+      </div>
+      <div class="nav-list">
+        <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">Information Processing</div></div>
+        <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">Behavioral Motifs</div></div>
+        <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Mastering AI Reasoning</div></div>
+        <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Interactive Quiz</div></div>
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content-area">
+      <div class="section-hero">
+        <h1 class="main-course-h1">Why Claude Responds the Way It Does — PairWorkflows</h1>
+        <div class="section-tag" id="heroTag">Section 01</div>
+        <h2 id="heroTitle">Information Processing: How Claude Maps and Weighs Text</h2>
+      </div>
+      
+      <div class="content-body" id="cnt">
+        
+        <!-- SECTION 1: INFORMATION PROCESSING -->
+        <div id="seo-sec-0" class="seo-section active-section">
+          <p>To truly master an AI collaborator, professionals must look past the illusion of a human conversation. Claude does not possess opinions, memory files, or personal experiences. Instead, it operates as a dynamic text calculation system that predicts sequential context based on broad pattern matching.</p>
+          <p>When you feed data or strategic problems into Claude, the model breaks your sentences into small numeric units called tokens. It then reads these units concurrently, calculating semantic links and assessing text patterns to determine which concepts should receive the highest structural focus.</p>
+          
+          <div class="comparison-grid">
+            <div class="comp-card">
+              <div class="comp-title">The Human Attention Window</div>
+              <div class="comp-desc">Humans read lineally, fluidly connecting personal workplace memories, industry logic, and emotional nuances to parse a strategic document.</div>
+            </div>
+            <div class="comp-card">
+              <div class="comp-title alt">Claude's Probability Vector</div>
+              <div class="comp-desc">Claude evaluates your words against mathematical text connections, assembling answers based on the patterns most likely to follow your specific context.</div>
+            </div>
+          </div>
+          
+          <div class="body-heading">Workplace Example: The Abstract Performance Review</div>
+          <p>Consider an operations manager asking for an objective appraisal format. If the prompt lacks precision, Claude draws from average web standards and produces a generic corporate template. However, if the prompt uses explicit parameters, the model focuses its attention on professional criteria, delivering a precise document that aligns perfectly with target enterprise performance bars.</p>
+          <div class="info-box">
+            <p><strong>Core Concept:</strong> Claude does not look up predefined answers in a hidden corporate archive. It constructs every response word-by-word based on the immediate structural guideposts you provide in your prompt.</p>
+          </div>
+        </div>
+
+        <!-- SECTION 2: BEHAVIORAL MOTIFS -->
+        <div id="seo-sec-1" class="seo-section">
+          <p>Have you ever wondered why Claude sometimes defaults to long-winded paragraphs, begins answers with repetitive pleasantries, or hesitates when handling highly conflicting business instructions? These habits stem directly from how the model was trained.</p>
+          <p>Through systematic fine-tuning processes (such as Constitutional AI and safety optimization loops), the model is heavily conditioned to prioritize safety parameters, maximize factual helpfulness, and avoid structural errors. This conditioning explains its distinct behavioral tendencies.</p>
+          
+          <div class="body-heading">The Three Major Behavioral Motifs and Workplace Triggers</div>
+          <ul class="custom-list">
+            <li><span class="list-icon"><i class="ti ti-rotate-clockwise"></i></span><strong>The Verbosity Loop:</strong> Claude naturally wants to satisfy all elements of a prompt, which can lead it to over-explain simple business answers with long preambles. You can bypass this by setting clear length or formatting rules up front.</li>
+            <li><span class="list-icon"><i class="ti ti-rotate-clockwise"></i></span><strong>The Compliance Bias:</strong> If an unvetted document contains phrasing that resembles restricted material, Claude may respond with an overly cautious safety refusal. Using clear, objective language helps ensure the model stays focused on the task.</li>
+            <li><span class="list-icon"><i class="ti ti-rotate-clockwise"></i></span><strong>The Mirror Effect:</strong> If a user prompt is unorganized or logically flawed, Claude's response will likely match that quality. The model reflects the structural clarity—or lack thereof—that it receives.</li>
+          </ul>
+          
+          <div class="warn-box">
+            <p><strong>The Editor's Mandate:</strong> Because Claude calculates patterns based on high probability, it can occasionally present inaccurate information with complete stylistic confidence. Never copy an unverified output into a production stream without manual review.</p>
+          </div>
+        </div>
+
+        <!-- SECTION 3: MASTERING AI REASONING -->
+        <div id="seo-sec-2" class="seo-section">
+          <p>Understanding how Claude processes text transforms you from a casual user into an efficient workflow designer. When you align your prompts with the model's structural mechanics, you eliminate frustrating trial-and-error cycles.</p>
+          <p>This final step requires viewing your interactions as structural design rather than simple conversation. By providing clear roles, explicit data boundaries, and negative constraints, you guide the model's focus exactly where your business requires it.</p>
+          
+          <div class="body-heading">The Blueprint for Seamless Collaboration</div>
+          <p>As we conclude this series on enterprise AI workflows, adopt these core principles to ensure consistent, repeatable success:</p>
+          
+          <ul class="custom-list">
+            <li><span class="list-icon success"><i class="ti ti-circle-check"></i></span><strong>Document Productive Workflows:</strong> When you build a prompt sequence that yields high-value corporate results, save it as a structured template to preserve that workflow asset for your team.</li>
+            <li><span class="list-icon success"><i class="ti ti-circle-check"></i></span><strong>Enforce Rigorous Structure:</strong> Use explicit guardrails (such as XML partitions, JSON requests, and negative limits) to block out generic, low-value responses.</li>
+            <li><span class="list-icon success"><i class="ti ti-circle-check"></i></span><strong>Own the Final Output:</strong> Remember that you are the final editor. Claude provides a strong, hyper-efficient first draft, but your professional judgment ensures compliance and brand alignment.</li>
+          </ul>
+          
+          <div class="info-box">
+            <p><strong>Conclusion:</strong> Human-AI collaboration is most powerful when you design an environment where precision, privacy, and intentional structure govern every interaction. Use these tools to scale your operational output safely.</p>
+          </div>
+        </div>
+
+        <!-- SECTION 4: INTERACTIVE QUIZ -->
+        <div id="seo-sec-3" class="seo-section">
+          <div id="quiz-interactive-container"></div>
+        </div>
+
+      </div>
+      
+      <div class="content-footer">
+        <button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button>
+        <button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-links"><a href="/index.html">Home</a><a href="/contact.html">Contact</a><a href="/legal.html#privacy">Privacy Policy</a><a href="/legal.html#terms">Terms of Use</a></div>
+  <div class="footer-copy">&copy; 2026 PairWorkflows. All rights reserved.</div>
+</footer>
+
+<script>
+var cur = 0, TOTAL = 4, visited = [true, false, false, false], sel = {}, quizSubmitted = false, quizDone = false;
+
+var heroes = [
+  {tag: 'Section 01', title: 'Information Processing: How Claude Maps and Weighs Text'},
+  {tag: 'Section 02', title: 'Behavioral Motifs: Navigating Fine-Tuning Patterns'},
+  {tag: 'Section 03', title: 'Mastering AI Reasoning: The Blueprint for Professional Workflows'},
+  {tag: 'Interactive Quiz', title: 'Test your knowledge.'}
+];
+
+var quiz = [
+  {
+    q: 'When Claude generates a text block response to an open strategic business question, what is it fundamentally doing behind the scenes?',
+    opts: [
+      'Retrieving a pre-written corporate template from an internal database archive.',
+      'Calculating word probabilities concurrently based on pattern matching against your prompt context.',
+      'Searching active web indexes live to form an individual opinion.'
+    ],
+    correct: 1
+  },
+  {
+    q: 'Why does Claude sometimes show a "Verbosity Loop" tendency, delivering long preambles before answering a simple corporate request?',
+    opts: [
+      'Its system architecture requires a high word count to maintain connection speeds.',
+      'Its safety and optimization training heavily conditions it to try to satisfy every element of a user context thoroughly.',
+      'The browser interface adds decorative text block data automatically.'
+    ],
+    correct: 1
+  },
+  {
+    q: 'If Claude produces an unstructured or poorly aligned first draft, what baseline mechanism is likely at play?',
+    opts: [
+      'The Mirror Effect—the user prompt lacked clean instructions, strict role bounds, or explicit formatting parameters.',
+      'The user exceeded their total daily database storage quota.',
+      'The cloud network dropped into low-priority computing modes.'
+    ],
+    correct: 0
+  },
+  {
+    q: 'As a professional collaborator, what is your primary operational responsibility after Claude finishes generating a business asset summary?',
+    opts: [
+      'Ingesting the text immediately into public client channels without alterations.',
+      'Acting as the final editor to verify factual accuracy, compliance rules, and clear alignment with your brand requirements.',
+      'Running the same exact question across ten different standalone browser windows.'
+    ],
+    correct: 1
+  }
+];
+
+function buildQuizHTML(){
+  if(quizDone){
+    var score = 0; for(var i=0; i<quiz.length; i++){if(sel[i]===quiz[i].correct)score++;}
+    var msgs = [
+      'Take a close look at the mechanics of text prediction and model bias before retrying.',
+      'Good baseline effort—revisit section 2 to clarify Claude\'s built-in behavioral patterns.',
+      'Excellent job! You are very close to a complete structural understanding of AI reasoning.',
+      'Perfect score! You have successfully mastered the underlying logic of Claude\'s reasoning loops and workflow optimization.'
+    ];
+    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
+  }
+  var html = '';
+  for(var i=0; i<quiz.length; i++){
+    var q = quiz[i];
+    html += '<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
+    for(var j=0; j<q.opts.length; j++){
+      var cls = 'opt';
+      if(quizSubmitted){
+        if(j===q.correct) cls += ' correct locked';
+        else if(j===sel[i] && j!==q.correct) cls += ' wrong locked';
+        else cls += ' locked';
+      } else if(sel[i]===j) { cls += ' selected'; }
+      html += '<div class="'+cls+'" data-qi="' + i + '" data-oi="' + j + '"><div class="radio"></div>'+q.opts[j]+'</div>';
+    }
+    html += '</div>';
+  }
+  var allSel = Object.keys(sel).length===quiz.length;
+  if(!quizSubmitted) html += '<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
+  else html += '<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
+  return html;
+}
+
+function render(){
+  document.getElementById('pf').style.width = Math.round(((cur+1)/TOTAL)*100)+'%';
+  document.getElementById('progTxt').textContent = (cur+1)+' of '+TOTAL;
+  document.getElementById('heroTag').textContent = heroes[cur].tag;
+  document.getElementById('heroTitle').textContent = heroes[cur].title;
+
+  for(var i=0; i<TOTAL; i++){
+    var ni = document.getElementById('ni'+i), nd = document.getElementById('nd'+i);
+    var secBlock = document.getElementById('seo-sec-'+i);
+    
+    if(ni) ni.className = 'nav-item'+(i===cur?' active':'');
+    
+    if(secBlock){
+      if(i===cur) secBlock.classList.add('active-section');
+      else secBlock.classList.remove('active-section');
+    }
+
+    if(nd){
+      if(visited[i] && i!==cur){ nd.className = 'nav-dot done'; nd.innerHTML = '<i class="ti ti-check" style="font-size:11px"></i>'; }
+      else if(i===cur){ nd.className = 'nav-dot active'; nd.textContent = (i+1); }
+      else { nd.className = 'nav-dot'; nd.textContent = (i+1); }
+    }
+  }
+
+  if(cur===3){
+    var qic = document.getElementById('quiz-interactive-container');
+    if(qic) qic.innerHTML = buildQuizHTML();
+  }
+
+  document.getElementById('btnBack').disabled = (cur===0);
+  var fwd = document.getElementById('btnFwd');
+  if(cur===3){ fwd.style.display = 'none'; }
+  else { fwd.style.display = ''; fwd.innerHTML = (cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>'; }
+}
+
+function go(n){ if(n<0 || n>=TOTAL) return; visited[n]=true; cur=n; render(); }
+function goFwd(){ if(cur<TOTAL-1) go(cur+1); }
+function submitAll(){ if(Object.keys(sel).length<quiz.length) return; quizSubmitted=true; render(); }
+function showResult(){ quizDone=true; render(); }
+function retake(){ sel={}; quizSubmitted=false; quizDone=false; render(); }
+
+document.getElementById('cnt').addEventListener('click', function(e){
+  if(cur!==3 || quizSubmitted || quizDone) return;
+  var opt = e.target.closest('.opt');
+  if(!opt) return;
+  sel[parseInt(opt.dataset.qi)] = parseInt(opt.dataset.oi);
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
