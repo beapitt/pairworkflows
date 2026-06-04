@@ -431,8 +431,8 @@ function renderGrid(){
 function openCourse(id){
   activeCourse=COURSES.find(function(c){return c.id===id;});
   if(!activeCourse)return;
-  cur=0;visited=Array(activeCourse.sections.length).fill(false);visited[0]=true;
-  sel={};quizSubmitted=false;quizDone=false;
+  if(activeCourse.file){window.location.href=activeCourse.file;return;}
+  cur=0;visited=Array(activeCourse.sections.length).fill(false);
   var isG=activeCourse.brand==='gemini';
   document.getElementById('sideLabel').className='course-label '+(isG?'lbl-gemini':'lbl-claude');
   document.getElementById('sideLabel').textContent=(isG?'Gemini AI':'Claude AI')+' — Mini-course';
