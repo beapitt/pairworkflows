@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- SEO -->
+<title>Token Habits &amp; Efficiency: How Load Builds in Claude Conversations — PairWorkflows</title>
+<meta name="description" content="Why Claude gets slower and heavier as you chat — and what to do about it. Master token habits, file type costs, and reset strategies to stay efficient all day.">
+<link rel="canonical" href="https://www.pairworkflows.com/claude-token-load-conversations.html">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Token Habits &amp; Efficiency: How Load Builds in Claude Conversations — PairWorkflows">
+<meta property="og:description" content="Why Claude gets slower and heavier as you chat — and what to do about it. Master token habits, file type costs, and reset strategies to stay efficient all day.">
+<meta property="og:url" content="https://www.pairworkflows.com/claude-token-load-conversations.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PairWorkflows">
+<meta property="og:image" content="https://www.pairworkflows.com/og/claude-token-load-conversations.png">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Token Habits &amp; Efficiency: How Load Builds in Claude Conversations — PairWorkflows">
+<meta name="twitter:description" content="Why Claude gets slower and heavier as you chat — and what to do about it. Master token habits and file type costs for all-day efficiency.">
+<meta name="twitter:image" content="https://www.pairworkflows.com/og/claude-token-load-conversations.png">
+
+<!-- JSON-LD Course Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "Token Habits and Efficiency: How Load Builds in Claude Conversations",
+  "description": "Why Claude gets slower and heavier as you chat — and what to do about it. Master token habits, file type costs, and reset strategies to stay efficient all day.",
+  "url": "https://www.pairworkflows.com/claude-token-load-conversations.html",
+  "timeRequired": "PT5M",
+  "isAccessibleForFree": true,
+  "inLanguage": "en",
+  "provider": {
+    "@type": "Organization",
+    "name": "PairWorkflows",
+    "url": "https://www.pairworkflows.com"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock"
+  },
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "online",
+    "courseWorkload": "PT5M"
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', 'Segoe UI', Helvetica Neue, sans-serif;
+    background: #042e1f;
+    color: #1a1a2e;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Navbar ── */
+  .navbar {
+    background: #021a12;
+    border-bottom: 1px solid #0a4a30;
+    padding: 0 2rem;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .nav-logo { font-size: 16px; font-weight: 600; color: #1d9e75; letter-spacing: -0.3px; text-decoration: none; }
+  .nav-logo span { color: #ffffff; }
+  .nav-back { font-size: 13px; color: #6b9e8a; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color .15s; }
+  .nav-back:hover { color: #1d9e75; }
+  .nav-right { display: flex; align-items: center; gap: 1rem; }
+  .nav-badge { background: #0a4a30; color: #1d9e75; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: .05em; }
+  .nav-time { font-size: 13px; color: #6b9e8a; display: flex; align-items: center; gap: 4px; }
+
+  /* ── Layout ── */
+  .page-wrap { max-width: 1100px; margin: 0 auto; width: 100%; padding: 2rem 1rem; flex: 1; }
+
+  .course-shell {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 24px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.08);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 580px;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar { background: #f8fafb; border-right: 1px solid #e8ecef; display: flex; flex-direction: column; }
+  .sidebar-top { padding: 1.5rem 1.25rem 1rem; border-bottom: 1px solid #e8ecef; }
+  .course-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: #0f6e56; margin-bottom: .5rem; }
+  .course-title-side { font-size: 13px; font-weight: 500; color: #1a1a2e; line-height: 1.45; }
+  .prog-wrap { padding: 1rem 1.25rem .75rem; }
+  .prog-label { display: flex; justify-content: space-between; font-size: 11px; color: #6b7280; margin-bottom: .4rem; }
+  .prog-track { height: 5px; background: #e8ecef; border-radius: 3px; overflow: hidden; }
+  .prog-fill { height: 5px; background: linear-gradient(90deg, #1d9e75, #0f6e56); border-radius: 3px; transition: width .35s ease; }
+  .nav-list { padding: .5rem 0; flex: 1; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: .7rem 1.25rem; cursor: pointer; border-left: 3px solid transparent; transition: all .15s; }
+  .nav-item:hover { background: #eef1f4; }
+  .nav-item.active { border-left-color: #1d9e75; background: #ffffff; }
+  .nav-dot { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid #d1d5db; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: #6b7280; flex-shrink: 0; transition: all .15s; }
+  .nav-dot.done { background: #1d9e75; border-color: #1d9e75; color: #ffffff; }
+  .nav-dot.active { border-color: #1d9e75; color: #0f6e56; font-weight: 600; }
+  .nav-text { font-size: 13px; color: #6b7280; line-height: 1.35; }
+  .nav-item.active .nav-text { color: #1a1a2e; font-weight: 500; }
+
+  /* ── Content area ── */
+  .content-area { display: flex; flex-direction: column; }
+  .section-hero { background: linear-gradient(135deg, #085041 0%, #0f6e56 45%, #185fa5 100%); padding: 1.75rem 2rem; }
+  .section-tag { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; color: #9fe1cb; margin-bottom: .5rem; }
+  .section-hero h2 { font-size: 22px; font-weight: 500; color: #ffffff; line-height: 1.3; max-width: 580px; }
+  .content-body { padding: 1.75rem 2rem; flex: 1; max-width: 760px; }
+  .content-body p { font-size: 14px; color: #374151; line-height: 1.8; margin-bottom: 1rem; }
+
+  /* ── Boxes ── */
+  .info-box { background: #e1f5ee; border-left: 3px solid #1d9e75; border-radius: 0 10px 10px 0; padding: 1rem 1.25rem; margin: 1.25rem 0; }
+  .info-box p { color: #085041; margin: 0; font-size: 13px; line-height: 1.65; }
+  .warn-box { background: #fff8e6; border-left: 3px solid #f59e0b; border-radius: 0 10px 10px 0; padding: 1rem 1.25rem; margin: 1.25rem 0; }
+  .warn-box p { color: #7c5c10; margin: 0; font-size: 13px; line-height: 1.65; }
+  .body-heading { font-size: 15px; font-weight: 600; color: #1a1a2e; margin: 1.5rem 0 .5rem; }
+
+  /* ── Bar Chart ── */
+  .chart-wrap {
+    background: #0f1e17;
+    border-radius: 14px;
+    /* generous padding-top so the title has room above the bars */
+    padding: 1.4rem 1.5rem 1rem;
+    margin: 1.25rem 0;
+  }
+
+  .chart-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: #9fe1cb;
+    text-align: center;
+    /* firm bottom margin creates a clear buffer before the chart starts */
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+  }
+
+  /* Fixed-height container so bars can never escape upward into the title */
+  .chart-inner {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 2.5rem;
+    height: 170px;          /* explicit height; bars are capped to this */
+    border-bottom: 1px solid #1d4a30;
+    position: relative;
+    overflow: hidden;       /* hard ceiling — nothing can leak above */
+  }
+
+  /* Horizontal grid lines */
+  .chart-inner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to top,
+      transparent 0px,
+      transparent calc(25% - 1px),
+      #1a3a25 calc(25% - 1px),
+      #1a3a25 25%
+    );
+    pointer-events: none;
+  }
+
+  .bar-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Bar itself — label sits INSIDE at the top */
+  .bar {
+    width: 56px;
+    border-radius: 4px 4px 0 0;
+    background: linear-gradient(180deg, #22c98a 0%, #1d9e75 100%);
+    position: relative;
+    display: flex;
+    align-items: flex-start;     /* label anchored to top of bar */
+    justify-content: center;
+  }
+
+  /* Value label rendered inside the bar, not above it */
+  .bar-val {
+    font-size: 11px;
+    font-weight: 700;
+    color: #ffffff;
+    padding-top: 5px;
+    text-align: center;
+    line-height: 1;
+    /* Only visible when bar is tall enough; short bars just hide it */
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .bar.bar-1  { height: 22px; }
+  .bar.bar-15 { height: 90px; }
+  .bar.bar-30 { height: 160px; }
+
+  /* For the very short first bar the label is too cramped — suppress it */
+  .bar.bar-1 .bar-val { display: none; }
+
+  /* Prompt label and sub-caption sit below the chart baseline */
+  .bar-label { font-size: 11px; color: #6b9e8a; margin-top: 6px; white-space: nowrap; text-align: center; }
+  .bar-sub   { font-size: 10px; color: #3a6a50; margin-top: 2px; white-space: nowrap; text-align: center; }
+
+  /* Separate row for the short-bar value (Prompt 1 only) — shown BELOW the bar */
+  .bar-val-below { font-size: 11px; font-weight: 700; color: #9fe1cb; margin-top: 4px; text-align: center; }
+
+  .chart-note { font-size: 11px; color: #4a7a60; text-align: center; margin-top: .75rem; font-style: italic; }
+
+  /* ── Timeline ── */
+  .timeline { margin: 1.25rem 0; position: relative; padding-left: 1.5rem; }
+  .timeline::before { content: ''; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: #e8ecef; border-radius: 2px; }
+  .tl-item { position: relative; margin-bottom: 1rem; padding-left: .75rem; }
+  .tl-item::before { content: ''; position: absolute; left: -1.1rem; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: #1d9e75; border: 2px solid #ffffff; box-shadow: 0 0 0 2px #1d9e75; }
+  .tl-prompt { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: #1d9e75; margin-bottom: .15rem; }
+  .tl-text { font-size: 13px; color: #374151; line-height: 1.6; }
+  .tl-cost { display: inline-block; margin-top: .2rem; font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 20px; }
+  .cost-low  { background: #dcfce7; color: #166534; }
+  .cost-mid  { background: #fef9c3; color: #713f12; }
+  .cost-high { background: #fee2e2; color: #7f1d1d; }
+
+  /* ── Stat strip ── */
+  .stat-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 1.25rem 0; }
+  .ss { background: #f8fafb; border: 1px solid #e8ecef; border-radius: 12px; padding: .9rem 1rem; text-align: center; }
+  .ss-num { font-size: 24px; font-weight: 700; color: #1d9e75; line-height: 1; margin-bottom: .25rem; }
+  .ss-label { font-size: 12px; color: #6b7280; line-height: 1.4; }
+
+  /* ── File type widget ── */
+  .filetype-widget { display: grid; grid-template-columns: 160px 1fr; gap: 0; border: 1px solid #e8ecef; border-radius: 12px; overflow: hidden; margin: 1.25rem 0; min-height: 210px; }
+  .ft-list { background: #0f1e17; display: flex; flex-direction: column; padding: .5rem 0; }
+  .ft-list-head { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #3a6a50; padding: .35rem .85rem .2rem; }
+  .ft-btn { display: flex; align-items: center; gap: 10px; padding: .55rem .85rem; cursor: pointer; border: none; background: transparent; font-family: inherit; text-align: left; transition: background .12s; border-left: 3px solid transparent; }
+  .ft-btn:hover { background: #1a3a25; }
+  .ft-btn.active { background: #1a3a25; border-left-color: #1d9e75; }
+  .ft-swatch { width: 26px; height: 18px; border-radius: 3px; flex-shrink: 0; }
+  .sw-md   { background: #22c98a; }
+  .sw-pdf  { background: #5aab6e; }
+  .sw-docx { background: #c87a30; }
+  .sw-ppt  { background: #c84040; }
+  .sw-img  { background: #a83232; }
+  .ft-name { font-size: 12px; font-weight: 500; color: #c8e8d8; }
+  .ft-list-foot { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #3a6a50; padding: .2rem .85rem .35rem; margin-top: auto; }
+  .ft-detail { background: #ffffff; padding: 1.1rem 1.25rem; display: flex; flex-direction: column; justify-content: space-between; }
+  .ft-detail-top { margin-bottom: .5rem; }
+  .ft-detail-name { font-size: 16px; font-weight: 600; color: #1a1a2e; margin-bottom: .15rem; }
+  .ft-detail-badge { display: inline-block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; padding: 2px 9px; border-radius: 20px; margin-bottom: .6rem; }
+  .badge-lightest { background: #dcfce7; color: #166534; }
+  .badge-light    { background: #d1fae5; color: #065f46; }
+  .badge-medium   { background: #fef9c3; color: #713f12; }
+  .badge-heavy    { background: #ffedd5; color: #7c2d12; }
+  .badge-heaviest { background: #fee2e2; color: #7f1d1d; }
+  .ft-detail-body { font-size: 13px; color: #374151; line-height: 1.65; margin-bottom: .6rem; }
+  .ft-practice { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: .6rem .85rem; }
+  .ft-practice-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: #166634; margin-bottom: .2rem; }
+  .ft-practice-text { font-size: 12px; color: #374151; line-height: 1.55; }
+
+  /* ── Tips list ── */
+  .tips-list { list-style: none; margin: 1rem 0; }
+  .tips-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #374151; line-height: 1.65; padding: .55rem 0; border-bottom: 1px solid #f0f2f5; }
+  .tips-list li:last-child { border-bottom: none; }
+  .tip-icon { color: #1d9e75; font-size: 15px; flex-shrink: 0; margin-top: 2px; }
+
+  /* ── Footer nav ── */
+  .content-footer { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 2rem; border-top: 1px solid #f0f2f5; background: #fafbfc; }
+  .btn-back { background: transparent; border: 1px solid #d1d5db; color: #6b7280; padding: 8px 18px; border-radius: 8px; font-size: 13px; font-family: inherit; cursor: pointer; transition: all .15s; }
+  .btn-back:hover { background: #f0f2f5; }
+  .btn-back:disabled { opacity: .35; cursor: default; }
+  .btn-fwd { background: #1d9e75; color: #ffffff; border: none; padding: 8px 22px; border-radius: 8px; font-size: 13px; font-weight: 500; font-family: inherit; cursor: pointer; transition: all .15s; }
+  .btn-fwd:hover { background: #0f6e56; }
+  .btn-fwd:disabled { opacity: .35; cursor: default; }
+
+  /* ── Quiz ── */
+  .quiz-q { margin-bottom: 1.5rem; }
+  .quiz-q p { font-size: 14px; font-weight: 500; color: #1a1a2e; margin-bottom: .75rem; line-height: 1.55; }
+  .opt { display: flex; align-items: center; gap: 12px; padding: .7rem 1rem; border: 1px solid #e8ecef; border-radius: 10px; margin-bottom: .5rem; cursor: pointer; font-size: 13px; color: #374151; transition: all .15s; line-height: 1.45; }
+  .opt:hover:not(.locked) { background: #f5fdf9; border-color: #9fe1cb; }
+  .radio { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid #d1d5db; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all .15s; }
+  .opt.selected { border-color: #378add; background: #edf5fd; color: #0c447c; }
+  .opt.selected .radio { border-color: #378add; background: #378add; }
+  .opt.selected .radio::after { content:''; width:7px; height:7px; border-radius:50%; background:#fff; display:block; }
+  .opt.correct { border-color: #1d9e75; background: #e1f5ee; color: #085041; }
+  .opt.correct .radio { border-color: #1d9e75; background: #1d9e75; }
+  .opt.correct .radio::after { content:''; width:7px; height:7px; border-radius:50%; background:#fff; display:block; }
+  .opt.wrong { border-color: #e24b4a; background: #fcebeb; color: #a32d2d; }
+  .opt.wrong .radio { border-color: #e24b4a; background: #e24b4a; }
+  .opt.wrong .radio::after { content:''; width:7px; height:7px; border-radius:50%; background:#fff; display:block; }
+  .submit-global { background: #1a1a2e; color: #ffffff; border: none; padding: 10px 28px; border-radius: 8px; font-size: 14px; font-weight: 500; font-family: inherit; cursor: pointer; margin-top: 1rem; transition: all .15s; }
+  .submit-global:hover { background: #0f6e56; }
+  .submit-global:disabled { opacity: .35; cursor: default; }
+  .result-box { background: #f8fafb; border-radius: 14px; padding: 2rem; text-align: center; border: 1px solid #e8ecef; margin-top: 1rem; }
+  .result-score { font-size: 48px; font-weight: 600; color: #1d9e75; margin-bottom: .5rem; line-height: 1; }
+  .result-msg { font-size: 15px; color: #374151; margin-bottom: 1.25rem; line-height: 1.6; }
+  .retake-btn { background: transparent; border: 1.5px solid #1d9e75; color: #0f6e56; padding: 8px 22px; border-radius: 8px; font-size: 13px; font-weight: 500; font-family: inherit; cursor: pointer; transition: all .15s; }
+  .retake-btn:hover { background: #e1f5ee; }
+
+  /* ── Page footer ── */
+  .page-footer { background: #021a12; border-top: 1px solid #0a4a30; padding: 1rem 2rem; text-align: center; font-size: 12px; color: #4a7a60; flex-shrink: 0; }
+  .page-footer a { color: #1d9e75; text-decoration: none; }
+  .page-footer a:hover { text-decoration: underline; }
+
+  /* ── Mobile ── */
+  @media (max-width: 700px) {
+    .navbar { padding: 0 1rem; }
+    .page-wrap { padding: 1rem .5rem; }
+    .course-shell { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .content-body { padding: 1.25rem 1rem; max-width: 100%; }
+    .section-hero { padding: 1.25rem 1rem; }
+    .content-footer { padding: 1rem; }
+    .stat-strip { grid-template-columns: 1fr 1fr; }
+    .filetype-widget { grid-template-columns: 1fr; }
+    .ft-list { flex-direction: row; flex-wrap: wrap; padding: .5rem; gap: .25rem; }
+    .ft-list-head, .ft-list-foot { display: none; }
+    .ft-btn { border-radius: 8px; border-left: none; border-bottom: 3px solid transparent; padding: .4rem .6rem; }
+    .ft-btn.active { border-bottom-color: #1d9e75; border-left-color: transparent; background: #1a3a25; }
+    .chart-inner { gap: 1.5rem; }
+    .bar { width: 42px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="https://www.pairworkflows.com" class="nav-logo">Pair<span>Workflows</span></a>
+  <a href="https://www.pairworkflows.com/courses" class="nav-back">
+    <i class="ti ti-arrow-left" style="font-size:13px"></i>Back to courses
+  </a>
+  <div class="nav-right">
+    <span class="nav-time"><i class="ti ti-clock" style="font-size:13px"></i>5 min</span>
+    <span class="nav-badge">Free</span>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="course-shell">
+
+    <div class="sidebar">
+      <div class="sidebar-top">
+        <div class="course-label">Claude AI — Course 4 of 26</div>
+        <div class="course-title-side">How token load builds up in Claude conversations — and how to fix it.</div>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-label">
+          <span>Progress</span>
+          <span id="progTxt">1 of 4</span>
+        </div>
+        <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+      </div>
+      <div class="nav-list">
+        <div class="nav-item active" id="ni0" onclick="go(0)">
+          <div class="nav-dot active" id="nd0">1</div>
+          <div class="nav-text">How context accumulates</div>
+        </div>
+        <div class="nav-item" id="ni1" onclick="go(1)">
+          <div class="nav-dot" id="nd1">2</div>
+          <div class="nav-text">Token load by file type</div>
+        </div>
+        <div class="nav-item" id="ni2" onclick="go(2)">
+          <div class="nav-dot" id="nd2">3</div>
+          <div class="nav-text">Practical reset strategies</div>
+        </div>
+        <div class="nav-item" id="ni3" onclick="go(3)">
+          <div class="nav-dot" id="nd3">4</div>
+          <div class="nav-text">Quiz: test your knowledge</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-area">
+      <div class="section-hero">
+        <div class="section-tag" id="heroTag">Section 01</div>
+        <h2 id="heroTitle">Every message carries the weight of every message before it.</h2>
+      </div>
+      <div class="content-body" id="cnt"></div>
+      <div class="content-footer">
+        <button class="btn-back" id="btnBack" onclick="go(cur-1)">
+          <i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back
+        </button>
+        <button class="btn-fwd" id="btnFwd" onclick="goFwd()">
+          Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="page-footer">
+  &copy; 2026 <a href="https://www.pairworkflows.com">PairWorkflows</a>. All rights reserved.
+</footer>
+
+<script>
+var cur = 0;
+var visited = [true,false,false,false];
+var sel = {};
+var quizSubmitted = false;
+var quizDone = false;
+var activeFt = 0;
+
+var heroes = [
+  {tag:'Section 01', title:'Every message carries the weight of every message before it.'},
+  {tag:'Section 02', title:'The file you upload changes the cost before you type a word.'},
+  {tag:'Section 03', title:'Three habits that reset your token load and recover the day.'},
+  {tag:'Section 04 \u2014 Quiz', title:'Test your knowledge.'}
+];
+
+var ftData = [
+  {
+    key: 'md',
+    name: 'MD (Markdown)',
+    swClass: 'sw-md',
+    badgeClass: 'badge-lightest',
+    badgeText: 'Lightest',
+    body: 'Plain text with minimal formatting overhead. Claude reads Markdown instantly and efficiently, with no structural parsing required. If you are sharing notes, briefs, or copy, pasting as plain text or saving as a .md file first is the single most effective format choice you can make.',
+    practice: 'You can paste content directly as plain text instead of uploading a file at all. No file means no formatting overhead whatsoever.'
+  },
+  {
+    key: 'pdf',
+    name: 'PDF',
+    swClass: 'sw-pdf',
+    badgeClass: 'badge-light',
+    badgeText: 'Light',
+    body: 'Text-based PDFs exported from Word or Google Docs are parsed cleanly and cost relatively few tokens. Scanned PDFs are significantly heavier as they require optical character recognition before any text processing begins — sometimes approaching image-level costs depending on resolution and page count.',
+    practice: 'Confirm your PDF is text-based before uploading, not a scan. If it is scanned, convert it to a text format first using Adobe Acrobat or a free OCR tool to avoid unnecessary overhead.'
+  },
+  {
+    key: 'docx',
+    name: 'DOCX',
+    swClass: 'sw-docx',
+    badgeClass: 'badge-medium',
+    badgeText: 'Medium',
+    body: 'Word documents carry formatting metadata alongside the actual text — tracked changes, comments, style definitions, headers, footers, and embedded objects all add to the token load. A 10-page Word document with tracked changes and comments can cost two to three times more than the same content in a plain text file.',
+    practice: 'Before uploading a DOCX, accept tracked changes, delete comments, and remove unused styles. Better still, copy and paste only the sections Claude actually needs to see.'
+  },
+  {
+    key: 'ppt',
+    name: 'PPT / PPTX',
+    swClass: 'sw-ppt',
+    badgeClass: 'badge-heavy',
+    badgeText: 'Heavy',
+    body: 'PowerPoint files are processed as a combination of text, layout metadata, image references, transitions, and speaker notes — one of the more expensive formats to upload. A 20-slide deck can consume more tokens than a 30-page Word document, and the overhead scales with visual complexity.',
+    practice: 'Export relevant slides as a PDF, or paste the speaker notes and key bullet points as plain text. Reserve PPTX uploads for tasks where the layout or design itself is what Claude needs to evaluate.'
+  },
+  {
+    key: 'img',
+    name: 'JPG / PNG',
+    swClass: 'sw-img',
+    badgeClass: 'badge-heaviest',
+    badgeText: 'Heaviest',
+    body: 'Images activate Claude\'s vision model — a separate processing layer on top of text understanding — making them the most token-intensive format you can share. Resolution, image complexity, and the amount of text embedded in the image all drive the cost up. A full-page screenshot of a document costs significantly more than uploading the document itself.',
+    practice: 'If the content in an image is available as text, share the text instead. Reserve image uploads for tasks where the visual content itself — charts, diagrams, UI screenshots, photographs — is what you need Claude to analyse.'
+  }
+];
+
+var bodies = [
+  function(){
+    return '<p>As you work through a Claude conversation, the context window grows with every exchange. Each new message you send does not travel alone — it carries the entire prior conversation behind it. A question you ask at prompt 30 is substantially more expensive than the same question at prompt 1, not because Claude is working harder, but because the payload of accumulated history is far larger.</p>'
+      + '<p>The chart below shows what this looks like with the exact same prompt asked at three points in a single continuous session.</p>'
+      + '<div class="chart-wrap">'
+      + '<div class="chart-title">Token load at specific intervals \u2014 same prompt, one conversation</div>'
+      + '<div class="chart-inner">'
+      + '<div class="bar-col">'
+      +   '<div class="bar bar-1"><div class="bar-val">~80</div></div>'
+      +   '<div class="bar-val-below">~80</div>'
+      +   '<div class="bar-label">Prompt 1</div>'
+      +   '<div class="bar-sub">Near-zero history</div>'
+      + '</div>'
+      + '<div class="bar-col">'
+      +   '<div class="bar bar-15"><div class="bar-val">~420</div></div>'
+      +   '<div class="bar-label">Prompt 15</div>'
+      +   '<div class="bar-sub">Growing context</div>'
+      + '</div>'
+      + '<div class="bar-col">'
+      +   '<div class="bar bar-30"><div class="bar-val">~900</div></div>'
+      +   '<div class="bar-label">Prompt 30</div>'
+      +   '<div class="bar-sub">Full session load</div>'
+      + '</div>'
+      + '</div>'
+      + '<div class="chart-note">Illustrative token units \u2014 actual values vary by message length, model, and content type.</div>'
+      + '</div>'
+      + '<div class="body-heading">What a typical workday looks like</div>'
+      + '<div class="timeline">'
+      + '<div class="tl-item"><div class="tl-prompt">09:00 \u2014 Prompt 1</div><div class="tl-text">You open Claude and ask it to summarise a brief. Clean start, minimal history.</div><span class="tl-cost cost-low">Low token load</span></div>'
+      + '<div class="tl-item"><div class="tl-prompt">10:30 \u2014 Prompt 12</div><div class="tl-text">Still in the same conversation. You have pasted a document, asked for three rewrites, and made several follow-up edits. The context is getting heavy.</div><span class="tl-cost cost-mid">Moderate token load</span></div>'
+      + '<div class="tl-item"><div class="tl-prompt">14:00 \u2014 Prompt 28</div><div class="tl-text">Same session. You have now pivoted to a different task \u2014 a strategy question \u2014 but all the earlier brief content is still being re-sent with every message.</div><span class="tl-cost cost-high">High token load \u2014 budget draining fast</span></div>'
+      + '<div class="tl-item"><div class="tl-prompt">16:00 \u2014 Prompt 35</div><div class="tl-text">Claude is approaching context limits. Responses become less precise. Most of today\'s allowance has been spent on earlier context that is no longer relevant to the work at hand.</div><span class="tl-cost cost-high">Critical \u2014 most of today\'s budget spent</span></div>'
+      + '</div>'
+      + '<div class="info-box"><p><strong>The core insight:</strong> it is rarely one large task that exhausts your daily budget. It is a single long, sprawling conversation that keeps compounding. Each new question drags the full weight of every previous exchange behind it.</p></div>'
+      + '<div class="stat-strip">'
+      + '<div class="ss"><div class="ss-num">10\u00d7</div><div class="ss-label">more tokens at prompt 30 vs prompt 1 \u2014 same question</div></div>'
+      + '<div class="ss"><div class="ss-num">~40%</div><div class="ss-label">of token spend in long sessions is irrelevant prior context</div></div>'
+      + '<div class="ss"><div class="ss-num">1</div><div class="ss-label">fresh conversation per distinct task is the single biggest efficiency gain</div></div>'
+      + '</div>';
+  },
+
+  function(){
+    var d = ftData[activeFt];
+    var listItems = ftData.map(function(f, i){
+      return '<button class="ft-btn'+(i===activeFt?' active':'')+'" onclick="switchFt('+i+')">'
+        + '<div class="ft-swatch '+f.swClass+'"></div>'
+        + '<span class="ft-name">'+f.name+'</span>'
+        + '</button>';
+    }).join('');
+    return '<p>Before you type a single word, the file format you choose to upload can dramatically change how many tokens you consume. Different formats require different levels of processing \u2014 and some carry significant overhead that has nothing to do with how long the document actually is.</p>'
+      + '<p>Click each file type in the panel below to see its relative token cost and the best practice for that format. The order runs from lightest to heaviest.</p>'
+      + '<div class="filetype-widget">'
+      + '<div class="ft-list">'
+      + '<div class="ft-list-head">\u2191 Lightest</div>'
+      + listItems
+      + '<div class="ft-list-foot">\u2193 Heaviest</div>'
+      + '</div>'
+      + '<div class="ft-detail">'
+      + '<div class="ft-detail-top">'
+      + '<div class="ft-detail-name">'+d.name+'</div>'
+      + '<span class="ft-detail-badge '+d.badgeClass+'">'+d.badgeText+'</span>'
+      + '<div class="ft-detail-body">'+d.body+'</div>'
+      + '</div>'
+      + '<div class="ft-practice"><div class="ft-practice-label">Best practice</div><div class="ft-practice-text">'+d.practice+'</div></div>'
+      + '</div>'
+      + '</div>'
+      + '<div class="warn-box"><p><strong>The format trap:</strong> it is tempting to upload the original file because it is convenient. But a JPG screenshot of a document can cost more than the document itself uploaded as a PDF. When in doubt, paste the relevant content as plain text rather than uploading the source file.</p></div>'
+      + '<div class="info-box"><p><strong>Quick rule:</strong> if the content can be expressed as plain text, it should be. Save file uploads for situations where the format, layout, or visual content itself is what you need Claude to work with \u2014 not just the words inside it.</p></div>';
+  },
+
+  function(){
+    return '<p>Token load is not something that happens to you \u2014 it is something you create, and therefore something you can control. The three strategies below address the most common sources of unnecessary accumulation in professional workflows.</p>'
+      + '<div class="body-heading">Strategy 1 \u2014 Start fresh for each distinct task</div>'
+      + '<p>The most impactful habit change costs nothing and takes two seconds: open a new conversation whenever you switch tasks. This does not mean losing your work \u2014 it means stopping the old context from riding along into work it has nothing to do with.</p>'
+      + '<ul class="tips-list">'
+      + '<li><span class="tip-icon"><i class="ti ti-plus"></i></span>Finished your document review? Open a new chat before starting the strategy question.</li>'
+      + '<li><span class="tip-icon"><i class="ti ti-plus"></i></span>Switching from drafting copy to analysing data? New conversation. Every time.</li>'
+      + '<li><span class="tip-icon"><i class="ti ti-plus"></i></span>Think of it as opening a new notebook page, not starting over \u2014 your previous work is still saved.</li>'
+      + '</ul>'
+      + '<div class="body-heading">Strategy 2 \u2014 Upload only what Claude needs to see</div>'
+      + '<p>Before uploading a document, ask: does Claude need the entire file, or just a section of it? A 40-page policy document uploaded to answer a question about page 12 will cost 39 pages of unnecessary tokens.</p>'
+      + '<ul class="tips-list">'
+      + '<li><span class="tip-icon"><i class="ti ti-scissors"></i></span>Copy and paste only the relevant section rather than uploading the full file.</li>'
+      + '<li><span class="tip-icon"><i class="ti ti-scissors"></i></span>If you need Claude to work through a document progressively, share one section per conversation rather than everything at once.</li>'
+      + '<li><span class="tip-icon"><i class="ti ti-scissors"></i></span>Convert heavy formats (DOCX, PPTX, images) to plain text before sharing whenever the layout is not relevant to the task.</li>'
+      + '</ul>'
+      + '<div class="body-heading">Strategy 3 \u2014 Scope your prompt to scope the output</div>'
+      + '<p>Vague prompts generate expansive responses, which consume more output tokens and often require further back-and-forth to refine. Specific prompts return targeted answers and close the loop in fewer exchanges \u2014 which means a lighter cumulative context load.</p>'
+      + '<ul class="tips-list">'
+      + '<li><span class="tip-icon"><i class="ti ti-target"></i></span>Specify the format you want: "in three bullet points", "in one paragraph", "as a table with two columns."</li>'
+      + '<li><span class="tip-icon"><i class="ti ti-target"></i></span>Specify the length: "in no more than 150 words" is a simple instruction that pays off consistently.</li>'
+      + '<li><span class="tip-icon"><i class="ti ti-target"></i></span>Ask one question per message. Compound questions produce compound \u2014 and expensive \u2014 answers.</li>'
+      + '</ul>'
+      + '<div class="info-box"><p><strong>The combined effect:</strong> applying all three strategies across a working day \u2014 fresh conversations, trimmed uploads, scoped prompts \u2014 can reduce your token consumption by 50% or more without any reduction in output quality. You get the same results; you just stop paying the overhead tax.</p></div>';
+  },
+
+  function(){
+    if(quizDone){
+      var score=0;
+      for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
+      var msgs=[
+        'Take another look at sections 1 and 2 \u2014 the context accumulation concept will click on a second read.',
+        'Good effort \u2014 revisit the file type guide in section 2 before retrying.',
+        'Almost there! One concept to close \u2014 review the section that felt least certain.',
+        'Full marks! You now have the habits to stay efficient across a full working day.'
+      ];
+      return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
+    }
+    var html='';
+    for(var i=0;i<quiz.length;i++){
+      var q=quiz[i];
+      html+='<div class="quiz-q"><p>'+(i+1)+'. '+q.q+'</p>';
+      for(var j=0;j<q.opts.length;j++){
+        var cls='opt';
+        if(quizSubmitted){
+          if(j===q.correct)cls+=' correct locked';
+          else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';
+          else cls+=' locked';
+        } else if(sel[i]===j){cls+=' selected';}
+        html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
+      }
+      html+='</div>';
+    }
+    var allSel=Object.keys(sel).length===quiz.length;
+    if(!quizSubmitted){
+      html+='<button class="submit-global" id="submitBtn" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
+    } else {
+      html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
+    }
+    return html;
+  }
+];
+
+var quiz = [
+  {
+    q:'You ask Claude the same short question at prompt 1 and again at prompt 30 of the same conversation. Why does prompt 30 cost far more tokens?',
+    opts:[
+      'Claude charges more per message the longer a session runs',
+      'The entire conversation history is re-sent with every new message, so the accumulated context behind prompt 30 is vastly larger than at prompt 1',
+      'Long sessions trigger a higher-quality processing mode that uses more compute'
+    ],
+    correct: 1
+  },
+  {
+    q:'A colleague uploads a full 35-page strategy document to ask Claude one question about the conclusion. What is the most accurate description of the token impact?',
+    opts:[
+      'Claude ignores sections it does not need, so only the conclusion consumes tokens',
+      'The entire document is processed and counts toward the token budget, making this significantly more expensive than sharing just the conclusion',
+      'Uploading a PDF is always more efficient than pasting text, regardless of length'
+    ],
+    correct: 1
+  },
+  {
+    q:'Ranked from lightest to heaviest token load, which sequence is correct?',
+    opts:[
+      'Markdown \u2192 PDF \u2192 DOCX \u2192 PPT/PPTX \u2192 JPG/PNG',
+      'JPG/PNG \u2192 DOCX \u2192 PDF \u2192 PPT/PPTX \u2192 Markdown',
+      'Markdown \u2192 PDF \u2192 JPG/PNG \u2192 DOCX \u2192 PPT/PPTX'
+    ],
+    correct: 0
+  },
+  {
+    q:'Which single habit change has the greatest impact on reducing token load across a full working day?',
+    opts:[
+      'Switching to Haiku for all tasks regardless of complexity',
+      'Starting a fresh conversation for each distinct task, so earlier context does not accumulate across unrelated work',
+      'Deleting every other message in a conversation to reduce history length'
+    ],
+    correct: 1
+  }
+];
+
+function switchFt(n){ activeFt=n; render(); }
+
+function render(){
+  var pct=Math.round(((cur+1)/4)*100);
+  document.getElementById('pf').style.width=pct+'%';
+  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
+  document.getElementById('heroTag').textContent=heroes[cur].tag;
+  document.getElementById('heroTitle').textContent=heroes[cur].title;
+
+  for(var i=0;i<4;i++){
+    var ni=document.getElementById('ni'+i);
+    var nd=document.getElementById('nd'+i);
+    ni.className='nav-item'+(i===cur?' active':'');
+    if(visited[i]&&i!==cur){
+      nd.className='nav-dot done';
+      nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';
+    } else if(i===cur){
+      nd.className='nav-dot active';
+      nd.textContent=(i+1);
+    } else {
+      nd.className='nav-dot';
+      nd.textContent=(i+1);
+    }
+  }
+
+  document.getElementById('cnt').innerHTML=bodies[cur]();
+  document.getElementById('btnBack').disabled=(cur===0);
+
+  var fwd=document.getElementById('btnFwd');
+  if(cur===3){
+    fwd.style.display='none';
+  } else {
+    fwd.style.display='';
+    fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';
+  }
+
+  if(cur===3){
+    document.getElementById('cnt').addEventListener('click',function(e){
+      if(quizSubmitted||quizDone)return;
+      var opt=e.target.closest('.opt');
+      if(!opt)return;
+      var qi=parseInt(opt.dataset.qi);
+      var oi=parseInt(opt.dataset.oi);
+      sel[qi]=oi;
+      render();
+    });
+  }
+}
+
+function go(n){
+  if(n<0||n>3)return;
+  visited[n]=true; cur=n; render();
+}
+
+function goFwd(){ if(cur<3)go(cur+1); }
+
+function submitAll(){
+  if(Object.keys(sel).length<quiz.length)return;
+  quizSubmitted=true; render();
+}
+
+function showResult(){ quizDone=true; render(); }
+
+function retake(){
+  sel={}; quizSubmitted=false; quizDone=false; render();
+}
+
+render();
+</script>
+</body>
+</html>
