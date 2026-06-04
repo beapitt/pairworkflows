@@ -176,7 +176,7 @@
   .filetype-widget { display: grid; grid-template-columns: 160px 1fr; gap: 0; border: 1px solid #e8ecef; border-radius: 12px; overflow: hidden; margin: 1.25rem 0; min-height: 210px; }
   .ft-list { background: #0f1e17; display: flex; flex-direction: column; padding: .5rem 0; }
   .ft-list-head { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #3a6a50; padding: .35rem .85rem .2rem; }
-  .ft-btn { display: flex; align-items: center; gap: 10px; padding: .55rem .85rem; cursor: pointer; border: none; background: transparent; font-family: inherit; text-align: left; transition: background .12s; border-left: 3px solid transparent; }
+  .ft-btn { display: flex; align-items: center; gap: 10px; padding: .55rem .85rem; cursor: pointer; border: none; background: transparent; font-family: inherit; text-align: left; transition: background .12s; border-left: 3px solid transparent; width: 100%; }
   .ft-btn:hover { background: #1a3a25; }
   .ft-btn.active { background: #1a3a25; border-left-color: #1d9e75; }
   .ft-swatch { width: 26px; height: 18px; border-radius: 3px; flex-shrink: 0; }
@@ -218,4 +218,451 @@
 
   /* ── Quiz ── */
   .quiz-q { margin-bottom: 1.5rem; }
-  .quiz-q h3 { font-size: 14px; font-weight: 500; color: #1a1a2e;
+  .quiz-q h3 { font-size: 14px; font-weight: 500; color: #1a1a2e; margin-bottom: .75rem; line-height: 1.55; }
+  .opt { display: flex; align-items: center; gap: 12px; padding: .7rem 1rem; border: 1px solid #e8ecef; border-radius: 10px; margin-bottom: .5rem; cursor: pointer; font-size: 13px; color: #374151; transition: all .15s; line-height: 1.45; }
+  .opt:hover:not(.locked) { background: #f5fdf9; border-color: #9fe1cb; }
+  .radio { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid #d1d5db; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all .15s; }
+  .opt.selected { border-color: #378add; background: #edf5fd; color: #0c447c; }
+  .opt.selected .radio { border-color: #378add; background: #378add; }
+  .opt.selected .radio::after { content:''; width:7px; height:7px; border-radius:50%; background:#fff; display:block; }
+  .opt.correct { border-color: #1d9e75; background: #e1f5ee; color: #085041; }
+  .opt.correct .radio { border-color: #1d9e75; background: #1d9e75; }
+  .opt.correct .radio::after { content:''; width:7px; height:7px; border-radius:50%; background:#fff; display:block; }
+  .opt.wrong { border-color: #e24b4a; background: #fcebeb; color: #a32d2d; }
+  .opt.wrong .radio { border-color: #e24b4a; background: #e24b4a; }
+  .opt.wrong .radio::after { content:''; width:7px; height:7px; border-radius:50%; background:#fff; display:block; }
+  .submit-global { background: #1a1a2e; color: #ffffff; border: none; padding: 10px 28px; border-radius: 8px; font-size: 14px; font-weight: 500; font-family: inherit; cursor: pointer; margin-top: 1rem; transition: all .15s; }
+  .submit-global:hover { background: #0f6e56; }
+  .submit-global:disabled { opacity: .35; cursor: default; }
+  .result-box { background: #f8fafb; border-radius: 14px; padding: 2rem; text-align: center; border: 1px solid #e8ecef; margin-top: 1rem; }
+  .result-score { font-size: 48px; font-weight: 600; color: #1d9e75; margin-bottom: .5rem; line-height: 1; }
+  .result-msg { font-size: 15px; color: #374151; margin-bottom: 1.25rem; line-height: 1.6; }
+  .retake-btn { background: transparent; border: 1.5px solid #1d9e75; color: #0f6e56; padding: 8px 22px; border-radius: 8px; font-size: 13px; font-weight: 500; font-family: inherit; cursor: pointer; transition: all .15s; }
+  .retake-btn:hover { background: #e1f5ee; }
+
+  /* ── Page footer ── */
+  .page-footer { background: #021a12; border-top: 1px solid #0a4a30; padding: 1rem 2rem; text-align: center; font-size: 12px; color: #4a7a60; flex-shrink: 0; margin-top: auto; }
+  .page-footer a { color: #1d9e75; text-decoration: none; }
+  .page-footer a:hover { text-decoration: underline; }
+
+  /* ── Mobile ── */
+  @media (max-width: 700px) {
+    .navbar { padding: 0 1rem; }
+    .page-wrap { padding: 1rem .5rem; }
+    .course-shell { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .content-body { padding: 1.25rem 1rem; max-width: 100%; }
+    .section-hero { padding: 1.25rem 1rem; }
+    .content-footer { padding: 1rem; }
+    .filetype-widget { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <a href="https://www.pairworkflows.com" class="nav-logo">Pair<span>Workflows</span></a>
+  <a href="https://www.pairworkflows.com/index.html" class="nav-back">
+    <i class="ti ti-arrow-left" style="font-size:13px"></i>Back to courses
+  </a>
+  <div class="nav-right">
+    <span class="nav-time"><i class="ti ti-clock" style="font-size:13px"></i>5 min</span>
+    <span class="nav-badge">Free</span>
+  </div>
+</nav>
+
+<!-- Main Wrap -->
+<div class="page-wrap">
+  <div class="course-shell">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-top">
+        <div class="course-label">Claude AI — Course 3 of 26</div>
+        <div class="course-title-side">How load builds in conversations.</div>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-label">
+          <span>Progress</span>
+          <span id="progTxt">1 of 5</span>
+        </div>
+        <div class="prog-track"><div class="prog-fill" id="pf" style="width:20%"></div></div>
+      </div>
+      <div class="nav-list">
+        <div class="nav-item active" id="ni0" onclick="go(0)">
+          <div class="nav-dot active" id="nd0">1</div>
+          <div class="nav-text">The compounding memory</div>
+        </div>
+        <div class="nav-item" id="ni1" onclick="go(1)">
+          <div class="nav-dot" id="nd1">2</div>
+          <div class="nav-text">The anatomy of a thread</div>
+        </div>
+        <div class="nav-item" id="ni2" onclick="go(2)">
+          <div class="nav-dot" id="nd2">3</div>
+          <div class="nav-text">File types & hidden costs</div>
+        </div>
+        <div class="nav-item" id="ni3" onclick="go(3)">
+          <div class="nav-dot" id="nd3">4</div>
+          <div class="nav-text">The tactical hard reset</div>
+        </div>
+        <div class="nav-item" id="ni4" onclick="go(4)">
+          <div class="nav-dot" id="nd4">5</div>
+          <div class="nav-text">Quiz: test your knowledge</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content-area">
+      <div class="section-hero">
+        <h1 class="main-course-h1">Token Habits &amp; Efficiency: How Load Builds in Claude Conversations — PairWorkflows</h1>
+        <div class="section-tag" id="heroTag">Section 01</div>
+        <h2 id="heroTitle">The compounding memory: why conversations get heavy.</h2>
+      </div>
+      
+      <div class="content-body" id="cnt">
+        
+        <!-- SECTION 1: THE COMPOUNDING MEMORY -->
+        <div id="seo-sec-0" class="seo-section active-section">
+          <p>When you start a new chat with Claude, the system is empty. The token cost is virtually zero. However, as the conversation continues, every message you send and every response Claude generates piles up, creating an accumulation of token context.</p>
+          <p>This happens because Claude does not look at your latest prompt in isolation. To understand what you mean by "make it shorter" or "fix that typo," Claude must re-read every single line of the conversation from the very beginning. As a thread lengthens, the volume of data processed with each turn increases significantly.</p>
+          
+          <div class="chart-wrap">
+            <div class="chart-title">Token Cost per Message as a Chat Prorounds</div>
+            <div class="chart-inner">
+              <div class="bar-col">
+                <div class="bar bar-1"><div class="bar-val">500</div></div>
+                <div class="bar-val-below">500</div>
+                <div class="bar-label">Turn 1</div>
+                <div class="bar-sub">Fresh chat</div>
+              </div>
+              <div class="bar-col">
+                <div class="bar bar-15"><div class="bar-val">7,500</div></div>
+                <div class="bar-val-below">7.5k</div>
+                <div class="bar-label">Turn 15</div>
+                <div class="bar-sub">Growing thread</div>
+              </div>
+              <div class="bar-col">
+                <div class="bar bar-30"><div class="bar-val">22,000</div></div>
+                <div class="bar-val-below">22k</div>
+                <div class="bar-label">Turn 30</div>
+                <div class="bar-sub">Heavy load</div>
+              </div>
+            </div>
+            <div class="chart-note">*Assumes a standard interaction of 250 input words and 500 output words per turn.</div>
+          </div>
+          
+          <p>By Turn 30, a single quick question like "can you fix the formatting?" doesn't just process your four words. It forces the system to process the preceding 22,000 tokens of history over again, consuming a sizable chunk of your daily usage limit in seconds.</p>
+          <div class="info-box"><p><strong>Key Takeaway:</strong> Long conversations are exponentially more demanding than short ones. Breaking tasks down into fresh threads keeps your sessions fast, responsive, and token-efficient.</p></div>
+        </div>
+
+        <!-- SECTION 2: THE ANATOMY OF A THREAD -->
+        <div id="seo-sec-1" class="seo-section">
+          <p>To visual exactly how this accumulation occurs, let us look at the internal sequence of a typical research session. Notice how the token load builds with every interaction.</p>
+          
+          <div class="timeline">
+            <div class="tl-item">
+              <div class="tl-prompt">Prompt 1 — Fresh Session</div>
+              <div class="tl-text">"Analyze this 800-word case study on market growth."</div>
+              <div class="tl-cost cost-low">Cost: ~1,200 tokens processed</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-prompt">Prompt 2 — First Follow-Up</div>
+              <div class="tl-text">"Extract the top 3 financial metrics from that analysis."<br><em>(Claude re-reads: Prompt 1 + Response 1 + Prompt 2)</em></div>
+              <div class="tl-cost cost-mid">Cost: ~2,100 tokens processed</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-prompt">Prompt 3 — Second Follow-Up</div>
+              <div class="tl-text">"Draft a summary email for the executive team based on those metrics."<br><em>(Claude re-reads: Prompt 1 + Response 1 + Prompt 2 + Response 2 + Prompt 3)</em></div>
+              <div class="tl-cost cost-high">Cost: ~3,200 tokens processed</div>
+            </div>
+          </div>
+          
+          <p>This continuous re-reading loop explains why you might receive a warning about usage limits near the end of a long, interactive session, even if your latest question was only one sentence long.</p>
+          <div class="warn-box"><p><strong>Team Pitfall:</strong> Sharing a single massive thread across a team workspace compounding this issue rapidly, as every team member's messages add to the global historical context that everyone must re-process.</p></div>
+        </div>
+
+        <!-- SECTION 3: FILE TYPES & HIDDEN COSTS -->
+        <div id="seo-sec-2" class="seo-section">
+          <p>Not all inputs are created equal. While text files are lean and lightweight, uploading rich materials like presentation decks, structured spreadsheets, or images can dramatically increase token consumption.</p>
+          
+          <div class="filetype-widget">
+            <div class="ft-list">
+              <div class="ft-list-head">File Types</div>
+              <button id="ft-0" class="ft-btn active" onclick="switchFile(0)"><div class="ft-swatch sw-md"></div><span class="ft-name">Markdown / Text</span></button>
+              <button id="ft-1" class="ft-btn" onclick="switchFile(1)"><div class="ft-swatch sw-pdf"></div><span class="ft-name">Clean PDF</span></button>
+              <button id="ft-2" class="ft-btn" onclick="switchFile(2)"><div class="ft-swatch sw-docx"></div><span class="ft-name">Word (.docx)</span></button>
+              <button id="ft-3" class="ft-btn" onclick="switchFile(3)"><div class="ft-swatch sw-ppt"></div><span class="ft-name">PowerPoint</span></button>
+              <button id="ft-4" class="ft-btn" onclick="switchFile(4)"><div class="ft-swatch sw-img"></div><span class="ft-name">Images / Assets</span></button>
+              <div class="ft-list-foot">Select file type</div>
+            </div>
+            <div class="ft-detail">
+              <div class="ft-detail-top">
+                <div id="ft-detail-name" class="ft-detail-name">Markdown / Plain Text</div>
+                <div id="ft-detail-badge" class="ft-detail-badge badge-lightest">Token Weight: Ultra Light</div>
+                <div id="ft-detail-body" class="ft-detail-body">Pure character streams map directly to tokens with zero overhead. 1,000 words equals roughly 1,300 tokens. This is the cleanest, most efficient format for AI interaction.</div>
+              </div>
+              <div class="ft-practice">
+                <div class="ft-practice-label">Best Practice</div>
+                <div id="ft-practice-text" class="ft-practice-text">Copy and paste text directly into the chat window, or use lightweight .txt files instead of heavy document layouts whenever possible.</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="stat-strip">
+            <div class="ss"><div class="ss-num">1.3k</div><div class="ss-label">Tokens per 1,000 words in plain text</div></div>
+            <div class="ss"><div class="ss-num">Up to 8k</div><div class="ss-label">Tokens for a single visual presentation slide</div></div>
+            <div class="ss"><div class="ss-num">1.5k+</div><div class="ss-label">Base tokens consumed per image upload</div></div>
+          </div>
+        </div>
+
+        <!-- SECTION 4: THE TACTICAL HARD RESET -->
+        <div id="seo-sec-3" class="seo-section">
+          <p>The most effective strategy for managing token load and preserving your daily allowance is a simple workflow shift: <strong>the tactical hard reset</strong>.</p>
+          <p>Instead of executing an entire cross-functional project within a single running chat window, you should deliberately break the assignment apart into clean, modular phases.</p>
+          
+          <div class="body-heading">The Three Steps to a Perfect Reset</div>
+          <ul class="tips-list">
+            <li><span class="tip-icon"><i class="ti ti-check"></i></span><strong>Consolidate the Core:</strong> When a current phase wraps up successfully, ask Claude to isolate and export the key summary or current state of your asset (e.g., "Summarize our finalized outline into a clean standalone reference block").</li>
+            <li><span class="tip-icon"><i class="ti ti-refresh"></i></span><strong>Start Fresh:</strong> Open a completely empty conversation window. This drops your background load back to absolute zero.</li>
+            <li><span class="tip-icon"><i class="ti ti-arrow-right"></i></span><strong>Seed the New Thread:</strong> Paste the distilled summary block into the new thread as your primary background context, then begin the next task immediately.</li>
+          </ul>
+          
+          <div class="info-box"><p><strong>Pro-Tip:</strong> Using Claude Projects allows you to keep core documents (like style guides, background datasets, or product specifications) globally available across all threads without needing to re-upload them manually every time you open a fresh chat.</p></div>
+        </div>
+
+        <!-- SECTION 5: QUIZ HOUSING -->
+        <div id="seo-sec-4" class="seo-section">
+          <div id="quiz-interactive-container"></div>
+        </div>
+
+      </div>
+      
+      <div class="content-footer">
+        <button class="btn-back" id="btnBack" onclick="go(cur-1)">
+          <i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back
+        </button>
+        <button class="btn-fwd" id="btnFwd" onclick="goFwd()">
+          Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="page-footer">
+  &copy; 2026 <a href="https://www.pairworkflows.com">PairWorkflows</a>. All rights reserved.
+</footer>
+
+<script>
+var cur = 0;
+var TOTAL = 5;
+var visited = [true,false,false,false,false];
+var sel = {};
+var quizSubmitted = false;
+var quizDone = false;
+var activeFile = 0;
+
+var heroes = [
+  {tag:'Section 01', title:'The compounding memory: why conversations get heavy.'},
+  {tag:'Section 02', title:'The anatomy of a thread: tracking the building blocks.'},
+  {tag:'Section 03', title:'File types & hidden costs: choosing formats wisely.'},
+  {tag:'Section 04', title:'The tactical hard reset: keeping your environment lean.'},
+  {tag:'Section 05 \u2014 Quiz', title:'Test your knowledge.'}
+];
+
+var files = [
+  {name:'Markdown / Plain Text', badge:'Token Weight: Ultra Light', cls:'badge-lightest', body:'Pure character streams map directly to tokens with zero layout overhead. 1,000 words equals roughly 1,300 tokens. This is the cleanest, most efficient format for AI interaction.', practice:'Copy and paste text directly into the chat window, or use lightweight .txt files instead of heavy document layouts whenever possible.'},
+  {name:'Clean PDF Documents', badge:'Token Weight: Light to Medium', cls:'badge-light', body:'Standard textual PDFs are highly readable, but contain embedded styling parameters. If the PDF contains dense tables or multicolumn charts, token extraction overhead increases slightly.', practice:'If you only need a segment, copy the text out of the PDF and paste it as markdown instead of uploading the whole document.'},
+  {name:'Microsoft Word (.docx)', badge:'Token Weight: Medium', cls:'badge-medium', body:'Word XML data structures contain hidden metadata (author tracking, layout indices, fonts) that inflate the foundational file structure before content processing even begins.', practice:'Save final text drafts out as plain txt format or markdown snippets before sending them across for content analysis.'},
+  {name:'PowerPoint Decks (.pptx)', badge:'Token Weight: Heavy', cls:'badge-heavy', body:'Slide layouts are exceptionally heavy. Slide boundaries, geometric box coordinates, shape attributes, and embedded visual items create massive structural parsing load.', practice:'Export your slide outlines as bulleted text documents before asking Claude to review, refine, or structuralize content.'},
+  {name:'Images / Visual Assets', badge:'Token Weight: Heaviest', cls:'badge-heaviest', body:'Vision models require a substantial fixed base cost just to initialize and tile an image canvas into processing chunks, consuming thousands of tokens regardless of how much text is on it.', practice:'Never upload screenshots of text data blocks if you can use an OCR tool or standard copy-paste mechanics instead.'}
+];
+
+var quiz = [
+  {
+    q:'Why do long Claude conversations feel progressively slower and hit token usage thresholds faster over time?',
+    opts:[
+      'The server environment caps performance based on chronological session age',
+      'Claude must re-read and re-process the entire historical log of a chat thread with every fresh message you send',
+      'The output length automatically doubles at every turn'
+    ],
+    correct: 1
+  },
+  {
+    q:'You want Claude to analyze data from a slide presentation. Which method uses the fewest tokens?',
+    opts:[
+      'Uploading the full native .pptx slide deck file',
+      'Taking screenshots of the key slides and uploading them as images',
+      'Exporting or copying the text content out as a bulleted outline and pasting it directly'
+    ],
+    correct: 2
+  },
+  {
+    q:'What is the primary operational objective of executing a "tactical hard reset"?',
+    opts:[
+      'Clearing your system cache to accelerate browser execution speeds',
+      'Isolating a finalized asset summary and dropping context processing load back to zero by starting an empty thread',
+      'Forcing the system to cycle to a completely different server node'
+    ],
+    correct: 1
+  },
+  {
+    q:'If you paste a 4-word question into a thread containing 20,000 tokens of preceding history, how much context load is processed?',
+    opts:[
+      'Exactly 4 words are processed',
+      'Only the most recent response is re-analyzed',
+      'The entire 20,000-token conversational history is re-read and processed alongside your new question'
+    ],
+    correct: 2
+  }
+];
+
+function switchFile(n) {
+  activeFile = n;
+  var d = files[n];
+  
+  for(var i=0; i<5; i++) {
+    var btn = document.getElementById('ft-' + i);
+    if(btn) {
+      if(i === n) btn.classList.add('active');
+      else btn.classList.remove('active');
+    }
+  }
+  
+  var nameEl = document.getElementById('ft-detail-name');
+  var badgeEl = document.getElementById('ft-detail-badge');
+  var bodyEl = document.getElementById('ft-detail-body');
+  var pracEl = document.getElementById('ft-practice-text');
+  
+  if(nameEl) nameEl.textContent = d.name;
+  if(badgeEl) {
+    badgeEl.textContent = d.badge;
+    badgeEl.className = 'ft-detail-badge ' + d.cls;
+  }
+  if(bodyEl) bodyEl.textContent = d.body;
+  if(pracEl) pracEl.textContent = d.practice;
+}
+
+function buildQuizHTML(){
+  if(quizDone){
+    var score=0;
+    for(var i=0; i<quiz.length; i++){if(sel[i]===quiz[i].correct)score++;}
+    var msgs=[
+      'Review the workflow steps and file type weights carefully before retrying.',
+      'Decent progress — spend an extra minute looking over the compounding memory charts.',
+      'Almost a clean sheet! One slight misunderstanding remains.',
+      'Perfect score! You have successfully mastered token load mechanics and thread efficiency.'
+    ];
+    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
+  }
+  var html='';
+  for(var i=0; i<quiz.length; i++){
+    var q=quiz[i];
+    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
+    for(var j=0; j<q.opts.length; j++){
+      var cls='opt';
+      if(quizSubmitted){
+        if(j===q.correct)cls+=' correct locked';
+        else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';
+        else cls+=' locked';
+      } else if(sel[i]===j){cls+=' selected';}
+      html+='<div class="'+cls+'" data-qi="' + i + '" data-oi="' + j + '"><div class="radio"></div>'+q.opts[j]+'</div>';
+    }
+    html+='</div>';
+  }
+  var allSel=Object.keys(sel).length===quiz.length;
+  if(!quizSubmitted){
+    html+='<button class="submit-global" id="submitBtn" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
+  } else {
+    html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
+  }
+  return html;
+}
+
+function render(){
+  var pct=Math.round(((cur+1)/TOTAL)*100);
+  document.getElementById('pf').style.width=pct+'%';
+  document.getElementById('progTxt').textContent=(cur+1)+' of '+TOTAL;
+  document.getElementById('heroTag').textContent=heroes[cur].tag;
+  document.getElementById('heroTitle').textContent=heroes[cur].title;
+
+  for(var i=0; i<TOTAL; i++){
+    var ni=document.getElementById('ni'+i);
+    var nd=document.getElementById('nd'+i);
+    var secBlock=document.getElementById('seo-sec-'+i);
+    
+    if(ni) ni.className='nav-item'+(i===cur?' active':'');
+    
+    if(secBlock){
+      if(i===cur){
+        secBlock.classList.add('active-section');
+      } else {
+        secBlock.classList.remove('active-section');
+      }
+    }
+
+    if(nd){
+      if(visited[i]&&i!==cur){
+        nd.className='nav-dot done';
+        nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';
+      } else if(i===cur){
+        nd.className='nav-dot active';
+        nd.textContent=(i+1);
+      } else {
+        nd.className='nav-dot';
+        nd.textContent=(i+1);
+      }
+    }
+  }
+
+  if(cur===TOTAL-1){
+    var quizContainer = document.getElementById('quiz-interactive-container');
+    if(quizContainer) quizContainer.innerHTML=buildQuizHTML();
+  }
+
+  document.getElementById('btnBack').disabled=(cur===0);
+
+  var fwd=document.getElementById('btnFwd');
+  if(cur===TOTAL-1){
+    fwd.style.display='none';
+  } else {
+    fwd.style.display='';
+    fwd.innerHTML=(cur===TOTAL-2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';
+  }
+}
+
+function go(n){
+  if(n<0||n>=TOTAL)return;
+  visited[n]=true; cur=n; render();
+}
+
+function goFwd(){ if(cur<TOTAL-1)go(cur+1); }
+
+function submitAll(){
+  if(Object.keys(sel).length<quiz.length)return;
+  quizSubmitted=true; render();
+}
+
+function showResult(){ quizDone=true; render(); }
+
+function retake(){
+  sel={}; quizSubmitted=false; quizDone=false; render();
+}
+
+document.getElementById('cnt').addEventListener('click',function(e){
+  if(cur!==(TOTAL-1)||quizSubmitted||quizDone)return;
+  var opt=e.target.closest('.opt');
+  if(!opt)return;
+  var qi=parseInt(opt.dataset.qi);
+  var oi=parseInt(opt.dataset.oi);
+  sel[qi]=oi;
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
