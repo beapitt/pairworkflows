@@ -77,14 +77,14 @@
   }
 
   .nav-logo {
-    font-size: 16px;
-    font-weight: 600;
-    color: #9fe1cb;
-    letter-spacing: -0.3px;
+    display: flex;
+    align-items: baseline;
+    gap: 1px;
     text-decoration: none;
   }
 
-  .nav-logo span { color: #ffffff; }
+  .logo-pair { font-size: 16px; font-weight: 600; color: #1d9e75; letter-spacing: -0.3px; }
+  .logo-workflows { font-size: 16px; font-weight: 400; color: #ffffff; }
 
   .nav-back {
     font-size: 13px;
@@ -96,7 +96,7 @@
     transition: color .15s;
   }
 
-  .nav-back:hover { color: #378add; }
+  .nav-back:hover { color: #1d9e75; }
 
   .nav-right {
     display: flex;
@@ -106,7 +106,7 @@
 
   .nav-badge {
     background: #0a4a30;
-    color: #9fe1cb;
+    color: #1d9e75;
     font-size: 11px;
     font-weight: 500;
     padding: 3px 10px;
@@ -160,7 +160,7 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: .08em;
-    color: #378add;
+    color: #0f6e56;
     margin-bottom: .5rem;
   }
 
@@ -190,7 +190,7 @@
 
   .prog-fill {
     height: 5px;
-    background: linear-gradient(90deg, #378add, #1a5ca3);
+    background: linear-gradient(90deg, #1d9e75, #0f6e56);
     border-radius: 3px;
     transition: width .35s ease;
   }
@@ -210,7 +210,7 @@
   .nav-item:hover { background: #eef1f4; }
 
   .nav-item.active {
-    border-left-color: #378add;
+    border-left-color: #1d9e75;
     background: #ffffff;
   }
 
@@ -229,9 +229,9 @@
     transition: all .15s;
   }
 
-  .nav-dot.done { background: #378add; border-color: #378add; color: #ffffff; }
+  .nav-dot.done { background: #1d9e75; border-color: #1d9e75; color: #ffffff; }
 
-  .nav-dot.active { border-color: #378add; color: #1a5ca3; font-weight: 600; }
+  .nav-dot.active { border-color: #1d9e75; color: #0f6e56; font-weight: 600; }
 
   .nav-text { font-size: 13px; color: #6b7280; line-height: 1.35; }
 
@@ -240,19 +240,17 @@
   /* ── Content area ── */
   .content-area { display: flex; flex-direction: column; }
 
-  /* Cambiato sfumatura per assecondare l'identità Gemini */
+  /* Ripristinato il gradiente verde istituzionale */
   .section-hero {
-    background: linear-gradient(135deg, #042e1f 0%, #1a5ca3 60%, #378add 100%);
+    background: linear-gradient(135deg, #085041 0%, #0f6e56 45%, #185fa5 100%);
     padding: 1.75rem 2rem;
   }
 
   .section-tag {
     font-size: 11px;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: .4rem;
-    text-transform: uppercase;
-    letter-spacing: .05em;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: .5rem;
   }
 
   .section-hero h2 {
@@ -260,7 +258,7 @@
     font-weight: 500;
     color: #ffffff;
     line-height: 1.3;
-    max-width: 600px;
+    max-width: 560px;
   }
 
   .content-body {
@@ -287,7 +285,7 @@
   .prompt-container {
     background: #f8fafb;
     border: 1px solid #e8ecef;
-    border-left: 3px solid #378add;
+    border-left: 3px solid #1d9e75;
     border-radius: 0 10px 10px 0;
     padding: 1.25rem;
     margin: 1.5rem 0;
@@ -304,7 +302,7 @@
   .prompt-label {
     font-size: 11px;
     font-weight: 600;
-    color: #1a5ca3;
+    color: #0f6e56;
     text-transform: uppercase;
     letter-spacing: .05em;
   }
@@ -337,14 +335,14 @@
   }
 
   .info-box {
-    background: #eef5fc;
-    border-left: 3px solid #378add;
+    background: #e1f5ee;
+    border-left: 3px solid #1d9e75;
     border-radius: 0 10px 10px 0;
     padding: 1rem 1.25rem;
     margin: 1.25rem 0;
   }
 
-  .info-box p { color: #1a5ca3; margin: 0; font-size: 13px; line-height: 1.65; }
+  .info-box p { color: #085041; margin: 0; font-size: 13px; line-height: 1.65; }
 
   /* DIAGRAM / GRAPHIC PRESET (.webp / lazy ready) */
   .diagram-container {
@@ -354,12 +352,6 @@
     padding: 1.25rem;
     margin: 1.5rem 0;
     text-align: center;
-  }
-
-  .diagram-container img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 4px;
   }
 
   /* ── Footer nav ── */
@@ -388,7 +380,7 @@
   .btn-back:disabled { opacity: .35; cursor: default; }
 
   .btn-fwd {
-    background: #378add;
+    background: #1d9e75;
     color: #ffffff;
     border: none;
     padding: 8px 22px;
@@ -400,7 +392,7 @@
     transition: all .15s;
   }
 
-  .btn-fwd:hover { background: #1a5ca3; }
+  .btn-fwd:hover { background: #0f6e56; }
   .btn-fwd:disabled { opacity: .35; cursor: default; }
 
   /* ── Quiz ── */
@@ -429,7 +421,7 @@
     line-height: 1.45;
   }
 
-  .opt:hover:not(.locked) { background: #f4f8fd; border-color: #93c5fd; }
+  .opt:hover:not(.locked) { background: #f5fdf9; border-color: #9fe1cb; }
 
   .radio {
     width: 18px;
@@ -469,7 +461,7 @@
     transition: all .15s;
   }
 
-  .submit-global:hover { background: #1a5ca3; }
+  .submit-global:hover { background: #0f6e56; }
   .submit-global:disabled { opacity: .35; cursor: default; }
 
   .result-box {
@@ -481,13 +473,13 @@
     margin-top: 1rem;
   }
 
-  .result-score { font-size: 48px; font-weight: 600; color: #378add; margin-bottom: .5rem; line-height: 1; }
+  .result-score { font-size: 48px; font-weight: 600; color: #1d9e75; margin-bottom: .5rem; line-height: 1; }
   .result-msg { font-size: 15px; color: #374151; margin-bottom: 1.25rem; line-height: 1.6; }
 
   .retake-btn {
     background: transparent;
-    border: 1.5px solid #378add;
-    color: #1a5ca3;
+    border: 1.5px solid #1d9e75;
+    color: #0f6e56;
     padding: 8px 22px;
     border-radius: 8px;
     font-size: 13px;
@@ -497,7 +489,7 @@
     transition: all .15s;
   }
 
-  .retake-btn:hover { background: #edf5fd; }
+  .retake-btn:hover { background: #e1f5ee; }
 
   /* ── Page footer ── */
   .page-footer {
@@ -510,7 +502,7 @@
     flex-shrink: 0;
   }
 
-  .page-footer a { color: #378add; text-decoration: none; }
+  .page-footer a { color: #1d9e75; text-decoration: none; }
   .page-footer a:hover { text-underline-position: under; text-decoration: underline; }
 
   /* ── Mobile responsive ── */
@@ -528,7 +520,9 @@
 <body>
 
 <nav class="navbar">
-  <a href="https://www.pairworkflows.com" class="nav-logo">Pair<span>Workflows</span></a>
+  <a href="https://www.pairworkflows.com" class="nav-logo">
+    <span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span>
+  </a>
   <a href="https://www.pairworkflows.com/index.html" class="nav-back">
     <i class="ti ti-arrow-left" style="font-size:13px"></i>Back to courses
   </a>
@@ -581,15 +575,13 @@
       
       <div class="content-body" id="cnt">
         
-        <!-- STEP 1 -->
         <div id="seo-sec-0" class="seo-section active-section">
           <p>Returning to your corporate workspace after a single out-of-office day often results in an intimidating wall of nested email threads. Traditional internal search parameters require you to open multiple conversations sequentially, cross-referencing mismatched feedback manually.</p>
           <p>Gemini in Gmail operates directly inside the application's side panel, working across your live text context to summarize complex email histories instantly without pulling you away from your working workspace view.</p>
           
           <div class="diagram-container">
-            <!-- Placeholder pronto per la tua immagine webp alleggerita -->
             <div style="font-size:12px; color:#6b7280; padding:1rem 0;">
-              <i class="ti ti-mail-opened" style="font-size:24px; color:#378add; display:block; margin-bottom:6px;"></i>
+              <i class="ti ti-mail-opened" style="font-size:24px; color:#1d9e75; display:block; margin-bottom:6px;"></i>
               <strong>Visual Workflow Map:</strong> Traditional Context Scanning vs. Live Gemini Sidebar Extraction
             </div>
           </div>
@@ -597,7 +589,6 @@
           <div class="info-box"><p><strong>Enterprise Note:</strong> Gemini for Google Workspace respects corporate privacy layouts. Unlike public models, data processed via the sidebar interface stays within your company environment and is never used to train global algorithms.</p></div>
         </div>
 
-        <!-- STEP 2 -->
         <div id="seo-sec-1" class="seo-section">
           <p>Instead of reading through dozens of conversational back-and-forths to build a missing project update matrix, you can prompt the Gemini side panel to parse multiple separate items simultaneously.</p>
           <p>This approach bypasses long prose arguments and extracts explicit structural outputs like tracking metrics, delivery milestones, and specific owners directly from deep sub-threads.</p>
@@ -612,14 +603,12 @@
           <p>By forcing the model to present outputs inside an objective layout table, you can clean complex text variations into an immediately readable format ready for client-facing communications.</p>
         </div>
 
-        <!-- STEP 3 -->
         <div id="seo-sec-2" class="seo-section">
           <p>AI-generated extraction frameworks must be treated as architectural outlines rather than final work products. When dealing with complex contracts, pricing metrics, or operational legal dates, strict accuracy is mandatory.</p>
           <p>Gemini addresses this vulnerability by using active workspace grounding, appending numeric inline citations directly to the extracted summary table.</p>
           <p><strong>Never forward a translated or summarized text overview to an executive board without validation.</strong> Hover over and select the inline citation links generated by the interface to map the extracted value back to its exact source message block inside the active email folder.</p>
         </div>
 
-        <!-- STEP 4 — QUIZ -->
         <div id="seo-sec-3" class="seo-section">
           <div id="quiz-interactive-container"></div>
         </div>
@@ -648,187 +637,4 @@ var cur = 0;
 var visited = [true,false,false,false];
 var sel = {};
 var quizSubmitted = false;
-var quizDone = false;
-
-var heroes = [
-  {tag:'Section 01', title:'The modern inbox problem: text overload and fragmented updates.'},
-  {tag:'Section 02', title:'Synthesize deep threads into actionable operational data matrices.'},
-  {tag:'Section 03', title:'Verification & Grounding: map inline metrics back to original sources.'},
-  {tag:'Section 04 — Quiz', title:'Test your knowledge.'}
-];
-
-var quiz = [
-  {
-    q:'When processing a multi-layered email chain inside Gmail, how does Gemini access the information?',
-    opts:[
-      'It downloads external files to a global servers pool for extraction',
-      'It operates dynamically within the live side panel environment to compile text insights',
-      'It scans keyword subject lines without analyzing nested historical answers'
-    ],
-    correct: 1
-  },
-  {
-    q:'What is the primary benefit of instructing Gemini to output findings inside a structural Markdown table format?',
-    opts:[
-      'It decreases the security load needed by the Workspace admin console',
-      'It separates operational data points from long narrative arguments for rapid review',
-      'It forces the model to run faster by avoiding punctuation constraints'
-    ],
-    correct: 1
-  },
-  {
-    q:'An executive summary generated by Gemini shows a specific project milestone cost. What is the standard operational procedure before sending it to a client?',
-    opts:[
-      'Accept the metric as correct if the table formatting contains no bugs',
-      'Select the provided inline citation markers to check the specific numerical amount against the source email text',
-      'Rerun the prompt four times to let the model vote on the correct response'
-    ],
-    correct: 1
-  },
-  {
-    q:'How does Gemini for Google Workspace handle corporate enterprise data privacy boundaries?',
-    opts:[
-      'It retains insights inside your secure corporate workspace domain and avoids training public baseline models',
-      'It exposes prompt text histories to external developer channels for debugging',
-      'It shares document text variables across unlinked personal subscription accounts'
-    ],
-    correct: 0
-  }
-];
-
-function buildQuizHTML(){
-  if(quizDone){
-    var score=0;
-    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
-    var msgs=[
-      'Review the workflow steps again — focusing on workspace panel behaviors and grounding safety rules.',
-      'Decent performance — read through the validation section before applying these templates in your workflow.',
-      'Solid score! One core concept requires tracking adjustment — re-examine the validation citation workflow.',
-      'Perfect mark! You have mastered the workspace inbox optimization layout and are ready to deploy it.'
-    ];
-    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
-  }
-  var html='';
-  for(var i=0;i<quiz.length;i++){
-    var q=quiz[i];
-    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
-    for(var j=0;j<q.opts.length;j++){
-      var cls='opt';
-      if(quizSubmitted){
-        if(j===q.correct)cls+=' correct locked';
-        else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';
-        else cls+=' locked';
-      } else if(sel[i]===j){cls+=' selected';}
-      html+='<div class="'+cls+'" data-qi="' + i + '" data-oi="' + j + '"><div class="radio"></div>'+q.opts[j]+'</div>';
-    }
-    html+='</div>';
-  }
-  var allSel=Object.keys(sel).length===quiz.length;
-  if(!quizSubmitted){
-    html+='<button class="submit-global" id="submitBtn" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
-  } else {
-    html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
-  }
-  return html;
-}
-
-function render(){
-  var pct=Math.round(((cur+1)/4)*100);
-  document.getElementById('pf').style.width=pct+'%';
-  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
-  document.getElementById('heroTag').textContent=heroes[cur].tag;
-  document.getElementById('heroTitle').textContent=heroes[cur].title;
-
-  for(var i=0;i<4;i++){
-    var ni=document.getElementById('ni'+i);
-    var nd=document.getElementById('nd'+i);
-    var secBlock=document.getElementById('seo-sec-'+i);
-    
-    ni.className='nav-item'+(i===cur?' active':'');
-    
-    if(i===cur){
-      secBlock.classList.add('active-section');
-    } else {
-      secBlock.classList.remove('active-section');
-    }
-
-    if(visited[i]&&i!==cur){
-      nd.className='nav-dot done';
-      nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';
-    } else if(i===cur){
-      nd.className='nav-dot active';
-      nd.textContent=(i+1);
-    } else {
-      nd.className='nav-dot';
-      nd.textContent=(i+1);
-    }
-  }
-
-  if(cur===3){
-    document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
-  }
-
-  document.getElementById('btnBack').disabled=(cur===0);
-
-  var fwd=document.getElementById('btnFwd');
-  if(cur===3){
-    fwd.style.display='none';
-  } else {
-    fwd.style.display='';
-    fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';
-  }
-}
-
-function go(n){
-  if(n<0||n>3)return;
-  visited[n]=true;
-  cur=n;
-  render();
-}
-
-function goFwd(){
-  if(cur<3)go(cur+1);
-}
-
-function submitAll(){
-  if(Object.keys(sel).length<quiz.length)return;
-  quizSubmitted=true;
-  render();
-}
-
-function showResult(){
-  quizDone=true;
-  render();
-}
-
-function retake(){
-  sel={};
-  quizSubmitted=false;
-  quizDone=false;
-  render();
-}
-
-function copyPrompt() {
-  const text = document.getElementById('prompt-payload').innerText;
-  navigator.clipboard.writeText(text);
-  const btn = document.querySelector('.copy-btn');
-  btn.innerHTML = '<i class="ti ti-check"></i> Copied!';
-  setTimeout(() => {
-    btn.innerHTML = '<i class="ti ti-copy"></i> Copy prompt';
-  }, 2000);
-}
-
-document.getElementById('cnt').addEventListener('click',function(e){
-  if(cur!==3||quizSubmitted||quizDone)return;
-  var opt=e.target.closest('.opt');
-  if(!opt)return;
-  var qi=parseInt(opt.dataset.qi);
-  var oi=parseInt(opt.dataset.oi);
-  sel[qi]=oi;
-  render();
-});
-
-render();
-</script>
-</body>
-</html>
+var quizDone
