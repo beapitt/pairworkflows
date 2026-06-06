@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Gemini in Google Meet: Never Write Meeting Notes — PairWorkflows</title>
+<meta name="description" content="Learn how to deploy Gemini in Google Meet to automate live transcriptions, extract action items, and generate executive summaries automatically.">
+<link rel="canonical" href="https://www.pairworkflows.com/gemini-google-meet.html">
+
+<meta property="og:title" content="Gemini in Google Meet: Never Write Meeting Notes — PairWorkflows">
+<meta property="og:description" content="Learn how to deploy Gemini in Google Meet to automate live transcriptions and extract action items.">
+<meta property="og:url" content="https://www.pairworkflows.com/gemini-google-meet.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PairWorkflows">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gemini in Google Meet: Never Write Meeting Notes — PairWorkflows">
+<meta name="twitter:description" content="Automate your corporate meeting summaries with Gemini.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', 'Segoe UI', Helvetica Neue, sans-serif;
+    background: #042e1f;
+    color: #1a1a2e;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Navbar ── */
+  .navbar {
+    background: #021a12;
+    border-bottom: 1px solid #0a4a30;
+    padding: 0 2rem;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: baseline;
+    gap: 1px;
+    text-decoration: none;
+  }
+
+  .logo-pair { font-size: 16px; font-weight: 600; color: #1d9e75; letter-spacing: -0.3px; }
+  .logo-workflows { font-size: 16px; font-weight: 400; color: #ffffff; }
+
+  .nav-back {
+    font-size: 13px;
+    color: #6b9e8a;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color .15s;
+  }
+
+  .nav-back:hover { color: #1d9e75; }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .nav-badge {
+    background: #0a4a30;
+    color: #1d9e75;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+
+  .nav-time {
+    font-size: 13px;
+    color: #6b9e8a;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* ── Main content area ── */
+  .page-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 2rem 1rem;
+    flex: 1;
+  }
+
+  .course-shell {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 24px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.08);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 580px;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    background: #f8fafb;
+    border-right: 1px solid #e8ecef;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-top {
+    padding: 1.5rem 1.25rem 1rem;
+    border-bottom: 1px solid #e8ecef;
+  }
+
+  .course-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: #0f6e56;
+    margin-bottom: .5rem;
+  }
+
+  .course-title-side {
+    font-size: 13px;
+    font-weight: 500;
+    color: #1a1a2e;
+    line-height: 1.45;
+  }
+
+  .prog-wrap { padding: 1rem 1.25rem .75rem; }
+
+  .prog-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #6b7280;
+    margin-bottom: .4rem;
+  }
+
+  .prog-track {
+    height: 5px;
+    background: #e8ecef;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .prog-fill {
+    height: 5px;
+    background: linear-gradient(90deg, #1d9e75, #0f6e56);
+    border-radius: 3px;
+    transition: width .35s ease;
+  }
+
+  .nav-list { padding: .5rem 0; flex: 1; }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: .7rem 1.25rem;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all .15s;
+  }
+
+  .nav-item:hover { background: #eef1f4; }
+
+  .nav-item.active {
+    border-left-color: #1d9e75;
+    background: #ffffff;
+  }
+
+  .nav-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid #d1d5db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 500;
+    color: #6b7280;
+    flex-shrink: 0;
+    transition: all .15s;
+  }
+
+  .nav-dot.done { background: #1d9e75; border-color: #1d9e75; color: #ffffff; }
+
+  .nav-dot.active { border-color: #1d9e75; color: #0f6e56; font-weight: 600; }
+
+  .nav-text { font-size: 13px; color: #6b7280; line-height: 1.35; }
+
+  .nav-item.active .nav-text { color: #1a1a2e; font-weight: 500; }
+
+  /* ── Content area ── */
+  .content-area { display: flex; flex-direction: column; }
+
+  .section-hero {
+    background: linear-gradient(135deg, #085041 0%, #0f6e56 45%, #185fa5 100%);
+    padding: 1.75rem 2rem;
+  }
+
+  .section-tag {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: .5rem;
+  }
+
+  .section-hero h2 {
+    font-size: 22px;
+    font-weight: 500;
+    color: #ffffff;
+    line-height: 1.3;
+    max-width: 560px;
+  }
+
+  .content-body {
+    padding: 1.75rem 2rem;
+    flex: 1;
+    max-width: 750px;
+  }
+
+  .seo-section {
+    display: none;
+  }
+  .seo-section.active-section {
+    display: block;
+  }
+
+  .seo-section p {
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  /* PROMPT CONTAINER BOX */
+  .prompt-container {
+    background: #f8fafb;
+    border: 1px solid #e8ecef;
+    border-left: 3px solid #1d9e75;
+    border-radius: 0 10px 10px 0;
+    padding: 1.25rem;
+    margin: 1.5rem 0;
+    position: relative;
+  }
+
+  .prompt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .6rem;
+  }
+
+  .prompt-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #0f6e56;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+
+  .copy-btn {
+    background: transparent;
+    border: none;
+    color: #6b7280;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: inherit;
+    transition: color .15s;
+  }
+
+  .copy-btn:hover { color: #1a1a2e; }
+
+  .prompt-text {
+    font-family: 'SFMono-Regular', Consolas, monospace;
+    font-size: 13px;
+    color: #232733;
+    white-space: pre-wrap;
+    word-break: break-word;
+    background: #ffffff;
+    padding: .75rem;
+    border-radius: 6px;
+    border: 1px solid #e8ecef;
+  }
+
+  .info-box {
+    background: #e1f5ee;
+    border-left: 3px solid #1d9e75;
+    border-radius: 0 10px 10px 0;
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0;
+  }
+
+  .info-box p { color: #085041; margin: 0; font-size: 13px; line-height: 1.65; }
+
+  /* DIAGRAM CONTAINER */
+  .diagram-container {
+    background: #fafbfc;
+    border: 1px solid #e8ecef;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
+  }
+
+  .diagram-step-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .diagram-node {
+    background: #ffffff;
+    border: 1px solid #e8ecef;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    width: 30%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  }
+
+  /* ── Footer nav ── */
+  .content-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2rem;
+    border-top: 1px solid #f0f2f5;
+    background: #fafbfc;
+  }
+
+  .btn-back {
+    background: transparent;
+    border: 1px solid #d1d5db;
+    color: #6b7280;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .15s;
+  }
+
+  .btn-back:hover { background: #f0f2f5; }
+  .btn-back:disabled { opacity: .35; cursor: default; }
+
+  .btn-fwd {
+    background: #1d9e75;
+    color: #ffffff;
+    border: none;
+    padding: 8px 22px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .15s;
+  }
+
+  .btn-fwd:hover { background: #0f6e56; }
+  .btn-fwd:disabled { opacity: .35; cursor: default; }
+
+  /* ── Quiz ── */
+  .quiz-q { margin-bottom: 1.5rem; }
+
+  .quiz-q h3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a1a2e;
+    margin-bottom: .75rem;
+    line-height: 1.55;
+  }
+
+  .opt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: .7rem 1rem;
+    border: 1px solid #e8ecef;
+    border-radius: 10px;
+    margin-bottom: .5rem;
+    cursor: pointer;
+    font-size: 13px;
+    color: #374151;
+    transition: all .15s;
+    line-height: 1.45;
+  }
+
+  .opt:hover:not(.locked) { background: #f5fdf9; border-color: #9fe1cb; }
+
+  .radio {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid #d1d5db;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .15s;
+  }
+
+  .opt.selected { border-color: #378add; background: #edf5fd; color: #0c447c; }
+  .opt.selected .radio { border-color: #378add; background: #378add; }
+  .opt.selected .radio::after { content:''; width:7px; height:7px; border-radius:50%; background:#fff; display:block; }
+
+  .opt.correct { border-color: #1d9e75; background: #e1f5ee; color: #085041; }
+  .opt.correct .radio { border-color: #1d9e75; background: #1d9e75; }
+  .opt.correct .radio::after { content:''; width:7px; height:7px; border-radius:50%; background:#fff; display:block; }
+
+  .opt.wrong { border-color: #e24b4a; background: #fcebeb; color: #a32d2d; }
+  .opt.wrong .radio { border-color: #e24b4a; background: #e24b4a; }
+  .opt.wrong .radio::after { content:''; width:7px; height:7px; border-radius:50%; background:#fff; display:block; }
+
+  .submit-global {
+    background: #1a1a2e;
+    color: #ffffff;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all .15s;
+  }
+
+  .submit-global:hover { background: #0f6e56; }
+  .submit-global:disabled { opacity: .35; cursor: default; }
+
+  .result-box {
+    background: #f8fafb;
+    border-radius: 14px;
+    padding: 2rem;
+    text-align: center;
+    border: 1px solid #e8ecef;
+    margin-top: 1rem;
+  }
+
+  .result-score { font-size: 48px; font-weight: 600; color: #1d9e75; margin-bottom: .5rem; line-height: 1; }
+  .result-msg { font-size: 15px; color: #374151; margin-bottom: 1.25rem; line-height: 1.6; }
+
+  .retake-btn {
+    background: transparent;
+    border: 1.5px solid #1d9e75;
+    color: #0f6e56;
+    padding: 8px 22px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .15s;
+  }
+
+  .retake-btn:hover { background: #e1f5ee; }
+
+  /* ── Page footer ── */
+  .page-footer {
+    background: #021a12;
+    border-top: 1px solid #0a4a30;
+    padding: 1rem 2rem;
+    text-align: center;
+    font-size: 12px;
+    color: #4a7a60;
+    flex-shrink: 0;
+  }
+
+  .page-footer a { color: #1d9e75; text-decoration: none; }
+  .page-footer a:hover { text-underline-position: under; text-decoration: underline; }
+
+  /* ── Mobile responsive ── */
+  @media (max-width: 700px) {
+    .navbar { padding: 0 1rem; }
+    .page-wrap { padding: 1rem .5rem; }
+    .course-shell { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .content-body { padding: 1.25rem 1rem; max-width: 100%; }
+    .section-hero { padding: 1.25rem 1rem; }
+    .content-footer { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="https://www.pairworkflows.com" class="nav-logo">
+    <span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span>
+  </a>
+  <a href="https://www.pairworkflows.com/index.html" class="nav-back">
+    <i class="ti ti-arrow-left" style="font-size:13px"></i>Back to courses
+  </a>
+  <div class="nav-right">
+    <span class="nav-time"><i class="ti ti-clock" style="font-size:13px"></i>5 min</span>
+    <span class="nav-badge">Free</span>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="course-shell">
+
+    <div class="sidebar">
+      <div class="sidebar-top">
+        <div class="course-label">Gemini AI — Course 3 of 12</div>
+        <div class="course-title-side">Gemini in Google Meet: Never write meeting notes.</div>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-label">
+          <span>Progress</span>
+          <span id="progTxt">1 of 4</span>
+        </div>
+        <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+      </div>
+      <div class="nav-list">
+        <div class="nav-item active" id="ni0" onclick="go(0)">
+          <div class="nav-dot active" id="nd0">1</div>
+          <div class="nav-text">The transcription shift</div>
+        </div>
+        <div class="nav-item" id="ni1" onclick="go(1)">
+          <div class="nav-dot" id="nd1">2</div>
+          <div class="nav-text">Extracting exact decisions</div>
+        </div>
+        <div class="nav-item" id="ni2" onclick="go(2)">
+          <div class="nav-dot" id="nd2">3</div>
+          <div class="nav-text">Post-meeting formatting</div>
+        </div>
+        <div class="nav-item" id="ni3" onclick="go(3)">
+          <div class="nav-dot" id="nd3">4</div>
+          <div class="nav-text">Quiz: test your knowledge</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-area">
+      <div class="section-hero">
+        <div class="section-tag" id="heroTag">Section 01</div>
+        <h2 id="heroTitle">The transcription shift: moving away from active corporate note-taking.</h2>
+      </div>
+      
+      <div class="content-body" id="cnt">
+        
+        <!-- STEP 0 -->
+        <div id="seo-sec-0" class="seo-section active-section">
+          <p>Assigning a team member to manually log internal corporate feedback during a live sync limits their capacity to actively engage in project development. Human logs are also vulnerable to selective memory gaps and missing ownership markers.</p>
+          <p>Gemini in Google Meet addresses this gap by working directly on real-time acoustic context streams. By deploying automated transcription layers, the system records explicit conversational shifts and anchors key timestamps automatically.</p>
+          <p>Instead of struggling to balance active speaking and physical note-taking, professionals can let the platform generate an objective historical text layer in the background.</p>
+          
+          <!-- DIAGRAMMA DI FLUSSO -->
+          <div class="diagram-container">
+            <div style="font-size: 12px; font-weight: 600; color: #0f6e56; text-align: center; margin-bottom: 1.25rem; text-transform: uppercase; letter-spacing: .05em;">
+              <i class="ti ti-refresh" style="font-size: 18px; vertical-align: middle; margin-right: 4px; color: #1d9e75;"></i>
+              Meet Automation Infrastructure
+            </div>
+            <div class="diagram-step-box">
+              <div class="diagram-node" style="background: #edf5fd; border-top: 3px solid #378add;">
+                <i class="ti ti-microphone" style="font-size: 20px; color: #378add; display: block; margin-bottom: 6px;"></i>
+                <strong style="font-size: 12px; color: #1a5ca3; display: block; margin-bottom: 2px;">1. Live Audio</strong>
+                <span style="font-size: 11px; color: #4b7cb4;">Speaker tracking</span>
+              </div>
+              <div style="color: #1d9e75; font-size: 20px;"><i class="ti ti-arrow-narrow-right"></i></div>
+              <div class="diagram-node" style="background: #fff8e6; border-top: 3px solid #f59e0b;">
+                <i class="ti ti-file-text" style="font-size: 20px; color: #f59e0b; display: block; margin-bottom: 6px;"></i>
+                <strong style="font-size: 12px; color: #7c5c10; display: block; margin-bottom: 2px;">2. Core Processing</strong>
+                <span style="font-size: 11px; color: #9b7c36;">Semantic analysis</span>
+              </div>
+              <div style="color: #1d9e75; font-size: 20px;"><i class="ti ti-arrow-narrow-right"></i></div>
+              <div class="diagram-node" style="background: #e1f5ee; border-top: 3px solid #1d9e75;">
+                <i class="ti ti-device-floppy" style="font-size: 20px; color: #1d9e75; display: block; margin-bottom: 6px;"></i>
+                <strong style="font-size: 12px; color: #085041; display: block; margin-bottom: 2px;">3. Final Output</strong>
+                <span style="font-size: 11px; color: #4a7a60;">Clean Docs summary</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 1 -->
+        <div id="seo-sec-1" class="seo-section">
+          <p>The primary breakdown in automated notes happens when a model presents conversational summaries as a single unformatted block of text. To prevent this, you must calibrate the side panel prompt parameters to prioritize clean execution structures.</p>
+          <p>By instructing the system to isolate explicitly assigned milestones, you remove narrative filler and generate clear, standalone tracking items.</p>
+          
+          <div class="prompt-container">
+            <div class="prompt-header">
+              <span class="prompt-label">Copy-Paste Meet Synthesis Prompt</span>
+              <button class="copy-btn" onclick="copyPrompt()"><i class="ti ti-copy"></i> Copy prompt</button>
+            </div>
+            <div class="prompt-text" id="prompt-payload">Review the raw meeting transcript text provided below. 
+Isolate and extract every explicitly confirmed operational deadline, action item, and task owner. 
+
+Format the output strictly into two separate sections:
+1. Executive Summary: A bulleted block listing the 3 primary strategic alignments under 80 words.
+2. Responsibility Matrix: A clean Markdown table with columns [Action Item, Assigned Owner, Deadline]. 
+
+Do not include conversational pleasantries or meta text statements.</div>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div id="seo-sec-2" class="seo-section">
+          <p>After the call ends, Gemini automatically saves the compiled document assets into your secure corporate Google Drive space. The file contains the full contextual text log linked to the corresponding calendar event identifier.</p>
+          <p>Before sharing this output template with clients or regional operations executives, perform a brief verification check on names and numbers to clean up potential acoustic spelling errors.</p>
+          <div class="info-box"><p><strong>Operational Rule:</strong> If multiple project metrics or budget values were confirmed during a loud or crowded audio call, check the core transcript timestamps manually before copying the results into your client-facing reporting systems.</p></div>
+        </div>
+
+        <!-- STEP 3 — QUIZ -->
+        <div id="seo-sec-3" class="seo-section">
+          <div id="quiz-interactive-container"></div>
+        </div>
+
+      </div>
+      
+      <div class="content-footer">
+        <button class="btn-back" id="btnBack" onclick="go(cur-1)">
+          <i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back
+        </button>
+        <button class="btn-fwd" id="btnFwd" onclick="goFwd()">
+          Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="page-footer">
+  &copy; 2026 <a href="https://www.pairworkflows.com">PairWorkflows</a>. All rights reserved.
+</footer>
+
+<script>
+var cur = 0;
+var visited = [true,false,false,false];
+var sel = {};
+var quizSubmitted = false;
+var quizDone = false;
+
+var heroes = [
+  {tag:'Section 01', title:'The transcription shift: moving away from active corporate note-taking.'},
+  {tag:'Section 02', title:'Extracting exact decisions: structuring clean action item parameters.'},
+  {tag:'Section 03', title:'Post-meeting formatting: validating saved data assets in Google Drive.'},
+  {tag:'Section 04 — Quiz', title:'Test your knowledge.'}
+];
+
+var quiz = [
+  {
+    q:'What is the primary operational risk of relying on standard manual meeting notes during corporate project reviews?',
+    opts:[
+      'They require an external database license parameter setup',
+      'They suffer from selective memory gaps and often omit clear ownership tracking',
+      'The meeting window closes automatically if logs are not entered live'
+    ],
+    correct: 1
+  },
+  {
+    q:'How should you structure a Gemini prompt to avoid receiving an unformatted block of narrative summary text?',
+    opts:[
+      'Ask the model to explain the mood of the room during the presentation',
+      'Instruct the interface to output results strictly into an explicit summary block and a Markdown table responsibility matrix',
+      'Write the text instructions in all lowercase to limit conversational processing'
+    ],
+    correct: 1
+  },
+  {
+    q:'Where does Google Workspace save the automated transcript files after a Google Meet call finishes?',
+    opts:[
+      'Directly into your secure corporate Google Drive space',
+      'In the local hardware browser download history directory folder',
+      'On a public development archive channel pool'
+    ],
+    correct: 0
+  },
+  {
+    q:'What task should a project lead always complete before distributing an automated summary to a external client?',
+    opts:[
+      'Accept the text block layout as perfect if there are no explicit CSS script errors',
+      'Perform a fast manual check on names and numbers to clean up potential acoustic spelling glitches',
+      'Rerun the audio stream through an independent third-party encoding tool'
+    ],
+    correct: 1
+  }
+];
+
+function buildQuizHTML(){
+  if(quizDone){
+    var score=0;
+    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
+    var msgs=[
+      'Review the automation steps again — focusing on transcription routing and formatting constraints.',
+      'Decent attempt — spend some time examining the table layout structures before trying again.',
+      'Great job! Just one area to polish — double-check the rules around validating acoustic transcription data.',
+      'Perfect score! You are fully prepared to automate your meeting summaries and tracking operations across the board.'
+    ];
+    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
+  }
+  var html='';
+  for(var i=0;i<quiz.length;i++){
+    var q=quiz[i];
+    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
+    for(var j=0;j<q.opts.length;j++){
+      var cls='opt';
+      if(quizSubmitted){
+        if(j===q.correct)cls+=' correct locked';
+        else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';
+        else cls+=' locked';
+      } else if(sel[i]===j){cls+=' selected';}
+      html+='<div class="'+cls+'" data-qi="' + i + '" data-oi="' + j + '"><div class="radio"></div>'+q.opts[j]+'</div>';
+    }
+    html+='</div>';
+  }
+  var allSel=Object.keys(sel).length===quiz.length;
+  if(!quizSubmitted){
+    html+='<button class="submit-global" id="submitBtn" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
+  } else {
+    html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
+  }
+  return html;
+}
+
+function render(){
+  var pct=Math.round(((cur+1)/4)*100);
+  document.getElementById('pf').style.width=pct+'%';
+  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
+  document.getElementById('heroTag').textContent=heroes[cur].tag;
+  document.getElementById('heroTitle').textContent=heroes[cur].title;
+
+  for(var i=0;i<4;i++){
+    var ni=document.getElementById('ni'+i);
+    var nd=document.getElementById('nd'+i);
+    var secBlock=document.getElementById('seo-sec-'+i);
+    
+    ni.className='nav-item'+(i===cur?' active':'');
+    
+    if(i===cur){
+      secBlock.classList.add('active-section');
+    } else {
+      secBlock.classList.remove('active-section');
+    }
+
+    if(visited[i]&&i!==cur){
+      nd.className='nav-dot done';
+      nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';
+    } else if(i===cur){
+      nd.className='nav-dot active';
+      nd.textContent=(i+1);
+    } else {
+      nd.className='nav-dot';
+      nd.textContent=(i+1);
+    }
+  }
+
+  if(cur===3){
+    document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
+  }
+
+  document.getElementById('btnBack').disabled=(cur===0);
+
+  var fwd=document.getElementById('btnFwd');
+  if(cur===3){
+    fwd.style.display='none';
+  } else {
+    fwd.style.display='';
+    fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';
+  }
+}
+
+function go(n){
+  if(n<0||n>3)return;
+  visited[n]=true;
+  cur=n;
+  render();
+}
+
+function goFwd(){
+  if(cur<3)go(cur+1);
+}
+
+function submitAll(){
+  if(Object.keys(sel).length<quiz.length)return;
+  quizSubmitted=true;
+  render();
+}
+
+function showResult(){
+  quizDone=true;
+  render();
+}
+
+function retake(){
+  sel={};
+  quizSubmitted=false;
+  quizDone=false;
+  render();
+}
+
+function copyPrompt() {
+  const text = document.getElementById('prompt-payload').innerText;
+  navigator.clipboard.writeText(text);
+  const btn = document.querySelector('.copy-btn');
+  btn.innerHTML = '<i class="ti ti-check"></i> Copied!';
+  setTimeout(() => {
+    btn.innerHTML = '<i class="ti ti-copy"></i> Copy prompt';
+  }, 2000);
+}
+
+document.getElementById('cnt').addEventListener('click',function(e){
+  if(cur!==3||quizSubmitted||quizDone)return;
+  var opt=e.target.closest('.opt');
+  if(!opt)return;
+  var qi=parseInt(opt.dataset.qi);
+  var oi=parseInt(opt.dataset.oi);
+  sel[qi]=oi;
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
