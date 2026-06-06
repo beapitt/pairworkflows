@@ -243,6 +243,14 @@ body{font-family:'Inter','Segoe UI',Helvetica Neue,sans-serif;background:#042e1f
     <span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span>
   </a>
   <div class="nav-links">
+    <div class="resources-dropdown">
+        <button class="resources-btn" onclick="toggleResources()">Resources ▾</button>
+        <div class="resources-menu" id="resourcesMenu">
+            <a href="/claude-vs-gemini.html">Claude vs Gemini</a>
+            <a href="/glossary.html">AI Glossary</a>
+            <a href="/prompt-library.html">Prompt Library</a>
+        </div>
+    </div>
     <a href="/contact.html">Contact</a>
     <a href="/legal.html">Legal</a>
   </div>
@@ -291,6 +299,27 @@ body{font-family:'Inter','Segoe UI',Helvetica Neue,sans-serif;background:#042e1f
     </div>
 
     <div class="courses-grid" id="coursesGrid"></div>
+
+    <div class="resources-section">  
+        <h2 class="resources-title">Explore our resources</h2>  
+        <div class="resources-grid">    
+            <a href="/claude-vs-gemini.html" class="resource-card">      
+                <div class="resource-card-title">Claude vs Gemini</div>      
+                <div class="resource-card-desc">Not sure which AI to use at work? We compare both tools by task, role and use case.</div>      
+                <div class="resource-card-link">Read the guide →</div>    
+            </a>    
+            <a href="/glossary.html" class="resource-card">      
+                <div class="resource-card-title">AI Glossary</div>      
+                <div class="resource-card-desc">40 essential AI terms explained in plain English with real business examples.</div>      
+                <div class="resource-card-link">Browse the glossary →</div>    
+            </a>    
+            <a href="/prompt-library.html" class="resource-card">      
+                <div class="resource-card-title">Prompt Library</div>      
+                <div class="resource-card-desc">Ready-to-copy prompts for Marketing, HR, Finance, Legal and Operations teams.</div>      
+                <div class="resource-card-link">View prompts →</div>    
+            </a>  
+        </div>
+    </div>
 
     <div class="faq-section">
       <h2>Frequently asked questions</h2>
@@ -367,6 +396,16 @@ body{font-family:'Inter','Segoe UI',Helvetica Neue,sans-serif;background:#042e1f
 </footer>
 
 <script>
+function toggleResources(){
+    document.getElementById('resourcesMenu').classList.toggle('open');
+}
+document.addEventListener('click',function(e){
+    if(!e.target.closest('.resources-dropdown')){
+        var m=document.getElementById('resourcesMenu');
+        if(m)m.classList.remove('open');
+    }
+});
+
 var COURSES = [
   {id:'claude-01',brand:'claude',title:'Which Claude model should you use? Stop wasting credits.',time:'5 min',type:'free',file:'claude-model-choice-haiku-sonnet-opus.html',
    sections:['Introduction','The three models','Token budget explained','Quiz: test your knowledge'],
