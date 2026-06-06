@@ -9,57 +9,108 @@
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Inter',sans-serif;background:#042e1f;color:#1a1a2e;min-height:100vh}
     
-    .navbar{padding:1rem 3rem;display:flex;align-items:center;justify-content:space-between}
-    .logo-pair{font-size:18px;font-weight:800;color:#ffffff}
-    .logo-workflows{font-size:18px;font-weight:400;color:#9fe1cb}
+    .navbar{padding:1rem 3rem;display:flex;align-items:center;justify-content:space-between;color:white}
+    .logo{font-weight:800;font-size:18px;text-decoration:none;color:white}
+    .logo-workflows{color:#9fe1cb}
     .back-link{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px}
 
-    .hero-wrap{padding:2rem 3rem 4rem;text-align:center;color:#ffffff}
-    .hero-wrap h1{font-size:32px;margin-bottom:1rem}
-    
     /* SHELL BIANCA */
-    .content-shell{max-width:900px;margin:-2rem auto 3rem;background:#ffffff;border-radius:16px;padding:2.5rem;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+    .content-shell{max-width:900px;margin:2rem auto 3rem;background:#ffffff;border-radius:16px;padding:2.5rem;box-shadow:0 10px 30px rgba(0,0,0,.2)}
     
+    h1{font-size:32px;margin-bottom:2rem;text-align:center;color:#1a1a2e}
+    h2{margin:2.5rem 0 1rem;color:#1a1a2e;font-size:22px}
+    p{margin-bottom:1rem;line-height:1.7;font-size:15px;color:#374151}
+
     .verdict-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:2rem}
     .box{padding:1.5rem;border-radius:12px}
     .box-claude{background:#e1f5ee;color:#085041}
     .box-gemini{background:#e6f1fb;color:#0c447c}
-    
+    .box h3{margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+    .box ul{list-style:none;font-size:13px;line-height:1.6}
+
     table{width:100%;border-collapse:collapse;margin:2rem 0;font-size:13px}
-    th,td{padding:12px;border-bottom:1px solid #e8ecef;text-align:left}
-    
-    .btn-container{display:flex;gap:10px;margin-top:1.5rem}
-    .btn{padding:10px 20px;border-radius:30px;color:#ffffff;text-decoration:none;font-size:13px;font-weight:600;display:inline-block}
-    .btn-claude{background:#d97756} /* Colore pulsante Claude */
-    .btn-gemini{background:#378add} /* Colore pulsante Gemini */
-    
-    h2{margin:2rem 0 1rem;color:#1a1a2e}
-    p{margin-bottom:1rem;line-height:1.6}
-    
+    th{background:#f8fafb;padding:12px;text-align:left;border-bottom:2px solid #e8ecef}
+    td{padding:12px;border-bottom:1px solid #e8ecef}
+    .badge-win{padding:4px 8px;border-radius:4px;font-size:10px;font-weight:600;text-transform:uppercase}
+    .win-claude{background:#e1f5ee;color:#085041}
+    .win-gemini{background:#e6f1fb;color:#0c447c}
+
+    .info-box{padding:1.25rem;margin:1.5rem 0;border-radius:12px;font-size:14px;line-height:1.6;border-left:4px solid}
+    .info-claude{background:#e1f5ee;color:#085041;border-color:#1d9e75}
+    .info-gemini{background:#e6f1fb;color:#0c447c;border-color:#378add}
+
     .role-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:1.5rem 0}
-    .role-card{padding:1rem;border-radius:8px;border:1px solid #e8ecef}
+    .role-card{padding:1.25rem;border-radius:12px;border:1px solid #e8ecef}
+    .role-card h4{margin-bottom:0.75rem;display:flex;align-items:center;gap:8px}
+
+    .box-finale{background:#ffffff;border:1px solid #e8ecef;padding:2rem;border-radius:16px;margin-top:2rem}
+    .btn-container{display:flex;gap:10px;margin-top:1.5rem}
+    .btn{padding:10px 20px;border-radius:30px;color:#ffffff;text-decoration:none;font-size:13px;font-weight:600}
+    .btn-claude{background:#1d9e75}
+    .btn-gemini{background:#185fa5}
+
+    @media(max-width:768px){.verdict-grid,.role-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
 <nav class="navbar">
-    <div class="logo">Pair<span class="logo-workflows">Workflows</span></div>
+    <a href="/" class="logo">Pair<span class="logo-workflows">Workflows</span></a>
     <a href="/index.html" class="back-link">Back to courses</a>
 </nav>
 
-<header class="hero-wrap">
-    <h1>Claude vs Gemini: Which AI Should You Use at Work?</h1>
-</header>
-
 <main class="content-shell">
+    <h1>Claude vs Gemini: Which AI Should You Use at Work?</h1>
+
     <section class="verdict-grid">
-        <div class="box box-claude"><h3><i class="ti ti-brain"></i> Choose Claude if...</h3>...</div>
-        <div class="box box-gemini"><h3><i class="ti ti-brand-google"></i> Choose Gemini if...</h3>...</div>
+        <div class="box box-claude">
+            <h3><i class="ti ti-brain"></i> Choose Claude if...</h3>
+            <ul><li>High-quality, nuanced business writing.</li><li>Deep analysis or policy review.</li><li>High-stakes legal or financial reasoning.</li><li>Synthesis of massive document sets.</li></ul>
+        </div>
+        <div class="box box-gemini">
+            <h3><i class="ti ti-brand-google"></i> Choose Gemini if...</h3>
+            <ul><li>Team lives in Google Workspace.</li><li>Automated meeting summaries.</li><li>Fast research with Google Search.</li><li>Multimodal data (video/audio).</li></ul>
+        </div>
     </section>
 
-    <!-- ... resto del contenuto ... -->
+    <table>
+        <thead><tr><th>Dimension</th><th>Claude</th><th>Gemini</th><th>Winner</th></tr></thead>
+        <tbody>
+            <tr><td>Writing quality</td><td>High nuance</td><td>Functional</td><td><span class="badge-win win-claude">Claude wins</span></td></tr>
+            <tr><td>Complex reasoning</td><td>Superior logic</td><td>Excellent</td><td><span class="badge-win win-claude">Claude wins</span></td></tr>
+            <tr><td>Workspace integration</td><td>Limited</td><td>Native</td><td><span class="badge-win win-gemini">Gemini wins</span></td></tr>
+            <tr><td>Data privacy</td><td>Strong</td><td>Strong</td><td><span class="badge-win">Draw</span></td></tr>
+            <tr><td>Context window</td><td>Reliable</td><td>Massive scale</td><td><span class="badge-win">Draw</span></td></tr>
+            <tr><td>Business pricing</td><td>Premium</td><td>Efficient</td><td><span class="badge-win win-gemini">Gemini wins</span></td></tr>
+            <tr><td>Multimodal</td><td>Limited</td><td>Full native</td><td><span class="badge-win win-gemini">Gemini wins</span></td></tr>
+        </tbody>
+    </table>
 
-    <section class="box" style="background:#f8fafb; margin-top:2rem;">
+    <h2>Where Claude Wins</h2>
+    <p>Claude excels at drafting complex professional documents because it maintains a sophisticated tone and structural integrity that few models can match. A Finance Director preparing a board memo or an HR Manager drafting a sensitive company policy will find that Claude produces text that feels intentional and human. Unlike models that fill space with generic language, Claude captures nuances of corporate communication, ensuring that every sentence serves a strategic purpose.</p>
+    <p>Legal teams and compliance officers consistently prefer Claude when they require rigorous contract review and detailed risk assessment. Claude exhibits a superior ability to identify subtle contradictions or dangerous clauses buried within dense legal prose. This capability allows legal professionals to perform due diligence with higher confidence, knowing that the output is grounded in a logical examination of the provided facts.</p>
+    <p>When professionals must process multiple one-hundred-page reports or exhaustive regulatory documents, Claude provides a level of clarity that transforms the workflow. It allows users to synthesize disparate information into a coherent summary, identifying key themes or discrepancies across large document sets with exceptional faithfulness. While Gemini may offer a larger raw context window for extremely massive datasets, professionals choose Claude for its superior ability to maintain quality during synthesis.</p>
+    <p>Claude stands out for its unique ability to follow precise formatting and style instructions without adding extraneous information. For example, when creating a technical report that must exclude conversational filler, Claude provides exactly the requested content, making it ready for immediate use.</p>
+    <div class="info-box info-claude"><i class="ti ti-bulb"></i> <strong>Practical Tip:</strong> Use Claude to perform the final polish on high-stakes strategy documents where tone and accuracy are non-negotiable.</div>
+
+    <h2>Where Gemini Wins</h2>
+    <p>The primary strength of Gemini lies in its seamless integration within the Google Workspace environment, enabling managers and operations leads to execute complex tasks without switching tabs. A professional can instruct Gemini to draft an email response in Gmail based on data found in a Drive document, or instantly create a project roadmap in Docs. Operations leaders find that this connectivity significantly accelerates the speed at which they can turn information into action.</p>
+    <p>Gemini in Google Meet fundamentally alters how professionals manage meeting notes and action items. In a typical scenario, a manager can have the AI process the meeting transcript to generate a comprehensive summary that highlights key decisions and assigns tasks to team members. This process ensures that no critical detail is lost, providing an accurate record without a designated note taker.</p>
+    <p>Finance and Operations professionals leverage Gemini in Google Sheets to perform data analysis tasks that were previously time-consuming. Gemini can parse raw data to identify trends, create pivot tables, or suggest complex formulas based on natural language descriptions. This empowers users to manipulate datasets with ease, allowing for rapid financial modeling.</p>
+    <p>Gemini offers a distinct advantage in its ability to process video and audio files natively. An Operations lead can upload a lengthy video recording of a training session and request that Gemini identifies specific segments of interest or creates a summary of the requirements discussed. Teams can derive immediate value from multimedia assets, enabling faster learning across global departments.</p>
+    <div class="info-box info-gemini"><i class="ti ti-bulb"></i> <strong>Practical Tip:</strong> Use Gemini to generate your first draft of a presentation slide deck based on a pre-existing Google Doc brief.</div>
+
+    <h2>Which tool for which role?</h2>
+    <div class="role-grid">
+        <div class="role-card"><h4><i class="ti ti-briefcase"></i> Manager</h4><p>Claude: Strategy memos, policy.</p><p>Gemini: Meeting notes, email.</p></div>
+        <div class="role-card"><h4><i class="ti ti-users"></i> HR</h4><p>Claude: Candidate feedback, review.</p><p>Gemini: Scheduling, internal comms.</p></div>
+        <div class="role-card"><h4><i class="ti ti-report-money"></i> Finance</h4><p>Claude: Risk assessment, reports.</p><p>Gemini: Formulas, visualization.</p></div>
+        <div class="role-card"><h4><i class="ti ti-gavel"></i> Legal</h4><p>Claude: Contract review, diligence.</p><p>Gemini: Filing, research.</p></div>
+        <div class="role-card"><h4><i class="ti ti-speakerphone"></i> Marketing</h4><p>Claude: Long-form, brand voice.</p><p>Gemini: Research, images.</p></div>
+        <div class="role-card"><h4><i class="ti ti-settings"></i> Operations</h4><p>Claude: Documentation, process.</p><p>Gemini: Automation, Drive queries.</p></div>
+    </div>
+
+    <section class="box-finale">
         <p>Claude is the stronger AI analyst and writer. Gemini is the stronger workplace productivity platform. The right choice depends less on benchmarks and more on whether your work revolves around deep thinking or Google-centric execution. In practice, many professional teams in 2026 use both tools complementarily: Claude for high-stakes analysis and writing, and Gemini for daily productivity within the Google ecosystem.</p>
         <div class="btn-container">
             <a href="/index.html" class="btn btn-claude">Start with Claude courses</a>
