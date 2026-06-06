@@ -47,7 +47,7 @@ body{font-family:'Inter','Segoe UI',Helvetica Neue,sans-serif;background:#042e1f
 .nav-links a{font-size:13px;color:rgba(255,255,255,.6);text-decoration:none;transition:color .15s}
 .nav-links a:hover{color:#ffffff}
 
-/* HERO — full width dark */
+/* HERO */
 .hero-wrap{background:#042e1f;width:100%;padding:4rem 3rem 3.5rem}
 .hero-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:4rem}
 .hero-badge{display:inline-block;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;background:rgba(159,225,203,.15);color:#9fe1cb;padding:5px 14px;border-radius:20px;margin-bottom:1.25rem;border:1px solid rgba(159,225,203,.25)}
@@ -59,7 +59,7 @@ body{font-family:'Inter','Segoe UI',Helvetica Neue,sans-serif;background:#042e1f
 .hero-stat-num{font-size:32px;font-weight:800;color:#ffffff;line-height:1}
 .hero-stat-label{font-size:12px;color:rgba(255,255,255,.55);margin-top:6px;line-height:1.4}
 
-/* DARK CONTENT AREA — full width */
+/* DARK CONTENT AREA */
 .dark-area{background:#042e1f;width:100%;padding:2.5rem 3rem 1rem}
 .dark-area-inner{max-width:1280px;margin:0 auto}
 
@@ -72,7 +72,8 @@ body{font-family:'Inter','Segoe UI',Helvetica Neue,sans-serif;background:#042e1f
 .ti-claude{background:rgba(217,119,86,.25);color:#f4c4ae}
 .ti-gemini{background:rgba(55,138,221,.3);color:#93c5fd}
 .tab-btn.active-claude .ti-claude{background:rgba(255,255,255,.2);color:#ffffff}.tab-btn.active-gemini .ti-gemini{background:rgba(255,255,255,.2);color:#ffffff}
-/* GRID — 4 columns white cards on dark bg */
+
+/* GRID */
 .courses-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:3.5rem}
 .card{background:#ffffff;border-radius:16px;border:none;padding:0;position:relative;transition:transform .2s ease,box-shadow .2s ease;display:flex;flex-direction:column;min-height:220px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.28)}
 .card-top-bar{height:5px;width:100%;flex-shrink:0}
@@ -101,10 +102,7 @@ body{font-family:'Inter','Segoe UI',Helvetica Neue,sans-serif;background:#042e1f
 .card.active-card:hover .card-action-g{background:#378add;color:#ffffff}
 .card-lock{position:absolute;top:16px;right:16px;width:26px;height:26px;border-radius:8px;background:#e2e8f0;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:13px}
 
-/* RESOURCES SECTION */
-.resources-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 3.5rem; }
-
-/* FAQ DARK */
+/* FAQ */
 .faq-section{max-width:780px;margin:0 auto;padding-bottom:3.5rem}
 .faq-section h2{font-size:24px;font-weight:700;color:#ffffff;margin-bottom:1.75rem;text-align:center}
 .faq-item{border-bottom:1px solid rgba(255,255,255,.1);padding:1.125rem 0}
@@ -112,7 +110,7 @@ body{font-family:'Inter','Segoe UI',Helvetica Neue,sans-serif;background:#042e1f
 .faq-a{font-size:14px;color:rgba(255,255,255,.6);line-height:1.75;margin-top:.625rem;display:none}
 .faq-a.open{display:block}
 
-/* COURSE VIEW — dark wrapper */
+/* COURSE VIEW */
 .course-view{display:none;background:#042e1f;min-height:100vh;padding:2rem 3rem 4rem}
 .course-view-inner{max-width:1280px;margin:0 auto}
 .back-bar{display:flex;align-items:center;gap:.5rem;margin-bottom:1.25rem;cursor:pointer;width:fit-content}
@@ -162,4 +160,439 @@ body{font-family:'Inter','Segoe UI',Helvetica Neue,sans-serif;background:#042e1f
 .mc-badge{font-size:10px;background:#e1f5ee;color:#085041;padding:2px 8px;border-radius:20px;display:inline-block;margin-bottom:.4rem;font-weight:500}
 .mc-name{font-size:12px;font-weight:600;color:#374151;margin-bottom:.2rem}
 .mc-cost{font-size:24px;font-weight:600;color:#1a1a2e;margin-bottom:.25rem;line-height:1}
-.mc-desc{font-size:12px;color:#6b7280;line-height
+.mc-desc{font-size:12px;color:#6b7280;line-height:1.5}
+.token-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.25rem 0}
+.tg{border:1px solid #e8ecef;border-radius:12px;padding:1rem;text-align:center;background:#fafbfc}
+.tg-icon{font-size:24px;color:#1d9e75;margin-bottom:.5rem}
+.tg-label{font-size:13px;font-weight:500;color:#1a1a2e;margin-bottom:.25rem}
+.tg-desc{font-size:12px;color:#6b7280;line-height:1.5}
+.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2.5rem;border-top:1px solid #f0f2f5;background:#fafbfc}
+.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-back:hover{background:#f0f2f5}
+.btn-back:disabled{opacity:.35;cursor:default}
+.btn-fwd-c{background:#1d9e75;color:#ffffff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-fwd-c:hover{background:#0f6e56}
+.btn-fwd-g{background:#185fa5;color:#ffffff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-fwd-g:hover{background:#0c447c}
+.quiz-q{margin-bottom:1.5rem}
+.quiz-q p{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
+.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
+.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
+.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.opt.selected{border-color:#378add;background:#edf5fd;color:#0c447c}
+.opt.selected .radio{border-color:#378add;background:#378add}
+.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
+.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}
+.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
+.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
+.submit-global{background:#1a1a2e;color:#ffffff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}
+.submit-global:hover{background:#0f6e56}
+.submit-global:disabled{opacity:.35;cursor:default}
+.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
+.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
+.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
+.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.retake-btn:hover{background:#e1f5ee}
+
+/* FOOTER */
+.site-footer{background:#021a12;padding:2rem 3rem;text-align:center;border-top:1px solid rgba(255,255,255,.06)}
+.footer-links{display:flex;justify-content:center;gap:2rem;margin-bottom:.75rem;flex-wrap:wrap}
+.footer-links a{font-size:12px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .15s}
+.footer-links a:hover{color:#9fe1cb}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.2)}
+
+.cookie-banner{position:fixed;bottom:0;left:0;right:0;background:#1a2e24;border-top:1px solid rgba(159,225,203,.2);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;z-index:999;flex-wrap:wrap}
+.cookie-banner p{font-size:13px;color:rgba(255,255,255,.8);line-height:1.6;flex:1;min-width:200px}
+.cookie-banner a{color:#9fe1cb;text-decoration:underline}
+.cookie-banner-btns{display:flex;gap:8px;flex-shrink:0}
+.cookie-accept{background:#1d9e75;color:#ffffff;border:none;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;transition:background .15s}
+.cookie-accept:hover{background:#0f6e56}
+.cookie-decline{background:transparent;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.2);padding:8px 16px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}
+.cookie-decline:hover{border-color:rgba(255,255,255,.4);color:#ffffff}
+
+@media(max-width:768px){
+.navbar{padding:0 1.25rem}
+.hero-wrap{padding:2.5rem 1.25rem 2rem}
+.hero-inner{grid-template-columns:1fr;gap:1.5rem}
+.hero-right{grid-template-columns:1fr 1fr}
+.hero h1{font-size:28px}
+.hero-sub{font-size:14px}
+.dark-area{padding:1.5rem 1.25rem 1rem}
+.courses-grid{grid-template-columns:1fr 1fr;gap:12px}
+.card{min-height:180px}
+.card h3{font-size:13px}
+.faq-section{padding:0 0 2rem}
+.course-view{padding:1.25rem 1.25rem 3rem}
+.course-shell{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+.sidebar{display:none}
+.content-body{padding:1.25rem;max-width:100%}
+.section-hero{padding:1.25rem 1.5rem}
+.section-hero h2{font-size:18px}
+.content-footer{padding:1rem 1.25rem}
+}
+@media(max-width:480px){
+.courses-grid{grid-template-columns:1fr}
+.hero-right{grid-template-columns:1fr 1fr}
+.hero-stat-num{font-size:22px}
+}
+
+.resources-dropdown{position:relative;display:flex;align-items:center}.resources-btn{background:transparent;border:none;font-size:13px;color:rgba(255,255,255,.6);cursor:pointer;font-family:inherit;transition:color .15s;padding:0;display:flex;align-items:center;gap:4px}.resources-btn:hover{color:#ffffff}.resources-menu{display:none;position:absolute;top:calc(100% + 12px);right:0;background:#021a12;border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:6px 0;min-width:180px;z-index:200;box-shadow:0 8px 24px rgba(0,0,0,.4)}.resources-menu.open{display:block}.resources-menu a{display:block;padding:10px 16px;font-size:13px;color:rgba(255,255,255,.6);text-decoration:none;transition:color .15s;white-space:nowrap}.resources-menu a:hover{color:#ffffff;background:rgba(255,255,255,.06)}.resources-section{max-width:1280px;margin:0 auto;padding:0 0 3rem}.resources-title{font-size:24px;font-weight:700;color:#ffffff;margin-bottom:1.5rem;text-align:center}.resources-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.resource-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:1.5rem;text-decoration:none;transition:all .2s;display:flex;flex-direction:column;gap:8px}.resource-card:hover{background:rgba(255,255,255,.1);transform:translateY(-3px)}.resource-card-title{font-size:16px;font-weight:600;color:#ffffff}.resource-card-desc{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;flex:1}.resource-card-link{font-size:13px;color:#9fe1cb;font-weight:500}@media(max-width:768px){.resources-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <a class="logo" href="/" aria-label="PairWorkflows home">
+    <span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span>
+  </a>
+  <div class="nav-links">
+    <div class="resources-dropdown">
+      <button class="resources-btn" onclick="toggleResources()">Resources ▾</button>
+      <div class="resources-menu" id="resourcesMenu">
+        <a href="/claude-vs-gemini.html">Claude vs Gemini</a>
+        <a href="/glossary.html">AI Glossary</a>
+        <a href="/prompt-library.html">Prompt Library</a>
+      </div>
+    </div>
+    <a href="/contact.html">Contact</a>
+    <a href="/legal.html">Legal</a>
+  </div>
+</nav>
+
+<div id="homeView">
+  <div class="hero-wrap">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-badge">Free practical courses</div>
+        <h1>Use Claude & Gemini <span>smarter</span> at work.</h1>
+        <p class="hero-sub">Short, practical mini-courses for busy professionals. No 20-minute intros. No fluff. Just the answers you need, in 5 minutes.</p>
+      </div>
+      <div class="hero-right">
+        <div class="hero-stat">
+          <div class="hero-stat-num">21</div>
+          <div class="hero-stat-label">Mini-courses across Claude & Gemini</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">5 min</div>
+          <div class="hero-stat-label">Average course length</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">Free</div>
+          <div class="hero-stat-label">Most courses, always</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">UK & USA</div>
+          <div class="hero-stat-label">Corporate focus</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dark-area">
+    <div class="dark-area-inner">
+    <div class="tabs-wrap" role="tablist">
+      <button class="tab-btn active-claude" id="tabClaude" onclick="switchTab('claude')" role="tab" aria-selected="true">
+        <span class="tab-icon ti-claude">C</span>
+        Claude AI Courses <span style="font-weight:300;margin-left:4px">(9)</span>
+      </button>
+      <button class="tab-btn" id="tabGemini" onclick="switchTab('gemini')" role="tab" aria-selected="false">
+        <span class="tab-icon ti-gemini">G</span>
+        Gemini AI Courses <span style="font-weight:300;margin-left:4px">(12)</span>
+      </button>
+    </div>
+
+    <div class="courses-grid" id="coursesGrid"></div>
+
+    <div class="resources-section">  
+        <h2 class="resources-title">Explore our resources</h2>  
+        <div class="resources-grid">    
+            <a href="/claude-vs-gemini.html" class="resource-card">      
+                <div class="resource-card-title">Claude vs Gemini</div>      
+                <div class="resource-card-desc">Not sure which AI to use at work? We compare both tools by task, role and use case.</div>      
+                <div class="resource-card-link">Read the guide →</div>    
+            </a>    
+            <a href="/glossary.html" class="resource-card">      
+                <div class="resource-card-title">AI Glossary</div>      
+                <div class="resource-card-desc">40 essential AI terms explained in plain English with real business examples.</div>      
+                <div class="resource-card-link">Browse the glossary →</div>    
+            </a>    
+            <a href="/prompt-library.html" class="resource-card">      
+                <div class="resource-card-title">Prompt Library</div>      
+                <div class="resource-card-desc">Ready-to-copy prompts for Marketing, HR, Finance, Legal and Operations teams.</div>      
+                <div class="resource-card-link">View prompts →</div>    
+            </a>  
+        </div>
+    </div>
+
+    <div class="faq-section">
+      <h2>Frequently asked questions</h2>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Are all courses really free? <i class="ti ti-chevron-down"></i></div>
+        <div class="faq-a">Most courses on PairWorkflows are completely free. A small number of advanced courses are marked as Premium — these will be available for a one-time fee. Free courses will always remain free.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Do I need a Claude or Gemini subscription to follow the courses? <i class="ti ti-chevron-down"></i></div>
+        <div class="faq-a">No subscription is required to take the courses. However, to practise what you learn, a free or paid Claude or Gemini account is recommended. Some courses reference features available only on paid plans.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">How long does each course take? <i class="ti ti-chevron-down"></i></div>
+        <div class="faq-a">Each mini-course is designed to take 5 minutes or less. They are built for busy professionals who need practical answers fast — not hour-long lectures.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Which AI tools do the courses cover? <i class="ti ti-chevron-down"></i></div>
+        <div class="faq-a">PairWorkflows covers two tools: Claude AI (by Anthropic) and Gemini AI (by Google), including its integration with Google Workspace. Both tools are widely used in corporate environments across the UK and USA.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Are the courses suitable for non-technical professionals? <i class="ti ti-chevron-down"></i></div>
+        <div class="faq-a">Absolutely. PairWorkflows is designed for managers, analysts, marketers, HR professionals, and anyone who uses AI tools at work — no coding or technical background required.</div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div class="course-view" id="courseView">
+  <div class="course-view-inner">
+  <div class="back-bar" onclick="goHome()">
+    <i class="ti ti-arrow-left" style="font-size:14px;color:#6b7280"></i>
+    <span>Back to courses</span>
+  </div>
+  <div class="course-shell">
+    <div class="sidebar">
+      <div class="sidebar-top">
+        <div class="course-label" id="sideLabel"></div>
+        <div class="course-title-side" id="sideTitle"></div>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
+        <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+      </div>
+      <div class="nav-list" id="navList"></div>
+    </div>
+    <div class="content-area">
+      <div class="section-hero" id="sectionHero">
+        <div class="section-tag" id="heroTag"></div>
+        <h2 id="heroTitle"></h2>
+      </div>
+      <div class="content-body" id="cnt"></div>
+      <div class="content-footer">
+        <button class="btn-back" id="btnBack" onclick="go(cur-1)">
+          <i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back
+        </button>
+        <button id="btnFwd" onclick="goFwd()">
+          Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="/contact.html">Contact</a>
+    <a href="/legal.html#privacy">Privacy Policy</a>
+    <a href="/legal.html#terms">Terms of Use</a>
+    <a href="/legal.html#cookies">Cookie Policy</a>
+  </div>
+  <div class="footer-copy">&copy; 2026 PairWorkflows. All rights reserved.</div>
+</footer>
+
+<script>
+function toggleResources(){
+  document.getElementById('resourcesMenu').classList.toggle('open');
+}
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.resources-dropdown')){
+    var m=document.getElementById('resourcesMenu');
+    if(m)m.classList.remove('open');
+  }
+});
+
+var COURSES = [
+  {id:'claude-01',brand:'claude',title:'Which Claude model should you use? Stop wasting credits.',time:'5 min',type:'free',file:'claude-model-choice-haiku-sonnet-opus.html',
+   sections:['Introduction','The three models','Token budget explained','Quiz: test your knowledge'],
+   heroes:[
+     {tag:'Section 01',title:'It is time to use AI smarter.'},
+     {tag:'Section 02',title:'Three models. Very different costs.'},
+     {tag:'Section 03',title:'Your token budget — where it goes.'},
+     {tag:'Section 04 — Quiz',title:'Test your knowledge.'}
+   ],
+   bodies:[
+     function(){return '<p>Most professionals use Claude every day — but almost everyone defaults to the most powerful (and heaviest) model for every single task, even when a lighter one would do the job just as well.</p><p>This mini-course gives you a clear, practical framework for choosing the right Claude model every time, so you stop burning your daily usage limit on tasks that do not need it.</p><div class="info-box"><p><strong>What you will learn:</strong> the difference between Haiku, Sonnet, and Opus — and a simple rule to pick the right one in under 10 seconds.</p></div>';},
+     function(){return '<p>Claude has three main models. Each is more capable — and heavier on your daily usage limit — than the last. The numbers below are relative weights, not per-message charges.</p><div class="model-grid"><div class="mc"><div class="mc-name">Haiku 4.5</div><div class="mc-cost">1&times;</div><div class="mc-desc">Fastest. Best for simple, high-volume tasks: drafting, classifying, routing, summarising.</div></div><div class="mc rec"><div class="mc-badge">Recommended default</div><div class="mc-name">Sonnet 4.6</div><div class="mc-cost">3&times;</div><div class="mc-desc">The smart default for most professional work — reports, briefs, analysis, emails.</div></div><div class="mc"><div class="mc-name">Opus 4.7</div><div class="mc-cost">5&times;</div><div class="mc-desc">Most powerful. Reserve for complex reasoning, strategy, and high-stakes outputs only.</div></div></div><div class="info-box"><p><strong>Note:</strong> API pricing for developers is different from subscription plan limits. Do not confuse the two — they work differently.</p></div>';},
+     function(){return '<p>Every conversation has a token budget. It comes from three sources — and all of them are within your control to manage.</p><div class="token-grid"><div class="tg"><div class="tg-icon"><i class="ti ti-keyboard"></i></div><div class="tg-label">Your input</div><div class="tg-desc">Everything you type, paste, or upload. The biggest variable you control.</div></div><div class="tg"><div class="tg-icon"><i class="ti ti-settings"></i></div><div class="tg-label">System context</div><div class="tg-desc">Project instructions and background context loaded automatically.</div></div><div class="tg"><div class="tg-icon"><i class="ti ti-message"></i></div><div class="tg-label">Model output</div><div class="tg-desc">Claude\'s responses. Longer outputs consume more of your daily budget.</div></div></div><div class="info-box"><p><strong>The 10-second rule:</strong> before every conversation ask — does this need deep reasoning or fast execution? Fast execution goes to Haiku or Sonnet. Deep reasoning goes to Sonnet or Opus. When in doubt, Sonnet is almost always the right default.</p></div>';},
+     function(){return buildQuiz();}
+   ],
+   quiz:[
+     {q:'Your team needs to draft 100 product descriptions. Which model should you use?',opts:['Opus — most powerful, best results','Sonnet — good balance','Haiku — fast and efficient for volume work'],correct:2},
+     {q:'You are writing a sensitive legal brief for a major client. Which model is most appropriate?',opts:['Haiku — saves credits','Sonnet or Opus — complex, high-stakes task','They all produce the same output'],correct:1},
+     {q:'On a Pro/Team plan, what happens when you use Opus for every task?',opts:['Nothing — the plan covers unlimited use','You hit your daily usage limit faster','You get charged extra per message'],correct:1},
+     {q:'Where does your token budget come from in a conversation?',opts:['Only from the messages you type','From your input, system context, and model output combined','Only from documents you upload'],correct:1}
+   ]
+  },
+  {id:'claude-02',brand:'claude',title:'Understanding AI tokens: what they are and why they matter.',time:'5 min',type:'free',file:'claude-ai-tokens-explained.html'}, 
+  {id:'claude-03',brand:'claude',title:'Why model choice matters: same task, three price tags.',time:'5 min',type:'free',file:'claude-why-model-choice-matters.html'},
+  {id:'claude-04',brand:'claude',title:'How token load builds up — and what to do about it.',time:'5 min',type:'free',file:'claude-token-load-conversations.html'},
+  {id:'claude-05',brand:'claude',title:'Five Claude habits that save time every day.',time:'10 min',type:'free',file:'claude-common-patterns-professional-habits.html'},
+  {id:'claude-06',brand:'claude',title:'Claude prompting guide for enterprise teams.',time:'10 min',type:'free',file:'claude-prompting-playbook-professionals.html'},
+  {id:'claude-07',brand:'claude',title:'Claude projects for teams: setup and scaling guide.',time:'5 min',type:'free',file:'claude-projects-team-guide.html'},
+  {id:'claude-08',brand:'claude',title:'Claude data privacy at work: enterprise compliance guide.',time:'5 min',type:'free',file:'claude-data-privacy-what-not-to-share.html'},
+  {id:'claude-09',brand:'claude',title:'Why Claude responds the way it does: understanding AI reasoning.',time:'5 min',type:'free',file:'claude-how-claude-thinks-and-reasons.html'},
+  {id:'gemini-01',brand:'gemini',title:'Gemini in Gmail: Cut Through Inbox Overload and Find What You Need Fast.',time:'5 min',type:'free',file:'gemini-gmail-inbox-overload.html'},
+  {id:'gemini-02',brand:'gemini',title:'Gemini Help Me Write: Professional Emails in Your Voice, Not a Robot\'s.',time:'5 min',type:'free',file:'gemini-help-me-write-brand-voice.html'},
+  {id:'gemini-03',brand:'gemini',title:'Gemini in Google Meet: Never Write Meeting Notes or Action Items Again.',time:'5 min',type:'free',file:'gemini-meet-automated-notes.html'},
+  {id:'gemini-04',brand:'gemini',title:'Gemini in Sheets: Clean Messy Data and Build Tables Without Lifting a Finger.',time:'5 min',type:'free',file:'gemini-sheets-clean-data.html'},
+  {id:'gemini-05',brand:'gemini',title:'Gemini in Sheets: Write and Fix Complex Formulas Without Knowing How.',time:'5 min',type:'free',file:'gemini-sheets-formulas-debugger.html'},
+  {id:'gemini-06',brand:'gemini',title:'Gemini in Docs: Go From Blank Page to Corporate Proposal in Minutes.',time:'5 min',type:'free',file:'gemini-docs-proposal-builder.html'},
+  {id:'gemini-07',brand:'gemini',title:'Gemini in Docs: Write Reports Grounded in Your Own Company Data.',time:'5 min',type:'free',file:'gemini-docs-workspace-grounding.html'},
+  {id:'gemini-08',brand:'gemini',title:'Gemini in Slides: Turn a Text Brief Into a Full Pitch Deck Automatically.',time:'5 min',type:'free',file:'gemini-slides-pitch-deck-generator.html'},
+  {id:'gemini-09',brand:'gemini',title:'Gemini in Slides: Generate On-Brand Visuals Without a Designer.',time:'5 min',type:'free',file:'gemini-slides-enterprise-images.html'},
+  {id:'gemini-10',brand:'gemini',title:'Gemini in Drive: Read, Compare and Query Multiple Documents at Once.',time:'5 min',type:'free',file:'gemini-drive-multi-document-analysis.html'},
+  {id:'gemini-11',brand:'gemini',title:'Gemini Gems: Build Custom AI Assistants Your Whole Team Can Use.',time:'5 min',type:'free',file:'gemini-gems-custom-team-assistants.html'},
+  {id:'gemini-12',brand:'gemini',title:'Gemini for Admins: Control Who Uses AI and Keep Company Data Safe.',time:'5 min',type:'free',file:'gemini-admins-security-data-privacy.html'}
+];
+
+var activeTab='claude';
+var cur=0,visited=[],sel={},quizSubmitted=false,quizDone=false,activeCourse=null;
+
+function switchTab(tab){
+  activeTab=tab;
+  document.getElementById('tabClaude').className='tab-btn'+(tab==='claude'?' active-claude':'');
+  document.getElementById('tabGemini').className='tab-btn'+(tab==='gemini'?' active-gemini':'');
+  renderGrid();
+}
+
+function renderGrid(){
+  var g=document.getElementById('coursesGrid');
+  var filtered=COURSES.filter(function(c){return c.brand===activeTab;});
+  g.innerHTML=filtered.map(function(c){
+    var badgeHtml='';
+    if(c.type==='free') badgeHtml='<span class="badge badge-free">Free</span>';
+    else if(c.type==='premium') badgeHtml='<span class="badge badge-premium">Premium</span>';
+    else badgeHtml='<span class="badge badge-coming">Coming soon</span>';
+    var brandClass=c.brand==='claude'?'brand-claude':'brand-gemini';
+    var brandLabel=c.brand==='claude'?'Claude AI':'Gemini AI';
+    var isActive=c.type==='free';
+    var barCls=c.brand==='gemini'?'bar-gemini':(isActive?'bar-claude':'bar-locked');
+    var isG=c.brand==='gemini';
+    var actionIcon=isActive?('<div class="card-action'+(isG?' card-action-g':'')+'" aria-hidden="true"><i class="ti ti-arrow-up-right"></i></div>'):'';
+    var lockEl=!isActive?'<div class="card-lock" aria-hidden="true"><i class="ti ti-lock"></i></div>':'';
+    return '<div class="card'+(isActive?' active-card':' locked')+'" '+(isActive?'onclick="openCourse(\''+c.id+'\')"':'')+' role="'+(isActive?'button':'article')+'">'+lockEl+'<div class="card-top-bar '+barCls+'"></div><div class="card-body"><div class="card-brand '+brandClass+'">'+brandLabel+'</div><h3>'+c.title+'</h3><div class="card-meta"><div class="card-meta-left">'+badgeHtml+'<span class="card-time"><i class="ti ti-clock" style="font-size:11px" aria-hidden="true"></i> '+c.time+'</span></div>'+actionIcon+'</div></div></div>';
+  }).join('');
+}
+
+function openCourse(id){
+  activeCourse=COURSES.find(function(c){return c.id===id;});
+  if(!activeCourse)return;
+  if(activeCourse.file){window.location.href=activeCourse.file;return;}
+  cur=0;visited=Array(activeCourse.sections.length).fill(false);
+  var isG=activeCourse.brand==='gemini';
+  document.getElementById('sideLabel').className='course-label '+(isG?'lbl-gemini':'lbl-claude');
+  document.getElementById('sideLabel').textContent=(isG?'Gemini AI':'Claude AI')+' — Mini-course';
+  document.getElementById('sideTitle').textContent=activeCourse.title;
+  document.getElementById('pf').className='prog-fill '+(isG?'fill-gemini':'fill-claude');
+  document.getElementById('btnFwd').className=isG?'btn-fwd-g':'btn-fwd-c';
+  document.getElementById('homeView').style.display='none';
+  document.getElementById('courseView').style.display='block';
+  window.scrollTo(0,0);
+  render();
+}
+
+function goHome(){
+  document.getElementById('courseView').style.display='none';
+  document.getElementById('homeView').style.display='block';
+  window.scrollTo(0,0);
+}
+
+function buildQuiz(){
+  if(!activeCourse)return'';
+  if(quizDone){
+    var score=0;
+    activeCourse.quiz.forEach(function(q,i){if(sel[i]===q.correct)score++;});
+    var msgs=['Review the course carefully and try again.','Good effort — revisit sections 2 and 3.','Almost there! One more review and you will nail it.','Perfect score! You are ready to apply this today.'];
+    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
+  }
+  var html='';
+  activeCourse.quiz.forEach(function(q,i){
+    html+='<div class="quiz-q"><p>'+(i+1)+'. '+q.q+'</p>';
+    q.opts.forEach(function(o,j){
+      var cls='opt';
+      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
+      else if(sel[i]===j)cls+=' selected';
+      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+o+'</div>';
+    });
+    html+='</div>';
+  });
+  var allSel=Object.keys(sel).length===activeCourse.quiz.length;
+  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
+  else html+='<button class="'+(activeCourse.brand==='gemini'?'btn-fwd-g':'btn-fwd-c')+'" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
+  return html;
+}
+
+function render(){
+  if(!activeCourse)return;
+  var total=activeCourse.sections.length;
+  var pct=Math.round(((cur+1)/total)*100);
+  document.getElementById('pf').style.width=pct+'%';
+  document.getElementById('progTxt').textContent=(cur+1)+' of '+total;
+  document.getElementById('heroTag').className='section-tag '+(activeCourse.brand==='gemini'?'tag-gemini':'tag-claude');
+  document.getElementById('heroTag').textContent=activeCourse.heroes[cur].tag;
+  document.getElementById('heroTitle').textContent=activeCourse.heroes[cur].title;
+  document.getElementById('sectionHero').className='section-hero '+(activeCourse.brand==='gemini'?'hero-gemini':'hero-claude');
+  var nl='';
+  activeCourse.sections.forEach(function(s,i){
+    var isG=activeCourse.brand==='gemini';
+    var dotCls='nav-dot';
+    if(visited[i]&&i!==cur)dotCls+=(isG?' done-g':' done-c');
+    else if(i===cur)dotCls+=(isG?' active-g':' active-c');
+    var itemCls='nav-item'+(i===cur?(isG?' active-g':' active-c'):'');
+    var dotContent=visited[i]&&i!==cur?'<i class="ti ti-check" style="font-size:11px"></i>':(i+1);
+    nl+='<div class="'+itemCls+'" onclick="go('+i+')"><div class="'+dotCls+'">'+dotContent+'</div><div class="nav-text">'+s+'</div></div>';
+  });
+  document.getElementById('navList').innerHTML=nl;
+  document.getElementById('cnt').innerHTML=activeCourse.bodies[cur]();
+  document.getElementById('btnBack').disabled=(cur===0);
+  var fwd=document.getElementById('btnFwd');
+  var isLast=cur===total-1;
+  fwd.style.display=isLast?'none':'';
+  if(!isLast)fwd.innerHTML=(cur===total-2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';
+  if(cur===total-1){
+    document.getElementById('cnt').addEventListener('click',function(e){
+      if(quizSubmitted||quizDone)return;
+      var opt=e.target.closest('.opt');
+      if(!opt)return;
+      sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
+      render();
+    });
+  }
+}
+
+function go(n){
+  if(!activeCourse||n<0||n>=activeCourse.sections.length)return;
+  visited[n]=true;cur=n;render();
+}
+function goFwd(){if(activeCourse&&cur<activeCourse.sections.length-1)go(cur+1);}
+function submitAll(){if(Object.keys(sel).length<activeCourse.quiz.length)return;quizSubmitted=true;render();}
+function showResult(){quizDone=true;render();}
+function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
+function toggleFaq(el){var a=el.nextElementSibling;a.classList.toggle('open');}
+
+renderGrid();
+</script>
+
+<div class="cookie-banner" id="cookieBanner">
+  <p>We use essential cookies to save your quiz progress locally in your browser. No tracking, no advertising. <a href="/legal.html#cookies">Learn more</a>.</p>
+  <div class="cookie-banner-btns">
+    <button class="cookie-decline" onclick="dismissCookie()">Decline</button>
+    <button class="cookie-accept" onclick="acceptCookie()">Accept</button>
+  </div>
+</div>
+<script>
+if(localStorage.getItem('pw_cookie_consent')){document.getElementById('cookieBanner').style.display='none';}
+function acceptCookie(){localStorage.setItem('pw_cookie_consent','accepted');document.getElementById('cookieBanner').style.display='none';}
+function dismissCookie(){localStorage.setItem('pw_cookie_consent','declined');document.getElementById('cookieBanner').style.display='none';}
+</script>
+</body>
+</html>
