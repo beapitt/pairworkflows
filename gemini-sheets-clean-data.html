@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Gemini in Sheets: Clean Messy Data and Build Tables Without Lifting a Finger. — PairWorkflows</title>
+<meta name="description" content="Master Gemini in Google Sheets to automate data cleansing, parse unformatted text, and build structured corporate tables instantly.">
+<link rel="canonical" href="https://www.pairworkflows.com/gemini-sheets-clean-data.html">
+
+<meta property="og:title" content="Gemini in Sheets: Clean Messy Data and Build Tables Without Lifting a Finger. — PairWorkflows">
+<meta property="og:description" content="Master Gemini in Google Sheets to automate data cleansing and build structured corporate tables instantly.">
+<meta property="og:url" content="https://www.pairworkflows.com/gemini-sheets-clean-data.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PairWorkflows">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gemini in Sheets: Clean Messy Data and Build Tables Without Lifting a Finger. — PairWorkflows">
+<meta name="twitter:description" content="Automate spreadsheet workflows using Gemini in Google Sheets.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', 'Segoe UI', Helvetica Neue, sans-serif;
+    background: #042e1f;
+    color: #1a1a2e;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Navbar ── */
+  .navbar {
+    background: #021a12;
+    border-bottom: 1px solid #0a4a30;
+    padding: 0 2rem;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: baseline;
+    gap: 1px;
+    text-decoration: none;
+  }
+
+  .logo-pair { font-size: 16px; font-weight: 600; color: #1d9e75; letter-spacing: -0.3px; }
+  .logo-workflows { font-size: 16px; font-weight: 400; color: #ffffff; }
+
+  .nav-back {
+    font-size: 13px;
+    color: #6b9e8a;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color .15s;
+  }
+
+  .nav-back:hover { color: #1d9e75; }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .nav-badge {
+    background: #0a4a30;
+    color: #1d9e75;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+
+  .nav-time {
+    font-size: 13px;
+    color: #6b9e8a;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* ── Main content area ── */
+  .page-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 2rem 1rem;
+    flex: 1;
+  }
+
+  .course-shell {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 24px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.08);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 580px;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    background: #f8fafb;
+    border-right: 1px solid #e8ecef;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-top {
+    padding: 1.5rem 1.25rem 1rem;
+    border-bottom: 1px solid #e8ecef;
+  }
+
+  .course-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: #0f6e56;
+    margin-bottom: .5rem;
+  }
+
+  .course-title-side {
+    font-size: 13px;
+    font-weight: 500;
+    color: #1a1a2e;
+    line-height: 1.45;
+  }
+
+  .prog-wrap { padding: 1rem 1.25rem .75rem; }
+
+  .prog-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #6b7280;
+    margin-bottom: .4rem;
+  }
+
+  .prog-track {
+    height: 5px;
+    background: #e8ecef;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .prog-fill {
+    height: 5px;
+    background: linear-gradient(90deg, #1d9e75, #0f6e56);
+    border-radius: 3px;
+    transition: width .35s ease;
+  }
+
+  .nav-list { padding: .5rem 0; flex: 1; }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: .7rem 1.25rem;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all .15s;
+  }
+
+  .nav-item:hover { background: #eef1f4; }
+
+  .nav-item.active {
+    border-left-color: #1d9e75;
+    background: #ffffff;
+  }
+
+  .nav-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid #d1d5db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 500;
+    color: #6b7280;
+    flex-shrink: 0;
+    transition: all .15s;
+  }
+
+  .nav-dot.done { background: #1d9e75; border-color: #1d9e75; color: #ffffff; }
+
+  .nav-dot.active { border-color: #1d9e75; color: #0f6e56; font-weight: 600; }
+
+  .nav-text { font-size: 13px; color: #6b7280; line-height: 1.35; }
+
+  .nav-item.active .nav-text { color: #1a1a2e; font-weight: 500; }
+
+  /* ── Content area ── */
+  .content-area { display: flex; flex-direction: column; }
+
+  .section-hero {
+    background: linear-gradient(135deg, #085041 0%, #0f6e56 45%, #185fa5 100%);
+    padding: 1.75rem 2rem;
+  }
+
+  .section-tag {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: .5rem;
+  }
+
+  .section-hero h2 {
+    font-size: 22px;
+    font-weight: 500;
+    color: #ffffff;
+    line-height: 1.3;
+    max-width: 560px;
+  }
+
+  .content-body {
+    padding: 1.75rem 2rem;
+    flex: 1;
+    max-width: 750px;
+  }
+
+  .seo-section {
+    display: none;
+  }
+  .seo-section.active-section {
+    display: block;
+  }
+
+  .seo-section p {
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  /* ── Visual Element 1: Comparison Table ── */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 13px;
+    border: 1px solid #e8ecef;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .compare-table th {
+    background: #fafbfc;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    color: #4b5563;
+    text-align: left;
+    border-bottom: 1px solid #e8ecef;
+  }
+
+  .compare-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e8ecef;
+    vertical-align: top;
+  }
+
+  .raw-messy { background: #fff5f5; color: #b91c1c; font-family: monospace; }
+  .clean-struct { background: #f0fdf4; color: #166534; font-weight: 500; }
+
+  /* ── Visual Element 2: Prompt Container ── */
+  .prompt-container {
+    background: #f8fafb;
+    border: 1px solid #e8ecef;
+    border-left: 3px solid #1d9e75;
+    border-radius: 0 10px 10px 0;
+    padding: 1.25rem;
+    margin: 1.5rem 0;
+    position: relative;
+  }
+
+  .prompt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .6rem;
+  }
+
+  .prompt-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #0f6e56;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+
+  .copy-btn {
+    background: transparent;
+    border: none;
+    color: #6b7280;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: inherit;
+    transition: color .15s;
+  }
+
+  .copy-btn:hover { color: #1a1a2e; }
+
+  .prompt-text {
+    font-family: 'SFMono-Regular', Consolas, monospace;
+    font-size: 13px;
+    color: #232733;
+    white-space: pre-wrap;
+    word-break: break-word;
+    background: #ffffff;
+    padding: .75rem;
+    border-radius: 6px;
+    border: 1px solid #e8ecef;
+  }
+
+  /* ── Visual Element 3: Use Case Grid ── */
+  .use-case-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 1.5rem 0;
+  }
+
+  .use-case-card {
+    background: #fafbfc;
+    border: 1px solid #e8ecef;
+    border-radius: 8px;
+    padding: 1rem;
+    transition: border-color .15s;
+  }
+
+  .use-case-card:hover { border-color: #1d9e75; }
+
+  .card-icon {
+    font-size: 18px;
+    color: #1d9e75;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 0.25rem;
+  }
+
+  .card-desc {
+    font-size: 11px;
+    color: #6b7280;
+    line-height: 1.4;
+  }
+
+  .info-box {
+    background: #e1f5ee;
+    border-left: 3px solid #1d9e75;
+    border-radius: 0 10px 10px 0;
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0;
+  }
+
+  .info-box p { color: #085041; margin: 0; font-size: 13px; line-height: 1.65; }
+
+  /* ── Footer nav ── */
+  .content-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2rem;
+    border-top: 1px solid #f0f2f5;
+    background: #fafbfc;
+  }
+
+  .btn-back {
+    background: transparent;
+    border: 1px solid #d1d5db;
+    color: #6b7280;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .15s;
+  }
+
+  .btn-back:hover { background: #f0f2f5; }
+  .btn-back:disabled { opacity: .35; cursor: default; }
+
+  .btn-fwd {
+    background: #1d9e75;
+    color: #ffffff;
+    border: none;
+    padding: 8px 22px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .15s;
+  }
+
+  .btn-fwd:hover { background: #0f6e56; }
+  .btn-fwd:disabled { opacity: .35; cursor: default; }
+
+  /* ── Quiz ── */
+  .quiz-q { margin-bottom: 1.5rem; }
+
+  .quiz-q h3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a1a2e;
+    margin-bottom: .75rem;
+    line-height: 1.55;
+  }
+
+  .opt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: .7rem 1rem;
+    border: 1px solid #e8ecef;
+    border-radius: 10px;
+    margin-bottom: .5rem;
+    cursor: pointer;
+    font-size: 13px;
+    color: #374151;
+    transition: all .15s;
+    line-height: 1.45;
+  }
+
+  .opt:hover:not(.locked) { background: #f5fdf9; border-color: #9fe1cb; }
+
+  .radio {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid #d1d5db;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .15s;
+  }
+
+  .opt.selected { border-color: #378add; background: #edf5fd; color: #0c447c; }
+  .opt.selected .radio { border-color: #378add; background: #378add; }
+  .opt.selected .radio::after { content:''; width:7px; height:7px; border-radius:50%; background:#fff; display:block; }
+
+  .opt.correct { border-color: #1d9e75; background: #e1f5ee; color: #085041; }
+  .opt.correct .radio { border-color: #1d9e75; background: #1d9e75; }
+  .opt.correct .radio::after { content:''; width:7px; height:7px; border-radius:50%; background:#fff; display:block; }
+
+  .opt.wrong { border-color: #e24b4a; background: #fcebeb; color: #a32d2d; }
+  .opt.wrong .radio { border-color: #e24b4a; background: #e24b4a; }
+  .opt.wrong .radio::after { content:''; width:7px; height:7px; border-radius:50%; background:#fff; display:block; }
+
+  .submit-global {
+    background: #1a1a2e;
+    color: #ffffff;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all .15s;
+  }
+
+  .submit-global:hover { background: #0f6e56; }
+  .submit-global:disabled { opacity: .35; cursor: default; }
+
+  .result-box {
+    background: #f8fafb;
+    border-radius: 14px;
+    padding: 2rem;
+    text-align: center;
+    border: 1px solid #e8ecef;
+    margin-top: 1rem;
+  }
+
+  .result-score { font-size: 48px; font-weight: 600; color: #1d9e75; margin-bottom: .5rem; line-height: 1; }
+  .result-msg { font-size: 15px; color: #374151; margin-bottom: 1.25rem; line-height: 1.6; }
+
+  .retake-btn {
+    background: transparent;
+    border: 1.5px solid #1d9e75;
+    color: #0f6e56;
+    padding: 8px 22px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .15s;
+  }
+
+  .retake-btn:hover { background: #e1f5ee; }
+
+  /* ── Page footer ── */
+  .page-footer {
+    background: #021a12;
+    border-top: 1px solid #0a4a30;
+    padding: 1rem 2rem;
+    text-align: center;
+    font-size: 12px;
+    color: #4a7a60;
+    flex-shrink: 0;
+  }
+
+  .page-footer a { color: #1d9e75; text-decoration: none; }
+  .page-footer a:hover { text-underline-position: under; text-decoration: underline; }
+
+  /* ── Mobile responsive ── */
+  @media (max-width: 700px) {
+    .navbar { padding: 0 1rem; }
+    .page-wrap { padding: 1rem .5rem; }
+    .course-shell { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .content-body { padding: 1.25rem 1rem; max-width: 100%; }
+    .section-hero { padding: 1.25rem 1rem; }
+    .content-footer { padding: 1rem; }
+    .use-case-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="https://www.pairworkflows.com" class="nav-logo">
+    <span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span>
+  </a>
+  <a href="https://www.pairworkflows.com/index.html" class="nav-back">
+    <i class="ti ti-arrow-left" style="font-size:13px"></i>Back to courses
+  </a>
+  <div class="nav-right">
+    <span class="nav-time"><i class="ti ti-clock" style="font-size:13px"></i>5 min</span>
+    <span class="nav-badge">Free</span>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="course-shell">
+
+    <div class="sidebar">
+      <div class="sidebar-top">
+        <div class="course-label">Gemini AI — Course 4 of 12</div>
+        <div class="course-title-side">Gemini in Sheets: Clean Messy Data and Build Tables Without Lifting a Finger.</div>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-label">
+          <span>Progress</span>
+          <span id="progTxt">1 of 4</span>
+        </div>
+        <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+      </div>
+      <div class="nav-list">
+        <div class="nav-item active" id="ni0" onclick="go(0)">
+          <div class="nav-dot active" id="nd0">1</div>
+          <div class="nav-text">The data cleansing gap</div>
+        </div>
+        <div class="nav-item" id="ni1" onclick="go(1)">
+          <div class="nav-dot" id="nd1">2</div>
+          <div class="nav-text">Automated regex parsing</div>
+        </div>
+        <div class="nav-item" id="ni2" onclick="go(2)">
+          <div class="nav-dot" id="nd2">3</div>
+          <div class="nav-text">Real-world deployments</div>
+        </div>
+        <div class="nav-item" id="ni3" onclick="go(3)">
+          <div class="nav-dot" id="nd3">4</div>
+          <div class="nav-text">Quiz: test your knowledge</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-area">
+      <div class="section-hero">
+        <div class="section-tag" id="heroTag">Section 01</div>
+        <h2 id="heroTitle">The data cleansing gap: overcoming unformatted data structures.</h2>
+      </div>
+      
+      <div class="content-body" id="cnt">
+        
+        <!-- STEP 0 -->
+        <div id="seo-sec-0" class="seo-section active-section">
+          <p>Processing unformatted legacy system extracts inside corporate spreadsheets traditionally demands hours of manual formula mapping, text-to-columns execution, and syntax adjustments. Mixed regional date schemas, unparsed strings, and trailing symbols easily degrade tracking analysis sheets.</p>
+          <p>By leveraging Gemini directly within your data workspace panel, you skip complex formula nesting. The AI analyzes structural text distributions to automatically build sanitized, multi-column row records.</p>
+          
+          <!-- TABELLA COMPARATIVA HTML -->
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th style="width: 50%;">Raw Messy Data</th>
+                <th style="width: 50%;">Clean Structured Output</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="raw-messy">ERR_2026//06/05--ID_88392--USD*1250_Vercel_Inc</td>
+                <td class="clean-struct">Vercel Inc | 2026-06-05 | $1,250.00</td>
+              </tr>
+              <tr>
+                <td class="raw-messy">SUPABASE_DB_SYNC_9941_EUR#450_06-04-2026</td>
+                <td class="clean-struct">Supabase | 2026-06-04 | €450.00</td>
+              </tr>
+              <tr>
+                <td class="raw-messy">MESS_STRING_LondonResid_3300_GBP_05.05.26</td>
+                <td class="clean-struct">London Residence | 2026-05-05 | £3,300.00</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>Instead of relying on fragile manual workflows or heavy scripting, this architectural approach guarantees standardized datasets ready for live dashboard deployment.</p>
+        </div>
+
+        <!-- STEP 1 -->
+        <div id="seo-sec-1" class="seo-section">
+          <p>To successfully clean up unstructured textual payloads without fracturing relational cells, you must deploy a clear parsing strategy using specific pattern matching instructions.</p>
+          <p>Isolating currency conversions, timestamp formats, and enterprise identifiers inside the side panel allows Gemini to return flawless table matrices on the first try.</p>
+          
+          <!-- PROMPT CARD CON PULSANTE COPY -->
+          <div class="prompt-container">
+            <div class="prompt-header">
+              <span class="prompt-label">Data Extraction Prompt</span>
+              <button class="copy-btn" onclick="copyPrompt()"><i class="ti ti-copy"></i> Copy prompt</button>
+            </div>
+            <div class="prompt-text" id="prompt-payload">Analyze this unstructured transaction string column: [Insert Range].
+Extract the data points and construct a structured table adhering to these strict output rules:
+- Column A: Company Name (Remove trailing server tags like "_Inc" or "_DB").
+- Column B: ISO Date Format (Standardize all variations to YYYY-MM-DD format).
+- Column C: Monetary Value (Isolate the raw integer, apply float decimal formatting, and prepend matching currency symbol).
+
+Do not output code blocks or summary comments; return only the structured row items.</div>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div id="seo-sec-2" class="seo-section">
+          <p>Automated string parsing brings immediate efficiency gains across diverse corporate departments by transforming messy source files into highly scannable analysis dashboards.</p>
+          
+          <!-- GRIGLIA TRE CASI D'USO REALI -->
+          <div class="use-case-grid">
+            <div class="use-case-card">
+              <i class="ti ti-chart-bar card-icon"></i>
+              <div class="card-title">Finance</div>
+              <div class="card-desc">Parses mixed regional currency symbols and legacy billing extracts into unified reporting ledgers instantly.</div>
+            </div>
+            <div class="use-case-card">
+              <i class="ti ti-users card-icon"></i>
+              <div class="card-title">HR &amp; Operations</div>
+              <div class="card-desc">Standardizes employee directory data schemas, roster sync files, and country identification codes.</div>
+            </div>
+            <div class="use-case-card">
+              <i class="ti ti-database card-icon"></i>
+              <div class="card-title">System Ingestion</div>
+              <div class="card-desc">Cleans up ugly log dumps and server error codes, stripping special symbols out before database import.</div>
+            </div>
+          </div>
+
+          <p>Always review the calculated columns before integrating them into high-stakes financial balance matrices or executive dashboards to catch subtle regional edge cases.</p>
+          <div class="info-box"><p><strong>Operational Checklist:</strong> Verifying data consistency before locking analytical charts prevents downstream formula calculation errors.</p></div>
+        </div>
+
+        <!-- STEP 3 — QUIZ -->
+        <div id="seo-sec-3" class="seo-section">
+          <div id="quiz-interactive-container"></div>
+        </div>
+
+      </div>
+      
+      <div class="content-footer">
+        <button class="btn-back" id="btnBack" onclick="go(cur-1)">
+          <i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back
+        </button>
+        <button class="btn-fwd" id="btnFwd" onclick="goFwd()">
+          Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="page-footer">
+  &copy; 2026 <a href="https://www.pairworkflows.com">PairWorkflows</a>. All rights reserved.
+</footer>
+
+<script>
+var cur = 0;
+var visited = [true,false,false,false];
+var sel = {};
+var quizSubmitted = false;
+var quizDone = false;
+
+var heroes = [
+  {tag:'Section 01', title:'The data cleansing gap: overcoming unformatted data structures.'},
+  {tag:'Section 02', title:'Automated regex parsing: building smart extraction templates.'},
+  {tag:'Section 03', title:'Real-world deployments: practical enterprise business scenarios.'},
+  {tag:'Section 04 — Quiz', title:'Test your knowledge.'}
+];
+
+var quiz = [
+  {
+    q:'What occurs when legacy system exports contain mixed regional schemas and trailing special characters?',
+    opts:[
+      'The platform blocks browser security configurations instantly',
+      'They break standard structural logic and corrupt your sheet tracking results',
+      'They overwrite the formula engine memory limit completely'
+    ],
+    correct: 1
+  },
+  {
+    q:'How does Gemini optimize the parsing of unstructured system logs inside Google Sheets?',
+    opts:[
+      'By automatically writing custom text-parsing macros behind the scenes',
+      'By reading raw textual string distributions and formatting outputs based on explicit row rules',
+      'By converting your entire spreadsheet layout file into a secure PDF format'
+    ],
+    correct: 1
+  },
+  {
+    q:'Which data parameters are cleanly standardized using the copy-paste extraction prompt layout?',
+    opts:[
+      'External database connections and private user password matrices',
+      'Company names, standardized YYYY-MM-DD dates, and formatted monetary numbers',
+      'Local network routing protocols and temporary security configurations'
+    ],
+    correct: 1
+  },
+  {
+    q:'What validation measure should an operations manager follow before locking updated balance tables?',
+    opts:[
+      'Trust the generated layout implicitly to save token allocation limits',
+      'Execute a targeted quality check on the calculated cells to prevent downstream system errors',
+      'Re-export the data immediately back to the unformatted source log'
+    ],
+    correct: 1
+  }
+];
+
+function buildQuizHTML(){
+  if(quizDone){
+    var score=0;
+    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
+    var msgs=[
+      'Review the cleansing layout guidelines again — focus on extraction boundaries and row rules.',
+      'Decent progress — check out the table formatting criteria before advancing.',
+      'Excellent mark! Just one concept to tune — remember how pattern instruction blocks beat automated defaults.',
+      'Perfect score! You have completely mastered Gemini in Sheets data optimization workflows.'
+    ];
+    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
+  }
+  var html='';
+  for(var i=0;i<quiz.length;i++){
+    var q=quiz[i];
+    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
+    for(var j=0;j<q.opts.length;j++){
+      var cls='opt';
+      if(quizSubmitted){
+        if(j===q.correct)cls+=' correct locked';
+        else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';
+        else cls+=' locked';
+      } else if(sel[i]===j){cls+=' selected';}
+      html+='<div class="'+cls+'" data-qi="' + i + '" data-oi="' + j + '"><div class="radio"></div>'+q.opts[j]+'</div>';
+    }
+    html+='</div>';
+  }
+  var allSel=Object.keys(sel).length===quiz.length;
+  if(!quizSubmitted){
+    html+='<button class="submit-global" id="submitBtn" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
+  } else {
+    html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
+  }
+  return html;
+}
+
+function render(){
+  var pct=Math.round(((cur+1)/4)*100);
+  document.getElementById('pf').style.width=pct+'%';
+  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
+  document.getElementById('heroTag').textContent=heroes[cur].tag;
+  document.getElementById('heroTitle').textContent=heroes[cur].title;
+
+  for(var i=0;i<4;i++){
+    var ni=document.getElementById('ni'+i);
+    var nd=document.getElementById('nd'+i);
+    var secBlock=document.getElementById('seo-sec-'+i);
+    
+    ni.className='nav-item'+(i===cur?' active':'');
+    
+    if(i===cur){
+      secBlock.classList.add('active-section');
+    } else {
+      secBlock.classList.remove('active-section');
+    }
+
+    if(visited[i]&&i!==cur){
+      nd.className='nav-dot done';
+      nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';
+    } else if(i===cur){
+      nd.className='nav-dot active';
+      nd.textContent=(i+1);
+    } else {
+      nd.className='nav-dot';
+      nd.textContent=(i+1);
+    }
+  }
+
+  if(cur===3){
+    document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
+  }
+
+  document.getElementById('btnBack').disabled=(cur===0);
+
+  var fwd=document.getElementById('btnFwd');
+  if(cur===3){
+    fwd.style.display='none';
+  } else {
+    fwd.style.display='';
+    fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';
+  }
+}
+
+function go(n){
+  if(n<0||n>3)return;
+  visited[n]=true;
+  cur=n;
+  render();
+}
+
+function goFwd(){
+  if(cur<3)go(cur+1);
+}
+
+function submitAll(){
+  if(Object.keys(sel).length<quiz.length)return;
+  quizSubmitted=true;
+  render();
+}
+
+function showResult(){
+  quizDone=true;
+  render();
+}
+
+function retake(){
+  sel={};
+  quizSubmitted=false;
+  quizDone=false;
+  render();
+}
+
+function copyPrompt() {
+  const text = document.getElementById('prompt-payload').innerText;
+  navigator.clipboard.writeText(text);
+  const btn = document.querySelector('.copy-btn');
+  btn.innerHTML = '<i class="ti ti-check"></i> Copied!';
+  setTimeout(() => {
+    btn.innerHTML = '<i class="ti ti-copy"></i> Copy prompt';
+  }, 2000);
+}
+
+document.getElementById('cnt').addEventListener('click',function(e){
+  if(cur!==3||quizSubmitted||quizDone)return;
+  var opt=e.target.closest('.opt');
+  if(!opt)return;
+  var qi=parseInt(opt.dataset.qi);
+  var oi=parseInt(opt.dataset.oi);
+  sel[qi]=oi;
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
