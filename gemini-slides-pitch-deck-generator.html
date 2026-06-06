@@ -652,30 +652,21 @@
         </div>
 
         <div id="seo-sec-1" class="seo-section">
-          <p>To successfully translate an unstructured content blueprint into a logical commercial deck, your input prompt must carry explicit scope dimensions and structural boundaries.</p>
-          <p>Providing the workspace panel with clear volume expectations, explicit client profiles, and targeted section definitions allows Gemini to split topics cleanly without cluttering individual layout grids.</p>
+          <p>To successfully translate an unstructured content blueprint into a logical commercial deck, your input prompt must carry explicit scope dimensions and structural boundaries. Copy and execute the blueprint prompt card below inside your presentation panel to automatically deploy standard multi-section assets.</p>
           
           <div class="prompt-container">
             <div class="prompt-header">
-              <span class="prompt-label">Pitch Deck Generation Prompt</span>
+              <span class="prompt-label">Pitch Deck Generation Prompt Blueprint</span>
               <button class="copy-btn" onclick="copyPrompt()"><i class="ti ti-copy"></i> Copy prompt</button>
             </div>
-            <div class="prompt-text" id="prompt-payload">Act as an expert corporate presentation architect. Generate a cohesive [Number of Slides] slide pitch deck structure tailored for [Target Audience], based entirely on this business brief: [Insert raw product notes or operational details].
-
-The presentation layout must be customized for our target client [Client Name], showcasing how [Product Name] directly resolves their workflow bottlenecks. 
-
-Ensure the output adheres to this strict structural map:
-- Slide 1: Executive Title & High-level Value Proposition.
-- Slide 2: Core Market Inefficiencies (3 bullet points maximum).
-- Slide 3: Proposed Product Architecture & Ingestion Milestones.
-- Slide 4: Strategic Pricing Matrix & Deployment Timelines.
-
-Maintain a direct, professional tone throughout. Do not generate generic placeholders. Deliver clear titles and concise bulleted arguments for every single slide.</div>
+            <div class="prompt-text" id="prompt-payload">Act as an expert presentation architect. Create a [Number of Slides]-slide pitch deck for [Client Name] about [Product Name]. Target audience: [Target Audience]. Structure each slide with a clear title and maximum 3 bullet points. Keep language direct and executive-facing. Do not use filler phrases like world-class or synergy.</div>
           </div>
+
+          <p>Providing the workspace panel with clear volume expectations, explicit client profiles, and targeted section definitions allows Gemini to split topics cleanly without cluttering individual layout grids.</p>
         </div>
 
         <div id="seo-sec-2" class="seo-section">
-          <p>Once the initial pitch structure is generated, you can highlight separate slide text boxes and trigger targeted refinement loops. Shifting from unconfigured blocks to tailored layouts ensures rapid delivery speeds when preparing last-minute reviews.</p>
+          <p>Once the initial pitch structure is generated, you can highlight separate slide text boxes and trigger targeted refinement loops. Highlight any text block inside a generated slide, then select the Gemini icon that appears to access refinement options including Shorten, Adjust tone, and Elaborate.</p>
           
           <div class="matrix-grid">
             <div class="matrix-card">
@@ -789,7 +780,7 @@ function buildQuizHTML(){
       'Review the presentation guidelines again — focus on content architecture limits and structure parameters.',
       'Decent progress — check out the prompt layout dimensions before attempting the test again.',
       'Excellent mark! Just one concept to tune — remember how native styles wrap around generated text maps.',
-      'Perfect mark! You are fully prepared to automate corporate pitch deck generation workflows with Gemini.'
+      'Perfect mark! You have completely mastered corporate pitch deck generation workflows with Gemini.'
     ];
     return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
   }
