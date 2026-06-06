@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Gemini in Drive: Read, Compare and Query Multiple Documents at Once. — PairWorkflows</title>
+<meta name="description" content="Master multi-document analysis in Google Drive with Gemini. Learn to query, compare, and extract data across multiple corporate files instantly.">
+<link rel="canonical" href="https://www.pairworkflows.com/gemini-drive-multi-document-analysis.html">
+
+<meta property="og:title" content="Gemini in Drive: Read, Compare and Query Multiple Documents at Once. — PairWorkflows">
+<meta property="og:description" content="Analyze and compare multiple documents simultaneously in Google Drive using Gemini.">
+<meta property="og:url" content="https://www.pairworkflows.com/gemini-drive-multi-document-analysis.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PairWorkflows">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gemini in Drive: Read, Compare and Query Multiple Documents at Once. — PairWorkflows">
+<meta name="twitter:description" content="Master multi-document analysis and comparison with Gemini in Google Drive.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', 'Segoe UI', Helvetica Neue, sans-serif;
+    background: #042e1f;
+    color: #1a1a2e;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Navbar ── */
+  .navbar {
+    background: #021a12;
+    border-bottom: 1px solid #0a4a30;
+    padding: 0 2rem;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: baseline;
+    gap: 1px;
+    text-decoration: none;
+  }
+
+  .logo-pair { font-size: 16px; font-weight: 600; color: #1d9e75; letter-spacing: -0.3px; }
+  .logo-workflows { font-size: 16px; font-weight: 400; color: #ffffff; }
+
+  .nav-back {
+    font-size: 13px;
+    color: #6b9e8a;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color .15s;
+  }
+
+  .nav-back:hover { color: #1d9e75; }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .nav-badge {
+    background: #0a4a30;
+    color: #1d9e75;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+
+  .nav-time {
+    font-size: 13px;
+    color: #6b9e8a;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* ── Main content area ── */
+  .page-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 2rem 1rem;
+    flex: 1;
+  }
+
+  .course-shell {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 24px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.08);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 580px;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    background: #f8fafb;
+    border-right: 1px solid #e8ecef;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-top {
+    padding: 1.5rem 1.25rem 1rem;
+    border-bottom: 1px solid #e8ecef;
+  }
+
+  .course-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: #0f6e56;
+    margin-bottom: .5rem;
+  }
+
+  .course-title-side {
+    font-size: 13px;
+    font-weight: 500;
+    color: #1a1a2e;
+    line-height: 1.45;
+  }
+
+  .prog-wrap { padding: 1rem 1.25rem .75rem; }
+
+  .prog-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #6b7280;
+    margin-bottom: .4rem;
+  }
+
+  .prog-track {
+    height: 5px;
+    background: #e8ecef;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .prog-fill {
+    height: 5px;
+    background: linear-gradient(90deg, #1d9e75, #0f6e56);
+    border-radius: 3px;
+    transition: width .35s ease;
+  }
+
+  .nav-list { padding: .5rem 0; flex: 1; }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: .7rem 1.25rem;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all .15s;
+  }
+
+  .nav-item:hover { background: #eef1f4; }
+
+  .nav-item.active {
+    border-left-color: #1d9e75;
+    background: #ffffff;
+  }
+
+  .nav-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid #d1d5db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 500;
+    color: #6b7280;
+    flex-shrink: 0;
+    transition: all .15s;
+  }
+
+  .nav-dot.done { background: #1d9e75; border-color: #1d9e75; color: #ffffff; }
+
+  .nav-dot.active { border-color: #1d9e75; color: #0f6e56; font-weight: 600; }
+
+  .nav-text { font-size: 13px; color: #6b7280; line-height: 1.35; }
+
+  .nav-item.active .nav-text { color: #1a1a2e; font-weight: 500; }
+
+  /* ── Content area ── */
+  .content-area { display: flex; flex-direction: column; }
+
+  .section-hero {
+    background: linear-gradient(135deg, #085041 0%, #0f6e56 45%, #185fa5 100%);
+    padding: 1.75rem 2rem;
+  }
+
+  .section-tag {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: .5rem;
+  }
+
+  .section-hero h2 {
+    font-size: 22px;
+    font-weight: 500;
+    color: #ffffff;
+    line-height: 1.3;
+    max-width: 560px;
+  }
+
+  .content-body {
+    padding: 1.75rem 2rem;
+    flex: 1;
+    max-width: 750px;
+  }
+
+  .seo-section { display: none; }
+  .seo-section.active-section { display: block; }
+
+  .seo-section p {
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  /* ── Visual Element 1: Comparison Table ── */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 13px;
+    border: 1px solid #e8ecef;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .compare-table th {
+    background: #fafbfc;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    color: #4b5563;
+    text-align: left;
+    border-bottom: 1px solid #e8ecef;
+  }
+
+  .compare-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e8ecef;
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  .rev-manual { background: #fee2e2; color: #b91c1c; }
+  .rev-gemini { background: #e1f5ee; color: #085041; font-weight: 500; }
+
+  /* ── Visual Element 2: Prompt Container ── */
+  .prompt-container {
+    background: #f8fafb;
+    border: 1px solid #e8ecef;
+    border-left: 3px solid #1d9e75;
+    border-radius: 0 10px 10px 0;
+    padding: 1.25rem;
+    margin: 1.5rem 0;
+    position: relative;
+  }
+
+  .prompt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .6rem;
+  }
+
+  .prompt-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #0f6e56;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+
+  .copy-btn {
+    background: transparent;
+    border: none;
+    color: #6b7280;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: inherit;
+    transition: color .15s;
+  }
+
+  .copy-btn:hover { color: #1a1a2e; }
+
+  .prompt-text {
+    font-family: 'SFMono-Regular', Consolas, monospace;
+    font-size: 13px;
+    color: #232733;
+    white-space: pre-wrap;
+    word-break: break-word;
+    background: #ffffff;
+    padding: .75rem;
+    border-radius: 6px;
+    border: 1px solid #e8ecef;
+  }
+
+  /* ── Visual Element 3: Scenario Grid ── */
+  .matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 1.5rem 0;
+  }
+
+  .matrix-card {
+    background: #f8fafb;
+    border: 1px solid #e8ecef;
+    border-top: 3px solid #1d9e75;
+    border-radius: 4px 4px 8px 8px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .matrix-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #0f6e56;
+  }
+
+  .matrix-card-icon {
+    font-size: 16px;
+    color: #1d9e75;
+  }
+
+  .matrix-card-desc {
+    font-size: 12px;
+    color: #4b5563;
+    line-height: 1.45;
+  }
+
+  /* ── Footer nav ── */
+  .content-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2rem;
+    border-top: 1px solid #f0f2f5;
+    background: #fafbfc;
+  }
+
+  .btn-back {
+    background: transparent;
+    border: 1px solid #d1d5db;
+    color: #6b7280;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .15s;
+  }
+
+  .btn-back:hover { background: #f0f2f5; }
+  .btn-back:disabled { opacity: .35; cursor: default; }
+
+  .btn-fwd {
+    background: #1d9e75;
+    color: #ffffff;
+    border: none;
+    padding: 8px 22px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .15s;
+  }
+
+  .btn-fwd:hover { background: #0f6e56; }
+  .btn-fwd:disabled { opacity: .35; cursor: default; }
+
+  /* ── Quiz ── */
+  .quiz-q { margin-bottom: 1.5rem; }
+
+  .quiz-q h3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a1a2e;
+    margin-bottom: .75rem;
+    line-height: 1.55;
+  }
+
+  .opt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: .7rem 1rem;
+    border: 1px solid #e8ecef;
+    border-radius: 10px;
+    margin-bottom: .5rem;
+    cursor: pointer;
+    font-size: 13px;
+    color: #374151;
+    transition: all .15s;
+    line-height: 1.45;
+  }
+
+  .opt:hover:not(.locked) { background: #f5fdf9; border-color: #9fe1cb; }
+
+  .radio {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid #d1d5db;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .15s;
+  }
+
+  .opt.selected { border-color: #378add; background: #edf5fd; color: #0c447c; }
+  .opt.selected .radio { border-color: #378add; background: #378add; }
+  .opt.selected .radio::after { content:''; width:7px; height:7px; border-radius:50%; background:#fff; display:block; }
+
+  .opt.correct { border-color: #1d9e75; background: #e1f5ee; color: #085041; }
+  .opt.correct .radio { border-color: #1d9e75; background: #1d9e75; }
+  .opt.correct .radio::after { content:''; width:7px; height:7px; border-radius:50%; background:#fff; display:block; }
+
+  .opt.wrong { border-color: #e24b4a; background: #fcebeb; color: #a32d2d; }
+  .opt.wrong .radio { border-color: #e24b4a; background: #e24b4a; }
+  .opt.wrong .radio::after { content:''; width:7px; height:7px; border-radius:50%; background:#fff; display:block; }
+
+  .submit-global {
+    background: #1a1a2e;
+    color: #ffffff;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all .15s;
+  }
+
+  .submit-global:hover { background: #0f6e56; }
+  .submit-global:disabled { opacity: .35; cursor: default; }
+
+  .result-box {
+    background: #f8fafb;
+    border-radius: 14px;
+    padding: 2rem;
+    text-align: center;
+    border: 1px solid #e8ecef;
+    margin-top: 1rem;
+  }
+
+  .result-score { font-size: 48px; font-weight: 600; color: #1d9e75; margin-bottom: .5rem; line-height: 1; }
+  .result-msg { font-size: 15px; color: #374151; margin-bottom: 1.25rem; line-height: 1.6; }
+
+  .retake-btn {
+    background: transparent;
+    border: 1.5px solid #1d9e75;
+    color: #0f6e56;
+    padding: 8px 22px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .15s;
+  }
+
+  .retake-btn:hover { background: #e1f5ee; }
+
+  /* ── Mobile responsive ── */
+  @media (max-width: 700px) {
+    .navbar { padding: 0 1rem; }
+    .page-wrap { padding: 1rem .5rem; }
+    .course-shell { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .content-body { padding: 1.25rem 1rem; max-width: 100%; }
+    .section-hero { padding: 1.25rem 1rem; }
+    .content-footer { padding: 1rem; }
+    .matrix-grid { grid-template-columns: 1fr; gap: 12px; }
+  }
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "Gemini in Drive: Read, Compare and Query Multiple Documents at Once.",
+  "description": "Master multi-document analysis in Google Drive with Gemini. Learn to query, compare, and extract data across multiple corporate files instantly.",
+  "url": "https://www.pairworkflows.com/gemini-drive-multi-document-analysis.html",
+  "provider": {
+    "@type": "Organization",
+    "name": "PairWorkflows",
+    "sameAs": "https://www.pairworkflows.com"
+  },
+  "timeRequired": "PT5M",
+  "isAccessibleForFree": true,
+  "inLanguage": "en",
+  "offers": {
+    "@type": "Offer",
+    "category": "Free",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "Online",
+    "courseWorkload": "PT5M"
+  }
+}
+</script>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="https://www.pairworkflows.com" class="nav-logo">
+    <span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span>
+  </a>
+  <a href="https://www.pairworkflows.com/index.html" class="nav-back">
+    <i class="ti ti-arrow-left" style="font-size:13px"></i>Back to courses
+  </a>
+  <div class="nav-right">
+    <span class="nav-time"><i class="ti ti-clock" style="font-size:13px"></i>5 min</span>
+    <span class="nav-badge">Free</span>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="course-shell">
+
+    <div class="sidebar">
+      <div class="sidebar-top">
+        <div class="course-label">Gemini AI — Course 10 of 12</div>
+        <div class="course-title-side">Gemini in Drive: Read, Compare and Query Multiple Documents at Once.</div>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-label">
+          <span>Progress</span>
+          <span id="progTxt">1 of 4</span>
+        </div>
+        <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+      </div>
+      <div class="nav-list">
+        <div class="nav-item active" id="ni0" onclick="go(0)">
+          <div class="nav-dot active" id="nd0">1</div>
+          <div class="nav-text">Multi-document review</div>
+        </div>
+        <div class="nav-item" id="ni1" onclick="go(1)">
+          <div class="nav-dot" id="nd1">2</div>
+          <div class="nav-text">Querying simultaneous files</div>
+        </div>
+        <div class="nav-item" id="ni2" onclick="go(2)">
+          <div class="nav-dot" id="nd2">3</div>
+          <div class="nav-text">Corporate application scenarios</div>
+        </div>
+        <div class="nav-item" id="ni3" onclick="go(3)">
+          <div class="nav-dot" id="nd3">4</div>
+          <div class="nav-text">Quiz: test your knowledge</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-area">
+      <div class="section-hero">
+        <div class="section-tag" id="heroTag">Section 01</div>
+        <h2 id="heroTitle">Multi-document review: solving the fragmentation problem.</h2>
+      </div>
+      
+      <div class="content-body" id="cnt">
+        
+        <div id="seo-sec-0" class="seo-section active-section">
+          <p>Managers and analysts often face the bottleneck of manual document review, where they must open dozens of files individually to cross-reference data. This traditional process is slow, prone to human error, and fails to scale when volume grows.</p>
+          <p>Gemini in Google Drive transforms this by enabling simultaneous queries. It reads through multiple selected documents that you have access to, allowing you to ask questions about the combined dataset without needing to open or merge individual files.</p>
+          
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th style="width: 50%;">Manual Document Review</th>
+                <th style="width: 50%;">Gemini Multi-Document Query</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="rev-manual"><strong>Time:</strong> High, with file-switching friction.</td>
+                <td class="rev-gemini"><strong>Time:</strong> Low, with instant cross-file synthesis.</td>
+              </tr>
+              <tr>
+                <td class="rev-manual"><strong>Error Risk:</strong> High due to cognitive fatigue.</td>
+                <td class="rev-gemini"><strong>Error Risk:</strong> Reduced through systemic data retrieval.</td>
+              </tr>
+              <tr>
+                <td class="rev-manual"><strong>Comparison:</strong> Limited by short-term memory.</td>
+                <td class="rev-gemini"><strong>Comparison:</strong> Unconstrained logical data linking.</td>
+              </tr>
+              <tr>
+                <td class="rev-manual"><strong>Scalability:</strong> Manual review hits hard limits.</td>
+                <td class="rev-gemini"><strong>Scalability:</strong> High, handling many documents fast.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>Please note that Gemini in Drive reads documents you have access to and answers questions about them. It does not merge files or create new documents automatically; it acts as an analytical layer over your existing storage structure.</p>
+        </div>
+
+        <div id="seo-sec-1" class="seo-section">
+          <p>To analyze multiple files at once, use the side panel within Google Drive to initiate your query. By selecting relevant documents as context, you can identify patterns, contradictions, or trends that are hidden across disparate storage folders.</p>
+          
+          <div class="prompt-container">
+            <div class="prompt-header">
+              <span class="prompt-label">Multi-Document Analysis Prompt</span>
+              <button class="copy-btn" onclick="copyPrompt()"><i class="ti ti-copy"></i> Copy prompt</button>
+            </div>
+            <div class="prompt-text" id="prompt-payload">Act as a senior analyst. Compare the content within [Document 1] and [Document 2]. Extract [Specific Data Point to Extract] from both files. Based on the provided comparison criteria of [Comparison Criteria], determine which document presents more favorable terms. List the findings in a clear table format.</div>
+          </div>
+          
+          <p>This method allows for rapid extraction of specific data points across a large set of materials, significantly reducing the time required to understand complex topics.</p>
+        </div>
+
+        <div id="seo-sec-2" class="seo-section">
+          <p>This functionality is essential for high-volume corporate roles where data consistency across documents is a requirement for operational success.</p>
+          
+          <div class="matrix-grid">
+            <div class="matrix-card">
+              <div class="matrix-card-header">
+                <i class="ti ti-gavel matrix-card-icon"></i>
+                <span>1. Legal</span>
+              </div>
+              <div class="matrix-card-desc">Comparing vendor contract terms across multiple active agreements to identify scope creep or liability variations.</div>
+            </div>
+            <div class="matrix-card">
+              <div class="matrix-card-header">
+                <i class="ti ti-chart-dots matrix-card-icon"></i>
+                <span>2. Finance</span>
+              </div>
+              <div class="matrix-card-desc">Extracting critical KPIs and revenue growth metrics from multiple quarterly reports to track annual progress.</div>
+            </div>
+            <div class="matrix-card">
+              <div class="matrix-card-header">
+                <i class="ti ti-users matrix-card-icon"></i>
+                <span>3. HR</span>
+              </div>
+              <div class="matrix-card-desc">Reviewing policy consistency across different regional office handbooks to ensure standard compliance.</div>
+            </div>
+          </div>
+
+          <p>By applying these scenarios, teams shift from reactive reading to proactive data synthesis, ensuring informed decision-making across all corporate functions.</p>
+        </div>
+
+        <div id="seo-sec-3" class="seo-section">
+          <div id="quiz-interactive-container"></div>
+        </div>
+
+      </div>
+      
+      <div class="content-footer">
+        <button class="btn-back" id="btnBack" onclick="go(cur-1)">
+          <i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back
+        </button>
+        <button class="btn-fwd" id="btnFwd" onclick="goFwd()">
+          Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="page-footer" style="background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;">
+  &copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75;text-decoration:none;">PairWorkflows</a>. All rights reserved.
+</footer>
+
+<script>
+var cur = 0;
+var visited = [true,false,false,false];
+var sel = {};
+var quizSubmitted = false;
+var quizDone = false;
+
+var heroes = [
+  {tag: 'Section 01', title: 'Multi-document review: solving the fragmentation problem.'},
+  {tag: 'Section 02', title: 'Querying simultaneous files: executing cross-document analysis.'},
+  {tag: 'Section 03', title: 'Corporate application scenarios: where analysis drives results.'},
+  {tag: 'Section 04 — Quiz', title: 'Test your knowledge.'}
+];
+
+var quiz = [
+  {
+    q: 'What is a core limitation of Gemini in Google Drive when querying multiple files?',
+    opts: [
+      'It cannot read files that are shared with external partners',
+      'It does not merge files or create new documents automatically',
+      'It restricts the number of documents to exactly two per query'
+    ],
+    correct: 1
+  },
+  {
+    q: 'Why is manual document review inefficient in high-volume corporate environments?',
+    opts: [
+      'It creates excessive network traffic for the local browser',
+      'It is slow, prone to human error, and fails to scale effectively',
+      'It requires a separate subscription for each file format used'
+    ],
+    correct: 1
+  },
+  {
+    q: 'What does Gemini in Drive require in order to answer questions about your files?',
+    opts: [
+      'You must first manually merge the documents into a single PDF',
+      'You must have direct access permissions to view the documents',
+      'You must export the files to a plain text format before querying'
+    ],
+    correct: 1
+  },
+  {
+    q: 'Which corporate function benefits from comparing vendor contract terms using multi-document query?',
+    opts: [
+      'The Legal department',
+      'The Internal IT security hardware team',
+      'The external public marketing agency'
+    ],
+    correct: 0
+  }
+];
+
+function buildQuizHTML(){
+  if(quizDone){
+    var score=0;
+    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
+    var msgs=[
+      'Review the query capabilities — remember that Gemini acts as an analytical layer, not a file editor.',
+      'Decent attempt — focus on why multi-document synthesis is superior to manual review before trying again.',
+      'Great job! Just one area to tune — ensure you understand the access permission requirements.',
+      'Perfect mark! You have mastered the multi-document analysis workflow for Google Drive.'
+    ];
+    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
+  }
+  var html='';
+  for(var i=0;i<quiz.length;i++){
+    var q=quiz[i];
+    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
+    for(var j=0;j<q.opts.length;j++){
+      var cls='opt';
+      if(quizSubmitted){
+        if(j===q.correct)cls+=' correct locked';
+        else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';
+        else cls+=' locked';
+      } else if(sel[i]===j){cls+=' selected';}
+      html+='<div class="'+cls+'" data-qi="' + i + '" data-oi="' + j + '"><div class="radio"></div>'+q.opts[j]+'</div>';
+    }
+    html+='</div>';
+  }
+  var allSel=Object.keys(sel).length===quiz.length;
+  if(!quizSubmitted){
+    html+='<button class="submit-global" id="submitBtn" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
+  } else {
+    html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
+  }
+  return html;
+}
+
+function render(){
+  var pct=Math.round(((cur+1)/4)*100);
+  document.getElementById('pf').style.width=pct+'%';
+  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
+  document.getElementById('heroTag').textContent=heroes[cur].tag;
+  document.getElementById('heroTitle').textContent=heroes[cur].title;
+
+  for(var i=0;i<4;i++){
+    var ni=document.getElementById('ni'+i);
+    var nd=document.getElementById('nd'+i);
+    var secBlock=document.getElementById('seo-sec-'+i);
+    
+    ni.className='nav-item'+(i===cur?' active':'');
+    
+    if(i===cur){
+      secBlock.classList.add('active-section');
+    } else {
+      secBlock.classList.remove('active-section');
+    }
+
+    if(visited[i]&&i!==cur){
+      nd.className='nav-dot done';
+      nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';
+    } else if(i===cur){
+      nd.className='nav-dot active';
+      nd.textContent=(i+1);
+    } else {
+      nd.className='nav-dot';
+      nd.textContent=(i+1);
+    }
+  }
+
+  if(cur===3){
+    document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
+  }
+
+  document.getElementById('btnBack').disabled=(cur===0);
+
+  var fwd=document.getElementById('btnFwd');
+  if(cur===3){
+    fwd.style.display='none';
+  } else {
+    fwd.style.display='';
+    fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';
+  }
+}
+
+function go(n){
+  if(n<0||n>3)return;
+  visited[n]=true;
+  cur=n;
+  render();
+}
+
+function goFwd(){
+  if(cur<3)go(cur+1);
+}
+
+function submitAll(){
+  if(Object.keys(sel).length<quiz.length)return;
+  quizSubmitted=true;
+  render();
+}
+
+function showResult(){
+  quizDone=true;
+  render();
+}
+
+function retake(){
+  sel={};
+  quizSubmitted=false;
+  quizDone=false;
+  render();
+}
+
+function copyPrompt() {
+  const text = document.getElementById('prompt-payload').innerText;
+  navigator.clipboard.writeText(text);
+  const btn = document.querySelector('.copy-btn');
+  btn.innerHTML = '<i class="ti ti-check"></i> Copied!';
+  setTimeout(() => {
+    btn.innerHTML = '<i class="ti ti-copy"></i> Copy prompt';
+  }, 2000);
+}
+
+document.getElementById('cnt').addEventListener('click',function(e){
+  if(cur!==3||quizSubmitted||quizDone)return;
+  var opt=e.target.closest('.opt');
+  if(!opt)return;
+  var qi=parseInt(opt.dataset.qi);
+  var oi=parseInt(opt.dataset.oi);
+  sel[qi]=oi;
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
