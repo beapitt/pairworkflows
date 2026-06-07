@@ -3,66 +3,620 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Glossary: Corporate AI Terms Explained — PairWorkflows</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-<style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Inter',sans-serif;background:#042e1f;color:#1a1a2e;min-height:100vh}
-    
-    /* Navbar identica */
-    .navbar{padding:1rem 3rem;display:flex;align-items:center;justify-content:space-between;color:white}
-    .logo{font-weight:800;font-size:18px;text-decoration:none;color:white}
-    .logo-workflows{color:#9fe1cb}
-    .back-link{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px}
 
-    /* Shell identica a Claude vs Gemini */
-    .content-shell{max-width:900px;margin:2rem auto 3rem;background:#ffffff;border-radius:16px;padding:3rem;box-shadow:0 10px 30px rgba(0,0,0,.2)}
-    
-    h1{font-size:32px;margin-bottom:0.5rem;text-align:center;color:#1a1a2e}
-    .subtitle{text-align:center;color:#6b7280;margin-bottom:3rem;font-size:15px}
-    
-    .pillars-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-    .pillar-card{padding:2rem;border-radius:12px;background:#f8fafb;border:1px solid #e8ecef;transition:all .15s}
-    .pillar-card:hover{border-color:#1d9e75;background:#f5fdf9;transform:translateY(-2px)}
-    .pillar-card h3{margin-bottom:1rem;color:#085041;font-size:16px;display:flex;align-items:center;gap:10px}
-    .pillar-card p{font-size:14px;line-height:1.6;margin-bottom:1.5rem;color:#4b5563}
-    .pillar-link{font-size:14px;font-weight:600;color:#1d9e75;text-decoration:none}
+<title>AI Glossary for Corporate Professionals — PairWorkflows</title>
+<meta name="description" content="30 essential AI terms explained in plain English with real business examples. No jargon. Built for managers, HR, Finance, Legal and Operations teams in the UK and USA.">
+<link rel="canonical" href="https://www.pairworkflows.com/glossary.html">
+
+<meta property="og:title" content="AI Glossary for Corporate Professionals — PairWorkflows">
+<meta property="og:description" content="30 essential AI terms explained in plain English with real business examples.">
+<meta property="og:url" content="https://www.pairworkflows.com/glossary.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="PairWorkflows">
+<meta property="og:image" content="https://www.pairworkflows.com/og/glossary.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Glossary for Corporate Professionals — PairWorkflows">
+<meta name="twitter:description" content="30 essential AI terms explained in plain English with real business examples.">
+<meta name="twitter:image" content="https://www.pairworkflows.com/og/glossary.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "AI Glossary for Corporate Professionals",
+  "description": "30 essential AI terms explained in plain English with real business examples. Built for managers, HR, Finance, Legal and Operations teams.",
+  "url": "https://www.pairworkflows.com/glossary.html",
+  "datePublished": "2026-06-07",
+  "dateModified": "2026-06-07",
+  "author": {
+    "@type": "Organization",
+    "name": "PairWorkflows",
+    "url": "https://www.pairworkflows.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "PairWorkflows",
+    "url": "https://www.pairworkflows.com"
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background: #042e1f;
+    color: #1a1a2e;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Navbar ── */
+  .navbar { background: #021a12; border-bottom: 1px solid #0a4a30; padding: 0 3rem; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+  .logo { display: flex; align-items: baseline; gap: 1px; text-decoration: none; }
+  .logo-pair { font-size: 18px; font-weight: 800; color: #ffffff; letter-spacing: -.3px; }
+  .logo-workflows { font-size: 18px; font-weight: 400; color: #9fe1cb; letter-spacing: -.2px; }
+  .back-link { display: flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,.6); text-decoration: none; transition: color .15s; }
+  .back-link:hover { color: #ffffff; }
+
+  /* ── Layout ── */
+  .course-wrap { max-width: 1280px; margin: 0 auto; padding: 2rem 3rem 4rem; flex: 1; width: 100%; }
+
+  /* ── Shell ── */
+  .course-shell { background: #ffffff; border-radius: 16px; box-shadow: 0 4px 40px rgba(0,0,0,.4); overflow: hidden; display: grid; grid-template-columns: 260px 1fr; min-height: 600px; }
+
+  /* ── Sidebar ── */
+  .sidebar { background: #f8fafb; border-right: 1px solid #e8ecef; display: flex; flex-direction: column; }
+  .sidebar-top { padding: 1.5rem 1.25rem 1rem; border-bottom: 1px solid #e8ecef; }
+  .course-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: #0f6e56; margin-bottom: .5rem; }
+  .course-title-side { font-size: 13px; font-weight: 500; color: #1a1a2e; line-height: 1.45; }
+  .nav-list { padding: .5rem 0; flex: 1; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: .7rem 1.25rem; cursor: pointer; border-left: 3px solid transparent; transition: all .15s; }
+  .nav-item:hover { background: #eef1f4; }
+  .nav-item.active { border-left-color: #1d9e75; background: #ffffff; }
+  .nav-dot { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid #d1d5db; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: #6b7280; flex-shrink: 0; transition: all .15s; }
+  .nav-dot.done { background: #1d9e75; border-color: #1d9e75; color: #ffffff; }
+  .nav-dot.active { border-color: #1d9e75; color: #0f6e56; font-weight: 600; }
+  .nav-text { font-size: 13px; color: #6b7280; line-height: 1.35; }
+  .nav-item.active .nav-text { color: #1a1a2e; font-weight: 500; }
+  .nav-count { font-size: 10px; color: #9ca3af; margin-left: auto; }
+
+  /* ── Content area ── */
+  .content-area { display: flex; flex-direction: column; }
+  .section-hero { background: linear-gradient(135deg, #085041 0%, #0f6e56 45%, #185fa5 100%); padding: 2rem 2.5rem; }
+  .hero-badge { display: inline-block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; background: rgba(255,255,255,.15); color: #ffffff; padding: 4px 12px; border-radius: 20px; margin-bottom: .75rem; border: 1px solid rgba(255,255,255,.2); }
+  .section-tag { font-size: 11px; font-weight: 500; color: rgba(255,255,255,.7); margin-bottom: .5rem; text-transform: uppercase; letter-spacing: .06em; }
+  .section-hero h2 { font-size: 24px; font-weight: 600; color: #ffffff; line-height: 1.3; max-width: 580px; }
+  .hero-sub { font-size: 14px; color: rgba(255,255,255,.75); margin-top: .5rem; line-height: 1.6; }
+
+  /* ── Content body ── */
+  .content-body { padding: 2rem 2.5rem; flex: 1; }
+
+  .seo-section { display: none; }
+  .seo-section.active-section { display: block; }
+
+  /* ── Category intro ── */
+  .category-intro { font-size: 14px; color: #374151; line-height: 1.75; margin-bottom: 1.75rem; padding-bottom: 1.25rem; border-bottom: 1px solid #f0f2f5; }
+
+  /* ── Term cards ── */
+  .term-card { background: #f8fafb; border: 1px solid #e8ecef; border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1rem; position: relative; overflow: hidden; }
+  .term-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+  .term-card.cat-foundations::before { background: #1d9e75; }
+  .term-card.cat-working::before { background: #185fa5; }
+  .term-card.cat-enterprise::before { background: #7c3aed; }
+
+  .term-header { display: flex; align-items: center; gap: 10px; margin-bottom: .625rem; }
+  .term-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+  .icon-foundations { background: #e1f5ee; color: #085041; }
+  .icon-working { background: #e6f1fb; color: #0c447c; }
+  .icon-enterprise { background: #ede9fe; color: #5b21b6; }
+
+  .term-name { font-size: 15px; font-weight: 700; color: #1a1a2e; }
+  .term-badge { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; padding: 2px 8px; border-radius: 20px; margin-left: auto; flex-shrink: 0; }
+  .badge-foundations { background: #e1f5ee; color: #085041; }
+  .badge-working { background: #e6f1fb; color: #0c447c; }
+  .badge-enterprise { background: #ede9fe; color: #5b21b6; }
+
+  .term-definition { font-size: 13.5px; color: #374151; line-height: 1.75; margin-bottom: .875rem; }
+
+  .term-example { background: #ffffff; border: 1px solid #e8ecef; border-left: 3px solid #1d9e75; border-radius: 0 8px 8px 0; padding: .75rem 1rem; font-size: 12.5px; color: #085041; line-height: 1.65; }
+  .term-example.ex-working { border-left-color: #378add; color: #0c447c; }
+  .term-example.ex-enterprise { border-left-color: #7c3aed; color: #5b21b6; }
+  .term-example strong { font-weight: 600; }
+
+  /* ── Footer nav ── */
+  .content-footer { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 2.5rem; border-top: 1px solid #f0f2f5; background: #fafbfc; }
+  .btn-nav { background: transparent; border: 1px solid #d1d5db; color: #6b7280; padding: 8px 18px; border-radius: 8px; font-size: 13px; cursor: pointer; transition: all .15s; font-family: inherit; }
+  .btn-nav:hover { background: #f0f2f5; }
+  .btn-nav:disabled { opacity: .35; cursor: default; }
+  .btn-fwd { background: #1d9e75; color: #ffffff; border: none; padding: 8px 22px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s; font-family: inherit; }
+  .btn-fwd:hover { background: #0f6e56; }
+
+  /* ── Site footer ── */
+  .site-footer { background: #021a12; padding: 1.5rem 3rem; text-align: center; border-top: 1px solid rgba(255,255,255,.06); margin-top: auto; }
+  .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: .625rem; flex-wrap: wrap; }
+  .footer-links a { font-size: 12px; color: rgba(255,255,255,.4); text-decoration: none; transition: color .15s; }
+  .footer-links a:hover { color: #9fe1cb; }
+  .footer-copy { font-size: 12px; color: rgba(255,255,255,.2); }
+
+  /* ── Mobile ── */
+  @media(max-width: 768px) {
+    .navbar { padding: 0 1.25rem; }
+    .course-wrap { padding: 1.25rem 1rem 3rem; }
+    .course-shell { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .section-hero { padding: 1.25rem 1.5rem; }
+    .section-hero h2 { font-size: 20px; }
+    .content-body { padding: 1.25rem; }
+    .content-footer { padding: 1rem 1.25rem; }
+    .site-footer { padding: 1.5rem 1.25rem; }
+  }
 </style>
 </head>
 <body>
 
 <nav class="navbar">
-    <a href="/" class="logo">Pair<span class="logo-workflows">Workflows</span></a>
-    <a href="/" class="back-link">Back to home</a>
+  <a class="logo" href="/index.html">
+    <span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span>
+  </a>
+  <a class="back-link" href="/index.html">
+    <i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses
+  </a>
 </nav>
 
-<main class="content-shell">
-    <h1>AI Glossary</h1>
-    <p class="subtitle">Essential terms for corporate AI literacy, governance, and strategy.</p>
-    
-    <div class="pillars-grid">
-        <div class="pillar-card">
-            <h3><i class="ti ti-target"></i> Strategy & Roles</h3>
-            <p>Understand the shift toward agentic workflows, AI governance, and the roles driving AI adoption in the enterprise.</p>
-            <a href="#" class="pillar-link">Browse terms →</a>
+<div class="course-wrap">
+  <div class="course-shell">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-top">
+        <div class="course-label">Free Resource — PairWorkflows</div>
+        <div class="course-title-side">AI Glossary for Corporate Professionals</div>
+      </div>
+      <div class="nav-list">
+        <div class="nav-item active" id="ni0" onclick="go(0)">
+          <div class="nav-dot active" id="nd0">1</div>
+          <div class="nav-text">AI Foundations</div>
+          <span class="nav-count">10 terms</span>
         </div>
-        <div class="pillar-card">
-            <h3><i class="ti ti-gavel"></i> Legal & Compliance</h3>
-            <p>Definitions for AI regulation, data privacy, and the compliance frameworks that protect your company assets.</p>
-            <a href="#" class="pillar-link">Browse terms →</a>
+        <div class="nav-item" id="ni1" onclick="go(1)">
+          <div class="nav-dot" id="nd1">2</div>
+          <div class="nav-text">Working with AI</div>
+          <span class="nav-count">10 terms</span>
         </div>
-        <div class="pillar-card">
-            <h3><i class="ti ti-settings"></i> Operations & Tech</h3>
-            <p>Technical concepts made practical: RAG, hyperautomation, and how AI infrastructure supports your team.</p>
-            <a href="#" class="pillar-link">Browse terms →</a>
+        <div class="nav-item" id="ni2" onclick="go(2)">
+          <div class="nav-dot" id="nd2">3</div>
+          <div class="nav-text">Enterprise and Safety</div>
+          <span class="nav-count">10 terms</span>
         </div>
-        <div class="pillar-card">
-            <h3><i class="ti ti-books"></i> Core Concepts</h3>
-            <p>The foundational language of AI: from LLMs to multimodal capabilities and token management.</p>
-            <a href="#" class="pillar-link">Browse terms →</a>
-        </div>
+      </div>
     </div>
-</main>
+
+    <!-- Content area -->
+    <div class="content-area">
+      <div class="section-hero">
+        <div class="hero-badge">Free Resource</div>
+        <div class="section-tag" id="heroTag">Category 01 of 03</div>
+        <h2 id="heroTitle">AI Foundations: the core concepts every professional needs.</h2>
+        <p class="hero-sub">30 essential AI terms explained in plain English — with real business examples. No jargon, no technical background required.</p>
+      </div>
+
+      <div class="content-body" id="cnt">
+
+        <!-- SECTION 1: AI FOUNDATIONS -->
+        <div id="seo-sec-0" class="seo-section active-section">
+          <p class="category-intro">These are the building blocks of AI — the terms you will encounter every time you use Claude, Gemini, or any other large language model at work. Understanding these concepts will help you use AI tools more effectively and make better decisions about when and how to apply them.</p>
+
+          <div class="term-card cat-foundations">
+            <div class="term-header">
+              <div class="term-icon icon-foundations"><i class="ti ti-cpu"></i></div>
+              <div class="term-name">Large Language Model (LLM)</div>
+              <span class="term-badge badge-foundations">Foundation</span>
+            </div>
+            <p class="term-definition">A large language model is an AI system trained on vast amounts of text data to understand and generate human language. Claude, Gemini, and ChatGPT are all large language models. They learn patterns in language and use those patterns to predict the most relevant response to any given input.</p>
+            <div class="term-example"><strong>Corporate example:</strong> When your HR team uses Claude to draft a company policy, they are using a large language model to generate professional text based on the instructions they provide.</div>
+          </div>
+
+          <div class="term-card cat-foundations">
+            <div class="term-header">
+              <div class="term-icon icon-foundations"><i class="ti ti-coins"></i></div>
+              <div class="term-name">Token</div>
+              <span class="term-badge badge-foundations">Foundation</span>
+            </div>
+            <p class="term-definition">A token is the basic unit of text that an AI model processes. A token is roughly equivalent to three or four characters, or about three quarters of a word in English. AI models read and generate text in tokens, not in words or sentences. Your usage limits and costs are calculated in tokens.</p>
+            <div class="term-example"><strong>Corporate example:</strong> When a Finance Director pastes a 50-page contract into Claude for review, each word of that document consumes tokens from the available budget. Long documents consume more tokens and cost more to process.</div>
+          </div>
+
+          <div class="term-card cat-foundations">
+            <div class="term-header">
+              <div class="term-icon icon-foundations"><i class="ti ti-window"></i></div>
+              <div class="term-name">Context Window</div>
+              <span class="term-badge badge-foundations">Foundation</span>
+            </div>
+            <p class="term-definition">The context window is the maximum amount of text an AI model can read and consider at one time — including everything you have written, any documents you have shared, and its own previous responses. Once you exceed the context window, the model begins to lose track of earlier parts of the conversation.</p>
+            <div class="term-example"><strong>Corporate example:</strong> A Legal Manager reviewing a 200-page contract needs to know whether the model can hold the entire document in its context window. Claude supports up to 200,000 tokens; Gemini supports up to 1 million tokens in some configurations.</div>
+          </div>
+
+          <div class="term-card cat-foundations">
+            <div class="term-header">
+              <div class="term-icon icon-foundations"><i class="ti ti-message"></i></div>
+              <div class="term-name">Prompt</div>
+              <span class="term-badge badge-foundations">Foundation</span>
+            </div>
+            <p class="term-definition">A prompt is the instruction or input you provide to an AI model to tell it what you want it to do. The quality of the prompt directly determines the quality of the output. A vague prompt produces a generic response. A precise prompt with clear context, role, and constraints produces a useful, targeted response.</p>
+            <div class="term-example"><strong>Corporate example:</strong> Instead of writing "Summarise this report", an Operations Manager writes "Summarise this quarterly operations report in three bullet points, focusing on delivery delays and their financial impact. Audience: executive board." The second prompt produces a far more useful result.</div>
+          </div>
+
+          <div class="term-card cat-foundations">
+            <div class="term-header">
+              <div class="term-icon icon-foundations"><i class="ti ti-brain"></i></div>
+              <div class="term-name">Foundation Model</div>
+              <span class="term-badge badge-foundations">Foundation</span>
+            </div>
+            <p class="term-definition">A foundation model is a large AI model trained on broad data that can be adapted for a wide range of tasks. Claude and Gemini are foundation models. They are built once at enormous scale and then refined for specific applications, rather than being trained from scratch for each individual use case.</p>
+            <div class="term-example"><strong>Corporate example:</strong> When an enterprise builds an internal AI assistant for customer support, they typically build it on top of a foundation model like Claude or Gemini rather than training their own model from scratch, saving years of development time.</div>
+          </div>
+
+          <div class="term-card cat-foundations">
+            <div class="term-header">
+              <div class="term-icon icon-foundations"><i class="ti ti-alert-triangle"></i></div>
+              <div class="term-name">Hallucination</div>
+              <span class="term-badge badge-foundations">Foundation</span>
+            </div>
+            <p class="term-definition">A hallucination is when an AI model generates information that is factually incorrect, invented, or unsupported — but presents it with complete confidence. Hallucinations are a known limitation of all current large language models and are most likely to occur when the model is asked about specific facts, dates, statistics, or names it was not trained on.</p>
+            <div class="term-example"><strong>Corporate example:</strong> A Marketing Manager asks Claude to list recent industry reports on consumer behaviour. Claude might cite a report with a plausible-sounding title and author that does not actually exist. Always verify specific facts and citations before including them in client-facing materials.</div>
+          </div>
+
+          <div class="term-card cat-foundations">
+            <div class="term-icon icon-foundations"><i class="ti ti-adjustments"></i></div>
+            <div class="term-header">
+              <div class="term-icon icon-foundations"><i class="ti ti-adjustments"></i></div>
+              <div class="term-name">Temperature</div>
+              <span class="term-badge badge-foundations">Foundation</span>
+            </div>
+            <p class="term-definition">Temperature is a setting that controls how predictable or creative an AI model's responses are. A low temperature produces more focused, consistent, and deterministic outputs. A high temperature produces more varied, creative, and sometimes unpredictable outputs. Most enterprise AI tools set a default temperature suited to professional use.</p>
+            <div class="term-example"><strong>Corporate example:</strong> A Legal team drafting contract clauses needs low temperature — consistent, precise language. A Marketing team brainstorming campaign ideas benefits from higher temperature — more varied, creative suggestions.</div>
+          </div>
+
+          <div class="term-card cat-foundations">
+            <div class="term-header">
+              <div class="term-icon icon-foundations"><i class="ti ti-photo"></i></div>
+              <div class="term-name">Multimodal</div>
+              <span class="term-badge badge-foundations">Foundation</span>
+            </div>
+            <p class="term-definition">A multimodal AI model can process and generate multiple types of content — not just text, but also images, audio, and video. Gemini is a multimodal model that can natively analyse video recordings and audio files. Claude can process text and images but does not natively handle audio or video.</p>
+            <div class="term-example"><strong>Corporate example:</strong> An Operations lead uploads a video recording of a product training session to Gemini and asks it to produce a written summary and list of action points — without needing to transcribe the audio manually first.</div>
+          </div>
+
+          <div class="term-card cat-foundations">
+            <div class="term-header">
+              <div class="term-icon icon-foundations"><i class="ti ti-circuit-cell"></i></div>
+              <div class="term-name">Fine-tuning</div>
+              <span class="term-badge badge-foundations">Foundation</span>
+            </div>
+            <p class="term-definition">Fine-tuning is the process of taking a pre-trained foundation model and training it further on a specific dataset to improve its performance on a particular task or domain. A fine-tuned model learns the vocabulary, tone, and patterns of a specific industry or company without needing to be built from scratch.</p>
+            <div class="term-example"><strong>Corporate example:</strong> A financial services company might fine-tune a foundation model on thousands of their own internal reports and regulatory documents, so the model becomes an expert in their specific terminology and compliance requirements.</div>
+          </div>
+
+          <div class="term-card cat-foundations">
+            <div class="term-header">
+              <div class="term-icon icon-foundations"><i class="ti ti-clock"></i></div>
+              <div class="term-name">Latency</div>
+              <span class="term-badge badge-foundations">Foundation</span>
+            </div>
+            <p class="term-definition">Latency refers to the time it takes for an AI model to generate a response after receiving a prompt. Smaller, faster models like Claude Haiku have lower latency and are better suited for high-volume or time-sensitive tasks. Larger, more capable models like Claude Opus have higher latency but produce more sophisticated outputs.</p>
+            <div class="term-example"><strong>Corporate example:</strong> A customer support team using AI to generate suggested replies needs low latency — responses must appear within seconds. An analyst generating a quarterly strategy document can tolerate higher latency in exchange for a more thorough response.</div>
+          </div>
+
+        </div>
+
+        <!-- SECTION 2: WORKING WITH AI -->
+        <div id="seo-sec-1" class="seo-section">
+          <p class="category-intro">These terms describe the techniques and concepts that emerge when professionals actively work with AI tools every day. Understanding these will help you craft better prompts, get more consistent outputs, and build more effective AI workflows for your team.</p>
+
+          <div class="term-card cat-working">
+            <div class="term-header">
+              <div class="term-icon icon-working"><i class="ti ti-settings"></i></div>
+              <div class="term-name">System Prompt</div>
+              <span class="term-badge badge-working">Working with AI</span>
+            </div>
+            <p class="term-definition">A system prompt is a set of instructions given to an AI model before the conversation begins. It defines the model's role, tone, constraints, and behaviour for the entire session. In Claude Projects, the system prompt acts as a permanent background instruction that shapes every response the model gives to your team.</p>
+            <div class="term-example ex-working"><strong>Corporate example:</strong> An HR team sets up a Claude Project with a system prompt that says: "You are an HR communications assistant for a UK financial services firm. Always use formal British English. Never give legal advice. Always recommend consulting the HR Director for sensitive matters."</div>
+          </div>
+
+          <div class="term-card cat-working">
+            <div class="term-header">
+              <div class="term-icon icon-working"><i class="ti ti-anchor"></i></div>
+              <div class="term-name">Grounding</div>
+              <span class="term-badge badge-working">Working with AI</span>
+            </div>
+            <p class="term-definition">Grounding refers to connecting an AI model's responses to specific, verifiable source documents rather than relying on its general training data. A grounded response cites real documents and pulls factual data from those sources. This dramatically reduces hallucinations and makes outputs more trustworthy for corporate use.</p>
+            <div class="term-example ex-working"><strong>Corporate example:</strong> A manager using Gemini in Google Docs with Workspace grounding enabled asks the model to write a quarterly report. Instead of generating generic content, Gemini pulls actual data from the company's internal Sheets and Drive files and cites each source inline.</div>
+          </div>
+
+          <div class="term-card cat-working">
+            <div class="term-header">
+              <div class="term-icon icon-working"><i class="ti ti-database"></i></div>
+              <div class="term-name">RAG (Retrieval-Augmented Generation)</div>
+              <span class="term-badge badge-working">Working with AI</span>
+            </div>
+            <p class="term-definition">RAG is a technique that combines a large language model with a search system that retrieves relevant documents from a database before generating a response. The model uses the retrieved documents as context, producing answers that are grounded in specific, up-to-date sources rather than relying solely on its training data.</p>
+            <div class="term-example ex-working"><strong>Corporate example:</strong> An enterprise builds an internal AI assistant that searches the company knowledge base whenever an employee asks a question. The model retrieves the three most relevant policy documents and uses them to generate an accurate, cited answer — rather than guessing.</div>
+          </div>
+
+          <div class="term-card cat-working">
+            <div class="term-header">
+              <div class="term-icon icon-working"><i class="ti ti-list-numbers"></i></div>
+              <div class="term-name">Few-Shot Prompting</div>
+              <span class="term-badge badge-working">Working with AI</span>
+            </div>
+            <p class="term-definition">Few-shot prompting is a technique where you include two or three examples of the desired input-output format directly inside your prompt. The model learns the pattern from your examples and replicates it for the new task. This is one of the most reliable ways to control the format and tone of AI outputs.</p>
+            <div class="term-example ex-working"><strong>Corporate example:</strong> A Marketing Manager wants Claude to write product descriptions in a specific brand voice. They include two existing product descriptions as examples inside the prompt and then ask Claude to write the third in the same style. The result matches the brand tone far more closely than a prompt without examples.</div>
+          </div>
+
+          <div class="term-card cat-working">
+            <div class="term-header">
+              <div class="term-icon icon-working"><i class="ti ti-circle-dot"></i></div>
+              <div class="term-name">Zero-Shot Prompting</div>
+              <span class="term-badge badge-working">Working with AI</span>
+            </div>
+            <p class="term-definition">Zero-shot prompting means asking an AI model to complete a task without providing any examples — relying entirely on the model's training to understand what is expected. Modern large language models are capable of strong zero-shot performance on many professional tasks when the prompt is clear and specific.</p>
+            <div class="term-example ex-working"><strong>Corporate example:</strong> A Finance analyst asks Claude to categorise a list of expenses into budget codes without providing any example categorisations. If the instructions are clear and the model understands the categories, it can perform the task accurately without examples.</div>
+          </div>
+
+          <div class="term-card cat-working">
+            <div class="term-header">
+              <div class="term-icon icon-working"><i class="ti ti-link"></i></div>
+              <div class="term-name">Prompt Chaining</div>
+              <span class="term-badge badge-working">Working with AI</span>
+            </div>
+            <p class="term-definition">Prompt chaining is a technique where you break a complex task into a sequence of smaller, connected prompts — using the output of one prompt as the input for the next. This approach produces higher quality results for complex workflows because each step can be verified and refined before proceeding.</p>
+            <div class="term-example ex-working"><strong>Corporate example:</strong> An Operations Manager uses prompt chaining to create a new process document: Step 1 — ask Claude to extract the key steps from an existing procedure. Step 2 — ask Claude to rewrite those steps in plain English. Step 3 — ask Claude to format the plain English steps into a numbered checklist with responsible owner columns.</div>
+          </div>
+
+          <div class="term-card cat-working">
+            <div class="term-header">
+              <div class="term-icon icon-working"><i class="ti ti-list-check"></i></div>
+              <div class="term-name">Instruction Following</div>
+              <span class="term-badge badge-working">Working with AI</span>
+            </div>
+            <p class="term-definition">Instruction following refers to how precisely a model adheres to the specific requirements stated in a prompt. A model with strong instruction following completes exactly what was asked — no more, no less — without adding unrequested content, ignoring constraints, or reinterpreting the task. Claude is widely regarded as having particularly strong instruction following among enterprise models.</p>
+            <div class="term-example ex-working"><strong>Corporate example:</strong> A Legal team asks Claude to summarise a contract in exactly five bullet points, using no technical legal terms, and to flag any clause related to liability. A model with strong instruction following delivers exactly five bullets, in plain language, with liability clauses clearly identified.</div>
+          </div>
+
+          <div class="term-card cat-working">
+            <div class="term-header">
+              <div class="term-icon icon-working"><i class="ti ti-chart-bar"></i></div>
+              <div class="term-name">Output Variance</div>
+              <span class="term-badge badge-working">Working with AI</span>
+            </div>
+            <p class="term-definition">Output variance describes the degree to which an AI model produces different responses when given the same prompt multiple times. High variance means the model gives noticeably different answers on each run. Low variance means the outputs are consistent and predictable. For enterprise workflows requiring reliable, repeatable outputs, low variance is preferable.</p>
+            <div class="term-example ex-working"><strong>Corporate example:</strong> An HR team uses an AI model to score job application summaries. If the model gives different scores to the same application on different runs, it introduces bias and unreliability into the hiring process. Low output variance is critical for any AI workflow that affects people decisions.</div>
+          </div>
+
+          <div class="term-card cat-working">
+            <div class="term-header">
+              <div class="term-icon icon-working"><i class="ti ti-refresh"></i></div>
+              <div class="term-name">Iterative Refinement</div>
+              <span class="term-badge badge-working">Working with AI</span>
+            </div>
+            <p class="term-definition">Iterative refinement is the process of improving an AI output through a series of follow-up prompts rather than trying to get the perfect result in a single interaction. Each follow-up prompt builds on the previous output, correcting errors, adjusting tone, or adding missing elements. This approach consistently produces higher quality results than single-shot prompting.</p>
+            <div class="term-example ex-working"><strong>Corporate example:</strong> A Communications Manager asks Claude to draft a company announcement. The first draft is too formal. They follow up with "Make this more conversational and reduce the length by 30 percent." They then add "Add a specific call to action in the final paragraph." Three short prompts produce a polished final draft.</div>
+          </div>
+
+          <div class="term-card cat-working">
+            <div class="term-header">
+              <div class="term-icon icon-working"><i class="ti ti-prompt"></i></div>
+              <div class="term-name">Prompt Engineering</div>
+              <span class="term-badge badge-working">Working with AI</span>
+            </div>
+            <p class="term-definition">Prompt engineering is the practice of designing and refining prompts to reliably produce high-quality AI outputs. It involves understanding how models interpret language, what context to provide, how to set constraints, and how to structure requests for maximum clarity. For corporate professionals, prompt engineering is a practical skill that directly improves the quality and consistency of AI outputs.</p>
+            <div class="term-example ex-working"><strong>Corporate example:</strong> Rather than writing "Write a sales email", a well-engineered prompt reads: "You are a B2B sales specialist. Write a 150-word email to a CFO at a mid-size UK manufacturing company, introducing our cost-reduction software. Tone: direct and data-focused. Include one specific statistic about ROI. Do not use the word solution."</div>
+          </div>
+
+        </div>
+
+        <!-- SECTION 3: ENTERPRISE AND SAFETY -->
+        <div id="seo-sec-2" class="seo-section">
+          <p class="category-intro">These terms cover the governance, privacy, and safety dimensions of AI that matter most to IT leaders, compliance officers, and senior management. Understanding these concepts is essential for deploying AI tools responsibly in a corporate environment.</p>
+
+          <div class="term-card cat-enterprise">
+            <div class="term-header">
+              <div class="term-icon icon-enterprise"><i class="ti ti-server"></i></div>
+              <div class="term-name">Data Residency</div>
+              <span class="term-badge badge-enterprise">Enterprise</span>
+            </div>
+            <p class="term-definition">Data residency refers to the physical location where data is stored and processed. Many enterprises and regulated industries — particularly in the UK and EU — require that company data remain within specific geographic boundaries to comply with regulations such as UK GDPR. Enterprise AI providers offer data residency controls that restrict where prompts and outputs are stored.</p>
+            <div class="term-example ex-enterprise"><strong>Corporate example:</strong> A UK-based financial services firm requires that all data processed by its AI tools remains within the United Kingdom or European Economic Area. Before deploying Claude or Gemini at scale, the IT Director verifies that the enterprise tier of each product supports UK data residency controls.</div>
+          </div>
+
+          <div class="term-card cat-enterprise">
+            <div class="term-header">
+              <div class="term-icon icon-enterprise"><i class="ti ti-shield-check"></i></div>
+              <div class="term-name">Constitutional AI</div>
+              <span class="term-badge badge-enterprise">Enterprise</span>
+            </div>
+            <p class="term-definition">Constitutional AI is a training methodology developed by Anthropic for Claude. The model is trained to follow a set of principles — a constitution — that guides it toward being helpful, harmless, and honest. Instead of relying solely on human feedback, the model learns to evaluate and refine its own responses against these principles, making it more consistent and predictable in enterprise settings.</p>
+            <div class="term-example ex-enterprise"><strong>Corporate example:</strong> A compliance officer chooses Claude for contract review because its Constitutional AI training makes it less likely to generate outputs that could expose the company to legal or reputational risk. The model is trained to decline requests that violate its safety principles rather than simply complying.</div>
+          </div>
+
+          <div class="term-card cat-enterprise">
+            <div class="term-header">
+              <div class="term-icon icon-enterprise"><i class="ti ti-robot"></i></div>
+              <div class="term-name">Agentic Workflow</div>
+              <span class="term-badge badge-enterprise">Enterprise</span>
+            </div>
+            <p class="term-definition">An agentic workflow is a process where an AI model takes a sequence of autonomous actions to complete a multi-step task — rather than simply responding to a single prompt. An AI agent can search the web, read files, write code, send emails, or call external systems as part of completing a goal. Agentic workflows represent the frontier of enterprise AI deployment in 2026.</p>
+            <div class="term-example ex-enterprise"><strong>Corporate example:</strong> An Operations team deploys an AI agent that monitors their project management tool daily, identifies overdue tasks, drafts personalised reminder emails to task owners, and logs the actions taken in a Google Sheet — all without human intervention for each step.</div>
+          </div>
+
+          <div class="term-card cat-enterprise">
+            <div class="term-header">
+              <div class="term-icon icon-enterprise"><i class="ti ti-lock"></i></div>
+              <div class="term-name">Model Training on User Data</div>
+              <span class="term-badge badge-enterprise">Enterprise</span>
+            </div>
+            <p class="term-definition">This refers to whether an AI provider uses the content of your conversations to improve or retrain their models. On free and some consumer tiers, providers may use conversation data for training. On enterprise tiers, both Anthropic and Google commit that user data is not used to train their models. This distinction is critical for organisations handling confidential information.</p>
+            <div class="term-example ex-enterprise"><strong>Corporate example:</strong> A Legal Director ensures that the firm uses Claude Enterprise rather than the free tier before allowing lawyers to paste client contract content into the model. On the enterprise tier, Anthropic confirms that conversation content is not used for model training.</div>
+          </div>
+
+          <div class="term-card cat-enterprise">
+            <div class="term-header">
+              <div class="term-icon icon-enterprise"><i class="ti ti-users-group"></i></div>
+              <div class="term-name">AI Governance</div>
+              <span class="term-badge badge-enterprise">Enterprise</span>
+            </div>
+            <p class="term-definition">AI governance refers to the policies, controls, and oversight mechanisms an organisation puts in place to ensure that AI tools are used safely, ethically, and in compliance with regulations. This includes defining approved use cases, setting data handling rules, establishing review processes, and assigning accountability for AI outputs.</p>
+            <div class="term-example ex-enterprise"><strong>Corporate example:</strong> A UK bank establishes an AI governance framework before rolling out Gemini to 500 employees. The framework specifies which data types cannot be pasted into AI tools, requires human review of all AI-generated client communications, and assigns the CTO as accountable executive for AI risk.</div>
+          </div>
+
+          <div class="term-card cat-enterprise">
+            <div class="term-header">
+              <div class="term-icon icon-enterprise"><i class="ti ti-eye"></i></div>
+              <div class="term-name">Audit Log</div>
+              <span class="term-badge badge-enterprise">Enterprise</span>
+            </div>
+            <p class="term-definition">An audit log is a record of all AI interactions within an organisation — who used the tool, when, and what prompts and outputs were generated. Enterprise AI platforms provide audit logs to support compliance, incident investigation, and governance. Audit logs are a requirement for regulated industries such as financial services, healthcare, and legal.</p>
+            <div class="term-example ex-enterprise"><strong>Corporate example:</strong> Following a data handling incident, a compliance officer uses Gemini for Workspace admin audit logs to review which employees used the AI tool during a specific period, what types of documents were processed, and whether any sensitive data categories were involved.</div>
+          </div>
+
+          <div class="term-card cat-enterprise">
+            <div class="term-header">
+              <div class="term-icon icon-enterprise"><i class="ti ti-building"></i></div>
+              <div class="term-name">Organisational Unit (AI Access Control)</div>
+              <span class="term-badge badge-enterprise">Enterprise</span>
+            </div>
+            <p class="term-definition">In the context of enterprise AI deployment, an organisational unit is a group of users whose AI access can be configured independently by an administrator. Google Workspace admins can enable or disable Gemini features for specific organisational units — for example, enabling full Gemini access for the Marketing team while restricting it for Legal until a compliance review is complete.</p>
+            <div class="term-example ex-enterprise"><strong>Corporate example:</strong> A Workspace Admin receives approval to roll out Gemini to the Operations and Finance departments first. Using organisational unit controls in the Google Admin Console, they enable Gemini for those two departments only while keeping it disabled for Legal and HR pending their data handling assessment.</div>
+          </div>
+
+          <div class="term-card cat-enterprise">
+            <div class="term-header">
+              <div class="term-icon icon-enterprise"><i class="ti ti-trending-up"></i></div>
+              <div class="term-name">AI Adoption Maturity</div>
+              <span class="term-badge badge-enterprise">Enterprise</span>
+            </div>
+            <p class="term-definition">AI adoption maturity describes how advanced an organisation is in its use of AI tools — from basic individual use through to organisation-wide deployment with governance frameworks, custom models, and agentic workflows. Most corporate teams in 2026 are at an early to intermediate stage, using AI for individual productivity tasks rather than fully integrated enterprise workflows.</p>
+            <div class="term-example ex-enterprise"><strong>Corporate example:</strong> A professional services firm assesses its AI adoption maturity and finds that while individual consultants use Claude and Gemini for drafting and research, there are no shared prompt libraries, no governance policies, and no measurement of AI productivity gains. The assessment becomes the basis for a six-month AI enablement programme.</div>
+          </div>
+
+          <div class="term-card cat-enterprise">
+            <div class="term-header">
+              <div class="term-icon icon-enterprise"><i class="ti ti-topology-star"></i></div>
+              <div class="term-name">MCP (Model Context Protocol)</div>
+              <span class="term-badge badge-enterprise">Enterprise</span>
+            </div>
+            <p class="term-definition">Model Context Protocol is an open standard developed by Anthropic that allows AI models to connect securely to external tools and data sources. MCP enables Claude to read from and write to external systems — databases, APIs, file systems, and business applications — without requiring custom integrations for each connection. It is the foundation for enterprise agentic workflows.</p>
+            <div class="term-example ex-enterprise"><strong>Corporate example:</strong> An IT team uses MCP to connect Claude to their internal project management system. Employees can ask Claude to retrieve the status of any open project, update task owners, or generate progress reports — all through natural language, without anyone needing to open the project management tool directly.</div>
+          </div>
+
+          <div class="term-card cat-enterprise">
+            <div class="term-header">
+              <div class="term-icon icon-enterprise"><i class="ti ti-diamond"></i></div>
+              <div class="term-name">AI Value Realisation</div>
+              <span class="term-badge badge-enterprise">Enterprise</span>
+            </div>
+            <p class="term-definition">AI value realisation refers to the measurable business benefits an organisation derives from deploying AI tools — including time saved, cost reduced, quality improved, and revenue generated. Organisations that invest in structured AI training, governance, and workflow integration consistently realise more value than those that allow unstructured individual adoption without measurement.</p>
+            <div class="term-example ex-enterprise"><strong>Corporate example:</strong> After three months of structured Claude deployment across their legal team, a professional services firm measures that contract review time has decreased by 40 percent and that the number of revision cycles before client approval has dropped from four to two. These metrics become the business case for expanding AI deployment across the firm.</div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Footer nav -->
+      <div class="content-footer">
+        <button class="btn-nav" id="btnBack" disabled onclick="go(cur-1)">
+          <i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back
+        </button>
+        <button class="btn-fwd" id="btnFwd" onclick="go(cur+1)">
+          Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="/index.html">Home</a>
+    <a href="/contact.html">Contact</a>
+    <a href="/legal.html#privacy">Privacy Policy</a>
+    <a href="/legal.html#terms">Terms of Use</a>
+  </div>
+  <div class="footer-copy">&copy; 2026 PairWorkflows. All rights reserved.</div>
+</footer>
+
+<script>
+var cur = 0;
+var TOTAL = 3;
+var visited = [true, false, false];
+
+var heroes = [
+  {tag: 'Category 01 of 03', title: 'AI Foundations: the core concepts every professional needs.'},
+  {tag: 'Category 02 of 03', title: 'Working with AI: techniques that improve your results every day.'},
+  {tag: 'Category 03 of 03', title: 'Enterprise and Safety: governance concepts for corporate teams.'}
+];
+
+function go(n) {
+  if (n < 0 || n >= TOTAL) return;
+  visited[n] = true;
+  cur = n;
+  render();
+  window.scrollTo(0, 0);
+}
+
+function render() {
+  document.getElementById('heroTag').textContent = heroes[cur].tag;
+  document.getElementById('heroTitle').textContent = heroes[cur].title;
+
+  for (var i = 0; i < TOTAL; i++) {
+    var ni = document.getElementById('ni' + i);
+    var nd = document.getElementById('nd' + i);
+    var sec = document.getElementById('seo-sec-' + i);
+
+    ni.className = 'nav-item' + (i === cur ? ' active' : '');
+
+    if (sec) {
+      if (i === cur) sec.classList.add('active-section');
+      else sec.classList.remove('active-section');
+    }
+
+    if (nd) {
+      if (visited[i] && i !== cur) {
+        nd.className = 'nav-dot done';
+        nd.innerHTML = '<i class="ti ti-check" style="font-size:11px"></i>';
+      } else if (i === cur) {
+        nd.className = 'nav-dot active';
+        nd.textContent = (i + 1);
+      } else {
+        nd.className = 'nav-dot';
+        nd.textContent = (i + 1);
+      }
+    }
+  }
+
+  document.getElementById('btnBack').disabled = (cur === 0);
+  var fwd = document.getElementById('btnFwd');
+  if (cur === TOTAL - 1) {
+    fwd.style.display = 'none';
+  } else {
+    fwd.style.display = '';
+    fwd.innerHTML = 'Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';
+  }
+}
+
+render();
+</script>
 
 </body>
 </html>
