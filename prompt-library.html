@@ -3,277 +3,97 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>AI Prompt Library for Corporate Professionals — PairWorkflows</title>
-<meta name="description" content="80 ready-to-copy AI prompts for corporate professionals. Organised by role: Manager, HR, Finance, Legal, Marketing, Operations, Sales and Project Management.">
-<link rel="canonical" href="https://www.pairworkflows.com/prompt-library.html">
-
-<meta property="og:title" content="AI Prompt Library for Corporate Professionals — PairWorkflows">
-<meta property="og:description" content="80 ready-to-copy AI prompts organised by role for UK and USA corporate professionals.">
-<meta property="og:url" content="https://www.pairworkflows.com/prompt-library.html">
-<meta property="og:type" content="article">
-<meta property="og:site_name" content="PairWorkflows">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="AI Prompt Library for Corporate Professionals — PairWorkflows">
-<meta name="twitter:description" content="80 ready-to-copy AI prompts organised by role for UK and USA corporate professionals.">
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "AI Prompt Library for Corporate Professionals",
-  "description": "80 ready-to-copy AI prompts for corporate professionals organised by role.",
-  "url": "https://www.pairworkflows.com/prompt-library.html",
-  "datePublished": "2026-06-07",
-  "dateModified": "2026-06-07",
-  "author": {"@type": "Organization", "name": "PairWorkflows", "url": "https://www.pairworkflows.com"},
-  "publisher": {"@type": "Organization", "name": "PairWorkflows", "url": "https://www.pairworkflows.com"}
-}
-</script>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Inter', 'Segoe UI', sans-serif; background: #042e1f; color: #1a1a2e; min-height: 100vh; display: flex; flex-direction: column; }
-
-  /* Navbar */
+  body { font-family: 'Inter', sans-serif; background: #042e1f; color: #1a1a2e; min-height: 100vh; display: flex; flex-direction: column; }
   .navbar { background: #021a12; border-bottom: 1px solid #0a4a30; padding: 0 3rem; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
   .logo { display: flex; align-items: baseline; gap: 1px; text-decoration: none; }
-  .logo-pair { font-size: 18px; font-weight: 800; color: #ffffff; letter-spacing: -.3px; }
-  .logo-workflows { font-size: 18px; font-weight: 400; color: #9fe1cb; letter-spacing: -.2px; }
-  .back-link { display: flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,.6); text-decoration: none; transition: color .15s; }
-  .back-link:hover { color: #ffffff; }
-
-  /* Layout */
+  .logo-pair { font-size: 18px; font-weight: 800; color: #ffffff; }
+  .logo-workflows { font-size: 18px; font-weight: 400; color: #9fe1cb; }
   .course-wrap { max-width: 1280px; margin: 0 auto; padding: 2rem 3rem 4rem; flex: 1; width: 100%; }
   .course-shell { background: #ffffff; border-radius: 16px; box-shadow: 0 4px 40px rgba(0,0,0,.4); overflow: hidden; display: grid; grid-template-columns: 260px 1fr; min-height: 600px; }
-
-  /* Sidebar */
   .sidebar { background: #f8fafb; border-right: 1px solid #e8ecef; display: flex; flex-direction: column; }
-  .sidebar-top { padding: 1.5rem 1.25rem 1rem; border-bottom: 1px solid #e8ecef; }
-  .course-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: #0f6e56; margin-bottom: .5rem; }
-  .course-title-side { font-size: 13px; font-weight: 500; color: #1a1a2e; line-height: 1.45; }
-  .nav-list { padding: .5rem 0; flex: 1; }
-  .nav-item { display: flex; align-items: center; gap: 10px; padding: .7rem 1.25rem; cursor: pointer; border-left: 3px solid transparent; transition: all .15s; }
-  .nav-item:hover { background: #eef1f4; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: .7rem 1.25rem; cursor: pointer; border-left: 3px solid transparent; }
   .nav-item.active { border-left-color: #1d9e75; background: #ffffff; }
-  .nav-dot { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid #d1d5db; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: #6b7280; flex-shrink: 0; transition: all .15s; }
+  .nav-dot { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid #d1d5db; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #6b7280; }
   .nav-dot.done { background: #1d9e75; border-color: #1d9e75; color: #ffffff; }
   .nav-dot.active { border-color: #1d9e75; color: #0f6e56; font-weight: 600; }
-  .nav-text { font-size: 13px; color: #6b7280; line-height: 1.35; }
-  .nav-item.active .nav-text { color: #1a1a2e; font-weight: 500; }
-  .nav-count { font-size: 10px; color: #9ca3af; margin-left: auto; }
-
-  /* Hero */
   .content-area { display: flex; flex-direction: column; }
   .section-hero { background: linear-gradient(135deg, #085041 0%, #0f6e56 45%, #185fa5 100%); padding: 2rem 2.5rem; }
-  .hero-badge { display: inline-block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; background: rgba(255,255,255,.15); color: #ffffff; padding: 4px 12px; border-radius: 20px; margin-bottom: .75rem; border: 1px solid rgba(255,255,255,.2); }
-  .section-tag { font-size: 11px; font-weight: 500; color: rgba(255,255,255,.7); margin-bottom: .5rem; text-transform: uppercase; letter-spacing: .06em; }
-  .section-hero h2 { font-size: 24px; font-weight: 600; color: #ffffff; line-height: 1.3; max-width: 580px; }
-  .hero-sub { font-size: 14px; color: rgba(255,255,255,.75); margin-top: .5rem; line-height: 1.6; }
-
-  /* Content */
-  .content-body { padding: 2rem 2.5rem; flex: 1; }
+  .section-hero h2 { color: #ffffff; font-size: 24px; }
+  .content-body { padding: 2rem 2.5rem; }
   .seo-section { display: none; }
   .seo-section.active-section { display: block; }
-
-  .role-intro { font-size: 14px; color: #374151; line-height: 1.75; margin-bottom: 1.75rem; padding-bottom: 1.25rem; border-bottom: 1px solid #f0f2f5; }
-
-  /* Prompt cards */
-  .prompt-card { background: #f8fafb; border: 1px solid #e8ecef; border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; border-left: 3px solid #1d9e75; }
-  .prompt-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: .5rem; }
-  .prompt-title { font-size: 14px; font-weight: 700; color: #1a1a2e; line-height: 1.3; }
-  .prompt-badge { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; padding: 3px 10px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; display: inline-flex; align-items: center; gap: 4px; }
-  
+  .prompt-card { background: #f8fafb; border: 1px solid #e8ecef; border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; border-left: 3px solid #1d9e75; }
+  .prompt-badge { font-size: 9px; font-weight: 600; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; display: inline-flex; align-items: center; gap: 4px; }
   .badge-writing { background: #e1f5ee; color: #085041; border: 1px solid #a7e8ce; }
   .badge-research { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
   .badge-strategy { background: #ede9fe; color: #5b21b6; border: 1px solid #c4b5fd; }
   .badge-comms { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
-  
-  .prompt-desc { font-size: 13px; color: #6b7280; margin-bottom: .625rem; line-height: 1.5; }
-  .prompt-usecase { font-size: 12px; color: #374151; background: #ffffff; border: 1px solid #e8ecef; border-radius: 6px; padding: .5rem .75rem; margin-bottom: .625rem; }
-  .prompt-usecase strong { color: #0f6e56; }
-  .prompt-need { font-size: 12px; color: #6b7280; margin-bottom: .75rem; }
-  .prompt-need strong { color: #374151; }
-  .prompt-text-wrap { position: relative; margin-bottom: .75rem; }
-  .prompt-text { font-family: 'SFMono-Regular', Consolas, monospace; font-size: 12.5px; color: #232733; background: #ffffff; border: 1px solid #e8ecef; border-radius: 8px; padding: .875rem 1rem; line-height: 1.7; white-space: pre-wrap; word-break: break-word; }
-  .prompt-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-  .prompt-output { font-size: 11.5px; color: #6b7280; font-style: italic; flex: 1; }
-  .prompt-output strong { color: #374151; font-style: normal; }
-  .copy-btn { background: #1d9e75; color: #ffffff; border: none; padding: 6px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all .15s; display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
-  .copy-btn:hover { background: #0f6e56; }
-
-  /* Footer nav */
-  .content-footer { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 2.5rem; border-top: 1px solid #f0f2f5; background: #fafbfc; }
-  .btn-nav { background: transparent; border: 1px solid #d1d5db; color: #6b7280; padding: 8px 18px; border-radius: 8px; font-size: 13px; cursor: pointer; transition: all .15s; font-family: inherit; }
-  .btn-nav:hover { background: #f0f2f5; }
-  .btn-nav:disabled { opacity: .35; cursor: default; }
-  .btn-fwd { background: #1d9e75; color: #ffffff; border: none; padding: 8px 22px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s; font-family: inherit; }
-  .btn-fwd:hover { background: #0f6e56; }
-
-  /* Site footer */
-  .site-footer { background: #021a12; padding: 1.5rem 3rem; text-align: center; border-top: 1px solid rgba(255,255,255,.06); margin-top: auto; }
-  .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: .625rem; flex-wrap: wrap; }
-  .footer-links a { font-size: 12px; color: rgba(255,255,255,.4); text-decoration: none; transition: color .15s; }
-  .footer-links a:hover { color: #9fe1cb; }
-  .footer-copy { font-size: 12px; color: rgba(255,255,255,.2); }
-
-  /* Mobile */
-  @media(max-width: 768px) {
-    .navbar { padding: 0 1.25rem; }
-    .course-wrap { padding: 1.25rem 1rem 3rem; }
-    .course-shell { grid-template-columns: 1fr; }
-    .sidebar { display: none; }
-    .section-hero { padding: 1.25rem 1.5rem; }
-    .section-hero h2 { font-size: 20px; }
-    .content-body { padding: 1.25rem; }
-    .content-footer { padding: 1rem 1.25rem; }
-    .site-footer { padding: 1.5rem 1.25rem; }
-  }
+  .prompt-text { font-family: monospace; font-size: 12px; background: #ffffff; padding: 10px; border: 1px solid #e8ecef; border-radius: 8px; margin: 10px 0; white-space: pre-wrap; }
+  .copy-btn { background: #1d9e75; color: #ffffff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; }
 </style>
 </head>
 <body>
-
-<nav class="navbar">
-  <a class="logo" href="/index.html"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a>
-  <a class="back-link" href="/index.html"><i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses</a>
-</nav>
-
+<nav class="navbar"><a class="logo" href="#"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a></nav>
 <div class="course-wrap">
   <div class="course-shell">
-
     <div class="sidebar">
-      <div class="sidebar-top">
-        <div class="course-label">Free Resource — PairWorkflows</div>
-        <div class="course-title-side">AI Prompt Library for Corporate Professionals</div>
+      <div class="nav-list">
+        <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div>Manager</div></div>
+        <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div>HR</div></div>
+        <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div>Finance</div></div>
+        <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div>Legal</div></div>
+        <div class="nav-item" id="ni4" onclick="go(4)"><div class="nav-dot" id="nd4">5</div><div>Marketing</div></div>
+        <div class="nav-item" id="ni5" onclick="go(5)"><div class="nav-dot" id="nd5">6</div><div>Operations</div></div>
+        <div class="nav-item" id="ni6" onclick="go(6)"><div class="nav-dot" id="nd6">7</div><div>Sales</div></div>
+        <div class="nav-item" id="ni7" onclick="go(7)"><div class="nav-dot" id="nd7">8</div><div>Project Management</div></div>
       </div>
-      <div class="nav-list" id="navList">
-        </div>
     </div>
-
     <div class="content-area">
       <div class="section-hero">
-        <div class="section-tag" id="heroTag">Role 01 of 08</div>
         <h2 id="heroTitle">Manager: prompts for strategy, communication and leadership.</h2>
-        <p class="hero-sub">80 ready-to-copy prompts for Claude and Gemini — organised by role, built for corporate professionals.</p>
       </div>
-
       <div class="content-body" id="cnt">
+        <div id="seo-sec-0" class="seo-section active-section">
+          <div class="prompt-card">
+            <div class="prompt-title">Executive Status Update</div>
+            <span class="prompt-badge badge-comms"><i class="ti ti-message"></i> Communications</span>
+            <div class="prompt-text" id="p0-0">You are a senior communications advisor. Convert the following bullet points into a concise executive status update...</div>
+            <button class="copy-btn" onclick="copyPrompt('p0-0',this)">Copy</button>
+          </div>
         </div>
-
-      <div class="content-footer">
-        <button class="btn-nav" id="btnBack" onclick="go(cur-1)">Back</button>
-        <button class="btn-fwd" id="btnFwd" onclick="go(cur+1)">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>
+        </div>
+      <div class="content-footer" style="padding: 1rem; border-top: 1px solid #eee;">
+        <button id="btnBack" onclick="go(cur-1)">Back</button>
+        <button id="btnFwd" onclick="go(cur+1)">Next</button>
       </div>
     </div>
-
   </div>
 </div>
-
-<footer class="site-footer">
-  <div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Contact</a></div>
-  <div class="footer-copy">&copy; 2026 PairWorkflows. All rights reserved.</div>
-</footer>
-
 <script>
-var cur = 0;
-var TOTAL = 8;
-var visited = [true,false,false,false,false,false,false,false];
-var heroes = [  
-  {tag:'Role 01 of 08', title:'Manager: prompts for strategy, communication and leadership.'},  
-  {tag:'Role 02 of 08', title:'HR: prompts for people management, policies and talent.'},  
-  {tag:'Role 03 of 08', title:'Finance: prompts for analysis, reporting and financial planning.'},  
-  {tag:'Role 04 of 08', title:'Legal: prompts for contract review, compliance and risk.'},  
-  {tag:'Role 05 of 08', title:'Marketing: prompts for content, campaigns and brand communications.'},  
-  {tag:'Role 06 of 08', title:'Operations: prompts for process, reporting and supplier management.'},  
-  {tag:'Role 07 of 08', title:'Sales: prompts for prospecting, proposals and account management.'},  
-  {tag:'Role 08 of 08', title:'Project Management: prompts for planning, reporting and delivery.'}
-];
+var cur = 0; var TOTAL = 8; var visited = [true,false,false,false,false,false,false,false];
+var heroes = [{title:'Manager: prompts for strategy, communication and leadership.'}, {title:'HR: prompts for people management, policies and talent.'}, {title:'Finance: prompts for analysis, reporting and financial planning.'}, {title:'Legal: prompts for contract review, compliance and risk.'}, {title:'Marketing: prompts for content, campaigns and brand communications.'}, {title:'Operations: prompts for process, reporting and supplier management.'}, {title:'Sales: prompts for prospecting, proposals and account management.'}, {title:'Project Management: prompts for planning, reporting and delivery.'}];
 
-function go(n){  
-  if(n<0||n>=TOTAL)return;  
-  visited[n]=true;  
-  cur=n;  
-  render();  
-  window.scrollTo(0,0);
-}
-
-function render(){  
-  document.getElementById('heroTag').textContent=heroes[cur].tag;  
-  document.getElementById('heroTitle').textContent=heroes[cur].title;  
-  for(var i=0;i<TOTAL;i++){    
-    var ni=document.getElementById('ni'+i);    
-    var nd=document.getElementById('nd'+i);    
-    var sec=document.getElementById('seo-sec-'+i);    
-    if(ni) ni.className='nav-item'+(i===cur?' active':'');    
-    if(sec){      
-      if(i===cur) sec.classList.add('active-section');      
-      else sec.classList.remove('active-section');    
-    }    
-    if(nd){      
-      if(visited[i]&&i!==cur){        
-        nd.className='nav-dot done';        
-        nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';      
-      } else if(i===cur){        
-        nd.className='nav-dot active';        
-        nd.textContent=(i+1);      
-      } else {        
-        nd.className='nav-dot';        
-        nd.textContent=(i+1);      
-      }    
-    }  
-  }  
-  document.getElementById('btnBack').disabled=(cur===0);  
-  var fwd=document.getElementById('btnFwd');  
-  if(cur===TOTAL-1){    
-    fwd.style.display='none';  
-  } else {    
-    fwd.style.display='';    
-    fwd.innerHTML='Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';  
+function go(n){ if(n<0||n>=TOTAL)return; visited[n]=true; cur=n; render(); }
+function render(){ 
+  document.getElementById('heroTitle').textContent=heroes[cur].title;
+  for(var i=0;i<TOTAL;i++){
+    document.getElementById('ni'+i).className='nav-item'+(i===cur?' active':'');
+    document.getElementById('seo-sec-'+i).className='seo-section'+(i===cur?' active-section':'');
+    var nd=document.getElementById('nd'+i);
+    if(visited[i]&&i!==cur){ nd.className='nav-dot done'; nd.innerHTML='<i class="ti ti-check"></i>'; }
+    else if(i===cur){ nd.className='nav-dot active'; nd.textContent=(i+1); }
+    else { nd.className='nav-dot'; nd.textContent=(i+1); }
   }
 }
-
-function copyPrompt(id,btn){  
-  var el=document.getElementById(id);  
-  var text=el.innerText||el.textContent;  
-  if(navigator.clipboard&&navigator.clipboard.writeText){    
-    navigator.clipboard.writeText(text).then(function(){      
-      var orig=btn.innerHTML;      
-      btn.innerHTML='<i class="ti ti-check" style="font-size:12px"></i> Copied!';      
-      btn.style.background='#085041';      
-      setTimeout(function(){btn.innerHTML=orig;btn.style.background='';},2000);    
-    }).catch(function(){      
-      fallbackCopy(text,btn);    
-    });  
-  } else {    
-    fallbackCopy(text,btn);  
-  }
+function copyPrompt(id,btn){ 
+  navigator.clipboard.writeText(document.getElementById(id).textContent);
+  btn.textContent='Copied!'; setTimeout(()=>btn.textContent='Copy', 2000);
 }
-
-function fallbackCopy(text,btn){  
-  var ta=document.createElement('textarea');  
-  ta.value=text;  
-  ta.style.position='fixed';  
-  ta.style.opacity='0';  
-  document.body.appendChild(ta);  
-  ta.focus();  
-  ta.select();  
-  try{    
-    document.execCommand('copy');    
-    var orig=btn.innerHTML;    
-    btn.innerHTML='<i class="ti ti-check" style="font-size:12px"></i> Copied!';    
-    btn.style.background='#085041';    
-    setTimeout(function(){btn.innerHTML=orig;btn.style.background='';},2000);  
-  }catch(e){}  
-  document.body.removeChild(ta);
-}
-
-render();
 </script>
 </body>
 </html>
