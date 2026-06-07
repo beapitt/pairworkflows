@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Prompt Library for Corporate Professionals — PairWorkflows</title>
+<meta name="description" content="80 ready-to-copy AI prompts for corporate professionals. Organised by role: Manager, HR, Finance, Legal, Marketing, Operations, Sales and Project Management.">
+<link rel="canonical" href="https://www.pairworkflows.com/prompt-library.html">
+
+<meta property="og:title" content="AI Prompt Library for Corporate Professionals — PairWorkflows">
+<meta property="og:description" content="80 ready-to-copy AI prompts organised by role for UK and USA corporate professionals.">
+<meta property="og:url" content="https://www.pairworkflows.com/prompt-library.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="PairWorkflows">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Prompt Library for Corporate Professionals — PairWorkflows">
+<meta name="twitter:description" content="80 ready-to-copy AI prompts organised by role for UK and USA corporate professionals.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "AI Prompt Library for Corporate Professionals",
+  "description": "80 ready-to-copy AI prompts for corporate professionals organised by role.",
+  "url": "https://www.pairworkflows.com/prompt-library.html",
+  "datePublished": "2026-06-07",
+  "dateModified": "2026-06-07",
+  "author": {"@type": "Organization", "name": "PairWorkflows", "url": "https://www.pairworkflows.com"},
+  "publisher": {"@type": "Organization", "name": "PairWorkflows", "url": "https://www.pairworkflows.com"}
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', 'Segoe UI', sans-serif; background: #042e1f; color: #1a1a2e; min-height: 100vh; display: flex; flex-direction: column; }
+
+  /* Navbar */
+  .navbar { background: #021a12; border-bottom: 1px solid #0a4a30; padding: 0 3rem; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+  .logo { display: flex; align-items: baseline; gap: 1px; text-decoration: none; }
+  .logo-pair { font-size: 18px; font-weight: 800; color: #ffffff; letter-spacing: -.3px; }
+  .logo-workflows { font-size: 18px; font-weight: 400; color: #9fe1cb; letter-spacing: -.2px; }
+  .back-link { display: flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,.6); text-decoration: none; transition: color .15s; }
+  .back-link:hover { color: #ffffff; }
+
+  /* Layout */
+  .course-wrap { max-width: 1280px; margin: 0 auto; padding: 2rem 3rem 4rem; flex: 1; width: 100%; }
+  .course-shell { background: #ffffff; border-radius: 16px; box-shadow: 0 4px 40px rgba(0,0,0,.4); overflow: hidden; display: grid; grid-template-columns: 260px 1fr; min-height: 600px; }
+
+  /* Sidebar */
+  .sidebar { background: #f8fafb; border-right: 1px solid #e8ecef; display: flex; flex-direction: column; }
+  .sidebar-top { padding: 1.5rem 1.25rem 1rem; border-bottom: 1px solid #e8ecef; }
+  .course-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: #0f6e56; margin-bottom: .5rem; }
+  .course-title-side { font-size: 13px; font-weight: 500; color: #1a1a2e; line-height: 1.45; }
+  .nav-list { padding: .5rem 0; flex: 1; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: .7rem 1.25rem; cursor: pointer; border-left: 3px solid transparent; transition: all .15s; }
+  .nav-item:hover { background: #eef1f4; }
+  .nav-item.active { border-left-color: #1d9e75; background: #ffffff; }
+  .nav-dot { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid #d1d5db; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: #6b7280; flex-shrink: 0; transition: all .15s; }
+  .nav-dot.done { background: #1d9e75; border-color: #1d9e75; color: #ffffff; }
+  .nav-dot.active { border-color: #1d9e75; color: #0f6e56; font-weight: 600; }
+  .nav-text { font-size: 13px; color: #6b7280; line-height: 1.35; }
+  .nav-item.active .nav-text { color: #1a1a2e; font-weight: 500; }
+  .nav-count { font-size: 10px; color: #9ca3af; margin-left: auto; }
+
+  /* Hero */
+  .content-area { display: flex; flex-direction: column; }
+  .section-hero { background: linear-gradient(135deg, #085041 0%, #0f6e56 45%, #185fa5 100%); padding: 2rem 2.5rem; }
+  .hero-badge { display: inline-block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; background: rgba(255,255,255,.15); color: #ffffff; padding: 4px 12px; border-radius: 20px; margin-bottom: .75rem; border: 1px solid rgba(255,255,255,.2); }
+  .section-tag { font-size: 11px; font-weight: 500; color: rgba(255,255,255,.7); margin-bottom: .5rem; text-transform: uppercase; letter-spacing: .06em; }
+  .section-hero h2 { font-size: 24px; font-weight: 600; color: #ffffff; line-height: 1.3; max-width: 580px; }
+  .hero-sub { font-size: 14px; color: rgba(255,255,255,.75); margin-top: .5rem; line-height: 1.6; }
+
+  /* Content */
+  .content-body { padding: 2rem 2.5rem; flex: 1; }
+  .seo-section { display: none; }
+  .seo-section.active-section { display: block; }
+
+  .role-intro { font-size: 14px; color: #374151; line-height: 1.75; margin-bottom: 1.75rem; padding-bottom: 1.25rem; border-bottom: 1px solid #f0f2f5; }
+
+  /* Prompt cards */
+  .prompt-card { background: #f8fafb; border: 1px solid #e8ecef; border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; border-left: 3px solid #1d9e75; }
+  .prompt-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: .5rem; }
+  .prompt-title { font-size: 14px; font-weight: 700; color: #1a1a2e; line-height: 1.3; }
+  .prompt-badge { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; padding: 3px 8px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+  .badge-claude { background: #fdf0ec; color: #b05030; border: 1px solid #f4c4ae; }
+  .badge-gemini { background: #e6f1fb; color: #0c447c; border: 1px solid #93c5fd; }
+  .badge-both { background: #e1f5ee; color: #085041; border: 1px solid #a7e8ce; }
+  .prompt-desc { font-size: 13px; color: #6b7280; margin-bottom: .625rem; line-height: 1.5; }
+  .prompt-usecase { font-size: 12px; color: #374151; background: #ffffff; border: 1px solid #e8ecef; border-radius: 6px; padding: .5rem .75rem; margin-bottom: .625rem; }
+  .prompt-usecase strong { color: #0f6e56; }
+  .prompt-need { font-size: 12px; color: #6b7280; margin-bottom: .75rem; }
+  .prompt-need strong { color: #374151; }
+  .prompt-text-wrap { position: relative; margin-bottom: .75rem; }
+  .prompt-text { font-family: 'SFMono-Regular', Consolas, monospace; font-size: 12.5px; color: #232733; background: #ffffff; border: 1px solid #e8ecef; border-radius: 8px; padding: .875rem 1rem; line-height: 1.7; white-space: pre-wrap; word-break: break-word; }
+  .prompt-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .prompt-output { font-size: 11.5px; color: #6b7280; font-style: italic; flex: 1; }
+  .prompt-output strong { color: #374151; font-style: normal; }
+  .copy-btn { background: #1d9e75; color: #ffffff; border: none; padding: 6px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all .15s; display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+  .copy-btn:hover { background: #0f6e56; }
+
+  /* Footer nav */
+  .content-footer { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 2.5rem; border-top: 1px solid #f0f2f5; background: #fafbfc; }
+  .btn-nav { background: transparent; border: 1px solid #d1d5db; color: #6b7280; padding: 8px 18px; border-radius: 8px; font-size: 13px; cursor: pointer; transition: all .15s; font-family: inherit; }
+  .btn-nav:hover { background: #f0f2f5; }
+  .btn-nav:disabled { opacity: .35; cursor: default; }
+  .btn-fwd { background: #1d9e75; color: #ffffff; border: none; padding: 8px 22px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s; font-family: inherit; }
+  .btn-fwd:hover { background: #0f6e56; }
+
+  /* Site footer */
+  .site-footer { background: #021a12; padding: 1.5rem 3rem; text-align: center; border-top: 1px solid rgba(255,255,255,.06); margin-top: auto; }
+  .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: .625rem; flex-wrap: wrap; }
+  .footer-links a { font-size: 12px; color: rgba(255,255,255,.4); text-decoration: none; transition: color .15s; }
+  .footer-links a:hover { color: #9fe1cb; }
+  .footer-copy { font-size: 12px; color: rgba(255,255,255,.2); }
+
+  /* Mobile */
+  @media(max-width: 768px) {
+    .navbar { padding: 0 1.25rem; }
+    .course-wrap { padding: 1.25rem 1rem 3rem; }
+    .course-shell { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .section-hero { padding: 1.25rem 1.5rem; }
+    .section-hero h2 { font-size: 20px; }
+    .content-body { padding: 1.25rem; }
+    .content-footer { padding: 1rem 1.25rem; }
+    .site-footer { padding: 1.5rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a class="logo" href="/index.html"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a>
+  <a class="back-link" href="/index.html"><i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses</a>
+</nav>
+
+<div class="course-wrap">
+  <div class="course-shell">
+
+    <div class="sidebar">
+      <div class="sidebar-top">
+        <div class="course-label">Free Resource — PairWorkflows</div>
+        <div class="course-title-side">AI Prompt Library for Corporate Professionals</div>
+      </div>
+      <div class="nav-list">
+        <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">Manager</div><span class="nav-count">10</span></div>
+        <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">HR</div><span class="nav-count">10</span></div>
+        <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Finance</div><span class="nav-count">10</span></div>
+        <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Legal</div><span class="nav-count">10</span></div>
+        <div class="nav-item" id="ni4" onclick="go(4)"><div class="nav-dot" id="nd4">5</div><div class="nav-text">Marketing</div><span class="nav-count">10</span></div>
+        <div class="nav-item" id="ni5" onclick="go(5)"><div class="nav-dot" id="nd5">6</div><div class="nav-text">Operations</div><span class="nav-count">10</span></div>
+        <div class="nav-item" id="ni6" onclick="go(6)"><div class="nav-dot" id="nd6">7</div><div class="nav-text">Sales</div><span class="nav-count">10</span></div>
+        <div class="nav-item" id="ni7" onclick="go(7)"><div class="nav-dot" id="nd7">8</div><div class="nav-text">Project Management</div><span class="nav-count">10</span></div>
+      </div>
+    </div>
+
+    <div class="content-area">
+      <div class="section-hero">
+        <div class="hero-badge">Free Resource</div>
+        <div class="section-tag" id="heroTag">Role 01 of 08</div>
+        <h2 id="heroTitle">Manager: prompts for strategy, communication and leadership.</h2>
+        <p class="hero-sub">80 ready-to-copy prompts for Claude and Gemini — organised by role, built for corporate professionals.</p>
+      </div>
+
+      <div class="content-body" id="cnt">
+
+        <!-- SECTION 1: MANAGER -->
+        <div id="seo-sec-0" class="seo-section active-section">
+          <p class="role-intro">These prompts help managers save time on strategy documents, team communications, performance reviews, and decision-making. Each prompt is ready to copy and paste directly into Claude or Gemini.</p>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Executive Status Update</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Turn bullet-point notes into a polished executive update.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Weekly or monthly leadership communications.</div>
+            <p class="prompt-need"><strong>You need:</strong> Your raw notes or bullet points on team progress.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p0-0">You are a senior communications advisor. Convert the following bullet points into a concise executive status update for [Audience, e.g. Board of Directors / Senior Leadership Team].
+
+Tone: professional, direct, and confident.
+Length: maximum 200 words.
+Structure: Current status, key achievements this period, risks or blockers, next steps.
+Do not use filler phrases like "I am pleased to report" or "it is worth noting".
+
+My notes:
+[Paste your bullet points here]</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 200-word executive update ready to send or paste into a report.</p><button class="copy-btn" onclick="copyPrompt('p0-0',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Performance Review Summary</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Draft a balanced, professional performance review from your notes.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Annual or mid-year performance review cycles.</div>
+            <p class="prompt-need"><strong>You need:</strong> Key observations, achievements, and areas for development for the employee.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p0-1">You are an experienced HR business partner. Write a professional performance review summary for [Employee Name], [Job Title].
+
+Use the following observations:
+Strengths: [List key strengths]
+Achievements this period: [List achievements]
+Areas for development: [List development areas]
+
+Tone: constructive, fair, and specific. Avoid vague language.
+Length: 250-300 words.
+Include one specific recommendation for development in the next review period.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A balanced 300-word performance review ready for HR systems.</p><button class="copy-btn" onclick="copyPrompt('p0-1',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Team Meeting Agenda</div><span class="prompt-badge badge-both">Works with both</span></div>
+            <p class="prompt-desc">Create a structured, time-boxed agenda for any team meeting.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Weekly team syncs, project kick-offs, quarterly reviews.</div>
+            <p class="prompt-need"><strong>You need:</strong> Meeting objective, duration, and list of topics to cover.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p0-2">Create a structured meeting agenda for a [Duration, e.g. 60-minute] team meeting with the following objective: [Meeting objective].
+
+Topics to cover: [List topics]
+Number of attendees: [Number]
+Meeting type: [e.g. weekly sync / project review / planning session]
+
+Format: time-boxed agenda with owner for each item, clear purpose per slot, and a 5-minute buffer at the end for actions and decisions. Keep language direct and professional.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A time-boxed agenda with owners and purpose for each slot.</p><button class="copy-btn" onclick="copyPrompt('p0-2',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Decision Brief</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Structure a clear decision brief for senior stakeholders.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Escalating decisions, investment proposals, policy changes.</div>
+            <p class="prompt-need"><strong>You need:</strong> The decision to be made, options available, and your recommendation.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p0-3">You are a management consultant. Write a one-page decision brief for [Audience] on the following matter: [Decision to be made].
+
+Structure the brief as follows:
+1. Context (2-3 sentences explaining why a decision is needed now)
+2. Options considered (list each option with one-line pros and cons)
+3. Recommended option (with clear rationale)
+4. Risks of the recommendation
+5. Required action (what you need the reader to approve or decide)
+
+Tone: direct and evidence-based. Length: maximum 350 words.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A one-page decision brief structured for executive review.</p><button class="copy-btn" onclick="copyPrompt('p0-3',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Difficult Conversation Script</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Prepare a structured script for a sensitive management conversation.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Underperformance discussions, redundancy conversations, conflict resolution.</div>
+            <p class="prompt-need"><strong>You need:</strong> The situation, key points to convey, and desired outcome.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p0-4">You are an experienced people manager and HR advisor. Help me prepare for a difficult conversation with [Employee Name / Role].
+
+Situation: [Describe the situation in 2-3 sentences]
+Key points I need to convey: [List them]
+Desired outcome of the conversation: [What you want to achieve]
+
+Provide:
+1. An opening statement (how to start the conversation professionally)
+2. Key talking points in order
+3. How to handle likely pushback
+4. A closing statement that sets clear next steps
+
+Tone: firm but empathetic. Do not use corporate jargon.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A structured conversation script with opening, talking points and closing.</p><button class="copy-btn" onclick="copyPrompt('p0-4',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Strategy Document Outline</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Generate a professional outline for a departmental or business strategy document.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Annual planning, new initiative proposals, board presentations.</div>
+            <p class="prompt-need"><strong>You need:</strong> The strategic topic, audience, and key objectives.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p0-5">You are a strategy consultant. Create a detailed outline for a [Department / Business Unit] strategy document for [Year / Period].
+
+Audience: [e.g. Executive Leadership Team / Board of Directors]
+Strategic objectives: [List 3-5 objectives]
+Key challenges to address: [List challenges]
+
+Provide a full document outline with section headings, sub-headings, and a one-sentence description of what each section should contain. The outline should support a 10-15 page strategy document.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A complete document outline with headings, sub-headings and section descriptions.</p><button class="copy-btn" onclick="copyPrompt('p0-5',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Meeting Summary and Action Items</div><span class="prompt-badge badge-gemini">Best in Gemini</span></div>
+            <p class="prompt-desc">Extract a clean summary and action list from raw meeting notes.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> After any meeting where you need to circulate a summary.</div>
+            <p class="prompt-need"><strong>You need:</strong> Raw meeting notes or a transcript.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p0-6">Review the following meeting notes and produce a structured summary.
+
+Output format:
+1. Meeting objective (one sentence)
+2. Key decisions made (bullet list)
+3. Action items (table with columns: Action, Owner, Deadline)
+4. Open questions or items requiring follow-up
+
+Do not include conversational filler. Extract only confirmed decisions and explicitly assigned actions.
+
+Meeting notes:
+[Paste meeting notes or transcript here]</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A structured summary with decisions, action table and open questions.</p><button class="copy-btn" onclick="copyPrompt('p0-6',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Stakeholder Communication Plan</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Build a structured communication plan for a project or change initiative.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Project launches, organisational changes, new policies.</div>
+            <p class="prompt-need"><strong>You need:</strong> Initiative description, key stakeholder groups, and timeline.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p0-7">You are a change management consultant. Create a stakeholder communication plan for the following initiative: [Initiative name and description].
+
+Stakeholder groups: [List groups, e.g. Executive team, Middle managers, All staff, External partners]
+Timeline: [Start date to end date]
+Key milestones: [List milestones]
+
+For each stakeholder group provide: communication objective, key messages, channel, frequency, and owner. Format as a clear table.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A communication plan table with messages, channels and owners per stakeholder group.</p><button class="copy-btn" onclick="copyPrompt('p0-7',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Risk Assessment Summary</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Identify and structure key risks for a project or decision.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Project planning, board reporting, investment decisions.</div>
+            <p class="prompt-need"><strong>You need:</strong> Project or decision description and known risk areas.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p0-8">You are a risk management consultant. Identify and structure the key risks for the following: [Project or decision description].
+
+Known risk areas: [List any risks you are already aware of]
+
+For each risk provide: risk description, likelihood (High/Medium/Low), impact (High/Medium/Low), risk owner, and recommended mitigation action.
+
+Format as a risk register table. Include a maximum of 8 risks, prioritised by overall severity. Add a one-paragraph executive summary of the overall risk profile.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A risk register table with likelihood, impact, owner and mitigation per risk.</p><button class="copy-btn" onclick="copyPrompt('p0-8',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Team Announcement Draft</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Write a clear, professional announcement for your team.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Organisational changes, new hires, policy updates, project launches.</div>
+            <p class="prompt-need"><strong>You need:</strong> The news to announce and the key points to communicate.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p0-9">You are a senior manager at [Company Name]. Write a team announcement email about the following: [What you are announcing].
+
+Key points to communicate: [List them]
+Tone: [e.g. positive and energising / calm and reassuring / straightforward and factual]
+Audience: [e.g. Your direct team of 12 / The entire department of 80 people]
+Length: maximum 150 words.
+
+Start directly with the news. Do not use phrases like "I hope this message finds you well" or "I am writing to inform you".</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 150-word team announcement email ready to send.</p><button class="copy-btn" onclick="copyPrompt('p0-9',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+        </div>
+
+        <!-- SECTION 2: HR -->
+        <div id="seo-sec-1" class="seo-section">
+          <p class="role-intro">These prompts help HR professionals save time on policy drafting, employee communications, job descriptions, onboarding materials, and people analytics. Each prompt is ready to copy and paste directly into Claude or Gemini.</p>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Job Description Draft</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Write a clear, inclusive job description that attracts the right candidates.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> New role creation, backfill hiring, internal mobility.</div>
+            <p class="prompt-need"><strong>You need:</strong> Job title, department, key responsibilities, and required skills.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p1-0">You are an experienced HR professional and talent acquisition specialist. Write a job description for the following role.
+
+Job title: [Job title]
+Department: [Department]
+Location: [Location / Remote / Hybrid]
+Reporting to: [Reporting line]
+Key responsibilities: [List 5-7 responsibilities]
+Required skills and experience: [List requirements]
+Desirable skills: [List nice-to-haves]
+
+Requirements: Use inclusive, bias-free language. Avoid jargon. Keep the responsibilities section to 6 bullet points maximum. The tone should be professional but engaging. Do not use the phrase "rockstar" or "ninja".</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A complete, inclusive job description ready for posting.</p><button class="copy-btn" onclick="copyPrompt('p1-0',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">HR Policy Draft</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Draft a clear, professional HR policy document.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Creating new policies or updating existing ones.</div>
+            <p class="prompt-need"><strong>You need:</strong> Policy topic, scope, key rules, and any legal requirements.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p1-1">You are an HR policy specialist. Draft a professional HR policy document on the following topic: [Policy topic, e.g. Remote Working Policy / Expense Policy / Disciplinary Policy].
+
+Scope: [Who the policy applies to]
+Key rules and requirements: [List main policy points]
+Legal or regulatory requirements to reflect: [e.g. UK Employment Law / GDPR]
+Effective date: [Date]
+
+Structure the document with: Purpose, Scope, Policy Statement, Procedures, Responsibilities, Review Date. Use clear, plain English. Avoid legal jargon where possible. Flag any sections that should be reviewed by a legal advisor with [LEGAL REVIEW REQUIRED].</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A structured HR policy document with all standard sections.</p><button class="copy-btn" onclick="copyPrompt('p1-1',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Interview Question Set</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Generate a structured set of competency-based interview questions.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Preparing for structured interviews for any role.</div>
+            <p class="prompt-need"><strong>You need:</strong> Job title and the key competencies required for the role.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p1-2">You are a talent acquisition specialist. Create a structured interview question set for the role of [Job title].
+
+Key competencies to assess: [List 4-5 competencies, e.g. Leadership, Problem-solving, Communication, Commercial awareness]
+
+For each competency provide:
+- One behavioural question (STAR format: Situation, Task, Action, Result)
+- One follow-up probe question
+- The ideal answer indicators (what a strong answer should include)
+
+Also include 2 general culture-fit questions at the end. Total questions: maximum 12.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A structured interview guide with questions, probes and answer indicators.</p><button class="copy-btn" onclick="copyPrompt('p1-2',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Employee Survey Analysis</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Analyse open-text survey responses to identify key themes.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Engagement surveys, pulse checks, exit interview analysis.</div>
+            <p class="prompt-need"><strong>You need:</strong> The open-text survey responses (anonymised).</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p1-3">You are an organisational psychologist and HR analytics specialist. Analyse the following open-text employee survey responses and identify the key themes.
+
+Survey question asked: [The question employees were answering]
+Number of responses: [Number]
+
+Tasks:
+1. Identify the top 5 themes across all responses
+2. For each theme, provide: theme name, frequency estimate (High/Medium/Low), representative quotes (anonymised), and recommended action
+3. Identify any urgent concerns that require immediate attention
+4. Provide an overall sentiment rating (Positive / Mixed / Negative) with justification
+
+Survey responses:
+[Paste anonymised responses here]</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A theme analysis with sentiment, quotes and recommended actions.</p><button class="copy-btn" onclick="copyPrompt('p1-3',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Onboarding Plan</div><span class="prompt-badge badge-both">Works with both</span></div>
+            <p class="prompt-desc">Create a structured 30-60-90 day onboarding plan for a new hire.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Onboarding new employees at any level.</div>
+            <p class="prompt-need"><strong>You need:</strong> Role title, department, key stakeholders, and main objectives for the first 90 days.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p1-4">You are an HR business partner. Create a structured 30-60-90 day onboarding plan for a new [Job title] joining the [Department] team.
+
+Key stakeholders they need to meet: [List names or roles]
+Systems and tools to learn: [List]
+Key objectives for first 90 days: [List]
+Manager: [Manager name / role]
+
+For each 30-day period provide: focus areas, key activities, meetings to schedule, milestones, and success indicators. Format as a clear table for each period.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 30-60-90 day onboarding plan with activities, milestones and success indicators.</p><button class="copy-btn" onclick="copyPrompt('p1-4',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Redundancy Consultation Letter</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Draft a professional and legally careful redundancy consultation letter.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Individual or collective redundancy processes.</div>
+            <p class="prompt-need"><strong>You need:</strong> Employee details, reason for redundancy, and consultation timeline.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p1-5">You are an HR director. Draft a professional redundancy consultation letter for [Employee Name], [Job Title], [Department].
+
+Reason for redundancy: [e.g. restructuring / role elimination / cost reduction]
+Consultation period: [Start date to end date]
+Meeting date: [First consultation meeting date]
+HR contact: [Name and contact details]
+
+The letter must: explain the reason for the consultation, confirm the employee is at risk of redundancy (not confirmed redundancy), invite them to the first consultation meeting, confirm their right to be accompanied, and provide HR contact details. Flag all sections that require legal review with [LEGAL REVIEW REQUIRED]. Note: this is a UK employment law context.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A consultation letter draft with legal review flags. Always review with a legal advisor before sending.</p><button class="copy-btn" onclick="copyPrompt('p1-5',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Learning and Development Plan</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Create a personalised learning and development plan for an employee.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Annual development planning, career conversations, succession planning.</div>
+            <p class="prompt-need"><strong>You need:</strong> Employee role, career goals, current skills, and development areas.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p1-6">You are an L&D specialist. Create a 12-month learning and development plan for [Employee Name], [Job Title].
+
+Current skills and strengths: [List]
+Development areas identified: [List]
+Career goal: [What the employee wants to achieve in 1-3 years]
+Budget available: [e.g. 500 GBP / 1000 USD]
+Time available for learning: [e.g. 2 hours per week]
+
+For each development area provide: learning objective, recommended activities (mix of formal, informal and on-the-job), timeline, success measure, and estimated cost. Format as a structured table.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 12-month L&D plan table with activities, timelines and success measures.</p><button class="copy-btn" onclick="copyPrompt('p1-6',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Exit Interview Summary</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Summarise exit interview notes into actionable HR insights.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> After conducting exit interviews, before presenting findings to leadership.</div>
+            <p class="prompt-need"><strong>You need:</strong> Your exit interview notes (anonymised).</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p1-7">You are an HR analytics specialist. Summarise the following exit interview notes into a structured report for the HR leadership team.
+
+Role of departing employee: [Job title / level — do not include name]
+Reason for leaving (stated): [Reason]
+Interview notes: [Paste anonymised notes here]
+
+Provide:
+1. Primary reason for leaving (in one sentence)
+2. Key themes from the interview (maximum 4)
+3. Actionable recommendations for HR or management
+4. Risk flag: does this exit suggest a systemic issue? (Yes/No with brief explanation)
+
+Keep the report factual and avoid editorialising.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A structured exit interview report with themes, recommendations and risk flags.</p><button class="copy-btn" onclick="copyPrompt('p1-7',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Wellbeing Communication</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Write a sensitive and supportive employee wellbeing communication.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Mental health awareness campaigns, return-to-work communications, wellbeing initiatives.</div>
+            <p class="prompt-need"><strong>You need:</strong> The wellbeing topic and key messages to communicate.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p1-8">You are an HR communications specialist with expertise in employee wellbeing. Write a communication to [Audience, e.g. all employees / managers] about the following wellbeing topic: [Topic].
+
+Key messages to include: [List]
+Resources to signpost: [List any resources, e.g. EAP, Mental Health First Aiders]
+Tone: warm, non-patronising, inclusive, and practical.
+Length: maximum 200 words.
+
+Avoid clinical language. Do not make assumptions about employees' personal circumstances. Ensure the communication feels human and genuine, not corporate.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 200-word wellbeing communication that is warm, practical and inclusive.</p><button class="copy-btn" onclick="copyPrompt('p1-8',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Headcount Planning Summary</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Summarise headcount data and build a clear narrative for leadership.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Annual headcount planning, budget cycles, workforce planning reviews.</div>
+            <p class="prompt-need"><strong>You need:</strong> Current headcount data, open roles, attrition figures, and planned hires.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p1-9">You are an HR business partner preparing for a headcount planning meeting with the Executive team. Using the data below, write a concise headcount planning summary.
+
+Current headcount: [Number] across [Number] departments
+Open requisitions: [Number]
+Attrition rate this year: [Percentage]
+Planned new hires: [Number] in [Departments]
+Key workforce risks: [List any risks, e.g. skills gaps, succession gaps]
+
+Produce: a 150-word narrative summary, a bullet list of key headcount metrics, and 3 recommendations for the planning cycle. Tone: factual and commercially focused.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 150-word narrative summary with key metrics and planning recommendations.</p><button class="copy-btn" onclick="copyPrompt('p1-9',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+        </div>
+
+        <!-- SECTION 3: FINANCE -->
+        <div id="seo-sec-2" class="seo-section">
+          <p class="role-intro">These prompts help Finance professionals save time on financial analysis, report writing, budget reviews, and executive briefings. Each prompt is ready to copy and paste directly into Claude or Gemini.</p>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Financial Report Summary</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Turn a detailed financial report into a concise executive summary.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Monthly or quarterly board reporting, investor updates.</div>
+            <p class="prompt-need"><strong>You need:</strong> The financial report text or key figures.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p2-0">You are a CFO preparing a board report. Summarise the following financial data into a concise executive summary for [Audience, e.g. Board of Directors / Investors].
+
+Period: [e.g. Q1 2026 / FY2025]
+Financial data: [Paste report text or key figures here]
+
+Structure the summary as:
+1. Overall financial performance (2-3 sentences)
+2. Revenue highlights (bullet points)
+3. Cost and margin commentary (bullet points)
+4. Key variances vs budget or prior period (table format)
+5. Outlook and risks (2-3 sentences)
+
+Length: maximum 300 words. Use precise financial language. Flag any figures that deviate significantly from budget with [VARIANCE ALERT].</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 300-word executive financial summary with variance flags.</p><button class="copy-btn" onclick="copyPrompt('p2-0',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Budget Variance Analysis</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Analyse budget variances and draft commentary for management accounts.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Monthly management accounts, budget reviews.</div>
+            <p class="prompt-need"><strong>You need:</strong> Actual vs budget figures for the period.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p2-1">You are a financial controller. Analyse the following budget variances and write commentary for the management accounts.
+
+Period: [Month / Quarter]
+Variance data: [Paste actuals vs budget table here, or list key variances]
+
+For each significant variance (over [threshold, e.g. 5% or 10,000 GBP]):
+- Explain the likely cause in plain English
+- Indicate whether it is a one-off or recurring variance
+- Recommend any corrective action if required
+
+Format: bullet-point commentary per cost/revenue line. Tone: factual and analytical. Avoid vague explanations like "due to timing".</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> Line-by-line variance commentary with causes and recommended actions.</p><button class="copy-btn" onclick="copyPrompt('p2-1',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Investment Case Summary</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Structure a concise investment case for a business initiative.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Capital expenditure requests, new product investments, system implementations.</div>
+            <p class="prompt-need"><strong>You need:</strong> Initiative description, costs, expected returns, and timeline.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p2-2">You are a finance business partner. Write an investment case summary for the following initiative: [Initiative name and description].
+
+Total investment required: [Amount]
+Expected benefits: [List quantified and non-quantified benefits]
+Payback period: [e.g. 18 months]
+NPV or ROI if calculated: [Include if available]
+Key risks: [List]
+Timeline: [Key milestones]
+
+Structure: Problem statement, Proposed solution, Financial summary (costs and benefits table), Risk summary, Recommendation. Length: maximum 400 words. Tone: commercially rigorous.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 400-word investment case with costs, benefits table and recommendation.</p><button class="copy-btn" onclick="copyPrompt('p2-2',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Cash Flow Narrative</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Write a clear narrative explanation of cash flow movements.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Board reporting, investor communications, audit preparation.</div>
+            <p class="prompt-need"><strong>You need:</strong> Key cash flow figures and movements for the period.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p2-3">You are a finance director. Write a clear narrative explanation of the following cash flow movements for [Period].
+
+Opening cash balance: [Amount]
+Closing cash balance: [Amount]
+Key movements: [List main inflows and outflows with amounts]
+
+Explain in plain English: what drove the change in cash position, whether the movements are in line with expectations, any areas of concern, and the outlook for cash in the next period. Length: 200 words. Avoid technical accounting jargon where possible. Audience: Non-finance board members.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 200-word plain-English cash flow narrative for non-finance readers.</p><button class="copy-btn" onclick="copyPrompt('p2-3',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Cost Reduction Opportunities</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Identify and structure cost reduction opportunities from expense data.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Cost reviews, efficiency programmes, budget pressure responses.</div>
+            <p class="prompt-need"><strong>You need:</strong> Current cost base by category and any known constraints.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p2-4">You are a finance consultant specialising in cost optimisation. Review the following cost base and identify potential cost reduction opportunities.
+
+Cost categories and amounts: [List categories with annual spend]
+Constraints: [e.g. no headcount reductions / must maintain service levels]
+Target saving: [e.g. 10% reduction / 500,000 GBP]
+
+For each opportunity provide: category, saving potential (High/Medium/Low), implementation effort (High/Medium/Low), one-time vs recurring saving, and recommended action. Prioritise by ease of implementation vs saving potential. Format as a prioritised table.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A prioritised cost reduction table with savings potential and implementation effort.</p><button class="copy-btn" onclick="copyPrompt('p2-4',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Spreadsheet Formula Helper</div><span class="prompt-badge badge-gemini">Best in Gemini</span></div>
+            <p class="prompt-desc">Get a ready-to-use Google Sheets formula for a complex financial calculation.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Any time you need a complex formula in Google Sheets.</div>
+            <p class="prompt-need"><strong>You need:</strong> A description of your spreadsheet structure and what you want to calculate.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p2-5">Act as an expert Google Sheets data architect. Write a formula based on the following spreadsheet layout.
+
+Sheet structure: [Describe your columns and their contents, e.g. Column A: Date, Column B: Revenue, Column C: Department, Column D: Region]
+What I want to calculate: [Describe the calculation in plain English]
+Where the result should appear: [Cell reference]
+Additional requirements: [e.g. exclude rows where Department is blank / return 0 instead of an error]
+
+Return only the formula text. Do not include explanatory prose. Ensure the formula works in Google Sheets with English locale settings (comma separators).</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A ready-to-use Google Sheets formula with no additional text.</p><button class="copy-btn" onclick="copyPrompt('p2-5',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Financial Risk Summary</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Identify and summarise the key financial risks for a project or period.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Board risk reporting, project appraisals, audit committee preparation.</div>
+            <p class="prompt-need"><strong>You need:</strong> Description of the project or financial position and known risk areas.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p2-6">You are a finance risk manager. Identify and summarise the key financial risks for the following: [Project or financial situation description].
+
+Known risk areas: [List any risks you are already aware of]
+Time horizon: [e.g. next 12 months / project duration]
+
+For each risk provide: risk description, financial impact estimate (quantified where possible), likelihood, and recommended mitigation. Include a maximum of 6 risks. Add a one-paragraph overall financial risk assessment at the end.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A financial risk register with impact estimates and mitigations.</p><button class="copy-btn" onclick="copyPrompt('p2-6',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Supplier Cost Comparison</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Compare supplier quotes and summarise the key financial differences.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Procurement decisions, contract renewals, supplier selection.</div>
+            <p class="prompt-need"><strong>You need:</strong> Supplier quotes with key cost components.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p2-7">You are a finance business partner supporting a procurement decision. Compare the following supplier quotes and produce a clear cost comparison summary.
+
+What is being procured: [Description]
+Contract length: [Duration]
+Supplier quotes: [Paste or list quote details for each supplier]
+Key evaluation criteria beyond price: [e.g. service levels / payment terms / flexibility]
+
+Produce: a comparison table of total costs and key terms, a summary of the financial pros and cons of each option, and a recommended supplier with financial justification. Note any assumptions made in the comparison.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A supplier cost comparison table with recommendation and financial justification.</p><button class="copy-btn" onclick="copyPrompt('p2-7',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Audit Preparation Checklist</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Create a tailored audit preparation checklist for your finance team.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> External audit preparation, internal audit readiness, regulatory reviews.</div>
+            <p class="prompt-need"><strong>You need:</strong> Type of audit and key areas to be reviewed.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p2-8">You are a finance director preparing for an upcoming audit. Create a detailed preparation checklist for the following audit: [Type of audit, e.g. External statutory audit / Internal audit / VAT review].
+
+Key areas to be reviewed: [List]
+Audit start date: [Date]
+Finance team size: [Number]
+
+The checklist should cover: documents to prepare, reconciliations to complete, systems access to arrange, and team briefing actions. Organise by week leading up to the audit start date. Format as a task table with owner column and status column (to be completed by the team).</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A week-by-week audit preparation checklist with owners and status columns.</p><button class="copy-btn" onclick="copyPrompt('p2-8',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Finance Business Partner Update</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Write a monthly finance business partner update for a department head.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Monthly finance updates to non-finance stakeholders.</div>
+            <p class="prompt-need"><strong>You need:</strong> Key financial metrics, variances, and any actions required.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p2-9">You are a finance business partner. Write a monthly financial update email for [Department Head Name], Head of [Department].
+
+Period: [Month / Year]
+Key metrics: [List revenue, costs, headcount or other relevant metrics with actuals and budget]
+Key variances to explain: [List]
+Actions required from the department head: [List any approvals or decisions needed]
+
+Tone: clear, commercially focused, and non-technical. The reader is a non-finance professional. Length: maximum 250 words. Start with the headline financial position in the first sentence.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 250-word finance update email written for a non-finance audience.</p><button class="copy-btn" onclick="copyPrompt('p2-9',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+        </div>
+
+        <!-- SECTION 4: LEGAL -->
+        <div id="seo-sec-3" class="seo-section">
+          <p class="role-intro">These prompts help Legal professionals save time on contract review, compliance summaries, legal research, and internal communications. Always verify AI-generated legal content with a qualified legal advisor before use. Each prompt is ready to copy and paste directly into Claude or Gemini.</p>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Contract Summary</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Extract the key commercial and legal terms from a contract.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Initial contract review, contract management, due diligence.</div>
+            <p class="prompt-need"><strong>You need:</strong> The contract text.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p3-0">You are a commercial lawyer. Review the following contract and extract the key terms into a structured summary.
+
+Extract and summarise:
+1. Parties (who is contracting with whom)
+2. Contract term and renewal provisions
+3. Key commercial obligations of each party
+4. Payment terms and amounts
+5. Termination rights (including notice periods)
+6. Liability and indemnity provisions
+7. Intellectual property ownership
+8. Governing law and jurisdiction
+9. Any unusual or non-standard clauses [flag with ATTENTION]
+
+Present as a structured table. Note: This summary is for internal review purposes only and does not constitute legal advice.
+
+Contract text:
+[Paste contract here]</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A structured contract summary table with key terms and flagged unusual clauses.</p><button class="copy-btn" onclick="copyPrompt('p3-0',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">NDA Review Checklist</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Review an NDA against standard protective provisions.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Reviewing incoming NDAs before signature.</div>
+            <p class="prompt-need"><strong>You need:</strong> The NDA text.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p3-1">You are a commercial lawyer reviewing an NDA on behalf of [Company Name]. Assess the following NDA against standard protective provisions and flag any issues.
+
+Check for and comment on:
+1. Definition of Confidential Information (is it broad enough / too broad?)
+2. Exclusions from confidentiality (are they standard or unusual?)
+3. Term of the NDA and survival of obligations
+4. Permitted disclosures (employees, advisors — are they appropriately limited?)
+5. Return or destruction of confidential information
+6. Remedies clause (is injunctive relief included?)
+7. Mutual vs one-way obligations
+8. Any missing standard provisions
+
+Flag each issue as: [ACCEPT] [NEGOTIATE] or [REJECT] with a one-line explanation.
+
+NDA text:
+[Paste NDA here]</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> An NDA review with Accept/Negotiate/Reject flags and explanations per clause.</p><button class="copy-btn" onclick="copyPrompt('p3-1',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Compliance Summary</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Summarise compliance obligations from a regulation or policy document.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> New regulation implementation, compliance training, policy updates.</div>
+            <p class="prompt-need"><strong>You need:</strong> The regulation, policy, or guidance text.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p3-2">You are a compliance specialist. Review the following regulatory document and extract the key compliance obligations for [Company type / Industry].
+
+For each obligation provide:
+1. Obligation description (plain English)
+2. Who it applies to within the organisation
+3. Deadline or implementation date (if specified)
+4. Consequence of non-compliance (if stated)
+5. Priority (High / Medium / Low based on risk and deadline)
+
+Present as a compliance action table. Flag any obligations that are ambiguous or require legal interpretation with [LEGAL INTERPRETATION REQUIRED].
+
+Document:
+[Paste regulation or policy text here]</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A compliance action table with obligations, owners, deadlines and priority flags.</p><button class="copy-btn" onclick="copyPrompt('p3-2',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Legal Risk Summary</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Identify and summarise the key legal risks in a business situation.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> New business initiatives, contract negotiations, regulatory changes.</div>
+            <p class="prompt-need"><strong>You need:</strong> Description of the business situation or transaction.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p3-3">You are a general counsel. Identify the key legal risks in the following business situation and produce a risk summary for the leadership team.
+
+Situation: [Describe the business situation, transaction, or proposed action]
+Jurisdiction: [e.g. England and Wales / New York / Federal US]
+Industry: [Industry]
+
+For each risk provide: risk description, relevant legal area (e.g. contract law, employment law, data protection), likelihood, potential impact, and recommended mitigation. Maximum 6 risks. Include a one-paragraph overall legal risk assessment. Note: This is a preliminary risk identification, not formal legal advice.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A legal risk register with likelihood, impact and mitigations. For preliminary use only.</p><button class="copy-btn" onclick="copyPrompt('p3-3',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Contract Clause Redraft</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Redraft a specific contract clause to be more protective or balanced.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Contract negotiation, clause amendment, template improvement.</div>
+            <p class="prompt-need"><strong>You need:</strong> The current clause text and what change you want to make.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p3-4">You are a commercial lawyer. Redraft the following contract clause to achieve the objective stated below.
+
+Current clause:
+[Paste the current clause here]
+
+Redraft objective: [e.g. make the limitation of liability cap higher / remove the automatic renewal provision / add a force majeure carve-out / make the indemnity mutual rather than one-way]
+
+Jurisdiction: [e.g. England and Wales / New York]
+
+Provide: the redrafted clause, a one-sentence explanation of each change made, and any risks introduced by the redraft that should be flagged for legal review.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A redrafted clause with changes explained and risks flagged. Review with a legal advisor before use.</p><button class="copy-btn" onclick="copyPrompt('p3-4',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Data Protection Impact Assessment Summary</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Structure a DPIA summary for a new data processing activity.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> New technology implementations, new data uses, GDPR compliance.</div>
+            <p class="prompt-need"><strong>You need:</strong> Description of the data processing activity and types of data involved.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p3-5">You are a data protection officer. Produce a structured DPIA summary for the following data processing activity.
+
+Activity description: [What the organisation is doing with personal data]
+Types of personal data involved: [List data types]
+Data subjects: [Who the data relates to, e.g. employees / customers]
+Data processors involved: [Any third parties]
+Jurisdiction: [e.g. UK GDPR / EU GDPR]
+
+Structure: Processing description, Necessity and proportionality assessment, Risks to data subjects (table with likelihood and severity), Mitigation measures, Residual risk assessment, DPO recommendation (Proceed / Proceed with mitigations / Do not proceed). Note: This is a structured summary tool — a full DPIA requires qualified data protection expertise.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A structured DPIA summary with risk table and DPO recommendation. Requires expert review.</p><button class="copy-btn" onclick="copyPrompt('p3-5',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Legal Plain English Summary</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Translate a complex legal document into plain English for non-lawyers.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Communicating legal requirements to business teams, training materials.</div>
+            <p class="prompt-need"><strong>You need:</strong> The legal text to be translated and who the audience is.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p3-6">You are a legal communications specialist. Translate the following legal text into plain English for [Audience, e.g. non-legal managers / all employees / the sales team].
+
+The translation must:
+- Preserve the meaning and intent of the original text accurately
+- Use simple, everyday language (maximum reading age: 14)
+- Avoid all legal jargon
+- Be no longer than the original text
+- Flag any sections where simplification may lose important nuance with [NOTE: simplified — refer to original for full legal meaning]
+
+Legal text:
+[Paste legal text here]</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A plain English version with nuance flags. Always verify against the original legal text.</p><button class="copy-btn" onclick="copyPrompt('p3-6',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Supplier Contract Comparison</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Compare the key terms of two or more supplier contracts side by side.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Supplier selection, contract renewal, due diligence.</div>
+            <p class="prompt-need"><strong>You need:</strong> The key terms from each contract (or the contract texts).</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p3-7">You are a commercial lawyer. Compare the following supplier contracts and produce a side-by-side comparison of the key commercial and legal terms.
+
+Contracts to compare: [List supplier names]
+Key terms to compare: Term and renewal, Payment terms, Termination rights, Liability cap, Indemnity obligations, IP ownership, Governing law, Data processing provisions
+
+Present as a comparison table with one row per term and one column per supplier. Highlight any term where one supplier's position is significantly more favourable or risky than the others with [NOTABLE DIFFERENCE].
+
+Contract summaries or texts:
+[Paste contract details here]</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A side-by-side contract comparison table with notable differences flagged.</p><button class="copy-btn" onclick="copyPrompt('p3-7',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Regulatory Update Briefing</div><span class="prompt-badge badge-gemini">Best in Gemini</span></div>
+            <p class="prompt-desc">Research and summarise a regulatory change and its impact on the business.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Regulatory monitoring, compliance briefings, board updates.</div>
+            <p class="prompt-need"><strong>You need:</strong> The regulation name, effective date, and your industry.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p3-8">Research the following regulatory change and produce a briefing for [Audience, e.g. the legal team / the board / all managers].
+
+Regulation: [Regulation name]
+Effective date: [Date]
+Jurisdiction: [e.g. UK / EU / US Federal]
+Our industry: [Industry]
+Our company size: [e.g. 500 employees / mid-size enterprise]
+
+Briefing structure:
+1. What has changed (plain English, 100 words)
+2. Who it applies to and from when
+3. What we need to do to comply (action list)
+4. Consequence of non-compliance
+5. Recommended immediate next steps
+
+Sources: please cite the primary regulatory source and any official guidance documents.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A structured regulatory briefing with action list and cited sources.</p><button class="copy-btn" onclick="copyPrompt('p3-8',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Legal Department Update</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Write a monthly legal department update for senior leadership.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Monthly legal reporting, board legal committee updates.</div>
+            <p class="prompt-need"><strong>You need:</strong> Key matters, contracts signed, disputes, and regulatory updates for the period.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p3-9">You are a General Counsel. Write a concise monthly legal department update for [Audience, e.g. CEO / Executive Committee / Board].
+
+Period: [Month / Year]
+Key matters this month: [List active matters, contracts, disputes]
+Contracts executed: [Number and type]
+Disputes or claims: [Status of any active disputes]
+Regulatory updates: [Any relevant regulatory developments]
+Upcoming legal deadlines: [List]
+
+Length: maximum 300 words. Tone: factual and professional. Structure: Executive summary, Key matters, Regulatory watch, Upcoming deadlines.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 300-word monthly legal update structured for executive readers.</p><button class="copy-btn" onclick="copyPrompt('p3-9',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+        </div>
+
+        <!-- SECTION 5: MARKETING -->
+        <div id="seo-sec-4" class="seo-section">
+          <p class="role-intro">These prompts help Marketing professionals save time on content creation, campaign planning, research, and brand communications. Each prompt is ready to copy and paste directly into Claude or Gemini.</p>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Brand Voice Email</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Write a marketing email that matches your brand voice precisely.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Email campaigns, customer communications, product announcements.</div>
+            <p class="prompt-need"><strong>You need:</strong> Brand voice description, email objective, and key messages.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p4-0">You are a senior copywriter. Write a marketing email for [Company Name] with the following specifications.
+
+Brand voice: [Describe your brand voice, e.g. professional but warm / bold and direct / friendly and approachable]
+Style sample: [Paste 2-3 sentences of existing copy that represents your brand voice]
+Email objective: [What you want the reader to do]
+Key messages: [List 2-3 key messages]
+Audience: [Who is receiving this email]
+Subject line: provide 3 options.
+Length: 150-200 words maximum.
+Do not use: [List any words or phrases to avoid]</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A brand-matched marketing email with 3 subject line options.</p><button class="copy-btn" onclick="copyPrompt('p4-0',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Campaign Brief</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Structure a complete marketing campaign brief.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> New campaign planning, agency briefings, internal campaign alignment.</div>
+            <p class="prompt-need"><strong>You need:</strong> Campaign objective, target audience, budget, and key messages.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p4-1">You are a marketing strategist. Write a complete campaign brief for the following initiative.
+
+Campaign name: [Name]
+Objective: [What the campaign must achieve — be specific, e.g. generate 200 leads / increase brand awareness in the UK SME segment]
+Target audience: [Describe in detail]
+Key messages: [List 2-3]
+Budget: [Total budget]
+Timeline: [Start and end date]
+Channels: [List planned channels]
+Success metrics: [How will you measure success?]
+
+Structure the brief with: Objective, Audience insight, Key messages, Channel plan, Budget allocation, Timeline, Success metrics, Mandatories. Make the brief concise enough to fit on two pages.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A complete two-page campaign brief ready for internal or agency use.</p><button class="copy-btn" onclick="copyPrompt('p4-1',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Competitor Analysis Summary</div><span class="prompt-badge badge-gemini">Best in Gemini</span></div>
+            <p class="prompt-desc">Research and summarise the marketing positioning of key competitors.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Market analysis, positioning strategy, new market entry.</div>
+            <p class="prompt-need"><strong>You need:</strong> Names of competitors and the market or product category.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p4-2">Research the following competitors and produce a marketing positioning summary for internal strategy use.
+
+Our company: [Company Name] — [Brief description of what you do]
+Competitors to analyse: [List competitor names]
+Market / product category: [Description]
+
+For each competitor summarise: core positioning and value proposition, target audience, key messages and tone of voice, main channels and content approach, apparent strengths and weaknesses vs our positioning.
+
+Present as a comparison table. Add a one-paragraph strategic summary at the end identifying the positioning gaps we could exploit. Cite publicly available sources only.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A competitor positioning table with strategic gap analysis.</p><button class="copy-btn" onclick="copyPrompt('p4-2',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Long-Form Content Outline</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Create a detailed outline for a blog post, whitepaper, or thought leadership article.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Content marketing, thought leadership, SEO content planning.</div>
+            <p class="prompt-need"><strong>You need:</strong> Topic, target audience, and key argument or angle.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p4-3">You are a content strategist. Create a detailed outline for the following piece of long-form content.
+
+Content type: [e.g. 2,000-word blog post / 10-page whitepaper / LinkedIn thought leadership article]
+Topic: [Topic]
+Target audience: [Describe reader in detail]
+Core argument or key insight: [What is the main point you want to make?]
+SEO keyword to target (if applicable): [Keyword]
+Tone: [e.g. authoritative / conversational / data-driven]
+
+Provide: a headline with 3 alternatives, full section structure with sub-headings, one-sentence description of content for each section, suggested data points or examples to include, and a compelling call to action.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A complete content outline with headline options, sections and CTA.</p><button class="copy-btn" onclick="copyPrompt('p4-3',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Social Media Post Set</div><span class="prompt-badge badge-both">Works with both</span></div>
+            <p class="prompt-desc">Create a set of social media posts for multiple platforms from one brief.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Campaign launches, product announcements, event promotion.</div>
+            <p class="prompt-need"><strong>You need:</strong> The announcement or message and your brand voice.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p4-4">You are a social media copywriter. Create a set of social media posts for the following announcement.
+
+Announcement: [What are you announcing?]
+Brand voice: [Describe your brand tone, e.g. professional / witty / bold]
+Platforms needed:
+- LinkedIn: 1 post (maximum 150 words, professional tone, include relevant hashtags)
+- X / Twitter: 2 posts (maximum 280 characters each, punchy and direct)
+- Instagram caption: 1 post (150 words max, include a call to action and hashtags)
+
+Do not use: emojis in the LinkedIn post. Do not use hashtags in the X posts. Keep each post platform-appropriate in tone and length.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> Platform-specific posts for LinkedIn, X and Instagram ready to schedule.</p><button class="copy-btn" onclick="copyPrompt('p4-4',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Customer Case Study Draft</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Draft a compelling customer case study from interview notes.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Sales enablement, website content, award submissions.</div>
+            <p class="prompt-need"><strong>You need:</strong> Customer interview notes or key facts about the customer success story.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p4-5">You are a B2B content writer. Draft a customer case study based on the following information.
+
+Customer: [Company name and description]
+Challenge they faced: [Describe the problem before using our solution]
+Solution: [What our product or service provided]
+Results achieved: [List specific, quantified results where available]
+Customer quote (if available): [Quote]
+Audience for the case study: [e.g. prospective customers in the financial services sector]
+
+Structure: Headline, Challenge, Solution, Results (with pull-out statistics), Customer quote, Call to action. Length: 400-500 words. Tone: credible and evidence-based. Avoid superlatives and marketing clichés.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 400-500 word case study draft with structured sections and pull-out stats.</p><button class="copy-btn" onclick="copyPrompt('p4-5',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Marketing Report Summary</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Summarise marketing performance data into an executive report.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Monthly marketing reports, campaign performance reviews, board updates.</div>
+            <p class="prompt-need"><strong>You need:</strong> Marketing KPIs and performance data for the period.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p4-6">You are a Head of Marketing. Write an executive marketing performance report for [Period].
+
+Audience: [e.g. CEO and Executive team / Board of Directors]
+Performance data: [Paste or list your KPIs with actuals vs targets]
+Key wins this period: [List]
+Areas underperforming: [List]
+Next period priorities: [List]
+
+Structure: Overall performance summary (one paragraph), Key metrics table (actuals vs targets vs prior period), Highlights and insights, Areas for improvement, Next period plan. Length: maximum 300 words plus the metrics table. Tone: honest, commercially focused, and forward-looking.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 300-word executive marketing report with metrics table and forward-looking plan.</p><button class="copy-btn" onclick="copyPrompt('p4-6',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Messaging Framework</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Build a structured messaging framework for a product, service, or company.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Brand positioning, product launches, sales enablement.</div>
+            <p class="prompt-need"><strong>You need:</strong> Product or company description, target audiences, and key differentiators.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p4-7">You are a brand strategist. Build a messaging framework for the following.
+
+Product or company: [Name and description]
+Target audiences: [List up to 3 distinct audience segments]
+Key differentiators: [What makes this product or company genuinely different?]
+Proof points: [Evidence, data, or credentials that support the claims]
+
+For each audience segment provide: primary message (one sentence), supporting messages (3 bullet points), key proof points, and tone guidance. Also provide an overarching brand positioning statement (one sentence) and a tagline with 3 alternatives.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A full messaging framework with positioning statement, taglines and audience-specific messages.</p><button class="copy-btn" onclick="copyPrompt('p4-7',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Event Description</div><span class="prompt-badge badge-both">Works with both</span></div>
+            <p class="prompt-desc">Write a compelling event description for promotion and registration pages.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Webinars, conferences, roundtables, product demos.</div>
+            <p class="prompt-need"><strong>You need:</strong> Event details, speakers, and target audience.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p4-8">You are a marketing copywriter. Write a compelling event description for the following event.
+
+Event name: [Name]
+Event type: [e.g. webinar / roundtable / conference / product demo]
+Date and time: [Date and time with timezone]
+Format: [Online / In-person / Hybrid]
+Speakers: [List names and titles]
+What attendees will learn: [List 3-4 key takeaways]
+Target audience: [Describe ideal attendee]
+Registration link: [URL]
+
+Write: a 100-word event description for the registration page, a 50-word version for email promotion, and a one-sentence version for social media. Include a clear call to action in each version.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> Three event descriptions at different lengths ready for different channels.</p><button class="copy-btn" onclick="copyPrompt('p4-8',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">SEO Title and Meta Description</div><span class="prompt-badge badge-both">Works with both</span></div>
+            <p class="prompt-desc">Write optimised title tags and meta descriptions for web pages.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Website content, blog posts, landing pages.</div>
+            <p class="prompt-need"><strong>You need:</strong> Page content or topic and target keyword.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p4-9">You are an SEO specialist. Write optimised title tags and meta descriptions for the following page.
+
+Page topic: [Describe what the page is about]
+Target keyword: [Primary keyword to include]
+Secondary keywords: [Optional]
+Audience: [Who is searching for this page]
+
+Provide:
+- 3 title tag options (maximum 60 characters each, include primary keyword, compelling and click-worthy)
+- 3 meta description options (maximum 155 characters each, include primary keyword, clear value proposition, call to action)
+
+Label each option clearly. Do not keyword-stuff. Each option should feel natural and appeal to a human reader, not just search engines.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> 3 title tag options and 3 meta description options within character limits.</p><button class="copy-btn" onclick="copyPrompt('p4-9',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+        </div>
+
+        <!-- SECTION 6: OPERATIONS -->
+        <div id="seo-sec-5" class="seo-section">
+          <p class="role-intro">These prompts help Operations professionals save time on process documentation, supplier management, operational reporting, and workflow design. Each prompt is ready to copy and paste directly into Claude or Gemini.</p>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Standard Operating Procedure</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Write a clear, structured standard operating procedure document.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Process documentation, onboarding, quality management, compliance.</div>
+            <p class="prompt-need"><strong>You need:</strong> Process name, steps involved, and who is responsible.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p5-0">You are an operations manager and technical writer. Write a standard operating procedure (SOP) for the following process.
+
+Process name: [Name]
+Department: [Department]
+Purpose: [Why this process exists]
+Scope: [Who follows this procedure]
+Process steps: [List the steps in order]
+Roles involved: [List roles and their responsibilities]
+Tools or systems used: [List]
+Frequency: [How often this process runs]
+
+Structure the SOP with: Purpose, Scope, Roles and Responsibilities, Step-by-step Procedure (numbered, clear language), Tools Required, Version Control box. Use plain language. Each step should be one clear action. Maximum 600 words.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A complete SOP document with all standard sections ready for internal use.</p><button class="copy-btn" onclick="copyPrompt('p5-0',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Operational KPI Dashboard Narrative</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Write a narrative summary of operational KPI data for leadership.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Monthly operational reports, board updates, department reviews.</div>
+            <p class="prompt-need"><strong>You need:</strong> Your key operational metrics for the period.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p5-1">You are an Operations Director. Write a narrative summary of the following operational KPIs for [Period].
+
+Audience: [e.g. Executive team / Board]
+KPI data: [List metrics with actuals vs targets, e.g. On-time delivery: 94% vs 95% target]
+Key operational highlights: [What went well]
+Key operational challenges: [What underperformed and why]
+Actions being taken: [What you are doing to address issues]
+
+Length: maximum 250 words. Structure: Overall operational health (one sentence), Performance highlights, Challenges and root causes, Actions and outlook. Tone: honest, factual, and forward-looking. Do not hide underperformance — address it directly.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 250-word operational KPI narrative with highlights, challenges and outlook.</p><button class="copy-btn" onclick="copyPrompt('p5-1',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Process Improvement Proposal</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Structure a proposal to improve an inefficient operational process.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Operational efficiency reviews, cost reduction programmes, digital transformation.</div>
+            <p class="prompt-need"><strong>You need:</strong> Description of the current process, its problems, and proposed improvements.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p5-2">You are an operations consultant. Write a process improvement proposal for the following.
+
+Current process: [Describe how the process works today]
+Problems with the current process: [List pain points, inefficiencies, or costs]
+Proposed improvement: [Describe your proposed solution]
+Expected benefits: [List quantified benefits where possible, e.g. time saved, cost reduced, error rate reduction]
+Implementation effort: [High / Medium / Low]
+Timeline: [How long to implement]
+
+Structure: Current state problem, Proposed solution, Expected benefits (table), Implementation plan summary, Risks and mitigations, Recommendation. Length: maximum 400 words.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 400-word process improvement proposal with benefits table and implementation plan.</p><button class="copy-btn" onclick="copyPrompt('p5-2',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Supplier Performance Review</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Structure a supplier performance review with clear scoring and actions.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Quarterly or annual supplier reviews, contract renewals, supplier management.</div>
+            <p class="prompt-need"><strong>You need:</strong> Supplier name, evaluation criteria, and performance data.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p5-3">You are a procurement and operations manager. Structure a supplier performance review for [Supplier Name].
+
+Review period: [Period]
+Contract value: [Annual value]
+Evaluation criteria and scores (rate each 1-5):
+- Delivery performance: [Score] — [Notes]
+- Quality: [Score] — [Notes]
+- Responsiveness: [Score] — [Notes]
+- Commercial compliance: [Score] — [Notes]
+- Innovation / added value: [Score] — [Notes]
+
+Additional observations: [Any other relevant performance notes]
+
+Produce: an overall performance rating (Excellent / Good / Requires Improvement / At Risk), a summary narrative (150 words), and 3 specific action points for the next review period with owners and deadlines.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A structured supplier review with overall rating, narrative and action points.</p><button class="copy-btn" onclick="copyPrompt('p5-3',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Business Continuity Plan Section</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Draft a business continuity plan section for a specific operational risk.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> BCP creation or review, ISO compliance, risk management.</div>
+            <p class="prompt-need"><strong>You need:</strong> The risk scenario and key operational dependencies.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p5-4">You are a business continuity specialist. Draft a business continuity plan section for the following risk scenario.
+
+Scenario: [e.g. key system outage / critical supplier failure / premises unavailable / key staff unavailability]
+Department: [Department]
+Critical processes affected: [List]
+Maximum tolerable downtime: [e.g. 4 hours / 24 hours / 48 hours]
+Key dependencies: [Systems, people, locations, third parties]
+
+Structure: Scenario description, Impact assessment, Response team and roles, Immediate response steps (numbered), Recovery steps, Communication plan, Return to normal operations criteria, Testing and review schedule. Use clear, actionable language.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A complete BCP section with response steps, comms plan and recovery criteria.</p><button class="copy-btn" onclick="copyPrompt('p5-4',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Data Cleaning Instructions</div><span class="prompt-badge badge-gemini">Best in Gemini</span></div>
+            <p class="prompt-desc">Get clear instructions for cleaning a messy operational data file in Google Sheets.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Data quality management, reporting preparation, system migrations.</div>
+            <p class="prompt-need"><strong>You need:</strong> Description of the data file and the quality issues present.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p5-5">Act as a data quality specialist. I have a Google Sheets file with the following structure and data quality issues.
+
+File description: [Describe columns and what data they contain]
+Data quality issues: [List the specific problems, e.g. mixed date formats / duplicate rows / inconsistent capitalisation / missing values / special characters in numeric fields]
+Required output format: [Describe what clean data should look like]
+Number of rows: approximately [number]
+
+Provide: step-by-step cleaning instructions using Google Sheets functions (no code), specific formulas to use for each issue, and a validation checklist to confirm the data is clean before use in reporting.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> Step-by-step Sheets cleaning instructions with formulas and validation checklist.</p><button class="copy-btn" onclick="copyPrompt('p5-5',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Project Post-Mortem Report</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Structure a project post-mortem report that captures lessons learned.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> After any project completion, incident, or major operational change.</div>
+            <p class="prompt-need"><strong>You need:</strong> Project summary, what went well, what did not, and key learnings.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p5-6">You are a project manager. Write a post-mortem report for the following project.
+
+Project name: [Name]
+Duration: [Start to end date]
+Objective: [What the project was meant to achieve]
+Outcome: [What was actually delivered]
+What went well: [List]
+What did not go well: [List]
+Root causes of issues: [List]
+Lessons learned: [List]
+
+Structure: Project summary, Results vs objectives, What worked (with brief explanations), What did not work (with root causes), Lessons learned, Recommendations for future projects. Length: maximum 500 words. Tone: honest and constructive. Avoid blame. Focus on systemic improvements.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 500-word post-mortem report with root causes, lessons and recommendations.</p><button class="copy-btn" onclick="copyPrompt('p5-6',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Vendor RFP Summary</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Summarise vendor RFP responses for internal evaluation and decision-making.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Procurement processes, software selection, outsourcing decisions.</div>
+            <p class="prompt-need"><strong>You need:</strong> Key information from vendor RFP responses.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p5-7">You are a procurement manager. Summarise the following vendor RFP responses and produce an evaluation summary for internal decision-making.
+
+What is being procured: [Description]
+Evaluation criteria and weightings: [List criteria with % weighting, e.g. Price 30% / Functionality 40% / Implementation 20% / Support 10%]
+Vendor responses: [Paste or summarise key points from each vendor]
+
+Produce: a scored comparison table (score each vendor 1-10 per criterion, apply weightings to calculate overall score), a narrative summary of each vendor's key strengths and weaknesses, a recommendation with clear rationale, and any risks with the recommended vendor.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A weighted vendor scorecard with narrative, recommendation and risk summary.</p><button class="copy-btn" onclick="copyPrompt('p5-7',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Change Management Communication</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Write a clear change management communication for an operational change.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> System implementations, process changes, organisational restructures.</div>
+            <p class="prompt-need"><strong>You need:</strong> What is changing, why, when, and how it affects the audience.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p5-8">You are a change management specialist. Write a communication about the following operational change.
+
+What is changing: [Describe the change]
+Why it is changing: [Reason — be honest and specific]
+When it takes effect: [Date]
+Who is affected: [Audience for this communication]
+How it affects them specifically: [What they need to do differently]
+Support available: [Training, resources, contacts]
+
+Tone: clear, honest, and supportive. Length: maximum 200 words. Anticipate the main question the audience will have and address it directly. Do not use change management jargon like "transformation journey" or "change curve".</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 200-word change communication that is clear, honest and anticipates questions.</p><button class="copy-btn" onclick="copyPrompt('p5-8',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Operations Monthly Report</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Write a concise monthly operations report for senior leadership.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Monthly reporting cycles, board packs, executive updates.</div>
+            <p class="prompt-need"><strong>You need:</strong> Key operational metrics, highlights, issues, and upcoming priorities.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p5-9">You are an Operations Director. Write the monthly operations report for [Period].
+
+Audience: [e.g. CEO / Executive team / Board]
+Key metrics: [List with actuals vs targets]
+Operational highlights: [What went well]
+Issues and challenges: [What did not go well and why]
+Actions in progress: [What you are doing to resolve issues]
+Next month priorities: [Top 3 priorities]
+
+Length: maximum 300 words plus a metrics table. Structure: Executive summary (one paragraph), Metrics table, Highlights, Issues and actions, Next month focus. Tone: direct, factual, and accountable.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 300-word monthly operations report with metrics table and forward plan.</p><button class="copy-btn" onclick="copyPrompt('p5-9',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+        </div>
+
+        <!-- SECTION 7: SALES -->
+        <div id="seo-sec-6" class="seo-section">
+          <p class="role-intro">These prompts help Sales professionals save time on prospecting, proposal writing, account planning, and follow-up communications. Each prompt is ready to copy and paste directly into Claude or Gemini.</p>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Cold Outreach Email</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Write a personalised, non-generic cold outreach email that gets replies.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Prospecting, new business development, pipeline generation.</div>
+            <p class="prompt-need"><strong>You need:</strong> Prospect details, your product or service, and a specific reason to reach out.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p6-0">You are a senior B2B sales professional. Write a cold outreach email to the following prospect.
+
+Prospect name: [Name]
+Prospect title: [Job title]
+Prospect company: [Company name and brief description]
+Specific trigger or reason to reach out: [e.g. they recently raised funding / announced expansion / you share a mutual connection / they posted about a relevant challenge]
+What we offer: [Brief description of your product or service]
+One relevant result achieved for a similar company: [Specific example with numbers if possible]
+
+Requirements: maximum 100 words. Start with the trigger, not with an introduction about your company. One clear call to action (suggest a specific time for a call, not an open-ended request). No phrases like "I hope this email finds you well" or "I wanted to reach out".</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 100-word personalised cold email with a specific CTA.</p><button class="copy-btn" onclick="copyPrompt('p6-0',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Sales Proposal Executive Summary</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Write a compelling executive summary for a sales proposal.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Formal proposals, RFP responses, enterprise deal documentation.</div>
+            <p class="prompt-need"><strong>You need:</strong> Client challenge, your proposed solution, and expected outcomes.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p6-1">You are a senior sales consultant. Write the executive summary for a sales proposal to [Client Company Name].
+
+Client challenge: [Describe the specific problem or goal they have shared]
+Our proposed solution: [Brief description of what you are proposing]
+Key benefits for the client: [List 3-4 specific, quantified benefits where possible]
+Why us vs competitors: [Key differentiators — be specific, not generic]
+Proposed investment: [Price range or structure]
+Next step: [What you want the reader to do after reading]
+
+Length: 200-250 words. Tone: confident, client-focused, and specific. Start with the client's challenge, not with your company. Avoid phrases like "best-in-class" or "world-leading".</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 200-250 word executive summary that opens with the client challenge.</p><button class="copy-btn" onclick="copyPrompt('p6-1',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Objection Handling Responses</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Prepare professional responses to common sales objections.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Sales call preparation, team training, proposal follow-up.</div>
+            <p class="prompt-need"><strong>You need:</strong> The specific objections you are hearing and your product details.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p6-2">You are a sales coach. Write professional, non-pushy responses to the following sales objections for [Product or service description].
+
+Objections to address:
+1. [Objection 1, e.g. "Your price is too high"]
+2. [Objection 2, e.g. "We are happy with our current provider"]
+3. [Objection 3, e.g. "Now is not the right time"]
+
+For each objection provide:
+- An acknowledgement (validate their concern without agreeing it is a problem)
+- A reframe (shift their perspective)
+- A question to move the conversation forward
+
+Tone: consultative and confident, not defensive or pushy. Each response should be under 80 words.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> Three objection responses with acknowledgement, reframe and a forward-moving question each.</p><button class="copy-btn" onclick="copyPrompt('p6-2',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Account Plan Summary</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Structure a one-page account plan for a key client or prospect.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Key account management, QBR preparation, new business planning.</div>
+            <p class="prompt-need"><strong>You need:</strong> Account overview, current status, opportunities, and risks.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p6-3">You are a key account manager. Structure a one-page account plan for [Account Name].
+
+Account overview: [Company description, size, industry]
+Current relationship: [What we currently supply, contract value, key contacts]
+Strategic opportunities: [Where we could grow the account]
+Competitive threats: [Who else is competing for this account]
+Key stakeholders: [List decision-makers and influencers with their priorities]
+Next 90-day actions: [What you plan to do to grow the account]
+12-month revenue target: [Amount]
+
+Present as a structured one-page document with clear sections. Include a relationship strength rating (Strong / Developing / At Risk) with one-sentence justification.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A one-page account plan with relationship rating and 90-day action plan.</p><button class="copy-btn" onclick="copyPrompt('p6-3',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Follow-Up Email After Meeting</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Write a professional follow-up email that moves the deal forward.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> After any sales meeting, demo, or discovery call.</div>
+            <p class="prompt-need"><strong>You need:</strong> Meeting summary, agreed next steps, and key points discussed.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p6-4">You are a sales professional. Write a follow-up email after a sales meeting with [Prospect Name], [Title], at [Company Name].
+
+Meeting date: [Date]
+Key points discussed: [List main topics covered]
+Specific pain points they mentioned: [List]
+What we agreed as next steps: [List agreed actions with owners]
+Any commitments we made: [List]
+Tone: warm but professional. Not over-eager.
+
+Length: maximum 150 words. Structure: brief recap, confirmed next steps, your commitment. End with a clear single call to action. Do not use "As per our conversation" or "Circling back".</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 150-word follow-up email with clear next steps and a single CTA.</p><button class="copy-btn" onclick="copyPrompt('p6-4',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Discovery Call Questions</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Prepare a structured set of discovery questions for a sales call.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Preparing for first or second meetings with prospects.</div>
+            <p class="prompt-need"><strong>You need:</strong> Prospect company details and what you sell.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p6-5">You are a sales coach. Prepare a discovery call question set for a meeting with [Prospect Name], [Title], at [Company Name].
+
+What we sell: [Product or service description]
+Prospect industry: [Industry]
+Known context: [Any research you have done on the prospect]
+Meeting duration: [e.g. 30 minutes / 45 minutes]
+
+Provide questions in four categories:
+1. Current situation (understand how they work today)
+2. Challenges and pain (uncover problems we can solve)
+3. Impact (quantify the cost of the problem)
+4. Decision process (understand how they buy)
+
+Maximum 12 questions total. Include one follow-up probe for each category. Prioritise open questions. Do not include questions that could be answered by 30 seconds of research.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A structured discovery question set with probes across four categories.</p><button class="copy-btn" onclick="copyPrompt('p6-5',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Win/Loss Analysis</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Structure a win or loss analysis from your deal notes.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> After closing or losing a deal, for team learning and pipeline improvement.</div>
+            <p class="prompt-need"><strong>You need:</strong> Deal background, outcome, and key factors that influenced the decision.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p6-6">You are a sales manager. Structure a win/loss analysis for the following deal.
+
+Deal: [Brief description of the opportunity]
+Outcome: [Won / Lost]
+Deal value: [Amount]
+Sales cycle length: [Duration]
+Competition: [Who we were competing against]
+Key factors in the decision: [What the buyer told you influenced their choice]
+Our performance assessment: [Honest assessment of how we performed]
+
+Provide: summary of outcome, top 3 reasons we won/lost, what we did well, what we should do differently, and one recommendation for improving our approach on similar deals. Length: 250 words maximum. Tone: honest and constructive.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 250-word win/loss analysis with recommendations for future deals.</p><button class="copy-btn" onclick="copyPrompt('p6-6',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Sales Pipeline Review</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Write a pipeline review summary with risk assessment and next steps.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Weekly or monthly pipeline reviews, forecasting meetings.</div>
+            <p class="prompt-need"><strong>You need:</strong> Current pipeline data by deal and stage.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p6-7">You are a sales manager. Review the following pipeline data and produce a pipeline review summary.
+
+Period: [Month / Quarter]
+Target: [Revenue target]
+Current pipeline: [List deals with: Deal name, Stage, Value, Expected close date, Confidence level]
+Last period performance: [Won, lost, slipped vs forecast]
+
+Produce:
+1. Pipeline health summary (total pipeline vs target, weighted forecast)
+2. Deals at risk (deals that are stalling, overdue, or underconfidenced)
+3. Recommended actions for the top 3 priority deals
+4. Forecast for the period (conservative and realistic)
+
+Format: clear sections with a pipeline summary table. Tone: direct and commercially focused.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A pipeline review with health summary, risk flags, actions and forecast.</p><button class="copy-btn" onclick="copyPrompt('p6-7',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Customer Renewal Email</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Write a renewal email that highlights value and drives action.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Contract renewals, subscription renewals, annual account reviews.</div>
+            <p class="prompt-need"><strong>You need:</strong> Customer name, renewal date, key value delivered, and next contract terms.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p6-8">You are an account manager. Write a renewal email to [Customer Name], [Title], at [Company Name].
+
+Contract renewal date: [Date]
+Key value delivered this year: [List 2-3 specific outcomes or achievements]
+Next contract terms: [Price, duration, any changes]
+New features or value in the next contract period: [List if applicable]
+
+Tone: warm, confident, and value-focused. Not transactional.
+Length: maximum 150 words.
+Structure: lead with value delivered, then introduce renewal, then state next steps.
+Do not lead with the price or the renewal date. End with a specific call to action (e.g. suggest a call date).</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 150-word renewal email that leads with value and ends with a clear CTA.</p><button class="copy-btn" onclick="copyPrompt('p6-8',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Competitive Battle Card</div><span class="prompt-badge badge-gemini">Best in Gemini</span></div>
+            <p class="prompt-desc">Research and build a competitive battle card for a key competitor.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Sales enablement, competitive positioning, deal coaching.</div>
+            <p class="prompt-need"><strong>You need:</strong> Competitor name and your product or service description.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p6-9">Research [Competitor Name] and produce a competitive battle card for our sales team.
+
+Our product or service: [Description]
+Competitor: [Competitor name]
+
+Battle card structure:
+1. Competitor overview (2-3 sentences on who they are and their positioning)
+2. Their strengths (what they do well — be honest)
+3. Their weaknesses (where they fall short)
+4. Where we win vs them (our genuine advantages)
+5. Where they win vs us (be honest — this helps the team prepare)
+6. Their typical objection against us (what they say to discredit us)
+7. Our response to that objection
+8. Trap questions to ask prospects that expose competitor weaknesses
+
+Base the battle card on publicly available information only. Cite sources.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A competitive battle card with win/loss scenarios and trap questions. Based on public data.</p><button class="copy-btn" onclick="copyPrompt('p6-9',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+        </div>
+
+        <!-- SECTION 8: PROJECT MANAGEMENT -->
+        <div id="seo-sec-7" class="seo-section">
+          <p class="role-intro">These prompts help Project Managers save time on project documentation, stakeholder updates, risk management, and retrospectives. Each prompt is ready to copy and paste directly into Claude or Gemini.</p>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Project Charter</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Write a complete project charter to kick off a new project.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Project initiation, sponsor approval, team alignment.</div>
+            <p class="prompt-need"><strong>You need:</strong> Project name, objectives, scope, stakeholders, and timeline.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p7-0">You are a senior project manager. Write a project charter for the following project.
+
+Project name: [Name]
+Business objective: [What business problem this project solves]
+Project objectives (SMART): [List 2-3 specific, measurable objectives]
+Scope (in scope): [What is included]
+Scope (out of scope): [What is explicitly excluded]
+Key stakeholders: [List with roles]
+Project sponsor: [Name and title]
+Project manager: [Name]
+Budget: [Amount]
+Timeline: [Start date to end date, with key milestones]
+Key risks: [List 3-5 initial risks]
+Success criteria: [How will you know the project succeeded?]
+
+Format as a formal project charter document. Length: maximum 500 words.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A complete project charter document ready for sponsor review and sign-off.</p><button class="copy-btn" onclick="copyPrompt('p7-0',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Project Status Report</div><span class="prompt-badge badge-both">Works with both</span></div>
+            <p class="prompt-desc">Write a concise project status report for stakeholders.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Weekly or fortnightly stakeholder reporting, steering committee updates.</div>
+            <p class="prompt-need"><strong>You need:</strong> Current project status, progress this period, risks, and next steps.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p7-1">You are a project manager. Write a project status report for [Project Name].
+
+Reporting period: [Dates]
+Overall status: [Green / Amber / Red] — [One sentence justification]
+Budget status: [On track / Over / Under] — [Current spend vs budget]
+Timeline status: [On track / At risk / Delayed]
+
+Progress this period: [List completed milestones and activities]
+Planned next period: [List upcoming milestones and activities]
+Risks and issues: [List active risks with status and owner]
+Decisions needed: [Any decisions required from stakeholders]
+
+Format as a one-page status report. Use RAG (Red/Amber/Green) ratings. Length: maximum 300 words plus a risks table. Tone: transparent and factual.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A one-page project status report with RAG ratings and risks table.</p><button class="copy-btn" onclick="copyPrompt('p7-1',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Risk Register Update</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Update and structure a project risk register with mitigation plans.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Regular risk reviews, board reporting, audit preparation.</div>
+            <p class="prompt-need"><strong>You need:</strong> Current known risks and any new risks identified.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p7-2">You are a project manager. Update the following project risk register and produce a structured risk report.
+
+Project: [Project name]
+New risks identified this period: [List]
+Existing risks with status updates: [List risk names and any status changes]
+Risks that have materialised (become issues): [List]
+Risks that have been closed: [List]
+
+For each active risk provide: risk ID, risk description, likelihood (High/Medium/Low), impact (High/Medium/Low), overall risk rating (multiply likelihood x impact), risk owner, current mitigation actions, and residual risk rating. Sort by overall risk rating (highest first). Add a one-paragraph risk summary at the top.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> An updated risk register sorted by severity with a risk summary paragraph.</p><button class="copy-btn" onclick="copyPrompt('p7-2',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Stakeholder Update Email</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Write a clear project update email for a specific stakeholder group.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Executive updates, department head communications, sponsor briefings.</div>
+            <p class="prompt-need"><strong>You need:</strong> Project status, key messages, and what you need from the stakeholder.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p7-3">You are a project manager. Write a project update email to [Stakeholder name / group], [Title].
+
+Project: [Project name]
+Current status: [Green / Amber / Red] with one-line summary
+Key update this period: [What has happened since the last update]
+Issue or risk requiring their attention: [If applicable]
+Decision or action needed from them: [Be specific about what you need and by when]
+Next milestone: [Next key date or deliverable]
+
+Tone: clear, concise, and respectful of the reader's time. Length: maximum 150 words. Do not bury the key message or action needed. Put the most important information in the first two sentences.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 150-word stakeholder update with the key message and required action upfront.</p><button class="copy-btn" onclick="copyPrompt('p7-3',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Sprint Retrospective Summary</div><span class="prompt-badge badge-both">Works with both</span></div>
+            <p class="prompt-desc">Summarise sprint retrospective notes into a structured action plan.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Agile sprint retrospectives, team improvement planning.</div>
+            <p class="prompt-need"><strong>You need:</strong> Raw retrospective notes from the team.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p7-4">You are a scrum master. Summarise the following sprint retrospective notes into a structured action plan.
+
+Sprint: [Sprint number / dates]
+Retrospective format used: [e.g. Start/Stop/Continue / What went well/What did not/Actions]
+Raw notes: [Paste the team's retrospective notes here]
+
+Produce:
+1. Top 3 themes from what went well (with supporting quotes)
+2. Top 3 themes from what did not go well (with supporting quotes)
+3. Action plan: maximum 5 actions with owner, priority (High/Medium/Low), and target date
+4. One team commitment for the next sprint (one sentence)
+
+Keep the summary factual and constructive. Do not editorialize or add analysis not present in the notes.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A structured retro summary with themes, action plan and team commitment.</p><button class="copy-btn" onclick="copyPrompt('p7-4',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Requirements Document</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Structure business requirements from stakeholder input into a formal document.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> System implementations, product development, process redesign projects.</div>
+            <p class="prompt-need"><strong>You need:</strong> Stakeholder input on what the solution needs to do.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p7-5">You are a business analyst. Structure the following stakeholder input into a formal business requirements document.
+
+Project: [Project name]
+Business objective: [What business problem is being solved]
+Stakeholder input: [Paste raw stakeholder notes, interview notes, or requirements as told to you]
+
+Structure the requirements document as:
+1. Business context and objective
+2. Functional requirements (numbered, in format: The system/solution must [action])
+3. Non-functional requirements (performance, security, scalability)
+4. Constraints and assumptions
+5. Out of scope items
+
+Classify each functional requirement as: Must Have / Should Have / Could Have (MoSCoW). Flag any requirements that are ambiguous or conflicting with [CLARIFICATION NEEDED].</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A structured requirements document with MoSCoW classification and ambiguity flags.</p><button class="copy-btn" onclick="copyPrompt('p7-5',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Project Closure Report</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Write a project closure report that captures delivery and lessons learned.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Project completion, formal sign-off, knowledge capture.</div>
+            <p class="prompt-need"><strong>You need:</strong> Project summary, delivery vs plan, and key lessons.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p7-6">You are a project manager. Write a project closure report for [Project Name].
+
+Project objective: [What the project was meant to achieve]
+Delivery summary: [What was actually delivered]
+Budget: [Budget vs actual spend]
+Timeline: [Planned vs actual end date]
+Quality: [Were quality criteria met?]
+Benefits realised: [Quantified benefits delivered]
+What went well: [List]
+What could have been done better: [List]
+Key lessons learned: [List]
+Outstanding actions or risks to transition to BAU: [List]
+
+Structure: Executive summary, Delivery against objectives, Financial summary, Quality summary, Lessons learned, Transition actions. Length: maximum 500 words. Tone: factual and honest.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 500-word project closure report with delivery summary and lessons learned.</p><button class="copy-btn" onclick="copyPrompt('p7-6',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Dependency Map Summary</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Summarise project dependencies and flag risks to the delivery schedule.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Complex project planning, programme management, milestone reviews.</div>
+            <p class="prompt-need"><strong>You need:</strong> List of project workstreams, milestones, and known dependencies.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p7-7">You are a programme manager. Review the following project workstreams and dependencies and produce a dependency risk summary.
+
+Workstreams: [List each workstream with its key milestones and dates]
+Known dependencies: [List which workstream depends on which, and what specifically]
+Current status of each workstream: [On track / At risk / Delayed]
+
+Produce:
+1. Dependency map summary (describe the critical path in plain English)
+2. High-risk dependencies (where a delay in one workstream will block another)
+3. Three recommended actions to protect the overall delivery schedule
+4. A dependency risk rating for the programme overall (High / Medium / Low) with justification</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A dependency risk summary with critical path, high-risk flags and recommended actions.</p><button class="copy-btn" onclick="copyPrompt('p7-7',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Issue Escalation Brief</div><span class="prompt-badge badge-claude">Best in Claude</span></div>
+            <p class="prompt-desc">Write a clear issue escalation brief for senior stakeholders.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> Escalating blockers, requesting decisions, raising issues to the sponsor.</div>
+            <p class="prompt-need"><strong>You need:</strong> Issue description, impact, options, and the decision needed.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p7-8">You are a project manager escalating an issue to [Stakeholder name / Sponsor]. Write a concise issue escalation brief.
+
+Issue: [Describe the issue clearly in 2-3 sentences]
+When it was identified: [Date]
+Impact if not resolved: [What happens to the project if this is not fixed — be specific about timeline, cost, or quality impact]
+Options considered:
+Option 1: [Description, pros, cons, cost]
+Option 2: [Description, pros, cons, cost]
+Recommended option: [Your recommendation and why]
+Decision needed by: [Date — and why this date]
+
+Length: maximum 250 words. Tone: clear, factual, and solution-focused. Do not assign blame. Focus on what needs to happen next.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 250-word escalation brief with options, recommendation and decision deadline.</p><button class="copy-btn" onclick="copyPrompt('p7-8',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-header"><div class="prompt-title">Lessons Learned Workshop Agenda</div><span class="prompt-badge badge-both">Works with both</span></div>
+            <p class="prompt-desc">Create a structured agenda for a project lessons learned workshop.</p>
+            <div class="prompt-usecase"><strong>Use case:</strong> End of project or phase reviews, continuous improvement sessions.</div>
+            <p class="prompt-need"><strong>You need:</strong> Project name, duration of workshop, and number of participants.</p>
+            <div class="prompt-text-wrap"><div class="prompt-text" id="p7-9">You are a project manager. Create a structured agenda for a lessons learned workshop.
+
+Project: [Project name]
+Workshop duration: [e.g. 90 minutes / 2 hours]
+Number of participants: [Number]
+Participants: [e.g. project team only / project team plus stakeholders]
+Facilitation style: [e.g. open discussion / structured exercises / anonymous input]
+
+Produce a time-boxed agenda with: session objectives, ice-breaker activity (5 minutes), structured discussion sections (what went well, what did not, root causes), action planning section, and close. Include facilitation notes for each section explaining how to run it effectively. The agenda should produce a prioritised list of actions by the end.</div></div>
+            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A time-boxed workshop agenda with facilitation notes for each section.</p><button class="copy-btn" onclick="copyPrompt('p7-9',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="content-footer">
+        <button class="btn-nav" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button>
+        <button class="btn-fwd" id="btnFwd" onclick="go(cur+1)">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="/index.html">Home</a>
+    <a href="/contact.html">Contact</a>
+    <a href="/legal.html#privacy">Privacy Policy</a>
+    <a href="/legal.html#terms">Terms of Use</a>
+  </div>
+  <div class="footer-copy">&copy; 2026 PairWorkflows. All rights reserved.</div>
+</footer>
+
+<script>
+var cur = 0;
+var TOTAL = 8;
+var visited = [true,false,false,false,false,false,false,false];
+
+var heroes = [
+  {tag:'Role 01 of 08', title:'Manager: prompts for strategy, communication and leadership.'},
+  {tag:'Role 02 of 08', title:'HR: prompts for people management, policies and talent.'},
+  {tag:'Role 03 of 08', title:'Finance: prompts for analysis, reporting and financial planning.'},
+  {tag:'Role 04 of 08', title:'Legal: prompts for contract review, compliance and risk.'},
+  {tag:'Role 05 of 08', title:'Marketing: prompts for content, campaigns and brand communications.'},
+  {tag:'Role 06 of 08', title:'Operations: prompts for process, reporting and supplier management.'},
+  {tag:'Role 07 of 08', title:'Sales: prompts for prospecting, proposals and account management.'},
+  {tag:'Role 08 of 08', title:'Project Management: prompts for planning, reporting and delivery.'}
+];
+
+function go(n){
+  if(n<0||n>=TOTAL)return;
+  visited[n]=true;
+  cur=n;
+  render();
+  window.scrollTo(0,0);
+}
+
+function render(){
+  document.getElementById('heroTag').textContent=heroes[cur].tag;
+  document.getElementById('heroTitle').textContent=heroes[cur].title;
+  for(var i=0;i<TOTAL;i++){
+    var ni=document.getElementById('ni'+i);
+    var nd=document.getElementById('nd'+i);
+    var sec=document.getElementById('seo-sec-'+i);
+    ni.className='nav-item'+(i===cur?' active':'');
+    if(sec){if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');}
+    if(nd){
+      if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
+      else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
+      else{nd.className='nav-dot';nd.textContent=(i+1);}
+    }
+  }
+  document.getElementById('btnBack').disabled=(cur===0);
+  var fwd=document.getElementById('btnFwd');
+  if(cur===TOTAL-1){fwd.style.display='none';}
+  else{fwd.style.display='';fwd.innerHTML='Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
+}
+
+function copyPrompt(id,btn){
+  var text=document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(function(){
+    var orig=btn.innerHTML;
+    btn.innerHTML='<i class="ti ti-check" style="font-size:12px"></i> Copied!';
+    btn.style.background='#085041';
+    setTimeout(function(){btn.innerHTML=orig;btn.style.background='';},2000);
+  });
+}
+
+render();
+</script>
+</body>
+</html>
