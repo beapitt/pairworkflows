@@ -89,7 +89,12 @@
   .prompt-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: .5rem; }
   .prompt-title { font-size: 14px; font-weight: 700; color: #1a1a2e; line-height: 1.3; }
   .prompt-badge { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; padding: 3px 10px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; display: inline-flex; align-items: center; gap: 4px; }
-  .badge-writing { background: #e1f5ee; color: #085041; border: 1px solid #a7e8ce; }.badge-research { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }.badge-strategy { background: #ede9fe; color: #5b21b6; border: 1px solid #c4b5fd; }.badge-comms { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
+  
+  .badge-writing { background: #e1f5ee; color: #085041; border: 1px solid #a7e8ce; }
+  .badge-research { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+  .badge-strategy { background: #ede9fe; color: #5b21b6; border: 1px solid #c4b5fd; }
+  .badge-comms { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
+  
   .prompt-desc { font-size: 13px; color: #6b7280; margin-bottom: .625rem; line-height: 1.5; }
   .prompt-usecase { font-size: 12px; color: #374151; background: #ffffff; border: 1px solid #e8ecef; border-radius: 6px; padding: .5rem .75rem; margin-bottom: .625rem; }
   .prompt-usecase strong { color: #0f6e56; }
@@ -147,16 +152,8 @@
         <div class="course-label">Free Resource — PairWorkflows</div>
         <div class="course-title-side">AI Prompt Library for Corporate Professionals</div>
       </div>
-      <div class="nav-list">
-        <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">Manager</div><span class="nav-count">10</span></div>
-        <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">HR</div><span class="nav-count">10</span></div>
-        <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Finance</div><span class="nav-count">10</span></div>
-        <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Legal</div><span class="nav-count">10</span></div>
-        <div class="nav-item" id="ni4" onclick="go(4)"><div class="nav-dot" id="nd4">5</div><div class="nav-text">Marketing</div><span class="nav-count">10</span></div>
-        <div class="nav-item" id="ni5" onclick="go(5)"><div class="nav-dot" id="nd5">6</div><div class="nav-text">Operations</div><span class="nav-count">10</span></div>
-        <div class="nav-item" id="ni6" onclick="go(6)"><div class="nav-dot" id="nd6">7</div><div class="nav-text">Sales</div><span class="nav-count">10</span></div>
-        <div class="nav-item" id="ni7" onclick="go(7)"><div class="nav-dot" id="nd7">8</div><div class="nav-text">Project Management</div><span class="nav-count">10</span></div>
-      </div>
+      <div class="nav-list" id="navList">
+        </div>
     </div>
 
     <div class="content-area">
@@ -167,260 +164,116 @@
       </div>
 
       <div class="content-body" id="cnt">
-
-        <div id="seo-sec-0" class="seo-section active-section">
-          <p class="role-intro">These prompts help managers save time on strategy documents, team communications, performance reviews, and decision-making. Each prompt is ready to copy and paste directly into Claude or Gemini.</p>
-
-          <div class="prompt-card">
-            <div class="prompt-header"><div class="prompt-title">Executive Status Update</div><span class="prompt-badge badge-comms"><i class="ti ti-message" style="font-size:9px"></i> Communications</span></div>
-            <p class="prompt-desc">Turn bullet-point notes into a polished executive update.</p>
-            <div class="prompt-usecase"><strong>Use case:</strong> Weekly or monthly leadership communications.</div>
-            <p class="prompt-need"><strong>You need:</strong> Your raw notes or bullet points on team progress.</p>
-            <div class="prompt-text-wrap"><div class="prompt-text" id="p0-0">You are a senior communications advisor. Convert the following bullet points into a concise executive status update for [Audience, e.g. Board of Directors / Senior Leadership Team].
-
-Tone: professional, direct, and confident.
-Length: maximum 200 words.
-Structure: Current status, key achievements this period, risks or blockers, next steps.
-Do not use filler phrases like "I am pleased to report" or "it is worth noting".
-
-My notes:
-[Paste your bullet points here]</div></div>
-            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 200-word executive update ready to send or paste into a report.</p><button class="copy-btn" onclick="copyPrompt('p0-0',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
-          </div>
-
-          <div class="prompt-card">
-            <div class="prompt-header"><div class="prompt-title">Performance Review Summary</div><span class="prompt-badge badge-writing"><i class="ti ti-pencil" style="font-size:9px"></i> Writing & Analysis</span></div>
-            <p class="prompt-desc">Draft a balanced, professional performance review from your notes.</p>
-            <div class="prompt-usecase"><strong>Use case:</strong> Annual or mid-year performance review cycles.</div>
-            <p class="prompt-need"><strong>You need:</strong> Key observations, achievements, and areas for development for the employee.</p>
-            <div class="prompt-text-wrap"><div class="prompt-text" id="p0-1">You are an experienced HR business partner. Write a professional performance review summary for [Employee Name], [Job Title].
-
-Use the following observations:
-Strengths: [List key strengths]
-Achievements this period: [List achievements]
-Areas for development: [List development areas]
-
-Tone: constructive, fair, and specific. Avoid vague language.
-Length: 250-300 words.
-Include one specific recommendation for development in the next review period.</div></div>
-            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A balanced 300-word performance review ready for HR systems.</p><button class="copy-btn" onclick="copyPrompt('p0-1',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
-          </div>
-
-          <div class="prompt-card">
-            <div class="prompt-header"><div class="prompt-title">Team Meeting Agenda</div><span class="prompt-badge badge-strategy"><i class="ti ti-layout-list" style="font-size:9px"></i> Strategy & Planning</span></div>
-            <p class="prompt-desc">Create a structured, time-boxed agenda for any team meeting.</p>
-            <div class="prompt-usecase"><strong>Use case:</strong> Weekly team syncs, project kick-offs, quarterly reviews.</div>
-            <p class="prompt-need"><strong>You need:</strong> Meeting objective, duration, and list of topics to cover.</p>
-            <div class="prompt-text-wrap"><div class="prompt-text" id="p0-2">Create a structured meeting agenda for a [Duration, e.g. 60-minute] team meeting with the following objective: [Meeting objective].
-
-Topics to cover: [List topics]
-Number of attendees: [Number]
-Meeting type: [e.g. weekly sync / project review / planning session]
-
-Format: time-boxed agenda with owner for each item, clear purpose per slot, and a 5-minute buffer at the end for actions and decisions. Keep language direct and professional.</div></div>
-            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A time-boxed agenda with owners and purpose for each slot.</p><button class="copy-btn" onclick="copyPrompt('p0-2',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
-          </div>
-
-          <div class="prompt-card">
-            <div class="prompt-header"><div class="prompt-title">Decision Brief</div><span class="prompt-badge badge-strategy"><i class="ti ti-layout-list" style="font-size:9px"></i> Strategy & Planning</span></div>
-            <p class="prompt-desc">Structure a clear decision brief for senior stakeholders.</p>
-            <div class="prompt-usecase"><strong>Use case:</strong> Escalating decisions, investment proposals, policy changes.</div>
-            <p class="prompt-need"><strong>You need:</strong> The decision to be made, options available, and your recommendation.</p>
-            <div class="prompt-text-wrap"><div class="prompt-text" id="p0-3">You are a management consultant. Write a one-page decision brief for [Audience] on the following matter: [Decision to be made].
-
-Structure the brief as follows:
-1. Context (2-3 sentences explaining why a decision is needed now)
-2. Options considered (list each option with one-line pros and cons)
-3. Recommended option (with clear rationale)
-4. Risks of the recommendation
-5. Required action (what you need the reader to approve or decide)
-
-Tone: direct and evidence-based. Length: maximum 350 words.</div></div>
-            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A one-page decision brief structured for executive review.</p><button class="copy-btn" onclick="copyPrompt('p0-3',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
-          </div>
-
-          <div class="prompt-card">
-            <div class="prompt-header"><div class="prompt-title">Difficult Conversation Script</div><span class="prompt-badge badge-comms"><i class="ti ti-message" style="font-size:9px"></i> Communications</span></div>
-            <p class="prompt-desc">Prepare a structured script for a sensitive management conversation.</p>
-            <div class="prompt-usecase"><strong>Use case:</strong> Underperformance discussions, redundancy conversations, conflict resolution.</div>
-            <p class="prompt-need"><strong>You need:</strong> The situation, key points to convey, and desired outcome.</p>
-            <div class="prompt-text-wrap"><div class="prompt-text" id="p0-4">You are an experienced people manager and HR advisor. Help me prepare for a difficult conversation with [Employee Name / Role].
-
-Situation: [Describe the situation in 2-3 sentences]
-Key points I need to convey: [List them]
-Desired outcome of the conversation: [What you want to achieve]
-
-Provide:
-1. An opening statement (how to start the conversation professionally)
-2. Key talking points in order
-3. How to handle likely pushback
-4. A closing statement that sets clear next steps
-
-Tone: firm but empathetic. Do not use corporate jargon.</div></div>
-            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A structured conversation script with opening, talking points and closing.</p><button class="copy-btn" onclick="copyPrompt('p0-4',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
-          </div>
-
-          <div class="prompt-card">
-            <div class="prompt-header"><div class="prompt-title">Strategy Document Outline</div><span class="prompt-badge badge-strategy"><i class="ti ti-layout-list" style="font-size:9px"></i> Strategy & Planning</span></div>
-            <p class="prompt-desc">Generate a professional outline for a departmental or business strategy document.</p>
-            <div class="prompt-usecase"><strong>Use case:</strong> Annual planning, new initiative proposals, board presentations.</div>
-            <p class="prompt-need"><strong>You need:</strong> The strategic topic, audience, and key objectives.</p>
-            <div class="prompt-text-wrap"><div class="prompt-text" id="p0-5">You are a strategy consultant. Create a detailed outline for a [Department / Business Unit] strategy document for [Year / Period].
-
-Audience: [e.g. Executive Leadership Team / Board of Directors]
-Strategic objectives: [List 3-5 objectives]
-Key challenges to address: [List challenges]
-
-Provide a full document outline with section headings, sub-headings, and a one-sentence description of what each section should contain. The outline should support a 10-15 page strategy document.</div></div>
-            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A complete document outline with headings, sub-headings and section descriptions.</p><button class="copy-btn" onclick="copyPrompt('p0-5',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
-          </div>
-
-          <div class="prompt-card">
-            <div class="prompt-header"><div class="prompt-title">Meeting Summary and Action Items</div><span class="prompt-badge badge-writing"><i class="ti ti-pencil" style="font-size:9px"></i> Writing & Analysis</span></div>
-            <p class="prompt-desc">Extract a clean summary and action list from raw meeting notes.</p>
-            <div class="prompt-usecase"><strong>Use case:</strong> After any meeting where you need to circulate a summary.</div>
-            <p class="prompt-need"><strong>You need:</strong> Raw meeting notes or a transcript.</p>
-            <div class="prompt-text-wrap"><div class="prompt-text" id="p0-6">Review the following meeting notes and produce a structured summary.
-
-Output format:
-1. Meeting objective (one sentence)
-2. Key decisions made (bullet list)
-3. Action items (table with columns: Action, Owner, Deadline)
-4. Open questions or items requiring follow-up
-
-Do not include conversational filler. Extract only confirmed decisions and explicitly assigned actions.
-
-Meeting notes:
-[Paste meeting notes or transcript here]</div></div>
-            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A structured summary with decisions, action table and open questions.</p><button class="copy-btn" onclick="copyPrompt('p0-6',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
-          </div>
-
-          <div class="prompt-card">
-            <div class="prompt-header"><div class="prompt-title">Stakeholder Communication Plan</div><span class="prompt-badge badge-comms"><i class="ti ti-message" style="font-size:9px"></i> Communications</span></div>
-            <p class="prompt-desc">Build a structured communication plan for a project or change initiative.</p>
-            <div class="prompt-usecase"><strong>Use case:</strong> Project launches, organisational changes, new policies.</div>
-            <p class="prompt-need"><strong>You need:</strong> Initiative description, key stakeholder groups, and timeline.</p>
-            <div class="prompt-text-wrap"><div class="prompt-text" id="p0-7">You are a change management consultant. Create a stakeholder communication plan for the following initiative: [Initiative name and description].
-
-Stakeholder groups: [List groups, e.g. Executive team, Middle managers, All staff, External partners]
-Timeline: [Start date to end date]
-Key milestones: [List milestones]
-
-For each stakeholder group provide: communication objective, key messages, channel, frequency, and owner. Format as a clear table.</div></div>
-            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A communication plan table with messages, channels and owners per stakeholder group.</p><button class="copy-btn" onclick="copyPrompt('p0-7',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
-          </div>
-
-          <div class="prompt-card">
-            <div class="prompt-header"><div class="prompt-title">Risk Assessment Summary</div><span class="prompt-badge badge-writing"><i class="ti ti-pencil" style="font-size:9px"></i> Writing & Analysis</span></div>
-            <p class="prompt-desc">Identify and structure key risks for a project or decision.</p>
-            <div class="prompt-usecase"><strong>Use case:</strong> Project planning, board reporting, investment decisions.</div>
-            <p class="prompt-need"><strong>You need:</strong> Project or decision description and known risk areas.</p>
-            <div class="prompt-text-wrap"><div class="prompt-text" id="p0-8">You are a risk management consultant. Identify and structure the key risks for the following: [Project or decision description].
-
-Known risk areas: [List any risks you are already aware of]
-
-For each risk provide: risk description, likelihood (High/Medium/Low), impact (High/Medium/Low), risk owner, and recommended mitigation action.
-
-Format as a risk register table. Include a maximum of 8 risks, prioritised by overall severity. Add a one-paragraph executive summary of the overall risk profile.</div></div>
-            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A risk register table with likelihood, impact, owner and mitigation per risk.</p><button class="copy-btn" onclick="copyPrompt('p0-8',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
-          </div>
-
-          <div class="prompt-card">
-            <div class="prompt-header"><div class="prompt-title">Team Announcement Draft</div><span class="prompt-badge badge-comms"><i class="ti ti-message" style="font-size:9px"></i> Communications</span></div>
-            <p class="prompt-desc">Write a clear, professional announcement for your team.</p>
-            <div class="prompt-usecase"><strong>Use case:</strong> Organisational changes, new hires, policy updates, project launches.</div>
-            <p class="prompt-need"><strong>You need:</strong> The news to announce and the key points to communicate.</p>
-            <div class="prompt-text-wrap"><div class="prompt-text" id="p0-9">You are a senior manager at [Company Name]. Write a team announcement email about the following: [What you are announcing].
-
-Key points to communicate: [List them]
-Tone: [e.g. positive and energising / calm and reassuring / straightforward and factual]
-Audience: [e.g. Your direct team of 12 / The entire department of 80 people]
-Length: maximum 150 words.
-
-Start directly with the news. Do not use phrases like "I hope this message finds you well" or "I am writing to inform you".</div></div>
-            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 150-word team announcement email ready to send.</p><button class="copy-btn" onclick="copyPrompt('p0-9',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
-          </div>
-
         </div>
 
-        <div id="seo-sec-1" class="seo-section">
-          <p class="role-intro">These prompts help HR professionals save time on policy drafting, employee communications, job descriptions, onboarding materials, and people analytics. Each prompt is ready to copy and paste directly into Claude or Gemini.</p>
+      <div class="content-footer">
+        <button class="btn-nav" id="btnBack" onclick="go(cur-1)">Back</button>
+        <button class="btn-fwd" id="btnFwd" onclick="go(cur+1)">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>
+      </div>
+    </div>
 
-          <div class="prompt-card">
-            <div class="prompt-header"><div class="prompt-title">Job Description Draft</div><span class="prompt-badge badge-writing"><i class="ti ti-pencil" style="font-size:9px"></i> Writing & Analysis</span></div>
-            <p class="prompt-desc">Write a clear, inclusive job description that attracts the right candidates.</p>
-            <div class="prompt-usecase"><strong>Use case:</strong> New role creation, backfill hiring, internal mobility.</div>
-            <p class="prompt-need"><strong>You need:</strong> Job title, department, key responsibilities, and required skills.</p>
-            <div class="prompt-text-wrap"><div class="prompt-text" id="p1-0">You are an experienced HR professional and talent acquisition specialist. Write a job description for the following role.
+  </div>
+</div>
 
-Job title: [Job title]
-Department: [Department]
-Location: [Location / Remote / Hybrid]
-Reporting to: [Reporting line]
-Key responsibilities: [List 5-7 responsibilities]
-Required skills and experience: [List requirements]
-Desirable skills: [List nice-to-haves]
+<footer class="site-footer">
+  <div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Contact</a></div>
+  <div class="footer-copy">&copy; 2026 PairWorkflows. All rights reserved.</div>
+</footer>
 
-Requirements: Use inclusive, bias-free language. Avoid jargon. Keep the responsibilities section to 6 bullet points maximum. The tone should be professional but engaging. Do not use the phrase "rockstar" or "ninja".</div></div>
-            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A complete, inclusive job description ready for posting.</p><button class="copy-btn" onclick="copyPrompt('p1-0',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
-          </div>
+<script>
+var cur = 0;
+var TOTAL = 8;
+var visited = [true,false,false,false,false,false,false,false];
+var heroes = [  
+  {tag:'Role 01 of 08', title:'Manager: prompts for strategy, communication and leadership.'},  
+  {tag:'Role 02 of 08', title:'HR: prompts for people management, policies and talent.'},  
+  {tag:'Role 03 of 08', title:'Finance: prompts for analysis, reporting and financial planning.'},  
+  {tag:'Role 04 of 08', title:'Legal: prompts for contract review, compliance and risk.'},  
+  {tag:'Role 05 of 08', title:'Marketing: prompts for content, campaigns and brand communications.'},  
+  {tag:'Role 06 of 08', title:'Operations: prompts for process, reporting and supplier management.'},  
+  {tag:'Role 07 of 08', title:'Sales: prompts for prospecting, proposals and account management.'},  
+  {tag:'Role 08 of 08', title:'Project Management: prompts for planning, reporting and delivery.'}
+];
 
-          <div class="prompt-card">
-            <div class="prompt-header"><div class="prompt-title">HR Policy Draft</div><span class="prompt-badge badge-writing"><i class="ti ti-pencil" style="font-size:9px"></i> Writing & Analysis</span></div>
-            <p class="prompt-desc">Draft a clear, professional HR policy document.</p>
-            <div class="prompt-usecase"><strong>Use case:</strong> Creating new policies or updating existing ones.</div>
-            <p class="prompt-need"><strong>You need:</strong> Policy topic, scope, key rules, and any legal requirements.</p>
-            <div class="prompt-text-wrap"><div class="prompt-text" id="p1-1">You are an HR policy specialist. Draft a professional HR policy document on the following topic: [Policy topic, e.g. Remote Working Policy / Expense Policy / Disciplinary Policy].
+function go(n){  
+  if(n<0||n>=TOTAL)return;  
+  visited[n]=true;  
+  cur=n;  
+  render();  
+  window.scrollTo(0,0);
+}
 
-Scope: [Who the policy applies to]
-Key rules and requirements: [List main policy points]
-Legal or regulatory requirements to reflect: [e.g. UK Employment Law / GDPR]
-Effective date: [Date]
+function render(){  
+  document.getElementById('heroTag').textContent=heroes[cur].tag;  
+  document.getElementById('heroTitle').textContent=heroes[cur].title;  
+  for(var i=0;i<TOTAL;i++){    
+    var ni=document.getElementById('ni'+i);    
+    var nd=document.getElementById('nd'+i);    
+    var sec=document.getElementById('seo-sec-'+i);    
+    if(ni) ni.className='nav-item'+(i===cur?' active':'');    
+    if(sec){      
+      if(i===cur) sec.classList.add('active-section');      
+      else sec.classList.remove('active-section');    
+    }    
+    if(nd){      
+      if(visited[i]&&i!==cur){        
+        nd.className='nav-dot done';        
+        nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';      
+      } else if(i===cur){        
+        nd.className='nav-dot active';        
+        nd.textContent=(i+1);      
+      } else {        
+        nd.className='nav-dot';        
+        nd.textContent=(i+1);      
+      }    
+    }  
+  }  
+  document.getElementById('btnBack').disabled=(cur===0);  
+  var fwd=document.getElementById('btnFwd');  
+  if(cur===TOTAL-1){    
+    fwd.style.display='none';  
+  } else {    
+    fwd.style.display='';    
+    fwd.innerHTML='Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';  
+  }
+}
 
-Structure the document with: Purpose, Scope, Policy Statement, Procedures, Responsibilities, Review Date. Use clear, plain English. Avoid legal jargon where possible. Flag any sections that should be reviewed by a legal advisor with [LEGAL REVIEW REQUIRED].</div></div>
-            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A structured HR policy document with all standard sections.</p><button class="copy-btn" onclick="copyPrompt('p1-1',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
-          </div>
+function copyPrompt(id,btn){  
+  var el=document.getElementById(id);  
+  var text=el.innerText||el.textContent;  
+  if(navigator.clipboard&&navigator.clipboard.writeText){    
+    navigator.clipboard.writeText(text).then(function(){      
+      var orig=btn.innerHTML;      
+      btn.innerHTML='<i class="ti ti-check" style="font-size:12px"></i> Copied!';      
+      btn.style.background='#085041';      
+      setTimeout(function(){btn.innerHTML=orig;btn.style.background='';},2000);    
+    }).catch(function(){      
+      fallbackCopy(text,btn);    
+    });  
+  } else {    
+    fallbackCopy(text,btn);  
+  }
+}
 
-          <div class="prompt-card">
-            <div class="prompt-header"><div class="prompt-title">Interview Question Set</div><span class="prompt-badge badge-strategy"><i class="ti ti-layout-list" style="font-size:9px"></i> Strategy & Planning</span></div>
-            <p class="prompt-desc">Generate a structured set of competency-based interview questions.</p>
-            <div class="prompt-usecase"><strong>Use case:</strong> Preparing for structured interviews for any role.</div>
-            <p class="prompt-need"><strong>You need:</strong> Job title and the key competencies required for the role.</p>
-            <div class="prompt-text-wrap"><div class="prompt-text" id="p1-2">You are a talent acquisition specialist. Create a structured interview question set for the role of [Job title].
+function fallbackCopy(text,btn){  
+  var ta=document.createElement('textarea');  
+  ta.value=text;  
+  ta.style.position='fixed';  
+  ta.style.opacity='0';  
+  document.body.appendChild(ta);  
+  ta.focus();  
+  ta.select();  
+  try{    
+    document.execCommand('copy');    
+    var orig=btn.innerHTML;    
+    btn.innerHTML='<i class="ti ti-check" style="font-size:12px"></i> Copied!';    
+    btn.style.background='#085041';    
+    setTimeout(function(){btn.innerHTML=orig;btn.style.background='';},2000);  
+  }catch(e){}  
+  document.body.removeChild(ta);
+}
 
-Key competencies to assess: [List 4-5 competencies, e.g. Leadership, Problem-solving, Communication, Commercial awareness]
-
-For each competency provide:
-- One behavioural question (STAR format: Situation, Task, Action, Result)
-- One follow-up probe question
-- The ideal answer indicators (what a strong answer should include)
-
-Also include 2 general culture-fit questions at the end. Total questions: maximum 12.</div></div>
-            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A structured interview guide with questions, probes and answer indicators.</p><button class="copy-btn" onclick="copyPrompt('p1-2',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
-          </div>
-
-          <div class="prompt-card">
-            <div class="prompt-header"><div class="prompt-title">Employee Survey Analysis</div><span class="prompt-badge badge-research"><i class="ti ti-chart-bar" style="font-size:9px"></i> Research & Data</span></div>
-            <p class="prompt-desc">Analyse open-text survey responses to identify key themes.</p>
-            <div class="prompt-usecase"><strong>Use case:</strong> Engagement surveys, pulse checks, exit interview analysis.</div>
-            <p class="prompt-need"><strong>You need:</strong> The open-text survey responses (anonymised).</p>
-            <div class="prompt-text-wrap"><div class="prompt-text" id="p1-3">You are an organisational psychologist and HR analytics specialist. Analyse the following open-text employee survey responses and identify the key themes.
-
-Survey question asked: [The question employees were answering]
-Number of responses: [Number]
-
-Tasks:
-1. Identify the top 5 themes across all responses
-2. For each theme, provide: theme name, frequency estimate (High/Medium/Low), representative quotes (anonymised), and recommended action
-3. Identify any urgent concerns that require immediate attention
-4. Provide an overall sentiment rating (Positive / Mixed / Negative) with justification
-
-Survey responses:
-[Paste anonymised responses here]</div></div>
-            <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A theme analysis with sentiment, quotes and recommended actions.</p><button class="copy-btn" onclick="copyPrompt('p1-3',this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button></div>
-          </div>
-
-          <div class="prompt-card">
-            <div class="prompt-header"><div class="prompt-title">Onboarding Plan</div><span class="prompt-badge badge-strategy"><i class="ti ti-layout-list" style="font-size:9px"></i> Strategy & Planning</span></div>
-            <p class="prompt-desc">Create a structured 30-60-90 day onboarding plan for a new hire.</p>
-            <div class="prompt-usecase"><strong>Use case:</strong> Onboarding new employees at any level.
+render();
+</script>
+</body>
+</html>
