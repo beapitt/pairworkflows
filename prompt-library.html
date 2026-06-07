@@ -10,18 +10,19 @@
   body { font-family: 'Inter', 'Segoe UI', sans-serif; background: #042e1f; color: #1a1a2e; min-height: 100vh; display: flex; flex-direction: column; }
   .navbar { background: #021a12; border-bottom: 1px solid #0a4a30; padding: 0 3rem; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
   .logo { display: flex; align-items: baseline; gap: 1px; text-decoration: none; }
-  .logo-pair { font-size: 18px; font-weight: 800; color: #ffffff; }
-  .logo-workflows { font-size: 18px; font-weight: 400; color: #9fe1cb; }
+  .logo-pair { font-size: 18px; font-weight: 800; color: #ffffff; letter-spacing: -.3px; }
+  .logo-workflows { font-size: 18px; font-weight: 400; color: #9fe1cb; letter-spacing: -.2px; }
+  .back-link { display: flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,.6); text-decoration: none; }
   .course-wrap { max-width: 1280px; margin: 0 auto; padding: 2rem 3rem 4rem; flex: 1; width: 100%; }
-  .course-shell { background: #ffffff; border-radius: 16px; box-shadow: 0 4px 40px rgba(0,0,0,.4); display: grid; grid-template-columns: 260px 1fr; min-height: 600px; }
+  .course-shell { background: #ffffff; border-radius: 16px; box-shadow: 0 4px 40px rgba(0,0,0,.4); overflow: hidden; display: grid; grid-template-columns: 260px 1fr; min-height: 600px; }
   .sidebar { background: #f8fafb; border-right: 1px solid #e8ecef; }
   .nav-item { display: flex; align-items: center; gap: 10px; padding: .7rem 1.25rem; cursor: pointer; border-left: 3px solid transparent; }
   .nav-item.active { border-left-color: #1d9e75; background: #ffffff; }
-  .nav-dot { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid #d1d5db; display: flex; align-items: center; justify-content: center; font-size: 11px; }
+  .nav-dot { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid #d1d5db; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #6b7280; }
   .nav-dot.done { background: #1d9e75; border-color: #1d9e75; color: #ffffff; }
   .nav-dot.active { border-color: #1d9e75; color: #0f6e56; font-weight: 600; }
+  .content-area { display: flex; flex-direction: column; }
   .section-hero { background: linear-gradient(135deg, #085041 0%, #0f6e56 45%, #185fa5 100%); padding: 2rem 2.5rem; }
-  .section-hero h2 { color: #ffffff; font-size: 24px; }
   .content-body { padding: 2rem 2.5rem; }
   .seo-section { display: none; }
   .seo-section.active-section { display: block; }
@@ -36,12 +37,12 @@
 </style>
 </head>
 <body>
-<nav class="navbar"><a class="logo" href="/"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a></nav>
+<nav class="navbar"><a class="logo" href="/">PairWorkflows</a></nav>
 <div class="course-wrap">
   <div class="course-shell">
     <div class="sidebar">
-      <div class="nav-list">
-        <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div>Manager</div></div>
+      <div class="nav-list" id="navList">
+        <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot" id="nd0">1</div><div>Manager</div></div>
         <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div>HR</div></div>
         <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div>Finance</div></div>
         <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div>Legal</div></div>
@@ -53,25 +54,11 @@
     </div>
     <div class="content-area">
       <div class="section-hero">
-        <h2 id="heroTitle">Manager: prompts for strategy, communication and leadership.</h2>
+        <h2 id="heroTitle">Manager</h2>
       </div>
       <div class="content-body" id="cnt">
         <div id="seo-sec-0" class="seo-section active-section">
-          <div class="prompt-card">
-            <div class="prompt-title">Executive Status Update</div>
-            <span class="prompt-badge badge-comms"><i class="ti ti-message"></i> Communications</span>
-            <div class="prompt-text" id="p0-0">You are a senior communications advisor. Convert the following bullet points into a concise executive status update...</div>
-            <button class="copy-btn" onclick="copyPrompt('p0-0',this)">Copy</button>
           </div>
-        </div>
-        <div id="seo-sec-1" class="seo-section">
-          <div class="prompt-card">
-            <div class="prompt-title">Job Description Draft</div>
-            <span class="prompt-badge badge-writing"><i class="ti ti-pencil"></i> Writing & Analysis</span>
-            <div class="prompt-text" id="p1-0">You are an experienced HR professional. Write a job description for...</div>
-            <button class="copy-btn" onclick="copyPrompt('p1-0',this)">Copy</button>
-          </div>
-        </div>
         </div>
       <div style="padding: 1rem; border-top: 1px solid #eee; display: flex; gap: 10px;">
         <button id="btnBack" onclick="go(cur-1)">Back</button>
@@ -82,22 +69,19 @@
 </div>
 <script>
 var cur = 0; var TOTAL = 8; var visited = [true,false,false,false,false,false,false,false];
-var heroes = [{tag:'Role 01 of 08', title:'Manager: prompts for strategy, communication and leadership.'}, {tag:'Role 02 of 08', title:'HR: prompts for people management, policies and talent.'}, {tag:'Role 03 of 08', title:'Finance: prompts for analysis, reporting and financial planning.'}, {tag:'Role 04 of 08', title:'Legal: prompts for contract review, compliance and risk.'}, {tag:'Role 05 of 08', title:'Marketing: prompts for content, campaigns and brand communications.'}, {tag:'Role 06 of 08', title:'Operations: prompts for process, reporting and supplier management.'}, {tag:'Role 07 of 08', title:'Sales: prompts for prospecting, proposals and account management.'}, {tag:'Role 08 of 08', title:'Project Management: prompts for planning, reporting and delivery.'}];
-
 function go(n){ if(n<0||n>=TOTAL)return; visited[n]=true; cur=n; render(); window.scrollTo(0,0); }
 function render(){
-  document.getElementById('heroTitle').textContent=heroes[cur].title;
   for(var i=0;i<TOTAL;i++){
-    document.getElementById('ni'+i).className='nav-item'+(i===cur?' active':'');
+    document.getElementById('ni'+i).className = 'nav-item' + (i===cur ? ' active' : '');
     var sec = document.getElementById('seo-sec-'+i);
-    if(sec) sec.className='seo-section'+(i===cur?' active-section':'');
-    var nd=document.getElementById('nd'+i);
-    if(visited[i]&&i!==cur){ nd.className='nav-dot done'; nd.innerHTML='<i class="ti ti-check"></i>'; }
+    if(sec) sec.className = 'seo-section' + (i===cur ? ' active-section' : '');
+    var nd = document.getElementById('nd'+i);
+    if(visited[i] && i!==cur){ nd.className='nav-dot done'; nd.innerHTML='<i class="ti ti-check"></i>'; }
     else if(i===cur){ nd.className='nav-dot active'; nd.textContent=(i+1); }
     else { nd.className='nav-dot'; nd.textContent=(i+1); }
   }
-  document.getElementById('btnBack').disabled=(cur===0);
-  document.getElementById('btnFwd').style.display=(cur===TOTAL-1)?'none':'';
+  document.getElementById('btnBack').disabled = (cur === 0);
+  document.getElementById('btnFwd').style.display = (cur === TOTAL-1) ? 'none' : '';
 }
 function copyPrompt(id,btn){
   var text = document.getElementById(id).textContent;
