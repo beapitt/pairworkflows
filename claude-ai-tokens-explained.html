@@ -154,12 +154,27 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#ffffff;
 <body>
 <nav class="navbar">
   <a class="logo" href="/index.html"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a>
- <form class="search-form" action="/search.html" method="get" style="display:flex;align-items:center;gap:0;">
-  <div style="display:flex;align-items:center;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;overflow:hidden;transition:border-color .2s;" onfocus-within="this.style.borderColor='#1d9e75'">
-    <i class="ti ti-search" style="font-size:14px;color:rgba(255,255,255,.5);padding:0 10px;"></i>
-    <input type="text" name="q" placeholder="Search..." style="padding:7px 12px 7px 0;border:none;background:transparent;color:#ffffff;font-size:13px;font-family:'Inter',sans-serif;width:160px;outline:none;" onfocus="this.parentElement.style.borderColor='#1d9e75';this.parentElement.style.background='rgba(255,255,255,.18)'" onblur="this.parentElement.style.borderColor='rgba(255,255,255,.2)';this.parentElement.style.background='rgba(255,255,255,.12)'">
+ <button onclick="openSearch()" style="background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.6);font-size:20px;display:flex;align-items:center;padding:4px;transition:color .15s;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='rgba(255,255,255,.6)'"><i class="ti ti-search"></i></button>
+
+<!-- Search overlay -->
+<div id="searchOverlay" style="display:none;position:fixed;inset:0;background:rgba(2,26,18,.85);z-index:9999;backdrop-filter:blur(4px);align-items:flex-start;justify-content:center;padding-top:120px;" onclick="if(event.target===this)closeSearch()">
+  <div style="width:100%;max-width:680px;padding:0 1.5rem;position:relative;">
+    <button onclick="closeSearch()" style="position:absolute;top:-50px;right:1.5rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.5);font-size:22px;transition:color .15s;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='rgba(255,255,255,.5)'"><i class="ti ti-x"></i></button>
+    <form action="/search.html" method="get">
+      <div style="display:flex;align-items:center;background:#ffffff;border:2.5px solid #1d9e75;border-radius:14px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.4);">
+        <i class="ti ti-search" style="font-size:18px;color:#1d9e75;padding:0 14px;flex-shrink:0;"></i>
+        <input type="text" name="q" id="searchOverlayInput" placeholder="Search across PairWorkflows..." autocomplete="off" style="flex:1;padding:16px 16px 16px 0;border:none;outline:none;font-size:16px;font-family:'Inter',sans-serif;color:#1a1a2e;background:transparent;">
+        <button type="submit" style="background:#1d9e75;border:none;cursor:pointer;padding:0 20px;height:56px;color:#ffffff;font-size:14px;font-weight:600;font-family:'Inter',sans-serif;transition:background .15s;" onmouseover="this.style.background='#0f6e56'" onmouseout="this.style.background='#1d9e75'">Search</button>
+      </div>
+    </form>
+    <p style="color:rgba(255,255,255,.4);font-size:13px;margin-top:1rem;text-align:center;">Search courses, prompts, glossary terms and resources.</p>
   </div>
-</form>
+</div>
+<script>
+function openSearch(){var o=document.getElementById('searchOverlay');o.style.display='flex';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
+function closeSearch(){document.getElementById('searchOverlay').style.display='none';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+</script>
   <a class="back-link" href="/index.html"><i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses</a>
 </nav>
 
