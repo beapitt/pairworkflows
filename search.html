@@ -71,14 +71,19 @@ function renderResults(results, query) {
   
   // Prepariamo le parole chiave per l'evidenziazione
   var terms = query.toLowerCase().trim().split(/\s+/);
-  var regex = new RegExp('(' + terms.join('|') + ')', 'gi');
+  // Usiamo una regex che ignora i caratteri speciali per evitare errori
+  var pattern = terms.map(function(t) { return t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }).join('|');
+  var regex = new RegExp('(' + pattern + ')', 'gi');
 
   grid.innerHTML = results.map(function(item) {
     var iconCls = item.category.indexOf('Claude') > -1 ? 'icon-claude' : item.category.indexOf('Gemini') > -1 ? 'icon-gemini' : item.category.indexOf('Prompt') > -1 ? 'icon-prompt' : 'icon-resource';
     
-    // Funzione interna per evidenziare il testo
+    // Funzione sicura per evidenziare
     var highlight = function(text) {
-      return text.replace(regex, '<mark style="background:#1d9e75; color:#fff; border-radius:2px;">$1</mark>');
+      if (!text) return "";
+      return text.replace(regex, function(match) {
+        return '<mark style="background:#1d9e75; color:#fff; border-radius:2px;">' + match + '</mark>';
+      });
     };
 
     return '<a href="' + item.url + '" class="result-card">' +
@@ -90,7 +95,6 @@ function renderResults(results, query) {
       '</a>';
   }).join('');
 }
-
 function doSearch(query) {
   if (!isDataLoaded) {
     document.getElementById('resultsGrid').innerHTML = '<div style="color:#fff;text-align:center;padding:2rem;">Loading data... please wait.</div>';
