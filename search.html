@@ -112,7 +112,9 @@ function doSearch(query) {
     var text = (item.title + ' ' + item.description + ' ' + item.tags.join(' ')).toLowerCase();
     return terms.every(function(t) { return text.indexOf(t) !== -1; });
   });
-  renderResults(results);
+  
+  // Qui passiamo sia i risultati che la query originale
+  renderResults(results, query);
 }
 
 fetch('/search-index.json')
