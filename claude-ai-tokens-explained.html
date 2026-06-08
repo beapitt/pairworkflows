@@ -3,23 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Tokens Explained: What They Are & Why They Matter — PairWorkflows</title>
+<title>AI Tokens Explained — PairWorkflows</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
-/* Mantieni il tuo CSS esistente e aggiungi queste classi alla fine del blocco <style> */
+/* --- STILE ORIGINALE MANTENUTO --- */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#ffffff;min-height:100vh;display:flex;flex-direction:column}
+.navbar{background:#042e1f;border-bottom:1px solid rgba(255,255,255,.08);padding:0 3rem;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
+.logo-pair{font-size:18px;font-weight:800;color:#ffffff;letter-spacing:-.3px}
+.logo-workflows{font-size:18px;font-weight:400;color:#9fe1cb;letter-spacing:-.2px}
+.back-link{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,.6);text-decoration:none;transition:color .15s}
+.back-link:hover{color:#ffffff}
+
+/* --- NUOVO STILE RICERCA --- */
 .search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;margin-right:15px;}
 .search-trigger:hover{background:rgba(255,255,255,.15);color:#ffffff;}
-#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px;}
+#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;padding-top:140px;}
 #searchOverlay.open{display:flex;}
 .search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative;}
-.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s;}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;transition:color .15s;}
 .search-close-btn:hover{color:#ffffff;}
-.search-box-form{margin-top:0;}
 .search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent;}
-.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0;}
+.search-box i{font-size:18px;color:#1d9e75;}
 .search-box input{flex:1;border:none;outline:none;background:transparent;color:#ffffff;font-size:17px;font-family:'Inter',sans-serif;}
-.search-box input::placeholder{color:rgba(255,255,255,.35);}
-.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center;letter-spacing:.02em;}
+.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center;}
 </style>
 </head>
 <body>
@@ -28,14 +37,14 @@
   <a class="logo" href="/index.html"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a>
   <div style="display:flex; align-items:center;">
     <button class="search-trigger" onclick="openSearch()"><i class="ti ti-search"></i></button>
-    <a class="back-link" href="/index.html"><i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses</a>
+    <a class="back-link" href="/index.html"><i class="ti ti-arrow-left"></i> Back to courses</a>
   </div>
 </nav>
 
 <div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
   <div class="search-overlay-inner">
     <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
-    <form class="search-box-form" action="/search.html" method="get">
+    <form action="/search.html" method="get">
       <div class="search-box">
         <i class="ti ti-search"></i>
         <input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off">
@@ -49,7 +58,6 @@
 function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
 function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
-// ... (Il resto dei tuoi script esistenti) ...
 </script>
 </body>
 </html>
