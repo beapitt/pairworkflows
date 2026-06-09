@@ -3,853 +3,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>How to Use Gemini in Gmail to Beat Inbox Overload at Work — PairWorkflows </title>
-<meta name="description" content="Learn how to use Gemini in Gmail to clear your inbox overload, write executive summaries, and find critical corporate data in seconds.">
-<link rel="canonical" href="https://www.pairworkflows.com/gemini-gmail-inbox-overload.html">
-
-<meta property="og:title" content="How to Use Gemini in Gmail to Beat Inbox Overload at Work — PairWorkflows">
-<meta property="og:description" content="Learn how to use Gemini in Gmail to clear your inbox overload, write executive summaries, and find critical data in seconds.">
-<meta property="og:url" content="https://www.pairworkflows.com/gemini-gmail-inbox-overload.html">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="PairWorkflows">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="How to Use Gemini in Gmail to Beat Inbox Overload at Work — PairWorkflows">
-<meta name="twitter:description" content="Learn how to use Gemini in Gmail to clear your inbox overload.">
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Course",
-  "name": "How to Use Gemini in Gmail to Beat Inbox Overload at Work",
-"description": "Learn how to use Gemini in Gmail to manage inbox overload, automate email drafting, and find critical corporate data in seconds.",
-  "url": "https://www.pairworkflows.com/gemini-gmail-inbox-overload.html",
-  "timeRequired": "PT5M",
-  "isAccessibleForFree": true,
-  "inLanguage": "en",
-  "provider": {
-    "@type": "Organization",
-    "name": "PairWorkflows",
-    "url": "https://www.pairworkflows.com"
-  },
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD",
-    "availability": "https://schema.org/InStock"
-  },
-  "hasCourseInstance": {
-    "@type": "CourseInstance",
-    "courseMode": "online",
-    "courseWorkload": "PT5M"
-  }
-}
-</script>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>How to Use Gemini in Gmail to Beat Inbox Overload at Work — PairWorkflows</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Inter', 'Segoe UI', Helvetica Neue, sans-serif;
-    background: #042e1f;
-    color: #1a1a2e;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* ── Navbar ── */
-  .navbar {
-    background: #021a12;
-    border-bottom: 1px solid #0a4a30;
-    padding: 0 2rem;
-    height: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-shrink: 0;
-  }
-
-  .nav-logo {
-    display: flex;
-    align-items: baseline;
-    gap: 1px;
-    text-decoration: none;
-  }
-
-  .logo-pair { font-size: 16px; font-weight: 600; color: #1d9e75; letter-spacing: -0.3px; }
-  .logo-workflows { font-size: 16px; font-weight: 400; color: #ffffff; }
-
-  .nav-back {
-    font-size: 13px;
-    color: #6b9e8a;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: color .15s;
-  }
-
-  .nav-back:hover { color: #1d9e75; }
-
-  .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .nav-badge {
-    background: #0a4a30;
-    color: #1d9e75;
-    font-size: 11px;
-    font-weight: 500;
-    padding: 3px 10px;
-    border-radius: 20px;
-    text-transform: uppercase;
-    letter-spacing: .05em;
-  }
-
-  .nav-time {
-    font-size: 13px;
-    color: #6b9e8a;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  /* ── Main content area ── */
-  .page-wrap {
-    max-width: 1100px;
-    margin: 0 auto;
-    width: 100%;
-    padding: 2rem 1rem;
-    flex: 1;
-  }
-
-  .course-shell {
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 2px 24px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.08);
-    overflow: hidden;
-    display: grid;
-    grid-template-columns: 240px 1fr;
-    min-height: 580px;
-  }
-
-  /* ── Sidebar ── */
-  .sidebar {
-    background: #f8fafb;
-    border-right: 1px solid #e8ecef;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .sidebar-top {
-    padding: 1.5rem 1.25rem 1rem;
-    border-bottom: 1px solid #e8ecef;
-  }
-
-  .course-label {
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: .08em;
-    color: #0f6e56;
-    margin-bottom: .5rem;
-  }
-
-  .course-title-side {
-    font-size: 13px;
-    font-weight: 500;
-    color: #1a1a2e;
-    line-height: 1.45;
-  }
-
-  .prog-wrap { padding: 1rem 1.25rem .75rem; }
-
-  .prog-label {
-    display: flex;
-    justify-content: space-between;
-    font-size: 11px;
-    color: #6b7280;
-    margin-bottom: .4rem;
-  }
-
-  .prog-track {
-    height: 5px;
-    background: #e8ecef;
-    border-radius: 3px;
-    overflow: hidden;
-  }
-
-  .prog-fill {
-    height: 5px;
-    background: linear-gradient(90deg, #1d9e75, #0f6e56);
-    border-radius: 3px;
-    transition: width .35s ease;
-  }
-
-  .nav-list { padding: .5rem 0; flex: 1; }
-
-  .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: .7rem 1.25rem;
-    cursor: pointer;
-    border-left: 3px solid transparent;
-    transition: all .15s;
-  }
-
-  .nav-item:hover { background: #eef1f4; }
-
-  .nav-item.active {
-    border-left-color: #1d9e75;
-    background: #ffffff;
-  }
-
-  .nav-dot {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    border: 1.5px solid #d1d5db;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 500;
-    color: #6b7280;
-    flex-shrink: 0;
-    transition: all .15s;
-  }
-
-  .nav-dot.done { background: #1d9e75; border-color: #1d9e75; color: #ffffff; }
-
-  .nav-dot.active { border-color: #1d9e75; color: #0f6e56; font-weight: 600; }
-
-  .nav-text { font-size: 13px; color: #6b7280; line-height: 1.35; }
-
-  .nav-item.active .nav-text { color: #1a1a2e; font-weight: 500; }
-
-  /* ── Content area ── */
-  .content-area { display: flex; flex-direction: column; }
-
-  .section-hero {
-    background: linear-gradient(135deg, #085041 0%, #0f6e56 45%, #185fa5 100%);
-    padding: 1.75rem 2rem;
-  }
-
-  .section-tag {
-    font-size: 11px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: .5rem;
-  }
-
-  .section-hero h2 {
-    font-size: 22px;
-    font-weight: 500;
-    color: #ffffff;
-    line-height: 1.3;
-    max-width: 560px;
-  }
-
-  .content-body {
-    padding: 1.75rem 2rem;
-    flex: 1;
-    max-width: 750px;
-  }
-
-  .seo-section {
-    display: none;
-  }
-  .seo-section.active-section {
-    display: block;
-  }
-
-  .seo-section p {
-    font-size: 14px;
-    color: #374151;
-    line-height: 1.8;
-    margin-bottom: 1rem;
-  }
-
-  /* PROMPT CONTAINER BOX */
-  .prompt-container {
-    background: #f8fafb;
-    border: 1px solid #e8ecef;
-    border-left: 3px solid #1d9e75;
-    border-radius: 0 10px 10px 0;
-    padding: 1.25rem;
-    margin: 1.5rem 0;
-    position: relative;
-  }
-
-  .prompt-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: .6rem;
-  }
-
-  .prompt-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: #0f6e56;
-    text-transform: uppercase;
-    letter-spacing: .05em;
-  }
-
-  .copy-btn {
-    background: transparent;
-    border: none;
-    color: #6b7280;
-    font-size: 12px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-family: inherit;
-    transition: color .15s;
-  }
-
-  .copy-btn:hover { color: #1a1a2e; }
-
-  .prompt-text {
-    font-family: 'SFMono-Regular', Consolas, monospace;
-    font-size: 13px;
-    color: #232733;
-    white-space: pre-wrap;
-    word-break: break-word;
-    background: #ffffff;
-    padding: .75rem;
-    border-radius: 6px;
-    border: 1px solid #e8ecef;
-  }
-
-  .info-box {
-    background: #e1f5ee;
-    border-left: 3px solid #1d9e75;
-    border-radius: 0 10px 10px 0;
-    padding: 1rem 1.25rem;
-    margin: 1.25rem 0;
-  }
-
-  .info-box p { color: #085041; margin: 0; font-size: 13px; line-height: 1.65; }
-
-  /* DIAGRAM / GRAPHIC PRESET */
-  .diagram-container {
-    background: #fafbfc;
-    border: 1px dashed #d1d5db;
-    border-radius: 8px;
-    padding: 1.25rem;
-    margin: 1.5rem 0;
-    text-align: center;
-  }
-
-  /* ── Footer nav ── */
-  .content-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.25rem 2rem;
-    border-top: 1px solid #f0f2f5;
-    background: #fafbfc;
-  }
-
-  .btn-back {
-    background: transparent;
-    border: 1px solid #d1d5db;
-    color: #6b7280;
-    padding: 8px 18px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all .15s;
-  }
-
-  .btn-back:hover { background: #f0f2f5; }
-  .btn-back:disabled { opacity: .35; cursor: default; }
-
-  .btn-fwd {
-    background: #1d9e75;
-    color: #ffffff;
-    border: none;
-    padding: 8px 22px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all .15s;
-  }
-
-  .btn-fwd:hover { background: #0f6e56; }
-  .btn-fwd:disabled { opacity: .35; cursor: default; }
-
-  /* ── Quiz ── */
-  .quiz-q { margin-bottom: 1.5rem; }
-
-  .quiz-q h3 {
-    font-size: 14px;
-    font-weight: 500;
-    color: #1a1a2e;
-    margin-bottom: .75rem;
-    line-height: 1.55;
-  }
-
-  .opt {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: .7rem 1rem;
-    border: 1px solid #e8ecef;
-    border-radius: 10px;
-    margin-bottom: .5rem;
-    cursor: pointer;
-    font-size: 13px;
-    color: #374151;
-    transition: all .15s;
-    line-height: 1.45;
-  }
-
-  .opt:hover:not(.locked) { background: #f5fdf9; border-color: #9fe1cb; }
-
-  .radio {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    border: 1.5px solid #d1d5db;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all .15s;
-  }
-
-  .opt.selected { border-color: #378add; background: #edf5fd; color: #0c447c; }
-  .opt.selected .radio { border-color: #378add; background: #378add; }
-  .opt.selected .radio::after { content:''; width:7px; height:7px; border-radius:50%; background:#fff; display:block; }
-
-  .opt.correct { border-color: #1d9e75; background: #e1f5ee; color: #085041; }
-  .opt.correct .radio { border-color: #1d9e75; background: #1d9e75; }
-  .opt.correct .radio::after { content:''; width:7px; height:7px; border-radius:50%; background:#fff; display:block; }
-
-  .opt.wrong { border-color: #e24b4a; background: #fcebeb; color: #a32d2d; }
-  .opt.wrong .radio { border-color: #e24b4a; background: #e24b4a; }
-  .opt.wrong .radio::after { content:''; width:7px; height:7px; border-radius:50%; background:#fff; display:block; }
-
-  .submit-global {
-    background: #1a1a2e;
-    color: #ffffff;
-    border: none;
-    padding: 10px 28px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 500;
-    font-family: inherit;
-    cursor: pointer;
-    margin-top: 1rem;
-    transition: all .15s;
-  }
-
-  .submit-global:hover { background: #0f6e56; }
-  .submit-global:disabled { opacity: .35; cursor: default; }
-
-  .result-box {
-    background: #f8fafb;
-    border-radius: 14px;
-    padding: 2rem;
-    text-align: center;
-    border: 1px solid #e8ecef;
-    margin-top: 1rem;
-  }
-
-  .result-score { font-size: 48px; font-weight: 600; color: #1d9e75; margin-bottom: .5rem; line-height: 1; }
-  .result-msg { font-size: 15px; color: #374151; margin-bottom: 1.25rem; line-height: 1.6; }
-
-  .retake-btn {
-    background: transparent;
-    border: 1.5px solid #1d9e75;
-    color: #0f6e56;
-    padding: 8px 22px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all .15s;
-  }
-
-  .retake-btn:hover { background: #e1f5ee; }
-
-  /* ── Page footer ── */
-  .page-footer {
-    background: #021a12;
-    border-top: 1px solid #0a4a30;
-    padding: 1rem 2rem;
-    text-align: center;
-    font-size: 12px;
-    color: #4a7a60;
-    flex-shrink: 0;
-  }
-
-  .page-footer a { color: #1d9e75; text-decoration: none; }
-  .page-footer a:hover { text-underline-position: under; text-decoration: underline; }
-
-  /* ── Mobile responsive ── */
-  @media (max-width: 700px) {
-    .navbar { padding: 0 1rem; }
-    .page-wrap { padding: 1rem .5rem; }
-    .course-shell { grid-template-columns: 1fr; }
-    .sidebar { display: none; }
-    .content-body { padding: 1.25rem 1rem; max-width: 100%; }
-    .section-hero { padding: 1.25rem 1rem; }
-    .content-footer { padding: 1rem; }
-  }
-#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px;}
-#searchOverlay.open{display:flex;}
-.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative;}
-.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s;}
-.search-close-btn:hover{color:#ffffff;}
-.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent;}
-.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0;}
-.search-box input{flex:1;border:none;outline:none;background:transparent;color:#ffffff;font-size:17px;font-family:'Inter',sans-serif;}
-.search-box input::placeholder{color:rgba(255,255,255,.35);}
-.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center;letter-spacing:.02em;}
-.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
-.search-trigger:hover{background:rgba(255,255,255,.15);color:#ffffff;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter',sans-serif;background:#042e1f;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{text-decoration:none;display:flex;align-items:baseline;gap:1px}.logo-pair{font-size:16px;font-weight:600;color:#1d9e75}.logo-workflows{font-size:16px;font-weight:400;color:#fff}
+.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px}.nav-back:hover{color:#1d9e75}
+.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
+.course-shell{background:#fff;border-radius:16px;box-shadow:0 2px 24px rgba(0,0,0,0.25);overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
+.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
+.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
+.course-label{font-size:10px;font-weight:600;text-transform:uppercase;color:#0f6e56;margin-bottom:.5rem}
+.course-title-side{font-size:13px;font-weight:500;line-height:1.45}
+.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent}
+.nav-item.active{border-left-color:#1d9e75;background:#fff}
+.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;color:#6b7280}
+.nav-dot.active{border-color:#1d9e75;color:#0f6e56}
+.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
+.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
+.section-hero h2{font-size:22px;font-weight:500;color:#fff;max-width:560px}
+.content-body{padding:1.75rem 2rem;flex:1;max-width:750px}.seo-section{display:none}.seo-section.active-section{display:block}
+.prompt-container{background:#f8fafb;border:1px solid #e8ecef;border-left:3px solid #1d9e75;padding:1.25rem;margin:1.5rem 0}
+.prompt-text{font-family:monospace;font-size:13px;background:#fff;padding:.75rem;border:1px solid #e8ecef;white-space:pre-wrap}
+.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;border-radius:8px;cursor:pointer}
+@media (max-width:700px){.course-shell{grid-template-columns:1fr}.sidebar{display:none}}
 </style>
-<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-
 <nav class="navbar">
-  <a href="https://www.pairworkflows.com" class="nav-logo">
-    <span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span>
-  </a>
-  <div style="display:flex;align-items:center;gap:16px;">
-    <button class="search-trigger" onclick="openSearch()"><i class="ti ti-search"></i></button>
-    <a href="https://www.pairworkflows.com/index.html" class="nav-back">
-      <i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses
-    </a>
-  </div>
+  <a href="/" class="nav-logo"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a>
+  <a href="index.html" class="nav-back"><i class="ti ti-arrow-left"></i> Back to courses</a>
 </nav>
-
 <div class="page-wrap">
   <div class="course-shell">
-
     <div class="sidebar">
       <div class="sidebar-top">
         <div class="course-label">Gemini AI — Course 1 of 12</div>
-        <div class="course-title-side">Cut through inbox overload and find what you need fast.</div>
-      </div>
-      <div class="prog-wrap">
-        <div class="prog-label">
-          <span>Progress</span>
-          <span id="progTxt">1 of 4</span>
-        </div>
-        <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+        <div class="course-title-side">Gemini in Gmail: Manage Inbox Overload at Work</div>
       </div>
       <div class="nav-list">
-        <div class="nav-item active" id="ni0" onclick="go(0)">
-          <div class="nav-dot active" id="nd0">1</div>
-          <div class="nav-text">The inbox crisis</div>
-        </div>
-        <div class="nav-item" id="ni1" onclick="go(1)">
-          <div class="nav-dot" id="nd1">2</div>
-          <div class="nav-text">Synthesizing deep threads</div>
-        </div>
-        <div class="nav-item" id="ni2" onclick="go(2)">
-          <div class="nav-dot" id="nd2">3</div>
-          <div class="nav-text">Verification &amp; Grounding</div>
-        </div>
-        <div class="nav-item" id="ni3" onclick="go(3)">
-          <div class="nav-dot" id="nd3">4</div>
-          <div class="nav-text">Quiz: test your knowledge</div>
-        </div>
+        <div class="nav-item active" onclick="go(0)"><div class="nav-dot active">1</div><div class="nav-text">The inbox crisis</div></div>
+        <div class="nav-item" onclick="go(1)"><div class="nav-dot">2</div><div class="nav-text">Synthesizing deep threads</div></div>
+        <div class="nav-item" onclick="go(2)"><div class="nav-dot">3</div><div class="nav-text">Verification</div></div>
+        <div class="nav-item" onclick="go(3)"><div class="nav-dot">4</div><div class="nav-text">Quiz</div></div>
       </div>
     </div>
-
     <div class="content-area">
       <div class="section-hero">
-        <div class="section-tag" id="heroTag">Section 01</div>
         <h2 id="heroTitle">Master Gemini in Gmail: Beat Inbox Overload and Automate Email Responses in 5 Minutes.</h2>
       </div>
-      
       <div class="content-body" id="cnt">
-        
-        <!-- STEP 0 -->
         <div id="seo-sec-0" class="seo-section active-section">
-          <p>Returning to your corporate workspace after a single out-of-office day often results in an intimidating wall of nested email threads. Traditional internal search parameters require you to open multiple conversations sequentially, cross-referencing mismatched feedback manually.</p>
-          <p>Gemini in Gmail operates directly inside the application's side panel, working across your live text context to summarize complex email histories instantly without pulling you away from your working workspace view.</p>
-          
-          <div class="diagram-container">
-            <div style="font-size:12px; color:#6b7280; padding:1rem 0;">
-              <i class="ti ti-mail-opened" style="font-size:24px; color:#1d9e75; display:block; margin-bottom:6px;"></i>
-              <strong>Visual Workflow Map:</strong> Traditional Context Scanning vs. Live Gemini Sidebar Extraction
-            </div>
-          </div>
-          
-          <div class="info-box"><p><strong>Enterprise Note:</strong> Gemini for Google Workspace respects corporate privacy layouts. Unlike public models, data processed via the sidebar interface stays within your company environment and is never used to train global algorithms.</p></div>
+          <p>Returning to your corporate workspace often results in an intimidating wall of nested email threads. Gemini in Gmail operates directly inside the side panel to summarize complex histories instantly.</p>
         </div>
-
-        <!-- STEP 1 -->
         <div id="seo-sec-1" class="seo-section">
-          <p>Instead of reading through dozens of conversational back-and-forths to build a missing project update matrix, you can prompt the Gemini side panel to parse multiple separate items simultaneously.</p>
-          <p>This approach bypasses long prose arguments and extracts explicit structural outputs like tracking metrics, delivery milestones, and specific owners directly from deep sub-threads.</p>
-          
+          <p>Instruct the Gemini side panel to parse multiple items simultaneously, bypassing long threads to extract milestones and owners.</p>
           <div class="prompt-container">
-            <div class="prompt-header">
-              <span class="prompt-label">Copy-Paste Workflow Prompt</span>
-              <button class="copy-btn" onclick="copyPrompt()"><i class="ti ti-copy"></i> Copy prompt</button>
-            </div>
-            <div class="prompt-text" id="prompt-payload">Analyze all unread emails from the last 7 days regarding [Project Name]. Extract every explicitly stated milestone deadline, outstanding operational block, and assigned item owner. Present the entire output in a structured Markdown table with columns: [Date, Milestone, Owner, Current Status]. Do not write introductory or summary prose.</div>
+            <div class="prompt-text">Analyze unread emails from the last 7 days regarding [Project]. Extract deadlines, blocks, and owners into a Markdown table.</div>
           </div>
-          <p>By forcing the model to present outputs inside an objective layout table, you can clean complex text variations into an immediately readable format ready for client-facing communications.</p>
         </div>
-
-        <!-- STEP 2 -->
         <div id="seo-sec-2" class="seo-section">
-          <p>AI-generated extraction frameworks must be treated as architectural outlines rather than final work products. When dealing with complex contracts, pricing metrics, or operational legal dates, strict accuracy is mandatory.</p>
-          <p>Gemini addresses this vulnerability by using active workspace grounding, appending numeric inline citations directly to the extracted summary table.</p>
-          <p><strong>Never forward a translated or summarized text overview to an executive board without validation.</strong> Hover over and select the inline citation links generated by the interface to map the extracted value back to its exact source message block inside the active email folder.</p>
+          <p>Always validate metrics using the inline citation links generated by Gemini before forwarding reports to executives.</p>
         </div>
-
-        <!-- STEP 3 — QUIZ -->
-        <div id="seo-sec-3" class="seo-section">
-          <div id="quiz-interactive-container"></div>
-        </div>
-
-      </div>
-      
-      <div class="content-footer">
-        <button class="btn-back" id="btnBack" onclick="go(cur-1)">
-          <i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back
-        </button>
-        <button class="btn-fwd" id="btnFwd" onclick="goFwd()">
-          Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>
-        </button>
+        <div id="seo-sec-3" class="seo-section"><div id="quiz-interactive-container"></div></div>
       </div>
     </div>
-
   </div>
 </div>
-
-<footer class="page-footer">
-  &copy; 2026 <a href="https://www.pairworkflows.com">PairWorkflows</a>. All rights reserved.
-</footer>
-
 <script>
-var cur = 0;
-var visited = [true,false,false,false];
-var sel = {};
-var quizSubmitted = false;
-var quizDone = false;
-
-var heroes = [
-  {tag:'Section 01', title:'The modern inbox problem: text overload and fragmented updates.'},
-  {tag:'Section 02', title:'Synthesize deep threads into actionable operational data matrices.'},
-  {tag:'Section 03', title:'Verification & Grounding: map inline metrics back to original sources.'},
-  {tag:'Section 04 — Quiz', title:'Test your knowledge.'}
-];
-
-var quiz = [
-  {
-    q:'When processing a multi-layered email chain inside Gmail, how does Gemini access the information?',
-    opts:[
-      'It downloads external files to a global servers pool for extraction',
-      'It operates dynamically within the live side panel environment to compile text insights',
-      'It scans keyword subject lines without analyzing nested historical answers'
-    ],
-    correct: 1
-  },
-  {
-    q:'What is the primary benefit of instructing Gemini to output findings inside a structural Markdown table format?',
-    opts:[
-      'It decreases the security load needed by the Workspace admin console',
-      'It separates operational data points from long narrative arguments for rapid review',
-      'It forces the model to run faster by avoiding punctuation constraints'
-    ],
-    correct: 1
-  },
-  {
-    q:'An executive summary generated by Gemini shows a specific project milestone cost. What is the standard operational procedure before sending it to a client?',
-    opts:[
-      'Accept the metric as correct if the table formatting contains no bugs',
-      'Select the provided inline citation markers to check the specific numerical amount against the source email text',
-      'Rerun the prompt four times to let the model vote on the correct response'
-    ],
-    correct: 1
-  },
-  {
-    q:'How does Gemini for Google Workspace handle corporate enterprise data privacy boundaries?',
-    opts:[
-      'It retains insights inside your secure corporate workspace domain and avoids training public baseline models',
-      'It exposes prompt text histories to external developer channels for debugging',
-      'It shares document text variables across unlinked personal subscription accounts'
-    ],
-    correct: 0
-  }
-];
-
-function buildQuizHTML(){
-  if(quizDone){
-    var score=0;
-    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
-    var msgs=[
-      'Review the workflow steps again — focusing on workspace panel behaviors and grounding safety rules.',
-      'Decent performance — read through the validation section before applying these templates in your workflow.',
-      'Solid score! One core concept requires tracking adjustment — re-examine the validation citation workflow.',
-      'Perfect mark! You have mastered the workspace inbox optimization layout and are ready to deploy it.'
-    ];
-    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
-  }
-  var html='';
-  for(var i=0;i<quiz.length;i++){
-    var q=quiz[i];
-    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
-    for(var j=0;j<q.opts.length;j++){
-      var cls='opt';
-      if(quizSubmitted){
-        if(j===q.correct)cls+=' correct locked';
-        else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';
-        else cls+=' locked';
-      } else if(sel[i]===j){cls+=' selected';}
-      html+='<div class="'+cls+'" data-qi="' + i + '" data-oi="' + j + '"><div class="radio"></div>'+q.opts[j]+'</div>';
-    }
-    html+='</div>';
-  }
-  var allSel=Object.keys(sel).length===quiz.length;
-  if(!quizSubmitted){
-    html+='<button class="submit-global" id="submitBtn" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
-  } else {
-    html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
-  }
-  return html;
-}
+var cur=0, visited=[true,false,false,false], sel={}, quizSubmitted=false, quizDone=false;
+var quiz=[{q:'When processing email threads, where does Gemini operate?', opts:['Global server pool', 'Side panel environment', 'Subject line scan'], correct:1}, {q:'Benefit of Markdown table output?', opts:['Admin security', 'Rapid review', 'Faster speed'], correct:1}, {q:'Action before forwarding metrics?', opts:['Accept immediately', 'Check citations', 'Rerun prompt'], correct:1}, {q:'Data privacy?', opts:['Corporate workspace', 'Public baseline', 'External sharing'], correct:0}];
 
 function render(){
-  var pct=Math.round(((cur+1)/4)*100);
-  document.getElementById('pf').style.width=pct+'%';
-  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
-  document.getElementById('heroTag').textContent=heroes[cur].tag;
-  document.getElementById('heroTitle').textContent=heroes[cur].title;
-
-  for(var i=0;i<4;i++){
-    var ni=document.getElementById('ni'+i);
-    var nd=document.getElementById('nd'+i);
-    var secBlock=document.getElementById('seo-sec-'+i);
-    
-    ni.className='nav-item'+(i===cur?' active':'');
-    
-    if(i===cur){
-      secBlock.classList.add('active-section');
-    } else {
-      secBlock.classList.remove('active-section');
-    }
-
-    if(visited[i]&&i!==cur){
-      nd.className='nav-dot done';
-      nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';
-    } else if(i===cur){
-      nd.className='nav-dot active';
-      nd.textContent=(i+1);
-    } else {
-      nd.className='nav-dot';
-      nd.textContent=(i+1);
-    }
-  }
-
-  if(cur===3){
-    document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
-  }
-
-  document.getElementById('btnBack').disabled=(cur===0);
-
-  var fwd=document.getElementById('btnFwd');
-  if(cur===3){
-    fwd.style.display='none';
-  } else {
-    fwd.style.display='';
-    fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';
-  }
+  document.querySelectorAll('.nav-item').forEach((el,i)=>el.className='nav-item'+(i===cur?' active':''));
+  document.querySelectorAll('.nav-dot').forEach((el,i)=>el.className='nav-dot'+(i===cur?' active':(visited[i]?' done':'')));
+  document.querySelectorAll('.seo-section').forEach((el,i)=>el.className='seo-section'+(i===cur?' active-section':''));
+  if(cur===3) document.getElementById('quiz-interactive-container').innerHTML=buildQuiz();
 }
-
-function go(n){
-  if(n<0||n>3)return;
-  visited[n]=true;
-  cur=n;
-  render();
+function go(n){ cur=n; visited[n]=true; render(); }
+function buildQuiz(){
+  let html='';
+  quiz.forEach((q,i)=>{
+    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
+    q.opts.forEach((o,j)=>html+='<div class="opt" onclick="sel['+i+']='+j+';render()">'+o+'</div>');
+    html+='</div>';
+  });
+  return html+'<button class="btn-fwd" onclick="alert(\'Submitted\')">Submit</button>';
 }
-
-function goFwd(){
-  if(cur<3)go(cur+1);
-}
-
-function submitAll(){
-  if(Object.keys(sel).length<quiz.length)return;
-  quizSubmitted=true;
-  render();
-}
-
-function showResult(){
-  quizDone=true;
-  render();
-}
-
-function retake(){
-  sel={};
-  quizSubmitted=false;
-  quizDone=false;
-  render();
-}
-
-function copyPrompt() {
-  const text = document.getElementById('prompt-payload').innerText;
-  navigator.clipboard.writeText(text);
-  const btn = document.querySelector('.copy-btn');
-  btn.innerHTML = '<i class="ti ti-check"></i> Copied!';
-  setTimeout(() => {
-    btn.innerHTML = '<i class="ti ti-copy"></i> Copy prompt';
-  }, 2000);
-}
-
-document.getElementById('cnt').addEventListener('click',function(e){
-  if(cur!==3||quizSubmitted||quizDone)return;
-  var opt=e.target.closest('.opt');
-  if(!opt)return;
-  var qi=parseInt(opt.dataset.qi);
-  var oi=parseInt(opt.dataset.oi);
-  sel[qi]=oi;
-  render();
-});
-
 render();
-</script>
-<div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
-  <div class="search-overlay-inner">
-    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
-    <form action="/search.html" method="get">
-      <div class="search-box">
-        <i class="ti ti-search"></i>
-        <input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off">
-      </div>
-    </form>
-    <p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
-  </div>
-</div>
-<script>
-function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
-function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
 </script>
 </body>
 </html>
