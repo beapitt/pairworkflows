@@ -2,698 +2,140 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Claude vs Gemini: Which AI Should You Use at Work? — PairWorkflows</title>
 <meta name="description" content="A practical, honest comparison for UK and USA corporate professionals. Learn when to choose Claude for deep analysis and when to choose Gemini for Google Workspace productivity.">
 <link rel="canonical" href="https://www.pairworkflows.com/claude-vs-gemini.html">
-
 <meta property="og:title" content="Claude vs Gemini: Which AI Should You Use at Work? — PairWorkflows">
 <meta property="og:description" content="A practical, honest comparison for UK and USA corporate professionals. Learn when to choose Claude or Gemini by use case and role.">
 <meta property="og:url" content="https://www.pairworkflows.com/claude-vs-gemini.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="PairWorkflows">
 <meta property="og:image" content="https://www.pairworkflows.com/og/claude-vs-gemini.png">
-
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Claude vs Gemini: Which AI Should You Use at Work? — PairWorkflows">
 <meta name="twitter:description" content="A practical, honest comparison for UK and USA corporate professionals.">
 <meta name="twitter:image" content="https://www.pairworkflows.com/og/claude-vs-gemini.png">
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Claude vs Gemini: Which AI Should You Use at Work?",
-  "description": "A practical, honest comparison for UK and USA corporate professionals. Learn when to choose Claude for deep analysis and when to choose Gemini for Google Workspace productivity.",
-  "url": "https://www.pairworkflows.com/claude-vs-gemini.html",
-  "datePublished": "2026-06-06",
-  "dateModified": "2026-06-06",
-  "author": {
-    "@type": "Organization",
-    "name": "PairWorkflows",
-    "url": "https://www.pairworkflows.com"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "PairWorkflows",
-    "url": "https://www.pairworkflows.com"
-  }
-}
-</script>
-
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Claude vs Gemini: Which AI Should You Use at Work?","description":"A practical, honest comparison for UK and USA corporate professionals. Learn when to choose Claude for deep analysis and when to choose Gemini for Google Workspace productivity.","url":"https://www.pairworkflows.com/claude-vs-gemini.html","datePublished":"2026-06-06","dateModified":"2026-06-10","author":{"@type":"Organization","name":"PairWorkflows","url":"https://www.pairworkflows.com"},"publisher":{"@type":"Organization","name":"PairWorkflows","url":"https://www.pairworkflows.com"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Inter', 'Segoe UI', sans-serif;
-    background: #042e1f;
-    color: #1a1a2e;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* ── Navbar — identical to course pages ── */
-  .navbar {
-    background: #021a12;
-    border-bottom: 1px solid #0a4a30;
-    padding: 0 3rem;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .logo { display: flex; align-items: baseline; gap: 1px; text-decoration: none; }
-  .logo-pair { font-size: 18px; font-weight: 800; color: #ffffff; letter-spacing: -.3px; }
-  .logo-workflows { font-size: 18px; font-weight: 400; color: #9fe1cb; letter-spacing: -.2px; }
-  .back-link { display: flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,.6); text-decoration: none; transition: color .15s; }
-  .back-link:hover { color: #ffffff; }
-
-  /* ── Layout ── */
-  .course-wrap { max-width: 1280px; margin: 0 auto; padding: 2rem 3rem 4rem; flex: 1; width: 100%; }
-
-  /* ── Course shell — identical to course pages ── */
-  .course-shell {
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 4px 40px rgba(0,0,0,.4);
-    overflow: hidden;
-    display: grid;
-    grid-template-columns: 260px 1fr;
-    min-height: 600px;
-  }
-
-  /* ── Sidebar — identical to course pages ── */
-  .sidebar { background: #f8fafb; border-right: 1px solid #e8ecef; display: flex; flex-direction: column; }
-  .sidebar-top { padding: 1.5rem 1.25rem 1rem; border-bottom: 1px solid #e8ecef; }
-  .course-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: #0f6e56; margin-bottom: .5rem; }
-  .course-title-side { font-size: 13px; font-weight: 500; color: #1a1a2e; line-height: 1.45; }
-  .nav-list { padding: .5rem 0; flex: 1; }
-  .nav-item { display: flex; align-items: center; gap: 10px; padding: .7rem 1.25rem; cursor: pointer; border-left: 3px solid transparent; transition: all .15s; }
-  .nav-item:hover { background: #eef1f4; }
-  .nav-item.active { border-left-color: #1d9e75; background: #ffffff; }
-  .nav-dot { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid #d1d5db; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: #6b7280; flex-shrink: 0; transition: all .15s; }
-  .nav-dot.done { background: #1d9e75; border-color: #1d9e75; color: #ffffff; }
-  .nav-dot.active { border-color: #1d9e75; color: #0f6e56; font-weight: 600; }
-  .nav-text { font-size: 13px; color: #6b7280; line-height: 1.35; }
-  .nav-item.active .nav-text { color: #1a1a2e; font-weight: 500; }
-
-  /* ── Content area — identical to course pages ── */
-  .content-area { display: flex; flex-direction: column; }
-  .section-hero {
-    background: linear-gradient(135deg, #085041 0%, #0f6e56 45%, #185fa5 100%);
-    padding: 2rem 2.5rem;
-  }
-  .hero-badge { display: inline-block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; background: rgba(255,255,255,.15); color: #ffffff; padding: 4px 12px; border-radius: 20px; margin-bottom: .75rem; border: 1px solid rgba(255,255,255,.2); }
-  .section-tag { font-size: 11px; font-weight: 500; color: rgba(255,255,255,.7); margin-bottom: .5rem; text-transform: uppercase; letter-spacing: .06em; }
-  .section-hero h2 { font-size: 24px; font-weight: 600; color: #ffffff; line-height: 1.3; max-width: 580px; }
-  .hero-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: .875rem; }
-  .hero-pill { font-size: 11px; font-weight: 500; color: #9fe1cb; background: rgba(159,225,203,.12); border: 1px solid rgba(159,225,203,.25); padding: 3px 10px; border-radius: 20px; }
-
-  /* ── Content body ── */
-  .content-body { padding: 2rem 2.5rem; flex: 1; max-width: 750px; }
-
-  /* ── SEO sections — same mechanism as courses ── */
-  .seo-section { display: none; }
-  .seo-section.active-section { display: block; }
-  .seo-section p { font-size: 14px; color: #374151; line-height: 1.8; margin-bottom: 1.25rem; }
-
-  .body-heading { font-size: 16px; font-weight: 600; color: #1a1a2e; margin: 1.75rem 0 .75rem; }
-
-  /* ── Verdict grid ── */
-  .verdict-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 1.25rem 0 1.5rem; }
-  .verdict-card { border-radius: 12px; padding: 1.25rem; }
-  .verdict-claude { background: #e1f5ee; border: 1px solid #a7e8ce; }
-  .verdict-gemini { background: #e6f1fb; border: 1px solid #93c5fd; }
-  .verdict-card h3 { font-size: 13px; font-weight: 700; margin-bottom: .75rem; display: flex; align-items: center; gap: 7px; }
-  .verdict-claude h3 { color: #085041; }
-  .verdict-gemini h3 { color: #0c447c; }
-  .verdict-card ul { list-style: none; }
-  .verdict-card ul li { font-size: 13px; line-height: 1.6; padding: .25rem 0; display: flex; align-items: flex-start; gap: 7px; }
-  .verdict-claude ul li { color: #085041; }
-  .verdict-gemini ul li { color: #0c447c; }
-  .verdict-card ul li::before { content: '→'; font-weight: 700; flex-shrink: 0; }
-
-  /* ── Comparison table ── */
-  .compare-table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: 13px; border: 1px solid #e8ecef; border-radius: 10px; overflow: hidden; }
-  .compare-table th { background: #f8fafb; padding: .75rem 1rem; font-weight: 600; color: #4b5563; text-align: left; border-bottom: 1px solid #e8ecef; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; }
-  .compare-table td { padding: .75rem 1rem; border-bottom: 1px solid #f0f2f5; color: #374151; line-height: 1.5; vertical-align: middle; }
-  .compare-table tr:last-child td { border-bottom: none; }
-  .badge-win { display: inline-block; padding: 3px 9px; border-radius: 20px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; white-space: nowrap; }
-  .win-claude { background: #e1f5ee; color: #085041; border: 1px solid #a7e8ce; }
-  .win-gemini { background: #e6f1fb; color: #0c447c; border: 1px solid #93c5fd; }
-  .win-draw { background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; }
-
-  /* ── Info boxes — identical to course pages ── */
-  .info-box { background: #e1f5ee; padding: 1rem 1.25rem; margin: 1.25rem 0; border-left: 3px solid #1d9e75; border-radius: 0 10px 10px 0; font-size: 13px; color: #085041; line-height: 1.65; }
-  .info-box-gemini { background: #e6f1fb; border-left-color: #378add; color: #0c447c; }
-  .info-box p { color: inherit; margin: 0; font-size: 13px; line-height: 1.65; }
-
-  /* ── Section label pill ── */
-  .section-label-pill { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; padding: 4px 12px; border-radius: 20px; margin-bottom: .75rem; }
-  .pill-claude { background: #e1f5ee; color: #085041; }
-  .pill-gemini { background: #e6f1fb; color: #0c447c; }
-
-  /* ── Role grid ── */
-  .role-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 1.25rem 0; }
-  .role-card { background: #f8fafb; border: 1px solid #e8ecef; border-radius: 12px; padding: 1.25rem; }
-  .role-card-header { display: flex; align-items: center; gap: 8px; margin-bottom: .875rem; }
-  .role-icon { width: 30px; height: 30px; border-radius: 8px; background: #042e1f; display: flex; align-items: center; justify-content: center; color: #9fe1cb; font-size: 15px; flex-shrink: 0; }
-  .role-name { font-size: 14px; font-weight: 600; color: #1a1a2e; }
-  .role-section { margin-bottom: .5rem; }
-  .role-section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .25rem; }
-  .role-claude-label { color: #085041; }
-  .role-gemini-label { color: #0c447c; }
-  .role-section p { font-size: 12px; color: #4b5563; line-height: 1.5; margin-bottom: 0; }
-  .role-divider { height: 1px; background: #e8ecef; margin: .625rem 0; }
-
-  /* ── Verdict finale ── */
-  .verdict-finale { background: linear-gradient(135deg, #085041 0%, #0f6e56 60%, #185fa5 100%); border-radius: 14px; padding: 1.75rem; margin: 1.25rem 0; }
-  .verdict-finale p { font-size: 14px; color: rgba(255,255,255,.9); line-height: 1.8; margin-bottom: 1.25rem; }
-  .verdict-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
-  .btn-verdict { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all .15s; font-family: inherit; border: none; cursor: pointer; }
-  .btn-claude-v { background: #1d9e75; color: #ffffff; }
-  .btn-claude-v:hover { background: #0f6e56; }
-  .btn-gemini-v { background: rgba(255,255,255,.15); color: #ffffff; border: 1px solid rgba(255,255,255,.3); }
-  .btn-gemini-v:hover { background: rgba(255,255,255,.25); }
-
-  /* ── Related courses ── */
-  .courses-mini-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 1.25rem 0; }
-  .course-mini-card { background: #f8fafb; border: 1px solid #e8ecef; border-radius: 12px; padding: 1.25rem; text-decoration: none; display: flex; flex-direction: column; gap: 6px; transition: all .15s; }
-  .course-mini-card:hover { border-color: #1d9e75; background: #f5fdf9; transform: translateY(-2px); }
-  .course-mini-brand { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; }
-  .brand-c { color: #b05030; }
-  .brand-g { color: #185fa5; }
-  .course-mini-title { font-size: 13px; font-weight: 500; color: #1a1a2e; line-height: 1.45; }
-  .course-mini-arrow { font-size: 12px; color: #1d9e75; font-weight: 600; margin-top: auto; padding-top: .5rem; }
-
-  /* ── Footer nav ── */
-  .content-footer { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 2.5rem; border-top: 1px solid #f0f2f5; background: #fafbfc; }
-  .btn-nav { background: transparent; border: 1px solid #d1d5db; color: #6b7280; padding: 8px 18px; border-radius: 8px; font-size: 13px; cursor: pointer; transition: all .15s; font-family: inherit; }
-  .btn-nav:hover { background: #f0f2f5; }
-  .btn-nav:disabled { opacity: .35; cursor: default; }
-  .btn-fwd { background: #1d9e75; color: #ffffff; border: none; padding: 8px 22px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s; font-family: inherit; }
-  .btn-fwd:hover { background: #0f6e56; }
-
-  /* ── Site footer — identical to course pages ── */
-  .site-footer { background: #021a12; padding: 1.5rem 3rem; text-align: center; border-top: 1px solid rgba(255,255,255,.06); margin-top: auto; }
-  .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: .625rem; flex-wrap: wrap; }
-  .footer-links a { font-size: 12px; color: rgba(255,255,255,.4); text-decoration: none; transition: color .15s; }
-  .footer-links a:hover { color: #9fe1cb; }
-  .footer-copy { font-size: 12px; color: rgba(255,255,255,.2); }
-
-  /* ── Mobile ── */
-  @media(max-width: 768px) {
-    .navbar { padding: 0 1.25rem; }
-    .course-wrap { padding: 1.25rem 1rem 3rem; }
-    .course-shell { grid-template-columns: 1fr; }
-    .sidebar { display: none; }
-    .section-hero { padding: 1.25rem 1.5rem; }
-    .content-body { padding: 1.25rem; max-width: 100%; }
-    .verdict-grid { grid-template-columns: 1fr; }
-    .role-grid { grid-template-columns: 1fr; }
-    .courses-mini-grid { grid-template-columns: 1fr; }
-    .content-footer { padding: 1rem 1.25rem; }
-    .site-footer { padding: 1.5rem 1.25rem; }
-  }
-#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px;}
-#searchOverlay.open{display:flex;}
-.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative;}
-.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s;}
-.search-close-btn:hover{color:#ffffff;}
-.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent;}
-.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0;}
-.search-box input{flex:1;border:none;outline:none;background:transparent;color:#ffffff;font-size:17px;font-family:'Inter',sans-serif;}
-.search-box input::placeholder{color:rgba(255,255,255,.35);}
-.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center;letter-spacing:.02em;}
-.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
-.search-trigger:hover{background:rgba(255,255,255,.15);color:#ffffff;}
-</style>
+<style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 3rem;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}.logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}.logo-pair{font-size:18px;font-weight:800;color:#ffffff;letter-spacing:-.3px}.logo-workflows{font-size:18px;font-weight:400;color:#9fe1cb;letter-spacing:-.2px}.back-link{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,.6);text-decoration:none;transition:color .15s}.back-link:hover{color:#ffffff}.course-wrap{max-width:1280px;margin:0 auto;padding:2rem 3rem 4rem;flex:1;width:100%}.course-shell{background:#ffffff;border-radius:16px;box-shadow:0 4px 40px rgba(0,0,0,.4);overflow:hidden;display:grid;grid-template-columns:260px 1fr;min-height:600px}.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}.nav-list{padding:.5rem 0;flex:1}.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}.nav-item:hover{background:#eef1f4}.nav-item.active{border-left-color:#1d9e75;background:#ffffff}.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#ffffff}.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}.nav-text{font-size:13px;color:#6b7280;line-height:1.35}.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}.content-area{display:flex;flex-direction:column}.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:2rem 2.5rem}.hero-badge{display:inline-block;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;background:rgba(255,255,255,.15);color:#ffffff;padding:4px 12px;border-radius:20px;margin-bottom:.75rem;border:1px solid rgba(255,255,255,.2)}.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.06em}.section-hero h2{font-size:24px;font-weight:600;color:#ffffff;line-height:1.3;max-width:580px}.hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:.875rem}.hero-pill{font-size:11px;font-weight:500;color:#9fe1cb;background:rgba(159,225,203,.12);border:1px solid rgba(159,225,203,.25);padding:3px 10px;border-radius:20px}.content-body{padding:2rem 2.5rem;flex:1;max-width:750px}.seo-section{display:none}.seo-section.active-section{display:block}.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1.25rem}.body-heading{font-size:16px;font-weight:600;color:#1a1a2e;margin:1.75rem 0 .75rem}.verdict-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:1.25rem 0 1.5rem}.verdict-card{border-radius:12px;padding:1.25rem}.verdict-claude{background:#e1f5ee;border:1px solid #a7e8ce}.verdict-gemini{background:#e6f1fb;border:1px solid #93c5fd}.verdict-card h3{font-size:13px;font-weight:700;margin-bottom:.75rem;display:flex;align-items:center;gap:7px}.verdict-claude h3{color:#085041}.verdict-gemini h3{color:#0c447c}.verdict-card ul{list-style:none}.verdict-card ul li{font-size:13px;line-height:1.6;padding:.25rem 0;display:flex;align-items:flex-start;gap:7px}.verdict-claude ul li{color:#085041}.verdict-gemini ul li{color:#0c447c}.verdict-card ul li::before{content:'→';font-weight:700;flex-shrink:0}.compare-table{width:100%;border-collapse:collapse;margin:1.25rem 0;font-size:13px;border:1px solid #e8ecef;border-radius:10px;overflow:hidden}.compare-table th{background:#f8fafb;padding:.75rem 1rem;font-weight:600;color:#4b5563;text-align:left;border-bottom:1px solid #e8ecef;font-size:11px;text-transform:uppercase;letter-spacing:.05em}.compare-table td{padding:.75rem 1rem;border-bottom:1px solid #f0f2f5;color:#374151;line-height:1.5;vertical-align:middle}.compare-table tr:last-child td{border-bottom:none}.badge-win{display:inline-block;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}.win-claude{background:#e1f5ee;color:#085041;border:1px solid #a7e8ce}.win-gemini{background:#e6f1fb;color:#0c447c;border:1px solid #93c5fd}.win-draw{background:#f1f5f9;color:#64748b;border:1px solid #e2e8f0}.info-box{background:#e1f5ee;padding:1rem 1.25rem;margin:1.25rem 0;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;font-size:13px;color:#085041;line-height:1.65}.info-box-gemini{background:#e6f1fb;border-left-color:#378add;color:#0c447c}.info-box p{color:inherit;margin:0;font-size:13px;line-height:1.65}.section-label-pill{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;padding:4px 12px;border-radius:20px;margin-bottom:.75rem}.pill-claude{background:#e1f5ee;color:#085041}.pill-gemini{background:#e6f1fb;color:#0c447c}.role-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:1.25rem 0}.role-card{background:#f8fafb;border:1px solid #e8ecef;border-radius:12px;padding:1.25rem}.role-card-header{display:flex;align-items:center;gap:8px;margin-bottom:.875rem}.role-icon{width:30px;height:30px;border-radius:8px;background:#042e1f;display:flex;align-items:center;justify-content:center;color:#9fe1cb;font-size:15px;flex-shrink:0}.role-name{font-size:14px;font-weight:600;color:#1a1a2e}.role-section{margin-bottom:.5rem}.role-section-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.25rem}.role-claude-label{color:#085041}.role-gemini-label{color:#0c447c}.role-section p{font-size:12px;color:#4b5563;line-height:1.5;margin-bottom:0}.role-divider{height:1px;background:#e8ecef;margin:.625rem 0}.verdict-finale{background:linear-gradient(135deg,#085041 0%,#0f6e56 60%,#185fa5 100%);border-radius:14px;padding:1.75rem;margin:1.25rem 0}.verdict-finale p{font-size:14px;color:rgba(255,255,255,.9);line-height:1.8;margin-bottom:1.25rem}.verdict-buttons{display:flex;gap:10px;flex-wrap:wrap}.btn-verdict{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;transition:all .15s;font-family:inherit;border:none;cursor:pointer}.btn-claude-v{background:#1d9e75;color:#ffffff}.btn-claude-v:hover{background:#0f6e56}.btn-gemini-v{background:rgba(255,255,255,.15);color:#ffffff;border:1px solid rgba(255,255,255,.3)}.btn-gemini-v:hover{background:rgba(255,255,255,.25)}.courses-mini-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:1.25rem 0}.course-mini-card{background:#f8fafb;border:1px solid #e8ecef;border-radius:12px;padding:1.25rem;text-decoration:none;display:flex;flex-direction:column;gap:6px;transition:all .15s}.course-mini-card:hover{border-color:#1d9e75;background:#f5fdf9;transform:translateY(-2px)}.course-mini-brand{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em}.brand-c{color:#b05030}.brand-g{color:#185fa5}.course-mini-title{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}.course-mini-arrow{font-size:12px;color:#1d9e75;font-weight:600;margin-top:auto;padding-top:.5rem}.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2.5rem;border-top:1px solid #f0f2f5;background:#fafbfc}.btn-nav{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;cursor:pointer;transition:all .15s;font-family:inherit}.btn-nav:hover{background:#f0f2f5}.btn-nav:disabled{opacity:.35;cursor:default}.btn-fwd{background:#1d9e75;color:#ffffff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;font-family:inherit}.btn-fwd:hover{background:#0f6e56}.site-footer{background:#021a12;padding:1.5rem 3rem;text-align:center;border-top:1px solid rgba(255,255,255,.06);margin-top:auto}.footer-links{display:flex;justify-content:center;gap:2rem;margin-bottom:.625rem;flex-wrap:wrap}.footer-links a{font-size:12px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .15s}.footer-links a:hover{color:#9fe1cb}.footer-copy{font-size:12px;color:rgba(255,255,255,.2)}@media(max-width:768px){.navbar{padding:0 1.25rem}.course-wrap{padding:1.25rem 1rem 3rem}.course-shell{grid-template-columns:1fr}.sidebar{display:none}.section-hero{padding:1.25rem 1.5rem}.content-body{padding:1.25rem;max-width:100%}.verdict-grid{grid-template-columns:1fr}.role-grid{grid-template-columns:1fr}.courses-mini-grid{grid-template-columns:1fr}.content-footer{padding:1rem 1.25rem}.site-footer{padding:1.5rem 1.25rem}}#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}#searchOverlay.open{display:flex}.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}.search-close-btn:hover{color:#ffffff}.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}.search-box input{flex:1;border:none;outline:none;background:transparent;color:#ffffff;font-size:17px;font-family:'Inter',sans-serif}.search-box input::placeholder{color:rgba(255,255,255,.35)}.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center;letter-spacing:.02em}.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}.search-trigger:hover{background:rgba(255,255,255,.15);color:#ffffff}</style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-
-<!-- Navbar — identical to course pages -->
-<nav class="navbar">
-  <a href="https://www.pairworkflows.com" class="logo">
-    <span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span>
-  </a>
-  <div style="display:flex;align-items:center;gap:16px;">
-    <button class="search-trigger" onclick="openSearch()"><i class="ti ti-search"></i></button>
-    <a href="https://www.pairworkflows.com/index.html" class="back-link">
-      <i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses
-    </a>
-  </div>
-</nav>
-
+<div id="searchOverlay" onclick="if(event.target===this)closeSearch()"><div class="search-overlay-inner"><button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button><form action="/search.html" method="get"><div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div></form><p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p></div></div>
+<nav class="navbar"><a href="https://www.pairworkflows.com" class="logo"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a><div style="display:flex;align-items:center;gap:16px"><button class="search-trigger" onclick="openSearch()"><i class="ti ti-search"></i></button><a href="https://www.pairworkflows.com/index.html" class="back-link"><i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses</a></div></nav>
 <div class="course-wrap">
-  <div class="course-shell">
-
-    <!-- Sidebar — identical structure to course pages -->
-    <div class="sidebar">
-      <div class="sidebar-top">
-        <div class="course-label">Free Resource — PairWorkflows</div>
-        <div class="course-title-side">Claude vs Gemini: Which AI Should You Use at Work?</div>
-      </div>
-      <div class="nav-list">
-        <div class="nav-item active" id="ni0" onclick="go(0)">
-          <div class="nav-dot active" id="nd0">1</div>
-          <div class="nav-text">Quick verdict</div>
-        </div>
-        <div class="nav-item" id="ni1" onclick="go(1)">
-          <div class="nav-dot" id="nd1">2</div>
-          <div class="nav-text">Side-by-side comparison</div>
-        </div>
-        <div class="nav-item" id="ni2" onclick="go(2)">
-          <div class="nav-dot" id="nd2">3</div>
-          <div class="nav-text">When Claude wins</div>
-        </div>
-        <div class="nav-item" id="ni3" onclick="go(3)">
-          <div class="nav-dot" id="nd3">4</div>
-          <div class="nav-text">When Gemini wins</div>
-        </div>
-        <div class="nav-item" id="ni4" onclick="go(4)">
-          <div class="nav-dot" id="nd4">5</div>
-          <div class="nav-text">Which tool by role</div>
-        </div>
-        <div class="nav-item" id="ni5" onclick="go(5)">
-          <div class="nav-dot" id="nd5">6</div>
-          <div class="nav-text">The bottom line</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Content area -->
-    <div class="content-area">
-
-      <!-- Hero — identical to course pages -->
-      <div class="section-hero">
-        <div class="section-tag" id="heroTag">Section 01</div>
-        <h2 id="heroTitle">Claude vs Gemini: Which AI Should You Use at Work?</h2>
-        <div class="hero-pills">
-          <span class="hero-pill"><i class="ti ti-book" style="font-size:11px;vertical-align:-1px;margin-right:3px"></i>9 Claude courses</span>
-          <span class="hero-pill"><i class="ti ti-book" style="font-size:11px;vertical-align:-1px;margin-right:3px"></i>12 Gemini courses</span>
-          <span class="hero-pill"><i class="ti ti-calendar" style="font-size:11px;vertical-align:-1px;margin-right:3px"></i>Updated June 2026</span>
-        </div>
-      </div>
-
-      <div class="content-body" id="cnt">
-
-        <!-- SECTION 1: QUICK VERDICT -->
-        <div id="seo-sec-0" class="seo-section active-section">
-          <p>Claude and Gemini are the two most widely adopted AI tools in UK and USA corporate environments in 2026. Neither is universally better — the right choice depends entirely on your workflow, your team tools, and the type of work you do every day.</p>
-          <p>Use this guide to find the right answer for your specific situation — by use case, by role, and by what actually matters at work.</p>
-          <div class="verdict-grid">
-            <div class="verdict-card verdict-claude">
-              <h3><i class="ti ti-brain"></i> Choose Claude if...</h3>
-              <ul>
-                <li>You need high-quality, nuanced business writing</li>
-                <li>You are performing deep analysis or policy review</li>
-                <li>You require legal or financial reasoning</li>
-                <li>You need to synthesize long, complex document sets</li>
-              </ul>
-            </div>
-            <div class="verdict-card verdict-gemini">
-              <h3><i class="ti ti-brand-google"></i> Choose Gemini if...</h3>
-              <ul>
-                <li>Your team lives in Google Workspace</li>
-                <li>You need automated meeting summaries from Meet</li>
-                <li>You work with spreadsheets and data in Sheets</li>
-                <li>You work with video, audio, or image files</li>
-              </ul>
-            </div>
-          </div>
-          <div class="info-box">
-            <p><strong>Most professional teams in 2026 use both.</strong> Claude for deep thinking and high-stakes writing. Gemini for daily productivity inside the Google ecosystem.</p>
-          </div>
-        </div>
-
-        <!-- SECTION 2: COMPARISON TABLE -->
-        <div id="seo-sec-1" class="seo-section">
-          <p>This table compares Claude and Gemini across the seven dimensions that matter most for corporate professionals. Each row reflects the current state of both tools as of June 2026.</p>
-          <table class="compare-table">
-            <thead>
-              <tr>
-                <th>Dimension</th>
-                <th>Claude</th>
-                <th>Gemini</th>
-                <th>Winner</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Writing quality</strong></td>
-                <td>Nuanced, structured, human tone</td>
-                <td>Competent but more formulaic</td>
-                <td><span class="badge-win win-claude">Claude wins</span></td>
-              </tr>
-              <tr>
-                <td><strong>Complex reasoning</strong></td>
-                <td>Superior multi-step logic and analysis</td>
-                <td>Excellent, especially structured tasks</td>
-                <td><span class="badge-win win-claude">Claude wins</span></td>
-              </tr>
-              <tr>
-                <td><strong>Google Workspace</strong></td>
-                <td>No native integration</td>
-                <td>Native inside Gmail, Docs, Sheets, Meet</td>
-                <td><span class="badge-win win-gemini">Gemini wins</span></td>
-              </tr>
-              <tr>
-                <td><strong>Data privacy</strong></td>
-                <td>Strong — no training on user data by default</td>
-                <td>Strong — enterprise-grade Workspace controls</td>
-                <td><span class="badge-win win-draw">Draw</span></td>
-              </tr>
-              <tr>
-                <td><strong>Context window</strong></td>
-                <td>200K standard — strong synthesis quality</td>
-                <td>1M+ tokens — handles massive datasets</td>
-                <td><span class="badge-win win-gemini">Gemini wins</span></td>
-              </tr>
-              <tr>
-                <td><strong>Business pricing</strong></td>
-                <td>Premium — higher cost for heavy use</td>
-                <td>Efficient — often bundled with Workspace</td>
-                <td><span class="badge-win win-gemini">Gemini wins</span></td>
-              </tr>
-              <tr>
-                <td><strong>Multimodal</strong></td>
-                <td>Text and images only</td>
-                <td>Native video, audio, image, and text</td>
-                <td><span class="badge-win win-gemini">Gemini wins</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- SECTION 3: WHERE CLAUDE WINS -->
-        <div id="seo-sec-2" class="seo-section">
-          <div class="section-label-pill pill-claude">
-            <i class="ti ti-brain" style="font-size:12px"></i> Where Claude wins
-          </div>
-
-          <div class="body-heading">Professional writing</div>
-          <p>Claude excels at drafting complex professional documents because it maintains a sophisticated tone and structural integrity that few models can match. A Finance Director preparing a board memo or an HR Manager drafting a sensitive company policy will find that Claude produces text that feels intentional and human. Unlike models that fill space with generic language, Claude captures the nuances of corporate communication, ensuring that every sentence serves a strategic purpose. Professionals trust Claude to generate content that aligns with high-level corporate standards, reducing the need for extensive manual revisions.</p>
-
-          <div class="body-heading">Deep reasoning and analysis</div>
-          <p>Legal teams and compliance officers consistently prefer Claude when they require rigorous contract review and detailed risk assessment. Claude exhibits a superior ability to identify subtle contradictions or dangerous clauses buried within dense legal prose that other models often overlook. By applying a methodical, step-by-step reasoning process, the model delivers a reliable analysis of potential liability. This capability allows legal professionals to perform due diligence with higher confidence, knowing that the output is grounded in a logical examination of the provided facts.</p>
-
-          <div class="body-heading">Long document synthesis</div>
-          <p>When professionals must process multiple one-hundred-page reports or exhaustive regulatory documents, Claude provides a level of clarity that transforms the workflow. It allows users to synthesize disparate information into a coherent summary, identifying key themes or discrepancies across large document sets without losing track of critical details. Professionals gain the ability to extract actionable insights from voluminous documentation in minutes, a task that would otherwise require hours of focused reading.</p>
-
-          <div class="body-heading">Instruction following</div>
-          <p>Claude stands out for its unique ability to follow precise formatting and style instructions without adding extraneous or unwanted information. If a user demands a summary in a specific table format or a document that strictly adheres to a predefined stylistic guideline, Claude executes these instructions with remarkable precision. This trait makes it an indispensable tool for professionals who demand output that is ready for immediate inclusion in final company deliverables.</p>
-
-          <div class="info-box">
-            <p><strong>Practical tip:</strong> Use Claude for the final polish on high-stakes documents — board reports, legal briefs, strategy memos — where tone, accuracy, and precision are non-negotiable.</p>
-          </div>
-        </div>
-
-        <!-- SECTION 4: WHERE GEMINI WINS -->
-        <div id="seo-sec-3" class="seo-section">
-          <div class="section-label-pill pill-gemini">
-            <i class="ti ti-brand-google" style="font-size:12px"></i> Where Gemini wins
-          </div>
-
-          <div class="body-heading">Google Workspace integration</div>
-          <p>The primary strength of Gemini lies in its seamless integration within the Google Workspace environment, enabling managers and operations leads to execute complex tasks without switching browser tabs. A professional can instruct Gemini to draft an email response in Gmail based on data found in a Drive document, or instantly create a project roadmap in Docs from a brainstorm in a shared file. Operations leaders find that this connectivity significantly accelerates the speed at which they can turn information into action, removing the friction associated with moving content between isolated platforms.</p>
-
-          <div class="body-heading">Meeting workflows</div>
-          <p>Gemini in Google Meet fundamentally alters how professionals manage meeting notes and the subsequent assignment of action items. A manager can have the AI process the meeting transcript to generate a comprehensive summary that highlights key decisions and assigns specific tasks to team members by name. This process ensures that no critical detail is lost in the flow of conversation, providing an immediate and accurate record. Participants can leave a call knowing that their responsibilities are clearly documented and shared without the need for a designated note taker.</p>
-
-          <div class="body-heading">Spreadsheet and data work</div>
-          <p>Finance and Operations professionals leverage Gemini in Google Sheets to perform data analysis and formula generation tasks that were previously time-consuming or technically difficult. Gemini can parse raw data to identify trends, create pivot tables, or suggest complex formulas based on a natural language description of the intended outcome. This capability empowers users to manipulate large datasets with ease, allowing for rapid hypothesis testing and financial modeling without the need for advanced spreadsheet expertise.</p>
-
-          <div class="body-heading">Multimodal capabilities</div>
-          <p>Gemini offers a distinct advantage in its ability to process video and audio files natively, which provides significant value during complex corporate assignments. An Operations lead can upload a lengthy video recording of a product demonstration or a training session and request that Gemini identifies specific segments of interest or creates a summary of the technical requirements discussed. This removes the burden of manually transcribing audio or scrubbing through hours of footage, enabling teams to derive immediate value from multimedia assets.</p>
-
-          <div class="info-box info-box-gemini">
-            <p><strong>Practical tip:</strong> Use Gemini to generate your first draft of a presentation slide deck directly from a Google Doc brief — without leaving your browser.</p>
-          </div>
-        </div>
-
-        <!-- SECTION 5: BY ROLE -->
-        <div id="seo-sec-4" class="seo-section">
-          <p>The right tool often depends less on the model and more on the type of work your role demands. Here is a practical breakdown by professional function.</p>
-          <div class="role-grid">
-
-            <div class="role-card">
-              <div class="role-card-header">
-                <div class="role-icon"><i class="ti ti-briefcase"></i></div>
-                <div class="role-name">Manager</div>
-              </div>
-              <div class="role-section">
-                <div class="role-section-label role-claude-label">Use Claude for</div>
-                <p>Strategy memos, performance reviews, policy analysis</p>
-              </div>
-              <div class="role-divider"></div>
-              <div class="role-section">
-                <div class="role-section-label role-gemini-label">Use Gemini for</div>
-                <p>Meeting summaries, email triage, Workspace workflows</p>
-              </div>
-            </div>
-
-            <div class="role-card">
-              <div class="role-card-header">
-                <div class="role-icon"><i class="ti ti-users"></i></div>
-                <div class="role-name">HR</div>
-              </div>
-              <div class="role-section">
-                <div class="role-section-label role-claude-label">Use Claude for</div>
-                <p>Policy drafting, employee communications, handbook development</p>
-              </div>
-              <div class="role-divider"></div>
-              <div class="role-section">
-                <div class="role-section-label role-gemini-label">Use Gemini for</div>
-                <p>Meeting notes, recruiting coordination, document collaboration</p>
-              </div>
-            </div>
-
-            <div class="role-card">
-              <div class="role-card-header">
-                <div class="role-icon"><i class="ti ti-report-money"></i></div>
-                <div class="role-name">Finance</div>
-              </div>
-              <div class="role-section">
-                <div class="role-section-label role-claude-label">Use Claude for</div>
-                <p>Financial analysis, investment memos, risk reviews</p>
-              </div>
-              <div class="role-divider"></div>
-              <div class="role-section">
-                <div class="role-section-label role-gemini-label">Use Gemini for</div>
-                <p>Spreadsheet analysis, formula generation, dashboard interpretation</p>
-              </div>
-            </div>
-
-            <div class="role-card">
-              <div class="role-card-header">
-                <div class="role-icon"><i class="ti ti-gavel"></i></div>
-                <div class="role-name">Legal</div>
-              </div>
-              <div class="role-section">
-                <div class="role-section-label role-claude-label">Use Claude for</div>
-                <p>Contract review, obligation extraction, compliance analysis</p>
-              </div>
-              <div class="role-divider"></div>
-              <div class="role-section">
-                <div class="role-section-label role-gemini-label">Use Gemini for</div>
-                <p>Document retrieval, Workspace collaboration, filing</p>
-              </div>
-            </div>
-
-            <div class="role-card">
-              <div class="role-card-header">
-                <div class="role-icon"><i class="ti ti-speakerphone"></i></div>
-                <div class="role-name">Marketing</div>
-              </div>
-              <div class="role-section">
-                <div class="role-section-label role-claude-label">Use Claude for</div>
-                <p>Long-form content, brand voice, campaign strategy</p>
-              </div>
-              <div class="role-divider"></div>
-              <div class="role-section">
-                <div class="role-section-label role-gemini-label">Use Gemini for</div>
-                <p>Real-time research, image generation, collaborative content</p>
-              </div>
-            </div>
-
-            <div class="role-card">
-              <div class="role-card-header">
-                <div class="role-icon"><i class="ti ti-settings"></i></div>
-                <div class="role-name">Operations</div>
-              </div>
-              <div class="role-section">
-                <div class="role-section-label role-claude-label">Use Claude for</div>
-                <p>Process documentation, SOP development, operational reviews</p>
-              </div>
-              <div class="role-divider"></div>
-              <div class="role-section">
-                <div class="role-section-label role-gemini-label">Use Gemini for</div>
-                <p>Workflow automation, cross-team collaboration, Drive management</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- SECTION 6: BOTTOM LINE -->
-        <div id="seo-sec-5" class="seo-section">
-          <p>After reviewing the evidence from independent sources and real corporate usage data in 2026, the conclusion is clear — and honest.</p>
-          <div class="verdict-finale">
-            <p>Claude is the stronger AI analyst and writer. Gemini is the stronger workplace productivity platform. The right choice depends less on benchmarks and more on whether your work revolves around deep thinking or Google-centric execution. In practice, most professional teams in 2026 use both tools complementarily — Claude for high-stakes analysis and writing, and Gemini for daily productivity within the Google ecosystem.</p>
-            <div class="verdict-buttons">
-              <a href="/index.html" class="btn-verdict btn-claude-v">
-                <i class="ti ti-arrow-right" style="font-size:13px"></i> Start with Claude courses
-              </a>
-              <a href="/index.html" class="btn-verdict btn-gemini-v">
-                <i class="ti ti-arrow-right" style="font-size:13px"></i> Start with Gemini courses
-              </a>
-            </div>
-          </div>
-
-          <div class="body-heading">Explore related courses</div>
-          <div class="courses-mini-grid">
-            <a href="/claude-prompting-playbook-professionals.html" class="course-mini-card">
-              <div class="course-mini-brand brand-c">Claude AI</div>
-              <div class="course-mini-title">Claude prompting guide for enterprise teams</div>
-              <div class="course-mini-arrow">Read the course →</div>
-            </a>
-            <a href="/claude-data-privacy-what-not-to-share.html" class="course-mini-card">
-              <div class="course-mini-brand brand-c">Claude AI</div>
-              <div class="course-mini-title">Claude data privacy at work: enterprise compliance guide</div>
-              <div class="course-mini-arrow">Read the course →</div>
-            </a>
-            <a href="/gemini-docs-workspace-grounding.html" class="course-mini-card">
-              <div class="course-mini-brand brand-g">Gemini AI</div>
-              <div class="course-mini-title">Gemini in Docs: write reports grounded in your own company data</div>
-              <div class="course-mini-arrow">Read the course →</div>
-            </a>
-            <a href="/gemini-gems-custom-team-assistants.html" class="course-mini-card">
-              <div class="course-mini-brand brand-g">Gemini AI</div>
-              <div class="course-mini-title">Gemini Gems: build custom AI assistants your whole team can use</div>
-              <div class="course-mini-arrow">Read the course →</div>
-            </a>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Footer nav — identical to course pages -->
-      <div class="content-footer">
-        <button class="btn-nav" id="btnBack" disabled onclick="go(cur-1)">
-          <i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back
-        </button>
-        <button class="btn-fwd" id="btnFwd" onclick="go(cur+1)">
-          Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>
-        </button>
-      </div>
-    </div>
-
-  </div>
+<div class="course-shell">
+<div class="sidebar">
+<div class="sidebar-top">
+<div class="course-label">Free Resource — PairWorkflows</div>
+<div class="course-title-side">Claude vs Gemini: Which AI Should You Use at Work?</div>
 </div>
-
-<!-- Site footer — identical to course pages -->
-<footer class="site-footer">
-  <div class="footer-links">
-    <a href="/index.html">Home</a>
-    <a href="/contact.html">Contact</a>
-    <a href="/legal.html#privacy">Privacy Policy</a>
-    <a href="/legal.html#terms">Terms of Use</a>
-  </div>
-  <div class="footer-copy">&copy; 2026 PairWorkflows. All rights reserved.</div>
-</footer>
-
-<script>
-var cur = 0;
-var TOTAL = 6;
-var visited = [true, false, false, false, false, false];
-
-var heroes = [
-  {tag: 'Section 01', title: 'The quick answer: Claude or Gemini?'},
-  {tag: 'Section 02', title: 'Side-by-side comparison across 7 dimensions.'},
-  {tag: 'Section 03', title: 'When Claude is the right choice.'},
-  {tag: 'Section 04', title: 'When Gemini is the right choice.'},
-  {tag: 'Section 05', title: 'Which tool for which role?'},
-  {tag: 'Section 06', title: 'The bottom line.'}
-];
-
-function go(n) {
-  if (n < 0 || n >= TOTAL) return;
-  visited[n] = true;
-  cur = n;
-  render();
-  window.scrollTo(0, 0);
-}
-
-function render() {
-  document.getElementById('heroTag').textContent = heroes[cur].tag;
-  document.getElementById('heroTitle').textContent = heroes[cur].title;
-
-  for (var i = 0; i < TOTAL; i++) {
-    var ni = document.getElementById('ni' + i);
-    var nd = document.getElementById('nd' + i);
-    var sec = document.getElementById('seo-sec-' + i);
-
-    ni.className = 'nav-item' + (i === cur ? ' active' : '');
-
-    if (sec) {
-      if (i === cur) sec.classList.add('active-section');
-      else sec.classList.remove('active-section');
-    }
-
-    if (nd) {
-      if (visited[i] && i !== cur) {
-        nd.className = 'nav-dot done';
-        nd.innerHTML = '<i class="ti ti-check" style="font-size:11px"></i>';
-      } else if (i === cur) {
-        nd.className = 'nav-dot active';
-        nd.textContent = (i + 1);
-      } else {
-        nd.className = 'nav-dot';
-        nd.textContent = (i + 1);
-      }
-    }
-  }
-
-  document.getElementById('btnBack').disabled = (cur === 0);
-  var fwd = document.getElementById('btnFwd');
-  if (cur === TOTAL - 1) {
-    fwd.style.display = 'none';
-  } else {
-    fwd.style.display = '';
-    fwd.innerHTML = 'Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';
-  }
-}
-
-render();
-</script>
-
-<div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
-  <div class="search-overlay-inner">
-    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
-    <form action="/search.html" method="get">
-      <div class="search-box">
-        <i class="ti ti-search"></i>
-        <input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off">
-      </div>
-    </form>
-    <p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
-  </div>
+<div class="nav-list">
+<div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">Quick verdict</div></div>
+<div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">Side-by-side comparison</div></div>
+<div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">When Claude wins</div></div>
+<div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">When Gemini wins</div></div>
+<div class="nav-item" id="ni4" onclick="go(4)"><div class="nav-dot" id="nd4">5</div><div class="nav-text">Which tool by role</div></div>
+<div class="nav-item" id="ni5" onclick="go(5)"><div class="nav-dot" id="nd5">6</div><div class="nav-text">The bottom line</div></div>
 </div>
-<script>
-function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
-function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
-</script>
+</div>
+<div class="content-area">
+<div class="section-hero">
+<div class="section-tag" id="heroTag">Section 01</div>
+<h2 id="heroTitle">Claude vs Gemini: Which AI Should You Use at Work?</h2>
+<div class="hero-pills">
+<span class="hero-pill"><i class="ti ti-book" style="font-size:11px;vertical-align:-1px;margin-right:3px"></i>9 Claude courses</span>
+<span class="hero-pill"><i class="ti ti-book" style="font-size:11px;vertical-align:-1px;margin-right:3px"></i>12 Gemini courses</span>
+<span class="hero-pill"><i class="ti ti-calendar" style="font-size:11px;vertical-align:-1px;margin-right:3px"></i>Updated June 2026</span>
+</div>
+</div>
+<div class="content-body" id="cnt">
+<div id="seo-sec-0" class="seo-section active-section">
+<p>Claude and Gemini are the two most widely adopted AI tools in UK and USA corporate environments in 2026. Neither is universally better — the right choice depends entirely on your workflow, your team tools, and the type of work you do every day.</p>
+<p>Use this guide to find the right answer for your specific situation — by use case, by role, and by what actually matters at work.</p>
+<div class="verdict-grid">
+<div class="verdict-card verdict-claude"><h3><i class="ti ti-brain"></i> Choose Claude if...</h3><ul><li>You need high-quality, nuanced business writing</li><li>You are performing deep analysis or policy review</li><li>You require legal or financial reasoning</li><li>You need to synthesize long, complex document sets</li></ul></div>
+<div class="verdict-card verdict-gemini"><h3><i class="ti ti-brand-google"></i> Choose Gemini if...</h3><ul><li>Your team lives in Google Workspace</li><li>You need automated meeting summaries from Meet</li><li>You work with spreadsheets and data in Sheets</li><li>You work with video, audio, or image files</li></ul></div>
+</div>
+<div class="info-box"><p><strong>Most professional teams in 2026 use both.</strong> Claude for deep thinking and high-stakes writing. Gemini for daily productivity inside the Google ecosystem.</p></div>
+</div>
+<div id="seo-sec-1" class="seo-section">
+<p>This table compares Claude and Gemini across the seven dimensions that matter most for corporate professionals. Each row reflects the current state of both tools as of June 2026.</p>
+<table class="compare-table">
+<thead><tr><th>Dimension</th><th>Claude</th><th>Gemini</th><th>Winner</th></tr></thead>
+<tbody>
+<tr><td><strong>Writing quality</strong></td><td>Nuanced, structured, human tone</td><td>Competent but more formulaic</td><td><span class="badge-win win-claude">Claude wins</span></td></tr>
+<tr><td><strong>Complex reasoning</strong></td><td>Superior multi-step logic and analysis</td><td>Excellent, especially structured tasks</td><td><span class="badge-win win-claude">Claude wins</span></td></tr>
+<tr><td><strong>Google Workspace</strong></td><td>No native integration</td><td>Native inside Gmail, Docs, Sheets, Meet</td><td><span class="badge-win win-gemini">Gemini wins</span></td></tr>
+<tr><td><strong>Data privacy</strong></td><td>Strong — no training on user data by default</td><td>Strong — enterprise-grade Workspace controls</td><td><span class="badge-win win-draw">Draw</span></td></tr>
+<tr><td><strong>Context window</strong></td><td>200K standard — strong synthesis quality</td><td>1M+ tokens — handles massive datasets</td><td><span class="badge-win win-gemini">Gemini wins</span></td></tr>
+<tr><td><strong>Business pricing</strong></td><td>Premium — higher cost for heavy use</td><td>Efficient — often bundled with Workspace</td><td><span class="badge-win win-gemini">Gemini wins</span></td></tr>
+<tr><td><strong>Multimodal</strong></td><td>Text and images only</td><td>Native video, audio, image, and text</td><td><span class="badge-win win-gemini">Gemini wins</span></td></tr>
+</tbody>
+</table>
+</div>
+<div id="seo-sec-2" class="seo-section">
+<div class="section-label-pill pill-claude"><i class="ti ti-brain" style="font-size:12px"></i> Where Claude wins</div>
+<div class="body-heading">Professional writing</div>
+<p>Claude excels at drafting complex professional documents because it maintains a sophisticated tone and structural integrity that few models can match. A Finance Director preparing a board memo or an HR Manager drafting a sensitive company policy will find that Claude produces text that feels intentional and human. Unlike models that fill space with generic language, Claude captures the nuances of corporate communication, ensuring that every sentence serves a strategic purpose. Professionals trust Claude to generate content that aligns with high-level corporate standards, reducing the need for extensive manual revisions.</p>
+<div class="body-heading">Deep reasoning and analysis</div>
+<p>Legal teams and compliance officers consistently prefer Claude when they require rigorous contract review and detailed risk assessment. Claude exhibits a superior ability to identify subtle contradictions or dangerous clauses buried within dense legal prose that other models often overlook. By applying a methodical, step-by-step reasoning process, the model delivers a reliable analysis of potential liability. This capability allows legal professionals to perform due diligence with higher confidence, knowing that the output is grounded in a logical examination of the provided facts.</p>
+<div class="body-heading">Long document synthesis</div>
+<p>When professionals must process multiple one-hundred-page reports or exhaustive regulatory documents, Claude provides a level of clarity that transforms the workflow. It allows users to synthesize disparate information into a coherent summary, identifying key themes or discrepancies across large document sets without losing track of critical details. Professionals gain the ability to extract actionable insights from voluminous documentation in minutes, a task that would otherwise require hours of focused reading.</p>
+<div class="body-heading">Instruction following</div>
+<p>Claude stands out for its unique ability to follow precise formatting and style instructions without adding extraneous or unwanted information. If a user demands a summary in a specific table format or a document that strictly adheres to a predefined stylistic guideline, Claude executes these instructions with remarkable precision. This trait makes it an indispensable tool for professionals who demand output that is ready for immediate inclusion in final company deliverables.</p>
+<div class="info-box"><p><strong>Practical tip:</strong> Use Claude for the final polish on high-stakes documents — board reports, legal briefs, strategy memos — where tone, accuracy, and precision are non-negotiable.</p></div>
+</div>
+<div id="seo-sec-3" class="seo-section">
+<div class="section-label-pill pill-gemini"><i class="ti ti-brand-google" style="font-size:12px"></i> Where Gemini wins</div>
+<div class="body-heading">Google Workspace integration</div>
+<p>The primary strength of Gemini lies in its seamless integration within the Google Workspace environment, enabling managers and operations leads to execute complex tasks without switching browser tabs. A professional can instruct Gemini to draft an email response in Gmail based on data found in a Drive document, or instantly create a project roadmap in Docs from a brainstorm in a shared file. Operations leaders find that this connectivity significantly accelerates the speed at which they can turn information into action, removing the friction associated with moving content between isolated platforms.</p>
+<div class="body-heading">Meeting workflows</div>
+<p>Gemini in Google Meet fundamentally alters how professionals manage meeting notes and the subsequent assignment of action items. A manager can have the AI process the meeting transcript to generate a comprehensive summary that highlights key decisions and assigns specific tasks to team members by name. This process ensures that no critical detail is lost in the flow of conversation, providing an immediate and accurate record. Participants can leave a call knowing that their responsibilities are clearly documented and shared without the need for a designated note taker.</p>
+<div class="body-heading">Spreadsheet and data work</div>
+<p>Finance and Operations professionals leverage Gemini in Google Sheets to perform data analysis and formula generation tasks that were previously time-consuming or technically difficult. Gemini can parse raw data to identify trends, create pivot tables, or suggest complex formulas based on a natural language description of the intended outcome. This capability empowers users to manipulate large datasets with ease, allowing for rapid hypothesis testing and financial modeling without the need for advanced spreadsheet expertise.</p>
+<div class="body-heading">Multimodal capabilities</div>
+<p>Gemini offers a distinct advantage in its ability to process video and audio files natively, which provides significant value during complex corporate assignments. An Operations lead can upload a lengthy video recording of a product demonstration or a training session and request that Gemini identifies specific segments of interest or creates a summary of the technical requirements discussed. This removes the burden of manually transcribing audio or scrubbing through hours of footage, enabling teams to derive immediate value from multimedia assets.</p>
+<div class="info-box info-box-gemini"><p><strong>Practical tip:</strong> Use Gemini to generate your first draft of a presentation slide deck directly from a Google Doc brief — without leaving your browser.</p></div>
+</div>
+<div id="seo-sec-4" class="seo-section">
+<p>The right tool often depends less on the model and more on the type of work your role demands. Here is a practical breakdown by professional function.</p>
+<div class="role-grid">
+<div class="role-card"><div class="role-card-header"><div class="role-icon"><i class="ti ti-briefcase"></i></div><div class="role-name">Manager</div></div><div class="role-section"><div class="role-section-label role-claude-label">Use Claude for</div><p>Strategy memos, performance reviews, policy analysis</p></div><div class="role-divider"></div><div class="role-section"><div class="role-section-label role-gemini-label">Use Gemini for</div><p>Meeting summaries, email triage, Workspace workflows</p></div></div>
+<div class="role-card"><div class="role-card-header"><div class="role-icon"><i class="ti ti-users"></i></div><div class="role-name">HR</div></div><div class="role-section"><div class="role-section-label role-claude-label">Use Claude for</div><p>Policy drafting, employee communications, handbook development</p></div><div class="role-divider"></div><div class="role-section"><div class="role-section-label role-gemini-label">Use Gemini for</div><p>Meeting notes, recruiting coordination, document collaboration</p></div></div>
+<div class="role-card"><div class="role-card-header"><div class="role-icon"><i class="ti ti-report-money"></i></div><div class="role-name">Finance</div></div><div class="role-section"><div class="role-section-label role-claude-label">Use Claude for</div><p>Financial analysis, investment memos, risk reviews</p></div><div class="role-divider"></div><div class="role-section"><div class="role-section-label role-gemini-label">Use Gemini for</div><p>Spreadsheet analysis, formula generation, dashboard interpretation</p></div></div>
+<div class="role-card"><div class="role-card-header"><div class="role-icon"><i class="ti ti-gavel"></i></div><div class="role-name">Legal</div></div><div class="role-section"><div class="role-section-label role-claude-label">Use Claude for</div><p>Contract review, obligation extraction, compliance analysis</p></div><div class="role-divider"></div><div class="role-section"><div class="role-section-label role-gemini-label">Use Gemini for</div><p>Document retrieval, Workspace collaboration, filing</p></div></div>
+<div class="role-card"><div class="role-card-header"><div class="role-icon"><i class="ti ti-speakerphone"></i></div><div class="role-name">Marketing</div></div><div class="role-section"><div class="role-section-label role-claude-label">Use Claude for</div><p>Long-form content, brand voice, campaign strategy</p></div><div class="role-divider"></div><div class="role-section"><div class="role-section-label role-gemini-label">Use Gemini for</div><p>Real-time research, image generation, collaborative content</p></div></div>
+<div class="role-card"><div class="role-card-header"><div class="role-icon"><i class="ti ti-settings"></i></div><div class="role-name">Operations</div></div><div class="role-section"><div class="role-section-label role-claude-label">Use Claude for</div><p>Process documentation, SOP development, operational reviews</p></div><div class="role-divider"></div><div class="role-section"><div class="role-section-label role-gemini-label">Use Gemini for</div><p>Workflow automation, cross-team collaboration, Drive management</p></div></div>
+</div>
+</div>
+<div id="seo-sec-5" class="seo-section">
+<p>After reviewing the evidence from independent sources and real corporate usage data in 2026, the conclusion is clear — and honest.</p>
+<div class="verdict-finale">
+<p>Claude is the stronger AI analyst and writer. Gemini is the stronger workplace productivity platform. The right choice depends less on benchmarks and more on whether your work revolves around deep thinking or Google-centric execution. In practice, most professional teams in 2026 use both tools complementarily — Claude for high-stakes analysis and writing, and Gemini for daily productivity within the Google ecosystem.</p>
+<div class="verdict-buttons">
+<a href="/index.html" class="btn-verdict btn-claude-v"><i class="ti ti-arrow-right" style="font-size:13px"></i> Start with Claude courses</a>
+<a href="/index.html" class="btn-verdict btn-gemini-v"><i class="ti ti-arrow-right" style="font-size:13px"></i> Start with Gemini courses</a>
+</div>
+</div>
+<div class="body-heading">Explore related courses</div>
+<div class="courses-mini-grid">
+<a href="/claude-prompting-playbook-professionals.html" class="course-mini-card"><div class="course-mini-brand brand-c">Claude AI</div><div class="course-mini-title">Claude prompting guide for enterprise teams</div><div class="course-mini-arrow">Read the course →</div></a>
+<a href="/claude-data-privacy-what-not-to-share.html" class="course-mini-card"><div class="course-mini-brand brand-c">Claude AI</div><div class="course-mini-title">Claude data privacy at work: enterprise compliance guide</div><div class="course-mini-arrow">Read the course →</div></a>
+<a href="/gemini-docs-workspace-grounding.html" class="course-mini-card"><div class="course-mini-brand brand-g">Gemini AI</div><div class="course-mini-title">Gemini in Docs: write reports grounded in your own company data</div><div class="course-mini-arrow">Read the course →</div></a>
+<a href="/gemini-gems-custom-team-assistants.html" class="course-mini-card"><div class="course-mini-brand brand-g">Gemini AI</div><div class="course-mini-title">Gemini Gems: build custom AI assistants your whole team can use</div><div class="course-mini-arrow">Read the course →</div></a>
+</div>
+</div>
+</div>
+<div class="content-footer"><button class="btn-nav" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button><button class="btn-fwd" id="btnFwd" onclick="go(cur+1)">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button></div>
+</div>
+</div>
+</div>
+<footer class="site-footer"><div class="footer-links"><a href="/index.html">Home</a><a href="/contact.html">Contact</a><a href="/legal.html#privacy">Privacy Policy</a><a href="/legal.html#terms">Terms of Use</a></div><div class="footer-copy">&copy; 2026 PairWorkflows. All rights reserved.</div></footer>
+<script>var cur=0,TOTAL=6,visited=[true,false,false,false,false,false];var heroes=[{tag:'Section 01',title:'The quick answer: Claude or Gemini?'},{tag:'Section 02',title:'Side-by-side comparison across 7 dimensions.'},{tag:'Section 03',title:'When Claude is the right choice.'},{tag:'Section 04',title:'When Gemini is the right choice.'},{tag:'Section 05',title:'Which tool for which role?'},{tag:'Section 06',title:'The bottom line.'}];function go(n){if(n<0||n>=TOTAL)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}function render(){document.getElementById('heroTag').textContent=heroes[cur].tag;document.getElementById('heroTitle').textContent=heroes[cur].title;for(var i=0;i<TOTAL;i++){var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),sec=document.getElementById('seo-sec-'+i);ni.className='nav-item'+(i===cur?' active':'');if(sec){if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');}if(nd){if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}else{nd.className='nav-dot';nd.textContent=(i+1);}}}document.getElementById('btnBack').disabled=(cur===0);var fwd=document.getElementById('btnFwd');if(cur===TOTAL-1){fwd.style.display='none';}else{fwd.style.display='';fwd.innerHTML='Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}}render();function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});</script>
 </body>
 </html>
