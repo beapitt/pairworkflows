@@ -76,7 +76,7 @@
 <div class="signal-card"><div class="signal-icon"><i class="ti ti-switch"></i></div><div class="signal-title">Topic shift</div><div class="signal-desc">You have finished the original task and want to start something completely different. New task = new conversation.</div></div>
 <div class="signal-card"><div class="signal-icon"><i class="ti ti-trending-down"></i></div><div class="signal-title">Quality drop</div><div class="signal-desc">Responses are becoming vague, repetitive, or losing the precision they had earlier in the thread. The context window is getting crowded.</div></div>
 <div class="signal-card"><div class="signal-icon"><i class="ti ti-refresh"></i></div><div class="signal-title">Repeated corrections</div><div class="signal-desc">You keep correcting the same mistake — wrong tone, wrong format, wrong length. Starting fresh with a better opening prompt is faster than fighting the existing thread.</div></div>
-<div class="signal-card"><div class="signal-icon"><i class="ti ti-clock"></i></div><div class="signal-title">Time gap</div><div class="signal-desc">You are returning to a task after several days. A fresh conversation with a clear context-setting opener will produce better results than resuming a stale thread.</div></div>
+<div class="signal-card"><div class="signal-icon"><i class="ti ti-clock"></i></div><div class="signal-title">Time gap</div><div class="signal-desc">You are returning to a long thread after several days and the context feels stale or hard to reconstruct. A fresh conversation with a clear opener is faster than scrolling back.</div></div>
 </div>
 <div class="info-box"><p><strong>Do not fear starting fresh.</strong> A new conversation is not wasted work — the output you already produced is saved. A focused new thread almost always produces better results than an overloaded old one.</p></div>
 </div>
@@ -87,6 +87,87 @@
 </div>
 </div>
 <footer class="page-footer">&copy; 2026 <a href="https://www.pairworkflows.com">PairWorkflows</a>. All rights reserved.</footer>
-<script>var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;var heroes=[{tag:'Section 01',title:'The one-topic rule: why mixing subjects destroys output quality.'},{tag:'Section 02',title:'Conversation architecture: open, develop, and close every thread.'},{tag:'Section 03',title:'When to start fresh: four signals you should not ignore.'},{tag:'Section 04 — Quiz',title:'Test your knowledge.'}];var quiz=[{q:'What is the main benefit of keeping a Claude conversation focused on one topic?',opts:['It reduces the number of messages you need to send','Claude maintains deep context for that specific goal and output quality improves','It prevents Claude from accessing the internet during the session'],correct:1},{q:'What should you do at the start of every Claude conversation to improve result quality?',opts:['Type your request immediately to save time','Set context by explaining your role, the project, and any constraints','Ask Claude to introduce itself before starting work'],correct:1},{q:'Which of these is a signal that you should start a new Claude conversation?',opts:['You have just sent your first message in the thread','Responses are becoming vague and repetitive — the context window is crowded','Claude has produced one response you are happy with'],correct:1},{q:'You finished drafting a report in Claude and now need to summarise a different document. What should you do?',opts:['Continue in the same conversation to save time','Open a fresh conversation for the new task','Ask Claude to forget the previous messages before continuing'],correct:1}];function buildQuizHTML(){if(quizDone){var score=0;for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}var msgs=['Review the one-topic rule and the four fresh-start signals — they are the core of this course.','Decent progress — re-read the conversation architecture section before trying again.','Great score! Just one concept to sharpen — revisit the signals for starting a new conversation.','Perfect mark! You are ready to structure every Claude conversation for maximum output quality.'];return'<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';}var html='';for(var i=0;i<quiz.length;i++){var q=quiz[i];html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';for(var j=0;j<q.opts.length;j++){var cls='opt';if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}else if(sel[i]===j){cls+=' selected';}html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';}html+='</div>';}var allSel=Object.keys(sel).length===quiz.length;if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';return html;}function render(){document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';document.getElementById('progTxt').textContent=(cur+1)+' of 4';document.getElementById('heroTag').textContent=heroes[cur].tag;document.getElementById('heroTitle').textContent=heroes[cur].title;for(var i=0;i<4;i++){var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),secBlock=document.getElementById('seo-sec-'+i);ni.className='nav-item'+(i===cur?' active':'');if(i===cur)secBlock.classList.add('active-section');else secBlock.classList.remove('active-section');if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}else{nd.className='nav-dot';nd.textContent=(i+1);}}if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();document.getElementById('btnBack').disabled=(cur===0);var fwd=document.getElementById('btnFwd');if(cur===3){fwd.style.display='none';}else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}}function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();}function goFwd(){if(cur<3)go(cur+1);}function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}function showResult(){quizDone=true;render();}function retake(){sel={};quizSubmitted=false;quizDone=false;render();}function copyPrompt(){var text=document.getElementById('prompt-payload').innerText;navigator.clipboard.writeText(text);var btn=document.querySelector('.copy-btn');btn.innerHTML='<i class="ti ti-check"></i> Copied!';setTimeout(function(){btn.innerHTML='<i class="ti ti-copy"></i> Copy prompt';},2000);}document.getElementById('cnt').addEventListener('click',function(e){if(cur!==3||quizSubmitted||quizDone)return;var opt=e.target.closest('.opt');if(!opt)return;sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);render();});function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});render();</script>
+<script>
+var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
+var heroes=[
+  {tag:'Section 01',title:'The one-topic rule: why mixing subjects destroys output quality.'},
+  {tag:'Section 02',title:'Conversation architecture: open, develop, and close every thread.'},
+  {tag:'Section 03',title:'When to start fresh: four signals you should not ignore.'},
+  {tag:'Section 04 — Quiz',title:'Test your knowledge.'}
+];
+var quiz=[
+  {q:'What is the main benefit of keeping a Claude conversation focused on one topic?',
+   opts:['It reduces the number of messages you need to send','Claude maintains deep context for that specific goal and output quality improves','It prevents Claude from accessing the internet during the session'],
+   correct:1},
+  {q:'What should you do at the start of every Claude conversation to improve result quality?',
+   opts:['Set context by explaining your role, the project, and any constraints','Type your request immediately to save time','Ask Claude to introduce itself before starting work'],
+   correct:0},
+  {q:'Which of these is a signal that you should start a new Claude conversation?',
+   opts:['Claude has produced one response you are happy with','You have just sent your first message in the thread','Responses are becoming vague and repetitive — the context window is crowded'],
+   correct:2},
+  {q:'You finished drafting a report in Claude and now need to summarise a different document. What should you do?',
+   opts:['Ask Claude to forget the previous messages before continuing','Open a fresh conversation for the new task','Continue in the same conversation to save time'],
+   correct:1}
+];
+function buildQuizHTML(){
+  if(quizDone){
+    var score=0;
+    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
+    var msgs=['Review the one-topic rule and the four fresh-start signals — they are the core of this course.','Decent progress — re-read the conversation architecture section before trying again.','Great score! Just one concept to sharpen — revisit the signals for starting a new conversation.','Perfect mark! You are ready to structure every Claude conversation for maximum output quality.'];
+    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
+  }
+  var html='';
+  for(var i=0;i<quiz.length;i++){
+    var q=quiz[i];
+    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
+    for(var j=0;j<q.opts.length;j++){
+      var cls='opt';
+      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
+      else if(sel[i]===j){cls+=' selected';}
+      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
+    }
+    html+='</div>';
+  }
+  var allSel=Object.keys(sel).length===quiz.length;
+  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
+  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
+  return html;
+}
+function render(){
+  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
+  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
+  document.getElementById('heroTag').textContent=heroes[cur].tag;
+  document.getElementById('heroTitle').textContent=heroes[cur].title;
+  for(var i=0;i<4;i++){
+    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),secBlock=document.getElementById('seo-sec-'+i);
+    ni.className='nav-item'+(i===cur?' active':'');
+    if(i===cur)secBlock.classList.add('active-section');else secBlock.classList.remove('active-section');
+    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
+    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
+    else{nd.className='nav-dot';nd.textContent=(i+1);}
+  }
+  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
+  document.getElementById('btnBack').disabled=(cur===0);
+  var fwd=document.getElementById('btnFwd');
+  if(cur===3){fwd.style.display='none';}
+  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
+}
+function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();}
+function goFwd(){if(cur<3)go(cur+1);}
+function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
+function showResult(){quizDone=true;render();}
+function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
+function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+document.getElementById('cnt').addEventListener('click',function(e){
+  if(cur!==3||quizSubmitted||quizDone)return;
+  var opt=e.target.closest('.opt');
+  if(!opt)return;
+  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
+  render();
+});
+render();
+</script>
 </body>
 </html>
