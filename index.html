@@ -130,7 +130,8 @@ function renderGrid(){
     g.innerHTML='<div class="empty-state">No courses in this category yet — check back soon.</div>';
     return;
   }
-  g.innerHTML=filtered.map(function(c){
+  var toShow=activeFilter==='all'?filtered.slice(0,8):filtered;
+  g.innerHTML=toShow.map(function(c){
     var badgeHtml='';
     if(c.type==='free')badgeHtml='<span class="badge badge-free">Free</span>';
     else if(c.type==='premium')badgeHtml='<span class="badge badge-premium">Premium</span>';
