@@ -93,7 +93,7 @@ var FILTERS=[
 {key:'operations',label:'Operations'}
 ];
 
-var activeTab='claude',activeFilter='all',cur=0,visited=[],sel={},quizSubmitted=false,quizDone=false,activeCourse=null;
+var activeTab='claude',activeFilter='all',defaultView=true,cur=0,visited=[],sel={},quizSubmitted=false,quizDone=false,activeCourse=null;
 
 function switchTab(tab){
   activeTab=tab;
@@ -104,8 +104,7 @@ function switchTab(tab){
   renderGrid();
 }
 
-function switchFilter(key){
-  activeFilter=key;
+function switchFilter(key){activeFilter=key;defaultView=false;
   renderFilters();
   renderGrid();
 }
@@ -130,7 +129,7 @@ function renderGrid(){
     g.innerHTML='<div class="empty-state">No courses in this category yet — check back soon.</div>';
     return;
   }
-  var toShow=activeFilter==='all'?filtered.slice(0,8):filtered;
+  var toShow=defaultView?filtered.slice(0,8):filtered;
   g.innerHTML=toShow.map(function(c){
     var badgeHtml='';
     if(c.type==='free')badgeHtml='<span class="badge badge-free">Free</span>';
