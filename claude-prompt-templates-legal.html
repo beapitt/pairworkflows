@@ -168,17 +168,17 @@ var heroes=[
 ];
 var quiz=[
   {q:'What is the most important reason to specify jurisdiction in a Legal prompt?',
-   opts:['It makes Claude\'s output longer and more detailed','Without jurisdiction context, Claude produces generic output that may not apply to your legal environment','It reduces the time Claude takes to produce a response'],
-   correct:1},
+   opts:['Without jurisdiction context, Claude produces generic output that may not apply to your legal environment','It makes Claude\'s output longer and more detailed','It reduces the time Claude takes to produce a response'],
+   correct:0},
   {q:'What should every Legal prompt include to prevent Claude from producing false confidence?',
-   opts:['A request for output in bullet points only','Explicit instructions to flag items requiring human review rather than producing definitive-sounding output','A word count limit of 100 words'],
-   correct:1},
+   opts:['A request for output in bullet points only','A word count limit of 100 words','Explicit instructions to flag items requiring human review rather than producing definitive-sounding output'],
+   correct:2},
   {q:'What is the correct role of Claude in a Legal context?',
-   opts:['A replacement for qualified legal advice on routine matters','A first-pass drafting and review tool — all output must be reviewed by a qualified lawyer','A compliance checker that can confirm regulatory requirements'],
+   opts:['A compliance checker that can confirm regulatory requirements','A first-pass drafting and review tool — all output must be reviewed by a qualified lawyer','A replacement for qualified legal advice on routine matters'],
    correct:1},
   {q:'Why should you add your company\'s standard contract positions to Legal prompts?',
-   opts:['To reduce the number of sections in Claude\'s output','To turn Claude into a first-pass review tool that checks against your actual negotiating baseline','Because Claude cannot review contracts without knowing your company size'],
-   correct:1}
+   opts:['Because Claude cannot review contracts without knowing your company size','To reduce the number of sections in Claude\'s output','To turn Claude into a first-pass review tool that checks against your actual negotiating baseline'],
+   correct:2}
 ];
 function buildQuizHTML(){
   if(quizDone){
