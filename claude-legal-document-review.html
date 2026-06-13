@@ -159,17 +159,17 @@ var heroes=[
 ];
 var quiz=[
   {q:'What is Claude\'s role in legal document review?',
-   opts:['To provide legal advice on whether to sign a contract','To read, extract and summarise document content — the legal judgement stays with the qualified professional','To replace the need for a qualified lawyer on standard commercial contracts'],
-   correct:1},
+   opts:['To read, extract and summarise document content — the legal judgement stays with the qualified professional','To provide legal advice on whether to sign a contract','To replace the need for a qualified lawyer on standard commercial contracts'],
+   correct:0},
   {q:'What should you always tell Claude before asking it to review a contract?',
-   opts:['The names of all parties to the agreement','The jurisdiction and the context — e.g. UK commercial supply agreement, we are the buyer','The full billing history with the counterparty'],
-   correct:1},
+   opts:['The names of all parties to the agreement','The full billing history with the counterparty','The jurisdiction and the context — e.g. UK commercial supply agreement, we are the buyer'],
+   correct:2},
   {q:'What must you do before pasting a confidential contract into Claude?',
    opts:['Convert it to PDF format first','Anonymise it — remove counterparty names and commercially sensitive information','Send a copy to your IT department for approval'],
-   correct:2},
+   correct:1},
   {q:'Why must you verify regulatory references Claude includes in legal output?',
-   opts:['Because Claude always uses US law by default regardless of jurisdiction','Because Claude\'s training data has a cutoff — law and regulations change and may not be current','Because Claude cannot read documents longer than 10 pages accurately'],
-   correct:0}
+   opts:['Because Claude cannot read documents longer than 10 pages accurately','Because Claude always uses US law by default regardless of jurisdiction','Because Claude\'s training data has a cutoff — law and regulations change and may not be current'],
+   correct:2}
 ];
 function buildQuizHTML(){
   if(quizDone){
