@@ -36,12 +36,10 @@ body{font-family:'Inter',sans-serif;background:#042e1f;color:#1a1a2e;min-height:
 </style>
 </head>
 <body>
-
 <nav class="navbar">
   <a class="logo" href="/index.html"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a>
   <a class="back-link" href="/index.html"><i class="ti ti-arrow-left"></i> Back to courses</a>
 </nav>
-
 <div class="search-wrap">
   <div class="search-box-wrap">
     <input type="text" class="search-box" id="searchInput" placeholder="Search for a topic, role, or keyword..." autocomplete="off">
@@ -50,89 +48,91 @@ body{font-family:'Inter',sans-serif;background:#042e1f;color:#1a1a2e;min-height:
   <div class="results-meta" id="resultsMeta"></div>
   <div class="results-grid" id="resultsGrid"></div>
 </div>
-
 <footer class="site-footer"><div class="footer-copy">&copy; 2026 PairWorkflows. All rights reserved.</div></footer>
-
 <script>
-var searchData = [];
-var isDataLoaded = false;
-
-function renderResults(results, query) {
-  var grid = document.getElementById('resultsGrid');
-  var meta = document.getElementById('resultsMeta');
-  
-  if (results.length === 0) {
-    meta.innerHTML = '';
-    grid.innerHTML = '<div style="color:#fff;text-align:center;padding:2rem;">No results found.</div>';
+var searchData=[];
+var isDataLoaded=false;
+var STOPWORDS={'for':1,'the':1,'a':1,'an':1,'and':1,'or':1,'to':1,'in':1,'of':1,'is':1,'it':1,'at':1,'on':1,'how':1,'what':1,'with':1,'your':1,'you':1,'that':1,'this':1,'are':1,'can':1,'do':1,'by':1};
+function scoreItem(item,terms){
+  var titleLow=item.title.toLowerCase();
+  var descLow=item.description.toLowerCase();
+  var tagsLow=item.tags.join(' ').toLowerCase();
+  var catLow=item.category.toLowerCase();
+  var score=0;
+  terms.forEach(function(t){
+    if(t.length<2)return;
+    if(titleLow.indexOf(t)!==-1)score+=10;
+    if(tagsLow.indexOf(t)!==-1)score+=6;
+    if(descLow.indexOf(t)!==-1)score+=3;
+    if(catLow.indexOf(t)!==-1)score+=2;
+  });
+  var significantTerms=terms.filter(function(t){return t.length>=3&&!STOPWORDS[t];});
+  if(significantTerms.length>0){
+    var matched=significantTerms.filter(function(t){
+      var full=titleLow+' '+tagsLow+' '+descLow;
+      return full.indexOf(t)!==-1;
+    });
+    if(matched.length>=Math.ceil(significantTerms.length/2))score+=5;
+  }
+  return score;
+}
+function renderResults(results,query){
+  var grid=document.getElementById('resultsGrid');
+  var meta=document.getElementById('resultsMeta');
+  if(results.length===0){
+    meta.innerHTML='';
+    grid.innerHTML='<div style="color:rgba(255,255,255,.6);text-align:center;padding:2rem;">No results found. Try a different keyword.</div>';
     return;
   }
-  
-  meta.innerHTML = 'Found <span>' + results.length + ' result' + (results.length !== 1 ? 's' : '') + '</span>';
-  
-  // Prepariamo le parole chiave per l'evidenziazione
-  var terms = query.toLowerCase().trim().split(/\s+/);
-  // Usiamo una regex che ignora i caratteri speciali per evitare errori
-  var pattern = terms.map(function(t) { return t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }).join('|');
-  var regex = new RegExp('(' + pattern + ')', 'gi');
-
-  grid.innerHTML = results.map(function(item) {
-    var iconCls = item.category.indexOf('Claude') > -1 ? 'icon-claude' : item.category.indexOf('Gemini') > -1 ? 'icon-gemini' : item.category.indexOf('Prompt') > -1 ? 'icon-prompt' : 'icon-resource';
-    
-    // Funzione sicura per evidenziare
-    var highlight = function(text) {
-      if (!text) return "";
-      return text.replace(regex, function(match) {
-        return '<mark style="background:#1d9e75; color:#fff; border-radius:2px;">' + match + '</mark>';
-      });
-    };
-
-    return '<a href="' + item.url + '" class="result-card">' +
-      '<div class="result-icon ' + iconCls + '"><i class="ti ti-file-text"></i></div>' +
-      '<div class="result-body">' +
-        '<div class="result-title">' + highlight(item.title) + '</div>' +
-        '<div class="result-desc">' + highlight(item.description) + '</div>' +
-      '</div>' +
+  meta.innerHTML='Found <span>'+results.length+' result'+(results.length!==1?'s':'')+'</span>';
+  var terms=query.toLowerCase().trim().split(/\s+/).filter(function(t){return t.length>=2;});
+  var pattern=terms.map(function(t){return t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}).join('|');
+  var regex=new RegExp('('+pattern+')','gi');
+  var highlight=function(text){
+    if(!text)return'';
+    return text.replace(regex,function(match){
+      return'<mark style="background:#1d9e75;color:#fff;border-radius:2px;padding:0 2px;">'+match+'</mark>';
+    });
+  };
+  grid.innerHTML=results.map(function(item){
+    var iconCls=item.category.indexOf('Claude')>-1?'icon-claude':item.category.indexOf('Gemini')>-1?'icon-gemini':item.category.indexOf('Prompt')>-1?'icon-prompt':'icon-resource';
+    return'<a href="'+item.url+'" class="result-card">'+
+      '<div class="result-icon '+iconCls+'"><i class="ti ti-file-text"></i></div>'+
+      '<div class="result-body">'+
+        '<div class="result-title">'+highlight(item.title)+'</div>'+
+        '<div class="result-desc">'+highlight(item.description)+'</div>'+
+      '</div>'+
       '</a>';
   }).join('');
 }
-function doSearch(query) {
-  if (!isDataLoaded) {
-    document.getElementById('resultsGrid').innerHTML = '<div style="color:#fff;text-align:center;padding:2rem;">Loading data... please wait.</div>';
+function doSearch(query){
+  if(!isDataLoaded){
+    document.getElementById('resultsGrid').innerHTML='<div style="color:#fff;text-align:center;padding:2rem;">Loading... please wait.</div>';
     return;
   }
-  
-  if (!query || query.trim().length < 2) {
-    document.getElementById('resultsMeta').innerHTML = '';
-    document.getElementById('resultsGrid').innerHTML = '';
+  if(!query||query.trim().length<2){
+    document.getElementById('resultsMeta').innerHTML='';
+    document.getElementById('resultsGrid').innerHTML='';
     return;
   }
-  
-  var terms = query.toLowerCase().trim().split(/\s+/);
-  var results = searchData.filter(function(item) {
-    var text = (item.title + ' ' + item.description + ' ' + item.tags.join(' ')).toLowerCase();
-    return terms.every(function(t) { return text.indexOf(t) !== -1; });
-  });
-  
-  // Qui passiamo sia i risultati che la query originale
-  renderResults(results, query);
+  var terms=query.toLowerCase().trim().split(/\s+/);
+  var scored=searchData.map(function(item){return{item:item,score:scoreItem(item,terms)};});
+  var results=scored.filter(function(s){return s.score>0;}).sort(function(a,b){return b.score-a.score;}).map(function(s){return s.item;});
+  renderResults(results,query);
 }
-
 fetch('/search-index.json')
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
-    searchData = data;
-    isDataLoaded = true;
-    
-    var input = document.getElementById('searchInput');
-    input.addEventListener('input', function() { doSearch(this.value); });
-    
-    // Se c'è una query nell'URL, cercala subito
-    var params = new URLSearchParams(window.location.search);
-    var q = params.get('q');
-    if (q) {
-      input.value = q;
-      doSearch(q);
-    }
+  .then(function(r){return r.json();})
+  .then(function(data){
+    searchData=data;
+    isDataLoaded=true;
+    var input=document.getElementById('searchInput');
+    input.addEventListener('input',function(){doSearch(this.value);});
+    var params=new URLSearchParams(window.location.search);
+    var q=params.get('q');
+    if(q){input.value=q;doSearch(q);}
+  })
+  .catch(function(){
+    document.getElementById('resultsGrid').innerHTML='<div style="color:rgba(255,255,255,.6);text-align:center;padding:2rem;">Could not load search data. Please try again.</div>';
   });
 </script>
 </body>
