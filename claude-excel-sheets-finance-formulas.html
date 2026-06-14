@@ -132,11 +132,11 @@ var quiz=[
    opts:['Only the error code, with no other context','The exact formula including the error shown, plus context on what it should do','A screenshot of your entire spreadsheet'],
    correct:1},
   {q:'Why should you ask Claude to explain a formula, not just provide it?',
-   opts:['Explanations are required by Excel to run the formula','Understanding each part lets you spot mismatches with your data and adjust with confidence','Claude cannot provide a formula without an explanation'],
-   correct:1},
+ opts:['Explanations are required by Excel to run the formula','Claude cannot provide a formula without an explanation','Understanding each part lets you spot mismatches with your data and adjust with confidence'],
+ correct:2},
   {q:'What should you do before using a new Claude-generated formula in a live financial model?',
-   opts:['Apply it directly across the full dataset immediately','Test it on a small range and check results against figures you can verify manually','Convert it to a different programming language first'],
-   correct:1}
+   opts:['Apply it directly across the full dataset immediately','Convert it to a different programming language first','Test it on a small range and check results against figures you can verify manually'],
+   correct:2}
 ];
 function buildQuizHTML(){
   if(quizDone){
