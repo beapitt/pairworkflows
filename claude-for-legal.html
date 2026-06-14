@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI for Legal Teams: Claude & Gemini Mini-Courses — PairWorkflows</title>
+<meta name="description" content="Master AI for Legal. Practical Claude and Gemini mini-courses for contract review, NDA analysis, compliance summaries and plain-English document summaries — free, 5 minutes each.">
+<link rel="canonical" href="https://www.pairworkflows.com/claude-for-legal.html">
+<meta property="og:title" content="AI for Legal Teams: Claude & Gemini Mini-Courses — PairWorkflows">
+<meta property="og:description" content="Master AI for Legal. Practical Claude and Gemini mini-courses for contract review, NDA analysis, compliance summaries and plain-English document summaries.">
+<meta property="og:url" content="https://www.pairworkflows.com/claude-for-legal.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PairWorkflows">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI for Legal Teams: Claude & Gemini Mini-Courses — PairWorkflows">
+<meta name="twitter:description" content="Master AI for Legal. Practical Claude and Gemini mini-courses for contract review, NDA analysis, compliance summaries and plain-English document summaries.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter','Segoe UI',Helvetica Neue,sans-serif;background:#042e1f;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}.logo-workflows{font-size:16px;font-weight:400;color:#ffffff}.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}.nav-back:hover{color:#1d9e75}.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
+.hero-hub{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:1.5rem}
+.hero-hub h1{font-size:32px;font-weight:600;color:#ffffff;margin-bottom:.75rem;line-height:1.25}
+.hero-hub p{font-size:15px;color:rgba(255,255,255,.85);max-width:640px;margin:0 auto 1.5rem;line-height:1.7}
+.hero-cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.hub-btn{padding:11px 24px;border-radius:8px;font-weight:500;text-decoration:none;font-size:13px;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
+.hub-btn-primary{background:#1d9e75;color:#ffffff}
+.hub-btn-primary:hover{background:#178a64}
+.hub-btn-secondary{background:rgba(255,255,255,.1);color:#ffffff;border:1px solid rgba(255,255,255,.2)}
+.hub-btn-secondary:hover{background:rgba(255,255,255,.18)}
+.hub-section{background:#ffffff;border-radius:16px;padding:2rem 2rem;margin-bottom:1.25rem;box-shadow:0 2px 24px rgba(0,0,0,.18),0 0 0 1px rgba(0,0,0,.06)}
+.hub-section h2{font-size:20px;font-weight:600;color:#0f6e56;margin-bottom:1rem}
+.hub-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
+.hub-section p:last-child{margin-bottom:0}
+.cap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:1rem}
+.cap-card{background:#f8fafb;border:1px solid #e8ecef;border-top:3px solid #1d9e75;border-radius:4px 4px 10px 10px;padding:1.25rem}
+.cap-icon{font-size:24px;color:#1d9e75;margin-bottom:.5rem}
+.cap-title{font-size:13px;font-weight:700;color:#0f6e56;margin-bottom:.35rem}
+.cap-desc{font-size:13px;color:#374151;line-height:1.6}
+.path-list{display:flex;flex-direction:column;gap:10px;margin-top:1rem}
+.path-card{display:flex;align-items:center;gap:14px;background:#f8fafb;border:1px solid #e8ecef;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1.1rem 1.25rem;text-decoration:none;transition:all .15s}
+.path-card:hover{background:#f0fdf4;border-color:#9fe1cb;transform:translateX(2px)}
+.path-icon{width:38px;height:38px;border-radius:10px;background:#e1f5ee;display:flex;align-items:center;justify-content:center;color:#0f6e56;font-size:18px;flex-shrink:0}
+.path-content{flex:1}
+.path-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#1d9e75;margin-bottom:.2rem}
+.path-title{font-size:14px;font-weight:600;color:#0f6e56;margin-bottom:.2rem}
+.path-desc{font-size:12px;color:#6b7280;line-height:1.5}
+.path-arrow{color:#9fe1cb;font-size:16px;flex-shrink:0}
+.faq-item{border-bottom:1px solid #e8ecef;padding:1rem 0}
+.faq-item:last-child{border-bottom:none;padding-bottom:0}
+.faq-q{font-size:14px;font-weight:600;color:#0f6e56;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.faq-q i{transition:transform .2s;color:#1d9e75;flex-shrink:0}
+.faq-q.open i{transform:rotate(180deg)}
+.faq-a{font-size:13px;color:#374151;line-height:1.7;display:none;padding-top:.6rem}
+.faq-a.open{display:block}
+.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:2rem;flex-shrink:0;margin-top:1rem}
+.footer-cols{display:flex;justify-content:center;gap:4rem;flex-wrap:wrap;margin-bottom:1.5rem;max-width:1100px;margin-left:auto;margin-right:auto}
+.footer-col strong{display:block;font-size:12px;font-weight:600;color:#9fe1cb;margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.06em}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.55);text-decoration:none;margin-bottom:.4rem;transition:color .15s}
+.footer-col a:hover{color:#1d9e75}
+.footer-copy{text-align:center;font-size:12px;color:#4a7a60}
+@media(max-width:700px){.navbar{padding:0 1rem}.page-wrap{padding:1rem .5rem}.hero-hub{padding:2rem 1.25rem}.hero-hub h1{font-size:24px}.hub-section{padding:1.5rem 1.25rem}.cap-grid{grid-template-columns:1fr}.footer-cols{gap:2rem;justify-content:flex-start}}
+#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}#searchOverlay.open{display:flex}.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}.search-close-btn:hover{color:#ffffff}.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}.search-box input{flex:1;border:none;outline:none;background:transparent;color:#ffffff;font-size:17px;font-family:'Inter',sans-serif}.search-box input::placeholder{color:rgba(255,255,255,.35)}.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center;letter-spacing:.02em}.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}.search-trigger:hover{background:rgba(255,255,255,.15);color:#ffffff}</style>
+</head>
+<body>
+<div id="searchOverlay" onclick="if(event.target===this)closeSearch()"><div class="search-overlay-inner"><button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button><form action="/search.html" method="get"><div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div></form><p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p></div></div>
+<nav class="navbar"><a href="https://www.pairworkflows.com" class="nav-logo"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a><div style="display:flex;align-items:center;gap:16px"><button class="search-trigger" onclick="openSearch()"><i class="ti ti-search"></i></button><a href="https://www.pairworkflows.com/index.html" class="nav-back"><i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses</a></div></nav>
+<div class="page-wrap">
+
+<section class="hero-hub">
+<h1>AI for Legal Teams</h1>
+<p>Master Claude and Gemini in 5 minutes a course. Practical workflows for contract review, NDA analysis, compliance summaries and plain-English document summaries — built for UK and US legal professionals.</p>
+<div class="hero-cta-row">
+<a href="#path" class="hub-btn hub-btn-primary"><i class="ti ti-books"></i> Browse Mini-Courses</a>
+<a href="https://www.pairworkflows.com/prompt-library.html" class="hub-btn hub-btn-secondary"><i class="ti ti-clipboard-text"></i> Browse Prompt Library</a>
+</div>
+</section>
+
+<section class="hub-section">
+<h2>Why AI Matters for Legal</h2>
+<p>Contract review is one of the most time-intensive tasks in legal work — and much of that time is spent reading, extracting and summarising information that is already in the document. Finding the indemnification clause, identifying the governing law, spotting missing terms — these are tasks that require careful reading, not legal judgement.</p>
+<p>Claude and Gemini can do the reading. They process long documents quickly, extract specific clauses on request, flag unusual or missing terms and produce plain-English summaries for non-legal stakeholders. The legal judgement — whether to sign, what to negotiate, what the risk actually means — always stays with a qualified professional.</p>
+</section>
+
+<section class="hub-section">
+<h2>Key Capabilities</h2>
+<div class="cap-grid">
+<div class="cap-card"><div class="cap-icon"><i class="ti ti-file-search"></i></div><div class="cap-title">Clause Extraction</div><div class="cap-desc">Find and extract specific clauses — indemnity, liability cap, termination, governing law — from long contracts.</div></div>
+<div class="cap-card"><div class="cap-icon"><i class="ti ti-alert-triangle"></i></div><div class="cap-title">Risk Flagging</div><div class="cap-desc">Identify unusual, missing or potentially problematic terms that warrant closer legal review.</div></div>
+<div class="cap-card"><div class="cap-icon"><i class="ti ti-file-text"></i></div><div class="cap-title">Plain-English Summaries</div><div class="cap-desc">Translate complex contract language into clear summaries for business stakeholders who are not lawyers.</div></div>
+<div class="cap-card"><div class="cap-icon"><i class="ti ti-shield-check"></i></div><div class="cap-title">Compliance Checklists</div><div class="cap-desc">Check a document against required provisions and flag what is present, absent or unclear.</div></div>
+</div>
+</section>
+
+<section class="hub-section" id="path">
+<h2>Curated Learning Path</h2>
+<div class="path-list">
+<a href="https://www.pairworkflows.com/claude-prompt-templates-legal.html" class="path-card"><div class="path-icon"><i class="ti ti-file-text"></i></div><div class="path-content"><div class="path-tag">Claude AI</div><div class="path-title">Legal Prompt Templates</div><div class="path-desc">5 ready-to-use Claude prompt templates for contract summaries, NDA reviews and risk flags.</div></div><i class="ti ti-chevron-right path-arrow"></i></a>
+<a href="https://www.pairworkflows.com/claude-legal-document-review.html" class="path-card"><div class="path-icon"><i class="ti ti-file-search"></i></div><div class="path-content"><div class="path-tag">Claude AI</div><div class="path-title">Contract Review and Legal Document Analysis</div><div class="path-desc">How to use Claude to review contracts, summarise legal documents and flag risks faster — with practical prompts.</div></div><i class="ti ti-chevron-right path-arrow"></i></a>
+<a href="https://www.pairworkflows.com/gemini-for-legal.html" class="path-card"><div class="path-icon"><i class="ti ti-sparkles"></i></div><div class="path-content"><div class="path-tag">Gemini AI</div><div class="path-title">Contract Review, Compliance and Risk Workflows</div><div class="path-desc">How legal teams can use Gemini to automate contract review, regulatory research and document drafting.</div></div><i class="ti ti-chevron-right path-arrow"></i></a>
+</div>
+</section>
+
+<section class="hub-section">
+<h2>FAQ</h2>
+<div class="faq-item"><div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">Are these courses suitable for UK and US legal teams? <i class="ti ti-chevron-down"></i></div><div class="faq-a">Yes. Every workflow covers how to specify jurisdiction and context so Claude and Gemini calibrate their output appropriately for UK or US law.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">Can Claude or Gemini replace a qualified lawyer? <i class="ti ti-chevron-down"></i></div><div class="faq-a">No. Claude and Gemini do not provide legal advice. They summarise, extract and draft — any document that will be signed or relied upon must be reviewed by a qualified lawyer in the relevant jurisdiction.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">Do I need a paid Claude or Gemini plan to follow these courses? <i class="ti ti-chevron-down"></i></div><div class="faq-a">No. Every workflow in these courses works on the free tier of Claude and Gemini. A paid plan may give you higher usage limits, but it is not required to follow along.</div></div>
+</section>
+
+</div>
+<footer class="page-footer">
+<div class="footer-cols">
+<div class="footer-col"><strong>Guides by Role</strong>
+<a href="https://www.pairworkflows.com/claude-for-finance.html">AI for Finance Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-hr.html">AI for HR Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-marketing.html">AI for Marketing Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-legal.html">AI for Legal Teams</a>
+<a href="https://www.pairworkflows.com/index.html">All Courses</a>
+</div>
+<div class="footer-col"><strong>Company & Legal</strong>
+<a href="https://www.pairworkflows.com/contact.html">Contact</a>
+<a href="https://www.pairworkflows.com/legal.html#privacy">Privacy Policy</a>
+<a href="https://www.pairworkflows.com/legal.html#terms">Terms of Use</a>
+<a href="https://www.pairworkflows.com/legal.html#cookies">Cookie Policy</a>
+</div>
+</div>
+<div class="footer-copy">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75;text-decoration:none">PairWorkflows</a>. All rights reserved.</div>
+</footer>
+<script>
+function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+</script>
+</body>
+</html>
