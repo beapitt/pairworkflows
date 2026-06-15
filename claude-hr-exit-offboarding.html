@@ -124,17 +124,17 @@ var heroes=[
 ];
 var quiz=[
   {q:'What does Claude help with in the offboarding process, according to this course?',
-   opts:['Deciding why an employee is leaving the company','Drafting the standard checklist, handover template and communications','Notifying the employee\'s clients directly of their departure'],
-   correct:1},
+   opts:['Drafting the standard checklist, handover template and communications','Deciding why an employee is leaving the company','Notifying the employee\'s clients directly of their departure'],
+   correct:0},
   {q:'According to the example prompt, what should the team announcement avoid?',
    opts:['Stating the employee\'s last working day','Speculating about or referring to the reason for leaving','Mentioning the handover plan'],
    correct:1},
   {q:'In the checklist prompt, what should Claude do if it thinks a step is missing from the list provided?',
-   opts:['Add the step directly into the checklist without saying so','Note it separately as a suggestion, rather than adding it to the checklist','Remove a different step to make room for it'],
-   correct:1},
+   opts:['Add the step directly into the checklist without saying so','Remove a different step to make room for it','Note it separately as a suggestion, rather than adding it to the checklist'],
+   correct:2},
   {q:'Who should decide what is said about the specific reasons for an employee\'s departure?',
-   opts:['Claude, based on the information available','HR and the manager, based on what is appropriate and agreed with the employee','The rest of the team, through discussion'],
-   correct:1}
+   opts:['HR and the manager, based on what is appropriate and agreed with the employee','Claude, based on the information available','The rest of the team, through discussion'],
+   correct:0}
 ];
 function buildQuizHTML(){
   if(quizDone){
