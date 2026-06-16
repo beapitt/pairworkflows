@@ -178,7 +178,7 @@ function render(){
   if(cur===3){fwd.style.display='none';}
   else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
 }
-function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();}
+function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
 function goFwd(){if(cur<3)go(cur+1);}
 function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
 function showResult(){quizDone=true;render();}
