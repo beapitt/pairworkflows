@@ -135,7 +135,7 @@ function buildQuizHTML(){
   else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
   return html;
 }
-function render(){
+function render(){window.scrollTo(0,0);
   document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
   document.getElementById('progTxt').textContent=(cur+1)+' of 4';
   document.getElementById('heroTag').textContent=heroes[cur].tag;
