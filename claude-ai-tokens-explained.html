@@ -116,7 +116,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#ffffff;
 .result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6;}
 .retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s;}
 .retake-btn:hover{background:#e1f5ee;}
-.site-footer{background:#021a12;padding:1.5rem 3rem;text-align:center;border-top:1px solid rgba(255,255,255,.06);margin-top:auto;}
+.share-section{background:#021a12;border-top:1px solid rgba(255,255,255,.06);padding:2rem 3rem;text-align:center;} .share-title{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:1rem;letter-spacing:.04em;} .share-btns{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;} .share-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.07);color:rgba(255,255,255,.75);text-decoration:none;transition:all .15s;} .share-btn:hover{background:rgba(255,255,255,.14);color:#ffffff;} .share-btn i{font-size:15px;} .site-footer{background:#021a12;padding:1.5rem 3rem;text-align:center;border-top:1px solid rgba(255,255,255,.06);margin-top:auto;}
 .footer-links{display:flex;justify-content:center;gap:2rem;margin-bottom:.625rem;flex-wrap:wrap;}
 .footer-links a{font-size:12px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .15s;}
 .footer-links a:hover{color:#9fe1cb;}
@@ -181,6 +181,14 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#ffffff;
 </div>
 </div>
 </div>
+<div class="share-section">
+<div class="share-title">Found this useful? Share it.</div>
+<div class="share-btns">
+<button class="share-btn" onclick="copyLink()"><i class="ti ti-link"></i> Copy link</button>
+<a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.pairworkflows.com%2Fclaude-ai-tokens-explained.html" target="_blank" rel="noopener"><i class="ti ti-brand-linkedin"></i> LinkedIn</a>
+<a class="share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.pairworkflows.com%2Fclaude-ai-tokens-explained.html&text=Claude+Token+Management%3A+Stop+Wasting+Your+Daily+Budget+%E2%80%94+free+5-min+course+on+PairWorkflows" target="_blank" rel="noopener"><i class="ti ti-brand-x"></i> X</a>
+</div>
+</div>
 <footer class="site-footer">
 <div class="footer-links">
 <a href="/index.html">Home</a>
@@ -215,7 +223,7 @@ function goFwd(){if(cur<3)go(cur+1);}
 function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
 function showResult(){quizDone=true;render();}
 function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
-function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
+function copyLink(){navigator.clipboard.writeText(window.location.href).then(function(){var b=document.querySelector('.share-btn');var orig=b.innerHTML;b.innerHTML='<i class="ti ti-check"></i> Copied!';setTimeout(function(){b.innerHTML=orig;},2000);});} function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
 function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
 render();
