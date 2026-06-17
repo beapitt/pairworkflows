@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>How to Use Claude AI for Incident Reporting — PairWorkflows</title>
+<meta name="description" content="Learn how to use Claude AI to draft clear, structured incident reports and operational communications from your notes. Free 5-minute guide for operations teams.">
+<link rel="canonical" href="https://www.pairworkflows.com/claude-operations-incident-reporting.html">
+<meta property="og:title" content="How to Use Claude AI for Incident Reporting — PairWorkflows">
+<meta property="og:description" content="Learn how to use Claude AI to draft clear, structured incident reports and operational communications from your notes.">
+<meta property="og:url" content="https://www.pairworkflows.com/claude-operations-incident-reporting.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PairWorkflows">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Use Claude AI for Incident Reporting — PairWorkflows">
+<meta name="twitter:description" content="Learn how to use Claude AI to draft clear, structured incident reports and operational communications from your notes.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"How to Use Claude AI for Incident Reporting","description":"Learn how to use Claude AI to draft clear, structured incident reports and operational communications from your notes.","url":"https://www.pairworkflows.com/claude-operations-incident-reporting.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
+.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
+.logo-workflows{font-size:16px;font-weight:400;color:#fff}
+.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
+.nav-back:hover{color:#1d9e75}
+.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
+.course-shell{background:#fff;border-radius:16px;box-shadow:0 2px 24px rgba(0,0,0,.25),0 0 0 1px rgba(0,0,0,.08);overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
+.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
+.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
+.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
+.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
+.prog-wrap{padding:1rem 1.25rem .75rem}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
+.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
+.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
+.nav-list{padding:.5rem 0;flex:1}
+.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
+.nav-item:hover{background:#eef1f4}
+.nav-item.active{border-left-color:#1d9e75;background:#fff}
+.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
+.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
+.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
+.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
+.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
+.content-area{display:flex;flex-direction:column}
+.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
+.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
+.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
+.content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden}
+.seo-section{display:none}
+.seo-section.active-section{display:block}
+.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
+.task-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.5rem 0;max-width:100%}
+.task-card{background:#f8fafb;border:1px solid #e8ecef;border-top:3px solid #1d9e75;border-radius:4px 4px 10px 10px;padding:1.25rem;text-align:center}
+.task-icon{font-size:26px;color:#1d9e75;margin-bottom:.5rem}
+.task-name{font-size:13px;font-weight:700;color:#0f6e56;margin-bottom:.3rem}
+.task-desc{font-size:12px;color:#374151;line-height:1.5}
+.before-after{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.5rem 0;max-width:100%}
+.ba-card{border-radius:12px;padding:1.25rem}
+.ba-before{background:#fef2f2;border:1px solid #fecaca}
+.ba-after{background:#e1f5ee;border:1px solid #6ee7b7}
+.ba-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem;display:flex;align-items:center;gap:6px}
+.ba-label-before{color:#dc2626}
+.ba-label-after{color:#059669}
+.ba-text{font-size:13px;line-height:1.6;color:#374151}
+.prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
+.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
+.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}
+.prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#fff}
+.workflow-steps{display:flex;flex-direction:column;gap:10px;margin:1.5rem 0}
+.wf-step{display:flex;align-items:flex-start;gap:14px;background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:1rem 1.25rem}
+.wf-num{width:30px;height:30px;border-radius:50%;background:#0f6e56;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0}
+.wf-content{flex:1;min-width:0}
+.wf-title{font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.2rem}
+.wf-desc{font-size:13px;color:#374151;line-height:1.55}
+.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;border-radius:12px;padding:1.25rem;margin:1.5rem 0}
+.checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
+.checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
+.checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
+.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
+.highlight-text{font-size:13px;color:#374151;line-height:1.65}
+.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
+.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
+.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
+.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%;border-radius:10px;border:1px solid #e8ecef}
+.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc;flex-shrink:0}
+.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-back:hover{background:#f0f2f5}
+.btn-back:disabled{opacity:.35;cursor:default}
+.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-fwd:hover{background:#0f6e56}
+.quiz-q{margin-bottom:1.5rem}
+.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
+.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
+.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
+.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}
+.opt.selected .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
+.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}
+.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
+.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
+.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}
+.submit-global:hover{background:#0f6e56}
+.submit-global:disabled{opacity:.35;cursor:default}
+.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
+.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
+.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
+.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.retake-btn:hover{background:#e1f5ee}
+.share-section{max-width:1100px;margin:2.5rem auto 0;padding:0 1rem}
+.share-inner{display:flex;align-items:center;justify-content:center;gap:16px;padding:1.75rem 1.5rem;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap}
+.share-copy{display:flex;align-items:center;gap:10px;height:48px;padding:0 20px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;color:#e5e7eb;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .2s}
+.share-copy:hover{background:#374151;transform:scale(1.04)}
+.share-copy:active{transform:scale(.95)}
+.share-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;text-decoration:none;transition:all .2s}
+.share-icon:hover{transform:scale(1.08)}
+.share-li:hover{background:#0a66c2;border-color:#0a66c2}
+.share-x:hover{background:#000;border-color:#000}
+.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:2rem}
+.page-footer a{color:#1d9e75;text-decoration:none}
+.page-footer a:hover{text-decoration:underline}
+#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
+#searchOverlay.open{display:flex}
+.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
+.search-close-btn:hover{color:#fff}
+.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
+.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
+.search-box input::placeholder{color:rgba(255,255,255,.35)}
+.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center;letter-spacing:.02em}
+.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
+@media(max-width:700px){
+  .navbar{padding:0 1rem}
+  .page-wrap{padding:1rem .5rem}
+  .course-shell{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .content-body{padding:1.25rem 1rem;max-width:100%;overflow-x:hidden}
+  .section-hero{padding:1.25rem 1rem}
+  .content-footer{padding:1rem}
+  .task-grid,.before-after{grid-template-columns:1fr}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<div id="searchOverlay" onclick="if(event.target===this)closeSearch()"><div class="search-overlay-inner"><button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button><form action="/search.html" method="get"><div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div></form><p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p></div></div>
+<nav class="navbar"><a href="https://www.pairworkflows.com" class="nav-logo"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a><div style="display:flex;align-items:center;gap:16px"><button class="search-trigger" onclick="openSearch()"><i class="ti ti-search"></i></button><a href="https://www.pairworkflows.com/index.html" class="nav-back"><i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses</a></div></nav>
+<div class="page-wrap">
+<div class="course-shell">
+<div class="sidebar">
+<div class="sidebar-top">
+<div class="course-label">Claude AI — Operations Course</div>
+<div class="course-title-side">How to Use Claude AI for Incident Reporting</div>
+</div>
+<div class="prog-wrap">
+<div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
+<div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+</div>
+<div class="nav-list">
+<div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">Where Claude fits in incident reporting</div></div>
+<div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">An incident reporting workflow</div></div>
+<div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompts and a report review checklist</div></div>
+<div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quiz: test your knowledge</div></div>
+</div>
+</div>
+<div class="content-area">
+<div class="section-hero"><div class="section-tag" id="heroTag">Section 01</div><h2 id="heroTitle">Incident reports need to be clear and factual. Claude can structure your notes into a professional report.</h2></div>
+<div class="content-body" id="cnt">
+
+<div id="seo-sec-0" class="seo-section active-section">
+<p>When an operational incident occurs — a system outage, a safety event, a process failure — the pressure to communicate quickly and clearly is high. Writing a structured report from raw notes and a stressed recollection of events is difficult, and a poorly written report can create problems in investigations, insurance claims or regulatory reviews.</p>
+<p>Claude can help turn your incident notes into a clear, structured report. Give it the facts of what happened, when, who was involved and what actions were taken, and it can produce a professional draft with a logical sequence of events, impact summary and corrective actions — ready for you to review and submit.</p>
+<div class="highlight-box"><div class="highlight-icon"><i class="ti ti-bulb"></i></div><div class="highlight-text"><strong>Key insight:</strong> Claude structures and drafts from the facts you provide — it does not know what happened, cannot fill in gaps in your notes, and must never be used to add or infer details that were not part of the actual incident.</div></div>
+<div class="task-grid">
+<div class="task-card"><div class="task-icon"><i class="ti ti-file-report"></i></div><div class="task-name">Incident report drafting</div><div class="task-desc">Turn rough notes into a structured report with a clear timeline, impact summary and corrective actions.</div></div>
+<div class="task-card"><div class="task-icon"><i class="ti ti-message-report"></i></div><div class="task-name">Stakeholder communications</div><div class="task-desc">Draft a clear update for management or affected parties based on the facts of the incident.</div></div>
+<div class="task-card"><div class="task-icon"><i class="ti ti-checklist"></i></div><div class="task-name">Corrective action summaries</div><div class="task-desc">Summarise the actions taken and planned in response to the incident in plain, professional language.</div></div>
+</div>
+<div class="before-after">
+<div class="ba-card ba-before"><div class="ba-label ba-label-before"><i class="ti ti-x"></i> Without Claude</div><div class="ba-text">Write an incident report under time pressure from fragmented notes, risking unclear language or an illogical sequence that complicates the investigation.</div></div>
+<div class="ba-card ba-after"><div class="ba-label ba-label-after"><i class="ti ti-check"></i> With Claude</div><div class="ba-text">Paste your notes and get a structured, professionally worded draft — so you can focus on verifying the facts rather than wrestling with the writing.</div></div>
+</div>
+</div>
+
+<div id="seo-sec-1" class="seo-section">
+<p>A structured workflow keeps the incident report factually accurate and produces a document that holds up under scrutiny.</p>
+<div class="workflow-steps">
+<div class="wf-step"><div class="wf-num">1</div><div class="wf-content"><div class="wf-title">Record the facts immediately</div><div class="wf-desc">Write down what happened, when, where, who was involved and what actions were taken — as close to the event as possible, while details are fresh.</div></div></div>
+<div class="wf-step"><div class="wf-num">2</div><div class="wf-content"><div class="wf-title">Identify the required report format</div><div class="wf-desc">Check whether your organisation or regulator requires a specific report structure, and note any mandatory sections.</div></div></div>
+<div class="wf-step"><div class="wf-num">3</div><div class="wf-content"><div class="wf-title">Ask Claude to draft the report</div><div class="wf-desc">Paste your notes and ask Claude to produce a structured incident report with a timeline, impact summary and corrective actions section.</div></div></div>
+<div class="wf-step"><div class="wf-num">4</div><div class="wf-content"><div class="wf-title">Verify every fact in the draft</div><div class="wf-desc">Read the draft carefully against your original notes — confirm every date, time, name and action is accurate and that Claude has not added anything not in your notes.</div></div></div>
+<div class="wf-step"><div class="wf-num">5</div><div class="wf-content"><div class="wf-title">Review, approve and submit</div><div class="wf-desc">Have the report reviewed by the appropriate manager or safety officer before submitting through your organisation's incident reporting system.</div></div></div>
+</div>
+<div class="info-box"><p><strong>Note:</strong> Claude may reorder or reword events to improve clarity — always check that the sequence of events in the draft matches what actually happened, in the correct order.</p></div>
+</div>
+
+<div id="seo-sec-2" class="seo-section">
+<p>These prompts help structure incident notes into a formal report and draft a stakeholder communication, with strict limits on what Claude should add.</p>
+<div class="prompt-block">
+<div class="prompt-block-label">Prompt 1 — Draft an incident report</div>
+<div class="prompt-block-text">Using the following incident notes, draft a structured incident report: [Insert Incident Notes].
+
+Structure the report with these sections: Incident Summary, Date and Time, Location, People Involved, Sequence of Events, Impact, Immediate Actions Taken, and Corrective Actions Planned.
+
+Crucial instruction: Base every section strictly on the facts provided. Do not infer causes, add context or include details not present in the notes.</div>
+<button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+</div>
+<div class="prompt-block">
+<div class="prompt-block-label">Prompt 2 — Draft a stakeholder update</div>
+<div class="prompt-block-text">Based on this incident report: [Insert Incident Report or Summary], draft a brief update for [Audience, e.g. senior management / affected customers / the operations team].
+
+Keep the tone [Insert Tone, e.g. factual and calm / reassuring / direct].
+
+Crucial instruction: Only include information present in the report. Do not speculate about causes, assign blame or make promises about outcomes not confirmed in the facts.</div>
+<button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+</div>
+<div class="checklist-box">
+<div class="checklist-title">Before submitting a Claude-drafted incident report</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Factual accuracy: does every date, time, name and action in the report match your original notes exactly?</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> No added details: has Claude not inferred causes, assigned blame or added context not in your notes?</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Correct sequence: does the timeline of events in the report match the actual order in which things happened?</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Completeness: are all required sections present and filled — including corrective actions?</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Approval: has the report been reviewed and approved by the appropriate manager or safety officer?</div>
+</div>
+<div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>Important:</strong> Incident reports for safety events, regulatory incidents or insurance claims may have legal implications. Never submit a report that contains information you cannot verify — and always follow your organisation's incident reporting procedures, which Claude cannot know or replicate.</div></div>
+</div>
+
+<div id="seo-sec-3" class="seo-section"><div id="quiz-interactive-container"></div></div>
+</div>
+<div class="content-footer"><button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button><button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button></div>
+</div>
+</div>
+</div>
+<div class="share-section"><div class="share-inner"><button onclick="copyLink()" id="copyLinkBtn" class="share-copy"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.pairworkflows.com/claude-operations-incident-reporting.html" target="_blank" rel="noopener" class="share-icon share-li" title="Share on LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a><a href="https://twitter.com/intent/tweet?url=https://www.pairworkflows.com/claude-operations-incident-reporting.html&text=Free+5-minute+guide+on+incident+reporting+with+Claude+AI" target="_blank" rel="noopener" class="share-icon share-x" title="Share on X"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a></div></div>
+<footer class="page-footer">&copy; 2026 <a href="https://www.pairworkflows.com">PairWorkflows</a>. All rights reserved.</footer>
+<script>
+var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
+var heroes=[
+  {tag:'Section 01',title:'Incident reports need to be clear and factual. Claude can structure your notes into a professional report.'},
+  {tag:'Section 02',title:'A workflow for drafting incident reports with Claude.'},
+  {tag:'Section 03',title:'Prompts and an incident report review checklist.'},
+  {tag:'Section 04 — Quiz',title:'Test your knowledge.'}
+];
+var quiz=[
+  {q:'What does Claude need to draft an incident report?',
+   opts:['The facts of the incident — what happened, when, who was involved and what actions were taken','Access to your incident management system','A completed report from a previous similar incident to use as a template'],
+   correct:0},
+  {q:'What is the most important check before submitting a Claude-drafted incident report?',
+   opts:['Confirming the report is longer than two pages','Verifying that every date, time, name and action matches your original notes exactly','Checking that Claude has used formal legal language throughout'],
+   correct:1},
+  {q:'What limitation does Claude have when structuring incident notes?',
+   opts:['It cannot produce reports with a timeline section','It may reorder or reword events — the sequence must always be checked against what actually happened','It can only process incidents that occurred within the last 24 hours'],
+   correct:1},
+  {q:'Why should incident reports for safety or regulatory events never contain unverified information?',
+ opts:['Because your incident management system will reject reports with unverified data','Because Claude automatically flags unverified content in its output','Because these reports may have legal implications and inaccurate details can cause serious problems'],
+ correct:2}
+];
+function buildQuizHTML(){
+  if(quizDone){
+    var score=0;
+    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
+    var msgs=['Review Section 1 and 3 — understanding what Claude needs and what must be verified is the foundation.','Good effort — re-read the workflow steps and the report review checklist before trying again.','Almost there! One concept to sharpen — revisit why unverified details in incident reports are a serious problem.','Perfect mark! Try drafting a real incident report from your notes using the first prompt.'];
+    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
+  }
+  var html='';
+  for(var i=0;i<quiz.length;i++){
+    var q=quiz[i];
+    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
+    for(var j=0;j<q.opts.length;j++){
+      var cls='opt';
+      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
+      else if(sel[i]===j){cls+=' selected';}
+      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
+    }
+    html+='</div>';
+  }
+  var allSel=Object.keys(sel).length===quiz.length;
+  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
+  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
+  return html;
+}
+function render(){
+  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
+  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
+  document.getElementById('heroTag').textContent=heroes[cur].tag;
+  document.getElementById('heroTitle').textContent=heroes[cur].title;
+  for(var i=0;i<4;i++){
+    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),sec=document.getElementById('seo-sec-'+i);
+    ni.className='nav-item'+(i===cur?' active':'');
+    if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');
+    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
+    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
+    else{nd.className='nav-dot';nd.textContent=(i+1);}
+  }
+  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
+  document.getElementById('btnBack').disabled=(cur===0);
+  var fwd=document.getElementById('btnFwd');
+  if(cur===3){fwd.style.display='none';}
+  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
+}
+function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
+function goFwd(){if(cur<3)go(cur+1);}
+function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
+function showResult(){quizDone=true;render();}
+function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
+function copyPrompt(btn){var block=btn.closest('.prompt-block');var text=block.querySelector('.prompt-block-text').innerText;navigator.clipboard.writeText(text);btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);}
+function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
+function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+document.getElementById('cnt').addEventListener('click',function(e){
+  if(cur!==3||quizSubmitted||quizDone)return;
+  var opt=e.target.closest('.opt');
+  if(!opt)return;
+  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
+  render();
+});
+render();
+</script>
+</body>
+</html>
