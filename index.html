@@ -48,7 +48,11 @@
 <div class="course-view" id="courseView"><div class="course-view-inner"><div class="back-bar" onclick="goHome()"><i class="ti ti-arrow-left" style="font-size:14px;color:#6b7280"></i><span>Back to courses</span></div><div class="course-shell"><div class="sidebar"><div class="sidebar-top"><div class="course-label" id="sideLabel"></div><div class="course-title-side" id="sideTitle"></div></div><div class="prog-wrap"><div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div><div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div></div><div class="nav-list" id="navList"></div></div><div class="content-area"><div class="section-hero" id="sectionHero"><div class="section-tag" id="heroTag"></div><h2 id="heroTitle"></h2></div><div class="content-body" id="cnt"></div><div class="content-footer"><button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button><button id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button></div></div></div></div></div>
 <footer style="background:#021a12; border-top:1px solid #0a4a30; padding:2.5rem 1rem 1.5rem; margin-top:1rem">
   <div style="max-width:1100px; margin:0 auto">
-    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:2.5rem; margin-bottom:2.5rem">
+    
+    <!-- Grid Links -->
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:2.5rem; margin-bottom:2rem">
+      
+      <!-- Guides by Role -->
       <div>
         <strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Guides by Role</strong>
         <a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI for Finance Teams</a>
@@ -57,6 +61,8 @@
         <a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI for Legal Teams</a>
         <a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI for Operations Teams</a>
       </div>
+
+      <!-- Company -->
       <div>
         <strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company</strong>
         <a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">About</a>
@@ -64,17 +70,34 @@
         <a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Suggest a Course</a>
         <a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">All Courses</a>
       </div>
+
+      <!-- Legal -->
       <div>
         <strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Legal</strong>
         <a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Privacy Policy</a>
         <a href="https://www.pairworkflows.com/legal.html#terms" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Terms of Use</a>
         <a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:1.25rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Cookie Policy</a>
-        <p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:280px">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p>
       </div>
+
     </div>
+
+    <!-- Tagline centrata -->
+    <div style="text-align:center; margin-bottom:2rem;">
+      <p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:520px; margin:0 auto">
+        Free practical mini-courses for Claude &amp; Gemini.<br>
+        Built for real work. No ads, no paywalls.
+      </p>
+    </div>
+
+    <!-- Bottom Bar -->
     <div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem">
-      <span style="font-size:13px; color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
-      <div style="display:flex; gap:12px"></div>
+      <span style="font-size:13px; color:#475569">
+        © 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.
+      </span>
+      
+      <div style="display:flex; gap:12px">
+        <!-- Pulsanti X e LinkedIn qui -->
+      </div>
     </div>
   </div>
 </footer>
