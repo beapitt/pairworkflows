@@ -94,43 +94,8 @@
 <div class="filters-wrap" id="filtersWrap"></div>
 <div class="courses-grid" id="coursesGrid"></div>
 <div class="resources-section"><h2 class="resources-title">Explore our resources</h2><div class="resources-grid"><a href="/claude-vs-gemini.html" class="resource-card"><div class="resource-card-title">Claude vs Gemini</div><div class="resource-card-desc">Not sure which AI to use at work? We compare both tools by task, role and use case.</div><div class="resource-card-link">Read the guide →</div></a><a href="/glossary.html" class="resource-card"><div class="resource-card-title">AI Glossary</div><div class="resource-card-desc">40 essential AI terms explained in plain English with real business examples.</div><div class="resource-card-link">Browse the glossary →</div></a><a href="/prompt-library.html" class="resource-card"><div class="resource-card-title">Prompt Library</div><div class="resource-card-desc">Ready-to-copy prompts for Marketing, HR, Finance, Legal and Operations teams.</div><div class="resource-card-link">View prompts →</div></a></div></div>
+
 <!-- TESTIMONIALS -->
-<div class="testimonials-section" id="testimonialsSection">
-  <h2 class="testimonials-title">What professionals say</h2>
-  <p class="testimonials-sub">Real feedback from people using PairWorkflows at work.</p>
-  <div class="testimonials-grid" id="testimonialsGrid">
-    <div class="reviews-loading">Loading reviews…</div>
-  </div>
-  <div class="review-form-wrap">
-    <div class="review-form-title">Share your experience</div>
-    <div class="review-form-sub">Takes 60 seconds. Your review will appear after approval.</div>
-    <div class="review-form-grid">
-      <div class="rf-field">
-        <label>Your name</label>
-        <input type="text" id="rfName" placeholder="Sarah Chen" maxlength="60">
-      </div>
-      <div class="rf-field">
-        <label>Your role</label>
-        <input type="text" id="rfRole" placeholder="Marketing Director, TechFlow" maxlength="80">
-      </div>
-    </div>
-    <div class="rf-field" style="margin-bottom:12px">
-      <label>Your review</label>
-      <textarea id="rfContent" placeholder="What did you find most useful? How has it helped your work?" maxlength="400"></textarea>
-    </div>
-    <div class="rf-field" style="margin-bottom:4px"><label>Rating</label></div>
-    <div class="rf-stars-row" id="rfStarsRow">
-      <span class="rf-star" data-v="1">★</span>
-      <span class="rf-star" data-v="2">★</span>
-      <span class="rf-star" data-v="3">★</span>
-      <span class="rf-star" data-v="4">★</span>
-      <span class="rf-star" data-v="5">★</span>
-    </div>
-    <button class="rf-submit" id="rfSubmit" onclick="submitReview()">Submit review</button>
-    <div class="rf-msg" id="rfMsg"></div>
-  </div>
-</div>
-  <!-- TESTIMONIALS -->
 <div class="testimonials-section" id="testimonialsSection">
   <h2 class="testimonials-title">What professionals say</h2>
   <p class="testimonials-sub">Real feedback from people using PairWorkflows at work.</p>
@@ -391,12 +356,12 @@ document.addEventListener('keydown',function(e){
 });
 
 function setRating(v){
-  rfRating=v;
+  rfRating=parseInt(v);
   document.querySelectorAll('.rf-star-btn').forEach(function(s){
-    s.classList.toggle('active',parseInt(s.dataset.v)<=v);
+    var val=parseInt(s.getAttribute('data-v'));
+    if(val<=rfRating){s.classList.add('active');}else{s.classList.remove('active');}
   });
 }
-
 function renderStars(rating){
   var html='';
   for(var i=1;i<=5;i++){
