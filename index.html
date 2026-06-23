@@ -465,15 +465,6 @@ async function submitReview(){
 
 loadReviews();
 
-document.getElementById('rfStarsRow').addEventListener('click',function(e){
-  var star=e.target.closest('.rf-star');
-  if(!star)return;
-  rfRating=parseInt(star.dataset.v);
-  document.querySelectorAll('.rf-star').forEach(function(s){
-    s.classList.toggle('active',parseInt(s.dataset.v)<=rfRating);
-  });
-});
-
 async function loadReviews(){
   var grid=document.getElementById('testimonialsGrid');
   try{
