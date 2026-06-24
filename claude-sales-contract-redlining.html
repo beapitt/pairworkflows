@@ -163,6 +163,17 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
   .content-footer{padding:1rem}
   .task-grid,.before-after{grid-template-columns:1fr}
 }
+.redline-view{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.5rem 0}
+.redline-col{border-radius:12px;padding:1.25rem}
+.redline-original{background:#fef2f2;border:1px solid #fecaca}
+.redline-revised{background:#e1f5ee;border:1px solid #6ee7b7}
+.redline-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem}
+.redline-original .redline-label{color:#dc2626}
+.redline-revised .redline-label{color:#059669}
+.redline-text{font-size:13px;line-height:1.7;color:#374151;font-family:'SFMono-Regular',Consolas,monospace}
+.redline-removed{background:#fecaca;color:#dc2626;text-decoration:line-through;padding:1px 4px;border-radius:3px}
+.redline-added{background:#6ee7b7;color:#065f46;padding:1px 4px;border-radius:3px}
+@media(max-width:700px){.redline-view{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -223,8 +234,8 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 <div class="wf-step"><div class="wf-num">1</div><div class="wf-content"><div class="wf-title">Receive the redlines</div><div class="wf-desc">Grab the redlined version the prospect sent over and save it as a clean text file or PDF.</div></div></div>
 <div class="wf-step"><div class="wf-num">2</div><div class="wf-content"><div class="wf-title">Highlight the sticky parts</div><div class="wf-desc">Read through and mentally flag the sections that feel weird or overly aggressive.</div></div></div>
 <div class="wf-step"><div class="wf-num">3</div><div class="wf-content"><div class="wf-title">Feed it to Claude</div><div class="wf-desc">Paste your original clause alongside the prospect’s redline into Claude.</div></div></div>
-<div class="wf-step"><div class="wf-content"><div class="wf-title">Generate the risk summary</div><div class="wf-desc">Ask Claude to strip away the legal speak and explain the practical business risk in one or two sentences.</div></div></div>
-<div class="wf-step"><div class="wf-content"><div class="wf-title">Shoot it to legal</div><div class="wf-desc">Copy that summary into an email for your legal team, so they see exactly what the problem is and why you're flagging it.</div></div></div>
+<div class="wf-step"><div class="wf-num">4</div><div class="wf-content"><div class="wf-title">Generate the risk summary</div><div class="wf-desc">Ask Claude to strip away the legal speak and explain the practical business risk in one or two sentences.</div></div></div>
+<div class="wf-step"><div class="wf-num">5</div><div class="wf-content"><div class="wf-title">Shoot it to legal</div><div class="wf-desc">Copy that summary into an email for your legal team, so they see exactly what the problem is and why you're flagging it.</div></div></div>
 </div>
 <div class="info-box"><p><strong>Note:</strong> Claude can't interpret your company's appetite for risk, so don't expect it to tell you if a specific change is "acceptable" for your current business goals.</p></div>
 </div>
