@@ -195,14 +195,14 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 <p>That's where Claude actually helps because it doesn't get tired. It sticks strictly to the constraints you set. Tell it to only look at changes in "Limitation of Liability" or "Payment Terms," and it ignores everything else. It doesn't hallucinate new terms or get creative with the legal language. You feed it the redlines, it flags exactly what changed, and it gives you a clear risk summary. That way you save your energy for the actual negotiation instead of the reading.</p>
 <div class="highlight-box"><div class="highlight-icon"><i class="ti ti-bulb"></i></div><div class="highlight-text"><strong>Key insight:</strong> Claude follows strict logical constraints, which means it pulls out only the changes you ask for while ignoring irrelevant fluff, ensuring you don't get distracted by minor edits.</div></div>
 
-<div class="redline-grid">
-  <div class="redline-col">
-    <span class="redline-label">Original Clause</span>
-    <p class="original-text">The liability of the Provider shall be limited to the total fees paid by the Customer in the 12 months preceding the claim.</p>
+<div class="redline-view">
+  <div class="redline-col redline-original">
+    <div class="redline-label">Original Clause</div>
+    <p class="redline-text">The liability of the Provider shall be limited to the <span class="redline-removed">total fees paid by the Customer in the 12 months preceding the claim</span>.</p>
   </div>
-  <div class="redline-col">
-    <span class="redline-label">Counterparty Redline</span>
-    <p>The liability of the Provider shall be <span class="new-text">unlimited, including indirect, consequential, and punitive damages.</span></p>
+  <div class="redline-col redline-revised">
+    <div class="redline-label">Counterparty Redline</div>
+    <p class="redline-text">The liability of the Provider shall be limited to the <span class="redline-added">unlimited amount, including indirect, consequential, and punitive damages</span>.</p>
   </div>
 </div>
 
