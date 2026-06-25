@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>How to Use Claude AI for QBR Deck Narrative Writing — PairWorkflows</title>
+<meta name="description" content="Learn how to use Claude AI to transform raw usage metrics into a compelling, boardroom-ready narrative for your next Quarterly Business Review. Free 5-minute guide.">
+<link rel="canonical" href="https://www.pairworkflows.com/claude-cs-qbr-narrative.html">
+<meta property="og:title" content="How to Use Claude AI for QBR Deck Narrative Writing — PairWorkflows">
+<meta property="og:description" content="Learn how to use Claude AI to transform raw usage metrics into a compelling, boardroom-ready narrative for your next Quarterly Business Review.">
+<meta property="og:url" content="https://www.pairworkflows.com/claude-cs-qbr-narrative.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PairWorkflows">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Use Claude AI for QBR Deck Narrative Writing — PairWorkflows">
+<meta name="twitter:description" content="Learn how to use Claude AI to transform raw usage metrics into a compelling, boardroom-ready narrative for your next Quarterly Business Review.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"How to Use Claude AI for QBR Deck Narrative Writing","description":"Learn how to use Claude AI to transform raw usage metrics into a compelling, boardroom-ready narrative for your next Quarterly Business Review.","url":"https://www.pairworkflows.com/claude-cs-qbr-narrative.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
+.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
+.logo-workflows{font-size:16px;font-weight:400;color:#fff}
+.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
+.nav-back:hover{color:#1d9e75}
+.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
+.course-shell{background:#fff;border-radius:16px;box-shadow:0 2px 24px rgba(0,0,0,.25),0 0 0 1px rgba(0,0,0,.08);overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
+.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
+.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
+.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
+.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
+.prog-wrap{padding:1rem 1.25rem .75rem}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
+.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
+.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
+.nav-list{padding:.5rem 0;flex:1}
+.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
+.nav-item:hover{background:#eef1f4}
+.nav-item.active{border-left-color:#1d9e75;background:#fff}
+.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
+.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
+.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
+.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
+.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
+.content-area{display:flex;flex-direction:column}
+.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
+.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
+.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
+.content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden}
+.seo-section{display:none}
+.seo-section.active-section{display:block}
+.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
+.task-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.5rem 0;max-width:100%}
+.task-card{background:#f8fafb;border:1px solid #e8ecef;border-top:3px solid #1d9e75;border-radius:4px 4px 10px 10px;padding:1.25rem;text-align:center;transition:transform .15s,box-shadow .15s}
+.task-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
+.task-icon{font-size:26px;color:#1d9e75;margin-bottom:.5rem}
+.task-name{font-size:13px;font-weight:700;color:#0f6e56;margin-bottom:.3rem}
+.task-desc{font-size:12px;color:#374151;line-height:1.5}
+.before-after{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.5rem 0;max-width:100%}
+.ba-card{border-radius:12px;padding:1.25rem}
+.ba-before{background:#fef2f2;border:1px solid #fecaca}
+.ba-after{background:#e1f5ee;border:1px solid #6ee7b7}
+.ba-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem;display:flex;align-items:center;gap:6px}
+.ba-label-before{color:#dc2626}
+.ba-label-after{color:#059669}
+.ba-text{font-size:13px;line-height:1.6;color:#374151}
+.data-to-story{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:8px;align-items:stretch;margin:1.5rem 0}
+.dts-col{border-radius:12px;padding:1.1rem}
+.dts-raw{background:#fef2f2;border:1px solid #fecaca}
+.dts-claude{background:linear-gradient(135deg,#085041,#0f6e56);border:1px solid #0f6e56}
+.dts-story{background:#e1f5ee;border:1px solid #6ee7b7}
+.dts-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.5rem}
+.dts-raw .dts-label{color:#dc2626}
+.dts-claude .dts-label{color:#9fe1cb}
+.dts-story .dts-label{color:#059669}
+.dts-item{font-size:12px;line-height:1.65;display:flex;align-items:baseline;gap:5px}
+.dts-raw .dts-item{color:#7f1d1d}
+.dts-claude .dts-item{color:rgba(255,255,255,.85)}
+.dts-story .dts-item{color:#065f46}
+.dts-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.dts-raw .dts-dot{background:#dc2626}
+.dts-claude .dts-dot{background:#9fe1cb}
+.dts-story .dts-dot{background:#059669}
+.dts-arrow{font-size:22px;color:#1d9e75;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.qbr-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:1.5rem 0}
+.qbr-step{border-radius:12px;padding:1rem 1.1rem;text-align:center}
+.qbr-step-1{background:linear-gradient(135deg,#fef2f2,#fee2e2);border:1px solid #fecaca}
+.qbr-step-2{background:linear-gradient(135deg,#fff8e1,#fef3c7);border:1px solid #fcd34d}
+.qbr-step-3{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid #93c5fd}
+.qbr-step-4{background:linear-gradient(135deg,#fdf4ff,#ede9fe);border:1px solid #c4b5fd}
+.qbr-step-5{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1px solid #86efac}
+.qbr-step-6{background:linear-gradient(135deg,#e1f5ee,#d1fae5);border:1px solid #6ee7b7}
+.qbr-step-num{width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.08);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#1a1a2e;margin:0 auto .5rem}
+.qbr-step-title{font-size:12px;font-weight:700;color:#1a1a2e;margin-bottom:.2rem}
+.qbr-step-desc{font-size:11px;color:#374151;line-height:1.45}
+.workflow-steps{display:flex;flex-direction:column;gap:10px;margin:1.5rem 0}
+.wf-step{display:flex;align-items:flex-start;gap:14px;background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:1rem 1.25rem;transition:border-color .15s}
+.wf-step:hover{border-color:#9fe1cb}
+.wf-num{width:30px;height:30px;border-radius:50%;background:#0f6e56;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0}
+.wf-content{flex:1;min-width:0}
+.wf-title{font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.2rem}
+.wf-desc{font-size:13px;color:#374151;line-height:1.55}
+.prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
+.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
+.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}
+.prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#fff}
+.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;border-radius:12px;padding:1.25rem;margin:1.5rem 0}
+.checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
+.checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
+.checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
+.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
+.highlight-text{font-size:13px;color:#374151;line-height:1.65}
+.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
+.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
+.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
+.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
+.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc;flex-shrink:0}
+.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-back:hover{background:#f0f2f5}
+.btn-back:disabled{opacity:.35;cursor:default}
+.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-fwd:hover{background:#0f6e56}
+.quiz-q{margin-bottom:1.5rem}
+.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
+.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
+.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
+.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}
+.opt.selected .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
+.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}
+.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
+.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
+.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}
+.submit-global:hover{background:#0f6e56}
+.submit-global:disabled{opacity:.35;cursor:default}
+.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
+.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
+.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
+.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.retake-btn:hover{background:#e1f5ee}
+.share-section{max-width:1100px;margin:2.5rem auto 0;padding:0 1rem}
+.share-inner{display:flex;align-items:center;justify-content:center;gap:16px;padding:1.75rem 1.5rem;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap}
+.share-copy{display:flex;align-items:center;gap:10px;height:48px;padding:0 20px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;color:#e5e7eb;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .2s}
+.share-copy:hover{background:#374151;transform:scale(1.04)}
+.share-copy:active{transform:scale(.95)}
+.share-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;text-decoration:none;transition:all .2s}
+.share-icon:hover{transform:scale(1.08)}
+.share-li:hover{background:#0a66c2;border-color:#0a66c2}
+.share-x:hover{background:#000;border-color:#000}
+.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:2rem}
+.page-footer a{color:#1d9e75;text-decoration:none}
+.page-footer a:hover{text-decoration:underline}
+#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
+#searchOverlay.open{display:flex}
+.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
+.search-close-btn:hover{color:#fff}
+.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
+.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
+.search-box input::placeholder{color:rgba(255,255,255,.35)}
+.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center;letter-spacing:.02em}
+.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
+@media(max-width:700px){
+  .navbar{padding:0 1rem}
+  .page-wrap{padding:1rem .5rem}
+  .course-shell{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .content-body{padding:1.25rem 1rem;max-width:100%;overflow-x:hidden}
+  .section-hero{padding:1.25rem 1rem}
+  .content-footer{padding:1rem}
+  .task-grid,.before-after,.data-to-story,.qbr-steps{grid-template-columns:1fr}
+  .dts-arrow{display:none}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<div id="searchOverlay" onclick="if(event.target===this)closeSearch()"><div class="search-overlay-inner"><button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button><form action="/search.html" method="get"><div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div></form><p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p></div></div>
+<nav class="navbar"><a href="https://www.pairworkflows.com" class="nav-logo"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a><div style="display:flex;align-items:center;gap:16px"><button class="search-trigger" onclick="openSearch()"><i class="ti ti-search"></i></button><a href="https://www.pairworkflows.com/index.html" class="nav-back"><i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses</a></div></nav>
+<div class="page-wrap">
+<div class="course-shell">
+<div class="sidebar">
+<div class="sidebar-top">
+<div class="course-label">Claude AI — Customer Service Course</div>
+<div class="course-title-side">How to Use Claude AI for QBR Deck Narrative Writing</div>
+</div>
+<div class="prog-wrap">
+<div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
+<div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+</div>
+<div class="nav-list">
+<div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">Where Claude fits in QBR writing</div></div>
+<div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">A workflow for your QBR narrative</div></div>
+<div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompts and a narrative checklist</div></div>
+<div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quiz: test your knowledge</div></div>
+</div>
+</div>
+<div class="content-area">
+<div class="section-hero"><div class="section-tag" id="heroTag">Section 01</div><h2 id="heroTitle">Transforming Raw Usage Metrics into a Strategic QBR Narrative</h2></div>
+<div class="content-body" id="cnt">
+
+<div id="seo-sec-0" class="seo-section active-section">
+<p>We've all sat through a Quarterly Business Review that was nothing but a massive data dump. You throw up a slide with five thousand logins this month and the client just stares blankly. Executives don't care about raw numbers. They care about what those numbers actually mean for their business goals. But turning a spreadsheet of account history into a compelling story usually eats up hours you don't have.</p>
+<p>Claude makes this so much easier. You give it your raw usage metrics and a quick summary of the account history, and it acts as your strategic ghostwriter. It takes those dry stats and shapes them into a clear narrative that shows exactly how your product is driving their specific outcomes. You walk into the meeting with a boardroom-ready script and look like a true consultant instead of just another person with charts.</p>
+<div class="highlight-box"><div class="highlight-icon"><i class="ti ti-bulb"></i></div><div class="highlight-text"><strong>Key insight:</strong> Claude excels at data storytelling, meaning it connects isolated metrics to broader business outcomes to build a cohesive narrative arc, rather than just summarizing the numbers.</div></div>
+<div class="data-to-story">
+<div class="dts-col dts-raw">
+<div class="dts-label">Raw data</div>
+<div class="dts-item"><div class="dts-dot"></div>5,247 logins this quarter</div>
+<div class="dts-item"><div class="dts-dot"></div>38% more exports vs Q2</div>
+<div class="dts-item"><div class="dts-dot"></div>14 new users added</div>
+<div class="dts-item"><div class="dts-dot"></div>Avg session: 22 mins</div>
+</div>
+<div class="dts-arrow"><i class="ti ti-arrow-right"></i></div>
+<div class="dts-col dts-claude">
+<div class="dts-label">Claude processes</div>
+<div class="dts-item"><div class="dts-dot"></div>Connects metrics to goals</div>
+<div class="dts-item"><div class="dts-dot"></div>Identifies the "so what"</div>
+<div class="dts-item"><div class="dts-dot"></div>Builds narrative arc</div>
+<div class="dts-item"><div class="dts-dot"></div>Adds slide structure</div>
+</div>
+<div class="dts-arrow"><i class="ti ti-arrow-right"></i></div>
+<div class="dts-col dts-story">
+<div class="dts-label">Executive story</div>
+<div class="dts-item"><div class="dts-dot"></div>"Adoption is up 38% — your ops team has cut manual reporting by half."</div>
+<div class="dts-item"><div class="dts-dot"></div>"14 new power users signal org-wide expansion."</div>
+</div>
+</div>
+<div class="task-grid">
+<div class="task-card"><div class="task-icon"><i class="ti ti-chart-line"></i></div><div class="task-name">Metric translation</div><div class="task-desc">Turn boring usage stats into clear statements of business value that executives actually care about.</div></div>
+<div class="task-card"><div class="task-icon"><i class="ti ti-presentation"></i></div><div class="task-name">Slide structuring</div><div class="task-desc">Get a clear outline of exactly what point to make on every slide, keeping your flow tight and logical.</div></div>
+<div class="task-card"><div class="task-icon"><i class="ti ti-message"></i></div><div class="task-name">Talking track generation</div><div class="task-desc">Generate the actual script of what you should say out loud to the room, so you never freeze up during the presentation.</div></div>
+</div>
+<div class="before-after">
+<div class="ba-card ba-before"><div class="ba-label ba-label-before"><i class="ti ti-x"></i> Without Claude</div><div class="ba-text">You slap a bunch of charts onto a slide and hope the client figures out why it matters, leading to a flat, uninspiring meeting.</div></div>
+<div class="ba-card ba-after"><div class="ba-label ba-label-after"><i class="ti ti-check"></i> With Claude</div><div class="ba-text">You deliver a sharp, cohesive story that proves your value and sets up the next renewal beautifully.</div></div>
+</div>
+</div>
+
+<div id="seo-sec-1" class="seo-section">
+<p>Follow this sequence to get your story straight before you even open your slide deck template.</p>
+<div class="qbr-steps">
+<div class="qbr-step qbr-step-1"><div class="qbr-step-num">1</div><div class="qbr-step-title">Gather data</div><div class="qbr-step-desc">Pull raw numbers from your dashboard and notes from the last quarter.</div></div>
+<div class="qbr-step qbr-step-2"><div class="qbr-step-num">2</div><div class="qbr-step-title">Define goals</div><div class="qbr-step-desc">Decide what you want out of this meeting — upsell pitch or at-risk renewal?</div></div>
+<div class="qbr-step qbr-step-3"><div class="qbr-step-num">3</div><div class="qbr-step-title">Paste into Claude</div><div class="qbr-step-desc">Drop your data, account history, and meeting goals into the prompt.</div></div>
+<div class="qbr-step qbr-step-4"><div class="qbr-step-num">4</div><div class="qbr-step-title">Generate narrative</div><div class="qbr-step-desc">Ask Claude to write a slide-by-slide storyline connecting data to goals.</div></div>
+<div class="qbr-step qbr-step-5"><div class="qbr-step-num">5</div><div class="qbr-step-title">Add your context</div><div class="qbr-step-desc">Layer in the internal politics or recent client news the AI couldn't know.</div></div>
+<div class="qbr-step qbr-step-6"><div class="qbr-step-num">6</div><div class="qbr-step-title">Build slides</div><div class="qbr-step-desc">Take the finalized narrative and drop the text into your presentation template.</div></div>
+</div>
+<div class="info-box"><p><strong>Note:</strong> Claude can't generate the actual PowerPoint or Google Slides files for you — it only provides the text and the structural outline you need to build the deck yourself.</p></div>
+</div>
+
+<div id="seo-sec-2" class="seo-section">
+<p>Don't just paste data and say "write my QBR." You have to give Claude direction. Try these prompts.</p>
+<div class="prompt-block">
+<div class="prompt-block-label">Prompt 1 — Metric translation</div>
+<div class="prompt-block-text">Act as a strategic account director. Here is my raw usage data for this client over the last 90 days: [Insert Data]. Their main business goal is reducing operational costs. Write a short narrative paragraph that connects our usage numbers to that specific goal.
+
+Crucial instruction: Do not just read the numbers back to me. Explain the "so what" behind the data.</div>
+<button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+</div>
+<div class="prompt-block">
+<div class="prompt-block-label">Prompt 2 — Slide-by-slide outline</div>
+<div class="prompt-block-text">I need to build a 5-slide QBR deck based on this account history: [Insert History]. My goal for the meeting is to pitch an upgrade to the premium tier. Give me the title for each slide, three bullet points for the slide text, and a short script of what I should actually say out loud.
+
+Crucial instruction: Keep the tone confident and executive-ready.</div>
+<button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+</div>
+<div class="checklist-box">
+<div class="checklist-title">Before you paste this text into your slides</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Reality check: does the story actually match the data, or is the AI stretching the truth to sound good?</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Goal alignment: does the narrative naturally lead to the outcome you want, like a renewal or upsell?</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Jargon filter: did you strip out any weird AI buzzwords that you would never actually say?</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Brevity: are the slide bullets short enough, or did the AI write a novel?</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> The "So What" factor: does every slide answer why the client should care?</div>
+</div>
+<div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>Important:</strong> QBR narratives must always be validated against the client's actual contract terms and agreed success metrics before presenting. Never present an AI-generated claim as a contractual fact or a guaranteed ROI.</div></div>
+</div>
+
+<div id="seo-sec-3" class="seo-section"><div id="quiz-interactive-container"></div></div>
+</div>
+<div class="content-footer"><button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button><button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button></div>
+</div>
+</div>
+</div>
+<div class="share-section"><div class="share-inner"><button onclick="copyLink()" id="copyLinkBtn" class="share-copy"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.pairworkflows.com/claude-cs-qbr-narrative.html" target="_blank" rel="noopener" class="share-icon share-li" title="Share on LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a><a href="https://twitter.com/intent/tweet?url=https://www.pairworkflows.com/claude-cs-qbr-narrative.html&text=Free+5-minute+guide+on+QBR+deck+narrative+writing+with+Claude+AI" target="_blank" rel="noopener" class="share-icon share-x" title="Share on X"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a></div></div>
+<footer class="page-footer">&copy; 2026 <a href="https://www.pairworkflows.com">PairWorkflows</a>. All rights reserved.</footer>
+<script>
+/* Quiz positions: Q1=A, Q2=C, Q3=B, Q4=A — verified */
+var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
+var heroes=[
+  {tag:'Section 01',title:'Transforming Raw Usage Metrics into a Strategic QBR Narrative'},
+  {tag:'Section 02',title:'A workflow for writing your QBR narrative with Claude.'},
+  {tag:'Section 03',title:'Prompts and a narrative checklist.'},
+  {tag:'Section 04 — Quiz',title:'Test your knowledge.'}
+];
+var quiz=[
+  {q:'What is Claude\'s primary role when preparing a QBR?',
+   opts:['Transforming raw usage data into a cohesive, boardroom-ready strategic narrative.','Reading your CRM to automatically email a status update to the client.','Designing the visual layout of your PowerPoint slides.'],
+   correct:0},
+  {q:'What is a direct limitation of using Claude for QBRs?',
+   opts:['It refuses to read any numerical data or spreadsheets.','It forces you to use exactly ten slides in your presentation.','Claude can\'t generate the actual presentation file, only the text and structural outline.'],
+   correct:2},
+  {q:'What must you do immediately after Claude generates the narrative and before building slides?',
+   opts:['Send the raw AI output directly to the client\'s CEO.','Add your own executive context about internal politics or recent client news.','Delete all your original usage data.'],
+   correct:1},
+  {q:'What is the most critical check before presenting your QBR narrative?',
+   opts:['You must validate all claims against the client\'s actual contract terms and agreed success metrics.','You must ensure every slide has a different color background.','You must read the presentation to the AI out loud for final approval.'],
+   correct:0}
+];
+function buildQuizHTML(){
+  if(quizDone){
+    var score=0;
+    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
+    var msgs=['Review Section 1 — understanding why data storytelling matters more than data dumping is the foundation.','Good effort — re-read the workflow steps and the narrative checklist before trying again.','Almost there! One concept to sharpen — revisit why contract validation is non-negotiable before presenting.','Perfect mark! Try building a real QBR narrative using the first prompt.'];
+    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
+  }
+  var html='';
+  for(var i=0;i<quiz.length;i++){
+    var q=quiz[i];
+    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
+    for(var j=0;j<q.opts.length;j++){
+      var cls='opt';
+      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
+      else if(sel[i]===j){cls+=' selected';}
+      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
+    }
+    html+='</div>';
+  }
+  var allSel=Object.keys(sel).length===quiz.length;
+  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
+  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
+  return html;
+}
+function render(){
+  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
+  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
+  document.getElementById('heroTag').textContent=heroes[cur].tag;
+  document.getElementById('heroTitle').textContent=heroes[cur].title;
+  for(var i=0;i<4;i++){
+    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),sec=document.getElementById('seo-sec-'+i);
+    ni.className='nav-item'+(i===cur?' active':'');
+    if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');
+    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
+    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
+    else{nd.className='nav-dot';nd.textContent=(i+1);}
+  }
+  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
+  document.getElementById('btnBack').disabled=(cur===0);
+  var fwd=document.getElementById('btnFwd');
+  if(cur===3){fwd.style.display='none';}
+  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
+}
+function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
+function goFwd(){if(cur<3)go(cur+1);}
+function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
+function showResult(){quizDone=true;render();}
+function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
+function copyPrompt(btn){var block=btn.closest('.prompt-block');var text=block.querySelector('.prompt-block-text').innerText;navigator.clipboard.writeText(text);btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);}
+function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
+function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+document.getElementById('cnt').addEventListener('click',function(e){
+  if(cur!==3||quizSubmitted||quizDone)return;
+  var opt=e.target.closest('.opt');
+  if(!opt)return;
+  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
+  render();
+});
+render();
+</script>
+</body>
+</html>
