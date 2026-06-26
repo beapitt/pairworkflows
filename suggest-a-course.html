@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Suggest a Mini-Course — PairWorkflows</title>
+<meta name="description" content="Have an idea for a practical AI mini-course? Tell us. If it's useful for busy professionals, there's a good chance we'll build it.">
+<link rel="canonical" href="https://www.pairworkflows.com/suggest-a-course.html">
+<meta property="og:title" content="Suggest a Mini-Course — PairWorkflows">
+<meta property="og:description" content="Have an idea for a practical AI mini-course? Tell us. If it's useful for busy professionals, there's a good chance we'll build it.">
+<meta property="og:url" content="https://www.pairworkflows.com/suggest-a-course.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PairWorkflows">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="styles.css">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+.suggest-wrap{min-height:100vh;background:#042e1f;padding:3rem 1rem 5rem}
+.suggest-card{background:#ffffff;max-width:720px;margin:0 auto;padding:48px 44px;border-radius:20px;box-shadow:0 20px 50px -10px rgba(0,0,0,.45),0 4px 12px -2px rgba(0,0,0,.15);border:1px solid rgba(29,158,117,.12)}
+.suggest-icon{width:56px;height:56px;background:#fdf0ec;border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:26px;color:#d97756}
+.suggest-title{font-size:28px;font-weight:800;color:#1a1a2e;text-align:center;margin-bottom:.75rem;line-height:1.2}
+.suggest-sub{font-size:15px;color:#6b7280;text-align:center;line-height:1.7;margin-bottom:2rem;max-width:520px;margin-left:auto;margin-right:auto}
+.suggest-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(29,158,117,.2),transparent);margin-bottom:2rem}
+.sf-group{margin-bottom:1.25rem}
+.sf-group label{display:block;font-size:12px;font-weight:600;color:#374151;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem}
+.sf-group input,.sf-group select,.sf-group textarea{width:100%;padding:11px 14px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:14px;font-family:'Inter',sans-serif;color:#1a1a2e;background:#fafbfc;transition:border-color .15s,background .15s;outline:none}
+.sf-group input:focus,.sf-group select:focus,.sf-group textarea:focus{border-color:#1d9e75;background:#ffffff;box-shadow:0 0 0 3px rgba(29,158,117,.08)}
+.sf-group input::placeholder,.sf-group textarea::placeholder{color:#9ca3af}
+.sf-group select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:14px;cursor:pointer}
+.sf-group textarea{resize:vertical;min-height:130px;line-height:1.6}
+.sf-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sf-optional{font-size:11px;font-weight:400;color:#9ca3af;margin-left:4px;text-transform:none;letter-spacing:0}
+.submit-btn{width:100%;padding:13px;background:#1d9e75;color:#ffffff;border:none;border-radius:10px;font-size:15px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s;margin-top:.5rem;display:flex;align-items:center;justify-content:center;gap:8px}
+.submit-btn:hover{background:#0f6e56;transform:translateY(-1px);box-shadow:0 6px 20px rgba(29,158,117,.3)}
+.submit-btn:active{transform:translateY(0)}
+.submit-note{font-size:12px;color:#9ca3af;text-align:center;margin-top:.75rem;line-height:1.5}
+.suggest-success{display:none;text-align:center;padding:2rem 0}
+.suggest-success-icon{font-size:48px;color:#1d9e75;margin-bottom:1rem}
+.suggest-success h3{font-size:22px;font-weight:700;color:#1a1a2e;margin-bottom:.75rem}
+.suggest-success p{font-size:15px;color:#6b7280;line-height:1.7;max-width:420px;margin:0 auto 1.5rem}
+.suggest-success a{color:#1d9e75;text-decoration:none;font-weight:500;font-size:14px}
+.suggest-success a:hover{text-decoration:underline}
+.inspiration-section{margin-top:2.5rem;padding-top:2rem;border-top:1px solid #f0f2f5}
+.inspiration-title{font-size:11px;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem;text-align:center}
+.inspiration-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.chip{font-size:12px;color:#374151;background:#f8fafb;border:1px solid #e5e7eb;border-radius:20px;padding:6px 14px;line-height:1.4;cursor:pointer;transition:all .15s}
+.chip:hover{border-color:#1d9e75;color:#0f6e56;background:#f0fdf9}
+.chip-c{border-left:3px solid #d97756}
+.chip-g{border-left:3px solid #378add}
+.back-link{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.5);font-size:13px;text-decoration:none;max-width:720px;margin:0 auto 1.5rem;transition:color .15s}
+.back-link:hover{color:#ffffff}
+@media(max-width:640px){
+  .suggest-card{padding:32px 20px;border-radius:14px}
+  .suggest-title{font-size:22px}
+  .sf-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+<a class="logo" href="/" aria-label="PairWorkflows home"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a>
+<div class="nav-links">
+<div class="resources-dropdown"><button class="resources-btn" onclick="toggleResources()">Resources ▾</button><div class="resources-menu" id="resourcesMenu"><a href="/claude-vs-gemini.html">Claude vs Gemini</a><a href="/glossary.html">AI Glossary</a><a href="/prompt-library.html">Prompt Library</a></div></div>
+<a href="/contact.html">Contact</a>
+<a href="/legal.html">Legal</a>
+</div>
+</nav>
+
+<div class="suggest-wrap">
+  <a href="/index.html" class="back-link"><i class="ti ti-arrow-left" style="font-size:14px"></i> Back to courses</a>
+  <div class="suggest-card">
+
+    <div id="suggestForm">
+      <div class="suggest-icon"><i class="ti ti-bulb"></i></div>
+      <h1 class="suggest-title">What should we teach next?</h1>
+      <p class="suggest-sub">Have an idea for a practical AI mini-course? Tell us. If it's useful for busy professionals, there's a good chance we'll build it — for free, as usual.</p>
+      <div class="suggest-divider"></div>
+
+      <form action="https://api.web3forms.com/submit" method="POST" id="suggestCourseForm">
+        <input type="hidden" name="access_key" value="27235b0f-ea5f-4d0e-a7ab-bf1bb4bbc8b8">
+        <input type="hidden" name="subject" value="New course suggestion from PairWorkflows">
+        <input type="hidden" name="redirect" value="false">
+
+        <div class="sf-row">
+          <div class="sf-group">
+            <label for="sg-name">Your name</label>
+            <input type="text" id="sg-name" name="name" placeholder="e.g. Sarah Mitchell" required>
+          </div>
+          <div class="sf-group">
+            <label for="sg-email">Email <span class="sf-optional">(optional)</span></label>
+            <input type="email" id="sg-email" name="email" placeholder="you@company.com">
+          </div>
+        </div>
+
+        <div class="sf-group">
+          <label for="sg-category">Category</label>
+          <select id="sg-category" name="category" required>
+            <option value="" disabled selected>Choose a category...</option>
+            <option value="General">General</option>
+            <option value="HR">HR</option>
+            <option value="Finance">Finance</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Legal">Legal</option>
+            <option value="Operations">Operations</option>
+            <option value="Sales">Sales</option>
+            <option value="Customer Service">Customer Service</option>
+            <option value="Excel">Excel</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="sf-group">
+          <label for="sg-idea">Describe the problem you'd like this course to solve</label>
+          <textarea id="sg-idea" name="idea" placeholder="e.g. I spend hours every week manually creating performance review summaries. I'd love a mini-course on how Claude can help me do this in minutes..." required></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">
+          <i class="ti ti-send" style="font-size:15px"></i>
+          Submit Idea
+        </button>
+        <p class="submit-note">We read every suggestion. We can't build them all, but every idea helps shape what comes next.</p>
+        <div id="formMsg" style="display:none;text-align:center;margin-top:.75rem;font-size:13px;padding:10px;border-radius:8px"></div>
+      </form>
+
+      <div class="inspiration-section">
+        <div class="inspiration-title">Looking for inspiration? People have suggested ideas like these</div>
+        <div class="inspiration-chips">
+          <span class="chip chip-c" onclick="fillIdea(this)">How to write performance reviews in half the time with Claude</span>
+          <span class="chip chip-c" onclick="fillIdea(this)">Auditing a complex Excel model with Claude AI</span>
+          <span class="chip chip-g" onclick="fillIdea(this)">Turning a Google Meet transcript into a project brief with Gemini</span>
+          <span class="chip chip-c" onclick="fillIdea(this)">Writing legally safe client communications during outages</span>
+          <span class="chip chip-g" onclick="fillIdea(this)">Building a monthly finance report in Google Sheets with Gemini</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="suggest-success" id="suggestSuccess">
+      <div class="suggest-success-icon"><i class="ti ti-circle-check"></i></div>
+      <h3>Mission accomplished.</h3>
+      <p>Your idea has landed safely in our inbox. We read every suggestion — and the best ones often become future mini-courses. Thanks for helping make PairWorkflows more useful.</p>
+      <a href="/index.html">← Back to all courses</a>
+    </div>
+
+  </div>
+</div>
+
+<footer style="background:#021a12;border-top:1px solid #0a4a30;padding:1.5rem 1rem;text-align:center">
+  <span style="font-size:12px;color:#475569">© 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75;text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
+</footer>
+
+<script>
+function toggleResources(){document.getElementById('resourcesMenu').classList.toggle('open');}
+document.addEventListener('click',function(e){if(!e.target.closest('.resources-dropdown')){var m=document.getElementById('resourcesMenu');if(m)m.classList.remove('open');}});
+
+function fillIdea(chip){
+  var ta=document.getElementById('sg-idea');
+  ta.value=chip.textContent.trim();
+  ta.focus();
+  ta.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+document.getElementById('suggestCourseForm').addEventListener('submit',async function(e){
+  e.preventDefault();
+  var btn=document.getElementById('submitBtn');
+  var msg=document.getElementById('formMsg');
+  btn.disabled=true;
+  btn.innerHTML='<i class="ti ti-loader" style="font-size:15px"></i> Sending...';
+  try{
+    var res=await fetch('https://api.web3forms.com/submit',{
+      method:'POST',
+      body:new FormData(this)
+    });
+    var data=await res.json();
+    if(data.success){
+      document.getElementById('suggestForm').style.display='none';
+      document.getElementById('suggestSuccess').style.display='block';
+    }else{
+      msg.style.display='block';
+      msg.style.background='#fef2f2';
+      msg.style.color='#dc2626';
+      msg.textContent='Something went wrong. Please try again.';
+      btn.disabled=false;
+      btn.innerHTML='<i class="ti ti-send" style="font-size:15px"></i> Submit Idea';
+    }
+  }catch(err){
+    msg.style.display='block';
+    msg.style.background='#fef2f2';
+    msg.style.color='#dc2626';
+    msg.textContent='Connection error. Please try again.';
+    btn.disabled=false;
+    btn.innerHTML='<i class="ti ti-send" style="font-size:15px"></i> Submit Idea';
+  }
+});
+</script>
+</body>
+</html>
