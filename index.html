@@ -165,47 +165,6 @@ function showResult(){quizDone=true;render();}
 function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
 function toggleFaq(el){var a=el.nextElementSibling;a.classList.toggle('open');}
 
-async function submitReview(){
-  var name=document.getElementById('rfName').value.trim();
-  var role=document.getElementById('rfRole').value.trim();
-  var content=document.getElementById('rfContent').value.trim();
-  var msg=document.getElementById('rfMsg');
-  var btn=document.getElementById('rfSubmit');
-  if(!name||!role||!content||rfRating===0){
-    msg.className='rf-msg error';
-    msg.textContent='Please fill in all fields and select a rating.';
-    return;
-  }
-  btn.disabled=true;
-  msg.className='rf-msg';
-  msg.textContent='Sending…';
-  try{
-    var res=await fetch(SB_URL+'/rest/v1/reviews',{
-      method:'POST',
-      headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
-      body:JSON.stringify({reviewer_name:name,role:role,content:content,rating:rfRating})
-    });
-    if(res.ok){
-      msg.className='rf-msg success';
-      msg.textContent='Thank you! Your review will appear after approval.';
-      setTimeout(function(){
-        closeReviewModal();
-        document.getElementById('rfName').value='';
-        document.getElementById('rfRole').value='';
-        document.getElementById('rfContent').value='';
-        document.getElementById('rfMsg').textContent='';
-        rfRating=0;
-        document.querySelectorAll('.rf-star-btn').forEach(function(s){s.classList.remove('active');});
-        btn.disabled=false;
-      },2000);
-    }else{throw new Error();}
-  }catch(e){
-    msg.className='rf-msg error';
-    msg.textContent='Something went wrong. Please try again.';
-    btn.disabled=false;
-  }
-}
-
 function copyHomeLink(){
   var btn=document.getElementById('copyHomeLinkBtn');
   navigator.clipboard.writeText('https://www.pairworkflows.com');
