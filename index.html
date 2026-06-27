@@ -104,24 +104,30 @@ var FILTERS=[
 {key:'customerservice',label:'Customer Service'}
 ];
 
-var COURSES=[]; var activeTool=''; var activeTab='claude',activeFilter='all',defaultView=true,cur=0,visited=[],sel={},quizSubmitted=false,quizDone=false,activeCourse=null;
+var COURSES=[];
+var activeTool='';
+var activeTab='claude',activeFilter='all',defaultView=true,cur=0,visited=[],sel={},quizSubmitted=false,quizDone=false,activeCourse=null;
 
-function function switchTab(tab){   activeTab=tab;   activeFilter='all';   activeTool='';   document.getElementById('tabClaude').className='tab-btn'+(tab==='claude'?' active-claude':'');   document.getElementById('tabGemini').className='tab-btn'+(tab==='gemini'?' active-gemini':'');   document.getElementById('toolsWrap').style.display=tab==='claude'?'flex':'none';   renderFilters();   renderGrid(); }(tab){
-  activeTab=tab;
-  activeFilter='all';
+function switchTab(tab){
+  activeTab=tab;activeFilter='all';activeTool='';
   document.getElementById('tabClaude').className='tab-btn'+(tab==='claude'?' active-claude':'');
   document.getElementById('tabGemini').className='tab-btn'+(tab==='gemini'?' active-gemini':'');
-  renderFilters();
-  renderGrid();
+  document.getElementById('toolsWrap').style.display=tab==='claude'?'flex':'none';
+  renderFilters();renderGrid();
 }
-
-function function switchFilter(key){   activeFilter=key;   activeTool='';   defaultView=false;   document.querySelectorAll('.tool-pill').forEach(function(p){p.classList.remove('active');});   renderFilters();   renderGrid(); }(key){
-  activeFilter=key;
-  defaultView=false;
-  renderFilters();
-  renderGrid();
+function switchFilter(key){
+  activeFilter=key;activeTool='';defaultView=false;
+  document.querySelectorAll('.tool-pill').forEach(function(p){p.classList.remove('active');});
+  renderFilters();renderGrid();
 }
-
+function switchTool(tool){
+  activeTool=activeTool===tool?'':tool;
+  activeFilter='all';defaultView=false;
+  document.querySelectorAll('.tool-pill').forEach(function(p){
+    p.classList.toggle('active',p.getAttribute('onclick').includes(tool)&&activeTool===tool);
+  });
+  renderFilters();renderGrid();
+}
 function renderFilters(){
   var fw=document.getElementById('filtersWrap');
   var tabCourses=COURSES.filter(function(c){return c.brand===activeTab;});
@@ -129,25 +135,15 @@ function renderFilters(){
   tabCourses.forEach(function(c){usedCats[c.category]=true;});
   var visible=FILTERS.filter(function(f){return f.key==='all'||usedCats[f.key];});
   fw.innerHTML=visible.map(function(f){
-    return '<button class="filter-btn'+(activeFilter===f.key?' active':'')+'" onclick="switchFilterfunction switchTool(tool){
-  activeTool=activeTool===tool?'':tool;
-  activeFilter='all';
-  defaultView=false;
-  document.querySelectorAll('.tool-pill').forEach(function(p){
-    p.classList.toggle('active',p.getAttribute('onclick').includes(tool)&&activeTool===tool);
-  });
-  renderFilters();
-  renderGrid();
-}(\''+f.key+'\')">'+f.label+'</button>';
+    return '<button class="filter-btn'+(activeFilter===f.key?' active':'')+'" onclick="switchFilter(\''+f.key+'\')">'+f.label+'</button>';
   }).join('');
 }
-
 function renderGrid(){
   var g=document.getElementById('coursesGrid');
   var filtered=COURSES.filter(function(c){
-  if(activeTool){return c.brand===activeTab&&c.category===activeTool;}
-  return c.brand===activeTab&&(activeFilter==='all'||c.category===activeFilter);
-});
+    if(activeTool){return c.brand===activeTab&&c.category===activeTool;}
+    return c.brand===activeTab&&(activeFilter==='all'||c.category===activeFilter);
+  });
   if(filtered.length===0){g.innerHTML='<div class="empty-state">No courses in this category yet — check back soon.</div>';return;}
   var toShow=defaultView?filtered.slice(0,8):filtered;
   g.innerHTML=toShow.map(function(c){
@@ -165,7 +161,6 @@ function renderGrid(){
     return'<div class="card'+(isActive?' active-card':' locked')+'" '+(isActive?'onclick="openCourse(\''+c.id+'\')"':'')+' role="'+(isActive?'button':'article')+'">'+lockEl+'<div class="card-top-bar '+barCls+'"></div><div class="card-body"><div class="card-brand '+brandClass+'">'+brandLabel+'</div><h3>'+c.title+'</h3><div class="card-meta"><div class="card-meta-left">'+badgeHtml+'<span class="card-time"><i class="ti ti-clock" style="font-size:11px" aria-hidden="true"></i> '+c.time+'</span></div>'+actionIcon+'</div></div></div>';
   }).join('');
 }
-
 function openCourse(id){activeCourse=COURSES.find(function(c){return c.id===id;});if(!activeCourse)return;if(activeCourse.file){window.location.href=activeCourse.file;return;}cur=0;visited=Array(activeCourse.sections.length).fill(false);var isG=activeCourse.brand==='gemini';document.getElementById('sideLabel').className='course-label '+(isG?'lbl-gemini':'lbl-claude');document.getElementById('sideLabel').textContent=(isG?'Gemini AI':'Claude AI')+' — Mini-course';document.getElementById('sideTitle').textContent=activeCourse.title;document.getElementById('pf').className='prog-fill '+(isG?'fill-gemini':'fill-claude');document.getElementById('btnFwd').className=isG?'btn-fwd-g':'btn-fwd-c';document.getElementById('homeView').style.display='none';document.getElementById('courseView').style.display='block';window.scrollTo(0,0);render();}
 function goHome(){document.getElementById('courseView').style.display='none';document.getElementById('homeView').style.display='block';window.scrollTo(0,0);}
 function buildQuiz(){if(!activeCourse)return'';if(quizDone){var score=0;activeCourse.quiz.forEach(function(q,i){if(sel[i]===q.correct)score++;});var msgs=['Review the course carefully and try again.','Good effort — revisit sections 2 and 3.','Almost there! One more review and you will nail it.','Perfect score! You are ready to apply this today.'];return'<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';}var html='';activeCourse.quiz.forEach(function(q,i){html+='<div class="quiz-q"><p>'+(i+1)+'. '+q.q+'</p>';q.opts.forEach(function(o,j){var cls='opt';if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}else if(sel[i]===j)cls+=' selected';html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+o+'</div>';});html+='</div>';});var allSel=Object.keys(sel).length===activeCourse.quiz.length;if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';else html+='<button class="'+(activeCourse.brand==='gemini'?'btn-fwd-g':'btn-fwd-c')+'" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';return html;}
@@ -176,14 +171,13 @@ function submitAll(){if(Object.keys(sel).length<activeCourse.quiz.length)return;
 function showResult(){quizDone=true;render();}
 function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
 function toggleFaq(el){var a=el.nextElementSibling;a.classList.toggle('open');}
-
 function copyHomeLink(){
   var btn=document.getElementById('copyHomeLinkBtn');
   navigator.clipboard.writeText('https://www.pairworkflows.com');
   btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';
   setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);
 }
-  fetch('courses.json')
+fetch('courses.json')
   .then(function(r){return r.json();})
   .then(function(data){
     COURSES=data;
