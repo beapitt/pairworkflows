@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>How to Fix a Circular Reference Error in Excel Using Claude AI — PairWorkflows</title>
+<meta name="description" content="Getting a circular reference warning in Excel and can't find where the loop is? Learn how to use Claude AI to trace the chain, identify the loop, and fix the formula fast.">
+<link rel="canonical" href="https://www.pairworkflows.com/claude-excel-circular-reference.html">
+<meta property="og:title" content="How to Fix a Circular Reference Error in Excel Using Claude AI — PairWorkflows">
+<meta property="og:description" content="Can't find your circular reference? Use Claude AI to trace the loop and fix it in minutes.">
+<meta property="og:url" content="https://www.pairworkflows.com/claude-excel-circular-reference.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PairWorkflows">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"How to Fix a Circular Reference Error in Excel Using Claude AI","description":"Getting a circular reference warning in Excel and can't find where the loop is? Learn how to use Claude AI to trace the chain, identify the loop, and fix the formula fast.","url":"https://www.pairworkflows.com/claude-excel-circular-reference.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="icon" type="image/png" href="/favicon.png">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
+.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
+.logo-workflows{font-size:16px;font-weight:400;color:#fff}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
+.nav-back:hover{color:#1d9e75}
+.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
+.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
+.course-shell{background:#fff;border-radius:16px;box-shadow:0 2px 24px rgba(0,0,0,.25),0 0 0 1px rgba(0,0,0,.08);overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
+.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
+.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
+.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
+.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
+.prog-wrap{padding:1rem 1.25rem .75rem}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
+.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
+.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
+.nav-list{padding:.5rem 0;flex:1}
+.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
+.nav-item:hover{background:#eef1f4}
+.nav-item.active{border-left-color:#1d9e75;background:#fff}
+.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
+.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
+.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
+.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
+.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
+.content-area{display:flex;flex-direction:column}
+.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
+.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
+.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
+.content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
+.seo-section{display:none}
+.seo-section.active-section{display:block}
+.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
+
+/* ── VISUAL 1: Direct vs Indirect circular reference diagram ── */
+.circ-types{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.5rem 0}
+.circ-type-card{border-radius:12px;overflow:hidden;border:1px solid #e2e8f0}
+.circ-type-header{padding:8px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:8px}
+.circ-type-card.direct .circ-type-header{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
+.circ-type-card.indirect .circ-type-header{background:#fff8e1;color:#d97706;border-bottom:1px solid #fde68a}
+.circ-type-body{padding:14px;background:#f8fafc}
+.circ-cell-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.circ-cell{background:#fff;border:1.5px solid #e2e8f0;border-radius:6px;padding:5px 10px;font-family:'SFMono-Regular',Consolas,monospace;font-size:12px;color:#374151;min-width:40px;text-align:center;font-weight:600}
+.circ-cell.flagged{border-color:#dc2626;background:#fef2f2;color:#dc2626;animation:circ-pulse 2s ease-in-out infinite}
+.circ-cell.warning{border-color:#d97706;background:#fff8e1;color:#d97706}
+.circ-arrow{color:#94a3b8;font-size:14px;flex-shrink:0}
+.circ-arrow.back{color:#dc2626}
+.circ-arrow.back-warn{color:#d97706}
+.circ-formula{font-family:'SFMono-Regular',Consolas,monospace;font-size:11px;color:#64748b;background:#f1f5f9;border-radius:4px;padding:3px 8px;margin-top:4px}
+.circ-formula .self-ref{color:#dc2626;font-weight:700}
+.circ-formula .warn-ref{color:#d97706;font-weight:700}
+@keyframes circ-pulse{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,0)}50%{box-shadow:0 0 0 3px rgba(220,38,38,.2)}}
+
+/* ── VISUAL 2: Loop trace diagram ── */
+.circ-trace{margin:1.5rem 0;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0}
+.circ-trace-header{background:#f1f5f9;padding:8px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#64748b;border-bottom:1px solid #e2e8f0}
+.circ-trace-body{padding:16px;background:#fff}
+.circ-chain{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.circ-chain-cell{border-radius:8px;padding:8px 14px;font-family:'SFMono-Regular',Consolas,monospace;font-size:12px;font-weight:600;border:1.5px solid}
+.circ-chain-cell.normal{background:#f0fdf4;color:#059669;border-color:#bbf7d0}
+.circ-chain-cell.loop-close{background:#fef2f2;color:#dc2626;border-color:#fecaca;animation:circ-pulse 2s ease-in-out infinite}
+.circ-chain-arrow{color:#94a3b8;font-size:16px;font-weight:700}
+.circ-chain-arrow.back{color:#dc2626}
+.circ-trace-formulas{display:flex;flex-direction:column;gap:6px}
+.circ-tf-row{display:flex;align-items:baseline;gap:10px;font-size:12px;padding:6px 10px;border-radius:6px;background:#f8fafc;border:1px solid #f1f5f9}
+.circ-tf-cell{font-family:'SFMono-Regular',Consolas,monospace;font-weight:700;color:#374151;min-width:36px}
+.circ-tf-formula{font-family:'SFMono-Regular',Consolas,monospace;color:#64748b;flex:1}
+.circ-tf-formula .loop-ref{color:#dc2626;font-weight:700;background:#fef2f2;padding:1px 4px;border-radius:3px}
+.circ-tf-formula .ok-ref{color:#059669}
+.circ-trace-result{background:#fef2f2;border-top:1px solid #fecaca;padding:8px 14px;font-size:12px;color:#7f1d1d;display:flex;align-items:center;gap:8px}
+
+/* ── VISUAL 3: Before/After fix ── */
+.circ-fix{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.5rem 0}
+.circ-fix-card{border-radius:12px;overflow:hidden;border:1.5px solid}
+.circ-fix-card.before{border-color:#fca5a5}
+.circ-fix-card.after{border-color:#86efac}
+.circ-fix-header{padding:8px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:8px}
+.circ-fix-card.before .circ-fix-header{background:#fef2f2;color:#dc2626}
+.circ-fix-card.after .circ-fix-header{background:#f0fdf4;color:#059669}
+.circ-fix-body{padding:12px 14px;background:#f8fafc}
+.circ-fix-label{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.circ-fix-formula{font-family:'SFMono-Regular',Consolas,monospace;font-size:12px;background:#fff;border:1px solid #e2e8f0;border-radius:6px;padding:8px 10px;color:#374151;line-height:1.5}
+.circ-fix-formula .bad{color:#dc2626;font-weight:700}
+.circ-fix-formula .good{color:#059669;font-weight:700}
+.circ-fix-result{padding:8px 14px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px}
+.circ-fix-card.before .circ-fix-result{background:#fef2f2;color:#dc2626}
+.circ-fix-card.after .circ-fix-result{background:#f0fdf4;color:#059669}
+
+/* Common */
+.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
+.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
+.highlight-text{font-size:13px;color:#374151;line-height:1.65}
+.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
+.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
+.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
+.feature-list{list-style:none;padding:0;margin:0 0 1.25rem}
+.feature-list li{padding:.5rem 0 .5rem 1.25rem;position:relative;font-size:14px;color:#374151;border-bottom:1px solid #f0f2f5;line-height:1.6}
+.feature-list li:last-child{border-bottom:none}
+.feature-list li::before{content:'▸';position:absolute;left:0;color:#1d9e75;font-size:13px}
+.steps-list{display:flex;flex-direction:column;gap:0;margin:1rem 0}
+.step-row{display:flex;gap:16px;padding:1.1rem 0;border-bottom:1px solid #f0f2f5}
+.step-row:last-child{border-bottom:none}
+.step-num{font-size:26px;font-weight:700;color:#d1fae5;line-height:1;flex-shrink:0;width:36px;text-align:right;padding-top:2px}
+.step-body h3{font-size:14px;font-weight:600;color:#085041;margin-bottom:.3rem}
+.step-body p{font-size:13px;color:#374151;line-height:1.75;margin:0}
+.step-body code{background:#f0fdf4;color:#0f6e56;padding:1px 6px;border-radius:4px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;border:1px solid #d1fae5}
+.prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
+.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
+.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}
+.prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#fff}
+.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;border-radius:12px;padding:1.25rem;margin:1.5rem 0}
+.checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
+.checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
+.checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
+.quiz-q{margin-bottom:1.5rem}
+.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
+.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
+.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
+.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}
+.opt.selected .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}
+.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
+.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
+.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
+.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}
+.submit-global:hover{background:#0f6e56}
+.submit-global:disabled{opacity:.35;cursor:default}
+.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
+.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
+.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
+.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.retake-btn:hover{background:#e1f5ee}
+.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc;flex-shrink:0}
+.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-back:hover{background:#f0f2f5}
+.btn-back:disabled{opacity:.35;cursor:default}
+.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-fwd:hover{background:#0f6e56}
+.share-section{max-width:1100px;margin:2.5rem auto 0;padding:0 1rem}
+.share-inner{display:flex;align-items:center;justify-content:center;gap:16px;padding:1.75rem 1.5rem;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap}
+.share-copy{display:flex;align-items:center;gap:10px;height:48px;padding:0 20px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;color:#e5e7eb;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .2s}
+.share-copy:hover{background:#374151;transform:scale(1.04)}
+.share-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;text-decoration:none;transition:all .2s}
+.share-icon:hover{transform:scale(1.08)}
+.share-li:hover{background:#0a66c2;border-color:#0a66c2}
+.share-x:hover{background:#000;border-color:#000}
+#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
+#searchOverlay.open{display:flex}
+.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
+.search-close-btn:hover{color:#fff}
+.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
+.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
+.search-box input::placeholder{color:rgba(255,255,255,.35)}
+.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
+.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:2rem}
+.page-footer a{color:#1d9e75;text-decoration:none}
+.page-footer a:hover{text-decoration:underline}
+@media(max-width:700px){
+  .navbar{padding:0 1rem}
+  .page-wrap{padding:1rem .5rem}
+  .course-shell{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
+  .content-footer{padding:1rem}
+  .section-hero{padding:1.25rem 1rem}
+  .circ-types{grid-template-columns:1fr}
+  .circ-fix{grid-template-columns:1fr}
+  .circ-chain{flex-wrap:wrap}
+  .seo-section p{word-break:break-word;overflow-wrap:break-word}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
+  <div class="search-overlay-inner">
+    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+    <form action="/search.html" method="get">
+      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
+    </form>
+    <p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
+  </div>
+</div>
+
+<nav class="navbar">
+  <a href="https://www.pairworkflows.com" class="nav-logo"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a>
+  <div class="nav-right">
+    <button class="search-trigger" onclick="openSearch()"><i class="ti ti-search"></i></button>
+    <a href="https://www.pairworkflows.com/index.html" class="nav-back"><i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+<div class="course-shell">
+  <div class="sidebar">
+    <div class="sidebar-top">
+      <div class="course-label">Claude AI — Excel Course</div>
+      <div class="course-title-side">How to Fix a Circular Reference Error in Excel Using Claude AI</div>
+    </div>
+    <div class="prog-wrap">
+      <div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
+      <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+    </div>
+    <div class="nav-list">
+      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">Where Claude actually helps</div></div>
+      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">Practical workflow</div></div>
+      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompts and checklist</div></div>
+      <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quick quiz</div></div>
+    </div>
+  </div>
+
+  <div class="content-area">
+    <div class="section-hero">
+      <div class="section-tag" id="heroTag">Section 01</div>
+      <h2 id="heroTitle">Excel is showing a circular reference warning — now what?</h2>
+    </div>
+    <div class="content-body" id="cnt">
+
+      <!-- SECTION 0 -->
+      <div id="seo-sec-0" class="seo-section active-section">
+        <p>A circular reference happens when a formula refers back to its own cell — directly or through a chain of other formulas. Classic example: <code style="background:#fef2f2;color:#dc2626;padding:2px 6px;border-radius:4px;font-size:12px;border:1px solid #fca5a5">=C5+B5</code> inside cell C5. Excel freaks out because it can't calculate something that depends on itself.</p>
+        <p>The warning is easy to understand. The annoying part is finding where the problem actually is, especially in a big workbook where the loop runs through five or six different cells. Claude can't open your file, but if you paste the formulas Excel is flagging, it's very good at tracing the chain, spotting where the loop closes, and suggesting a proper fix.</p>
+
+        <!-- VISUAL 1: Direct vs Indirect -->
+        <div class="circ-types">
+          <div class="circ-type-card direct">
+            <div class="circ-type-header"><i class="ti ti-alert-circle"></i> Direct circular reference</div>
+            <div class="circ-type-body">
+              <div class="circ-cell-row">
+                <div class="circ-cell flagged">C5</div>
+                <div class="circ-arrow back">↺</div>
+                <div style="font-size:12px;color:#dc2626;font-weight:600">references itself</div>
+              </div>
+              <div class="circ-formula">C5: =<span class="self-ref">C5</span>+B5</div>
+              <div style="font-size:12px;color:#94a3b8;margin-top:8px">Easy to spot — the formula bar shows the cell referencing its own address.</div>
+            </div>
+          </div>
+          <div class="circ-type-card indirect">
+            <div class="circ-type-header"><i class="ti ti-alert-triangle"></i> Indirect circular reference</div>
+            <div class="circ-type-body">
+              <div class="circ-cell-row">
+                <div class="circ-cell warning">A1</div>
+                <div class="circ-arrow">→</div>
+                <div class="circ-cell warning">B1</div>
+                <div class="circ-arrow">→</div>
+                <div class="circ-cell warning">C1</div>
+                <div class="circ-arrow back-warn">↩</div>
+                <div class="circ-cell flagged">A1</div>
+              </div>
+              <div class="circ-formula">A1: =<span class="warn-ref">B1</span>+10 &nbsp;·&nbsp; B1: =<span class="warn-ref">C1</span>*2 &nbsp;·&nbsp; C1: =<span class="warn-ref">A1</span>-5</div>
+              <div style="font-size:12px;color:#94a3b8;margin-top:8px">Each formula looks fine. The loop only appears when you trace the full chain.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VISUAL 2: Loop trace -->
+        <div class="circ-trace">
+          <div class="circ-trace-header">How Claude traces an indirect loop</div>
+          <div class="circ-trace-body">
+            <div class="circ-chain">
+              <div class="circ-chain-cell normal">D3</div>
+              <div class="circ-chain-arrow">→</div>
+              <div class="circ-chain-cell normal">E3</div>
+              <div class="circ-chain-arrow">→</div>
+              <div class="circ-chain-cell normal">F3</div>
+              <div class="circ-chain-arrow">→</div>
+              <div class="circ-chain-cell loop-close">D3 ↺</div>
+              <div class="circ-chain-arrow back" style="color:#dc2626">loop closes here</div>
+            </div>
+            <div class="circ-trace-formulas">
+              <div class="circ-tf-row"><span class="circ-tf-cell">D3:</span><span class="circ-tf-formula">=<span class="ok-ref">E3</span>*0.8 &nbsp;→ references E3 ✓</span></div>
+              <div class="circ-tf-row"><span class="circ-tf-cell">E3:</span><span class="circ-tf-formula">=<span class="ok-ref">F3</span>+100 &nbsp;→ references F3 ✓</span></div>
+              <div class="circ-tf-row"><span class="circ-tf-cell">F3:</span><span class="circ-tf-formula">=<span class="loop-ref">D3</span>/1.2 &nbsp;→ references D3 ✗ loop closes!</span></div>
+            </div>
+          </div>
+          <div class="circ-trace-result"><i class="ti ti-alert-circle" style="color:#dc2626;flex-shrink:0"></i> Claude identifies F3 as the problem — it should reference a fixed input cell, not D3.</div>
+        </div>
+
+        <!-- VISUAL 3: Before/After -->
+        <div class="circ-fix">
+          <div class="circ-fix-card before">
+            <div class="circ-fix-header"><i class="ti ti-x"></i> Broken — causes circular loop</div>
+            <div class="circ-fix-body">
+              <div class="circ-fix-label">Cell F3</div>
+              <div class="circ-fix-formula">=<span class="bad">D3</span>/1.2</div>
+            </div>
+            <div class="circ-fix-result"><i class="ti ti-alert-circle"></i> Circular reference warning</div>
+          </div>
+          <div class="circ-fix-card after">
+            <div class="circ-fix-header"><i class="ti ti-check"></i> Fixed — references input cell</div>
+            <div class="circ-fix-body">
+              <div class="circ-fix-label">Cell F3</div>
+              <div class="circ-fix-formula">=<span class="good">B3</span>/1.2</div>
+            </div>
+            <div class="circ-fix-result"><i class="ti ti-check"></i> Calculates correctly</div>
+          </div>
+        </div>
+
+        <ul class="feature-list">
+          <li>You paste the flagged formula and Claude identifies if it's a direct circular reference</li>
+          <li>You describe the chain of cells and Claude traces where the loop closes</li>
+          <li>Claude rewrites the formula to break the loop without losing the calculation logic</li>
+          <li>Claude explains why it happened so you don't recreate it</li>
+        </ul>
+
+        <div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>Don't enable iterative calculation</strong> as a quick fix. Excel offers this in settings, but it forces the formula to recalculate a fixed number of times instead of solving the actual problem. It hides the error — it doesn't fix it.</div></div>
+      </div>
+
+      <!-- SECTION 1 -->
+      <div id="seo-sec-1" class="seo-section">
+        <p>Six steps to find the loop, trace it if it's indirect, and fix it with Claude's help.</p>
+        <div class="steps-list">
+          <div class="step-row">
+            <div class="step-num">01</div>
+            <div class="step-body"><h3>Find the circular reference</h3><p>Go to <code>Formulas → Error Checking → Circular References</code>. Excel shows the flagged cell. Click it — that's your starting point. Note the cell address.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">02</div>
+            <div class="step-body"><h3>Check the formula bar</h3><p>Click the flagged cell and look at the formula. Does it reference its own cell directly? If yes — direct loop, easy fix. If not, the loop is indirect and you need to trace it.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">03</div>
+            <div class="step-body"><h3>Trace the chain for indirect loops</h3><p>Use <code>Formulas → Trace Precedents</code> to see which cells feed into the flagged cell. Click each one and check its formula. You're looking for a cell that references back to the original — that's where the loop closes.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">04</div>
+            <div class="step-body"><h3>Paste into Claude</h3><p>Share the formula from the flagged cell, the formulas from each cell in the chain, and what each one is supposed to calculate. Claude will identify where the loop closes and explain how to break it.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">05</div>
+            <div class="step-body"><h3>Apply the fix</h3><p>Usually one of three things: reference a different input cell instead of the calculated result, restructure the formula so it doesn't need to look back at itself, or move part of the calculation to a helper cell.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">06</div>
+            <div class="step-body"><h3>Verify the error is gone</h3><p>Go back to <code>Formulas → Error Checking → Circular References</code>. If the option is greyed out, all circular references are resolved.</p></div>
+          </div>
+        </div>
+        <div class="highlight-box">
+          <div class="highlight-icon"><i class="ti ti-bulb"></i></div>
+          <div class="highlight-text"><strong>Tip:</strong> If you have multiple circular references, fix them one at a time. After each fix, re-check Error Checking — Excel sometimes reveals a second loop only after the first one is resolved.</div>
+        </div>
+      </div>
+
+      <!-- SECTION 2 -->
+      <div id="seo-sec-2" class="seo-section">
+        <p>Copy these prompts into Claude. Replace the bracketed placeholders with your actual formulas and context.</p>
+
+        <p><strong>Core diagnostic prompt</strong></p>
+        <div class="prompt-block">
+          <div class="prompt-block-label">Prompt — paste into Claude</div>
+          <div class="prompt-block-text">I have a circular reference error in Excel. The cell Excel flagged is [e.g. C5] and its formula is:
+[paste formula]
+
+This formula is supposed to [describe what it calculates].
+The cells it references are: [list cells and their formulas].
+
+Please identify where the circular loop closes and suggest how to rewrite the formula to break the loop without losing the calculation logic.</div>
+          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+        </div>
+
+        <p><strong>Indirect loop prompt</strong></p>
+        <div class="prompt-block">
+          <div class="prompt-block-label">Prompt — paste into Claude</div>
+          <div class="prompt-block-text">I have an indirect circular reference. Here is the chain of formulas:
+Cell A1: [formula]
+Cell B1: [formula]
+Cell C1: [formula]
+
+Each formula is supposed to [describe purpose]. Please trace where the loop closes and tell me which formula to fix and how.</div>
+          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+        </div>
+
+        <p><strong>Iterative calculation prompt</strong></p>
+        <div class="prompt-block">
+          <div class="prompt-block-label">Prompt — paste into Claude</div>
+          <div class="prompt-block-text">I need my formula to refer to its previous result (for example to accumulate a running total). Excel is flagging this as a circular reference. Is there a way to restructure this without enabling iterative calculation? If not, what are the risks?</div>
+          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+        </div>
+
+        <div class="checklist-box">
+          <div class="checklist-title">Fix checklist</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Circular reference located via Formulas → Error Checking → Circular References</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Flagged formula reviewed in formula bar</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Trace Precedents used to map the chain for indirect loops</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>All formulas in the chain pasted into Claude with descriptions</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Fix applied — formula restructured or helper cell used</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Circular References menu checked again — should be greyed out</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Iterative calculation NOT enabled unless absolutely necessary</div>
+        </div>
+
+        <div class="info-box"><p><strong>Helper cell approach:</strong> if the fix feels complex, Claude can suggest splitting the formula into two cells — one that holds the input, one that does the calculation. This breaks the loop cleanly without changing the result.</p></div>
+      </div>
+
+      <!-- SECTION 3 QUIZ -->
+      <div id="seo-sec-3" class="seo-section">
+        <div id="quiz-interactive-container"></div>
+      </div>
+
+    </div>
+    <div class="content-footer">
+      <button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button>
+      <button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="share-section">
+  <div class="share-inner">
+    <button onclick="copyLink()" id="copyLinkBtn" class="share-copy"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link</button>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.pairworkflows.com/claude-excel-circular-reference.html" target="_blank" rel="noopener" class="share-icon share-li" title="Share on LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>
+    <a href="https://twitter.com/intent/tweet?url=https://www.pairworkflows.com/claude-excel-circular-reference.html&text=How+to+fix+circular+reference+errors+in+Excel+using+Claude+AI+%E2%80%94+free+5-minute+guide" target="_blank" rel="noopener" class="share-icon share-x" title="Share on X"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+  </div>
+</div>
+<footer class="page-footer">&copy; 2026 <a href="https://www.pairworkflows.com">PairWorkflows</a>. All rights reserved.</footer>
+
+<script>
+var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
+var heroes=[
+  {tag:'Section 01',title:'Excel is showing a circular reference warning — now what?'},
+  {tag:'Section 02',title:'Six steps to find the loop and fix it with Claude'},
+  {tag:'Section 03',title:'Prompts and fix checklist'},
+  {tag:'Section 04 — Quiz',title:'Quick quiz'}
+];
+var quiz=[
+  {q:'What is a circular reference in Excel?',
+   opts:['A formula that returns a circular shape in a chart','A formula that refers back to its own cell, directly or through a chain','A formula that uses too many nested functions'],
+   correct:1},
+  {q:'Where do you find circular references in Excel?',
+   opts:['Home → Find & Select','Data → Data Tools','Formulas → Error Checking → Circular References'],
+   correct:2},
+  {q:'What is the difference between a direct and indirect circular reference?',
+   opts:['Direct means the formula references its own cell; indirect means the loop passes through other cells','Direct errors are more serious than indirect errors','Indirect references only happen with VLOOKUP formulas'],
+   correct:0},
+  {q:'What is the safest way to fix a circular reference?',
+   opts:['Enable iterative calculation in Excel settings','Restructure the formula or use a helper cell so the loop no longer exists','Delete the formula and replace it with a hardcoded value'],
+   correct:1}
+];
+function buildQuizHTML(){
+  if(quizDone){
+    var score=0;
+    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
+    var msgs=['Worth re-reading section 1 — understanding direct vs indirect is the key.','Good effort — review the workflow steps before diving in.','Almost there! One concept to sharpen — revisit the safest fix for circular references.','Perfect score — you\'re ready to fix any circular reference with Claude.'];
+    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
+  }
+  var html='';
+  for(var i=0;i<quiz.length;i++){
+    var q=quiz[i];
+    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
+    for(var j=0;j<q.opts.length;j++){
+      var cls='opt';
+      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
+      else if(sel[i]===j)cls+=' selected';
+      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
+    }
+    html+='</div>';
+  }
+  var allSel=Object.keys(sel).length===quiz.length;
+  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
+  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
+  return html;
+}
+function render(){
+  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
+  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
+  document.getElementById('heroTag').textContent=heroes[cur].tag;
+  document.getElementById('heroTitle').textContent=heroes[cur].title;
+  for(var i=0;i<4;i++){
+    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),sec=document.getElementById('seo-sec-'+i);
+    ni.className='nav-item'+(i===cur?' active':'');
+    if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');
+    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
+    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
+    else{nd.className='nav-dot';nd.textContent=(i+1);}
+  }
+  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
+  document.getElementById('btnBack').disabled=(cur===0);
+  var fwd=document.getElementById('btnFwd');
+  if(cur===3){fwd.style.display='none';}
+  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
+}
+function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
+function goFwd(){if(cur<3)go(cur+1);}
+function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
+function showResult(){quizDone=true;render();}
+function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
+function copyPrompt(btn){var block=btn.closest('.prompt-block');var text=block.querySelector('.prompt-block-text').innerText;navigator.clipboard.writeText(text);btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);}
+function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
+function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+document.getElementById('cnt').addEventListener('click',function(e){
+  if(cur!==3||quizSubmitted||quizDone)return;
+  var opt=e.target.closest('.opt');
+  if(!opt)return;
+  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
+  render();
+});
+render();
+</script>
+</body>
+</html>
