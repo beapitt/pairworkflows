@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Use Claude to Understand and Document Complex Inherited Excel Formulas — PairWorkflows</title>
+<meta name="description" content="Inherited a complex Excel formula with no documentation? Learn how to use Claude AI to explain it layer by layer, identify fragile parts, and write clear documentation.">
+<link rel="canonical" href="https://www.pairworkflows.com/claude-excel-explain-formulas.html">
+<meta property="og:title" content="Use Claude to Understand and Document Complex Inherited Excel Formulas — PairWorkflows">
+<meta property="og:description" content="Use Claude AI to explain any inherited Excel formula layer by layer and turn it into clear documentation.">
+<meta property="og:url" content="https://www.pairworkflows.com/claude-excel-explain-formulas.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PairWorkflows">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Use Claude to Understand and Document Complex Inherited Excel Formulas","description":"Inherited a complex Excel formula with no documentation? Learn how to use Claude AI to explain it layer by layer, identify fragile parts, and write clear documentation.","url":"https://www.pairworkflows.com/claude-excel-explain-formulas.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="icon" type="image/png" href="/favicon.png">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
+.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
+.logo-workflows{font-size:16px;font-weight:400;color:#fff}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
+.nav-back:hover{color:#1d9e75}
+.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
+.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
+.course-shell{background:#fff;border-radius:16px;box-shadow:0 2px 24px rgba(0,0,0,.25),0 0 0 1px rgba(0,0,0,.08);overflow:hidden;display:grid;grid-template-columns:240px minmax(0,1fr);min-height:580px}
+.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
+.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
+.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
+.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
+.prog-wrap{padding:1rem 1.25rem .75rem}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
+.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
+.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
+.nav-list{padding:.5rem 0;flex:1}
+.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
+.nav-item:hover{background:#eef1f4}
+.nav-item.active{border-left-color:#1d9e75;background:#fff}
+.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
+.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
+.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
+.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
+.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
+.content-area{display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
+.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
+.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
+.content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
+.seo-section{display:none}
+.seo-section.active-section{display:block}
+.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
+
+/* ── VISUAL 1: Excel formula bar with colour-coded anatomy ── */
+.xl-formulabar{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.xl-ribbon{background:#217346;padding:5px 14px;display:flex;align-items:center;gap:2px}
+.xl-ribbon-tab{font-size:11px;color:rgba(255,255,255,.65);padding:4px 10px;border-radius:4px 4px 0 0;cursor:default;font-weight:500}
+.xl-ribbon-tab.active{background:rgba(255,255,255,.18);color:#fff;font-weight:600}
+.xl-fb-bar{background:#fff;border-bottom:1px solid #d0d0d0;display:flex;align-items:center}
+.xl-fb-cellref{background:#f3f3f3;color:#1a1a2e;font-family:'SFMono-Regular',Consolas,monospace;font-size:12px;font-weight:700;padding:8px 12px;border-right:1px solid #d0d0d0;min-width:54px;text-align:center;flex-shrink:0}
+.xl-fb-fx{color:#595959;font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;padding:8px 10px;border-right:1px solid #e8e8e8;font-style:italic;flex-shrink:0}
+.xl-fb-formula{font-family:'SFMono-Regular',Consolas,monospace;font-size:12px;padding:8px 12px;flex:1;overflow-x:auto;white-space:nowrap;line-height:1.4}
+/* colour-coded layers — mimics Excel edit mode colours */
+.f-l1{color:#217346;font-weight:700}   /* IFERROR — outermost */
+.f-l2{color:#7c3aed;font-weight:700}   /* INDEX */
+.f-l3{color:#2563eb;font-weight:700}   /* MATCH */
+.f-range{color:#595959}                /* ranges */
+.f-crit{color:#d97706;font-weight:600} /* criteria */
+.f-val{color:#dc2626;font-weight:600}  /* literal values */
+
+/* ── VISUAL 2: Layer breakdown table ── */
+.xl-layers{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.xl-layers-hdr{background:#f3f3f3;border-bottom:1px solid #d0d0d0;display:grid;grid-template-columns:110px 1fr 1fr;padding:0}
+.xl-lh-cell{font-size:11px;font-weight:700;color:#595959;text-transform:uppercase;letter-spacing:.06em;padding:7px 12px;border-right:1px solid #d0d0d0}
+.xl-lh-cell:last-child{border-right:none}
+.xl-layer-rows{display:flex;flex-direction:column}
+.xl-layer-row{display:grid;grid-template-columns:110px 1fr 1fr;border-bottom:1px solid #e8e8e8}
+.xl-layer-row:last-child{border-bottom:none}
+.xl-lr-cell{font-size:12px;padding:9px 12px;border-right:1px solid #e8e8e8;line-height:1.5}
+.xl-lr-cell:last-child{border-right:none}
+.xl-lr-cell.fn-name{font-family:'SFMono-Regular',Consolas,monospace;font-weight:700;font-size:12px}
+.fn-iferror{color:#217346;background:#f0fdf4}
+.fn-index{color:#7c3aed;background:#faf5ff}
+.fn-match{color:#2563eb;background:#eff6ff}
+.fn-mult{color:#d97706;background:#fffbeb}
+.xl-lr-cell.desc{color:#374151}
+.xl-lr-cell.risk{color:#dc2626;font-size:11px;display:flex;align-items:flex-start;gap:6px}
+.risk-ok{color:#059669}
+
+/* ── VISUAL 3: Documentation output block ── */
+.xl-doc-output{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.xl-doc-titlebar{background:#f3f3f3;border-bottom:1px solid #d0d0d0;padding:7px 14px;display:flex;align-items:center;gap:10px}
+.xl-doc-icon{font-size:14px;color:#595959}
+.xl-doc-title{font-size:11px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:.06em}
+.xl-doc-tab{margin-left:auto;font-size:10px;font-weight:600;background:#217346;color:#fff;padding:3px 10px;border-radius:4px}
+.xl-doc-body{background:#fff;padding:16px}
+.xl-doc-comment{background:#fffde7;border:1px solid #fde68a;border-radius:6px;padding:12px 14px;font-size:13px;color:#374151;line-height:1.7;position:relative}
+.xl-doc-comment::before{content:'💬';position:absolute;top:-10px;left:12px;font-size:16px}
+.xl-doc-meta{display:flex;gap:16px;margin-top:10px;flex-wrap:wrap}
+.xl-doc-meta-item{font-size:11px;color:#64748b;display:flex;align-items:center;gap:4px}
+.xl-doc-meta-item i{font-size:13px;color:#94a3b8}
+
+/* Common */
+.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
+.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
+.highlight-text{font-size:13px;color:#374151;line-height:1.65}
+.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
+.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
+.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
+.feature-list{list-style:none;padding:0;margin:0 0 1.25rem}
+.feature-list li{padding:.5rem 0 .5rem 1.25rem;position:relative;font-size:14px;color:#374151;border-bottom:1px solid #f0f2f5;line-height:1.6}
+.feature-list li:last-child{border-bottom:none}
+.feature-list li::before{content:'▸';position:absolute;left:0;color:#1d9e75;font-size:13px}
+.steps-list{display:flex;flex-direction:column;gap:0;margin:1rem 0}
+.step-row{display:flex;gap:16px;padding:1.1rem 0;border-bottom:1px solid #f0f2f5}
+.step-row:last-child{border-bottom:none}
+.step-num{font-size:26px;font-weight:700;color:#d1fae5;line-height:1;flex-shrink:0;width:36px;text-align:right;padding-top:2px}
+.step-body h3{font-size:14px;font-weight:600;color:#085041;margin-bottom:.3rem}
+.step-body p{font-size:13px;color:#374151;line-height:1.75;margin:0}
+.step-body code{background:#f0fdf4;color:#0f6e56;padding:1px 6px;border-radius:4px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;border:1px solid #d1fae5}
+.prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
+.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
+.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}
+.prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#fff}
+.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;border-radius:12px;padding:1.25rem;margin:1.5rem 0}
+.checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
+.checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
+.checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
+.quiz-q{margin-bottom:1.5rem}
+.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
+.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
+.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
+.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}
+.opt.selected .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}
+.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
+.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
+.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
+.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}
+.submit-global:hover{background:#0f6e56}
+.submit-global:disabled{opacity:.35;cursor:default}
+.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
+.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
+.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
+.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.retake-btn:hover{background:#e1f5ee}
+.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc;flex-shrink:0}
+.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-back:hover{background:#f0f2f5}
+.btn-back:disabled{opacity:.35;cursor:default}
+.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-fwd:hover{background:#0f6e56}
+.share-section{max-width:1100px;margin:2.5rem auto 0;padding:0 1rem}
+.share-inner{display:flex;align-items:center;justify-content:center;gap:16px;padding:1.75rem 1.5rem;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap}
+.share-copy{display:flex;align-items:center;gap:10px;height:48px;padding:0 20px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;color:#e5e7eb;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .2s}
+.share-copy:hover{background:#374151;transform:scale(1.04)}
+.share-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;text-decoration:none;transition:all .2s}
+.share-icon:hover{transform:scale(1.08)}
+.share-li:hover{background:#0a66c2;border-color:#0a66c2}
+.share-x:hover{background:#000;border-color:#000}
+#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
+#searchOverlay.open{display:flex}
+.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
+.search-close-btn:hover{color:#fff}
+.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
+.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
+.search-box input::placeholder{color:rgba(255,255,255,.35)}
+.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
+.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:2rem}
+.page-footer a{color:#1d9e75;text-decoration:none}
+.page-footer a:hover{text-decoration:underline}
+@media(max-width:700px){
+  .navbar{padding:0 1rem}
+  .page-wrap{padding:1rem .5rem}
+  .course-shell{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
+  .content-footer{padding:1rem}
+  .section-hero{padding:1.25rem 1rem}
+  .xl-fb-formula{font-size:10px}
+  .xl-layers-hdr{grid-template-columns:80px 1fr 1fr}
+  .xl-layer-row{grid-template-columns:80px 1fr 1fr}
+  .xl-lr-cell{font-size:11px;padding:7px 8px}
+  .seo-section p{word-break:break-word;overflow-wrap:break-word}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
+  <div class="search-overlay-inner">
+    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+    <form action="/search.html" method="get">
+      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
+    </form>
+    <p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
+  </div>
+</div>
+
+<nav class="navbar">
+  <a href="https://www.pairworkflows.com" class="nav-logo"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a>
+  <div class="nav-right">
+    <button class="search-trigger" onclick="openSearch()"><i class="ti ti-search"></i></button>
+    <a href="https://www.pairworkflows.com/index.html" class="nav-back"><i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+<div class="course-shell">
+  <div class="sidebar">
+    <div class="sidebar-top">
+      <div class="course-label">Claude AI — Excel Course</div>
+      <div class="course-title-side">Use Claude to Understand and Document Complex Inherited Excel Formulas</div>
+    </div>
+    <div class="prog-wrap">
+      <div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
+      <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+    </div>
+    <div class="nav-list">
+      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">Where Claude actually helps</div></div>
+      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">Practical workflow</div></div>
+      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompts and checklist</div></div>
+      <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quick quiz</div></div>
+    </div>
+  </div>
+
+  <div class="content-area">
+    <div class="section-hero">
+      <div class="section-tag" id="heroTag">Section 01</div>
+      <h2 id="heroTitle">Inherited a formula you don't understand and can't touch?</h2>
+    </div>
+    <div class="content-body" id="cnt">
+
+      <!-- SECTION 0 -->
+      <div id="seo-sec-0" class="seo-section active-section">
+        <p>You open a workbook built by someone else and find a monster formula like this in a key cell. No comments. No documentation. You have no idea what it does, whether it's reliable, or if it's safe to touch.</p>
+
+        <!-- VISUAL 1: Formula bar with colour-coded anatomy -->
+        <div class="xl-formulabar">
+          <div class="xl-ribbon">
+            <div class="xl-ribbon-tab">Home</div>
+            <div class="xl-ribbon-tab">Insert</div>
+            <div class="xl-ribbon-tab active">Formulas</div>
+            <div class="xl-ribbon-tab">Data</div>
+            <div class="xl-ribbon-tab">Review</div>
+          </div>
+          <div class="xl-fb-bar">
+            <div class="xl-fb-cellref">C2</div>
+            <div class="xl-fb-fx">fx</div>
+            <div class="xl-fb-formula"><span class="f-l1">=IFERROR(</span><span class="f-l2">INDEX(</span><span class="f-range">Sales!$C$2:$C$500</span>,<span class="f-l3">MATCH(</span><span class="f-val">1</span>,(<span class="f-range">Sales!$A$2:$A$500</span>=<span class="f-crit">A2</span>)*(<span class="f-range">Sales!$B$2:$B$500</span>=<span class="f-crit">B2</span>),<span class="f-val">0</span>)<span class="f-l2">)</span>,<span class="f-val">""</span><span class="f-l1">)</span></div>
+          </div>
+        </div>
+
+        <p>This is super common in corporate Excel. You inherit files and need to understand them before you can use them, modify them, or explain them to your boss. Manually reverse-engineering these formulas takes forever. Claude is excellent at this — just paste the formula, give a bit of context, and it breaks everything down layer by layer.</p>
+
+        <!-- VISUAL 2: Layer breakdown table -->
+        <div class="xl-layers">
+          <div class="xl-layers-hdr">
+            <div class="xl-lh-cell">Function</div>
+            <div class="xl-lh-cell">What it does</div>
+            <div class="xl-lh-cell">Risk / notes</div>
+          </div>
+          <div class="xl-layer-rows">
+            <div class="xl-layer-row">
+              <div class="xl-lr-cell fn-name fn-iferror">IFERROR</div>
+              <div class="xl-lr-cell desc">Outermost wrapper — catches any error and returns "" (blank) instead</div>
+              <div class="xl-lr-cell risk"><i class="ti ti-check" style="color:#059669;flex-shrink:0;margin-top:1px"></i> Safe — hides errors cleanly</div>
+            </div>
+            <div class="xl-layer-row">
+              <div class="xl-lr-cell fn-name fn-index">INDEX</div>
+              <div class="xl-lr-cell desc">Returns the value from column C of the Sales sheet at the row MATCH identifies</div>
+              <div class="xl-lr-cell risk"><i class="ti ti-alert-triangle" style="color:#d97706;flex-shrink:0;margin-top:1px"></i> Range hardcoded to row 500 — breaks if data exceeds this</div>
+            </div>
+            <div class="xl-layer-row">
+              <div class="xl-lr-cell fn-name fn-match">MATCH</div>
+              <div class="xl-lr-cell desc">Finds the row where both column A = A2 AND column B = B2 simultaneously</div>
+              <div class="xl-lr-cell risk"><i class="ti ti-alert-triangle" style="color:#d97706;flex-shrink:0;margin-top:1px"></i> Array formula — must be entered with Ctrl+Shift+Enter in older Excel</div>
+            </div>
+            <div class="xl-layer-row">
+              <div class="xl-lr-cell fn-name fn-mult">(*) multiply</div>
+              <div class="xl-lr-cell desc">Multiplies two TRUE/FALSE arrays — acts as AND logic between the two conditions</div>
+              <div class="xl-lr-cell risk"><i class="ti ti-info-circle" style="color:#2563eb;flex-shrink:0;margin-top:1px"></i> Classic array trick — returns 1 only when both conditions are TRUE</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VISUAL 3: Documentation output -->
+        <div class="xl-doc-output">
+          <div class="xl-doc-titlebar">
+            <i class="ti ti-file-text xl-doc-icon"></i>
+            <div class="xl-doc-title">Cell C2 — Documentation (generated by Claude)</div>
+            <div class="xl-doc-tab">DOCUMENTATION sheet</div>
+          </div>
+          <div class="xl-doc-body">
+            <div class="xl-doc-comment">
+              This formula looks up a value from the Sales sheet by matching two criteria simultaneously — the value in column A must match A2, and the value in column B must match B2. When both match, it returns the corresponding value from column C. If no match is found, it returns a blank cell. <strong>Known risk:</strong> the lookup ranges are hardcoded to row 500 — if the Sales sheet ever exceeds 500 rows, extend the ranges to avoid missing data.
+            </div>
+            <div class="xl-doc-meta">
+              <div class="xl-doc-meta-item"><i class="ti ti-calendar"></i> Documented Jun 2026</div>
+              <div class="xl-doc-meta-item"><i class="ti ti-robot"></i> Explanation by Claude AI</div>
+              <div class="xl-doc-meta-item"><i class="ti ti-alert-triangle" style="color:#d97706"></i> Review if Sales sheet grows beyond 500 rows</div>
+            </div>
+          </div>
+        </div>
+
+        <ul class="feature-list">
+          <li>You paste any complicated formula and Claude explains it in plain English</li>
+          <li>Claude points out the risky parts — hardcoded ranges, dangerous assumptions, array formula requirements</li>
+          <li>Claude turns the explanation into clear documentation you can share with colleagues</li>
+          <li>Claude tells you what you can safely change and what you should leave alone</li>
+        </ul>
+
+        <div class="info-box"><p><strong>Array formulas:</strong> the MATCH(1,(...)*(...),0) pattern is a classic array formula technique for multi-criteria lookup. In Excel 365 it works normally. In Excel 2019 or older it must be entered with <code>Ctrl+Shift+Enter</code> — Claude will flag this automatically.</p></div>
+      </div>
+
+      <!-- SECTION 1 -->
+      <div id="seo-sec-1" class="seo-section">
+        <p>Six steps — from copying the formula correctly to having documented, trusted knowledge of what it does.</p>
+        <div class="steps-list">
+          <div class="step-row">
+            <div class="step-num">01</div>
+            <div class="step-body"><h3>Copy the formula from the formula bar</h3><p>Click the cell, then copy the formula directly from the formula bar — not from the cell itself. The cell usually shows the result, not the actual formula.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">02</div>
+            <div class="step-body"><h3>Gather a bit of context</h3><p>Note the sheet name, the cell address, and what the cell appears to show — a name, a number, a date. Also note any other sheet names mentioned in the formula. Claude needs to know what those sheets contain.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">03</div>
+            <div class="step-body"><h3>Paste into Claude with context</h3><p>Give Claude the formula plus a short description of what the workbook is for. Ask it to explain the formula step by step, starting from the outermost function.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">04</div>
+            <div class="step-body"><h3>Ask follow-up questions</h3><p>After the first explanation, ask specific things: "What happens if the value in A2 isn't found?", "Can I extend the range to row 1000?", "What would break if I rename the Sales sheet?" Claude answers each question in context.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">05</div>
+            <div class="step-body"><h3>Create documentation</h3><p>Ask Claude to write a plain-English paragraph suitable for a colleague. Paste this into the workbook as a cell comment or in a dedicated <code>DOCUMENTATION</code> sheet.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">06</div>
+            <div class="step-body"><h3>Check safety before changing anything</h3><p>Before modifying the formula or the data it uses, ask Claude what the consequences would be. This helps you avoid breaking other parts of the file you didn't know were connected.</p></div>
+          </div>
+        </div>
+        <div class="highlight-box">
+          <div class="highlight-icon"><i class="ti ti-bulb"></i></div>
+          <div class="highlight-text"><strong>Tip:</strong> If Claude's first explanation is still confusing, ask it to explain the formula as if you're a non-Excel user. Then ask a second time for the technical detail. Two passes at different levels of detail almost always give you a complete picture.</div>
+        </div>
+      </div>
+
+      <!-- SECTION 2 -->
+      <div id="seo-sec-2" class="seo-section">
+        <p>Copy these prompts into Claude. Replace the bracketed placeholders with your actual formula and context.</p>
+
+        <p><strong>Core explanation prompt</strong></p>
+        <div class="prompt-block">
+          <div class="prompt-block-label">Prompt — paste into Claude</div>
+          <div class="prompt-block-text">I inherited an Excel workbook and need to understand this formula. It's in cell [e.g. C2] on sheet [name].
+
+The formula is:
+[paste formula]
+
+The workbook is used for [brief description, e.g. monthly sales reporting]. The sheets referenced contain [short description].
+
+Please explain this formula layer by layer, starting from the outermost function. Tell me what each part does, what it returns, and any risks if I change something.</div>
+          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+        </div>
+
+        <p><strong>Follow-up questions prompt</strong></p>
+        <div class="prompt-block">
+          <div class="prompt-block-label">Prompt — paste into Claude</div>
+          <div class="prompt-block-text">Based on your explanation:
+1. What happens if the lookup value in A2 doesn't exist in the data?
+2. Is it safe to extend the ranges to row 1000?
+3. What would break if I renamed the Sales sheet?</div>
+          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+        </div>
+
+        <p><strong>Documentation prompt</strong></p>
+        <div class="prompt-block">
+          <div class="prompt-block-label">Prompt — paste into Claude</div>
+          <div class="prompt-block-text">Please write a clear, plain-English documentation paragraph for this formula that a non-technical colleague could understand. Include what it calculates, what inputs it needs, and any known risks or fragile parts.</div>
+          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+        </div>
+
+        <div class="checklist-box">
+          <div class="checklist-title">Checklist</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Formula copied from the formula bar, not the cell value</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Sheet name, cell address, and workbook purpose noted</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Context included when pasting into Claude</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Claude explanation read layer by layer and verified against the sheet</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Follow-up questions asked for any unclear parts</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Documentation added as cell comment or in a Documentation sheet</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Pre-change safety check done before touching formula or its dependencies</div>
+        </div>
+
+        <div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>Important:</strong> Claude explains the formula based on what you paste and describe. If the sheet names or data structure are unusual, include that in your prompt — it affects the explanation significantly.</div></div>
+      </div>
+
+      <!-- SECTION 3 QUIZ -->
+      <div id="seo-sec-3" class="seo-section">
+        <div id="quiz-interactive-container"></div>
+      </div>
+
+    </div>
+    <div class="content-footer">
+      <button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button>
+      <button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="share-section">
+  <div class="share-inner">
+    <button onclick="copyLink()" id="copyLinkBtn" class="share-copy"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link</button>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.pairworkflows.com/claude-excel-explain-formulas.html" target="_blank" rel="noopener" class="share-icon share-li" title="Share on LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>
+    <a href="https://twitter.com/intent/tweet?url=https://www.pairworkflows.com/claude-excel-explain-formulas.html&text=Use+Claude+AI+to+understand+and+document+complex+inherited+Excel+formulas+%E2%80%94+free+5-minute+guide" target="_blank" rel="noopener" class="share-icon share-x" title="Share on X"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+  </div>
+</div>
+<footer class="page-footer">&copy; 2026 <a href="https://www.pairworkflows.com">PairWorkflows</a>. All rights reserved.</footer>
+
+<script>
+var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
+var heroes=[
+  {tag:'Section 01',title:'Inherited a formula you don\'t understand and can\'t touch?'},
+  {tag:'Section 02',title:'Six steps from confusion to documented knowledge'},
+  {tag:'Section 03',title:'Prompts and checklist'},
+  {tag:'Section 04 — Quiz',title:'Quick quiz'}
+];
+var quiz=[
+  {q:'Why should you copy the formula from the formula bar and not the cell?',
+   opts:['The formula bar shows more characters','The cell usually shows the result, not the actual formula','Copying from the cell modifies the references'],
+   correct:1},
+  {q:'What context does Claude need to explain a formula well?',
+   opts:['The full workbook as a PDF','The formula, the sheet name, and a short description of the workbook','The name of the person who created it'],
+   correct:1},
+  {q:'What should you do before changing an inherited formula?',
+   opts:['Delete it and start from scratch','Ask Claude what the downstream effects would be','Make a backup and change it without checking'],
+   correct:1},
+  {q:'Where is the best place to keep the explanation of a complex formula?',
+   opts:['In a separate Word document','As a cell comment or in a Documentation sheet inside the workbook','In an email to your manager'],
+   correct:1}
+];
+function buildQuizHTML(){
+  if(quizDone){
+    var score=0;
+    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
+    var msgs=['Worth re-reading section 1 — understanding why context matters is the foundation.','Good effort — review the workflow steps before diving in.','Almost there! One concept to sharpen — revisit what to do before changing an inherited formula.','Perfect score — you are ready to document any inherited formula with Claude.'];
+    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
+  }
+  var html='';
+  for(var i=0;i<quiz.length;i++){
+    var q=quiz[i];
+    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
+    for(var j=0;j<q.opts.length;j++){
+      var cls='opt';
+      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
+      else if(sel[i]===j)cls+=' selected';
+      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
+    }
+    html+='</div>';
+  }
+  var allSel=Object.keys(sel).length===quiz.length;
+  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
+  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
+  return html;
+}
+function render(){
+  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
+  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
+  document.getElementById('heroTag').textContent=heroes[cur].tag;
+  document.getElementById('heroTitle').textContent=heroes[cur].title;
+  for(var i=0;i<4;i++){
+    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),sec=document.getElementById('seo-sec-'+i);
+    ni.className='nav-item'+(i===cur?' active':'');
+    if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');
+    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
+    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
+    else{nd.className='nav-dot';nd.textContent=(i+1);}
+  }
+  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
+  document.getElementById('btnBack').disabled=(cur===0);
+  var fwd=document.getElementById('btnFwd');
+  if(cur===3){fwd.style.display='none';}
+  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
+}
+function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
+function goFwd(){if(cur<3)go(cur+1);}
+function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
+function showResult(){quizDone=true;render();}
+function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
+function copyPrompt(btn){var block=btn.closest('.prompt-block');var text=block.querySelector('.prompt-block-text').innerText;navigator.clipboard.writeText(text);btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);}
+function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
+function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+document.getElementById('cnt').addEventListener('click',function(e){
+  if(cur!==3||quizSubmitted||quizDone)return;
+  var opt=e.target.closest('.opt');
+  if(!opt)return;
+  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
+  render();
+});
+render();
+</script>
+</body>
+</html>
