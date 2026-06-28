@@ -243,17 +243,20 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
   .page-wrap{padding:1rem .5rem}
   .course-shell{grid-template-columns:1fr}
   .sidebar{display:none}
-  .content-body{padding:1.25rem 1rem}
+  .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
   .content-footer{padding:1rem}
   .section-hero{padding:1.25rem 1rem}
   .ref-causes{grid-template-columns:1fr}
   .ref-before-after{grid-template-columns:1fr}
-  .ref-showcase{overflow-x:auto}
-  .ref-col-headers{grid-template-columns:36px repeat(6,minmax(60px,1fr))}
-  .ref-row{grid-template-columns:36px repeat(6,minmax(60px,1fr))}
-  .ref-cell{font-size:10px;padding:5px 5px}
-  .ref-tabs{overflow-x:auto;flex-wrap:nowrap}
-  .ref-formula{font-size:11px}
+  .ref-showcase{max-width:100%;overflow-x:hidden}
+  .ref-grid{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .ref-col-headers{grid-template-columns:36px repeat(6,minmax(55px,1fr));min-width:380px}
+  .ref-row{grid-template-columns:36px repeat(6,minmax(55px,1fr));min-width:380px}
+  .ref-cell{font-size:10px;padding:4px 4px}
+  .ref-tabs{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch}
+  .ref-formula{font-size:11px;overflow:hidden;text-overflow:ellipsis}
+  .ref-find-dialog{flex-direction:column;align-items:flex-start}
+  .seo-section p{word-break:break-word;overflow-wrap:break-word}
 }
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
