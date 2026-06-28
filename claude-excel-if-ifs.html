@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Use Claude to Write Complex IF and IFS Formulas for HR and Payroll — PairWorkflows</title>
+<meta name="description" content="Need a nested IF or IFS formula for grading, bonus tiers or payroll rules? Learn how to use Claude AI to write, debug and explain complex IF formulas in Excel.">
+<link rel="canonical" href="https://www.pairworkflows.com/claude-excel-if-ifs.html">
+<meta property="og:title" content="Use Claude to Write Complex IF and IFS Formulas for HR and Payroll — PairWorkflows">
+<meta property="og:description" content="Use Claude AI to write clean IF and IFS formulas for grading scales, bonus tiers and payroll rules in Excel.">
+<meta property="og:url" content="https://www.pairworkflows.com/claude-excel-if-ifs.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PairWorkflows">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Use Claude to Write Complex IF and IFS Formulas for HR and Payroll","description":"Need a nested IF or IFS formula for grading, bonus tiers or payroll rules? Learn how to use Claude AI to write, debug and explain complex IF formulas in Excel.","url":"https://www.pairworkflows.com/claude-excel-if-ifs.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="icon" type="image/png" href="/favicon.png">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
+.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
+.logo-workflows{font-size:16px;font-weight:400;color:#fff}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
+.nav-back:hover{color:#1d9e75}
+.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
+.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
+.course-shell{background:#fff;border-radius:16px;box-shadow:0 2px 24px rgba(0,0,0,.25),0 0 0 1px rgba(0,0,0,.08);overflow:hidden;display:grid;grid-template-columns:240px minmax(0,1fr);min-height:580px}
+.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
+.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
+.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
+.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
+.prog-wrap{padding:1rem 1.25rem .75rem}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
+.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
+.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
+.nav-list{padding:.5rem 0;flex:1}
+.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
+.nav-item:hover{background:#eef1f4}
+.nav-item.active{border-left-color:#1d9e75;background:#fff}
+.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
+.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
+.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
+.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
+.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
+.content-area{display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
+.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
+.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
+.content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
+.seo-section{display:none}
+.seo-section.active-section{display:block}
+.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
+
+/* ── VISUAL 1: Excel-style formula bar + IFS formula ── */
+.xl-formulabar{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.xl-fb-ribbon{background:#217346;padding:6px 14px;display:flex;align-items:center;gap:8px}
+.xl-fb-ribbon-tab{font-size:11px;color:rgba(255,255,255,.7);padding:4px 10px;border-radius:4px 4px 0 0;cursor:default}
+.xl-fb-ribbon-tab.active{background:rgba(255,255,255,.15);color:#fff;font-weight:600}
+.xl-fb-bar{background:#fff;border-bottom:1px solid #d0d0d0;display:flex;align-items:center;gap:0}
+.xl-fb-cellref{background:#f3f3f3;color:#1a1a2e;font-family:'SFMono-Regular',Consolas,monospace;font-size:12px;font-weight:700;padding:8px 12px;border-right:1px solid #d0d0d0;min-width:54px;text-align:center}
+.xl-fb-fx{color:#595959;font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;padding:8px 10px;border-right:1px solid #e8e8e8;font-style:italic}
+.xl-fb-formula{font-family:'SFMono-Regular',Consolas,monospace;font-size:12px;padding:8px 12px;flex:1;overflow-x:auto;white-space:nowrap;color:#1a1a2e}
+.xl-fb-formula .fn{color:#217346;font-weight:700}
+.xl-fb-formula .cond{color:#7c3aed}
+.xl-fb-formula .val{color:#2563eb;font-weight:600}
+.xl-fb-formula .res{color:#d97706}
+
+/* ── VISUAL 2: Grade table with conditional formatting simulation ── */
+.xl-grade-table{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.xl-gt-header-bar{background:#f3f3f3;border-bottom:1px solid #d0d0d0;padding:4px 0;display:grid;grid-template-columns:44px repeat(4,1fr)}
+.xl-gt-col-h{font-size:11px;font-weight:600;color:#595959;text-align:center;padding:3px 0;border-right:1px solid #e0e0e0}
+.xl-gt-col-h:last-child{border-right:none}
+.xl-gt-rows{display:flex;flex-direction:column}
+.xl-gt-row{display:grid;grid-template-columns:44px repeat(4,1fr);border-bottom:1px solid #e8e8e8}
+.xl-gt-row:last-child{border-bottom:none}
+.xl-gt-row-num{font-size:11px;color:#595959;text-align:right;padding:7px 8px;background:#f3f3f3;border-right:1px solid #d0d0d0;font-weight:500}
+.xl-gt-cell{font-size:12px;font-family:'Inter',sans-serif;padding:7px 10px;border-right:1px solid #e8e8e8;display:flex;align-items:center}
+.xl-gt-cell:last-child{border-right:none}
+.xl-gt-cell.hdr{background:#f3f3f3;font-weight:600;color:#374151;font-size:11px}
+.xl-gt-cell.score{color:#374151;font-weight:500}
+.xl-gt-cell.formula-cell{font-family:'SFMono-Regular',Consolas,monospace;font-size:11px;color:#595959}
+.xl-gt-cell.grade-a{background:#c6efce;color:#276221;font-weight:700;justify-content:center}
+.xl-gt-cell.grade-b{background:#ffeb9c;color:#9c6500;font-weight:700;justify-content:center}
+.xl-gt-cell.grade-c{background:#ffcc99;color:#833c00;font-weight:700;justify-content:center}
+.xl-gt-cell.grade-f{background:#ffc7ce;color:#9c0006;font-weight:700;justify-content:center}
+.xl-gt-caption{background:#f8fafc;border-top:1px solid #e2e8f0;padding:8px 14px;font-size:11px;color:#64748b;font-style:italic}
+
+/* ── VISUAL 3: IFS vs nested IF comparison ── */
+.xl-compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.5rem 0}
+.xl-cmp-card{border-radius:10px;overflow:hidden;border:1px solid #e2e8f0}
+.xl-cmp-header{padding:8px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;display:flex;align-items:center;gap:6px}
+.xl-cmp-card.nested .xl-cmp-header{background:#fff8e1;color:#d97706;border-bottom:1px solid #fde68a}
+.xl-cmp-card.ifs .xl-cmp-header{background:#f0fdf4;color:#059669;border-bottom:1px solid #bbf7d0}
+.xl-cmp-body{padding:12px 14px;background:#f8fafc}
+.xl-cmp-formula{font-family:'SFMono-Regular',Consolas,monospace;font-size:11px;color:#374151;line-height:1.8;background:#fff;border:1px solid #e2e8f0;border-radius:6px;padding:10px 12px}
+.xl-cmp-formula .fn{color:#217346;font-weight:700}
+.xl-cmp-formula .bracket{color:#dc2626}
+.xl-cmp-formula .clean{color:#059669;font-weight:700}
+.xl-cmp-tag{font-size:11px;margin-top:8px;padding:4px 10px;border-radius:6px;display:inline-block;font-weight:600}
+.xl-cmp-card.nested .xl-cmp-tag{background:#fff8e1;color:#d97706}
+.xl-cmp-card.ifs .xl-cmp-tag{background:#f0fdf4;color:#059669}
+
+/* Common */
+.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
+.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
+.highlight-text{font-size:13px;color:#374151;line-height:1.65}
+.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
+.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
+.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
+.feature-list{list-style:none;padding:0;margin:0 0 1.25rem}
+.feature-list li{padding:.5rem 0 .5rem 1.25rem;position:relative;font-size:14px;color:#374151;border-bottom:1px solid #f0f2f5;line-height:1.6}
+.feature-list li:last-child{border-bottom:none}
+.feature-list li::before{content:'▸';position:absolute;left:0;color:#1d9e75;font-size:13px}
+.steps-list{display:flex;flex-direction:column;gap:0;margin:1rem 0}
+.step-row{display:flex;gap:16px;padding:1.1rem 0;border-bottom:1px solid #f0f2f5}
+.step-row:last-child{border-bottom:none}
+.step-num{font-size:26px;font-weight:700;color:#d1fae5;line-height:1;flex-shrink:0;width:36px;text-align:right;padding-top:2px}
+.step-body h3{font-size:14px;font-weight:600;color:#085041;margin-bottom:.3rem}
+.step-body p{font-size:13px;color:#374151;line-height:1.75;margin:0}
+.step-body code{background:#f0fdf4;color:#0f6e56;padding:1px 6px;border-radius:4px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;border:1px solid #d1fae5}
+.prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
+.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
+.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}
+.prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#fff}
+.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;border-radius:12px;padding:1.25rem;margin:1.5rem 0}
+.checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
+.checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
+.checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
+.quiz-q{margin-bottom:1.5rem}
+.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
+.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
+.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
+.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}
+.opt.selected .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}
+.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
+.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
+.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
+.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}
+.submit-global:hover{background:#0f6e56}
+.submit-global:disabled{opacity:.35;cursor:default}
+.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
+.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
+.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
+.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.retake-btn:hover{background:#e1f5ee}
+.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc;flex-shrink:0}
+.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-back:hover{background:#f0f2f5}
+.btn-back:disabled{opacity:.35;cursor:default}
+.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-fwd:hover{background:#0f6e56}
+.share-section{max-width:1100px;margin:2.5rem auto 0;padding:0 1rem}
+.share-inner{display:flex;align-items:center;justify-content:center;gap:16px;padding:1.75rem 1.5rem;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap}
+.share-copy{display:flex;align-items:center;gap:10px;height:48px;padding:0 20px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;color:#e5e7eb;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .2s}
+.share-copy:hover{background:#374151;transform:scale(1.04)}
+.share-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;text-decoration:none;transition:all .2s}
+.share-icon:hover{transform:scale(1.08)}
+.share-li:hover{background:#0a66c2;border-color:#0a66c2}
+.share-x:hover{background:#000;border-color:#000}
+#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
+#searchOverlay.open{display:flex}
+.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
+.search-close-btn:hover{color:#fff}
+.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
+.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
+.search-box input::placeholder{color:rgba(255,255,255,.35)}
+.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
+.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:2rem}
+.page-footer a{color:#1d9e75;text-decoration:none}
+.page-footer a:hover{text-decoration:underline}
+@media(max-width:700px){
+  .navbar{padding:0 1rem}
+  .page-wrap{padding:1rem .5rem}
+  .course-shell{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
+  .content-footer{padding:1rem}
+  .section-hero{padding:1.25rem 1rem}
+  .xl-compare{grid-template-columns:1fr}
+  .xl-fb-formula{font-size:10px}
+  .xl-gt-header-bar{grid-template-columns:36px repeat(4,1fr)}
+  .xl-gt-row{grid-template-columns:36px repeat(4,1fr)}
+  .xl-gt-cell{font-size:11px;padding:6px 6px}
+  .seo-section p{word-break:break-word;overflow-wrap:break-word}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
+  <div class="search-overlay-inner">
+    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+    <form action="/search.html" method="get">
+      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
+    </form>
+    <p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
+  </div>
+</div>
+
+<nav class="navbar">
+  <a href="https://www.pairworkflows.com" class="nav-logo"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a>
+  <div class="nav-right">
+    <button class="search-trigger" onclick="openSearch()"><i class="ti ti-search"></i></button>
+    <a href="https://www.pairworkflows.com/index.html" class="nav-back"><i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+<div class="course-shell">
+  <div class="sidebar">
+    <div class="sidebar-top">
+      <div class="course-label">Claude AI — Excel Course</div>
+      <div class="course-title-side">Use Claude to Write Complex IF and IFS Formulas for HR and Payroll</div>
+    </div>
+    <div class="prog-wrap">
+      <div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
+      <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+    </div>
+    <div class="nav-list">
+      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">Where Claude actually helps</div></div>
+      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">Practical workflow</div></div>
+      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompts and checklist</div></div>
+      <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quick quiz</div></div>
+    </div>
+  </div>
+
+  <div class="content-area">
+    <div class="section-hero">
+      <div class="section-tag" id="heroTag">Section 01</div>
+      <h2 id="heroTitle">Nested IFs turning into a wall of brackets? Claude can fix that.</h2>
+    </div>
+    <div class="content-body" id="cnt">
+
+      <!-- SECTION 0 -->
+      <div id="seo-sec-0" class="seo-section active-section">
+        <p>Nested IF formulas are incredibly common in corporate Excel — especially in HR and payroll. Whether you're building grading scales, bonus tiers, tax brackets, or eligibility rules, you always end up with the same structure: "if this, then that, otherwise if that, then this…"</p>
+        <p>The problem? Once you go beyond 3–4 conditions, the formula turns into a messy wall of brackets that's hard to read, debug, or share with colleagues. One wrong operator or misplaced bracket and the formula still works… it just gives the wrong answer.</p>
+
+        <!-- VISUAL 1: Excel-style formula bar with IFS formula -->
+        <div class="xl-formulabar">
+          <div class="xl-fb-ribbon">
+            <div class="xl-fb-ribbon-tab">Home</div>
+            <div class="xl-fb-ribbon-tab">Insert</div>
+            <div class="xl-fb-ribbon-tab active">Formulas</div>
+            <div class="xl-fb-ribbon-tab">Data</div>
+            <div class="xl-fb-ribbon-tab">Review</div>
+          </div>
+          <div class="xl-fb-bar">
+            <div class="xl-fb-cellref">C2</div>
+            <div class="xl-fb-fx">fx</div>
+            <div class="xl-fb-formula"><span class="fn">=IFS(</span><span class="cond">B2&gt;=90</span>,<span class="res">"A"</span>,<span class="cond">B2&gt;=80</span>,<span class="res">"B"</span>,<span class="cond">B2&gt;=70</span>,<span class="res">"C"</span>,<span class="cond">B2&lt;70</span>,<span class="res">"Fail"</span>,<span class="cond">TRUE</span>,<span class="res">"—"</span><span class="fn">)</span></div>
+          </div>
+        </div>
+
+        <!-- VISUAL 2: Grade table with conditional formatting -->
+        <div class="xl-grade-table">
+          <div class="xl-gt-header-bar">
+            <div class="xl-gt-col-h"></div>
+            <div class="xl-gt-col-h">A</div>
+            <div class="xl-gt-col-h">B</div>
+            <div class="xl-gt-col-h">C</div>
+            <div class="xl-gt-col-h">D</div>
+          </div>
+          <div class="xl-gt-rows">
+            <div class="xl-gt-row">
+              <div class="xl-gt-row-num">1</div>
+              <div class="xl-gt-cell hdr">Employee</div>
+              <div class="xl-gt-cell hdr">Score</div>
+              <div class="xl-gt-cell hdr">Grade</div>
+              <div class="xl-gt-cell hdr">Bonus %</div>
+            </div>
+            <div class="xl-gt-row">
+              <div class="xl-gt-row-num">2</div>
+              <div class="xl-gt-cell score">Sarah M.</div>
+              <div class="xl-gt-cell score">94</div>
+              <div class="xl-gt-cell grade-a">A</div>
+              <div class="xl-gt-cell grade-a">20%</div>
+            </div>
+            <div class="xl-gt-row">
+              <div class="xl-gt-row-num">3</div>
+              <div class="xl-gt-cell score">James T.</div>
+              <div class="xl-gt-cell score">83</div>
+              <div class="xl-gt-cell grade-b">B</div>
+              <div class="xl-gt-cell grade-b">10%</div>
+            </div>
+            <div class="xl-gt-row">
+              <div class="xl-gt-row-num">4</div>
+              <div class="xl-gt-cell score">Priya K.</div>
+              <div class="xl-gt-cell score">71</div>
+              <div class="xl-gt-cell grade-c">C</div>
+              <div class="xl-gt-cell grade-c">5%</div>
+            </div>
+            <div class="xl-gt-row">
+              <div class="xl-gt-row-num">5</div>
+              <div class="xl-gt-cell score">David R.</div>
+              <div class="xl-gt-cell score">64</div>
+              <div class="xl-gt-cell grade-f">Fail</div>
+              <div class="xl-gt-cell grade-f">0%</div>
+            </div>
+          </div>
+          <div class="xl-gt-caption">Column C uses the IFS formula shown above. Column D uses a second IFS that maps each grade to a bonus percentage. Both written by Claude in seconds.</div>
+        </div>
+
+        <!-- VISUAL 3: IFS vs Nested IF -->
+        <p><strong>IFS vs nested IF — why IFS is cleaner:</strong></p>
+        <div class="xl-compare">
+          <div class="xl-cmp-card nested">
+            <div class="xl-cmp-header"><i class="ti ti-alert-triangle"></i> Nested IF — hard to read</div>
+            <div class="xl-cmp-body">
+              <div class="xl-cmp-formula"><span class="fn">=IF(</span>B2&gt;=90,"A",<span class="bracket">IF(</span>B2&gt;=80,"B",<span class="bracket">IF(</span>B2&gt;=70,"C",<span class="bracket">IF(</span>B2&lt;70,"Fail","—"<span class="bracket">))))</span><span class="fn"></span></div>
+              <div class="xl-cmp-tag">4 closing brackets — one wrong and it breaks</div>
+            </div>
+          </div>
+          <div class="xl-cmp-card ifs">
+            <div class="xl-cmp-header"><i class="ti ti-check"></i> IFS — clean and readable</div>
+            <div class="xl-cmp-body">
+              <div class="xl-cmp-formula"><span class="fn">=IFS(</span>B2&gt;=90,<span class="clean">"A"</span>,B2&gt;=80,<span class="clean">"B"</span>,B2&gt;=70,<span class="clean">"C"</span>,B2&lt;70,<span class="clean">"Fail"</span>,TRUE,<span class="clean">"—"</span><span class="fn">)</span></div>
+              <div class="xl-cmp-tag">One closing bracket — each condition is a clear pair</div>
+            </div>
+          </div>
+        </div>
+
+        <ul class="feature-list">
+          <li>You explain the business logic in normal words and Claude builds the IF or IFS formula correctly</li>
+          <li>You paste a broken nested IF and Claude quickly finds the mistake — usually brackets or operators</li>
+          <li>Claude decides whether to use IFS or nested IF based on your Excel version</li>
+          <li>Claude adds a proper default case so the formula never returns unexpected results</li>
+        </ul>
+
+        <div class="info-box"><p><strong>IFS availability:</strong> IFS is available in Excel 365 and Excel 2019 or later. If you're on Excel 2016 or older, you need nested IF. Tell Claude which version you're using and it will choose the right approach automatically.</p></div>
+      </div>
+
+      <!-- SECTION 1 -->
+      <div id="seo-sec-1" class="seo-section">
+        <p>Six steps — from writing your logic as a plain list to a tested, production-ready formula.</p>
+        <div class="steps-list">
+          <div class="step-row">
+            <div class="step-num">01</div>
+            <div class="step-body"><h3>Write the logic as a simple list first</h3><p>Before opening Claude, list your conditions clearly — 90 or above → A, 80 or above → B, and so on. This list becomes your prompt. The clearer the list, the better the formula.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">02</div>
+            <div class="step-body"><h3>Tell Claude your Excel version</h3><p>IFS is much nicer, but only works in Excel 365 and 2019+. Mention your version so Claude picks the right method — IFS if available, nested IF if not.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">03</div>
+            <div class="step-body"><h3>Specify the cell to test</h3><p>Tell Claude exactly which cell contains the value being tested — for example "the score is in B2". This way the formula is ready to paste directly into your sheet.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">04</div>
+            <div class="step-body"><h3>Read the explanation, not just the formula</h3><p>Claude explains each condition in plain English alongside the formula. Read it. This is the best way to catch a logic error — like a <code>&gt;</code> that should be <code>&gt;=</code> — before it spreads across your data.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">05</div>
+            <div class="step-body"><h3>Test at the exact boundary values</h3><p>Always test with the cutoff values themselves — 90, 80, 70, 69. Boundary cases are where IF formulas most often fail because of <code>&gt;</code> vs <code>&gt;=</code>. One character makes the difference.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">06</div>
+            <div class="step-body"><h3>Add a safety net for unexpected values</h3><p>Make sure the formula handles edge cases — empty cells, text in a number column, values outside the expected range. Claude can add a final <code>TRUE, "—"</code> default case or an IFERROR wrapper to catch these cleanly.</p></div>
+          </div>
+        </div>
+        <div class="highlight-box">
+          <div class="highlight-icon"><i class="ti ti-bulb"></i></div>
+          <div class="highlight-text"><strong>Tip:</strong> IFS evaluates conditions in order and stops at the first match. This means you must put the most restrictive condition first — <code>B2&gt;=90</code> before <code>B2&gt;=80</code>. Claude handles this automatically, but it's worth understanding why.</div>
+        </div>
+      </div>
+
+      <!-- SECTION 2 -->
+      <div id="seo-sec-2" class="seo-section">
+        <p>Copy these prompts into Claude. Replace the bracketed placeholders with your actual logic and cell references.</p>
+
+        <p><strong>Build from scratch prompt</strong></p>
+        <div class="prompt-block">
+          <div class="prompt-block-label">Prompt — paste into Claude</div>
+          <div class="prompt-block-text">I need an IF or IFS formula in Excel. The value being tested is in cell B2.
+
+Here's the logic:
+- 90 or above → "A"
+- 80 or above → "B"
+- 70 or above → "C"
+- Below 70 → "Fail"
+
+I'm using Excel [365 / 2019 / 2016]. Please write the formula using IFS if possible, otherwise nested IF. Also include a default case for unexpected values.</div>
+          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+        </div>
+
+        <p><strong>Debug prompt</strong></p>
+        <div class="prompt-block">
+          <div class="prompt-block-label">Prompt — paste into Claude</div>
+          <div class="prompt-block-text">My nested IF formula is giving wrong results. Here's the formula:
+[paste formula]
+
+When the value in the test cell is [value], it returns [wrong result] instead of [expected result].
+Please find the error and give me the corrected formula.</div>
+          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+        </div>
+
+        <p><strong>Payroll bonus prompt</strong></p>
+        <div class="prompt-block">
+          <div class="prompt-block-label">Prompt — paste into Claude</div>
+          <div class="prompt-block-text">I need an IF formula for bonus calculation. Performance score is in C2 and base salary is in D2.
+
+Rules:
+- Score 5 → 20% of salary
+- Score 4 → 10% of salary
+- Score 3 → 5% of salary
+- Score 1 or 2 → no bonus
+
+Please write the formula that calculates the bonus amount.</div>
+          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+        </div>
+
+        <div class="checklist-box">
+          <div class="checklist-title">Checklist</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Logic written as a clear list before asking Claude</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Excel version mentioned — 365/2019 for IFS, older for nested IF</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Exact cell reference specified (e.g. B2)</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Claude's explanation read and logic verified condition by condition</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Formula tested at exact boundary values</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Default case added for unexpected or missing values</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Formula tested with real data before applying to full column</div>
+        </div>
+
+        <div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>IFS and the default case:</strong> IFS has no built-in "else" like nested IF does. To handle values that match none of your conditions, add <code>TRUE, "—"</code> as the final pair. Without it, IFS returns an error if nothing matches.</div></div>
+      </div>
+
+      <!-- SECTION 3 QUIZ -->
+      <div id="seo-sec-3" class="seo-section">
+        <div id="quiz-interactive-container"></div>
+      </div>
+
+    </div>
+    <div class="content-footer">
+      <button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button>
+      <button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="share-section">
+  <div class="share-inner">
+    <button onclick="copyLink()" id="copyLinkBtn" class="share-copy"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link</button>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.pairworkflows.com/claude-excel-if-ifs.html" target="_blank" rel="noopener" class="share-icon share-li" title="Share on LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>
+    <a href="https://twitter.com/intent/tweet?url=https://www.pairworkflows.com/claude-excel-if-ifs.html&text=Use+Claude+AI+to+write+complex+IF+and+IFS+formulas+for+HR+and+payroll+%E2%80%94+free+5-minute+guide" target="_blank" rel="noopener" class="share-icon share-x" title="Share on X"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+  </div>
+</div>
+<footer class="page-footer">&copy; 2026 <a href="https://www.pairworkflows.com">PairWorkflows</a>. All rights reserved.</footer>
+
+<script>
+var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
+var heroes=[
+  {tag:'Section 01',title:'Nested IFs turning into a wall of brackets? Claude can fix that.'},
+  {tag:'Section 02',title:'Six steps to a clean, tested IF or IFS formula'},
+  {tag:'Section 03',title:'Prompts and checklist'},
+  {tag:'Section 04 — Quiz',title:'Quick quiz'}
+];
+var quiz=[
+  {q:'What is the main advantage of IFS over nested IF?',
+   opts:['It calculates faster','It is much cleaner and easier to read — each condition is a clear pair instead of nested brackets','It can handle more conditions than nested IF'],
+   correct:1},
+  {q:'Your IF formula gives the wrong result for the exact value 80. What should you check first?',
+   opts:['The number of brackets in the formula','Whether you used > or >= at the 80 boundary','Whether you are using IFS or nested IF'],
+   correct:1},
+  {q:'What should a good IF or IFS formula always include?',
+   opts:['At least five conditions','Absolute references on all ranges','A default case for unexpected or out-of-range values'],
+   correct:2},
+  {q:'What is the best way to describe your IF logic to Claude?',
+   opts:['Paste the broken formula and ask it to guess the intended logic','Write the conditions as a clear list — if X then Y — before asking for the formula','Send a screenshot of the Excel sheet'],
+   correct:1}
+];
+function buildQuizHTML(){
+  if(quizDone){
+    var score=0;
+    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
+    var msgs=['Worth re-reading section 1 — understanding IFS vs nested IF is the key.','Good effort — review the workflow and checklist before diving in.','Almost there! One concept to sharpen — revisit what every good IF formula must include.','Perfect score — you are ready to write and debug any IF or IFS formula with Claude.'];
+    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
+  }
+  var html='';
+  for(var i=0;i<quiz.length;i++){
+    var q=quiz[i];
+    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
+    for(var j=0;j<q.opts.length;j++){
+      var cls='opt';
+      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
+      else if(sel[i]===j)cls+=' selected';
+      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
+    }
+    html+='</div>';
+  }
+  var allSel=Object.keys(sel).length===quiz.length;
+  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
+  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
+  return html;
+}
+function render(){
+  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
+  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
+  document.getElementById('heroTag').textContent=heroes[cur].tag;
+  document.getElementById('heroTitle').textContent=heroes[cur].title;
+  for(var i=0;i<4;i++){
+    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),sec=document.getElementById('seo-sec-'+i);
+    ni.className='nav-item'+(i===cur?' active':'');
+    if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');
+    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
+    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
+    else{nd.className='nav-dot';nd.textContent=(i+1);}
+  }
+  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
+  document.getElementById('btnBack').disabled=(cur===0);
+  var fwd=document.getElementById('btnFwd');
+  if(cur===3){fwd.style.display='none';}
+  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
+}
+function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
+function goFwd(){if(cur<3)go(cur+1);}
+function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
+function showResult(){quizDone=true;render();}
+function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
+function copyPrompt(btn){var block=btn.closest('.prompt-block');var text=block.querySelector('.prompt-block-text').innerText;navigator.clipboard.writeText(text);btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);}
+function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
+function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+document.getElementById('cnt').addEventListener('click',function(e){
+  if(cur!==3||quizSubmitted||quizDone)return;
+  var opt=e.target.closest('.opt');
+  if(!opt)return;
+  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
+  render();
+});
+render();
+</script>
+</body>
+</html>
