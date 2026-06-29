@@ -126,12 +126,11 @@ function switchFilter(key){
   renderFilters();renderGrid();
 }
 function switchTool(tool){
-  activeTool=activeTool===tool?'':tool;
-  activeFilter='all';defaultView=false;
-  document.querySelectorAll('.tool-pill').forEach(function(p){
-    p.classList.toggle('active',p.getAttribute('onclick').includes(tool)&&activeTool===tool);
-  });
-  renderFilters();renderGrid();
+  activeTool = activeTool === tool ? '' : tool;
+  activeFilter = 'all';
+  defaultView = false;
+  renderFilters();
+  renderGrid();
 }
 function renderFilters(){
   var fw=document.getElementById('filtersWrap');
@@ -142,6 +141,11 @@ function renderFilters(){
   fw.innerHTML=visible.map(function(f){
     return '<button class="filter-btn'+(activeFilter===f.key?' active':'')+'" onclick="switchFilter(\''+f.key+'\')">'+f.label+'</button>';
   }).join('');
+  document.querySelectorAll('.tool-pill').forEach(function(p){
+    var onclick=p.getAttribute('onclick')||'';
+    var match=onclick.match(/switchTool\('([^']+)'\)/);
+    if(match) p.classList.toggle('active', match[1]===activeTool);
+  });
 }
 function renderGrid(){
   var g=document.getElementById('coursesGrid');
