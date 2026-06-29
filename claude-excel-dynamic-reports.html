@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Turn a Manual Excel Report into a Dynamic Formula-Based Model with Claude — PairWorkflows</title>
+<meta name="description" content="Still building your monthly Excel report by hand? Learn how to use Claude AI to replace manual copy-paste steps with formulas that update automatically.">
+<link rel="canonical" href="https://www.pairworkflows.com/claude-excel-dynamic-reports.html">
+<meta property="og:title" content="Turn a Manual Excel Report into a Dynamic Formula-Based Model with Claude — PairWorkflows">
+<meta property="og:description" content="Use Claude AI to replace manual Excel copy-paste reports with formula-driven models that update automatically.">
+<meta property="og:url" content="https://www.pairworkflows.com/claude-excel-dynamic-reports.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PairWorkflows">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Turn a Manual Excel Report into a Dynamic Formula-Based Model with Claude","description":"Still building your monthly Excel report by hand? Learn how to use Claude AI to replace manual copy-paste steps with formulas that update automatically.","url":"https://www.pairworkflows.com/claude-excel-dynamic-reports.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="icon" type="image/png" href="/favicon.png">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
+.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
+.logo-workflows{font-size:16px;font-weight:400;color:#fff}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
+.nav-back:hover{color:#1d9e75}
+.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
+.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
+.course-shell{background:#fff;border-radius:16px;box-shadow:0 2px 24px rgba(0,0,0,.25),0 0 0 1px rgba(0,0,0,.08);overflow:hidden;display:grid;grid-template-columns:240px minmax(0,1fr);min-height:580px}
+.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
+.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
+.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
+.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
+.prog-wrap{padding:1rem 1.25rem .75rem}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
+.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
+.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
+.nav-list{padding:.5rem 0;flex:1}
+.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
+.nav-item:hover{background:#eef1f4}
+.nav-item.active{border-left-color:#1d9e75;background:#fff}
+.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
+.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
+.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
+.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
+.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
+.content-area{display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
+.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
+.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
+.content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
+.seo-section{display:none}
+.seo-section.active-section{display:block}
+.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
+
+/* ── VISUAL 1: Before/After report comparison ── */
+.xl-ba-report{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.5rem 0}
+.xl-bar-card{border-radius:10px;overflow:hidden;border:1.5px solid}
+.xl-bar-card.manual{border-color:#fca5a5}
+.xl-bar-card.dynamic{border-color:#86efac}
+.xl-bar-header{padding:8px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;display:flex;align-items:center;gap:8px}
+.xl-bar-card.manual .xl-bar-header{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
+.xl-bar-card.dynamic .xl-bar-header{background:#f0fdf4;color:#059669;border-bottom:1px solid #bbf7d0}
+.xl-bar-ribbon{display:flex;gap:2px;padding:4px 10px}
+.xl-bar-card.manual .xl-bar-ribbon{background:#fef9f9}
+.xl-bar-card.dynamic .xl-bar-ribbon{background:#f8fffe}
+.xl-bar-tab{font-size:10px;padding:3px 8px;border-radius:3px 3px 0 0;font-weight:600}
+.xl-bar-card.manual .xl-bar-tab{background:#fecaca;color:#7f1d1d}
+.xl-bar-card.dynamic .xl-bar-tab{background:#bbf7d0;color:#065f46}
+.xl-bar-grid{background:#fff}
+.xl-bar-row{display:grid;grid-template-columns:80px 1fr 1fr;border-bottom:1px solid #f1f5f9;font-size:11px}
+.xl-bar-row:last-child{border-bottom:none}
+.xl-bar-rnum{background:#f3f3f3;border-right:1px solid #e0e0e0;padding:5px 6px;color:#595959;text-align:right;font-family:monospace;font-size:10px}
+.xl-bar-cell{padding:5px 8px;border-right:1px solid #f1f5f9;font-family:'SFMono-Regular',Consolas,monospace;font-size:10px}
+.xl-bar-cell:last-child{border-right:none}
+.xl-bar-cell.hdr{background:#f3f3f3;font-family:'Inter',sans-serif;font-weight:600;color:#374151;font-size:10px}
+.xl-bar-cell.manual-val{color:#7f1d1d;background:#fef9f9}
+.xl-bar-cell.formula-val{color:#059669;background:#f8fffe}
+.xl-bar-cell.hardcoded{color:#dc2626;font-style:italic}
+.xl-bar-footer{padding:7px 10px;font-size:10px;font-weight:600;display:flex;align-items:center;gap:6px}
+.xl-bar-card.manual .xl-bar-footer{background:#fef2f2;color:#dc2626}
+.xl-bar-card.dynamic .xl-bar-footer{background:#f0fdf4;color:#059669}
+
+/* ── VISUAL 2: Manual steps → formula mapping ── */
+.xl-steps-map{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.xl-sm-header{background:#f3f3f3;border-bottom:1px solid #d0d0d0;display:grid;grid-template-columns:1fr 24px 1fr}
+.xl-sm-hcell{padding:8px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#595959}
+.xl-sm-hcell.right{text-align:right}
+.xl-sm-rows{display:flex;flex-direction:column}
+.xl-sm-row{display:grid;grid-template-columns:1fr 24px 1fr;border-bottom:1px solid #e8e8e8;align-items:center}
+.xl-sm-row:last-child{border-bottom:none}
+.xl-sm-manual{padding:8px 12px;font-size:12px;color:#7f1d1d;background:#fef9f9;border-right:1px solid #e8e8e8;line-height:1.4}
+.xl-sm-arrow{text-align:center;color:#059669;font-size:14px;font-weight:700;background:#f8fffe}
+.xl-sm-formula{padding:8px 12px;font-size:11px;font-family:'SFMono-Regular',Consolas,monospace;color:#059669;background:#f8fffe;border-left:1px solid #e8e8e8}
+
+/* ── VISUAL 3: Source data structure (Section 2) ── */
+.xl-source-table{margin:1.25rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.xl-st-bar{background:#217346;padding:5px 14px;display:flex;align-items:center;gap:8px}
+.xl-st-filename{font-size:11px;color:rgba(255,255,255,.8);font-weight:500}
+.xl-st-tab{font-size:10px;background:rgba(255,255,255,.2);color:#fff;padding:2px 8px;border-radius:3px 3px 0 0;font-weight:600}
+.xl-st-grid{background:#fff}
+.xl-st-row{display:grid;grid-template-columns:36px repeat(5,1fr);border-bottom:1px solid #e8e8e8}
+.xl-st-row:last-child{border-bottom:none}
+.xl-st-rnum{font-size:10px;color:#595959;text-align:right;padding:5px 6px;background:#f3f3f3;border-right:1px solid #d0d0d0;font-weight:500}
+.xl-st-cell{font-size:11px;padding:5px 8px;border-right:1px solid #e8e8e8;font-family:'SFMono-Regular',Consolas,monospace}
+.xl-st-cell:last-child{border-right:none}
+.xl-st-cell.hdr{background:#217346;color:#fff;font-family:'Inter',sans-serif;font-weight:600;font-size:10px}
+.xl-st-cell.data{color:#374151}
+.xl-st-caption{background:#f0fdf4;border-top:1px solid #bbf7d0;padding:7px 12px;font-size:11px;color:#065f46;display:flex;align-items:center;gap:6px}
+
+/* Common */
+.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
+.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
+.highlight-text{font-size:13px;color:#374151;line-height:1.65}
+.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
+.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
+.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
+.feature-list{list-style:none;padding:0;margin:0 0 1.25rem}
+.feature-list li{padding:.5rem 0 .5rem 1.25rem;position:relative;font-size:14px;color:#374151;border-bottom:1px solid #f0f2f5;line-height:1.6}
+.feature-list li:last-child{border-bottom:none}
+.feature-list li::before{content:'▸';position:absolute;left:0;color:#1d9e75;font-size:13px}
+.steps-list{display:flex;flex-direction:column;gap:0;margin:1rem 0}
+.step-row{display:flex;gap:16px;padding:1.1rem 0;border-bottom:1px solid #f0f2f5}
+.step-row:last-child{border-bottom:none}
+.step-num{font-size:26px;font-weight:700;color:#d1fae5;line-height:1;flex-shrink:0;width:36px;text-align:right;padding-top:2px}
+.step-body h3{font-size:14px;font-weight:600;color:#085041;margin-bottom:.3rem}
+.step-body p{font-size:13px;color:#374151;line-height:1.75;margin:0}
+.step-body code{background:#f0fdf4;color:#0f6e56;padding:1px 6px;border-radius:4px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;border:1px solid #d1fae5}
+.prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
+.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
+.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}
+.prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#fff}
+.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;border-radius:12px;padding:1.25rem;margin:1.5rem 0}
+.checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
+.checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
+.checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
+.quiz-q{margin-bottom:1.5rem}
+.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
+.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
+.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
+.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}
+.opt.selected .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}
+.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
+.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
+.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
+.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}
+.submit-global:hover{background:#0f6e56}
+.submit-global:disabled{opacity:.35;cursor:default}
+.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
+.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
+.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
+.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.retake-btn:hover{background:#e1f5ee}
+.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc;flex-shrink:0}
+.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-back:hover{background:#f0f2f5}
+.btn-back:disabled{opacity:.35;cursor:default}
+.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-fwd:hover{background:#0f6e56}
+.share-section{max-width:1100px;margin:2.5rem auto 0;padding:0 1rem}
+.share-inner{display:flex;align-items:center;justify-content:center;gap:16px;padding:1.75rem 1.5rem;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap}
+.share-copy{display:flex;align-items:center;gap:10px;height:48px;padding:0 20px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;color:#e5e7eb;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .2s}
+.share-copy:hover{background:#374151;transform:scale(1.04)}
+.share-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;text-decoration:none;transition:all .2s}
+.share-icon:hover{transform:scale(1.08)}
+.share-li:hover{background:#0a66c2;border-color:#0a66c2}
+.share-x:hover{background:#000;border-color:#000}
+#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
+#searchOverlay.open{display:flex}
+.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
+.search-close-btn:hover{color:#fff}
+.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
+.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
+.search-box input::placeholder{color:rgba(255,255,255,.35)}
+.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
+.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:2rem}
+.page-footer a{color:#1d9e75;text-decoration:none}
+.page-footer a:hover{text-decoration:underline}
+@media(max-width:700px){
+  .navbar{padding:0 1rem}
+  .page-wrap{padding:1rem .5rem}
+  .course-shell{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
+  .content-footer{padding:1rem}
+  .section-hero{padding:1.25rem 1rem}
+  .xl-ba-report{grid-template-columns:1fr}
+  .xl-sm-row{grid-template-columns:1fr 20px 1fr}
+  .xl-st-row{grid-template-columns:30px repeat(5,1fr)}
+  .xl-st-cell{font-size:10px;padding:4px 5px}
+  .seo-section p{word-break:break-word;overflow-wrap:break-word}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
+  <div class="search-overlay-inner">
+    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+    <form action="/search.html" method="get">
+      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
+    </form>
+    <p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
+  </div>
+</div>
+
+<nav class="navbar">
+  <a href="https://www.pairworkflows.com" class="nav-logo"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a>
+  <div class="nav-right">
+    <button class="search-trigger" onclick="openSearch()"><i class="ti ti-search"></i></button>
+    <a href="https://www.pairworkflows.com/index.html" class="nav-back"><i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+<div class="course-shell">
+  <div class="sidebar">
+    <div class="sidebar-top">
+      <div class="course-label">Claude AI — Excel Course</div>
+      <div class="course-title-side">Turn a Manual Excel Report into a Dynamic Formula-Based Model with Claude</div>
+    </div>
+    <div class="prog-wrap">
+      <div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
+      <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+    </div>
+    <div class="nav-list">
+      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">The problem Claude solves</div></div>
+      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">The workflow</div></div>
+      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompts and checklist</div></div>
+      <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quick quiz</div></div>
+    </div>
+  </div>
+
+  <div class="content-area">
+    <div class="section-hero">
+      <div class="section-tag" id="heroTag">Section 01</div>
+      <h2 id="heroTitle">Still rebuilding the same report by hand every month?</h2>
+    </div>
+    <div class="content-body" id="cnt">
+
+      <!-- SECTION 0 -->
+      <div id="seo-sec-0" class="seo-section active-section">
+        <p>Most corporate Excel reports are still built manually. Every month someone opens last month's file, deletes the old numbers, pastes new data, and adjusts everything by hand. It works until it breaks — wrong paste, overwritten formula, new rows that destroy the totals, or the original creator leaves the company.</p>
+        <p>The solution is to replace the manual steps with formulas that pull data automatically. Claude can't rebuild the entire report in one click, but it's excellent at analysing your process and writing the exact formulas to replace each manual step.</p>
+
+        <!-- VISUAL 1: Manual vs Dynamic comparison -->
+        <div class="xl-ba-report">
+          <div class="xl-bar-card manual">
+            <div class="xl-bar-header"><i class="ti ti-hand-stop"></i> Manual report — fragile</div>
+            <div class="xl-bar-ribbon">
+              <div class="xl-bar-tab">Jan_Report</div>
+              <div class="xl-bar-tab">Feb_Report</div>
+              <div class="xl-bar-tab">Mar_Report ✕</div>
+            </div>
+            <div class="xl-bar-grid">
+              <div class="xl-bar-row">
+                <div class="xl-bar-rnum">1</div>
+                <div class="xl-bar-cell hdr">Region</div>
+                <div class="xl-bar-cell hdr">Revenue</div>
+              </div>
+              <div class="xl-bar-row">
+                <div class="xl-bar-rnum">2</div>
+                <div class="xl-bar-cell manual-val">North</div>
+                <div class="xl-bar-cell hardcoded">£24,500 ← hardcoded</div>
+              </div>
+              <div class="xl-bar-row">
+                <div class="xl-bar-rnum">3</div>
+                <div class="xl-bar-cell manual-val">South</div>
+                <div class="xl-bar-cell hardcoded">£18,200 ← hardcoded</div>
+              </div>
+              <div class="xl-bar-row">
+                <div class="xl-bar-rnum">4</div>
+                <div class="xl-bar-cell manual-val">West</div>
+                <div class="xl-bar-cell hardcoded">£31,750 ← hardcoded</div>
+              </div>
+            </div>
+            <div class="xl-bar-footer"><i class="ti ti-alert-triangle"></i> New month = copy, delete, paste, reformat</div>
+          </div>
+          <div class="xl-bar-card dynamic">
+            <div class="xl-bar-header"><i class="ti ti-refresh"></i> Dynamic model — self-updating</div>
+            <div class="xl-bar-ribbon">
+              <div class="xl-bar-tab">Raw_Data</div>
+              <div class="xl-bar-tab">Summary ✓</div>
+            </div>
+            <div class="xl-bar-grid">
+              <div class="xl-bar-row">
+                <div class="xl-bar-rnum">1</div>
+                <div class="xl-bar-cell hdr">Region</div>
+                <div class="xl-bar-cell hdr">Revenue</div>
+              </div>
+              <div class="xl-bar-row">
+                <div class="xl-bar-rnum">2</div>
+                <div class="xl-bar-cell formula-val">North</div>
+                <div class="xl-bar-cell formula-val">=SUMIFS(Raw!E:E,Raw!A:A,"North")</div>
+              </div>
+              <div class="xl-bar-row">
+                <div class="xl-bar-rnum">3</div>
+                <div class="xl-bar-cell formula-val">South</div>
+                <div class="xl-bar-cell formula-val">=SUMIFS(Raw!E:E,Raw!A:A,"South")</div>
+              </div>
+              <div class="xl-bar-row">
+                <div class="xl-bar-rnum">4</div>
+                <div class="xl-bar-cell formula-val">West</div>
+                <div class="xl-bar-cell formula-val">=SUMIFS(Raw!E:E,Raw!A:A,"West")</div>
+              </div>
+            </div>
+            <div class="xl-bar-footer"><i class="ti ti-check"></i> New month = paste raw data, report updates instantly</div>
+          </div>
+        </div>
+
+        <!-- VISUAL 2: Manual steps to formula mapping -->
+        <p><strong>What Claude does — maps each manual step to a formula:</strong></p>
+        <div class="xl-steps-map">
+          <div class="xl-sm-header">
+            <div class="xl-sm-hcell">Manual step (what you do now)</div>
+            <div style="background:#f3f3f3;border-left:1px solid #d0d0d0;border-right:1px solid #d0d0d0"></div>
+            <div class="xl-sm-hcell">Formula replacement</div>
+          </div>
+          <div class="xl-sm-rows">
+            <div class="xl-sm-row">
+              <div class="xl-sm-manual">Copy revenue by region from raw export</div>
+              <div class="xl-sm-arrow">→</div>
+              <div class="xl-sm-formula">=SUMIFS(Raw!E:E,Raw!A:A,A2)</div>
+            </div>
+            <div class="xl-sm-row">
+              <div class="xl-sm-manual">Delete rows where Status = "Closed"</div>
+              <div class="xl-sm-arrow">→</div>
+              <div class="xl-sm-formula">=FILTER(Raw!A:E,Raw!D:D&lt;&gt;"Closed")</div>
+            </div>
+            <div class="xl-sm-row">
+              <div class="xl-sm-manual">Look up manager name from staff table</div>
+              <div class="xl-sm-arrow">→</div>
+              <div class="xl-sm-formula">=XLOOKUP(B2,Staff!A:A,Staff!C:C)</div>
+            </div>
+            <div class="xl-sm-row">
+              <div class="xl-sm-manual">Count active accounts per region</div>
+              <div class="xl-sm-arrow">→</div>
+              <div class="xl-sm-formula">=COUNTIFS(Raw!A:A,A2,Raw!D:D,"Active")</div>
+            </div>
+          </div>
+        </div>
+
+        <ul class="feature-list">
+          <li>You describe the manual steps and Claude identifies which can be replaced with formulas</li>
+          <li>Claude writes SUMIFS, XLOOKUP, FILTER, or dynamic array formulas to replace each step</li>
+          <li>Claude redesigns the structure so source data flows into the output automatically</li>
+          <li>Claude documents the new model so anyone on the team can maintain it</li>
+        </ul>
+
+        <div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>Not everything should be automated.</strong> Claude will flag steps that still need human judgment — unusual exceptions, manual sign-offs, decisions that depend on context formulas can't read. That's the right call.</div></div>
+      </div>
+
+      <!-- SECTION 1 -->
+      <div id="seo-sec-1" class="seo-section">
+        <p>Six steps — from a manual copy-paste process to a formula-driven model that updates itself.</p>
+
+        <!-- VISUAL 3: Ideal source data structure -->
+        <div class="xl-source-table">
+          <div class="xl-st-bar">
+            <div class="xl-st-filename">Monthly_Report.xlsx</div>
+            <div class="xl-st-tab">Raw_Data ✓</div>
+          </div>
+          <div class="xl-st-grid">
+            <div class="xl-st-row">
+              <div class="xl-st-rnum">1</div>
+              <div class="xl-st-cell hdr">Date</div>
+              <div class="xl-st-cell hdr">Region</div>
+              <div class="xl-st-cell hdr">Product</div>
+              <div class="xl-st-cell hdr">Status</div>
+              <div class="xl-st-cell hdr">Revenue</div>
+            </div>
+            <div class="xl-st-row">
+              <div class="xl-st-rnum">2</div>
+              <div class="xl-st-cell data">01/06/2026</div>
+              <div class="xl-st-cell data">North</div>
+              <div class="xl-st-cell data">Widget Pro</div>
+              <div class="xl-st-cell data">Active</div>
+              <div class="xl-st-cell data">4250</div>
+            </div>
+            <div class="xl-st-row">
+              <div class="xl-st-rnum">3</div>
+              <div class="xl-st-cell data">02/06/2026</div>
+              <div class="xl-st-cell data">South</div>
+              <div class="xl-st-cell data">Widget Pro</div>
+              <div class="xl-st-cell data">Active</div>
+              <div class="xl-st-cell data">3100</div>
+            </div>
+            <div class="xl-st-row">
+              <div class="xl-st-rnum">4</div>
+              <div class="xl-st-cell data">03/06/2026</div>
+              <div class="xl-st-cell data">West</div>
+              <div class="xl-st-cell data">Widget Lite</div>
+              <div class="xl-st-cell data">Closed</div>
+              <div class="xl-st-cell data">1800</div>
+            </div>
+          </div>
+          <div class="xl-st-caption"><i class="ti ti-check" style="color:#059669;flex-shrink:0"></i> One row per transaction · no merged cells · consistent column names · real dates · numbers as numbers</div>
+        </div>
+
+        <div class="steps-list">
+          <div class="step-row">
+            <div class="step-num">01</div>
+            <div class="step-body"><h3>Document your current manual process</h3><p>Write down every step you currently do — be specific. "Copy column D from the export into column F", "Delete rows where Status = Closed", "Add subtotal by region". This list is your starting point for Claude.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">02</div>
+            <div class="step-body"><h3>Show Claude the structure</h3><p>Describe your source data — columns, location, update frequency — and the final report — what it shows and who uses it. Paste small samples of both if possible. The more specific, the better the formulas.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">03</div>
+            <div class="step-body"><h3>Let Claude analyse what can be automated</h3><p>Claude will tell you which manual steps can be replaced with formulas and which ones still need human judgment. Review the analysis before building anything — this shapes the whole approach.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">04</div>
+            <div class="step-body"><h3>Build the model one section at a time</h3><p>Start with the most important parts — subtotals or key lookups. Ask Claude for the formulas, test them with real data, then move to the next section. This prevents mistakes from compounding across the model.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">05</div>
+            <div class="step-body"><h3>Standardise your source data</h3><p>Dynamic reports need clean, consistent source data. Ask Claude to recommend the best table structure, column names, and formatting rules — then apply them to your raw export every month before pasting.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">06</div>
+            <div class="step-body"><h3>Create proper documentation</h3><p>Once everything works, ask Claude to write a clear maintenance guide: what to paste each month and where, what the main formulas do, and what to check if something looks wrong. Save it inside the workbook.</p></div>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <div class="highlight-icon"><i class="ti ti-bulb"></i></div>
+          <div class="highlight-text"><strong>Tip:</strong> Test the completed model with at least two months of real historical data before using it live. This catches edge cases — months with extra regions, missing data, or unusual values — that single-month testing misses.</div>
+        </div>
+      </div>
+
+      <!-- SECTION 2 -->
+      <div id="seo-sec-2" class="seo-section">
+        <p>Copy these prompts into Claude. Replace the bracketed placeholders with your actual process and structure.</p>
+
+        <p><strong>Analysis prompt</strong></p>
+        <div class="prompt-block">
+          <div class="prompt-block-label">Prompt — paste into Claude</div>
+          <div class="prompt-block-text">I have a monthly Excel report I currently build manually. Here is the exact process:
+[describe each manual step]
+
+Source data has these columns: [list them]
+The final report shows: [describe output]
+
+Review this process and tell me: (1) which steps can be replaced with formulas, (2) the best formula approach for each, and (3) what changes I need in the source data structure.</div>
+          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+        </div>
+
+        <p><strong>Formula replacement prompt</strong></p>
+        <div class="prompt-block">
+          <div class="prompt-block-label">Prompt — paste into Claude</div>
+          <div class="prompt-block-text">I want to replace this manual step with a formula:
+"[describe the step — e.g. I copy total revenue by region from the raw data into a summary table]"
+
+Source data is on sheet "Raw_Data", columns A to F, starting row 2.
+Output should go to sheet "Summary", cell C5.
+Write the best formula for this.</div>
+          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+        </div>
+
+        <p><strong>Documentation prompt</strong></p>
+        <div class="prompt-block">
+          <div class="prompt-block-label">Prompt — paste into Claude</div>
+          <div class="prompt-block-text">The report is now formula-based. Write a clear maintenance guide that explains:
+(1) what to paste each month and where
+(2) what the main formulas do
+(3) what to check if something looks wrong</div>
+          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+        </div>
+
+        <div class="checklist-box">
+          <div class="checklist-title">Checklist</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Every manual step documented in plain English</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Source data and output structure shared with Claude</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Claude analysis reviewed — confirmed which steps can be automated</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Formulas built and tested one section at a time</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Source data structure standardised</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Full model tested with at least two months of real data</div>
+          <div class="checklist-item"><i class="ti ti-square-check"></i>Maintenance guide written and saved inside the workbook</div>
+        </div>
+
+        <div class="info-box"><p><strong>Dynamic arrays in Excel 365:</strong> if you're on Excel 365, Claude will likely suggest FILTER, UNIQUE, or SORT instead of manual SUMIFS for some steps. These functions return multiple results automatically and eliminate entire categories of manual work. Tell Claude your Excel version and it will choose the right approach.</p></div>
+      </div>
+
+      <!-- SECTION 3 QUIZ -->
+      <div id="seo-sec-3" class="seo-section">
+        <div id="quiz-interactive-container"></div>
+      </div>
+
+    </div>
+    <div class="content-footer">
+      <button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button>
+      <button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="share-section">
+  <div class="share-inner">
+    <button onclick="copyLink()" id="copyLinkBtn" class="share-copy"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link</button>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.pairworkflows.com/claude-excel-dynamic-reports.html" target="_blank" rel="noopener" class="share-icon share-li" title="Share on LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>
+    <a href="https://twitter.com/intent/tweet?url=https://www.pairworkflows.com/claude-excel-dynamic-reports.html&text=Turn+your+manual+Excel+report+into+a+dynamic+formula-based+model+with+Claude+AI+%E2%80%94+free+5-minute+guide" target="_blank" rel="noopener" class="share-icon share-x" title="Share on X"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+  </div>
+</div>
+<footer class="page-footer">&copy; 2026 <a href="https://www.pairworkflows.com">PairWorkflows</a>. All rights reserved.</footer>
+
+<script>
+var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
+var heroes=[
+  {tag:'Section 01',title:'Still rebuilding the same report by hand every month?'},
+  {tag:'Section 02',title:'Six steps from manual process to self-updating model'},
+  {tag:'Section 03',title:'Prompts and checklist'},
+  {tag:'Section 04 — Quiz',title:'Quick quiz'}
+];
+var quiz=[
+  {q:'What is the first step before asking Claude to automate your Excel report?',
+   opts:['Delete all the manual formulas and start fresh','Document every manual step you currently do as a clear list','Send Claude the entire Excel file as an attachment'],
+   correct:1},
+  {q:'Why should you replace report sections one at a time rather than the whole report at once?',
+   opts:['Claude can only process one formula per conversation','It lets you test and verify each section works correctly before adding more complexity','Excel cannot handle multiple new formulas at the same time'],
+   correct:1},
+  {q:'What should you ask Claude to produce once the report is fully formula-based?',
+   opts:['A PDF version of the report','A plain-English maintenance guide so anyone on the team can run it','A macro to lock the formulas from editing'],
+   correct:1},
+  {q:'What is the most important structural requirement for a dynamic formula-based report?',
+   opts:['The report must use PivotTables','The source data must be clean, consistently structured, and in the same format every month','All formulas must use absolute references'],
+   correct:1}
+];
+function buildQuizHTML(){
+  if(quizDone){
+    var score=0;
+    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
+    var msgs=['Worth re-reading section 1 — understanding what makes a dynamic model work is the foundation.','Good effort — review the workflow steps before diving in.','Almost there! One concept to sharpen — revisit why source data structure matters so much.','Perfect score — you are ready to convert any manual report into a dynamic model with Claude.'];
+    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
+  }
+  var html='';
+  for(var i=0;i<quiz.length;i++){
+    var q=quiz[i];
+    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
+    for(var j=0;j<q.opts.length;j++){
+      var cls='opt';
+      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
+      else if(sel[i]===j)cls+=' selected';
+      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
+    }
+    html+='</div>';
+  }
+  var allSel=Object.keys(sel).length===quiz.length;
+  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
+  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
+  return html;
+}
+function render(){
+  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
+  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
+  document.getElementById('heroTag').textContent=heroes[cur].tag;
+  document.getElementById('heroTitle').textContent=heroes[cur].title;
+  for(var i=0;i<4;i++){
+    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),sec=document.getElementById('seo-sec-'+i);
+    ni.className='nav-item'+(i===cur?' active':'');
+    if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');
+    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
+    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
+    else{nd.className='nav-dot';nd.textContent=(i+1);}
+  }
+  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
+  document.getElementById('btnBack').disabled=(cur===0);
+  var fwd=document.getElementById('btnFwd');
+  if(cur===3){fwd.style.display='none';}
+  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
+}
+function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
+function goFwd(){if(cur<3)go(cur+1);}
+function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
+function showResult(){quizDone=true;render();}
+function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
+function copyPrompt(btn){var block=btn.closest('.prompt-block');var text=block.querySelector('.prompt-block-text').innerText;navigator.clipboard.writeText(text);btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);}
+function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
+function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+document.getElementById('cnt').addEventListener('click',function(e){
+  if(cur!==3||quizSubmitted||quizDone)return;
+  var opt=e.target.closest('.opt');
+  if(!opt)return;
+  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
+  render();
+});
+render();
+</script>
+</body>
+</html>
