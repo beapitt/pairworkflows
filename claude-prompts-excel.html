@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Claude AI Prompts for Excel & Google Sheets: Ready-to-Use Templates — PairWorkflows</title>
+<meta name="description" content="Free Claude AI prompts for Excel and Google Sheets. Copy-ready templates for formulas, VLOOKUP, pivot tables, data cleaning, VBA macros and financial models — with interactive prompt builder.">
+<link rel="canonical" href="https://www.pairworkflows.com/claude-prompts-excel.html">
+<meta property="og:title" content="Claude AI Prompts for Excel & Google Sheets: Ready-to-Use Templates — PairWorkflows">
+<meta property="og:description" content="Free Claude AI prompts for Excel and Google Sheets. Formulas, data cleaning, pivot tables, VBA and financial models.">
+<meta property="og:url" content="https://www.pairworkflows.com/claude-prompts-excel.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PairWorkflows">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Claude AI Prompts for Excel & Google Sheets","description":"Free Claude AI prompts for Excel and Google Sheets. Copy-ready templates for formulas, data cleaning, pivot tables, VBA macros and financial models.","url":"https://www.pairworkflows.com/claude-prompts-excel.html","publisher":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude write Excel formulas?","acceptedAnswer":{"@type":"Answer","text":"Yes. Describe what you want the formula to do, which cells or columns are involved, and which version of Excel you are using. Claude writes the formula and explains how it works."}},{"@type":"Question","name":"Does Claude work with Google Sheets?","acceptedAnswer":{"@type":"Answer","text":"Yes. Most Excel formulas work in Sheets with minor differences. Tell Claude you are using Google Sheets and it will adjust the syntax — for example using QUERY instead of Power Query, or ARRAYFORMULA where needed."}},{"@type":"Question","name":"Can Claude debug broken formulas?","acceptedAnswer":{"@type":"Answer","text":"Yes. Paste the formula from your formula bar along with a description of what it should do and what error or wrong result you are getting. Claude identifies the most likely cause and gives you the corrected version."}},{"@type":"Question","name":"Can Claude write VBA macros?","acceptedAnswer":{"@type":"Answer","text":"Yes. Describe what you want the macro to do step by step. Claude writes the VBA code with comments explaining each section. Always test macros on a copy of your file first."}},{"@type":"Question","name":"Does this work with Excel 2016 and 2019?","acceptedAnswer":{"@type":"Answer","text":"Yes, with some limitations. XLOOKUP and dynamic arrays require Excel 2019 or 365. LAMBDA functions require Excel 365 only. Tell Claude which version you are using and it will use compatible functions."}},{"@type":"Question","name":"Is Claude better than Microsoft Copilot for Excel?","acceptedAnswer":{"@type":"Answer","text":"They serve different purposes. Copilot works inside Excel directly. Claude is better for explaining complex logic, writing and debugging formulas in plain language, and building prompts you can reuse. Many professionals use both."}},{"@type":"Question","name":"Do I need a paid Claude account to use these prompts?","acceptedAnswer":{"@type":"Answer","text":"No. Every prompt on this page works on the free tier of Claude. A paid plan gives higher usage limits but is not required."}}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="icon" type="image/png" href="/favicon.png">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
+.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
+.logo-workflows{font-size:16px;font-weight:400;color:#fff}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
+.nav-back:hover{color:#1d9e75}
+.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
+.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
+
+/* HERO */
+.hero-pl{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:1.5rem}
+.hero-pl h1{font-size:32px;font-weight:600;color:#fff;margin-bottom:.75rem;line-height:1.25}
+.hero-pl p{font-size:15px;color:rgba(255,255,255,.85);max-width:620px;margin:0 auto 1.5rem;line-height:1.7}
+.hero-cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.pl-btn{padding:11px 24px;border-radius:8px;font-weight:500;text-decoration:none;font-size:13px;transition:all .15s;display:inline-flex;align-items:center;gap:6px;cursor:pointer;border:none;font-family:'Inter',sans-serif}
+.pl-btn-primary{background:#1d9e75;color:#fff}
+.pl-btn-primary:hover{background:#178a64}
+.pl-btn-secondary{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2)}
+.pl-btn-secondary:hover{background:rgba(255,255,255,.18)}
+
+/* SECTIONS */
+.pl-section{background:#fff;border-radius:16px;padding:2rem;margin-bottom:1.25rem;box-shadow:0 2px 24px rgba(0,0,0,.18),0 0 0 1px rgba(0,0,0,.06)}
+.pl-section h2{font-size:20px;font-weight:600;color:#0f6e56;margin-bottom:1rem}
+.pl-section h3{font-size:16px;font-weight:600;color:#0f6e56;margin-bottom:.75rem}
+.pl-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
+.pl-section p:last-child{margin-bottom:0}
+
+/* PROMPT BUILDER */
+.builder-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.25rem}
+.builder-field{display:flex;flex-direction:column;gap:6px}
+.builder-field.full{grid-column:1/-1}
+.builder-field label{font-size:12px;font-weight:600;color:#0f6e56;text-transform:uppercase;letter-spacing:.05em}
+.builder-field select,.builder-field textarea,.builder-field input{border:1.5px solid #e2e8f0;border-radius:8px;padding:10px 12px;font-size:13px;font-family:'Inter',sans-serif;color:#1a1a2e;background:#f8fafc;transition:border-color .15s;outline:none;width:100%}
+.builder-field select:focus,.builder-field textarea:focus,.builder-field input:focus{border-color:#1d9e75;background:#fff}
+.builder-field textarea{resize:vertical;min-height:80px;line-height:1.6}
+.builder-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:1.25rem}
+.btn-build{background:#1d9e75;color:#fff;border:none;border-radius:8px;padding:12px 28px;font-size:14px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:8px}
+.btn-build:hover{background:#178a64}
+.btn-reset{background:#f1f5f9;color:#64748b;border:1px solid #e2e8f0;border-radius:8px;padding:12px 20px;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .15s}
+.btn-reset:hover{background:#e2e8f0}
+.builder-output{display:none;background:#f0fdf4;border:1.5px solid #1d9e75;border-radius:12px;padding:1.25rem}
+.builder-output.visible{display:block}
+.builder-output-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.6rem}
+.builder-output-text{font-size:13px;color:#1a1a2e;line-height:1.8;white-space:pre-wrap;font-family:'Inter',sans-serif;margin-bottom:1rem}
+.btn-copy-output{background:#1d9e75;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:7px}
+.btn-copy-output:hover{background:#178a64}
+
+/* PROMPT CATEGORIES */
+.prompt-category{margin-bottom:2rem}
+.prompt-category:last-child{margin-bottom:0}
+.prompt-cat-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:2px solid #e1f5ee}
+.prompt-cat-icon{width:32px;height:32px;border-radius:8px;background:#e1f5ee;display:flex;align-items:center;justify-content:center;color:#0f6e56;font-size:15px;flex-shrink:0}
+.prompt-cat-title{font-size:15px;font-weight:700;color:#0f6e56}
+.prompt-cat-count{font-size:11px;color:#6b7280;background:#f1f5f9;border-radius:20px;padding:2px 8px}
+.prompt-list{display:flex;flex-direction:column;gap:10px}
+.prompt-item{background:#f8fafb;border:1px solid #e8ecef;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem}
+.prompt-item-title{font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.5rem}
+.prompt-item-text{font-size:12px;color:#374151;line-height:1.7;font-family:'Inter',sans-serif;white-space:pre-wrap;margin-bottom:.75rem}
+.prompt-item-text strong{color:#1a1a2e;font-weight:600}
+.btn-copy-prompt{background:#e1f5ee;color:#0f6e56;border:1px solid #6ee7b7;border-radius:6px;padding:6px 14px;font-size:11px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:5px}
+.btn-copy-prompt:hover{background:#1d9e75;color:#fff;border-color:#1d9e75}
+
+/* BEST PRACTICES */
+.bp-box{background:#e1f5ee;border-left:4px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin-bottom:.75rem}
+.bp-box-title{font-size:13px;font-weight:700;color:#085041;margin-bottom:.5rem;display:flex;align-items:center;gap:6px}
+.bp-list{list-style:none;padding:0}
+.bp-list li{font-size:13px;color:#374151;padding:.3rem 0 .3rem 20px;position:relative;line-height:1.6;border-bottom:1px solid rgba(0,0,0,.05)}
+.bp-list li:last-child{border-bottom:none}
+.bp-list li::before{content:'✓';position:absolute;left:0;color:#1d9e75;font-weight:700;font-size:12px}
+
+/* FAQ */
+.faq-item{border-bottom:1px solid #e8ecef;padding:1rem 0}
+.faq-item:last-child{border-bottom:none;padding-bottom:0}
+.faq-q{font-size:14px;font-weight:600;color:#0f6e56;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;user-select:none}
+.faq-q i{transition:transform .2s;color:#1d9e75;flex-shrink:0}
+.faq-q.open i{transform:rotate(180deg)}
+.faq-a{font-size:13px;color:#374151;line-height:1.7;display:none;padding-top:.6rem}
+.faq-a.open{display:block}
+
+/* COURSES GRID */
+.courses-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:1rem}
+.course-card{display:flex;align-items:center;gap:12px;background:#f8fafb;border:1px solid #e8ecef;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:.9rem 1rem;text-decoration:none;transition:all .15s}
+.course-card:hover{background:#f0fdf4;border-color:#9fe1cb;transform:translateX(2px)}
+.course-card-icon{width:32px;height:32px;border-radius:8px;background:#e1f5ee;display:flex;align-items:center;justify-content:center;color:#0f6e56;font-size:14px;flex-shrink:0}
+.course-card-title{font-size:12px;font-weight:600;color:#0f6e56;line-height:1.4}
+.course-card-tag{font-size:10px;color:#6b7280;margin-top:.1rem}
+
+/* SEARCH OVERLAY */
+#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
+#searchOverlay.open{display:flex}
+.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
+.search-close-btn:hover{color:#fff}
+.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
+.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
+.search-box input::placeholder{color:rgba(255,255,255,.35)}
+.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
+
+@media(max-width:700px){
+  .navbar{padding:0 1rem}
+  .page-wrap{padding:1rem .5rem}
+  .hero-pl{padding:2rem 1.25rem}
+  .hero-pl h1{font-size:24px}
+  .pl-section{padding:1.5rem 1.25rem}
+  .builder-grid{grid-template-columns:1fr}
+  .builder-field.full{grid-column:1}
+  .courses-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
+  <div class="search-overlay-inner">
+    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+    <form action="/search.html" method="get">
+      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
+    </form>
+    <p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
+  </div>
+</div>
+
+<nav class="navbar">
+  <a href="https://www.pairworkflows.com" class="nav-logo"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a>
+  <div class="nav-right">
+    <button class="search-trigger" onclick="openSearch()"><i class="ti ti-search"></i></button>
+    <a href="https://www.pairworkflows.com/index.html" class="nav-back"><i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+<section class="hero-pl">
+  <h1>Claude AI Prompts for Excel &amp; Google Sheets</h1>
+  <p>Copy-ready prompt templates for formulas, data cleaning, pivot tables, VBA macros, and financial models. Use the prompt builder to generate a custom prompt in seconds, or browse the full library below.</p>
+  <div class="hero-cta-row">
+    <a href="#builder" class="pl-btn pl-btn-primary"><i class="ti ti-wand"></i> Open Prompt Builder</a>
+    <a href="#prompts" class="pl-btn pl-btn-secondary"><i class="ti ti-list"></i> Browse All Prompts</a>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="pl-section">
+  <h2>Why Claude Works Well for Excel</h2>
+  <p>Claude understands spreadsheet logic, formula syntax, and data structure better than most general AI tools. It can write formulas from a plain English description, explain what a complex nested function is doing layer by layer, debug errors from the formula bar, and write VBA macros with step-by-step comments.</p>
+  <p>This page gives you two things: a prompt builder that generates a custom prompt from your inputs, and a library of ready-to-copy prompts organised by task type — all tested with Claude on Excel 365, Excel 2019, and Google Sheets.</p>
+</section>
+
+<!-- PROMPT BUILDER -->
+<section class="pl-section" id="builder">
+  <h2><i class="ti ti-wand" style="color:#1d9e75;margin-right:8px"></i>Prompt Builder</h2>
+  <p>Fill in the fields below and click Build My Prompt. Copy the result directly into Claude.</p>
+  <div class="builder-grid">
+    <div class="builder-field">
+      <label>Task Type</label>
+      <select id="b-task">
+        <option value="">— Select a task —</option>
+        <option value="write">Write a formula</option>
+        <option value="debug">Debug a formula</option>
+        <option value="explain">Explain a formula</option>
+        <option value="clean">Clean or transform data</option>
+        <option value="pivot">Build or analyse a pivot table</option>
+        <option value="model">Build a financial model</option>
+        <option value="vba">Write a VBA macro</option>
+        <option value="sheets">Google Sheets specific</option>
+      </select>
+    </div>
+    <div class="builder-field">
+      <label>Excel Version</label>
+      <select id="b-version">
+        <option value="Excel 365">Excel 365</option>
+        <option value="Excel 2019">Excel 2019</option>
+        <option value="Excel 2016">Excel 2016</option>
+        <option value="Google Sheets">Google Sheets</option>
+      </select>
+    </div>
+    <div class="builder-field">
+      <label>Formula or Tool (optional)</label>
+      <input type="text" id="b-formula" placeholder="e.g. XLOOKUP, SUMIFS, pivot table, VBA macro">
+    </div>
+    <div class="builder-field">
+      <label>Output Format</label>
+      <select id="b-output">
+        <option value="formula and a brief explanation">Formula + brief explanation</option>
+        <option value="formula only, no explanation">Formula only</option>
+        <option value="step-by-step guide I can follow">Step-by-step guide</option>
+        <option value="the formula with detailed comments on each part">Formula with detailed comments</option>
+      </select>
+    </div>
+    <div class="builder-field full">
+      <label>Describe What You Need</label>
+      <textarea id="b-desc" placeholder="e.g. I have sales data in columns A to D. Column A is date, column B is region, column C is product, column D is revenue. I want to sum revenue for a specific region and product combination."></textarea>
+    </div>
+  </div>
+  <div class="builder-actions">
+    <button class="btn-build" onclick="buildPrompt()"><i class="ti ti-wand"></i> Build My Prompt</button>
+    <button class="btn-reset" onclick="resetBuilder()">Reset</button>
+  </div>
+  <div class="builder-output" id="builderOutput">
+    <div class="builder-output-label">Your prompt — ready to copy into Claude</div>
+    <div class="builder-output-text" id="builderOutputText"></div>
+    <button class="btn-copy-output" onclick="copyBuilderOutput()"><i class="ti ti-copy"></i> <span id="copyOutputLabel">Copy Prompt</span></button>
+  </div>
+</section>
+
+<!-- PROMPT LIBRARY -->
+<section class="pl-section" id="prompts">
+  <h2><i class="ti ti-list" style="color:#1d9e75;margin-right:8px"></i>Prompt Library</h2>
+  <p>Browse prompts by category. Replace everything in <strong>[SQUARE BRACKETS]</strong> with your own details before pasting into Claude.</p>
+
+  <!-- CATEGORY 1: FORMULAS & FUNCTIONS -->
+  <div class="prompt-category">
+    <div class="prompt-cat-header">
+      <div class="prompt-cat-icon"><i class="ti ti-math-function"></i></div>
+      <div class="prompt-cat-title">Formulas &amp; Functions</div>
+      <div class="prompt-cat-count">5 prompts</div>
+    </div>
+    <div class="prompt-list">
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Write a SUMIFS formula</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL 365 / EXCEL 2019 / GOOGLE SHEETS]</strong>.
+
+I have a spreadsheet with the following columns:
+- Column A: <strong>[DESCRIBE COLUMN A, e.g. Date]</strong>
+- Column B: <strong>[DESCRIBE COLUMN B, e.g. Region]</strong>
+- Column C: <strong>[DESCRIBE COLUMN C, e.g. Product]</strong>
+- Column D: <strong>[DESCRIBE COLUMN D, e.g. Revenue]</strong>
+
+I want to sum the values in column D where <strong>[CONDITION 1, e.g. column B equals "North"]</strong> and <strong>[CONDITION 2, e.g. column C equals "Widget A"]</strong>.
+
+Write the SUMIFS formula and explain what each argument does.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Write an XLOOKUP formula</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL 365 / EXCEL 2019]</strong>.
+
+I want to look up <strong>[WHAT YOU ARE LOOKING FOR, e.g. an employee ID]</strong> in column <strong>[LOOKUP COLUMN, e.g. A]</strong> and return the corresponding value from column <strong>[RETURN COLUMN, e.g. C]</strong>.
+
+If no match is found, I want the formula to return <strong>[FALLBACK VALUE, e.g. "Not found" or 0]</strong>.
+
+Write the XLOOKUP formula and explain how it works.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Write a nested IF formula</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL VERSION / GOOGLE SHEETS]</strong>.
+
+I need a formula that checks the value in cell <strong>[CELL REFERENCE, e.g. B2]</strong> and returns:
+- <strong>[RESULT 1, e.g. "High"]</strong> if the value is <strong>[CONDITION 1, e.g. greater than 1000]</strong>
+- <strong>[RESULT 2, e.g. "Medium"]</strong> if the value is <strong>[CONDITION 2, e.g. between 500 and 1000]</strong>
+- <strong>[RESULT 3, e.g. "Low"]</strong> if the value is <strong>[CONDITION 3, e.g. less than 500]</strong>
+
+Write the formula. If there is a cleaner alternative to nested IFs for this situation (such as IFS), show me that version too.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Explain a formula I inherited</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL VERSION / GOOGLE SHEETS]</strong>.
+
+Here is a formula from a spreadsheet I inherited:
+
+<strong>[PASTE YOUR FORMULA HERE]</strong>
+
+Please explain what this formula does, breaking it down layer by layer from the innermost function outward. Explain what each argument controls and flag anything that looks fragile or likely to break if the data changes.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Write a COUNTIFS formula</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL VERSION / GOOGLE SHEETS]</strong>.
+
+I want to count rows in my spreadsheet where:
+- <strong>[COLUMN, e.g. Column B]</strong> equals <strong>[VALUE, e.g. "Completed"]</strong>
+- <strong>[COLUMN, e.g. Column C]</strong> is greater than <strong>[VALUE, e.g. a date or number]</strong>
+
+My data runs from row 2 to row <strong>[LAST ROW, e.g. 500]</strong>.
+
+Write the COUNTIFS formula and explain each argument.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CATEGORY 2: DATA CLEANING -->
+  <div class="prompt-category">
+    <div class="prompt-cat-header">
+      <div class="prompt-cat-icon"><i class="ti ti-filter"></i></div>
+      <div class="prompt-cat-title">Data Cleaning</div>
+      <div class="prompt-cat-count">4 prompts</div>
+    </div>
+    <div class="prompt-list">
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Remove duplicates and standardise a column</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL VERSION / GOOGLE SHEETS]</strong>.
+
+I have a column of <strong>[DESCRIBE DATA, e.g. company names]</strong> in column <strong>[COLUMN LETTER]</strong>. The data has inconsistent formatting — some entries have extra spaces, inconsistent capitalisation, and slight spelling variations of the same value.
+
+Show me the best way to:
+1. Standardise the formatting (trim spaces, fix capitalisation)
+2. Identify and remove duplicate entries
+
+Use formulas where possible. If a manual step is needed, explain it clearly.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Split a column into multiple columns</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL VERSION / GOOGLE SHEETS]</strong>.
+
+I have a column of data in column <strong>[COLUMN LETTER]</strong> that contains <strong>[DESCRIBE FORMAT, e.g. full names like "John Smith" or addresses like "123 Main St, Austin, TX 78701"]</strong>.
+
+I want to split this into separate columns for <strong>[DESCRIBE DESIRED OUTPUT, e.g. first name and last name, or street / city / state / zip]</strong>.
+
+Show me how to do this using formulas. If Text to Columns is a better option for my situation, explain that too.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Flag or remove blank rows</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL VERSION / GOOGLE SHEETS]</strong>.
+
+I have a dataset from row 2 to row <strong>[LAST ROW]</strong> across columns <strong>[FIRST COLUMN]</strong> to <strong>[LAST COLUMN]</strong>. Some rows are completely blank or have only one or two cells filled.
+
+Show me how to:
+1. Identify which rows are blank or near-blank using a formula
+2. Filter or delete those rows efficiently
+
+I want to keep my original data intact until I confirm the deletions.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Convert text to numbers</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL VERSION / GOOGLE SHEETS]</strong>.
+
+I have a column of numbers in column <strong>[COLUMN LETTER]</strong> that Excel is treating as text — they are left-aligned and formulas using them return errors or zero.
+
+Show me how to convert this column to proper numbers. Include at least two methods in case the first does not work for my data format.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CATEGORY 3: PIVOT TABLES & ANALYSIS -->
+  <div class="prompt-category">
+    <div class="prompt-cat-header">
+      <div class="prompt-cat-icon"><i class="ti ti-table"></i></div>
+      <div class="prompt-cat-title">Pivot Tables &amp; Analysis</div>
+      <div class="prompt-cat-count">4 prompts</div>
+    </div>
+    <div class="prompt-list">
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Set up a pivot table from scratch</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL VERSION / GOOGLE SHEETS]</strong>.
+
+I have a dataset with these columns: <strong>[LIST YOUR COLUMNS, e.g. Date, Region, Salesperson, Product, Units Sold, Revenue]</strong>.
+
+I want to create a pivot table that shows <strong>[DESCRIBE WHAT YOU WANT TO ANALYSE, e.g. total revenue by region and product, broken down by month]</strong>.
+
+Walk me through how to set up this pivot table step by step, including which fields go in Rows, Columns, Values, and Filters.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Interpret pivot table results</div>
+        <div class="prompt-item-text">I have a pivot table showing <strong>[DESCRIBE WHAT THE PIVOT SHOWS, e.g. monthly revenue by region for Q1 2025]</strong>.
+
+Here are the key numbers from the pivot table:
+<strong>[PASTE OR DESCRIBE YOUR DATA, e.g. North: £120,000 / South: £85,000 / East: £210,000 / West: £60,000]</strong>
+
+Help me interpret these results. Identify the most significant patterns, flag any anomalies, and suggest two or three follow-up questions I should investigate next.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Add a calculated field to a pivot table</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL VERSION]</strong>.
+
+I have a pivot table that already shows <strong>[EXISTING FIELDS, e.g. Total Revenue and Total Units Sold]</strong>.
+
+I want to add a calculated field that shows <strong>[WHAT YOU WANT TO CALCULATE, e.g. Average Revenue per Unit, which is Revenue divided by Units Sold]</strong>.
+
+Show me how to add this calculated field to my existing pivot table.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Build an analysis using GETPIVOTDATA</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL VERSION]</strong>.
+
+I have a pivot table on sheet <strong>[SHEET NAME]</strong> that summarises <strong>[DESCRIBE DATA, e.g. monthly sales by product and region]</strong>.
+
+I want to pull specific values from this pivot table into a separate summary sheet using GETPIVOTDATA, so my summary updates automatically when the pivot refreshes.
+
+Show me how to write a GETPIVOTDATA formula to extract <strong>[SPECIFIC VALUE, e.g. total sales for "Widget A" in "North" for "January"]</strong>.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CATEGORY 4: FINANCIAL MODELS -->
+  <div class="prompt-category">
+    <div class="prompt-cat-header">
+      <div class="prompt-cat-icon"><i class="ti ti-trending-up"></i></div>
+      <div class="prompt-cat-title">Financial Models</div>
+      <div class="prompt-cat-count">4 prompts</div>
+    </div>
+    <div class="prompt-list">
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Build a budget vs actual tracker</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL VERSION / GOOGLE SHEETS]</strong>.
+
+I want to build a simple budget vs actual tracker for <strong>[CONTEXT, e.g. my department's monthly operating costs / a project budget]</strong>.
+
+My cost categories are: <strong>[LIST CATEGORIES, e.g. Salaries, Software, Travel, Marketing, Office]</strong>.
+
+I need the tracker to show budget, actual spend, variance in £/$ and variance as a percentage, for each month across <strong>[TIME PERIOD, e.g. January to December 2025]</strong>.
+
+Design the structure of this tracker and give me the formulas for the variance columns.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Build a cash flow forecast template</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL VERSION / GOOGLE SHEETS]</strong>.
+
+I want to build a 12-month cash flow forecast for <strong>[CONTEXT, e.g. a small business / a project / a department]</strong>.
+
+My main cash inflows are: <strong>[LIST INFLOWS, e.g. customer receipts, grant income]</strong>.
+My main cash outflows are: <strong>[LIST OUTFLOWS, e.g. salaries, rent, supplier payments, loan repayments]</strong>.
+
+Design the structure of this forecast template and give me the formulas for the opening balance, closing balance, and net cash flow rows.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Write variance commentary from a model</div>
+        <div class="prompt-item-text">I have the following budget vs actual figures for <strong>[PERIOD, e.g. Q1 2025]</strong>:
+
+<strong>[PASTE YOUR DATA, e.g.
+Revenue: Budget £500,000 / Actual £480,000 / Variance -£20,000 (-4%)
+Salaries: Budget £180,000 / Actual £195,000 / Variance +£15,000 (+8%)
+Marketing: Budget £40,000 / Actual £28,000 / Variance -£12,000 (-30%)]</strong>
+
+Known drivers behind these variances: <strong>[DESCRIBE KNOWN REASONS, e.g. revenue shortfall due to delayed contract / salary overspend due to early hire / marketing underspend due to campaign delay]</strong>
+
+Audience: <strong>[e.g. Finance Director / Board / Department Head]</strong>
+
+Write structured variance commentary suitable for a management pack. Keep it factual and concise. Do not invent reasons I have not provided.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Build a headcount cost model</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL VERSION / GOOGLE SHEETS]</strong>.
+
+I want to build a headcount cost model that calculates total employment cost per person and in aggregate.
+
+For each employee I have: <strong>[LIST DATA FIELDS, e.g. Name, Role, Department, Start Date, Base Salary, Bonus %, Employer NI rate, Pension contribution %]</strong>.
+
+I want the model to calculate:
+- Total employment cost per person (salary + bonus + NI + pension)
+- Total cost by department
+- Monthly and annual cost totals
+
+Give me the structure and the key formulas.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CATEGORY 5: VBA & AUTOMATION -->
+  <div class="prompt-category">
+    <div class="prompt-cat-header">
+      <div class="prompt-cat-icon"><i class="ti ti-code"></i></div>
+      <div class="prompt-cat-title">VBA &amp; Automation</div>
+      <div class="prompt-cat-count">4 prompts</div>
+    </div>
+    <div class="prompt-list">
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Write a VBA macro to automate a repetitive task</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL VERSION]</strong>.
+
+I want a VBA macro that does the following:
+<strong>[DESCRIBE THE TASK STEP BY STEP, e.g.
+1. Opens each file in a folder
+2. Copies the data from sheet "Data" rows 2 onwards
+3. Pastes it into the master workbook on sheet "Combined" starting at the next empty row
+4. Closes each file without saving]</strong>
+
+Write the VBA code with comments explaining each section. I am not an experienced VBA user so keep the comments clear. Tell me where to paste the code and how to run it.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Write a macro to format and export a report</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL VERSION]</strong>.
+
+I want a VBA macro that:
+1. Takes data from sheet <strong>[SHEET NAME]</strong>
+2. Applies this formatting: <strong>[DESCRIBE FORMATTING, e.g. bold headers, alternating row colours, auto-fit columns]</strong>
+3. Exports the result as a PDF saved to <strong>[FOLDER PATH OR DESKTOP]</strong> with the filename <strong>[FILENAME FORMAT, e.g. "Report_MonthYear.pdf"]</strong>
+
+Write the code with clear comments. Tell me if I need to adjust any file paths before running it.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Explain a VBA macro I inherited</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL VERSION]</strong>.
+
+Here is a VBA macro from a workbook I inherited:
+
+<strong>[PASTE YOUR VBA CODE HERE]</strong>
+
+Please explain what this macro does step by step. Flag anything that looks risky, fragile, or likely to cause errors if the data structure changes. Tell me if there are any hard-coded values I should be aware of.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Write a macro to send emails from Excel</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL VERSION]</strong> with <strong>[OUTLOOK VERSION]</strong>.
+
+I have a list in sheet <strong>[SHEET NAME]</strong> with the following columns:
+- Column A: Recipient email address
+- Column B: Recipient name
+- Column C: <strong>[DESCRIBE OTHER RELEVANT COLUMN, e.g. Invoice amount / Due date / Status]</strong>
+
+I want a VBA macro that loops through each row and sends a personalised email to each recipient using Outlook. The email subject should be <strong>[SUBJECT LINE]</strong> and the body should include the recipient's name and the value from column C.
+
+Write the code with comments. Tell me what references I need to enable in the VBA editor before running it.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CATEGORY 6: ERROR DEBUGGING -->
+  <div class="prompt-category">
+    <div class="prompt-cat-header">
+      <div class="prompt-cat-icon"><i class="ti ti-bug"></i></div>
+      <div class="prompt-cat-title">Error Debugging</div>
+      <div class="prompt-cat-count">4 prompts</div>
+    </div>
+    <div class="prompt-list">
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Debug a formula returning the wrong result</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL VERSION / GOOGLE SHEETS]</strong>.
+
+This formula is returning <strong>[WRONG RESULT, e.g. zero / a wrong number / TRUE when it should be FALSE]</strong> when I expect it to return <strong>[EXPECTED RESULT]</strong>:
+
+<strong>[PASTE YOUR FORMULA HERE]</strong>
+
+Here is what the relevant cells contain:
+- <strong>[CELL REFERENCE]</strong>: <strong>[VALUE]</strong>
+- <strong>[CELL REFERENCE]</strong>: <strong>[VALUE]</strong>
+
+Identify the most likely cause of the error and give me the corrected formula.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Fix a #REF! error</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL VERSION / GOOGLE SHEETS]</strong>.
+
+I have a formula that is returning a #REF! error:
+
+<strong>[PASTE YOUR FORMULA HERE]</strong>
+
+The error appeared after I <strong>[DESCRIBE WHAT CHANGED, e.g. deleted a column / moved a sheet / copied the formula to a new range]</strong>.
+
+Explain why this #REF! error is occurring and give me the corrected formula.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Fix a #VALUE! or #N/A error</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL VERSION / GOOGLE SHEETS]</strong>.
+
+I have this formula that is returning a <strong>[#VALUE! / #N/A]</strong> error:
+
+<strong>[PASTE YOUR FORMULA HERE]</strong>
+
+The data I am working with: <strong>[DESCRIBE YOUR DATA, e.g. the lookup column contains product codes stored as text but my lookup value is a number]</strong>.
+
+Diagnose the most likely cause and give me the corrected formula. If there are multiple possible causes, list them in order of likelihood.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Fix absolute and relative reference errors</div>
+        <div class="prompt-item-text">I am using <strong>[EXCEL VERSION / GOOGLE SHEETS]</strong>.
+
+I have this formula in cell <strong>[CELL REFERENCE, e.g. C2]</strong>:
+
+<strong>[PASTE YOUR FORMULA HERE]</strong>
+
+When I copy it down to the rows below / across to the columns to the right, it gives wrong results because <strong>[DESCRIBE THE PROBLEM, e.g. the reference to the lookup table is shifting when it should stay fixed / the row reference is not updating when it should]</strong>.
+
+Identify which references need $ signs to be fixed and which should remain relative. Give me the corrected formula.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CATEGORY 7: GOOGLE SHEETS SPECIFIC -->
+  <div class="prompt-category">
+    <div class="prompt-cat-header">
+      <div class="prompt-cat-icon"><i class="ti ti-brand-google"></i></div>
+      <div class="prompt-cat-title">Google Sheets Specific</div>
+      <div class="prompt-cat-count">4 prompts</div>
+    </div>
+    <div class="prompt-list">
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Write a QUERY formula</div>
+        <div class="prompt-item-text">I am using Google Sheets.
+
+I have a dataset on sheet <strong>[SHEET NAME]</strong> in the range <strong>[RANGE, e.g. A1:F500]</strong> with these columns:
+- A: <strong>[COLUMN A DESCRIPTION]</strong>
+- B: <strong>[COLUMN B DESCRIPTION]</strong>
+- C: <strong>[COLUMN C DESCRIPTION]</strong>
+
+I want to use the QUERY function to <strong>[DESCRIBE WHAT YOU WANT, e.g. show only rows where column B equals "Completed" and column C is greater than 100, sorted by column C descending]</strong>.
+
+Write the QUERY formula and explain the SQL-like syntax so I can adapt it in future.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Write an IMPORTRANGE formula</div>
+        <div class="prompt-item-text">I am using Google Sheets.
+
+I want to pull data from another Google Sheet into my current sheet using IMPORTRANGE.
+
+The source sheet URL is: <strong>[PASTE URL OR DESCRIBE IT]</strong>
+The range I want to import is: <strong>[SHEET NAME AND RANGE, e.g. Sheet1!A1:D100]</strong>
+
+Write the IMPORTRANGE formula. Also tell me what I need to do the first time I use it (the permissions step) and how to combine it with a QUERY formula if I only want certain rows or columns.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Write an ARRAYFORMULA</div>
+        <div class="prompt-item-text">I am using Google Sheets.
+
+I have a formula in cell <strong>[CELL REFERENCE, e.g. C2]</strong> that I currently copy down manually through column C:
+
+<strong>[PASTE YOUR FORMULA HERE]</strong>
+
+I want to replace this with a single ARRAYFORMULA in C2 that automatically applies the calculation to all rows in the column without me having to copy it down.
+
+Write the ARRAYFORMULA version and explain any adjustments needed to make it work correctly across the full column.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+      <div class="prompt-item">
+        <div class="prompt-item-title">Build an automated dashboard in Google Sheets</div>
+        <div class="prompt-item-text">I am using Google Sheets.
+
+I want to build a simple dashboard that pulls from a data sheet called <strong>[DATA SHEET NAME]</strong> and displays summary metrics on a separate dashboard sheet.
+
+The metrics I want to show are: <strong>[LIST METRICS, e.g. Total Revenue, Revenue by Region, Top 5 Products by Units Sold, Month-on-Month Growth %]</strong>.
+
+My data has these columns: <strong>[LIST COLUMNS]</strong>.
+
+Recommend the best combination of formulas (QUERY, SUMIF, SORT, LARGE, etc.) for each metric and explain how to structure the dashboard sheet so it updates automatically when the data sheet changes.</div>
+        <button class="btn-copy-prompt" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BEST PRACTICES -->
+<section class="pl-section">
+  <h2>How to Get Better Results from Claude for Excel</h2>
+  <div class="bp-box">
+    <div class="bp-box-title"><i class="ti ti-check" style="color:#1d9e75"></i> Always tell Claude your Excel version</div>
+    <ul class="bp-list">
+      <li>XLOOKUP and dynamic arrays require Excel 2019 or 365 — Claude will use compatible alternatives for older versions if you specify</li>
+      <li>Google Sheets has different syntax for several functions — always say "Google Sheets" if that is what you are using</li>
+      <li>LAMBDA functions are Excel 365 only — Claude will flag this if relevant</li>
+    </ul>
+  </div>
+  <div class="bp-box">
+    <div class="bp-box-title"><i class="ti ti-check" style="color:#1d9e75"></i> Describe your data structure before asking for a formula</div>
+    <ul class="bp-list">
+      <li>Tell Claude which columns contain which data — "Column A is date, Column B is region, Column C is revenue"</li>
+      <li>Mention how many rows of data you have — it affects which approach Claude recommends</li>
+      <li>If data types matter (text vs number vs date), say so — type mismatches cause most formula errors</li>
+    </ul>
+  </div>
+  <div class="bp-box">
+    <div class="bp-box-title"><i class="ti ti-check" style="color:#1d9e75"></i> For debugging, paste the formula from the formula bar</div>
+    <ul class="bp-list">
+      <li>Copy the formula directly from the formula bar, not from the cell display</li>
+      <li>Describe what result you are getting and what you expected</li>
+      <li>Mention any recent changes to the spreadsheet — deleted rows, moved sheets, copied formulas</li>
+    </ul>
+  </div>
+  <div class="bp-box">
+    <div class="bp-box-title"><i class="ti ti-check" style="color:#1d9e75"></i> For VBA macros, always test on a copy first</div>
+    <ul class="bp-list">
+      <li>Never run a new macro on your live workbook — test on a copy first</li>
+      <li>Ask Claude to add comments to every section so you understand what the code does</li>
+      <li>If the macro needs to access files or folders, check file paths match your system before running</li>
+    </ul>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="pl-section">
+  <h2>FAQ</h2>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Can Claude write Excel formulas? <i class="ti ti-chevron-down"></i></div>
+    <div class="faq-a">Yes. Describe what you want the formula to do, which cells or columns are involved, and which version of Excel you are using. Claude writes the formula and explains how it works.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Does Claude work with Google Sheets? <i class="ti ti-chevron-down"></i></div>
+    <div class="faq-a">Yes. Most Excel formulas work in Sheets with minor differences. Tell Claude you are using Google Sheets and it will adjust the syntax — for example using QUERY instead of Power Query, or ARRAYFORMULA where needed.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Can Claude debug broken formulas? <i class="ti ti-chevron-down"></i></div>
+    <div class="faq-a">Yes. Paste the formula from your formula bar along with a description of what it should do and what error or wrong result you are getting. Claude identifies the most likely cause and gives you the corrected version.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Can Claude write VBA macros? <i class="ti ti-chevron-down"></i></div>
+    <div class="faq-a">Yes. Describe what you want the macro to do step by step. Claude writes the VBA code with comments explaining each section. Always test macros on a copy of your file first.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Does this work with Excel 2016 and 2019? <i class="ti ti-chevron-down"></i></div>
+    <div class="faq-a">Yes, with some limitations. XLOOKUP and dynamic arrays require Excel 2019 or 365. LAMBDA functions require Excel 365 only. Tell Claude which version you are using and it will use compatible functions.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Is Claude better than Microsoft Copilot for Excel? <i class="ti ti-chevron-down"></i></div>
+    <div class="faq-a">They serve different purposes. Copilot works inside Excel directly. Claude is better for explaining complex logic, writing and debugging formulas in plain language, and building prompts you can reuse. Many professionals use both.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Do I need a paid Claude account to use these prompts? <i class="ti ti-chevron-down"></i></div>
+    <div class="faq-a">No. Every prompt on this page works on the free tier of Claude. A paid plan gives higher usage limits but is not required.</div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section class="pl-section">
+  <h2>Want to Go Deeper? Browse the Excel Mini-Courses</h2>
+  <p>Each course takes 5 minutes and focuses on one specific Excel or Sheets workflow with Claude.</p>
+  <div class="courses-grid">
+    <a href="https://www.pairworkflows.com/c63.html" class="course-card">
+      <div class="course-card-icon"><i class="ti ti-math-function"></i></div>
+      <div><div class="course-card-title">Writing Excel Formulas with Claude AI</div><div class="course-card-tag">Claude AI · Excel</div></div>
+    </a>
+    <a href="https://www.pairworkflows.com/c64.html" class="course-card">
+      <div class="course-card-icon"><i class="ti ti-bug"></i></div>
+      <div><div class="course-card-title">Debugging Excel Formulas with Claude AI</div><div class="course-card-tag">Claude AI · Excel</div></div>
+    </a>
+    <a href="https://www.pairworkflows.com/c65.html" class="course-card">
+      <div class="course-card-icon"><i class="ti ti-file-spreadsheet"></i></div>
+      <div><div class="course-card-title">Explaining Complex Excel Formulas with Claude</div><div class="course-card-tag">Claude AI · Excel</div></div>
+    </a>
+    <a href="https://www.pairworkflows.com/c66.html" class="course-card">
+      <div class="course-card-icon"><i class="ti ti-filter"></i></div>
+      <div><div class="course-card-title">Data Cleaning in Excel with Claude AI</div><div class="course-card-tag">Claude AI · Excel</div></div>
+    </a>
+    <a href="https://www.pairworkflows.com/c67.html" class="course-card">
+      <div class="course-card-icon"><i class="ti ti-table"></i></div>
+      <div><div class="course-card-title">Building Pivot Tables with Claude AI</div><div class="course-card-tag">Claude AI · Excel</div></div>
+    </a>
+    <a href="https://www.pairworkflows.com/c68.html" class="course-card">
+      <div class="course-card-icon"><i class="ti ti-trending-up"></i></div>
+      <div><div class="course-card-title">Financial Modelling in Excel with Claude AI</div><div class="course-card-tag">Claude AI · Excel</div></div>
+    </a>
+    <a href="https://www.pairworkflows.com/c69.html" class="course-card">
+      <div class="course-card-icon"><i class="ti ti-code"></i></div>
+      <div><div class="course-card-title">Writing VBA Macros with Claude AI</div><div class="course-card-tag">Claude AI · Excel</div></div>
+    </a>
+    <a href="https://www.pairworkflows.com/c70.html" class="course-card">
+      <div class="course-card-icon"><i class="ti ti-brand-google"></i></div>
+      <div><div class="course-card-title">Google Sheets Formulas with Claude AI</div><div class="course-card-tag">Claude AI · Google Sheets</div></div>
+    </a>
+    <a href="https://www.pairworkflows.com/c71.html" class="course-card">
+      <div class="course-card-icon"><i class="ti ti-chart-bar"></i></div>
+      <div><div class="course-card-title">Excel Dashboard Building with Claude AI</div><div class="course-card-tag">Claude AI · Excel</div></div>
+    </a>
+    <a href="https://www.pairworkflows.com/c72.html" class="course-card">
+      <div class="course-card-icon"><i class="ti ti-robot"></i></div>
+      <div><div class="course-card-title">Automating Excel Reports with Claude AI</div><div class="course-card-tag">Claude AI · Excel</div></div>
+    </a>
+  </div>
+</section>
+
+</div>
+
+<footer style="background:#021a12; border-top:1px solid #0a4a30; padding:2.5rem 1rem 1.5rem; margin-top:1rem">
+  <div style="max-width:1100px; margin:0 auto">
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
+      <div>
+        <strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Prompt Libraries</strong>
+        <a href="https://www.pairworkflows.com/claude-prompts-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Excel Prompts</a>
+        <a href="https://www.pairworkflows.com/claude-prompts-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Finance Prompts</a>
+        <a href="https://www.pairworkflows.com/claude-prompts-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">HR Prompts</a>
+        <a href="https://www.pairworkflows.com/claude-prompts-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Marketing Prompts</a>
+        <a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">General Prompt Library</a>
+      </div>
+      <div>
+        <strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Excel Courses</strong>
+        <a href="https://www.pairworkflows.com/c63.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Writing Formulas</a>
+        <a href="https://www.pairworkflows.com/c64.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Debugging Formulas</a>
+        <a href="https://www.pairworkflows.com/c69.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">VBA Macros</a>
+        <a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI for Excel Hub</a>
+      </div>
+      <div>
+        <strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Guides by Role</strong>
+        <a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI for Finance</a>
+        <a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI for HR</a>
+        <a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI for Marketing</a>
+        <a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI for Sales</a>
+        <a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI for Legal</a>
+      </div>
+      <div>
+        <strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Resources</strong>
+        <a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Prompt Library</a>
+        <a href="https://www.pairworkflows.com/glossary.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI Glossary</a>
+        <a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Claude vs Gemini</a>
+        <a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">All Courses</a>
+      </div>
+    </div>
+    <div style="text-align:center; margin-bottom:2rem;">
+      <p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:520px; margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p>
+    </div>
+    <div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem">
+      <span style="font-size:13px; color:#475569">© 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
+        <button onclick="copyExcelPromptsLink()" id="copyExcelPromptsBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+          Copy link
+        </button>
+        <a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'"><svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg><span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span></a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.pairworkflows.com/claude-prompts-excel.html" target="_blank" rel="noopener" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        </a>
+        <a href="https://twitter.com/intent/tweet?url=https://www.pairworkflows.com/claude-prompts-excel.html&text=Free+Claude+AI+prompts+for+Excel+%26+Google+Sheets+%E2%80%94+formulas%2C+VBA%2C+pivot+tables+and+more" target="_blank" rel="noopener" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// PROMPT BUILDER
+function buildPrompt(){
+  var task=document.getElementById('b-task').value;
+  var version=document.getElementById('b-version').value;
+  var formula=document.getElementById('b-formula').value.trim();
+  var desc=document.getElementById('b-desc').value.trim();
+  var output=document.getElementById('b-output').value;
+  if(!task){alert('Please select a task type first.');return;}
+  if(!desc){alert('Please describe what you need.');return;}
+  var taskLabels={
+    'write':'Write a formula',
+    'debug':'Debug a formula',
+    'explain':'Explain a formula',
+    'clean':'Clean or transform data',
+    'pivot':'Build or analyse a pivot table',
+    'model':'Build a financial model',
+    'vba':'Write a VBA macro',
+    'sheets':'Google Sheets specific task'
+  };
+  var intro='I am using '+version+'.\n\n';
+  var taskLine='Task: '+taskLabels[task]+(formula?' ('+formula+')':'')+'.\n\n';
+  var descLine='Here is what I need:\n'+desc+'\n\n';
+  var outputLine='Please provide: '+output+'.';
+  if(task==='debug'){
+    outputLine='Please identify the most likely cause of the problem and provide the corrected version with a brief explanation.';
+  }
+  if(task==='explain'){
+    outputLine='Please explain this layer by layer, from the innermost function outward. Flag anything that looks fragile or likely to break.';
+  }
+  if(task==='vba'){
+    outputLine='Please write the VBA code with comments on each section. Tell me where to paste it and how to run it. Note any prerequisites (references to enable, file paths to check).';
+  }
+  var prompt=intro+taskLine+descLine+outputLine;
+  document.getElementById('builderOutputText').textContent=prompt;
+  document.getElementById('builderOutput').classList.add('visible');
+  document.getElementById('builderOutput').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function resetBuilder(){
+  document.getElementById('b-task').value='';
+  document.getElementById('b-version').value='Excel 365';
+  document.getElementById('b-formula').value='';
+  document.getElementById('b-desc').value='';
+  document.getElementById('b-output').value='formula and a brief explanation';
+  document.getElementById('builderOutput').classList.remove('visible');
+  document.getElementById('builderOutputText').textContent='';
+  document.getElementById('copyOutputLabel').textContent='Copy Prompt';
+}
+
+function copyBuilderOutput(){
+  var text=document.getElementById('builderOutputText').textContent;
+  navigator.clipboard.writeText(text);
+  var label=document.getElementById('copyOutputLabel');
+  label.textContent='Copied!';
+  setTimeout(function(){label.textContent='Copy Prompt';},2000);
+}
+
+// INDIVIDUAL PROMPT COPY
+function copyPrompt(btn){
+  var text=btn.previousElementSibling.innerText;
+  navigator.clipboard.writeText(text);
+  btn.innerHTML='<i class="ti ti-check"></i> Copied!';
+  btn.style.background='#1d9e75';
+  btn.style.color='#fff';
+  btn.style.borderColor='#1d9e75';
+  setTimeout(function(){
+    btn.innerHTML='<i class="ti ti-copy"></i> Copy';
+    btn.style.background='';
+    btn.style.color='';
+    btn.style.borderColor='';
+  },2000);
+}
+
+// FAQ
+function toggleFaq(el){el.classList.toggle('open');el.nextElementSibling.classList.toggle('open');}
+
+// FOOTER COPY LINK
+function copyExcelPromptsLink(){
+  var btn=document.getElementById('copyExcelPromptsBtn');
+  navigator.clipboard.writeText('https://www.pairworkflows.com/claude-prompts-excel.html');
+  btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';
+  setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);
+}
+
+// SEARCH
+function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+window.addEventListener('load',function(){window.scrollTo(0,0);});
+</script>
+</body>
+</html>
