@@ -1,134 +1,304 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>AI for HR Teams: Claude & Gemini Mini-Courses — PairWorkflows</title>
-<meta name="description" content="Master AI for HR. Practical Claude and Gemini mini-courses for job descriptions, onboarding, performance reviews and employee communications — free, 5 minutes each.">
-<link rel="canonical" href="https://www.pairworkflows.com/claude-for-hr.html">
-<meta property="og:title" content="AI for HR Teams: Claude & Gemini Mini-Courses — PairWorkflows">
-<meta property="og:description" content="Master AI for HR. Practical Claude and Gemini mini-courses for job descriptions, onboarding, performance reviews and employee communications.">
-<meta property="og:url" content="https://www.pairworkflows.com/claude-for-hr.html">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="PairWorkflows">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="AI for HR Teams: Claude & Gemini Mini-Courses — PairWorkflows">
-<meta name="twitter:description" content="Master AI for HR. Practical Claude and Gemini mini-courses for job descriptions, onboarding, performance reviews and employee communications.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-<style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter','Segoe UI',Helvetica Neue,sans-serif;background:#042e1f;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}.logo-workflows{font-size:16px;font-weight:400;color:#ffffff}.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}.nav-back:hover{color:#1d9e75}.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
-.hero-hub{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:1.5rem}
-.hero-hub h1{font-size:32px;font-weight:600;color:#ffffff;margin-bottom:.75rem;line-height:1.25}
-.hero-hub p{font-size:15px;color:rgba(255,255,255,.85);max-width:640px;margin:0 auto 1.5rem;line-height:1.7}
-.hero-cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.hub-btn{padding:11px 24px;border-radius:8px;font-weight:500;text-decoration:none;font-size:13px;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
-.hub-btn-primary{background:#1d9e75;color:#ffffff}
-.hub-btn-primary:hover{background:#178a64}
-.hub-btn-secondary{background:rgba(255,255,255,.1);color:#ffffff;border:1px solid rgba(255,255,255,.2)}
-.hub-btn-secondary:hover{background:rgba(255,255,255,.18)}
-.hub-section{background:#ffffff;border-radius:16px;padding:2rem 2rem;margin-bottom:1.25rem;box-shadow:0 2px 24px rgba(0,0,0,.18),0 0 0 1px rgba(0,0,0,.06)}
-.hub-section h2{font-size:20px;font-weight:600;color:#0f6e56;margin-bottom:1rem}
-.hub-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
-.hub-section p:last-child{margin-bottom:0}
-.cap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:1rem}
-.cap-card{background:#f8fafb;border:1px solid #e8ecef;border-top:3px solid #1d9e75;border-radius:4px 4px 10px 10px;padding:1.25rem}
-.cap-icon{font-size:24px;color:#1d9e75;margin-bottom:.5rem}
-.cap-title{font-size:13px;font-weight:700;color:#0f6e56;margin-bottom:.35rem}
-.cap-desc{font-size:13px;color:#374151;line-height:1.6}
-.path-list{display:flex;flex-direction:column;gap:10px;margin-top:1rem}
-.path-card{display:flex;align-items:center;gap:14px;background:#f8fafb;border:1px solid #e8ecef;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1.1rem 1.25rem;text-decoration:none;transition:all .15s}
-.path-card:hover{background:#f0fdf4;border-color:#9fe1cb;transform:translateX(2px)}
-.path-icon{width:38px;height:38px;border-radius:10px;background:#e1f5ee;display:flex;align-items:center;justify-content:center;color:#0f6e56;font-size:18px;flex-shrink:0}
-.path-content{flex:1}
-.path-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#1d9e75;margin-bottom:.2rem}
-.path-title{font-size:14px;font-weight:600;color:#0f6e56;margin-bottom:.2rem}
-.path-desc{font-size:12px;color:#6b7280;line-height:1.5}
-.path-arrow{color:#9fe1cb;font-size:16px;flex-shrink:0}
-.faq-item{border-bottom:1px solid #e8ecef;padding:1rem 0}
-.faq-item:last-child{border-bottom:none;padding-bottom:0}
-.faq-q{font-size:14px;font-weight:600;color:#0f6e56;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem}
-.faq-q i{transition:transform .2s;color:#1d9e75;flex-shrink:0}
-.faq-q.open i{transform:rotate(180deg)}
-.faq-a{font-size:13px;color:#374151;line-height:1.7;display:none;padding-top:.6rem}
-.faq-a.open{display:block}
-.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:2rem;flex-shrink:0;margin-top:1rem}
-.footer-cols{display:flex;justify-content:center;gap:4rem;flex-wrap:wrap;margin-bottom:1.5rem;max-width:1100px;margin-left:auto;margin-right:auto}
-.footer-col strong{display:block;font-size:12px;font-weight:600;color:#9fe1cb;margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.06em}
-.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.55);text-decoration:none;margin-bottom:.4rem;transition:color .15s}
-.footer-col a:hover{color:#1d9e75}
-.footer-copy{text-align:center;font-size:12px;color:#4a7a60}
-@media(max-width:700px){.navbar{padding:0 1rem}.page-wrap{padding:1rem .5rem}.hero-hub{padding:2rem 1.25rem}.hero-hub h1{font-size:24px}.hub-section{padding:1.5rem 1.25rem}.cap-grid{grid-template-columns:1fr}.footer-cols{gap:2rem;justify-content:flex-start}}
-#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}#searchOverlay.open{display:flex}.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}.search-close-btn:hover{color:#ffffff}.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}.search-box input{flex:1;border:none;outline:none;background:transparent;color:#ffffff;font-size:17px;font-family:'Inter',sans-serif}.search-box input::placeholder{color:rgba(255,255,255,.35)}.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center;letter-spacing:.02em}.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}.search-trigger:hover{background:rgba(255,255,255,.15);color:#ffffff}</style>
-</head>
 <body>
-<div id="searchOverlay" onclick="if(event.target===this)closeSearch()"><div class="search-overlay-inner"><button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button><form action="/search.html" method="get"><div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div></form><p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p></div></div>
-<nav class="navbar"><a href="https://www.pairworkflows.com" class="nav-logo"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a><div style="display:flex;align-items:center;gap:16px"><button class="search-trigger" onclick="openSearch()"><i class="ti ti-search"></i></button><a href="https://www.pairworkflows.com/index.html" class="nav-back"><i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses</a></div></nav>
+<div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
+  <div class="search-overlay-inner">
+    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+    <form action="/search.html" method="get">
+      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
+    </form>
+    <p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
+  </div>
+</div>
+
+<nav class="navbar">
+  <a href="https://www.pairworkflows.com" class="nav-logo"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a>
+  <div class="nav-right">
+    <button class="search-trigger" onclick="openSearch()"><i class="ti ti-search"></i></button>
+    <a href="https://www.pairworkflows.com/index.html" class="nav-back"><i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses</a>
+  </div>
+</nav>
+
 <div class="page-wrap">
 
 <section class="hero-hub">
-<h1>AI for HR Teams</h1>
-<p>Master Claude and Gemini in 5 minutes a course. Practical workflows for job descriptions, onboarding, performance reviews and employee communications — built for UK and US HR professionals.</p>
-<div class="hero-cta-row">
-<a href="#path" class="hub-btn hub-btn-primary"><i class="ti ti-books"></i> Browse Mini-Courses</a>
-<a href="https://www.pairworkflows.com/prompt-library.html" class="hub-btn hub-btn-secondary"><i class="ti ti-clipboard-text"></i> Browse Prompt Library</a>
-</div>
+  <h1>AI for HR Teams: Free Mini-Courses, Practical Workflows &amp; Prompt Templates</h1>
+  <p>HR teams spend too much time on repetitive writing, manual screening, and documentation. AI doesn't replace human judgment — it removes the blank-page problem and speeds up the administrative load. These free 5-minute courses show HR professionals how to use Claude and Gemini to work significantly faster.</p>
+  <div class="hero-cta-row">
+    <a href="#courses" class="hub-btn hub-btn-primary"><i class="ti ti-books"></i> Browse Mini-Courses</a>
+    <a href="https://www.pairworkflows.com/prompt-library.html" class="hub-btn hub-btn-secondary"><i class="ti ti-clipboard-text"></i> Prompt Library</a>
+  </div>
 </section>
 
 <section class="hub-section">
-<h2>Why AI Matters for HR</h2>
-<p>HR teams are the backbone of corporate culture, yet much of the working week is spent on administrative tasks — drafting job descriptions, building onboarding plans, writing policy updates and answering the same employee questions on repeat. None of this requires HR judgement. It requires careful, consistent writing.</p>
-<p>Claude and Gemini take on exactly that work — drafting documents, structuring onboarding journeys and turning manager notes into balanced, professional performance review language. The judgement on hiring, performance and people decisions always stays with you. The drafting does not have to.</p>
+  <h2>Who These Courses Are For</h2>
+  <p>These courses assume you already know your domain and want to cut the time spent on repetitive HR tasks — not learn HR from scratch.</p>
+  <div class="who-grid">
+    <div class="who-tag">HR Managers</div>
+    <div class="who-tag">Recruiters</div>
+    <div class="who-tag">L&amp;D Professionals</div>
+    <div class="who-tag">People Operations Teams</div>
+    <div class="who-tag">HR Business Partners</div>
+    <div class="who-tag">Payroll &amp; Compensation Teams</div>
+  </div>
 </section>
 
 <section class="hub-section">
-<h2>Key Capabilities</h2>
-<div class="cap-grid">
-<div class="cap-card"><div class="cap-icon"><i class="ti ti-file-text"></i></div><div class="cap-title">Job Descriptions & Policies</div><div class="cap-desc">Generate accurate, inclusive job descriptions and clear HR policy documents in minutes, not hours.</div></div>
-<div class="cap-card"><div class="cap-icon"><i class="ti ti-clipboard-list"></i></div><div class="cap-title">Onboarding Plans</div><div class="cap-desc">Build structured 30-60-90 day onboarding plans that give every new hire a clear path from day one.</div></div>
-<div class="cap-card"><div class="cap-icon"><i class="ti ti-message-2"></i></div><div class="cap-title">Performance Reviews</div><div class="cap-desc">Turn manager notes into balanced, behaviour-based performance review language — ready to edit and approve.</div></div>
-<div class="cap-card"><div class="cap-icon"><i class="ti ti-mail"></i></div><div class="cap-title">Employee Communications</div><div class="cap-desc">Draft consistent, empathetic communications for company-wide updates, benefits and policy changes.</div></div>
-</div>
-</section>
-
-<section class="hub-section" id="path">
-<h2>Curated Learning Path</h2>
-<div class="path-list">
-<a href="https://www.pairworkflows.com/claude-prompt-templates-hr.html" class="path-card"><div class="path-icon"><i class="ti ti-file-text"></i></div><div class="path-content"><div class="path-tag">Claude AI</div><div class="path-title">HR Prompt Templates</div><div class="path-desc">5 ready-to-use Claude prompt templates for job descriptions, performance reviews, onboarding and more.</div></div><i class="ti ti-chevron-right path-arrow"></i></a>
-<a href="https://www.pairworkflows.com/claude-hr-performance-reviews.html" class="path-card"><div class="path-icon"><i class="ti ti-message-2"></i></div><div class="path-content"><div class="path-tag">Claude AI</div><div class="path-title">Performance Reviews and Employee Feedback</div><div class="path-desc">How to use Claude to write balanced performance reviews and prepare feedback conversations — with safeguards.</div></div><i class="ti ti-chevron-right path-arrow"></i></a>
-<a href="https://www.pairworkflows.com/gemini-for-hr.html" class="path-card"><div class="path-icon"><i class="ti ti-sparkles"></i></div><div class="path-content"><div class="path-tag">Gemini AI</div><div class="path-title">Recruitment, Onboarding and People Operations</div><div class="path-desc">How HR teams can use Gemini to automate job descriptions, onboarding plans and employee communications.</div></div><i class="ti ti-chevron-right path-arrow"></i></a>
-</div>
+  <h2>When AI Helps Most in HR</h2>
+  <p>AI for HR means using Claude and Gemini to draft, analyse, and structure HR work faster — while keeping full human oversight on every decision that affects people.</p>
+  <table class="comparison-table">
+    <tr><th>Task</th><th>Without AI</th><th>With Claude or Gemini</th></tr>
+    <tr><td class="task">Performance reviews</td><td class="slow">Hours of blank-page writing</td><td class="fast">Structured drafts in minutes</td></tr>
+    <tr><td class="task">CV screening and shortlisting</td><td class="slow">Manual reading of every application</td><td class="fast">Structured summary and scoring criteria</td></tr>
+    <tr><td class="task">Employee handbook policies</td><td class="slow">Legal language that takes days</td><td class="fast">Clear first draft in minutes</td></tr>
+    <tr><td class="task">Exit interview analysis</td><td class="slow">Notes sitting unread</td><td class="fast">Patterns and themes extracted fast</td></tr>
+    <tr><td class="task">Onboarding documentation</td><td class="slow">Rebuilt from scratch each time</td><td class="fast">Template-driven and consistent</td></tr>
+  </table>
 </section>
 
 <section class="hub-section">
-<h2>FAQ</h2>
-<div class="faq-item"><div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">Are these courses suitable for UK and US HR teams? <i class="ti ti-chevron-down"></i></div><div class="faq-a">Yes. Every workflow is written with UK and US employment contexts in mind, including guidance on when content needs review by a qualified HR or legal specialist.</div></div>
-<div class="faq-item"><div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">Is it safe to use AI for performance reviews and employee data? <i class="ti ti-chevron-down"></i></div><div class="faq-a">The courses teach you never to upload employee names, personal data or salary details. Claude and Gemini draft the language — the rating, the decision and final review always stay with you.</div></div>
-<div class="faq-item"><div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">Do I need a paid Claude or Gemini plan to follow these courses? <i class="ti ti-chevron-down"></i></div><div class="faq-a">No. Every workflow in these courses works on the free tier of Claude and Gemini. A paid plan may give you higher usage limits, but it is not required to follow along.</div></div>
+  <h2>Key Capabilities</h2>
+  <div class="cap-grid">
+    <div class="cap-card">
+      <div class="cap-icon"><i class="ti ti-star"></i></div>
+      <div class="cap-title">Performance &amp; Feedback</div>
+      <div class="cap-desc">Draft appraisals, feedback summaries, and PIPs without starting from a blank page.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-icon"><i class="ti ti-users"></i></div>
+      <div class="cap-title">Recruitment &amp; Screening</div>
+      <div class="cap-desc">Structure job descriptions, screen CVs against criteria, and draft candidate communications.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-icon"><i class="ti ti-file-text"></i></div>
+      <div class="cap-title">Policy &amp; Documentation</div>
+      <div class="cap-desc">Draft handbook sections, policy updates, and compliance language faster.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-icon"><i class="ti ti-chart-bar"></i></div>
+      <div class="cap-title">People Analytics</div>
+      <div class="cap-desc">Analyse survey results, exit interview themes, and engagement data.</div>
+    </div>
+  </div>
+  <div class="why-box">
+    <strong>Why These Courses Are Different</strong>
+    Most HR training teaches theory. These courses teach solutions. Each mini-course focuses on one specific, recurring HR problem and shows exactly how to use AI to solve it in under five minutes.
+  </div>
+</section>
+
+<section class="hub-section" id="courses">
+  <h2>Curated Learning Paths</h2>
+  <div class="path-category">
+    <div class="path-category-title"><i class="ti ti-robot" style="color:#0f6e56"></i> Claude AI — HR</div>
+    <div class="path-list">
+      <a href="https://www.pairworkflows.com/claude-prompt-templates-hr.html" class="path-card">
+        <div class="path-icon"><i class="ti ti-clipboard-text"></i></div>
+        <div class="path-content"><div class="path-tag">Claude AI</div><div class="path-title">Claude AI Prompt Templates for HR Professionals</div><div class="path-desc">Ready-to-use prompt templates for the most common HR workflows.</div></div>
+        <i class="ti ti-chevron-right path-arrow"></i>
+      </a>
+      <a href="https://www.pairworkflows.com/claude-hr-performance-reviews.html" class="path-card">
+        <div class="path-icon"><i class="ti ti-star"></i></div>
+        <div class="path-content"><div class="path-tag">Claude AI</div><div class="path-title">Performance Reviews and Employee Feedback</div><div class="path-desc">Draft appraisals and feedback faster without losing the human judgment.</div></div>
+        <i class="ti ti-chevron-right path-arrow"></i>
+      </a>
+      <a href="https://www.pairworkflows.com/claude-hr-recruitment-screening.html" class="path-card">
+        <div class="path-icon"><i class="ti ti-users"></i></div>
+        <div class="path-content"><div class="path-tag">Claude AI</div><div class="path-title">Recruitment and CV Screening</div><div class="path-desc">Structure screening criteria and summarise applications at speed.</div></div>
+        <i class="ti ti-chevron-right path-arrow"></i>
+      </a>
+      <a href="https://www.pairworkflows.com/claude-hr-employee-handbook-drafting.html" class="path-card">
+        <div class="path-icon"><i class="ti ti-file-text"></i></div>
+        <div class="path-content"><div class="path-tag">Claude AI</div><div class="path-title">Drafting Employee Handbook Policies</div><div class="path-desc">Turn bullet points into clean policy language.</div></div>
+        <i class="ti ti-chevron-right path-arrow"></i>
+      </a>
+      <a href="https://www.pairworkflows.com/claude-hr-exit-offboarding.html" class="path-card">
+        <div class="path-icon"><i class="ti ti-door-exit"></i></div>
+        <div class="path-content"><div class="path-tag">Claude AI</div><div class="path-title">Exit and Offboarding Communications</div><div class="path-desc">Draft exit communications and analyse offboarding patterns.</div></div>
+        <i class="ti ti-chevron-right path-arrow"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="path-category">
+    <div class="path-category-title"><i class="ti ti-sparkles" style="color:#0f6e56"></i> Gemini AI — HR</div>
+    <div class="path-list">
+      <a href="https://www.pairworkflows.com/gemini-for-hr.html" class="path-card">
+        <div class="path-icon"><i class="ti ti-brand-google"></i></div>
+        <div class="path-content"><div class="path-tag">Gemini AI</div><div class="path-title">Gemini AI for HR Teams: Recruitment, Onboarding and People Operations</div><div class="path-desc">Full overview of Gemini workflows for HR in Google Workspace.</div></div>
+        <i class="ti ti-chevron-right path-arrow"></i>
+      </a>
+      <a href="https://www.pairworkflows.com/gemini-hr-candidate-communication.html" class="path-card">
+        <div class="path-icon"><i class="ti ti-mail"></i></div>
+        <div class="path-content"><div class="path-tag">Gemini AI</div><div class="path-title">Candidate Communication</div><div class="path-desc">Draft and personalise candidate emails at scale in Gmail.</div></div>
+        <i class="ti ti-chevron-right path-arrow"></i>
+      </a>
+      <a href="https://www.pairworkflows.com/gemini-hr-training-materials.html" class="path-card">
+        <div class="path-icon"><i class="ti ti-school"></i></div>
+        <div class="path-content"><div class="path-tag">Gemini AI</div><div class="path-title">Training Materials and Onboarding Guides</div><div class="path-desc">Build onboarding docs and training content in Docs and Slides.</div></div>
+        <i class="ti ti-chevron-right path-arrow"></i>
+      </a>
+      <a href="https://www.pairworkflows.com/gemini-hr-employee-survey-automation.html" class="path-card">
+        <div class="path-icon"><i class="ti ti-chart-bar"></i></div>
+        <div class="path-content"><div class="path-tag">Gemini AI</div><div class="path-title">Employee Survey Analysis</div><div class="path-desc">Extract themes and patterns from survey data in Sheets.</div></div>
+        <i class="ti ti-chevron-right path-arrow"></i>
+      </a>
+      <a href="https://www.pairworkflows.com/gemini-hr-dashboard-reporting.html" class="path-card">
+        <div class="path-icon"><i class="ti ti-layout-dashboard"></i></div>
+        <div class="path-content"><div class="path-tag">Gemini AI</div><div class="path-title">HR Dashboard Reporting</div><div class="path-desc">Build HR metrics dashboards and reporting summaries.</div></div>
+        <i class="ti ti-chevron-right path-arrow"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="hub-section">
+  <h2>Common HR Problems AI Can Solve</h2>
+  <p>These are the tasks that consume the most time in HR teams every month. Each one is solvable with what you can describe or paste into Claude or Gemini.</p>
+  <table class="problems-table">
+    <tr><th>Problem</th><th>How AI Helps</th></tr>
+    <tr><td class="problem">Performance review season takes weeks</td><td class="solution">Structures draft appraisals from your notes in minutes</td></tr>
+    <tr><td class="problem">Job descriptions are inconsistent</td><td class="solution">Standardises JDs from a brief</td></tr>
+    <tr><td class="problem">CV screening takes too long</td><td class="solution">Summarises applications against your criteria</td></tr>
+    <tr><td class="problem">Policy language is unclear or outdated</td><td class="solution">Rewrites in plain English</td></tr>
+    <tr><td class="problem">Exit interview insights are never acted on</td><td class="solution">Extracts themes and patterns from notes</td></tr>
+    <tr><td class="problem">Onboarding docs rebuilt every time</td><td class="solution">Template-driven and consistent every hire</td></tr>
+    <tr><td class="problem">Survey results sit unanalysed</td><td class="solution">Identifies engagement themes and flags risks</td></tr>
+    <tr><td class="problem">Candidate communication is slow</td><td class="solution">Drafts personalised emails at scale</td></tr>
+    <tr><td class="problem">HR dashboard takes hours to build</td><td class="solution">Structures metrics reporting fast</td></tr>
+  </table>
+</section>
+
+<section class="hub-section">
+  <h2>Best Practices for Using AI in HR</h2>
+  <p>AI in HR requires extra care. These practices protect employees, keep you compliant, and ensure the output is actually useful.</p>
+  <div class="bp-grid">
+    <div class="bp-card do">
+      <div class="bp-card-title"><i class="ti ti-check"></i> Always do</div>
+      <ul class="bp-list">
+        <li>Include role, seniority level, and context</li>
+        <li>Specify the exact output format needed</li>
+        <li>Anonymise employee names and sensitive HR data</li>
+        <li>Always apply human judgment before any HR decision</li>
+      </ul>
+    </div>
+    <div class="bp-card dont">
+      <div class="bp-card-title"><i class="ti ti-x"></i> Never do</div>
+      <ul class="bp-list">
+        <li>Use AI output for final disciplinary or legal decisions without review</li>
+        <li>Paste identifiable personal data into any AI tool</li>
+        <li>Rely on AI alone for sensitive conversations</li>
+        <li>Skip human review on anything that affects employment</li>
+      </ul>
+    </div>
+  </div>
+  <p style="margin-top:1rem"><strong>How to anonymise before pasting:</strong> replace employee names with Employee A, use role titles instead of names, remove any identifiable details. The AI produces the same quality output — without the data risk.</p>
+</section>
+
+<section class="hub-section">
+  <h2>FAQ</h2>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Can Claude draft performance reviews without sounding generic? <i class="ti ti-chevron-down"></i></div>
+    <div class="faq-a">Yes — if you give it the employee's role, key achievements, and areas to develop. The more specific your input, the better the output. You always refine before sharing it with the employee.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Is it safe to paste employee data into Claude or Gemini? <i class="ti ti-chevron-down"></i></div>
+    <div class="faq-a">Not identifiable data. Anonymise first — Employee A, Role Title, etc. The courses show you exactly how to structure prompts safely without exposing personal data.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Can AI help with CV screening without introducing bias? <i class="ti ti-chevron-down"></i></div>
+    <div class="faq-a">AI can summarise and structure information against your criteria. It should not score or rank candidates autonomously. Use it as a support tool, then apply your own judgment. The course covers how to do this correctly.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Can Claude write HR policies that are legally compliant? <i class="ti ti-chevron-down"></i></div>
+    <div class="faq-a">Claude can draft clear policy language quickly. It cannot provide legal advice. Every policy must be reviewed by your legal or compliance team before publication.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Can Gemini analyse employee survey results? <i class="ti ti-chevron-down"></i></div>
+    <div class="faq-a">Yes. Paste anonymised survey responses and ask Gemini to identify themes, sentiment, and risks. One course covers the exact workflow in Google Sheets.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Can AI help with redundancy or disciplinary communications? <i class="ti ti-chevron-down"></i></div>
+    <div class="faq-a">With caution. AI can help structure clear language. Any communication affecting employment must be reviewed by HR leadership and legal before sending.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Do these workflows work for small HR teams? <i class="ti ti-chevron-down"></i></div>
+    <div class="faq-a">Yes. They are especially valuable for lean teams — helping one person handle the workload of several without specialist support for every function.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Do these courses require a paid Claude or Gemini account? <i class="ti ti-chevron-down"></i></div>
+    <div class="faq-a">No. All workflows work on the free tiers of both tools. Paid plans give higher usage limits but are not required to follow any course on this page.</div>
+  </div>
 </section>
 
 </div>
-<footer class="page-footer">
-<div class="footer-cols">
-<div class="footer-col"><strong>Guides by Role</strong>
-<a href="https://www.pairworkflows.com/claude-for-finance.html">AI for Finance Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-hr.html">AI for HR Teams</a>
-<a href="https://www.pairworkflows.com/index.html">All Courses</a>
-</div>
-<div class="footer-col"><strong>Company & Legal</strong>
-<a href="https://www.pairworkflows.com/contact.html">Contact</a>
-<a href="https://www.pairworkflows.com/legal.html#privacy">Privacy Policy</a>
-<a href="https://www.pairworkflows.com/legal.html#terms">Terms of Use</a>
-<a href="https://www.pairworkflows.com/legal.html#cookies">Cookie Policy</a>
-</div>
-</div>
-<div class="footer-copy">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75;text-decoration:none">PairWorkflows</a>. All rights reserved.</div>
+
+<footer style="background:#021a12; border-top:1px solid #0a4a30; padding:2.5rem 1rem 1.5rem; margin-top:1rem">
+  <div style="max-width:1100px; margin:0 auto">
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
+      <div>
+        <strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">HR Courses</strong>
+        <a href="https://www.pairworkflows.com/claude-prompt-templates-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">HR Prompt Templates</a>
+        <a href="https://www.pairworkflows.com/claude-hr-performance-reviews.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Performance Reviews</a>
+        <a href="https://www.pairworkflows.com/claude-hr-recruitment-screening.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Recruitment &amp; Screening</a>
+        <a href="https://www.pairworkflows.com/claude-hr-employee-handbook-drafting.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Handbook Policies</a>
+        <a href="https://www.pairworkflows.com/claude-hr-exit-offboarding.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Exit &amp; Offboarding</a>
+      </div>
+      <div>
+        <strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Gemini HR</strong>
+        <a href="https://www.pairworkflows.com/gemini-for-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Gemini for HR Teams</a>
+        <a href="https://www.pairworkflows.com/gemini-hr-candidate-communication.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Candidate Communication</a>
+        <a href="https://www.pairworkflows.com/gemini-hr-training-materials.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Training Materials</a>
+        <a href="https://www.pairworkflows.com/gemini-hr-employee-survey-automation.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Survey Analysis</a>
+        <a href="https://www.pairworkflows.com/gemini-hr-dashboard-reporting.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">HR Dashboard Reporting</a>
+      </div>
+      <div>
+        <strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Guides by Role</strong>
+        <a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI for Finance</a>
+        <a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI for Marketing</a>
+        <a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI for Legal</a>
+        <a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI for Operations</a>
+        <a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI for Excel</a>
+      </div>
+      <div>
+        <strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Resources</strong>
+        <a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Prompt Library</a>
+        <a href="https://www.pairworkflows.com/glossary.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI Glossary</a>
+        <a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Claude vs Gemini</a>
+        <a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">All Courses</a>
+      </div>
+    </div>
+    <div style="text-align:center; margin-bottom:2rem;">
+      <p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:520px; margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p>
+    </div>
+    <div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem">
+      <span style="font-size:13px; color:#475569">© 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
+        <button onclick="copyHRLink()" id="copyHRLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+          Copy link
+        </button>
+        <a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'"><svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg><span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span></a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.pairworkflows.com/claude-for-hr.html" target="_blank" rel="noopener" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        </a>
+        <a href="https://twitter.com/intent/tweet?url=https://www.pairworkflows.com/claude-for-hr.html&text=Free+5-minute+AI+for+HR+mini-courses+%E2%80%94+performance+reviews%2C+CV+screening+and+more+with+Claude+and+Gemini" target="_blank" rel="noopener" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
 </footer>
+
 <script>
+function toggleFaq(el){el.classList.toggle('open');el.nextElementSibling.classList.toggle('open');}
+function copyHRLink(){
+  var btn=document.getElementById('copyHRLinkBtn');
+  navigator.clipboard.writeText('https://www.pairworkflows.com/claude-for-hr.html');
+  btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';
+  setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);
+}
 function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
 function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+window.addEventListener('load',function(){window.scrollTo(0,0);});
 </script>
 </body>
 </html>
