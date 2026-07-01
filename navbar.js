@@ -247,23 +247,23 @@
           <!-- PROMPTS DROPDOWN -->
           <div class="nav-dropdown">
             <button class="nav-dropdown-toggle" onclick="toggleNavDropdown()" id="navDropdownToggle">
-              Prompts
+              Prompts &amp; Tools
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </button>
             <div class="nav-dropdown-menu" id="navDropdownMenu">
-              <div class="nav-dropdown-label">By Role</div>
-              <a href="https://www.pairworkflows.com/claude-prompts-excel.html">Excel &amp; Google Sheets</a>
-              <a href="https://www.pairworkflows.com/claude-prompts-finance.html">Finance</a>
-              <a href="https://www.pairworkflows.com/claude-prompts-hr.html">HR</a>
-              <a href="https://www.pairworkflows.com/claude-prompts-marketing.html">Marketing</a>
-              <a href="https://www.pairworkflows.com/claude-prompts-sales.html">Sales</a>
-              <a href="https://www.pairworkflows.com/claude-prompts-customer-service.html">Customer Service</a>
-              <a href="https://www.pairworkflows.com/claude-prompts-operations.html">Operations</a>
-              <a href="https://www.pairworkflows.com/claude-prompts-legal.html">Legal</a>
-              <div class="nav-dropdown-divider"></div>
-              <div class="nav-dropdown-label">General</div>
-              <a href="https://www.pairworkflows.com/prompt-library.html">General Prompt Library</a>
-            </div>
+  <div class="nav-dropdown-label">⚡ Prompt Builder — generate a custom prompt</div>
+  <a href="https://www.pairworkflows.com/claude-prompts-excel.html">Excel &amp; Google Sheets</a>
+  <a href="https://www.pairworkflows.com/claude-prompts-finance.html">Finance</a>
+  <a href="https://www.pairworkflows.com/claude-prompts-hr.html">HR</a>
+  <a href="https://www.pairworkflows.com/claude-prompts-marketing.html">Marketing</a>
+  <a href="https://www.pairworkflows.com/claude-prompts-sales.html">Sales</a>
+  <a href="https://www.pairworkflows.com/claude-prompts-customer-service.html">Customer Service</a>
+  <a href="https://www.pairworkflows.com/claude-prompts-operations.html">Operations</a>
+  <a href="https://www.pairworkflows.com/claude-prompts-legal.html">Legal</a>
+  <div class="nav-dropdown-divider"></div>
+  <div class="nav-dropdown-label">📋 Prompt Library — ready to copy</div>
+  <a href="https://www.pairworkflows.com/prompt-library.html">Browse All Prompts</a>
+   </div>
           </div>
 
           <a href="https://www.pairworkflows.com/claude-vs-gemini.html" class="nav-link${isActive('claude-vs-gemini')}">Claude vs Gemini</a>
@@ -293,7 +293,7 @@
         <a href="https://www.pairworkflows.com/glossary.html">AI Glossary</a>
       </div>
       <div class="nav-mobile-section">
-        <div class="nav-mobile-label">Prompts by Role</div>
+       <div class="nav-mobile-label">Prompts &amp; Tools</div>
         <a href="https://www.pairworkflows.com/claude-prompts-excel.html">Excel &amp; Google Sheets</a>
         <a href="https://www.pairworkflows.com/claude-prompts-finance.html">Finance</a>
         <a href="https://www.pairworkflows.com/claude-prompts-hr.html">HR</a>
