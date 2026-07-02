@@ -287,7 +287,6 @@
     <div class="nav-mobile-menu" id="navMobileMenu">
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Navigate</div>
-        <a href="https://www.pairworkflows.com/index.html">All Courses</a>
         <a href="https://www.pairworkflows.com/claude-vs-gemini.html">Claude vs Gemini</a>
         <a href="https://www.pairworkflows.com/glossary.html">AI Glossary</a>
       </div>
