@@ -242,9 +242,8 @@
 
         <!-- DESKTOP LINKS -->
         <div class="nav-desktop-links" style="display:flex;align-items:center;gap:4px;">
-        <a href="https://www.pairworkflows.com/index.html" class="nav-link">All Courses</a>
-
-          <!-- PROMPTS DROPDOWN -->
+        
+         <!-- PROMPTS DROPDOWN -->
           <div class="nav-dropdown">
             <button class="nav-dropdown-toggle" onclick="toggleNavDropdown()" id="navDropdownToggle">
               Prompts &amp; Tools
