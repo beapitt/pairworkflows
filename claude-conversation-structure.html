@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -62,3 +65,168 @@ body{font-family:'Inter','Segoe UI',Helvetica Neue,sans-serif;background:#ffffff
 
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
+<body>
+<div id="searchOverlay" onclick="if(event.target===this)closeSearch()"><div class="search-overlay-inner"><button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button><form action="/search.html" method="get"><div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div></form><p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p></div></div>
+<div id="navbar-placeholder"></div>
+<script src="/navbar.js"></script>
+<noscript>
+<nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
+<a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
+<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a>
+<a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a>
+<a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a>
+<a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a>
+<a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a>
+<a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a>
+<a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
+<a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a>
+<a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a>
+<a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
+</nav>
+</noscript>
+<div class="course-shell">
+<div class="sidebar">
+<div class="sidebar-top">
+<div class="course-label">Claude AI — Course 11 of 12</div>
+<div class="course-title-side">How to Structure Claude AI Conversations for Better Results at Work</div>
+</div>
+<div class="prog-wrap">
+<div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
+<div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+</div>
+<div class="nav-list">
+<div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">The one-topic rule</div></div>
+<div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">Conversation architecture</div></div>
+<div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">When to start fresh</div></div>
+<div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quiz: test your knowledge</div></div>
+</div>
+</div>
+<div class="content-area">
+<div class="section-hero"><div class="section-tag" id="heroTag">Section 01</div><h2 id="heroTitle">The one-topic rule: why mixing subjects destroys output quality.</h2></div>
+<div class="content-body" id="cnt">
+<div id="seo-sec-0" class="seo-section active-section">
+<p>Most professionals treat Claude like a general-purpose inbox — they open one conversation and throw everything into it. A draft email, then a data analysis request, then a question about company policy, all in the same thread. The result is an AI that loses focus, produces increasingly generic answers, and eventually starts confusing context from one task with another.</p>
+<p>The one-topic rule is simple: one conversation, one job. When you keep a thread focused on a single task or project, Claude maintains full context for that specific goal — and the quality of every response improves as the conversation develops.</p>
+<table class="compare-table">
+<thead><tr><th style="width:50%">Mixed-topic conversation</th><th style="width:50%">One-topic conversation</th></tr></thead>
+<tbody>
+<tr><td class="col-bad"><strong>Context:</strong> Scattered — Claude tracks multiple unrelated threads simultaneously.</td><td class="col-good"><strong>Context:</strong> Deep — Claude builds on every previous message in the thread.</td></tr>
+<tr><td class="col-bad"><strong>Output quality:</strong> Degrades as the conversation grows longer.</td><td class="col-good"><strong>Output quality:</strong> Improves as Claude learns your preferences and constraints.</td></tr>
+<tr><td class="col-bad"><strong>Reusability:</strong> Hard to revisit — you cannot find specific work easily.</td><td class="col-good"><strong>Reusability:</strong> Easy to return to and continue exactly where you left off.</td></tr>
+<tr><td class="col-bad"><strong>Token efficiency:</strong> Context fills up with irrelevant exchanges.</td><td class="col-good"><strong>Token efficiency:</strong> Every token in the context window is relevant to your goal.</td></tr>
+</tbody>
+</table>
+<div class="info-box"><p><strong>Practical example:</strong> if you are drafting a quarterly report, keep that entire process — outline, drafting, editing, final review — in one dedicated conversation. Do not ask Claude to book a meeting or summarise an email in the same thread.</p></div>
+</div>
+<div id="seo-sec-1" class="seo-section">
+<p>A well-structured Claude conversation has three distinct phases. Most professionals skip the first phase entirely — and that is why their results feel inconsistent. Think of it like briefing a new consultant: you would not hand them a task without first explaining who you are, what you need, and what good looks like.</p>
+<div class="arch-steps">
+<div class="arch-step"><div class="arch-num">1</div><div class="arch-content"><div class="arch-title">Open: set the context</div><div class="arch-desc">Start every conversation by telling Claude your role, the project, and any constraints. This is your briefing message — spend 30 seconds on it and every subsequent response will be sharper. Example: "I am a Marketing Manager at a B2B SaaS company. I am drafting a product launch email campaign for our enterprise segment. Tone: professional, direct, no jargon."</div></div></div>
+<div class="arch-step"><div class="arch-num">2</div><div class="arch-content"><div class="arch-title">Develop: iterate within the topic</div><div class="arch-desc">Once context is set, work iteratively. Ask Claude to draft, then refine, then adjust tone, then shorten — all within the same thread. Each exchange builds on the last, and Claude remembers every constraint you have already established.</div></div></div>
+<div class="arch-step"><div class="arch-num">3</div><div class="arch-content"><div class="arch-title">Close: extract and save</div><div class="arch-desc">When the output is ready, copy the final version out of the conversation and save it where it belongs — a Google Doc, your email client, your project management tool. The conversation has done its job. Do not keep adding unrelated tasks to it.</div></div></div>
+</div>
+<div class="info-box"><p><strong>Claude Projects tip:</strong> if you work on the same recurring task — weekly reports, client briefs, team updates — create a dedicated Claude Project for it. The project instructions act as a permanent opening context that loads automatically every time.</p></div>
+</div>
+<div id="seo-sec-2" class="seo-section">
+<p>Knowing when to start a new conversation is just as important as structuring the one you are in. Continuing a thread past its natural end point is one of the most common causes of degraded output quality — responses become repetitive, less precise, or start mixing up earlier context.</p>
+<p>Watch for these four signals — any one of them means it is time to open a fresh conversation:</p>
+<div class="signal-grid">
+<div class="signal-card"><div class="signal-icon"><i class="ti ti-switch"></i></div><div class="signal-title">Topic shift</div><div class="signal-desc">You have finished the original task and want to start something completely different. New task = new conversation.</div></div>
+<div class="signal-card"><div class="signal-icon"><i class="ti ti-trending-down"></i></div><div class="signal-title">Quality drop</div><div class="signal-desc">Responses are becoming vague, repetitive, or losing the precision they had earlier in the thread. The context window is getting crowded.</div></div>
+<div class="signal-card"><div class="signal-icon"><i class="ti ti-refresh"></i></div><div class="signal-title">Repeated corrections</div><div class="signal-desc">You keep correcting the same mistake — wrong tone, wrong format, wrong length. Starting fresh with a better opening prompt is faster than fighting the existing thread.</div></div>
+<div class="signal-card"><div class="signal-icon"><i class="ti ti-clock"></i></div><div class="signal-title">Time gap</div><div class="signal-desc">You are returning to a long thread after several days and the context feels stale or hard to reconstruct. A fresh conversation with a clear opener is faster than scrolling back.</div></div>
+</div>
+<div class="info-box"><p><strong>Do not fear starting fresh.</strong> A new conversation is not wasted work — the output you already produced is saved. A focused new thread almost always produces better results than an overloaded old one.</p></div>
+</div>
+<div id="seo-sec-3" class="seo-section"><div id="quiz-interactive-container"></div></div>
+</div>
+<div class="content-footer"><button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button><button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button></div>
+</div>
+</div>
+</div>
+<footer style="background:#021a12; border-top:1px solid #0a4a30; padding:2.5rem 1rem 1.5rem; margin-top:1rem">   <div style="max-width:1100px; margin:0 auto">     <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">       <div>         <strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Guides by Role</strong>         <a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI for Finance Teams</a>         <a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI for HR Teams</a>         <a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI for Marketing Teams</a>         <a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI for Legal Teams</a>         <a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI for Operations Teams</a>         <a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI for Sales Teams</a>         <a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI for Customer Service</a>         <a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI for Excel</a>       </div>       <div>         <strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Prompt Tools</strong>         <a href="https://www.pairworkflows.com/claude-prompts-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Excel Prompt Builder</a>         <a href="https://www.pairworkflows.com/claude-prompts-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Finance Prompt Builder</a>         <a href="https://www.pairworkflows.com/claude-prompts-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">HR Prompt Builder</a>         <a href="https://www.pairworkflows.com/claude-prompts-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Marketing Prompt Builder</a>         <a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">General Prompt Library</a>       </div>       <div>         <strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Resources</strong>         <a href="https://www.pairworkflows.com/glossary.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">AI Glossary</a>         <a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Claude vs Gemini</a>         <a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">All Mini-Courses</a>       </div>       <div>         <strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Legal</strong>         <a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Privacy Policy</a>         <a href="https://www.pairworkflows.com/legal.html#terms" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Terms of Use</a>         <a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem; transition:color .2s" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">Cookie Policy</a>       </div>     </div>     <div style="text-align:center; margin-bottom:2rem;">       <p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:520px; margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p>     </div>     <div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:1rem">       <span style="font-size:13px; color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>       <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">         <button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>           Copy link         </button>         <a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank')" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn">           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>         </a>         <a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank')" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X">           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>         </a>       </div>     </div>   </div> </footer>
+<script>
+var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
+var heroes=[
+  {tag:'Section 01',title:'The one-topic rule: why mixing subjects destroys output quality.'},
+  {tag:'Section 02',title:'Conversation architecture: open, develop, and close every thread.'},
+  {tag:'Section 03',title:'When to start fresh: four signals you should not ignore.'},
+  {tag:'Section 04 — Quiz',title:'Test your knowledge.'}
+];
+var quiz=[
+  {q:'What is the main benefit of keeping a Claude conversation focused on one topic?',
+   opts:['It reduces the number of messages you need to send','Claude maintains deep context for that specific goal and output quality improves','It prevents Claude from accessing the internet during the session'],
+   correct:1},
+  {q:'What should you do at the start of every Claude conversation to improve result quality?',
+   opts:['Set context by explaining your role, the project, and any constraints','Type your request immediately to save time','Ask Claude to introduce itself before starting work'],
+   correct:0},
+  {q:'Which of these is a signal that you should start a new Claude conversation?',
+   opts:['Claude has produced one response you are happy with','You have just sent your first message in the thread','Responses are becoming vague and repetitive — the context window is crowded'],
+   correct:2},
+  {q:'You finished drafting a report in Claude and now need to summarise a different document. What should you do?',
+   opts:['Ask Claude to forget the previous messages before continuing','Open a fresh conversation for the new task','Continue in the same conversation to save time'],
+   correct:1}
+];
+function buildQuizHTML(){
+  if(quizDone){
+    var score=0;
+    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
+    var msgs=['Review the one-topic rule and the four fresh-start signals — they are the core of this course.','Decent progress — re-read the conversation architecture section before trying again.','Great score! Just one concept to sharpen — revisit the signals for starting a new conversation.','Perfect mark! You are ready to structure every Claude conversation for maximum output quality.'];
+    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
+  }
+  var html='';
+  for(var i=0;i<quiz.length;i++){
+    var q=quiz[i];
+    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
+    for(var j=0;j<q.opts.length;j++){
+      var cls='opt';
+      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
+      else if(sel[i]===j){cls+=' selected';}
+      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
+    }
+    html+='</div>';
+  }
+  var allSel=Object.keys(sel).length===quiz.length;
+  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
+  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
+  return html;
+}
+function render(){
+  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
+  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
+  document.getElementById('heroTag').textContent=heroes[cur].tag;
+  document.getElementById('heroTitle').textContent=heroes[cur].title;
+  for(var i=0;i<4;i++){
+    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),secBlock=document.getElementById('seo-sec-'+i);
+    ni.className='nav-item'+(i===cur?' active':'');
+    if(i===cur)secBlock.classList.add('active-section');else secBlock.classList.remove('active-section');
+    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
+    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
+    else{nd.className='nav-dot';nd.textContent=(i+1);}
+  }
+  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
+  document.getElementById('btnBack').disabled=(cur===0);
+  var fwd=document.getElementById('btnFwd');
+  if(cur===3){fwd.style.display='none';}
+  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
+}
+function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
+function goFwd(){if(cur<3)go(cur+1);}
+function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
+function showResult(){quizDone=true;render();}
+function retake(){sel={};quizSubmitted=false;quizDone=false;render();} function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
+function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+document.getElementById('cnt').addEventListener('click',function(e){
+  if(cur!==3||quizSubmitted||quizDone)return;
+  var opt=e.target.closest('.opt');
+  if(!opt)return;
+  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
+  render();
+});
+render();
+</script>
+</body>
+</html>
