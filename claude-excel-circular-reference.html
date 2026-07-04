@@ -184,8 +184,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-<div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
-<div class="search-overlay-inner"> <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button> <form action="/search.html" method="get"> <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div> </form> </div> </div> <div id="navbar-placeholder"></div> <script src="/navbar.js"></script> <noscript> <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px"> <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a> <a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a> <a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a> <a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a> <a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a> <a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a> <a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a> <a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a> <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a> <a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a> <a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a> <a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a> </nav> </noscript>
+<div id="navbar-placeholder"></div> <script src="/navbar.js"></script> <noscript> <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px"> <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a> <a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a> <a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a> <a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a> <a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a> <a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a> <a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a> <a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a> <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a> <a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a> <a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a> <a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a> </nav> </noscript>
 
 <div class="page-wrap">
 <div class="course-shell">
@@ -203,7 +202,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
       <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">Practical workflow</div></div>
       <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompts and checklist</div></div>
       <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quick quiz</div></div>
-    </div>
+      </div>
   </div>
 
   <div class="content-area">
@@ -475,16 +474,6 @@ function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted
 function showResult(){quizDone=true;render();}
 function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
 function copyPrompt(btn){var block=btn.closest('.prompt-block');var text=block.querySelector('.prompt-block-text').innerText;navigator.clipboard.writeText(text);btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);}
-function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
-function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
-document.getElementById('cnt').addEventListener('click',function(e){
-  if(cur!==3||quizSubmitted||quizDone)return;
-  var opt=e.target.closest('.opt');
-  if(!opt)return;
-  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
-  render();
-});
 render();
 </script>
 </body>
