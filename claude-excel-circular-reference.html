@@ -20,7 +20,7 @@
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
 .navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
 .logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
@@ -30,9 +30,9 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 .nav-back:hover{color:#1d9e75}
 .search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
-.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
-.course-shell{background:#fff;border-radius:16px;box-shadow:0 2px 24px rgba(0,0,0,.25),0 0 0 1px rgba(0,0,0,.08);overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
-.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
+.page-wrap{display:flex;flex:1;width:100%;max-width:1400px;margin:0 auto}
+.course-shell{display:flex;flex:1;min-height:580px}
+.sidebar{width:240px;background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column;flex-shrink:0}
 .sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
 .course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
 .course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
@@ -49,16 +49,15 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 .nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
 .nav-text{font-size:13px;color:#6b7280;line-height:1.35}
 .nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
-.content-area{display:flex;flex-direction:column}
+.content-area{flex:1;display:flex;flex-direction:column;min-width:0}
 .section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
 .section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
-.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
-.content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
+.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3}
+.content-body{padding:1.75rem 2rem;flex:1;word-break:break-word;overflow-wrap:break-word}
 .seo-section{display:none}
 .seo-section.active-section{display:block}
 .seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
-
-/* ── VISUAL 1: Direct vs Indirect circular reference diagram ── */
+.body-heading{font-size:16px;font-weight:600;color:#1a1a2e;margin:1.75rem 0 .6rem}
 .circ-types{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.5rem 0}
 .circ-type-card{border-radius:12px;overflow:hidden;border:1px solid #e2e8f0}
 .circ-type-header{padding:8px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:8px}
@@ -76,8 +75,6 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 .circ-formula .self-ref{color:#dc2626;font-weight:700}
 .circ-formula .warn-ref{color:#d97706;font-weight:700}
 @keyframes circ-pulse{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,0)}50%{box-shadow:0 0 0 3px rgba(220,38,38,.2)}}
-
-/* ── VISUAL 2: Loop trace diagram ── */
 .circ-trace{margin:1.5rem 0;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0}
 .circ-trace-header{background:#f1f5f9;padding:8px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#64748b;border-bottom:1px solid #e2e8f0}
 .circ-trace-body{padding:16px;background:#fff}
@@ -94,8 +91,6 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 .circ-tf-formula .loop-ref{color:#dc2626;font-weight:700;background:#fef2f2;padding:1px 4px;border-radius:3px}
 .circ-tf-formula .ok-ref{color:#059669}
 .circ-trace-result{background:#fef2f2;border-top:1px solid #fecaca;padding:8px 14px;font-size:12px;color:#7f1d1d;display:flex;align-items:center;gap:8px}
-
-/* ── VISUAL 3: Before/After fix ── */
 .circ-fix{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.5rem 0}
 .circ-fix-card{border-radius:12px;overflow:hidden;border:1.5px solid}
 .circ-fix-card.before{border-color:#fca5a5}
@@ -111,8 +106,6 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 .circ-fix-result{padding:8px 14px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px}
 .circ-fix-card.before .circ-fix-result{background:#fef2f2;color:#dc2626}
 .circ-fix-card.after .circ-fix-result{background:#f0fdf4;color:#059669}
-
-/* Common */
 .info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
 .info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
 .highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
@@ -185,21 +178,9 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 .search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
 .search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
-.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:2rem}
-.page-footer a{color:#1d9e75;text-decoration:none}
-.page-footer a:hover{text-decoration:underline}
-@media(max-width:700px){
-  .navbar{padding:0 1rem}
-  .page-wrap{padding:1rem .5rem}
-  .course-shell{grid-template-columns:1fr}
+@media(max-width:768px){
   .sidebar{display:none}
-  .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
-  .content-footer{padding:1rem}
-  .section-hero{padding:1.25rem 1rem}
-  .circ-types{grid-template-columns:1fr}
-  .circ-fix{grid-template-columns:1fr}
-  .circ-chain{flex-wrap:wrap}
-  .seo-section p{word-break:break-word;overflow-wrap:break-word}
+  .content-area{width:100%}
 }
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
@@ -214,14 +195,11 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
     <p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
   </div>
 </div>
-
-<nav class="navbar">
-  <a href="https://www.pairworkflows.com" class="nav-logo"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a>
-  <div class="nav-right">
-    <button class="search-trigger" onclick="openSearch()"><i class="ti ti-search"></i></button>
-    <a href="https://www.pairworkflows.com/index.html" class="nav-back"><i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses</a>
-  </div>
-</nav>
+<div id="navbar-placeholder"></div>
+<script src="/navbar.js"></script>
+<noscript>
+<nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px"><a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a><a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a><a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a><a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a><a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a><a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a><a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a><a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a><a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a><a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a><a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a><a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a></nav>
+</noscript>
 
 <div class="page-wrap">
 <div class="course-shell">
@@ -248,13 +226,10 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
       <h2 id="heroTitle">Excel is showing a circular reference warning — now what?</h2>
     </div>
     <div class="content-body" id="cnt">
-
-      <!-- SECTION 0 -->
       <div id="seo-sec-0" class="seo-section active-section">
         <p>A circular reference happens when a formula refers back to its own cell — directly or through a chain of other formulas. Classic example: <code style="background:#fef2f2;color:#dc2626;padding:2px 6px;border-radius:4px;font-size:12px;border:1px solid #fca5a5">=C5+B5</code> inside cell C5. Excel freaks out because it can't calculate something that depends on itself.</p>
         <p>The warning is easy to understand. The annoying part is finding where the problem actually is, especially in a big workbook where the loop runs through five or six different cells. Claude can't open your file, but if you paste the formulas Excel is flagging, it's very good at tracing the chain, spotting where the loop closes, and suggesting a proper fix.</p>
 
-        <!-- VISUAL 1: Direct vs Indirect -->
         <div class="circ-types">
           <div class="circ-type-card direct">
             <div class="circ-type-header"><i class="ti ti-alert-circle"></i> Direct circular reference</div>
@@ -286,7 +261,6 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
           </div>
         </div>
 
-        <!-- VISUAL 2: Loop trace -->
         <div class="circ-trace">
           <div class="circ-trace-header">How Claude traces an indirect loop</div>
           <div class="circ-trace-body">
@@ -309,7 +283,6 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
           <div class="circ-trace-result"><i class="ti ti-alert-circle" style="color:#dc2626;flex-shrink:0"></i> Claude identifies F3 as the problem — it should reference a fixed input cell, not D3.</div>
         </div>
 
-        <!-- VISUAL 3: Before/After -->
         <div class="circ-fix">
           <div class="circ-fix-card before">
             <div class="circ-fix-header"><i class="ti ti-x"></i> Broken — causes circular loop</div>
@@ -339,7 +312,6 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
         <div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>Don't enable iterative calculation</strong> as a quick fix. Excel offers this in settings, but it forces the formula to recalculate a fixed number of times instead of solving the actual problem. It hides the error — it doesn't fix it.</div></div>
       </div>
 
-      <!-- SECTION 1 -->
       <div id="seo-sec-1" class="seo-section">
         <p>Six steps to find the loop, trace it if it's indirect, and fix it with Claude's help.</p>
         <div class="steps-list">
@@ -374,7 +346,6 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
         </div>
       </div>
 
-      <!-- SECTION 2 -->
       <div id="seo-sec-2" class="seo-section">
         <p>Copy these prompts into Claude. Replace the bracketed placeholders with your actual formulas and context.</p>
 
@@ -424,11 +395,9 @@ Each formula is supposed to [describe purpose]. Please trace where the loop clos
         <div class="info-box"><p><strong>Helper cell approach:</strong> if the fix feels complex, Claude can suggest splitting the formula into two cells — one that holds the input, one that does the calculation. This breaks the loop cleanly without changing the result.</p></div>
       </div>
 
-      <!-- SECTION 3 QUIZ -->
       <div id="seo-sec-3" class="seo-section">
         <div id="quiz-interactive-container"></div>
       </div>
-
     </div>
     <div class="content-footer">
       <button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button>
