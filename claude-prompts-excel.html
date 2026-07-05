@@ -13,7 +13,6 @@
 <meta property="og:site_name" content="PairWorkflows">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Claude AI Prompts for Excel & Google Sheets","description":"Free Claude AI prompts for Excel and Google Sheets. Copy-ready templates for formulas, data cleaning, pivot tables, VBA macros and financial models.","url":"https://www.pairworkflows.com/claude-prompts-excel.html","publisher":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude write Excel formulas?","acceptedAnswer":{"@type":"Answer","text":"Yes. Describe what you want the formula to do, which cells or columns are involved, and which version of Excel you are using. Claude writes the formula and explains how it works."}},{"@type":"Question","name":"Does Claude work with Google Sheets?","acceptedAnswer":{"@type":"Answer","text":"Yes. Most Excel formulas work in Sheets with minor differences. Tell Claude you are using Google Sheets and it will adjust the syntax — for example using QUERY instead of Power Query, or ARRAYFORMULA where needed."}},{"@type":"Question","name":"Can Claude debug broken formulas?","acceptedAnswer":{"@type":"Answer","text":"Yes. Paste the formula from your formula bar along with a description of what it should do and what error or wrong result you are getting. Claude identifies the most likely cause and gives you the corrected version."}},{"@type":"Question","name":"Can Claude write VBA macros?","acceptedAnswer":{"@type":"Answer","text":"Yes. Describe what you want the macro to do step by step. Claude writes the VBA code with comments explaining each section. Always test macros on a copy of your file first."}},{"@type":"Question","name":"Does this work with Excel 2016 and 2019?","acceptedAnswer":{"@type":"Answer","text":"Yes, with some limitations. XLOOKUP and dynamic arrays require Excel 2019 or 365. LAMBDA functions require Excel 365 only. Tell Claude which version you are using and it will use compatible functions."}},{"@type":"Question","name":"Is Claude better than Microsoft Copilot for Excel?","acceptedAnswer":{"@type":"Answer","text":"They serve different purposes. Copilot works inside Excel directly. Claude is better for explaining complex logic, writing and debugging formulas in plain language, and building prompts you can reuse. Many professionals use both."}},{"@type":"Question","name":"Do I need a paid Claude account to use these prompts?","acceptedAnswer":{"@type":"Answer","text":"No. Every prompt on this page works on the free tier of Claude. A paid plan gives higher usage limits but is not required."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
@@ -21,7 +20,7 @@
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
 .navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
 .logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
@@ -31,7 +30,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 .nav-back:hover{color:#1d9e75}
 .search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
-.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
+.page-wrap{width:100%;flex:1;padding:2rem 3rem}
 
 /* HERO */
 .hero-pl{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:1.5rem}
@@ -45,11 +44,10 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 .pl-btn-secondary:hover{background:rgba(255,255,255,.18)}
 
 /* SECTIONS */
-.pl-section{background:#fff;border-radius:16px;padding:2rem;margin-bottom:1.25rem;box-shadow:0 2px 24px rgba(0,0,0,.18),0 0 0 1px rgba(0,0,0,.06)}
+.pl-section{padding:2rem 0;margin-bottom:1.25rem}
 .pl-section h2{font-size:20px;font-weight:600;color:#0f6e56;margin-bottom:1rem}
 .pl-section h3{font-size:16px;font-weight:600;color:#0f6e56;margin-bottom:.75rem}
 .pl-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
-.pl-section p:last-child{margin-bottom:0}
 
 /* PROMPT BUILDER */
 .builder-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.25rem}
@@ -58,80 +56,42 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 .builder-field label{font-size:12px;font-weight:600;color:#0f6e56;text-transform:uppercase;letter-spacing:.05em}
 .builder-field select,.builder-field textarea,.builder-field input{border:1.5px solid #e2e8f0;border-radius:8px;padding:10px 12px;font-size:13px;font-family:'Inter',sans-serif;color:#1a1a2e;background:#f8fafc;transition:border-color .15s;outline:none;width:100%}
 .builder-field select:focus,.builder-field textarea:focus,.builder-field input:focus{border-color:#1d9e75;background:#fff}
-.builder-field textarea{resize:vertical;min-height:80px;line-height:1.6}
 .builder-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:1.25rem}
 .btn-build{background:#1d9e75;color:#fff;border:none;border-radius:8px;padding:12px 28px;font-size:14px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:8px}
 .btn-build:hover{background:#178a64}
 .btn-reset{background:#f1f5f9;color:#64748b;border:1px solid #e2e8f0;border-radius:8px;padding:12px 20px;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .15s}
-.btn-reset:hover{background:#e2e8f0}
 .builder-output{display:none;background:#f0fdf4;border:1.5px solid #1d9e75;border-radius:12px;padding:1.25rem}
 .builder-output.visible{display:block}
 .builder-output-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.6rem}
 .builder-output-text{font-size:13px;color:#1a1a2e;line-height:1.8;white-space:pre-wrap;font-family:'Inter',sans-serif;margin-bottom:1rem}
-.btn-copy-output{background:#1d9e75;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:7px}
-.btn-copy-output:hover{background:#178a64}
 
 /* PROMPT CATEGORIES */
 .prompt-category{margin-bottom:2rem}
-.prompt-category:last-child{margin-bottom:0}
 .prompt-cat-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:2px solid #e1f5ee}
 .prompt-cat-icon{width:32px;height:32px;border-radius:8px;background:#e1f5ee;display:flex;align-items:center;justify-content:center;color:#0f6e56;font-size:15px;flex-shrink:0}
 .prompt-cat-title{font-size:15px;font-weight:700;color:#0f6e56}
-.prompt-cat-count{font-size:11px;color:#6b7280;background:#f1f5f9;border-radius:20px;padding:2px 8px}
 .prompt-list{display:flex;flex-direction:column;gap:10px}
 .prompt-item{background:#f8fafb;border:1px solid #e8ecef;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem}
 .prompt-item-title{font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.5rem}
 .prompt-item-text{font-size:12px;color:#374151;line-height:1.7;font-family:'Inter',sans-serif;white-space:pre-wrap;margin-bottom:.75rem}
-.prompt-item-text strong{color:#1a1a2e;font-weight:600}
-.btn-copy-prompt{background:#e1f5ee;color:#0f6e56;border:1px solid #6ee7b7;border-radius:6px;padding:6px 14px;font-size:11px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:5px}
-.btn-copy-prompt:hover{background:#1d9e75;color:#fff;border-color:#1d9e75}
+.btn-copy-prompt{background:#e1f5ee;color:#0f6e56;border:1px solid #6ee7b7;border-radius:6px;padding:6px 14px;font-size:11px;font-weight:600;cursor:pointer}
+.btn-copy-prompt:hover{background:#1d9e75;color:#fff}
 
-/* BEST PRACTICES */
+/* BEST PRACTICES & FAQ */
 .bp-box{background:#e1f5ee;border-left:4px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin-bottom:.75rem}
-.bp-box-title{font-size:13px;font-weight:700;color:#085041;margin-bottom:.5rem;display:flex;align-items:center;gap:6px}
-.bp-list{list-style:none;padding:0}
-.bp-list li{font-size:13px;color:#374151;padding:.3rem 0 .3rem 20px;position:relative;line-height:1.6;border-bottom:1px solid rgba(0,0,0,.05)}
-.bp-list li:last-child{border-bottom:none}
-.bp-list li::before{content:'✓';position:absolute;left:0;color:#1d9e75;font-weight:700;font-size:12px}
-
-/* FAQ */
 .faq-item{border-bottom:1px solid #e8ecef;padding:1rem 0}
-.faq-item:last-child{border-bottom:none;padding-bottom:0}
-.faq-q{font-size:14px;font-weight:600;color:#0f6e56;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;user-select:none}
-.faq-q i{transition:transform .2s;color:#1d9e75;flex-shrink:0}
-.faq-q.open i{transform:rotate(180deg)}
+.faq-q{font-size:14px;font-weight:600;color:#0f6e56;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
 .faq-a{font-size:13px;color:#374151;line-height:1.7;display:none;padding-top:.6rem}
-.faq-a.open{display:block}
 
 /* COURSES GRID */
-.courses-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:1rem}
-.course-card{display:flex;align-items:center;gap:12px;background:#f8fafb;border:1px solid #e8ecef;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:.9rem 1rem;text-decoration:none;transition:all .15s}
-.course-card:hover{background:#f0fdf4;border-color:#9fe1cb;transform:translateX(2px)}
-.course-card-icon{width:32px;height:32px;border-radius:8px;background:#e1f5ee;display:flex;align-items:center;justify-content:center;color:#0f6e56;font-size:14px;flex-shrink:0}
-.course-card-title{font-size:12px;font-weight:600;color:#0f6e56;line-height:1.4}
-.course-card-tag{font-size:10px;color:#6b7280;margin-top:.1rem}
-
-/* SEARCH OVERLAY */
-#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
-#searchOverlay.open{display:flex}
-.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
-.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
-.search-close-btn:hover{color:#fff}
-.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
-.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
-.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
-.search-box input::placeholder{color:rgba(255,255,255,.35)}
-.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
+.courses-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:15px;margin-top:1rem}
+.course-card{display:flex;align-items:center;gap:12px;background:#f8fafb;border:1px solid #e8ecef;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:.9rem 1rem;text-decoration:none}
+.course-card:hover{background:#f0fdf4;border-color:#9fe1cb}
+.course-card-title{font-size:12px;font-weight:600;color:#0f6e56}
 
 @media(max-width:700px){
-  .navbar{padding:0 1rem}
-  .page-wrap{padding:1rem .5rem}
-  .hero-pl{padding:2rem 1.25rem}
-  .hero-pl h1{font-size:24px}
-  .pl-section{padding:1.5rem 1.25rem}
+  .page-wrap{padding:1rem}
   .builder-grid{grid-template-columns:1fr}
-  .builder-field.full{grid-column:1}
-  .courses-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
