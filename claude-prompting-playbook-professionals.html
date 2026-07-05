@@ -3,199 +3,283 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Claude Prompt Engineering: Practical Guide for Enterprise Teams — PairWorkflows</title>
-<meta name="description" content="Master 10 advanced Claude prompting techniques for business. Learn role assignment, XML tags, clear constraints, and structural output formatting.">
-<link rel="canonical" href="https://www.pairworkflows.com/claude-prompting-playbook-professionals.html">
-<meta property="og:title" content="Claude Prompt Engineering: Practical Guide for Enterprise Teams — PairWorkflows">
-<meta property="og:description" content="Master 10 advanced Claude prompting techniques for business. Learn role assignment, XML tags, clear constraints, and structural output formatting.">
-<meta property="og:url" content="https://www.pairworkflows.com/claude-prompting-playbook-professionals.html">
-<meta property="og:type" content="website">
+<title>Claude Token Management: Stop Wasting Your Daily Budget | PairWorkflows</title>
+<meta name="description" content="Learn how Claude AI tokens work, where your budget goes, and how to get more from every conversation. Free 5-minute mini-course for professionals.">
+<link rel="canonical" href="https://www.pairworkflows.com/claude-ai-tokens-explained.html">
+<meta property="og:title" content="Claude Token Management: Stop Wasting Your Daily Budget">
+<meta property="og:description" content="Learn how Claude AI tokens work and how to stop wasting your daily budget.">
+<meta property="og:url" content="https://www.pairworkflows.com/claude-ai-tokens-explained.html">
+<meta property="og:type" content="article">
 <meta property="og:site_name" content="PairWorkflows">
-<meta property="og:image" content="https://www.pairworkflows.com/og/claude-prompting-playbook-professionals.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Claude Prompt Engineering: Practical Guide for Enterprise Teams — PairWorkflows">
-<meta name="twitter:description" content="Master 10 advanced Claude prompting techniques for business. Learn role assignment, XML tags, clear constraints, and structural output formatting.">
-<meta name="twitter:image" content="https://www.pairworkflows.com/og/claude-prompting-playbook-professionals.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Claude Prompt Engineering: Practical Guide for Enterprise Teams","description":"Master 10 advanced Claude prompting techniques for business. Learn role assignment, XML tags, clear constraints, and structural output formatting.","url":"https://www.pairworkflows.com/claude-prompting-playbook-professionals.html","timeRequired":"PT10M","isAccessibleForFree":true,"inLanguage":"en","provider":{"@type":"Organization","name":"PairWorkflows","url":"https://www.pairworkflows.com"},"offers":{"@type":"Offer","price":"0","priceCurrency":"USD","availability":"https://schema.org/InStock"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"online","courseWorkload":"PT10M"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-<style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 3rem;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}.logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}.logo-pair{font-size:18px;font-weight:800;color:#ffffff;letter-spacing:-.3px}.logo-workflows{font-size:18px;font-weight:400;color:#9fe1cb;letter-spacing:-.2px}.back-link{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,.6);text-decoration:none;transition:color .15s}.back-link:hover{color:#ffffff}.course-wrap{width:100%;flex:1;display:flex}.course-shell{background:#ffffff;display:grid;grid-template-columns:260px 1fr;min-height:600px;flex:1;width:100%}.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}.prog-wrap{padding:1rem 1.25rem .75rem}.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}.nav-list{padding:.5rem 0;flex:1;overflow-y:auto}.nav-item{display:flex;align-items:center;gap:10px;padding:.55rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}.nav-item:hover{background:#eef1f4}.nav-item.active{border-left-color:#1d9e75;background:#ffffff}.nav-dot{width:20px;height:20px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#ffffff}.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}.nav-text{font-size:12px;color:#6b7280;line-height:1.3}.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}.content-area{display:flex;flex-direction:column}.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:2rem 2.5rem}.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.4rem}.section-hero h2{font-size:24px;font-weight:600;color:#ffffff;line-height:1.3;max-width:100%}.content-body{padding:2rem 2.5rem;flex:1;width:100%;max-width:100%;overflow-x:hidden}.seo-section{display:none}.seo-section.active-section{display:block}.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1.25rem}.body-heading{font-size:16px;font-weight:600;color:#1a1a2e;margin:1.75rem 0 .6rem}.info-box{background:#e1f5ee;padding:1rem 1.25rem;margin:1.25rem 0;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0}.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}.prompt-card{background:#f8fafb;border:1px solid #e8ecef;border-radius:12px;padding:1.25rem;margin:1.25rem 0;font-family:monospace;font-size:13px;color:#1e293b;line-height:1.5;white-space:pre-wrap;position:relative}.prompt-card::before{content:'PROMPT TEMPLATE';position:absolute;top:-10px;left:15px;background:#0f6e56;color:white;font-family:'Inter',sans-serif;font-size:9px;font-weight:600;padding:2px 8px;border-radius:4px;letter-spacing:.05em}.xml-tag{color:#059669;font-weight:600}.xml-inner{color:#475569;padding-left:1ch}.custom-list{list-style:none;margin:1rem 0}.custom-list li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:#374151;line-height:1.7;padding:.4rem 0}.list-icon{color:#1d9e75;font-size:16px;flex-shrink:0;margin-top:2px}.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2.5rem;border-top:1px solid #f0f2f5;background:#fafbfc}.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;cursor:pointer;transition:all .15s;font-family:inherit}.btn-back:hover{background:#f0f2f5}.btn-back:disabled{opacity:.35;cursor:default}.btn-fwd{background:#1d9e75;color:#ffffff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;font-family:inherit}.btn-fwd:hover{background:#0f6e56}.quiz-q{margin-bottom:1.75rem}.quiz-q h3{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:.75rem;line-height:1.5}.opt{display:flex;align-items:center;gap:12px;padding:.75rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s}.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center}.opt.selected{border-color:#378add;background:#edf5fd;color:#0c447c}.opt.selected .radio{border-color:#378add;background:#378add}.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff;display:block}.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}.submit-global{background:#1a1a2e;color:#ffffff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;margin-top:1rem;transition:all .15s;font-family:inherit}.submit-global:hover{background:#0f6e56}.submit-global:disabled{opacity:.35;cursor:default}.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem}.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s}.retake-btn:hover{background:#e1f5ee}.share-section{max-width:1100px;margin:2.5rem auto 0;padding:0 1rem}.share-inner{display:flex;align-items:center;justify-content:center;gap:16px;padding:1.75rem 1.5rem;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap}.share-copy{display:flex;align-items:center;gap:10px;height:48px;padding:0 20px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;color:#e5e7eb;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .2s}.share-copy:hover{background:#374151;transform:scale(1.04)}.share-copy:active{transform:scale(.95)}.share-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;text-decoration:none;transition:all .2s;cursor:pointer}.share-icon:hover{transform:scale(1.08)}.share-icon:active{transform:scale(.95)}.share-li:hover{background:#0a66c2;border-color:#0a66c2}.share-x:hover{background:#000000;border-color:#000000}.site-footer{background:#021a12;padding:1.5rem 3rem;text-align:center;border-top:1px solid rgba(255,255,255,.06);margin-top:auto}.footer-links{display:flex;justify-content:center;gap:2rem;margin-bottom:.5rem;flex-wrap:wrap}.footer-links a{font-size:12px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .15s}.footer-links a:hover{color:#9fe1cb}.footer-copy{font-size:12px;color:rgba(255,255,255,.2)}@media(max-width:768px){.navbar{padding:0 1.25rem}.course-wrap{padding:0}.course-shell{grid-template-columns:1fr}.sidebar{display:none}.section-hero{padding:1.25rem 1.5rem}.content-body{padding:1.25rem;max-width:100%}.content-footer{padding:1rem 1.25rem}}#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}#searchOverlay.open{display:flex}.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}.search-close-btn:hover{color:#ffffff}.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}.search-box input{flex:1;border:none;outline:none;background:transparent;color:#ffffff;font-size:17px;font-family:'Inter',sans-serif}.search-box input::placeholder{color:rgba(255,255,255,.35)}.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center;letter-spacing:.02em}.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}.search-trigger:hover{background:rgba(255,255,255,.15);color:#ffffff}</style>
-<script defer src="/_vercel/insights/script.js"></script>
+<link rel="icon" type="image/png" href="/favicon.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+.page-wrap{width:100%;padding:0;margin:0;flex:1}
+.course-shell{background:#fff;display:flex;margin-top:0;min-height:580px;width:100%}
+.sidebar{width:240px;background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column;flex-shrink:0}
+.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
+.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
+.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
+.prog-wrap{padding:1rem 1.25rem .75rem}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
+.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
+.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
+.nav-list{padding:.5rem 0;flex:1}
+.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
+.nav-item:hover{background:#eef1f4}
+.nav-item.active{border-left-color:#1d9e75;background:#fff}
+.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
+.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
+.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
+.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
+.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
+.content-area{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.5rem 2rem 1.75rem 2rem}
+.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
+.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:600px}
+.content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
+.seo-section{display:none}
+.seo-section.active-section{display:block}
+.seo-section p{font-size:14.5px;color:#374151;line-height:1.8;margin-bottom:1rem}
+.seo-section h3{font-size:17px;font-weight:600;color:#0f6e56;margin:1.75rem 0 .75rem}
+.highlight-box{background:#e1f5ee;border-left:4px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.highlight-box p{color:#065f46;margin:0;font-size:14px;line-height:1.7}
+.warning-box{background:#fff8e1;border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.warning-box p{color:#92400e;margin:0;font-size:14px;line-height:1.7}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.5rem 0}
+.stat-card{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:1.25rem;text-align:center}
+.stat-num{font-size:28px;font-weight:700;color:#065f46}
+.stat-label{font-size:12px;color:#6b7280;margin-top:.25rem}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.25rem 0}
+.info-card{background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:1rem 1.25rem}
+.info-card-title{font-size:12px;font-weight:700;color:#0f6e56;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.4rem;display:flex;align-items:center;gap:6px}
+.info-card p{font-size:13px;color:#374151;line-height:1.6;margin:0}
+.vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:1.25rem 0}
+.vs-card{border-radius:12px;padding:1.25rem}
+.vs-bad{background:#fef2f2;border:1px solid #fecaca}
+.vs-good{background:#f0fdf4;border:1px solid #bbf7d0}
+.vs-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem;display:flex;align-items:center;gap:6px}
+.vs-bad .vs-label{color:#dc2626}
+.vs-good .vs-label{color:#059669}
+.vs-card p{font-size:13px;line-height:1.6;margin:0}
+.nav-buttons{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 2rem;border-top:1px solid #e8ecef;flex-shrink:0}
+.btn-back,.btn-next{display:flex;align-items:center;gap:6px;padding:10px 22px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;text-decoration:none;border:none}
+.btn-back{background:#f1f5f9;border:1px solid #e2e8f0;color:#64748b}
+.btn-back:hover{background:#e2e8f0;color:#334155}
+.btn-next{background:#1d9e75;color:#fff}
+.btn-next:hover{background:#178a64}
+.btn-back.disabled{opacity:.4;pointer-events:none}
+.quiz-container{margin:1.25rem 0}
+.quiz-question{background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:1.25rem;margin-bottom:1rem}
+.quiz-question h4{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:.75rem}
+.quiz-options{display:flex;flex-direction:column;gap:6px}
+.quiz-option{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid #e2e8f0;border-radius:8px;cursor:pointer;transition:all .15s;font-size:13px;color:#374151}
+.quiz-option:hover{border-color:#1d9e75;background:#f0fdf4}
+.quiz-option.selected{border-color:#1d9e75;background:#e1f5ee;color:#065f46;font-weight:500}
+.quiz-option.correct{border-color:#059669;background:#d1fae5;color:#065f46}
+.quiz-option.incorrect{border-color:#ef4444;background:#fee2e2;color:#991b1b}
+.quiz-radio{width:16px;height:16px;border-radius:50%;border:2px solid #d1d5db;flex-shrink:0;transition:all .15s}
+.quiz-option.selected .quiz-radio{border-color:#1d9e75;background:#1d9e75;box-shadow:inset 0 0 0 3px #fff}
+.quiz-feedback{display:none;padding:.75rem 1rem;border-radius:8px;font-size:13px;line-height:1.6;margin-top:.5rem}
+.quiz-feedback.correct{display:block;background:#d1fae5;color:#065f46;border:1px solid #6ee7b7}
+.quiz-feedback.incorrect{display:block;background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
+.quiz-check{margin-top:.75rem;padding:8px 18px;background:#1d9e75;color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;display:none}
+.quiz-check.visible{display:inline-block}
+.score-box{background:#e1f5ee;border:1px solid #6ee7b7;border-radius:10px;padding:1.25rem;text-align:center;margin-top:1.5rem;display:none}
+.score-box.visible{display:block}
+.score-box .score{font-size:36px;font-weight:700;color:#065f46}
+.score-box .score-label{font-size:14px;color:#374151;margin-top:.25rem}
+#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
+#searchOverlay.open{display:flex}
+.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
+.search-close-btn:hover{color:#fff}
+.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
+.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
+.search-box input::placeholder{color:rgba(255,255,255,.35)}
+.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
+@media(max-width:768px){
+.sidebar{display:none}
+.section-hero{padding:1.25rem 1.5rem}
+.section-hero h2{font-size:20px}
+.content-body{padding:1.5rem}
+.nav-buttons{padding:1rem 1.5rem}
+.stat-grid{grid-template-columns:1fr}
+.info-grid{grid-template-columns:1fr}
+.vs-grid{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body>
-<div id="searchOverlay" onclick="if(event.target===this)closeSearch()"><div class="search-overlay-inner"><button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button><form action="/search.html" method="get"><div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div></form><p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p></div></div>
-<nav class="navbar"><a href="https://www.pairworkflows.com" class="logo"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a><div style="display:flex;align-items:center;gap:16px"><button class="search-trigger" onclick="openSearch()"><i class="ti ti-search"></i></button><a href="https://www.pairworkflows.com/index.html" class="back-link"><i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses</a></div></nav>
-<div class="course-wrap">
+<div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
+<div class="search-overlay-inner">
+<button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+<form action="/search.html" method="get">
+<div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
+</form>
+<p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
+</div>
+</div>
+<div id="navbar-placeholder"></div>
+<script src="/navbar.js"></script>
+<noscript>
+<nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
+<a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
+<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a>
+<a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a>
+<a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a>
+<a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a>
+<a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a>
+<a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a>
+<a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
+<a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a>
+<a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a>
+<a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
+</nav>
+</noscript>
+<div class="page-wrap">
 <div class="course-shell">
 <div class="sidebar">
 <div class="sidebar-top">
-<div class="course-label">Claude AI — Course 6 of 9</div>
-<div class="course-title-side">Claude Prompt Engineering: Practical Guide for Enterprise Teams</div>
+<div class="course-label">Claude AI — Course 2 of 26</div>
+<div class="course-title-side">Cut through inbox overload and find what you need fast.</div>
 </div>
 <div class="prog-wrap">
-<div class="prog-label"><span>Progress</span><span id="progTxt">1 of 11</span></div>
-<div class="prog-track"><div class="prog-fill" id="pf" style="width:9%"></div></div>
+<div class="prog-label"><span>Progress</span><span id="progText">1 of 4</span></div>
+<div class="prog-track"><div class="prog-fill" id="progBar" style="width:25%"></div></div>
 </div>
 <div class="nav-list">
-<div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">Role Assignment</div></div>
-<div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">Context Partitioning</div></div>
-<div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Negative Constraints</div></div>
-<div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Structural Output</div></div>
-<div class="nav-item" id="ni4" onclick="go(4)"><div class="nav-dot" id="nd4">5</div><div class="nav-text">Few-Shot Injections</div></div>
-<div class="nav-item" id="ni5" onclick="go(5)"><div class="nav-dot" id="nd5">6</div><div class="nav-text">Chain of Thought</div></div>
-<div class="nav-item" id="ni6" onclick="go(6)"><div class="nav-dot" id="nd6">7</div><div class="nav-text">Prefilling Responses</div></div>
-<div class="nav-item" id="ni7" onclick="go(7)"><div class="nav-dot" id="nd7">8</div><div class="nav-text">Variable Injections</div></div>
-<div class="nav-item" id="ni8" onclick="go(8)"><div class="nav-dot" id="nd8">9</div><div class="nav-text">Sequential Layering</div></div>
-<div class="nav-item" id="ni9" onclick="go(9)"><div class="nav-dot" id="nd9">10</div><div class="nav-text">System Prompting</div></div>
-<div class="nav-item" id="ni10" onclick="go(10)"><div class="nav-dot" id="nd10">11</div><div class="nav-text">Interactive Quiz</div></div>
+<div class="nav-item active" onclick="goToSlide(0)"><div class="nav-dot active">1</div><div class="nav-text">What are AI tokens?</div></div>
+<div class="nav-item" onclick="goToSlide(1)"><div class="nav-dot">2</div><div class="nav-text">Where your token budget goes</div></div>
+<div class="nav-item" onclick="goToSlide(2)"><div class="nav-dot">3</div><div class="nav-text">Token drains & quick wins</div></div>
+<div class="nav-item" onclick="goToSlide(3)"><div class="nav-dot">4</div><div class="nav-text">Quiz: test your knowledge</div></div>
 </div>
 </div>
 <div class="content-area">
-<div class="section-hero"><div class="section-tag" id="heroTag">Section 01</div><h2 id="heroTitle">Role Assignment: Setting the Strategic Baseline</h2></div>
-<div class="content-body" id="cnt">
-<div id="seo-sec-0" class="seo-section active-section">
-<p>The foundation of enterprise-grade prompting begins with defining a specific persona. Without an assigned role, Claude draws from a generalized average baseline, leading to generic business prose that misses technical nuance.</p>
-<p>By forcing Claude into a strategic perspective—such as a Senior FinTech Risk Auditor or B2B Growth Architect—you alter the internal attention weights applied to terminology, risk alignment, and presentation standards.</p>
-<div class="body-heading">Corporate Scenario: Risk Management Audit</div>
-<p>A compliance manager needs to review a new third-party vendor contract for GDPR gaps. Instead of a loose inquiry, the prompt establishes clear professional standards:</p>
-<div class="prompt-card">You are acting as a Principal Corporate Risk & Compliance Counsel specializing in UK and EU cross-border data privacy laws. Review the attached vendor terms. Analyze liability ceilings specifically for data breaches, highlighting misalignments with standard enterprise risk tolerance.</div>
-<div class="info-box"><p><strong>Operational Impact:</strong> Setting a high-level role changes the style from a basic dictionary definition to an actionable executive summary complete with regulatory jargon.</p></div>
-</div>
-<div id="seo-sec-1" class="seo-section">
-<p>Claude natively recognizes XML tags (e.g., <code>&lt;context&gt;</code>, <code>&lt;source_material&gt;</code>) to separate user data from core strategic parameters. This structure eliminates context contamination and prevents prompt injection vulnerabilities.</p>
-<p>When analyzing high-volume documents like raw financial transcripts or client onboarding reports, wrapping distinct operational layers in XML tags tells Claude exactly where background noise stops and instructions begin.</p>
-<div class="body-heading">Corporate Scenario: Strategic Competitor Analysis</div>
-<p>A marketing analyst is injecting raw, unformatted notes from a competitor product launch into Claude:</p>
-<div class="prompt-card">Extract the specific feature updates described inside the material below. Do not analyze generic marketing claims.
 
-&lt;competitor_transcript&gt;
-[Paste raw, messy notes from the competitor product launch video here]
-&lt;/competitor_transcript&gt;
+<div class="seo-section active-section" id="slide-0">
+<div class="section-hero"><div class="section-tag">Section 01</div><h2>Claude Token Management: Stop Wasting Your Daily Budget.</h2></div>
+<div class="content-body">
+<p>When you send a message to Claude, it doesn't process your text word by word. It breaks everything down into <strong>tokens</strong> — small chunks of text that typically represent about three-quarters of a word.</p>
+<p>Every prompt you write, every document you upload, every reply Claude generates is measured and counted in tokens. Your Claude subscription comes with a daily usage limit measured in tokens.</p>
+<div class="highlight-box"><p><strong>Why does this matter for you?</strong> Heavy tasks — long documents, complex briefs, extended conversations — consume that budget faster than you might expect. Understanding tokens is the first step to working smarter.</p></div>
+<div class="stat-grid">
+<div class="stat-card"><div class="stat-num">¾</div><div class="stat-label">of a word, on average, per token</div></div>
+<div class="stat-card"><div class="stat-num">~750</div><div class="stat-label">words in roughly 1,000 tokens</div></div>
+<div class="stat-card"><div class="stat-num">3×</div><div class="stat-label">more tokens for code vs plain prose</div></div>
+</div>
+<p>A 10-page document, a full email thread, and a detailed system prompt can each consume thousands of tokens before you have typed a single question.</p>
+</div>
+<div class="nav-buttons"><button class="btn-back disabled">← Back</button><button class="btn-next" onclick="goToSlide(1)">Next →</button></div>
+</div>
 
-Output the features as a markdown table matrix against our product features.</div>
-<div class="info-box"><p><strong>Operational Impact:</strong> Isolating the messy source text inside clean XML tags ensures Claude never mistakes the competitor's claims for user instructions.</p></div>
+<div class="seo-section" id="slide-1">
+<div class="section-hero"><div class="section-tag">Section 02</div><h2>Where your token budget actually goes — and why it disappears so fast.</h2></div>
+<div class="content-body">
+<p>Most people assume tokens are only counted when Claude replies. That's wrong. Tokens are consumed in <strong>both directions</strong> — your input and Claude's output.</p>
+<h3>The token equation</h3>
+<div class="info-grid">
+<div class="info-card"><div class="info-card-title"><i class="ti ti-upload" style="font-size:14px"></i> Your input</div><p>Your prompt + any documents you upload + the entire conversation history that Claude re-reads every turn.</p></div>
+<div class="info-card"><div class="info-card-title"><i class="ti ti-download" style="font-size:14px"></i> Claude's output</div><p>The reply Claude generates. Longer, more detailed replies consume more tokens — and output tokens are more expensive than input tokens.</p></div>
 </div>
-<div id="seo-sec-2" class="seo-section">
-<p>Large language models naturally prefer to generate assertions rather than omissions. To prevent generic corporate boilerplate, you must explicitly enforce negative constraints—clearly stating what Claude must <strong>not</strong> do.</p>
-<p>Setting rigid parameters protects corporate brand voice, stops the model from using banned buzzwords, and guarantees that compliance thresholds are met without deviation.</p>
-<div class="body-heading">Corporate Scenario: B2B Product Marketing Launch</div>
-<p>An enterprise product marketer is drafting a product update notice for enterprise clients:</p>
-<div class="prompt-card">Draft a 150-word product release notification for our Enterprise tier users regarding our new database architecture.
+<h3>The hidden cost: conversation history</h3>
+<p>This is the part that catches people off guard. Every time you send a new message, Claude re-reads the <strong>entire conversation</strong> from the beginning. A conversation that started simple can quietly consume thousands of tokens per turn by message 15 or 20.</p>
+<div class="warning-box"><p><strong>The real drain:</strong> A 30-message conversation doesn't cost 30× what one message costs. It costs far more — because every new message includes the full history of all previous messages as context.</p></div>
+<h3>What costs the most?</h3>
+<table style="width:100%;border-collapse:collapse;margin:1.25rem 0;border-radius:10px;overflow:hidden;border:1px solid #e2e8f0">
+<tr><th style="background:#f3f3f3;font-size:11px;font-weight:700;color:#595959;padding:8px 14px;text-align:left;text-transform:uppercase">Action</th><th style="background:#f3f3f3;font-size:11px;font-weight:700;color:#595959;padding:8px 14px;text-align:left;text-transform:uppercase">Token impact</th><th style="background:#f3f3f3;font-size:11px;font-weight:700;color:#595959;padding:8px 14px;text-align:left;text-transform:uppercase">Typical cost</th></tr>
+<tr><td style="padding:8px 14px;font-size:13px;border-bottom:1px solid #f0f0f0">Short question, short answer</td><td style="padding:8px 14px;font-size:13px;border-bottom:1px solid #f0f0f0">Low</td><td style="padding:8px 14px;font-size:13px;border-bottom:1px solid #f0f0f0;color:#059669;font-weight:500">~500 tokens</td></tr>
+<tr><td style="padding:8px 14px;font-size:13px;border-bottom:1px solid #f0f0f0">Upload a 10-page PDF + ask a question</td><td style="padding:8px 14px;font-size:13px;border-bottom:1px solid #f0f0f0">High</td><td style="padding:8px 14px;font-size:13px;border-bottom:1px solid #f0f0f0;color:#dc2626;font-weight:500">~8,000–15,000 tokens</td></tr>
+<tr><td style="padding:8px 14px;font-size:13px;border-bottom:1px solid #f0f0f0">20-message conversation</td><td style="padding:8px 14px;font-size:13px;border-bottom:1px solid #f0f0f0">Very high</td><td style="padding:8px 14px;font-size:13px;border-bottom:1px solid #f0f0f0;color:#dc2626;font-weight:500">~30,000–50,000+ tokens</td></tr>
+<tr><td style="padding:8px 14px;font-size:13px">Asking Claude to rewrite a long document</td><td style="padding:8px 14px;font-size:13px">Very high</td><td style="padding:8px 14px;font-size:13px;color:#dc2626;font-weight:500">~20,000–40,000 tokens</td></tr>
+</table>
+</div>
+<div class="nav-buttons"><button class="btn-back" onclick="goToSlide(0)">← Back</button><button class="btn-next" onclick="goToSlide(2)">Next →</button></div>
+</div>
+<div class="seo-section" id="slide-2">
+<div class="section-hero"><div class="section-tag">Section 03</div><h2>Token drains and quick wins — how to get more from every conversation.</h2></div>
+<div class="content-body">
+<p>Now that you know how tokens work, here are the habits that waste them — and the fixes that save them.</p>
+<h3>The biggest token drains</h3>
+<div class="vs-grid">
+<div class="vs-card vs-bad"><div class="vs-label"><i class="ti ti-x" style="font-size:14px"></i> Token drain</div><p><strong>Mixing topics in one conversation.</strong> You start with a budget question, then ask about an HR policy, then request a marketing email. Claude carries all that irrelevant context forward, consuming tokens on every turn.</p></div>
+<div class="vs-card vs-good"><div class="vs-label"><i class="ti ti-check" style="font-size:14px"></i> Quick fix</div><p><strong>One topic per conversation.</strong> Start a new conversation for each task. Claude gets clean context and you waste zero tokens on irrelevant history.</p></div>
+</div>
+<div class="vs-grid">
+<div class="vs-card vs-bad"><div class="vs-label"><i class="ti ti-x" style="font-size:14px"></i> Token drain</div><p><strong>Uploading entire documents when you need one section.</strong> A 50-page PDF costs thousands of tokens even if your question is about page 3.</p></div>
+<div class="vs-card vs-good"><div class="vs-label"><i class="ti ti-check" style="font-size:14px"></i> Quick fix</div><p><strong>Copy-paste only the relevant section.</strong> If you need Claude to review a clause, paste the clause — not the entire contract.</p></div>
+</div>
+<div class="vs-grid">
+<div class="vs-card vs-bad"><div class="vs-label"><i class="ti ti-x" style="font-size:14px"></i> Token drain</div><p><strong>Asking Claude to "make it longer" or "add more detail."</strong> Every extra word Claude generates costs output tokens, which are more expensive than input tokens.</p></div>
+<div class="vs-card vs-good"><div class="vs-label"><i class="ti ti-check" style="font-size:14px"></i> Quick fix</div><p><strong>Specify the length upfront.</strong> Say "Write a 200-word summary" instead of asking for a draft and then requesting changes. One precise prompt beats three vague ones.</p></div>
+</div>
+<h3>The cheat sheet</h3>
+<div class="highlight-box"><p><strong>5 rules for token efficiency:</strong><br>1. One topic per conversation<br>2. Paste relevant sections, not full documents<br>3. Specify output length in your first prompt<br>4. Start a new conversation when the topic changes<br>5. Use Claude Projects for recurring tasks — the system prompt is cached and costs less per turn</p></div>
+</div>
+<div class="nav-buttons"><button class="btn-back" onclick="goToSlide(1)">← Back</button><button class="btn-next" onclick="goToSlide(3)">Next →</button></div>
+</div>
 
-CRITICAL CONSTRAINTS:
-- Do NOT use hyperbole (e.g., words like "revolutionary", "game-changing", "groundbreaking", "excited").
-- Do NOT mention pricing changes or contract renewals.
-- Do NOT use the passive voice; write entirely in direct active form.</div>
-<div class="info-box"><p><strong>Operational Impact:</strong> Negative constraints significantly reduce edit iterations by removing corporate jargon before the first draft is produced.</p></div>
+<div class="seo-section" id="slide-3">
+<div class="section-hero"><div class="section-tag">Section 04</div><h2>Quiz: test your knowledge.</h2></div>
+<div class="content-body">
+<div class="quiz-container">
+<div class="quiz-question" id="q1">
+<h4>1. What is a token?</h4>
+<div class="quiz-options">
+<div class="quiz-option" onclick="selectOption(this,'q1')"><div class="quiz-radio"></div>A complete word</div>
+<div class="quiz-option" onclick="selectOption(this,'q1')"><div class="quiz-radio"></div>A small chunk of text — roughly ¾ of a word</div>
+<div class="quiz-option" onclick="selectOption(this,'q1')"><div class="quiz-radio"></div>A sentence</div>
 </div>
-<div id="seo-sec-3" class="seo-section">
-<p>Enterprise systems depend on predictably formatted data inputs. When Claude outputs raw prose instead of structured data structures, programmatic automation drops. You must explicitly define your output target shape.</p>
-<p>Claude is highly adept at emitting valid JSON blocks, clean markdown matrices, or CSV arrays. This allows you to paste the output directly into business intelligence systems like Salesforce, PowerBI, or Excel sheets.</p>
-<div class="body-heading">Corporate Scenario: Customer Sentiment Categorization</div>
-<p>An operations leader is processing raw customer support escalations to update a Jira ticketing dashboard:</p>
-<div class="prompt-card">Analyze the support ticket below. Categorize it by Severity Level (High/Medium/Low) and Core Functional Department.
+<div class="quiz-feedback" id="q1-feedback"></div>
+<button class="quiz-check" id="q1-check" onclick="checkAnswer('q1',1,'A token is roughly three-quarters of a word. Claude breaks all text into these small chunks for processing.')">Check answer</button>
+</div>
+<div class="quiz-question" id="q2">
+<h4>2. What is the biggest hidden token cost in a long conversation?</h4>
+<div class="quiz-options">
+<div class="quiz-option" onclick="selectOption(this,'q2')"><div class="quiz-radio"></div>Claude's reply gets longer each time</div>
+<div class="quiz-option" onclick="selectOption(this,'q2')"><div class="quiz-radio"></div>Claude re-reads the entire conversation history on every turn</div>
+<div class="quiz-option" onclick="selectOption(this,'q2')"><div class="quiz-radio"></div>Uploading images costs extra</div>
+</div>
+<div class="quiz-feedback" id="q2-feedback"></div>
+<button class="quiz-check" id="q2-check" onclick="checkAnswer('q2',1,'Every new message includes the full history of all previous messages. This is why long conversations consume tokens much faster than you expect.')">Check answer</button>
+</div>
+<div class="quiz-question" id="q3">
+<h4>3. Which habit saves the most tokens?</h4>
+<div class="quiz-options">
+<div class="quiz-option" onclick="selectOption(this,'q3')"><div class="quiz-radio"></div>Writing shorter prompts</div>
+<div class="quiz-option" onclick="selectOption(this,'q3')"><div class="quiz-radio"></div>Using one topic per conversation</div>
+<div class="quiz-option" onclick="selectOption(this,'q3')"><div class="quiz-radio"></div>Asking Claude to be brief</div>
+</div>
+<div class="quiz-feedback" id="q3-feedback"></div>
+<button class="quiz-check" id="q3-check" onclick="checkAnswer('q3',1,'One topic per conversation keeps the context clean. Claude does not waste tokens re-reading irrelevant history from other tasks.')">Check answer</button>
+</div>
+<div class="quiz-question" id="q4">
+<h4>4. You need Claude to review a clause in a 40-page contract. What should you do?</h4>
+<div class="quiz-options">
+<div class="quiz-option" onclick="selectOption(this,'q4')"><div class="quiz-radio"></div>Upload the entire PDF</div>
+<div class="quiz-option" onclick="selectOption(this,'q4')"><div class="quiz-radio"></div>Copy-paste only the relevant clause</div>
+<div class="quiz-option" onclick="selectOption(this,'q4')"><div class="quiz-radio"></div>Ask Claude to find the clause itself</div>
+</div>
+<div class="quiz-feedback" id="q4-feedback"></div>
+<button class="quiz-check" id="q4-check" onclick="checkAnswer('q4',1,'Paste only what you need reviewed. Uploading 40 pages when you need one clause wastes thousands of tokens.')">Check answer</button>
+</div>
+</div>
+<div class="score-box" id="scoreBox"><div class="score" id="scoreNum"></div><div class="score-label">Correct answers</div></div>
+</div>
+<div class="nav-buttons"><button class="btn-back" onclick="goToSlide(2)">← Back</button><button class="btn-next disabled" style="opacity:.4;pointer-events:none">Complete ✓</button></div>
+</div>
 
-You must output your final analysis EXCLUSIVELY as a valid JSON object matching this structure:
-{
-  "severity": "string",
-  "department": "string",
-  "root_cause_summary": "single sentence maximum"
-}
-Do not include any conversational preamble, intro, or markdown wrapper blocks. Output only the pure JSON text string.</div>
-<div class="info-box"><p><strong>Operational Impact:</strong> Forcing a pure JSON format allows enterprise application workflows to safely ingest Claude outputs directly without parsing text manually.</p></div>
 </div>
-<div id="seo-sec-4" class="seo-section">
-<p>While clear instructions guide output style, few-shot conditioning—inserting explicit structural examples of inputs matched to desired outputs—provides the model with an unmistakable template to follow.</p>
-<p>Providing examples helps Claude replicate exact document formatting, corporate tones, and intricate formatting parameters that are difficult to define through textual instructions alone.</p>
-<div class="body-heading">Corporate Scenario: Procurement RFP Query Extraction</div>
-<p>A procurement specialist needs to standardize client feature requests gathered from varying corporate emails:</p>
-<div class="prompt-card">Extract client requests into unified project tracking items according to these validation patterns:
+</div>
+</div>
 
-&lt;example_1_input&gt;
-"Hey Team, John from Acme mentioned they absolutely require custom single sign-on (SSO) before they sign off on the Q3 contract."
-&lt;/example_1_input&gt;
-&lt;example_1_output&gt;
-- Category: Security Infrastructure
-- Requirement: Single Sign-On (SSO) Support
-- Priority: Blocked/Critical
-&lt;/example_1_output&gt;
-
-Now process this new submission:
-&lt;target_input&gt;
-"The logistics manager over at GlobalLogistics mentioned they would love to see a dark-mode UI toggle sometime next winter if it is simple to do."
-&lt;/target_input&gt;</div>
-<div class="info-box"><p><strong>Operational Impact:</strong> Providing example-response patterns forces absolute consistency across high-volume manual logging workflows.</p></div>
-</div>
-<div id="seo-sec-5" class="seo-section">
-<p>Complex mathematical data, business logic calculation, and deep strategic decisions can cause structural errors if a model is forced to reply too quickly. Chain-of-Thought (CoT) prompting instructs Claude to detail its analytical logic step-by-step before displaying the final answer.</p>
-<p>Forcing an explicitly structured thinking process exposes logical gaps, validates numerical assumptions, and gives you a clear audit trail of how the model reached its business conclusions.</p>
-<div class="body-heading">Corporate Scenario: Financial Headcount Budget Balancing</div>
-<p>A finance director is auditing departmental budget projections for a corporate division:</p>
-<div class="prompt-card">Review the departmental operations sheet attached. We need to reduce absolute operating spend by 12% across engineering or marketing without impacting active project deadlines.
-
-Before outputting your final recommendation table, you must create a dedicated section titled &lt;thinking_process&gt;. Within this section, show your complete mathematical derivations, balance sheets, and project impact assessments step-by-step. Prove your logic holds true before committing to your recommendation.</div>
-<div class="info-box"><p><strong>Operational Impact:</strong> Separating the background reasoning layer from the final recommendation helps teams identify and resolve errors before presenting to the board.</p></div>
-</div>
-<div id="seo-sec-6" class="seo-section">
-<p>A powerful technique to force absolute adherence to programmatic formatting rules is prefilling Claude's response window. By initializing the opening text block of the assistant response, you take control of the model's opening statement.</p>
-<p>This approach bypasses conversational introductions (such as "Certainly, I would be happy to help with that analysis...") and keeps the response focused entirely on the required format from the very first token.</p>
-<div class="body-heading">Corporate Scenario: API Endpoint Document Generator</div>
-<p>An engineering team lead needs an absolute schema structure formatted in clean YAML syntax without commentary:</p>
-<div class="prompt-card">[User Prompt]: Generate the production schema description for our authentication system endpoint. Use YAML structure format exclusively.
-
-[Prefilled Assistant Response]: ```yaml
-version: "2.4.1"
-endpoints:</div>
-<div class="info-box"><p><strong>Operational Impact:</strong> Prefilling the initial code block skips generic introductory text, keeping the output highly repeatable and easy to use.</p></div>
-</div>
-<div id="seo-sec-7" class="seo-section">
-<p>When engineering generalized templates for corporate departments, you should build reusable prompts with distinct variable placeholders (e.g., <code>{{PASTE_DATA_HERE}}</code>). This allows your team to use the same core framework without altering the structural instructions.</p>
-<p>This approach transforms your prompts into reliable enterprise assets that can be saved in shared document repositories or integrated directly into custom automation workflows.</p>
-<div class="body-heading">Corporate Scenario: Standardized HR Escalation Summaries</div>
-<p>An HR team uses a single core template to extract structured incident records across different regional offices:</p>
-<div class="prompt-card">You are an HR Compliance Officer. Review the unformatted operational feedback below and extract standard action items.
-
-Target Employee Department: {{DEPARTMENT}}
-Country of Origin Jurisdiction: {{JURISDICTION}}
-
-&lt;raw_incident_log&gt;
-{{RAW_LOG_TEXT}}
-&lt;/raw_incident_log&gt;
-
-Analyze this entry under the scope of {{JURISDICTION}} labor laws.</div>
-<div class="info-box"><p><strong>Operational Impact:</strong> Reusable templates allow non-technical teams to achieve consistent enterprise results without needing to learn prompt engineering from scratch.</p></div>
-</div>
-<div id="seo-sec-8" class="seo-section">
-<p>Attempting to force Claude to execute multiple complex operational tasks within a single prompt can degrade performance. High-stakes pipelines use sequential layering—breaking your broader objective into separate steps across clean threads.</p>
-<p>By extracting a refined artifact from Step A, cleaning it up, and seeding it into Step B as the baseline context, you ensure the model maintains optimal reasoning across every phase of the project.</p>
-<div class="body-heading">Corporate Scenario: Enterprise Strategy Playbook Production</div>
-<p>A corporate development team splits a heavy strategy assignment into sequential phases:</p>
-<ul class="custom-list">
-<li><span class="list-icon"><i class="ti ti-arrow-right"></i></span><strong>Step 1:</strong> Paste raw financial trends and ask Claude to isolate an absolute markdown breakdown of top operational risks.</li>
-<li><span class="list-icon"><i class="ti ti-arrow-right"></i></span><strong>Step 2:</strong> Copy that risk matrix into a brand new conversation thread and ask Claude to build tactical recovery protocols for each identified risk.</li>
-</ul>
-<div class="info-box"><p><strong>Operational Impact:</strong> Breaking projects into distinct, focused steps prevents conversational drift and ensures high-quality results across complex workflows.</p></div>
-</div>
-<div id="seo-sec-9" class="seo-section">
-<p>While user prompts carry transient data instructions for specific tasks, a System Prompt sets permanent architectural guards that control the workspace environment across all active conversations.</p>
-<p>Configured within Claude Projects, system prompting establishes immutable parameters for corporate voice, security thresholds, target output formats, and legal compliance guidelines that cannot be bypassed by standard user inputs.</p>
-<div class="body-heading">Corporate Scenario: Customer-Facing Content Guardrails</div>
-<p>A customer success division sets up a baseline system prompt inside a shared Claude Team Project workspace:</p>
-<div class="prompt-card">SYSTEM PARAMETERS:
-- You represent the brand tone of a tier-1 enterprise software company.
-- Your answers must be direct, empathetic, and clear.
-- Never display internal source code structures or database infrastructure details to the user.
-- If a query cannot be answered using the provided product documentation, respond with: "I am unable to confirm that feature detail. Let me escalate this directly to our support engineering desk."</div>
-<div class="info-box"><p><strong>Operational Impact:</strong> System prompts prevent unexpected outputs and provide reliable, compliance-safe workspaces for client-facing teams.</p></div>
-</div>
-<div id="seo-sec-10" class="seo-section"><div id="quiz-interactive-container"></div></div>
-</div>
-<div class="content-footer"><button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button><button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button></div>
-</div>
-</div>
-</div>
 <footer style="background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0">
 <div style="max-width:1100px; margin:0 auto">
 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
@@ -248,6 +332,16 @@ Analyze this entry under the scope of {{JURISDICTION}} labor laws.</div>
 </div>
 </div>
 </footer>
-<script>var cur=0,TOTAL=11,visited=[true,false,false,false,false,false,false,false,false,false,false],sel={},quizSubmitted=false,quizDone=false;var heroes=[{tag:'Section 01',title:'Role Assignment: Setting the Strategic Baseline'},{tag:'Section 02',title:'Context Partitioning: Shielding with XML Tags'},{tag:'Section 03',title:'Negative Constraints: Enforcing Boundary Parameters'},{tag:'Section 04',title:'Structural Output: Formatting Data for Automation'},{tag:'Section 05',title:'Few-Shot Injections: Conditioning with Live Patterns'},{tag:'Section 06',title:'Chain of Thought: Auditing Complex Logic Steps'},{tag:'Section 07',title:'Prefilling Responses: Bypassing Conversational Fluff'},{tag:'Section 08',title:'Variable Injections: Scaling Reusable Formats'},{tag:'Section 09',title:'Sequential Layering: Modular Project Execution'},{tag:'Section 10',title:'System Prompting: Structural Environmental Controls'},{tag:'Interactive Quiz',title:'Test your knowledge.'}];var quiz=[{q:'An operations leader wants to ensure Claude generates output formatted entirely as raw JSON without conversational chatter. Which combination of techniques is most effective?',opts:['Assign a general role and type your prompt in all capital letters.','State the formatting rules clearly and use prefilling to initialize the JSON array bracket.','Paste multiple long sample documents into the conversation stream.'],correct:1},{q:'What primary risk do you mitigate when you wrap an unformatted client feedback log inside explicit XML tags?',opts:['The model crashing due to special text characters.','The model mistaking text inside the feedback log for user instructions.','The conversation hitting its total daily usage limit too quickly.'],correct:1},{q:'A product marketing team needs to draft product feature updates without accidentally using banned marketing buzzwords. What prompt parameter should they use?',opts:['A strong system persona role assignment.','An explicit sequence of negative constraints detailing the banned terms.','A chain-of-thought calculation block.'],correct:1},{q:'What is the structural difference between a typical User Prompt and a System Prompt set within Claude Projects?',opts:['User prompts set the core compliance bounds; system prompts carry specific data payloads.','System prompts apply permanent guardrails across all chats; user prompts deliver specific data tasks.','System prompts can only process text data, whereas user prompts accept images.'],correct:1}];function buildQuizHTML(){if(quizDone){var score=0;for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}var msgs=['Review the prompting frameworks and try again.','Good effort — revisit the sections on XML formatting and negative constraints.','Excellent work! You missed just one detail.','Perfect score! You have mastered advanced enterprise prompt engineering.'];return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';}var html='';for(var i=0;i<quiz.length;i++){var q=quiz[i];html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';for(var j=0;j<q.opts.length;j++){var cls='opt';if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}else if(sel[i]===j)cls+=' selected';html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';}html+='</div>';}var allSel=Object.keys(sel).length===quiz.length;if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';return html;}function render(){document.getElementById('pf').style.width=Math.round(((cur+1)/TOTAL)*100)+'%';document.getElementById('progTxt').textContent=(cur+1)+' of '+TOTAL;document.getElementById('heroTag').textContent=heroes[cur].tag;document.getElementById('heroTitle').textContent=heroes[cur].title;for(var i=0;i<TOTAL;i++){var active':'');if(secBlock){if(i="==cur)secBlock.classList.add('active-section');else" done';nd.innerHTML="<i class="ti ti-check" style="font-size:10px"" ni="document.getElementById('ni'+i),nd=document.getElementById('nd'+i),secBlock=document.getElementById('seo-sec-'+i);if(ni)ni.className='nav-item'+(i===cur?'" secBlock.classList.remove('active-section');}if(nd){if(visited[i]&&i!="=cur){nd.className='nav-dot"></i>';}else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}else{nd.className='nav-dot';nd.textContent=(i+1);}}}if(cur===10){var qic=document.getElementById('quiz-interactive-container');if(qic)qic.innerHTML=buildQuizHTML();}document.getElementById('btnBack').disabled=(cur===0);var fwd=document.getElementById('btnFwd');if(cur===10){fwd.style.display='none';}else{fwd.style.display='';fwd.innerHTML=(cur===9?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}}function go(n){if(n<0||n>=TOTAL)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}function goFwd(){if(cur<TOTAL-1)go(cur+1);}function btn="document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg" copyLink(){var fill="none" height="18" opt="e.target.closest('.opt');if(!opt)return;sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);render();});function" retake(){sel="{};quizSubmitted=false;quizDone=false;render();}document.getElementById('cnt').addEventListener('click',function(e){if(cur!==10||quizSubmitted||quizDone)return;var" showResult(){quizDone="true;render();}function" stroke="currentColor" stroke-width="2.5" submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted="true;render();}function" viewBox="0 0 24 24" width="18" xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);} function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});render();</script>
+
+<script>
+var current=0;var total=4;var answers={};var correctAnswers={q1:1,q2:1,q3:1,q4:1};
+function goToSlide(n){document.querySelectorAll('.seo-section').forEach(s=>s.classList.remove('active-section'));document.getElementById('slide-'+n).classList.add('active-section');document.querySelectorAll('.nav-item').forEach((item,i)=>{item.classList.remove('active');if(i<n)item.querySelector('.nav-dot').classList.add('done');if(i===n){item.classList.add('active');item.querySelector('.nav-dot').classList.add('active')}});current=n;document.getElementById('progText').textContent=(n+1)+' of '+total;document.getElementById('progBar').style.width=((n+1)/total*100)+'%';window.scrollTo(0,0)}
+function selectOption(el,qid){el.parentElement.querySelectorAll('.quiz-option').forEach(o=>o.classList.remove('selected'));el.classList.add('selected');answers[qid]=Array.from(el.parentElement.children).indexOf(el);document.getElementById(qid+'-check').classList.add('visible')}
+function checkAnswer(qid,correct,explanation){var opts=document.getElementById(qid).querySelectorAll('.quiz-option');var fb=document.getElementById(qid+'-feedback');opts.forEach((o,i)=>{o.style.pointerEvents='none';if(i===correct)o.classList.add('correct');else if(o.classList.contains('selected'))o.classList.add('incorrect')});if(answers[qid]===correct){fb.className='quiz-feedback correct';fb.textContent='Correct! '+explanation}else{fb.className='quiz-feedback incorrect';fb.textContent='Not quite. '+explanation}document.getElementById(qid+'-check').style.display='none';if(document.querySelectorAll('.quiz-feedback.correct,.quiz-feedback.incorrect').length===Object.keys(correctAnswers).length){var score=document.querySelectorAll('.quiz-feedback.correct').length;document.getElementById('scoreNum').textContent=score+'/'+Object.keys(correctAnswers).length;document.getElementById('scoreBox').classList.add('visible')}}
+function copyCode(btn){var code=btn.parentElement.querySelector('code');navigator.clipboard.writeText(code.textContent);btn.textContent='Copied!';setTimeout(()=>btn.textContent='Copy',2000)}
+function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(()=>document.getElementById('searchOverlayInput').focus(),50)}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch()});
+</script>
 </body>
 </html>
