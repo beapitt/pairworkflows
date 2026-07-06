@@ -28,8 +28,8 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 .logo-workflows{font-size:16px;font-weight:400;color:#fff}
 .nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
 .nav-back:hover{color:#1d9e75}
-.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
-.course-shell{background:#fff;border-radius:16px;box-shadow:0 2px 24px rgba(0,0,0,.25),0 0 0 1px rgba(0,0,0,.08);overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
+.page-wrap{width:100%;padding:0;flex:1}
+.course-shell{background:#fff;display:grid;grid-template-columns:240px 1fr;min-height:580px}
 .sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
 .sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
 .course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
@@ -44,29 +44,28 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 .nav-item.active{border-left-color:#1d9e75;background:#fff}
 .nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
 .nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
-.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
+.nav-dot.active;{border-color:#1d9e75;color:#0f6e56;font-weight:600}
 .nav-text{font-size:13px;color:#6b7280;line-height:1.35}
 .nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
 .content-area{display:flex;flex-direction:column}
 .section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
 .section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
-.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
-.content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden}
+.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3}
+.content-body{padding:1.75rem 2rem;flex:1}
 .seo-section{display:none}
 .seo-section.active-section{display:block}
 .seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
-.task-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.5rem 0;max-width:100%}
-.task-card{background:#f8fafb;border:1px solid #e8ecef;border-top:3px solid #1d9e75;border-radius:4px 4px 10px 10px;padding:1.25rem;text-align:center;transition:transform .15s,box-shadow .15s}
-.task-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
+.task-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.5rem 0}
+.task-card{background:#f8fafb;border:1px solid #e8ecef;border-top:3px solid #1d9e75;padding:1.25rem;text-align:center}
 .task-icon{font-size:26px;color:#1d9e75;margin-bottom:.5rem}
 .task-name{font-size:13px;font-weight:700;color:#0f6e56;margin-bottom:.3rem}
 .task-desc{font-size:12px;color:#374151;line-height:1.5}
 .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.5rem 0}
-.stat-item{background:#085041;border-radius:12px;padding:1.25rem 1rem;text-align:center}
+.stat-item{background:#085041;padding:1.25rem 1rem;text-align:center}
 .stat-num{font-size:26px;font-weight:700;color:#fff;line-height:1;margin-bottom:.35rem}
 .stat-label{font-size:11px;color:#9fe1cb;line-height:1.4;text-transform:uppercase;letter-spacing:.04em}
-.before-after{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.5rem 0;max-width:100%}
-.ba-card{border-radius:12px;padding:1.25rem}
+.before-after{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.5rem 0}
+.ba-card{padding:1.25rem}
 .ba-before{background:#fef2f2;border:1px solid #fecaca}
 .ba-after{background:#e1f5ee;border:1px solid #6ee7b7}
 .ba-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem;display:flex;align-items:center;gap:6px}
@@ -74,9 +73,9 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 .ba-label-after{color:#059669}
 .ba-text{font-size:13px;line-height:1.6;color:#374151}
 .outcome-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:1.5rem 0}
-.outcome-card{border-radius:12px;padding:1.1rem 1.25rem}
-.outcome-deny{background:linear-gradient(135deg,#fef2f2,#fee2e2);border:1px solid #fecaca}
-.outcome-alt{background:linear-gradient(135deg,#f0fdf4,#e1f5ee);border:1px solid #6ee7b7}
+.outcome-card{padding:1.1rem 1.25rem}
+.outcome-deny{background:#fef2f2;border:1px solid #fecaca}
+.outcome-alt{background:#e1f5ee;border:1px solid #6ee7b7}
 .outcome-icon{font-size:22px;margin-bottom:.4rem}
 .outcome-deny .outcome-icon{color:#dc2626}
 .outcome-alt .outcome-icon{color:#059669}
@@ -84,41 +83,37 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 .outcome-deny .outcome-title{color:#7f1d1d}
 .outcome-alt .outcome-title{color:#065f46}
 .outcome-desc{font-size:12px;line-height:1.5;color:#374151}
-.prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
+.prompt-block{background:#1a1a2e;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
 .prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
 .prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
-.prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}
-.prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#fff}
+.prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px}
 .workflow-steps{display:flex;flex-direction:column;gap:10px;margin:1.5rem 0}
-.wf-step{display:flex;align-items:flex-start;gap:14px;background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:1rem 1.25rem;transition:border-color .15s}
-.wf-step:hover{border-color:#9fe1cb}
-.wf-num{width:30px;height:30px;border-radius:50%;background:#0f6e56;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0}
+.wf-step{display:flex;align-items:flex-start;gap:14px;background:#f8fafb;border:1px solid #e8ecef;padding:1rem 1.25rem}
+.wf-num{width:30px;height:30px;background:#0f6e56;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0}
 .wf-content{flex:1;min-width:0}
 .wf-title{font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.2rem}
 .wf-desc{font-size:13px;color:#374151;line-height:1.55}
-.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;border-radius:12px;padding:1.25rem;margin:1.5rem 0}
+.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;padding:1.25rem;margin:1.5rem 0}
 .checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
 .checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
 .checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
-.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;padding:1rem 1.25rem;margin:1.25rem 0}
 .highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
 .highlight-text{font-size:13px;color:#374151;line-height:1.65}
-.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
+.warning-box{background:#fef2f2;border-left:3px solid #dc2626;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
 .warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
 .warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
-.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;padding:1rem 1.25rem;margin:1.25rem 0}
 .info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
 .content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc;flex-shrink:0}
-.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}
-.btn-back:hover{background:#f0f2f5}
+.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;font-size:13px;font-family:inherit;cursor:pointer}
 .btn-back:disabled{opacity:.35;cursor:default}
-.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
-.btn-fwd:hover{background:#0f6e56}
+.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer}
 .quiz-q{margin-bottom:1.5rem}
 .quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
-.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
+.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;line-height:1.45}
 .opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
-.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center}
 .opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}
 .opt.selected .radio{border-color:#1d9e75;background:#1d9e75}
 .opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
@@ -126,21 +121,16 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 .opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
 .opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
 .opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
-.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}
-.submit-global:hover{background:#0f6e56}
+.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem}
 .submit-global:disabled{opacity:.35;cursor:default}
-.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
+.result-box{background:#f8fafb;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
 .result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
 .result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
-.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
-.retake-btn:hover{background:#e1f5ee}
-.share-section{max-width:1100px;margin:2.5rem auto 0;padding:0 1rem}
+.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer}
+.share-section{width:100%;margin:2.5rem auto 0;padding:0 1rem}
 .share-inner{display:flex;align-items:center;justify-content:center;gap:16px;padding:1.75rem 1.5rem;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap}
-.share-copy{display:flex;align-items:center;gap:10px;height:48px;padding:0 20px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;color:#e5e7eb;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .2s}
-.share-copy:hover{background:#374151;transform:scale(1.04)}
-.share-copy:active{transform:scale(.95)}
-.share-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;text-decoration:none;transition:all .2s}
-.share-icon:hover{transform:scale(1.08)}
+.share-copy{display:flex;align-items:center;gap:10px;height:48px;padding:0 20px;background:#1f2937;border:1px solid rgba(255,255,255,.1);color:#e5e7eb;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer}
+.share-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);text-decoration:none}
 .share-li:hover{background:#0a66c2;border-color:#0a66c2}
 .share-x:hover{background:#000;border-color:#000}
 .page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:2rem}
@@ -149,21 +139,19 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 #searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
 #searchOverlay.open{display:flex}
 .search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
-.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
-.search-close-btn:hover{color:#fff}
-.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1}
+.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;padding:12px 16px;background:transparent}
 .search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
 .search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
 .search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center;letter-spacing:.02em}
-.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
+.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center}
 @media(max-width:700px){
   .navbar{padding:0 1rem}
-  .page-wrap{padding:1rem .5rem}
+  .page-wrap{padding:0}
   .course-shell{grid-template-columns:1fr}
   .sidebar{display:none}
-  .content-body{padding:1.25rem 1rem;max-width:100%;overflow-x:hidden}
+  .content-body{padding:1.25rem 1rem}
   .section-hero{padding:1.25rem 1rem}
   .content-footer{padding:1rem}
   .task-grid,.before-after,.stat-row,.outcome-grid{grid-template-columns:1fr}
@@ -173,7 +161,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 </head>
 <body>
 <div id="searchOverlay" onclick="if(event.target===this)closeSearch()"><div class="search-overlay-inner"><button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button><form action="/search.html" method="get"><div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div></form><p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p></div></div>
-<nav class="navbar"><a href="https://www.pairworkflows.com" class="nav-logo"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a><div style="display:flex;align-items:center;gap:16px"><button class="search-trigger" onclick="openSearch()"><i class="ti ti-search"></i></button><a href="https://www.pairworkflows.com/index.html" class="nav-back"><i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses</a></div></nav>
+<nav class="navbar"><a href="https://www.pairworkflows.com" class="nav-logo"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a><div style="display:flex;align-items:center;gap:16px"><button class="search-trigger" onclick="openSearch()"><i class="ti ti-search"></i></button><a href="https://www.pairworkflows.com/index.html" class="nav-back"><i class="ti ti-arrow-left"></i> Back to courses</a></div></nav>
 <div class="page-wrap">
 <div class="course-shell">
 <div class="sidebar">
@@ -229,7 +217,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 <div class="wf-step"><div class="wf-num">4</div><div class="wf-content"><div class="wf-title">Adjust for alternative solutions</div><div class="wf-desc">If denying a cash refund, manually edit the draft to include approved alternative concessions like future service credits or account pauses.</div></div></div>
 <div class="wf-step"><div class="wf-num">5</div><div class="wf-content"><div class="wf-title">Finalize and send</div><div class="wf-desc">Review the email to ensure the tone is appropriate, confirm all account details are accurate and dispatch the resolution to the client.</div></div></div>
 </div>
-<div class="info-box"><p><strong>Note:</strong> Gemini tends to default to overly accommodating language when prompted to be "polite" — you must actively ensure the generated draft does not inadvertently promise a financial concession that violates your corporate policy.</p></div>
+<div class="info-box"><p><strong>Note:</strong> Gemini treats requests with a default to overly accommodating language when prompted to be "polite" — you must actively ensure the generated draft does not inadvertently promise a financial concession that violates your corporate policy.</p></div>
 </div>
 
 <div id="seo-sec-2" class="seo-section">
@@ -277,17 +265,17 @@ var heroes=[
 ];
 var quiz=[
   {q:'What is a fundamental limitation of Gemini when handling refund requests?',
-   opts:['It generates text based only on provided policy and cannot process actual transactions in your payment gateway','It requires a third-party financial plugin to write emails about money','It automatically issues refunds if the client uses aggressive language'],
-   correct:0},
+    opts:['It generates text based only on provided policy and cannot process actual transactions in your payment gateway','It requires a third-party financial plugin to write emails about money','It automatically issues refunds if the client uses aggressive language'],
+    correct:0},
   {q:'Why must you carefully review an AI draft when instructing Gemini to be "polite" about a refund?',
-   opts:['Because the AI will automatically forward the email to your finance department for approval','Because the AI may default to overly accommodating language and inadvertently promise an unapproved refund','Because Gemini translates polite phrases into informal slang that damages your corporate image'],
-   correct:1},
+    opts:['Because the AI will automatically forward the email to your finance department for approval','Because the AI may default to overly accommodating language and inadvertently promise an unapproved refund','Because Gemini translates polite phrases into informal slang that damages your corporate image'],
+    correct:1},
   {q:'What should you explicitly instruct Gemini NOT to do when denying a refund based on company terms?',
-   opts:['Do not use bullet points to explain the policy','Do not include the client\'s original invoice number','Do not apologize for the policy itself or offer unapproved financial concessions'],
-   correct:2},
+    opts:['Do not use bullet points to explain the policy','Do not include the client\'s original invoice number','Do not apologize for the policy itself or offer unapproved financial concessions'],
+    correct:2},
   {q:'What is a critical operational rule regarding AI-drafted responses for significant financial disputes?',
-   opts:['They must be published publicly on your company\'s website to ensure total transparency','Any response involving potential litigation or breach of contract claims must be reviewed by legal counsel before sending','They must be sent immediately to prevent the client from disputing the charge with their bank'],
-   correct:1}
+    opts:['They must be published publicly on your company\'s website to ensure total transparency','Any response involving potential litigation or breach of contract claims must be reviewed by legal counsel before sending','They must be sent immediately to prevent the client from disputing the charge with their bank'],
+    correct:1}
 ];
 function buildQuizHTML(){
   if(quizDone){
