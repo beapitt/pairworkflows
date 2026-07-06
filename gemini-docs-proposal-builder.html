@@ -14,9 +14,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Build a Corporate Proposal in Minutes with Gemini in Docs — PairWorkflows">
 <meta name="twitter:description" content="Master corporate document writing with Gemini in Google Docs.">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Build a Corporate Proposal in Minutes with Gemini in Docs","description":"Learn how to leverage Gemini in Google Docs to eliminate blank-page syndrome, structure comprehensive corporate proposals, and accelerate document workflows.","url":"https://www.pairworkflows.com/gemini-docs-proposal-builder.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free","price":"0","priceCurrency":"USD"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
-function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});/script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Build a Corporate Proposal in Minutes with Gemini in Docs","description":"Learn how to leverage Gemini in Google Docs to eliminate blank-page syndrome, structure comprehensive corporate proposals, and accelerate document workflows.","url":"https://www.pairworkflows.com/gemini-docs-proposal-builder.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free","price":"0","priceCurrency":"USD"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -107,8 +105,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#fff;color:#1a1a2e;min
 <body>
 
 <div id="navbar-placeholder"></div>
-<script src="/navbar.js">
-</script>
+<script src="/navbar.js"></script>
 <noscript>
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
@@ -327,6 +324,11 @@ function showResult(){quizDone=true;render();}
 function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
 function copyPrompt(){var text=document.getElementById('prompt-payload').innerText;navigator.clipboard.writeText(text);var btn=document.querySelector('.copy-btn');btn.innerHTML='<i class="ti ti-check"></i> Copied!';setTimeout(function(){btn.innerHTML='<i class="ti ti-copy"></i> Copy prompt';},2000);}
 document.getElementById('cnt').addEventListener('click',function(e){if(cur!==3||quizSubmitted||quizDone)return;var opt=e.target.closest('.opt');if(!opt)return;sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);render();});
+
+function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+
 render();
 </script>
 </body>
