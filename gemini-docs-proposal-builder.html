@@ -79,18 +79,31 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#fff;color:#1a1a2e;min
 .btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;cursor:pointer}
 .btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;cursor:pointer}
 .page-footer{background:#021a12;padding:2.5rem 2rem 1.5rem;color:#4a7a60;width:100%}
+
+#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
+#searchOverlay.open{display:flex}
+.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1}
+.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;padding:12px 16px;background:transparent}
+.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
+.search-box input::placeholder{color:rgba(255,255,255,.35)}
+.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center;letter-spacing:.02em}
+
+@media(max-width:700px){
+  .navbar{padding:0 1rem}
+  .page-wrap{padding:1rem .5rem}
+  .course-shell{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .content-body{padding:1.25rem 1rem}
+  .section-hero{padding:1.25rem 1rem}
+  .content-footer{padding:1rem}
+  .timeline-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
-<div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
-<div class="search-overlay-inner">
-<button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
-<form action="/search.html" method="get">
-<div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
-</form>
-<p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
-</div>
-</div>
+
 <div id="navbar-placeholder"></div>
 <script src="/navbar.js"></script>
 <noscript>
@@ -109,6 +122,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#fff;color:#1a1a2e;min
 <a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
 </nav>
 </noscript>
+
 <div class="page-wrap">
 <div class="course-shell">
 <div class="sidebar">
@@ -310,9 +324,6 @@ function showResult(){quizDone=true;render();}
 function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
 function copyPrompt(){var text=document.getElementById('prompt-payload').innerText;navigator.clipboard.writeText(text);var btn=document.querySelector('.copy-btn');btn.innerHTML='<i class="ti ti-check"></i> Copied!';setTimeout(function(){btn.innerHTML='<i class="ti ti-copy"></i> Copy prompt';},2000);}
 document.getElementById('cnt').addEventListener('click',function(e){if(cur!==3||quizSubmitted||quizDone)return;var opt=e.target.closest('.opt');if(!opt)return;sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);render();});
-function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
-function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
 render();
 </script>
 </body>
