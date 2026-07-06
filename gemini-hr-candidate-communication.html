@@ -68,10 +68,11 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 .ba-label-before{color:#dc2626}
 .ba-label-after{color:#059669}
 .ba-text{font-size:13px;line-height:1.6;color:#374151}
-.prompt-block{background:#1a1a2e;padding:1.25rem;margin:1.25rem 0}
-.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
-.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap}
-.prompt-block-copy{background:transparent;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px}
+.prompt-container{background:#f8fafb;border:1px solid #e8ecef;border-left:3px solid #1d9e75;padding:1.25rem;margin:1.5rem 0}
+.prompt-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
+.prompt-label{font-size:10px;font-weight:600;color:#0f6e56;text-transform:uppercase;letter-spacing:.05em}
+.copy-btn{background:transparent;border:none;color:#6b7280;font-size:11px;cursor:pointer;font-family:inherit}
+.prompt-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#232733;white-space:pre-wrap;word-break:break-word;background:#fff;padding:.75rem;border:1px solid #e8ecef}
 .workflow-steps{display:flex;flex-direction:column;gap:10px;margin:1.5rem 0}
 .wf-step{display:flex;align-items:flex-start;gap:14px;background:#f8fafb;border:1px solid #e8ecef;padding:1rem 1.25rem}
 .wf-num{width:30px;height:30px;border-radius:50%;background:#0f6e56;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0}
@@ -214,19 +215,17 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 
 <div id="seo-sec-2" class="seo-section">
 <p>These prompts help produce candidate communication drafts that are ready for a quick human check, with clear limits on what Gemini should and should not add.</p>
-<div class="prompt-block">
-<div class="prompt-block-label">Prompt 1 — Neutral rejection email</div>
-<div class="prompt-block-text" id="prompt-payload-1">Draft a neutral, respectful rejection email for [Candidate Name] who applied for the [Job Title] role. Thank them for their time during the [Interview Stage]. State clearly that we are moving forward with other candidates.
+<div class="prompt-container">
+<div class="prompt-header"><span class="prompt-label">Prompt 1 — Neutral rejection email</span></div>
+<div class="prompt-text">Draft a neutral, respectful rejection email for [Candidate Name] who applied for the [Job Title] role. Thank them for their time during the [Interview Stage]. State clearly that we are moving forward with other candidates.
 
 Crucial instruction: Do not invent or add any specific reasons for the rejection, and do not offer future feedback unless explicitly told to do so.</div>
-<button class="prompt-block-copy" onclick="copyPrompt('prompt-payload-1', this)">Copy</button>
 </div>
-<div class="prompt-block">
-<div class="prompt-block-label">Prompt 2 — Status update email</div>
-<div class="prompt-block-text" id="prompt-payload-2">Write a brief, professional status update email for [Candidate Name] regarding their application for the [Job Title] position. Let them know we are currently [Current Status] and expect to have an update for them by [Date or Timeframe].
+<div class="prompt-container">
+<div class="prompt-header"><span class="prompt-label">Prompt 2 — Status update email</span></div>
+<div class="prompt-text">Write a brief, professional status update email for [Candidate Name] regarding their application for the [Job Title] position. Let them know we are currently [Current Status] and expect to have an update for them by [Date or Timeframe].
 
 Crucial instruction: Do not invent any next steps, interview dates, or promises that are not included in this prompt.</div>
-<button class="prompt-block-copy" onclick="copyPrompt('prompt-payload-2', this)">Copy</button>
 </div>
 <div class="checklist-box">
 <div class="checklist-title">Before sending any candidate communication</div>
