@@ -28,12 +28,29 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 .logo-workflows{font-size:16px;font-weight:400;color:#fff}
 .nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
 .nav-back:hover{color:#1d9e75}
-.page-wrap{width:100%;padding:2rem 1rem;flex:1}
-.course-shell{background:#fff;border-radius:16px;box-shadow:0 2px 24px rgba(0,0,0,.25),0 0 0 1px rgba(0,0,0,.08);overflow:hidden;display:grid;grid-template-columns:1fr;min-height:580px;max-width:1100px;margin:0 auto}
+.page-wrap{width:100%;padding:0;flex:1}
+.course-shell{background:#fff;display:grid;grid-template-columns:240px 1fr;min-height:580px}
+.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
+.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
+.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
+.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
+.prog-wrap{padding:1rem 1.25rem .75rem}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
+.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
+.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
+.nav-list{padding:.5rem 0;flex:1}
+.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
+.nav-item:hover{background:#eef1f4}
+.nav-item.active{border-left-color:#1d9e75;background:#fff}
+.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
+.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
+.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
+.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
+.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
 .content-area{display:flex;flex-direction:column}
 .section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
 .section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
-.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:800px}
+.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3}
 .content-body{padding:1.75rem 2rem;flex:1}
 .seo-section{display:none}
 .seo-section.active-section{display:block}
@@ -52,11 +69,11 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 .ba-label-after{color:#059669}
 .ba-text{font-size:13px;line-height:1.6;color:#374151}
 .scenario-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.5rem 0}
-.scenario-card{background:#f8fafb;border:1px solid #e8ecef;border-radius:12px;padding:1.25rem}
+.scenario-card{background:#f8fafb;border:1px solid #e8ecef;padding:1.25rem}
 .scenario-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.5rem}
 .scenario-title{font-size:13px;font-weight:600;color:#1a1a2e;margin-bottom:.4rem}
 .scenario-text{font-size:13px;color:#374151;line-height:1.55}
-.rule-list{background:#f8fafb;border:1px solid #e8ecef;border-radius:12px;padding:1.25rem;margin:1.5rem 0}
+.rule-list{background:#f8fafb;border:1px solid #e8ecef;padding:1.25rem;margin:1.5rem 0}
 .rule-list-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
 .rule-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#374151;line-height:1.6;margin-bottom:.6rem}
 .rule-item i{color:#1d9e75;font-size:15px;margin-top:2px;flex-shrink:0}
@@ -104,13 +121,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 .result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
 .result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
 .retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer}
-.share-section{max-width:1100px;margin:0 auto 2rem;padding:0 1rem}
-.share-inner{display:flex;align-items:center;justify-content:center;gap:16px;padding:1.75rem 1.5rem;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap}
-.share-copy{display:flex;align-items:center;gap:10px;height:48px;padding:0 20px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;color:#e5e7eb;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .2s}
-.share-copy:hover{background:#374151}
-.share-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;text-decoration:none;transition:all .2s}
-.share-icon:hover{background:#374151}
-.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:2rem;text-align:center;font-size:12px;color:#4a7a60}
+.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:2rem}
 .page-footer a{color:#1d9e75;text-decoration:none}
 .page-footer a:hover{text-decoration:underline}
 #searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
@@ -124,8 +135,9 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 .search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center;letter-spacing:.02em}
 @media(max-width:700px){
   .navbar{padding:0 1rem}
-  .page-wrap{padding:1rem .5rem}
+  .page-wrap{padding:0}
   .course-shell{grid-template-columns:1fr}
+  .sidebar{display:none}
   .content-body{padding:1.25rem 1rem}
   .section-hero{padding:1.25rem 1rem}
   .content-footer{padding:1rem}
@@ -144,48 +156,81 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 <p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
 </div>
 </div>
-<nav class="navbar"><a href="https://www.pairworkflows.com" class="nav-logo"><span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span></a><div style="display:flex;align-items:center;gap:16px"><button onclick="openSearch()" style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center"><i class="ti ti-search"></i></button><a href="https://www.pairworkflows.com/index.html" class="nav-back"><i class="ti ti-arrow-left" style="font-size:13px"></i> Back to courses</a></div></nav>
+<div id="navbar-placeholder"></div>
+<script src="/navbar.js"></script>
+<noscript>
+<nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
+<a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
+<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a>
+<a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a>
+<a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a>
+<a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a>
+<a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a>
+<a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a>
+<a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
+<a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a>
+<a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a>
+<a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
+</nav>
+</noscript>
 <div class="page-wrap">
 <div class="course-shell">
+<div class="sidebar">
+<div class="sidebar-top">
+<div class="course-label">Gemini AI — Legal Course</div>
+<div class="course-title-side">How to Use Gemini AI for Regulatory Updates</div>
+</div>
+<div class="prog-wrap">
+<div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
+<div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+</div>
+<div class="nav-list">
+<div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">Where Gemini fits in regulatory updates</div></div>
+<div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">A regulatory briefing workflow</div></div>
+<div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompts and a briefing checklist</div></div>
+<div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quiz: test your knowledge</div></div>
+</div>
+</div>
 <div class="content-area">
 <div class="section-hero"><div class="section-tag" id="heroTag">Section 01</div><h2 id="heroTitle">Regulatory updates are dense reading. Gemini can turn them into a clear briefing for your team.</h2></div>
 <div class="content-body" id="cnt">
 
 <div id="seo-sec-0" class="seo-section active-section">
-<p>Legal and compliance teams spend hours each week reading new regulations, reforms and guidance documents[cite: 8]. Tracking these changes is essential to avoid penalties, but translating dense regulatory language into something the wider business can act on adds another layer of work on top of an already demanding role[cite: 8].</p>
-<p>Gemini can help with the translation step[cite: 8]. Provide the regulatory text and ask it to produce a structured briefing — what has changed, who is affected and by when — so the team can move directly from reading to planning rather than spending time rewriting documents from scratch[cite: 8].</p>
-<div class="highlight-box"><div class="highlight-icon"><i class="ti ti-bulb"></i></div><div class="highlight-text"><strong>Key insight:</strong> Gemini summarises only the regulatory text you provide[cite: 8]. It does not monitor official gazettes or legal databases on its own, and its outputs do not constitute legal advice[cite: 8].</div></div>
+<p>Legal and compliance teams spend hours each week reading new regulations, reforms and guidance documents. Tracking these changes is essential to avoid penalties, but translating dense regulatory language into something the wider business can act on adds another layer of work on top of an already demanding role.</p>
+<p>Gemini can help with the translation step. Provide the regulatory text and ask it to produce a structured briefing — what has changed, who is affected and by when — so the team can move directly from reading to planning rather than spending time rewriting documents from scratch.</p>
+<div class="highlight-box"><div class="highlight-icon"><i class="ti ti-bulb"></i></div><div class="highlight-text"><strong>Key insight:</strong> Gemini summarises only the regulatory text you provide. It does not monitor official gazettes or legal databases on its own, and its outputs do not constitute legal advice.</div></div>
 <div class="task-grid">
-<div class="task-card"><div class="task-icon"><i class="ti ti-file-text"></i></div><div class="task-name">Regulatory update summaries</div><div class="task-desc">Condense complex reform texts into structured briefings focused on the key changes[cite: 8].</div></div>
-<div class="task-card"><div class="task-icon"><i class="ti ti-users"></i></div><div class="task-name">Briefings for non-legal stakeholders</div><div class="task-desc">Translate legal language into plain business English for department heads and executives[cite: 8].</div></div>
-<div class="task-card"><div class="task-icon"><i class="ti ti-list-check"></i></div><div class="task-name">Operational impact checklists</div><div class="task-desc">Extract practical obligations and deadlines to help the operations team update internal processes[cite: 8].</div></div>
+<div class="task-card"><div class="task-icon"><i class="ti ti-file-text"></i></div><div class="task-name">Regulatory update summaries</div><div class="task-desc">Condense complex reform texts into structured briefings focused on the key changes.</div></div>
+<div class="task-card"><div class="task-icon"><i class="ti ti-users"></i></div><div class="task-name">Briefings for non-legal stakeholders</div><div class="task-desc">Translate legal language into plain business English for department heads and executives.</div></div>
+<div class="task-card"><div class="task-icon"><i class="ti ti-list-check"></i></div><div class="task-name">Operational impact checklists</div><div class="task-desc">Extract practical obligations and deadlines to help the operations team update internal processes.</div></div>
 </div>
-<div class="before-after">
-<div class="ba-card ba-before"><div class="ba-label ba-label-before"><i class="ti ti-x"></i> Without Gemini</div><div class="ba-text">Legal professionals spend full days extracting key passages and manually rewriting briefings for each department, causing delays before new procedures can be implemented[cite: 8].</div></div>
-<div class="ba-card ba-after"><div class="ba-label ba-label-after"><i class="ti ti-check"></i> With Gemini</div><div class="ba-text">Regulatory text is turned into a structured draft briefing quickly, so the team can focus on assessing real risk and planning the response rather than on document formatting[cite: 8].</div></div>
+<div class="scenario-grid">
+<div class="scenario-card"><div class="scenario-label">Situation</div><div class="scenario-title">Without Gemini</div><div class="scenario-text">Legal professionals spend full days extracting key passages and manually rewriting briefings for each department, causing delays before new procedures can be implemented.</div></div>
+<div class="scenario-card"><div class="scenario-label">Outcome</div><div class="scenario-title">With Gemini</div><div class="scenario-text">Regulatory text is turned into a structured draft briefing quickly, so the team can focus on assessing real risk and planning the response rather than on document formatting.</div></div>
 </div>
 <div class="rule-list">
 <div class="rule-list-title">A regulatory briefing typically needs three things</div>
-<div class="rule-item"><i class="ti ti-circle-check"></i> <strong>What changes</strong> — a plain-language summary of the new or amended obligations[cite: 8]</div>
-<div class="rule-item"><i class="ti ti-circle-check"></i> <strong>Who is affected</strong> — which teams, roles or processes need to act[cite: 8]</div>
-<div class="rule-item"><i class="ti ti-circle-check"></i> <strong>By when</strong> — the compliance deadlines or implementation dates stated in the regulation[cite: 8]</div>
+<div class="rule-item"><i class="ti ti-circle-check"></i> <strong>What changes</strong> — a plain-language summary of the new or amended obligations</div>
+<div class="rule-item"><i class="ti ti-circle-check"></i> <strong>Who is affected</strong> — which teams, roles or processes need to act</div>
+<div class="rule-item"><i class="ti ti-circle-check"></i> <strong>By when</strong> — the compliance deadlines or implementation dates stated in the regulation</div>
 </div>
 </div>
 
 <div id="seo-sec-1" class="seo-section">
-<p>A structured workflow keeps AI-generated regulatory briefings accurate and ensures the right people receive the right information at the right time[cite: 8].</p>
+<p>A structured workflow keeps AI-generated regulatory briefings accurate and ensures the right people receive the right information at the right time.</p>
 <div class="workflow-steps">
-<div class="wf-step"><div class="wf-num">1</div><div class="wf-content"><div class="wf-title">Identify and collect the regulatory text</div><div class="wf-desc">Download the official document, reform or guidance directly from a verified institutional source[cite: 8].</div></div></div>
-<div class="wf-step"><div class="wf-num">2</div><div class="wf-content"><div class="wf-title">Generate the structured summary with Gemini</div><div class="wf-desc">Paste the text into your prompt and ask Gemini to produce a clear, sectioned briefing[cite: 8].</div></div></div>
-<div class="wf-step"><div class="wf-num">3</div><div class="wf-content"><div class="wf-title">Identify the affected areas and teams</div><div class="wf-desc">Use the summary to map which departments or internal processes will need to adapt to the new rules[cite: 8].</div></div></div>
-<div class="wf-step"><div class="wf-num">4</div><div class="wf-content"><div class="wf-title">Conduct professional legal review</div><div class="wf-desc">Verify the draft against the original text to confirm every detail is accurate before it goes further[cite: 8].</div></div></div>
-<div class="wf-step"><div class="wf-num">5</div><div class="wf-content"><div class="wf-title">Distribute the final briefing</div><div class="wf-desc">Share the validated document with executives and operational leads to start the compliance planning[cite: 8].</div></div></div>
+<div class="wf-step"><div class="wf-num">1</div><div class="wf-content"><div class="wf-title">Identify and collect the regulatory text</div><div class="wf-desc">Download the official document, reform or guidance directly from a verified institutional source.</div></div></div>
+<div class="wf-step"><div class="wf-num">2</div><div class="wf-content"><div class="wf-title">Generate the structured summary with Gemini</div><div class="wf-desc">Paste the text into your prompt and ask Gemini to produce a clear, sectioned briefing.</div></div></div>
+<div class="wf-step"><div class="wf-num">3</div><div class="wf-content"><div class="wf-title">Identify the affected areas and teams</div><div class="wf-desc">Use the summary to map which departments or internal processes will need to adapt to the new rules.</div></div></div>
+<div class="wf-step"><div class="wf-num">4</div><div class="wf-content"><div class="wf-title">Conduct professional legal review</div><div class="wf-desc">Verify the draft against the original text to confirm every detail is accurate before it goes further.</div></div></div>
+<div class="wf-step"><div class="wf-num">5</div><div class="wf-content"><div class="wf-title">Distribute the final briefing</div><div class="wf-desc">Share the validated document with executives and operational leads to start the compliance planning.</div></div></div>
 </div>
-<div class="info-box"><p><strong>Note:</strong> Gemini does not understand the specific practical implications for your business model or industry sector — that context must always be added by you before the briefing is distributed[cite: 8].</p></div>
+<div class="info-box"><p><strong>Note:</strong> Gemini does not understand the specific practical implications for your business model or industry sector — that context must always be added by you before the briefing is distributed.</p></div>
 </div>
 
 <div id="seo-sec-2" class="seo-section">
-<p>Precise, restrictive prompt instructions keep Gemini focused on the text you provide and prevent it from adding requirements or deadlines that are not in the source document[cite: 8].</p>
+<p>Precise, restrictive prompt instructions keep Gemini focused on the text you provide and prevent it from adding requirements or deadlines that are not in the source document.</p>
 <div class="prompt-block">
 <div class="prompt-block-label">Prompt 1 — Structured regulatory summary</div>
 <div class="prompt-block-text">Act as a legal assistant and generate a structured summary of the following regulatory update: [Insert Regulatory Text].
@@ -206,13 +251,13 @@ Crucial instruction: Refer only to the facts present in the text. Do not add ass
 </div>
 <div class="checklist-box">
 <div class="checklist-title">Before distributing a regulatory briefing</div>
-<div class="checklist-item"><i class="ti ti-square-check"></i> Deadline accuracy: do the dates and compliance deadlines in the draft match the official text exactly?[cite: 8]</div>
-<div class="checklist-item"><i class="ti ti-square-check"></i> Affected parties: are the teams or roles identified as impacted consistent with what the regulation actually says?[cite: 8]</div>
-<div class="checklist-item"><i class="ti ti-square-check"></i> Plain language: is the non-legal version free of jargon that could cause operational confusion?[cite: 8]</div>
-<div class="checklist-item"><i class="ti ti-square-check"></i> Completeness: has Gemini included all the key penalties or obligations specified in the source document?[cite: 8]</div>
-<div class="checklist-item"><i class="ti ti-square-check"></i> Placeholders removed: have all bracketed fields been replaced with real data before sharing?[cite: 8]</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Deadline accuracy: do the dates and compliance deadlines in the draft match the official text exactly?</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Affected parties: are the teams or roles identified as impacted consistent with what the regulation actually says?</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Plain language: is the non-legal version free of jargon that could cause operational confusion?</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Completeness: has Gemini included all the key penalties or obligations specified in the source document?</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Placeholders removed: have all bracketed fields been replaced with real data before sharing?</div>
 </div>
-<div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>Important:</strong> Gemini-generated briefings are for informational purposes only and do not constitute legal advice[cite: 8]. Before any internal distribution, a qualified professional must verify the accuracy of the text and assess the specific implications for your organisation[cite: 8].</div></div>
+<div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>Important:</strong> Gemini-generated briefings are for informational purposes only and do not constitute legal advice. Before any internal distribution, a qualified professional must verify the accuracy of the text and assess the specific implications for your organisation.</div></div>
 </div>
 
 <div id="seo-sec-3" class="seo-section"><div id="quiz-interactive-container"></div></div>
@@ -221,20 +266,76 @@ Crucial instruction: Refer only to the facts present in the text. Do not add ass
 </div>
 </div>
 </div>
-<div class="share-section">
-<div class="share-inner">
-<button onclick="copyLink()" id="copyLinkBtn" class="share-copy"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link</button>
-<a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.pairworkflows.com/gemini-legal-regulatory-updates.html" target="_blank" rel="noopener" class="share-icon" title="Share on LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>
-<a href="https://twitter.com/intent/tweet?url=https://www.pairworkflows.com/gemini-legal-regulatory-updates.html&text=Free+5-minute+guide+on+regulatory+updates+with+Gemini+AI" target="_blank" rel="noopener" class="share-icon" title="Share on X"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+<footer style="background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0">
+<div style="max-width:1100px; margin:0 auto">
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
+<div>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Guides by Role</strong>
+<a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Finance Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for HR Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Marketing Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Legal Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Operations Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Sales Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Customer Service</a>
+<a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Excel</a>
+</div>
+<div>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Prompt Tools</strong>
+<a href="https://www.pairworkflows.com/claude-prompts-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Excel Prompt Builder</a>
+<a href="https://www.pairworkflows.com/claude-prompts-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Finance Prompt Builder</a>
+<a href="https://www.pairworkflows.com/claude-prompts-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">HR Prompt Builder</a>
+<a href="https://www.pairworkflows.com/claude-prompts-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Marketing Prompt Builder</a>
+<a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">General Prompt Library</a>
+</div>
+<div>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Resources</strong>
+<a href="https://www.pairworkflows.com/glossary.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI Glossary</a>
+<a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Claude vs Gemini</a>
+<a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
+</div>
+<div>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Legal</strong>
+<a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Privacy Policy</a>
+<a href="https://www.pairworkflows.com/legal.html#terms" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Terms of Use</a>
+<a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Cookie Policy</a>
 </div>
 </div>
-<footer class="page-footer">&copy; 2026 <a href="https://www.pairworkflows.com">PairWorkflows</a>. All rights reserved.</footer>
+<div style="text-align:center; margin-bottom:2rem">
+<p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:520px; margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p>
+</div>
+<div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem">
+<span style="font-size:13px; color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
+<div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
+
+<button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
+  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+  Copy link
+</button>
+
+<a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+  <span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span>
+</a>
+
+<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+</a>
+
+<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+</a>
+
+</div>
+</div>
+</div>
+</footer>
 <script>
 var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
 var heroes=[
   {tag:'Section 01',title:'Regulatory updates are dense reading. Gemini can turn them into a clear briefing for your team.'},
-  {tag:'Section 02',title:'A workflow for turning regulatory texts into structured briefings with Gemini.'},
-  {tag:'Section 03',title:'Prompts and a regulatory briefing checklist.'},
+  {tag:'Section 02',title:'A regulatory briefing workflow.'},
+  {tag:'Section 03',title:'Prompts and a briefing checklist.'},
   {tag:'Section 04 — Quiz',title:'Test your knowledge.'}
 ];
 var quiz=[
@@ -280,17 +381,21 @@ function render(){
   document.getElementById('progTxt').textContent=(cur+1)+' of 4';
   document.getElementById('heroTag').textContent=heroes[cur].tag;
   document.getElementById('heroTitle').textContent=heroes[cur].title;
-  var sec=document.getElementById('seo-sec-'+cur);
-  var allSecs=document.querySelectorAll('.seo-section');
-  allSecs.forEach(s=>s.classList.remove('active-section'));
-  sec.classList.add('active-section');
+  for(var i=0;i<4;i++){
+    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),sec=document.getElementById('seo-sec-'+i);
+    ni.className='nav-item'+(i===cur?' active':'');
+    if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');
+    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
+    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
+    else{nd.className='nav-dot';nd.textContent=(i+1);}
+  }
   if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
   document.getElementById('btnBack').disabled=(cur===0);
   var fwd=document.getElementById('btnFwd');
   if(cur===3){fwd.style.display='none';}
   else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
 }
-function go(n){if(n<0||n>3)return;cur=n;render();window.scrollTo(0,0);}
+function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
 function goFwd(){if(cur<3)go(cur+1);}
 function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
 function showResult(){quizDone=true;render();}
