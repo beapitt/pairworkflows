@@ -265,6 +265,8 @@
    </div>
           </div>
 
+          <a href="https://www.pairworkflows.com/claude-courses.html" class="nav-link${isActive('claude-courses')}">Claude Courses</a>
+          <a href="https://www.pairworkflows.com/gemini-courses.html" class="nav-link${isActive('gemini-courses')}">Gemini Courses</a>
           <a href="https://www.pairworkflows.com/claude-vs-gemini.html" class="nav-link${isActive('claude-vs-gemini')}">Claude vs Gemini</a>
           <a href="https://www.pairworkflows.com/glossary.html" class="nav-link${isActive('glossary')}">Glossary</a>
 
