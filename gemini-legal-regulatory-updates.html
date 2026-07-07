@@ -29,29 +29,12 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 .nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
 .nav-back:hover{color:#1d9e75}
 .page-wrap{width:100%;padding:0;flex:1}
-.course-shell{background:#fff;display:grid;grid-template-columns:240px 1fr;min-height:580px}
-.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
-.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
-.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
-.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
-.prog-wrap{padding:1rem 1.25rem .75rem}
-.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
-.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
-.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
-.nav-list{padding:.5rem 0;flex:1}
-.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
-.nav-item:hover{background:#eef1f4}
-.nav-item.active{border-left-color:#1d9e75;background:#fff}
-.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
-.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
-.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
-.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
-.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
+.course-shell{background:#fff;display:grid;grid-template-columns:1fr;min-height:580px}
 .content-area{display:flex;flex-direction:column}
 .section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
 .section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
-.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3}
-.content-body{padding:1.75rem 2rem;flex:1}
+.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:800px}
+.content-body{padding:1.75rem 2rem;flex:1;max-width:1100px;margin:0 auto}
 .seo-section{display:none}
 .seo-section.active-section{display:block}
 .seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
@@ -166,56 +149,46 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 </nav>
 </noscript>
 <div class="page-wrap">
-<div class="course-shell">
-<div class="sidebar">
-<div class="sidebar-top">
-<div class="course-label">Gemini AI — Legal Course</div>
-<div class="course-title-side">How to Use Gemini AI for Regulatory Updates</div>
-</div>
-<div class="prog-wrap">
-<div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
-<div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
-</div>
-<div class="nav-list">
-<div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">Where Gemini fits in regulatory updates</div></div>
-<div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">A regulatory briefing workflow</div></div>
-<div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompts and a briefing checklist</div></div>
-<div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quiz: test your knowledge</div></div>
-</div>
-</div>
+<div class="course-shell" style="grid-template-columns: 1fr;">
 <div class="content-area">
 <div class="section-hero"><div class="section-tag" id="heroTag">Section 01</div><h2 id="heroTitle">Regulatory updates are dense reading. Gemini can turn them into a clear briefing for your team.</h2></div>
 <div class="content-body" id="cnt">
 
 <div id="seo-sec-0" class="seo-section active-section">
-<p>Legal and compliance teams spend hours each week reading new regulations, reforms and guidance documents[cite: 7]. Tracking these changes is essential to avoid penalties, but translating dense regulatory language into something the wider business can act on adds another layer of work on top of an already demanding role[cite: 7].</p>
-<p>Gemini can help with the translation step[cite: 7]. Provide the regulatory text and ask it to produce a structured briefing — what has changed, who is affected and by when — so the team can move directly from reading to planning rather than spending time rewriting documents from scratch[cite: 7].</p>
-<div class="highlight-box"><div class="highlight-icon"><i class="ti ti-bulb"></i></div><div class="highlight-text"><strong>Key insight:</strong> Gemini summarises only the regulatory text you provide[cite: 7]. It does not monitor official gazettes or legal databases on its own, and its outputs do not constitute legal advice[cite: 7].</div></div>
+<p>Legal and compliance teams spend hours each week reading new regulations, reforms and guidance documents[cite: 8]. Tracking these changes is essential to avoid penalties, but translating dense regulatory language into something the wider business can act on adds another layer of work on top of an already demanding role[cite: 8].</p>
+<p>Gemini can help with the translation step[cite: 8]. Provide the regulatory text and ask it to produce a structured briefing — what has changed, who is affected and by when — so the team can move directly from reading to planning rather than spending time rewriting documents from scratch[cite: 8].</p>
+<div class="highlight-box"><div class="highlight-icon"><i class="ti ti-bulb"></i></div><div class="highlight-text"><strong>Key insight:</strong> Gemini summarises only the regulatory text you provide[cite: 8]. It does not monitor official gazettes or legal databases on its own, and its outputs do not constitute legal advice[cite: 8].</div></div>
 <div class="task-grid">
-<div class="task-card"><div class="task-icon"><i class="ti ti-file-text"></i></div><div class="task-name">Regulatory update summaries</div><div class="task-desc">Condense complex reform texts into structured briefings focused on the key changes[cite: 7].</div></div>
-<div class="task-card"><div class="task-icon"><i class="ti ti-users"></i></div><div class="task-name">Briefings for non-legal stakeholders</div><div class="task-desc">Translate legal language into plain business English for department heads and executives[cite: 7].</div></div>
-<div class="task-card"><div class="task-icon"><i class="ti ti-list-check"></i></div><div class="task-name">Operational impact checklists</div><div class="task-desc">Extract practical obligations and deadlines to help the operations team update internal processes[cite: 7].</div></div>
+<div class="task-card"><div class="task-icon"><i class="ti ti-file-text"></i></div><div class="task-name">Regulatory update summaries</div><div class="task-desc">Condense complex reform texts into structured briefings focused on the key changes[cite: 8].</div></div>
+<div class="task-card"><div class="task-icon"><i class="ti ti-users"></i></div><div class="task-name">Briefings for non-legal stakeholders</div><div class="task-desc">Translate legal language into plain business English for department heads and executives[cite: 8].</div></div>
+<div class="task-card"><div class="task-icon"><i class="ti ti-list-check"></i></div><div class="task-name">Operational impact checklists</div><div class="task-desc">Extract practical obligations and deadlines to help the operations team update internal processes[cite: 8].</div></div>
 </div>
 <div class="before-after">
-<div class="ba-card ba-before"><div class="ba-label ba-label-before"><i class="ti ti-x"></i> Without Gemini</div><div class="ba-text">Legal professionals spend full days extracting key passages and manually rewriting briefings for each department, causing delays before new procedures can be implemented[cite: 7].</div></div>
-<div class="ba-card ba-after"><div class="ba-label ba-label-after"><i class="ti ti-check"></i> With Gemini</div><div class="ba-text">Regulatory text is turned into a structured draft briefing quickly, so the team can focus on assessing real risk and planning the response rather than on document formatting[cite: 7].</div></div>
+<div class="ba-card ba-before"><div class="ba-label ba-label-before"><i class="ti ti-x"></i> Without Gemini</div><div class="ba-text">Legal professionals spend full days extracting key passages and manually rewriting briefings for each department, causing delays before new procedures can be implemented[cite: 8].</div></div>
+<div class="ba-card ba-after"><div class="ba-label ba-label-after"><i class="ti ti-check"></i> With Gemini</div><div class="ba-text">Regulatory text is turned into a structured draft briefing quickly, so the team can focus on assessing real risk and planning the response rather than on document formatting[cite: 8].</div></div>
+</div>
+<div class="rule-list">
+<div class="rule-list-title">A regulatory briefing typically needs three things</div>
+<div class="rule-item"><i class="ti ti-circle-check"></i> <strong>What changes</strong> — a plain-language summary of the new or amended obligations[cite: 8]</div>
+<div class="rule-item"><i class="ti ti-circle-check"></i> <strong>Who is affected</strong> — which teams, roles or processes need to act[cite: 8]</div>
+<div class="rule-item"><i class="ti ti-circle-check"></i> <strong>By when</strong> — the compliance deadlines or implementation dates stated in the regulation[cite: 8]</div>
 </div>
 </div>
 
 <div id="seo-sec-1" class="seo-section">
-<p>A structured workflow keeps AI-generated regulatory briefings accurate and ensures the right people receive the right information at the right time[cite: 7].</p>
+<p>A structured workflow keeps AI-generated regulatory briefings accurate and ensures the right people receive the right information at the right time[cite: 8].</p>
 <div class="workflow-steps">
-<div class="wf-step"><div class="wf-num">1</div><div class="wf-content"><div class="wf-title">Identify and collect the regulatory text</div><div class="wf-desc">Download the official document, reform or guidance directly from a verified institutional source[cite: 7].</div></div></div>
-<div class="wf-step"><div class="wf-num">2</div><div class="wf-content"><div class="wf-title">Generate the structured summary with Gemini</div><div class="wf-desc">Paste the text into your prompt and ask Gemini to produce a clear, sectioned briefing[cite: 7].</div></div></div>
-<div class="wf-step"><div class="wf-num">3</div><div class="wf-content"><div class="wf-title">Identify the affected areas and teams</div><div class="wf-desc">Use the summary to map which departments or internal processes will need to adapt to the new rules[cite: 7].</div></div></div>
-<div class="wf-step"><div class="wf-num">4</div><div class="wf-content"><div class="wf-title">Conduct professional legal review</div><div class="wf-desc">Verify the draft against the original text to confirm every detail is accurate before it goes further[cite: 7].</div></div></div>
-<div class="wf-step"><div class="wf-num">5</div><div class="wf-content"><div class="wf-title">Distribute the final briefing</div><div class="wf-desc">Share the validated document with executives and operational leads to start the compliance planning[cite: 7].</div></div></div>
+<div class="wf-step"><div class="wf-num">1</div><div class="wf-content"><div class="wf-title">Identify and collect the regulatory text</div><div class="wf-desc">Download the official document, reform or guidance directly from a verified institutional source[cite: 8].</div></div></div>
+<div class="wf-step"><div class="wf-num">2</div><div class="wf-content"><div class="wf-title">Generate the structured summary with Gemini</div><div class="wf-desc">Paste the text into your prompt and ask Gemini to produce a clear, sectioned briefing[cite: 8].</div></div></div>
+<div class="wf-step"><div class="wf-num">3</div><div class="wf-content"><div class="wf-title">Identify the affected areas and teams</div><div class="wf-desc">Use the summary to map which departments or internal processes will need to adapt to the new rules[cite: 8].</div></div></div>
+<div class="wf-step"><div class="wf-num">4</div><div class="wf-content"><div class="wf-title">Conduct professional legal review</div><div class="wf-desc">Verify the draft against the original text to confirm every detail is accurate before it goes further[cite: 8].</div></div></div>
+<div class="wf-step"><div class="wf-num">5</div><div class="wf-content"><div class="wf-title">Distribute the final briefing</div><div class="wf-desc">Share the validated document with executives and operational leads to start the compliance planning[cite: 8].</div></div></div>
 </div>
-<div class="info-box"><p><strong>Note:</strong> Gemini does not understand the specific practical implications for your business model or industry sector — that context must always be added by you before the briefing is distributed[cite: 7].</p></div>
+<div class="info-box"><p><strong>Note:</strong> Gemini does not understand the specific practical implications for your business model or industry sector — that context must always be added by you before the briefing is distributed[cite: 8].</p></div>
 </div>
 
 <div id="seo-sec-2" class="seo-section">
-<p>Precise, restrictive prompt instructions keep Gemini focused on the text you provide and prevent it from adding requirements or deadlines that are not in the source document[cite: 7].</p>
+<p>Precise, restrictive prompt instructions keep Gemini focused on the text you provide and prevent it from adding requirements or deadlines that are not in the source document[cite: 8].</p>
 <div class="prompt-block">
 <div class="prompt-block-label">Prompt 1 — Structured regulatory summary</div>
 <div class="prompt-block-text">Act as a legal assistant and generate a structured summary of the following regulatory update: [Insert Regulatory Text].
@@ -236,13 +209,13 @@ Crucial instruction: Refer only to the facts present in the text. Do not add ass
 </div>
 <div class="checklist-box">
 <div class="checklist-title">Before distributing a regulatory briefing</div>
-<div class="checklist-item"><i class="ti ti-square-check"></i> Deadline accuracy: do the dates and compliance deadlines in the draft match the official text exactly?[cite: 7]</div>
-<div class="checklist-item"><i class="ti ti-square-check"></i> Affected parties: are the teams or roles identified as impacted consistent with what the regulation actually says?[cite: 7]</div>
-<div class="checklist-item"><i class="ti ti-square-check"></i> Plain language: is the non-legal version free of jargon that could cause operational confusion?[cite: 7]</div>
-<div class="checklist-item"><i class="ti ti-square-check"></i> Completeness: has Gemini included all the key penalties or obligations specified in the source document?[cite: 7]</div>
-<div class="checklist-item"><i class="ti ti-square-check"></i> Placeholders removed: have all bracketed fields been replaced with real data before sharing?[cite: 7]</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Deadline accuracy: do the dates and compliance deadlines in the draft match the official text exactly?[cite: 8]</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Affected parties: are the teams or roles identified as impacted consistent with what the regulation actually says?[cite: 8]</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Plain language: is the non-legal version free of jargon that could cause operational confusion?[cite: 8]</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Completeness: has Gemini included all the key penalties or obligations specified in the source document?[cite: 8]</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Placeholders removed: have all bracketed fields been replaced with real data before sharing?[cite: 8]</div>
 </div>
-<div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>Important:</strong> Gemini-generated briefings are for informational purposes only and do not constitute legal advice[cite: 7]. Before any internal distribution, a qualified professional must verify the accuracy of the text and assess the specific implications for your organisation[cite: 7].</div></div>
+<div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>Important:</strong> Gemini-generated briefings are for informational purposes only and do not constitute legal advice[cite: 8]. Before any internal distribution, a qualified professional must verify the accuracy of the text and assess the specific implications for your organisation[cite: 8].</div></div>
 </div>
 
 <div id="seo-sec-3" class="seo-section"><div id="quiz-interactive-container"></div></div>
@@ -251,7 +224,6 @@ Crucial instruction: Refer only to the facts present in the text. Do not add ass
 </div>
 </div>
 </div>
-<div class="share-section"><div class="share-inner"><button onclick="copyLink()" id="copyLinkBtn" class="share-copy"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.pairworkflows.com/gemini-legal-regulatory-updates.html" target="_blank" rel="noopener" class="share-icon share-li" title="Share on LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a><a href="https://twitter.com/intent/tweet?url=https://www.pairworkflows.com/gemini-legal-regulatory-updates.html&text=Free+5-minute+guide+on+regulatory+updates+with+Gemini+AI" target="_blank" rel="noopener" class="share-icon share-x" title="Share on X"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a></div></div>
 <footer class="page-footer">&copy; 2026 <a href="https://www.pairworkflows.com">PairWorkflows</a>. All rights reserved.</footer>
 <script>
 var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
