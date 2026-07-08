@@ -34,8 +34,8 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
 
 /* Hero */
-.hero-hub{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:1.5rem}
-.hero-hub h1{font-size:32px;font-weight:600;color:#fff;margin-bottom:.75rem;line-height:1.25}
+.hero-hub{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);border-radius:16px;padding:2rem 2rem 1.75rem;text-align:center;margin-bottom:1.5rem}
+.hero-hub h1{font-size:26px;font-weight:600;color:#fff;margin-bottom:.75rem;line-height:1.25}
 .hero-hub p{font-size:15px;color:rgba(255,255,255,.85);max-width:640px;margin:0 auto 1.5rem;line-height:1.7}
 .hero-cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 .hub-btn{padding:11px 24px;border-radius:8px;font-weight:500;text-decoration:none;font-size:13px;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
@@ -51,7 +51,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .hub-section p:last-child{margin-bottom:0}
 
 /* Who section */
-.who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:1rem}
+.who-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:1rem}
 .who-tag{background:#e1f5ee;border:1px solid #6ee7b7;border-radius:8px;padding:8px 12px;font-size:12px;font-weight:600;color:#085041;text-align:center}
 
 /* ── BESPOKE VISUAL: Excel-style comparison table ── */
@@ -82,8 +82,8 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 /* Learning paths */
 .path-category{margin-bottom:1.25rem}
 .path-category-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.6rem;padding-bottom:.4rem;border-bottom:2px solid #e1f5ee;display:flex;align-items:center;gap:8px}
-.path-list{display:flex;flex-direction:column;gap:8px}
-.path-card{display:flex;align-items:center;gap:14px;background:#f8fafb;border:1px solid #e8ecef;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;text-decoration:none;transition:all .15s}
+.path-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.path-card{display:flex;align-items:flex-start;gap:10px;background:#f8fafb;border:1px solid #e8ecef;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:.85rem 1rem;text-decoration:none;transition:all .15s}
 .path-card:hover{background:#f0fdf4;border-color:#9fe1cb;transform:translateX(2px)}
 .path-card.error-type{border-left-color:#dc2626}
 .path-card.error-type:hover{background:#fef9f9;border-color:#fca5a5}
@@ -95,7 +95,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .path-title{font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem}
 .path-card.error-type .path-title{color:#b91c1c}
 .path-desc{font-size:12px;color:#6b7280;line-height:1.4}
-.path-arrow{color:#9fe1cb;font-size:16px;flex-shrink:0}
+.path-arrow{display:none}
 .path-card.error-type .path-arrow{color:#fca5a5}
 
 /* ── BESPOKE VISUAL: Excel error table ── */
@@ -167,7 +167,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
   .hero-hub h1{font-size:24px}
   .hub-section{padding:1.5rem 1.25rem}
   .cap-grid{grid-template-columns:1fr}
-  .who-grid{grid-template-columns:repeat(2,1fr)}
+  .who-grid{grid-template-columns:repeat(2,1fr)}   .path-list{grid-template-columns:1fr}   .path-list{grid-template-columns:1fr}
   .bp-grid{grid-template-columns:1fr}
   .xl-cmp-table td,.xl-cmp-table th{font-size:11px;padding:5px 8px}
   .xl-err-table td,.xl-err-table th{font-size:11px;padding:5px 7px}
