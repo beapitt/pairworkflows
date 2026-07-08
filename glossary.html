@@ -52,7 +52,7 @@
 
   body {
     font-family: 'Inter', 'Segoe UI', sans-serif;
-    background: #042e1f;
+    background: #ffffff;
     color: #1a1a2e;
     min-height: 100vh;
     display: flex;
@@ -71,7 +71,7 @@
   .course-wrap { max-width: 1280px; margin: 0 auto; padding: 2rem 3rem 4rem; flex: 1; width: 100%; }
 
   /* ── Shell ── */
-  .course-shell { background: #ffffff; border-radius: 16px; box-shadow: 0 4px 40px rgba(0,0,0,.4); overflow: hidden; display: grid; grid-template-columns: 260px 1fr; min-height: 600px; }
+  .course-shell { background: #ffffff; border-radius: 16px; border: 1px solid #e8ecef; overflow: hidden; display: grid; grid-template-columns: 260px 1fr; min-height: 600px; }
 
   /* ── Sidebar ── */
   .sidebar { background: #f8fafb; border-right: 1px solid #e8ecef; display: flex; flex-direction: column; }
@@ -101,13 +101,13 @@
   .content-body { padding: 2rem 2.5rem; flex: 1; }
 
   .seo-section { display: none; }
-  .seo-section.active-section { display: block; }
+  .seo-section.active-section { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }   .seo-section .category-intro { grid-column: 1 / -1; }
 
   /* ── Category intro ── */
   .category-intro { font-size: 14px; color: #374151; line-height: 1.75; margin-bottom: 1.75rem; padding-bottom: 1.25rem; border-bottom: 1px solid #f0f2f5; }
 
   /* ── Term cards ── */
-  .term-card { background: #f8fafb; border: 1px solid #e8ecef; border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1rem; position: relative; overflow: hidden; }
+  .term-card { background: #f8fafb; border: 1px solid #e8ecef; border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 0; position: relative; overflow: hidden; }
   .term-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
   .term-card.cat-foundations::before { background: #1d9e75; }
   .term-card.cat-working::before { background: #185fa5; }
@@ -125,7 +125,7 @@
   .badge-working { background: #e6f1fb; color: #0c447c; }
   .badge-enterprise { background: #ede9fe; color: #5b21b6; }
 
-  .term-definition { font-size: 13.5px; color: #374151; line-height: 1.75; margin-bottom: .875rem; }
+  .term-definition { font-size: 12.5px; color: #374151; line-height: 1.7; margin-bottom: .75rem; }
 
   .term-example { background: #ffffff; border: 1px solid #e8ecef; border-left: 3px solid #1d9e75; border-radius: 0 8px 8px 0; padding: .75rem 1rem; font-size: 12.5px; color: #085041; line-height: 1.65; }
   .term-example.ex-working { border-left-color: #378add; color: #0c447c; }
@@ -155,7 +155,7 @@
     .sidebar { display: none; }
     .section-hero { padding: 1.25rem 1.5rem; }
     .section-hero h2 { font-size: 20px; }
-    .content-body { padding: 1.25rem; }
+    .content-body { padding: 1.25rem; }     .seo-section.active-section { grid-template-columns: 1fr; }
     .content-footer { padding: 1rem 1.25rem; }
     .site-footer { padding: 1.5rem 1.25rem; }
   }
@@ -703,19 +703,6 @@ function render() {
 
 render();
 </script>
-
-<div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
-  <div class="search-overlay-inner">
-    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
-    <form action="/search.html" method="get">
-      <div class="search-box">
-        <i class="ti ti-search"></i>
-        <input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off">
-      </div>
-    </form>
-    <p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
-  </div>
-</div>
 <script>
 function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
 function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
