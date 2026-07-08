@@ -25,6 +25,14 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column;}
 #navbar-placeholder{margin:0;padding:0}
+/* Search Overlay Styles */
+#searchOverlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:9999;align-items:center;justify-content:center}
+#searchOverlay.open{display:flex}
+.search-overlay-inner{background:#ffffff;padding:2rem;border-radius:12px;width:90%;max-width:600px}
+.search-box{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #e8ecef;border-radius:8px;margin-top:1rem}
+.search-box input{border:none;outline:none;width:100%;font-size:16px}
+.search-hint{font-size:12px;color:#9ca3af;margin-top:10px;text-align:center}
+.search-close-btn{background:none;border:none;float:right;cursor:pointer}
 .course-wrap{max-width:1400px;margin:0 auto;padding:1rem 2rem 4rem;flex:1;width:100%;}
 .course-shell{background:#ffffff;display:grid;grid-template-columns:260px 1fr;min-height:600px;gap:2rem;}
 .sidebar{background:#ffffff;border-right:1px solid #e8ecef;display:flex;flex-direction:column;padding-right:1rem;}
@@ -43,9 +51,9 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .nav-count{font-size:10px;color:#9ca3af;margin-left:auto;}
 .content-area{display:flex;flex-direction:column;}
 .hero-section{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:2rem 2.5rem;margin-bottom:0}
-.section-tag{font-size:11px;font-weight:600;color:#1d9e75;margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.06em;}
-.hero-section h2{font-size:26px;font-weight:700;color:#1a1a2e;line-height:1.3;max-width:680px;margin-top:0;}
-.hero-sub{font-size:15px;color:#4b5563;margin-top:.75rem;line-height:1.6;max-width:600px;}
+.section-tag{font-size:11px;font-weight:600;color:#a7f3d0;margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.06em;}
+.hero-section h2{font-size:26px;font-weight:700;color:#ffffff;line-height:1.3;max-width:680px;margin-top:0;}
+.hero-sub{font-size:15px;color:#e2e8f0;margin-top:.75rem;line-height:1.6;max-width:600px;}
 .content-body{flex:1;}
 .seo-section{display:none;}
 .seo-section.active-section{display:block;}
@@ -126,7 +134,6 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
       </div>
       
       <div class="content-body" id="cnt">
-
         <!-- MANAGER -->
         <div id="seo-sec-0" class="seo-section active-section">
           <p class="role-intro">These prompts help managers save time on strategy documents, team communications, performance reviews, and decision-making. Each prompt is ready to copy and paste directly into Claude or Gemini.</p>
