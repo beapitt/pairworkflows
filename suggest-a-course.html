@@ -1,66 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><link rel="icon" type="image/png" href="/favicon.png">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Suggest a Mini-Course — PairWorkflows</title>
-<meta name="description" content="Have an idea for a practical AI mini-course? Tell us. If it's useful for busy professionals, there's a good chance we'll build it.">
-<link rel="canonical" href="https://www.pairworkflows.com/suggest-a-course.html">
-<meta property="og:title" content="Suggest a Mini-Course — PairWorkflows">
-<meta property="og:description" content="Have an idea for a practical AI mini-course? Tell us. If it's useful for busy professionals, there's a good chance we'll build it.">
-<meta property="og:url" content="https://www.pairworkflows.com/suggest-a-course.html">
-<meta property="og:type" content="website">
+<title>How to Use Gemini AI for HR Teams: Recruitment, Onboarding and People Operations | PairWorkflows</title>
+<meta name="description" content="Learn how to use Gemini AI for HR recruitment, onboarding, employee surveys and people operations inside Google Workspace. Free 5-minute course.">
+<link rel="canonical" href="https://www.pairworkflows.com/gemini-for-hr.html">
+<meta property="og:title" content="Gemini AI for HR Teams: Recruitment, Onboarding and People Operations">
+<meta property="og:description" content="Automate HR workflows with Gemini in Google Workspace. Free 5-minute course.">
+<meta property="og:url" content="https://www.pairworkflows.com/gemini-for-hr.html">
+<meta property="og:type" content="article">
 <meta property="og:site_name" content="PairWorkflows">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-<link rel="stylesheet" href="styles.css">
-<script defer src="/_vercel/insights/script.js"></script>
+<link rel="icon" type="image/png" href="/favicon.png">
 <style>
-.suggest-wrap {
-  min-height: 100vh;
-  background: #ffffff;
-  padding: 1rem 1rem 5rem;
-  display: block;
-}
-.suggest-card{background:#ffffff;max-width:720px;margin:0 auto;padding:52px 44px}
-.suggest-icon{width:56px;height:56px;background:#fdf0ec;border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:26px;color:#d97756}
-.suggest-title{font-size:34px;font-weight:800;color:#1a1a2e;text-align:center;margin-bottom:.85rem;line-height:1.2;margin-top:.5rem}
-.suggest-sub{font-size:15px;color:#6b7280;text-align:center;line-height:1.85;margin-bottom:2.25rem;max-width:520px;margin-left:auto;margin-right:auto}
-.suggest-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(29,158,117,.2),transparent);margin-bottom:2rem}
-.sf-group{margin-bottom:1.25rem}
-.sf-group label{display:block;font-size:12px;font-weight:600;color:#374151;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem}
-.sf-group input,.sf-group select,.sf-group textarea{width:100%;padding:11px 14px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:14px;font-family:'Inter',sans-serif;color:#1a1a2e;background:#fafbfc;transition:border-color .15s,background .15s;outline:none}
-.sf-group input:focus,.sf-group select:focus,.sf-group textarea:focus{border-color:#1d9e75;background:#ffffff;box-shadow:0 0 0 3px rgba(29,158,117,.08)}
-.sf-group input::placeholder,.sf-group textarea::placeholder{color:#9ca3af}
-.sf-group select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:14px;cursor:pointer}
-.sf-group textarea{resize:vertical;min-height:130px;line-height:1.6}
-.sf-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.sf-optional{font-size:11px;font-weight:400;color:#9ca3af;margin-left:4px;text-transform:none;letter-spacing:0}
-.submit-btn{width:100%;padding:13px;background:#1d9e75;color:#ffffff;border:none;border-radius:10px;font-size:15px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s;margin-top:.5rem;display:flex;align-items:center;justify-content:center;gap:8px}
-.submit-btn:hover{background:#0f6e56;transform:translateY(-1px);box-shadow:0 6px 20px rgba(29,158,117,.3)}
-.submit-btn:active{transform:translateY(0)}
-.submit-note{font-size:12px;color:#9ca3af;text-align:center;margin-top:.75rem;line-height:1.5}
-.suggest-success{display:none;text-align:center;padding:2rem 0}
-.suggest-success-icon{font-size:48px;color:#1d9e75;margin-bottom:1rem}
-.suggest-success h3{font-size:22px;font-weight:700;color:#1a1a2e;margin-bottom:.75rem}
-.suggest-success p{font-size:15px;color:#6b7280;line-height:1.7;max-width:420px;margin:0 auto 1.5rem}
-.suggest-success a{color:#1d9e75;text-decoration:none;font-weight:500;font-size:14px}
-.suggest-success a:hover{text-decoration:underline}
-.inspiration-section{margin-top:2.5rem;padding-top:2rem;border-top:1px solid #f0f2f5}
-.inspiration-title{font-size:11px;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem;text-align:center}
-.inspiration-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
-.chip{font-size:12px;color:#374151;background:#f8fafb;border:1px solid #e5e7eb;border-radius:20px;padding:8px 16px;line-height:1.5;cursor:pointer;transition:all .2s}
-.chip:hover{border-color:#1d9e75;color:#0f6e56;background:#f0fdf9;transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.08)}
-.chip-c{border-left:3px solid #d97756}
-.chip-g{border-left:3px solid #378add}
-.back-link{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.5);font-size:13px;text-decoration:none;max-width:720px;margin:0 auto 1.5rem;transition:color .15s}
-.back-link:hover{color:#ffffff}
-@media(max-width:640px){
-  .suggest-card{padding:32px 20px;border-radius:14px}
-  .suggest-title{font-size:22px}
-  .sf-row{grid-template-columns:1fr}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+.page-wrap{width:100%;padding:0;margin:0;flex:1}
+.course-container{display:flex;flex:1;min-height:calc(100vh - 52px)}
+.sidebar{width:260px;background:#f8fafb;border-right:1px solid #e8ecef;padding:1.75rem 1.25rem;flex-shrink:0;position:sticky;top:52px;height:calc(100vh - 52px);overflow-y:auto}
+.sidebar-badge{font-size:11px;font-weight:700;color:#1d9e75;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem}
+.sidebar-title{font-size:14px;font-weight:600;color:#1a1a2e;line-height:1.4;margin-bottom:.15rem}
+.sidebar-subtitle{font-size:12px;color:#6b7280;line-height:1.5;margin-bottom:1.25rem}
+.progress-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
+.progress-label{font-size:12px;font-weight:500;color:#6b7280}
+.progress-bar{height:4px;background:#e5e7eb;border-radius:99px;overflow:hidden;margin-bottom:1.25rem}
+.progress-fill{height:100%;background:#1d9e75;border-radius:99px;transition:width .3s}
+.nav-item{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer;transition:background .15s;margin-bottom:2px}
+.nav-item:hover{background:#eef1f3}
+.nav-item.active{background:#e1f5ee}
+.nav-num{width:24px;height:24px;border-radius:50%;background:#e5e7eb;color:#6b7280;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-item.active .nav-num{background:#1d9e75;color:#fff}
+.nav-item.completed .nav-num{background:#1d9e75;color:#fff}
+.nav-text{font-size:13px;color:#374151;line-height:1.4;padding-top:2px}
+.nav-item.active .nav-text{color:#065f46;font-weight:600}
+.main-content{flex:1;overflow-y:auto}
+.section-slide{display:none;min-height:calc(100vh - 52px);flex-direction:column}
+.section-slide.active{display:flex}
+.section-header{background:linear-gradient(135deg,#085041,#0f6e56);padding:1.5rem 3rem;flex-shrink:0}
+.section-tag{font-size:11px;font-weight:600;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem}
+.section-title{font-size:24px;font-weight:600;color:#fff;line-height:1.3;max-width:600px}
+.section-body{padding:2.5rem 3rem;flex:1}
+.section-body h3{font-size:17px;font-weight:600;color:#0f6e56;margin:2rem 0 .75rem}
+.section-body p{font-size:14.5px;color:#374151;line-height:1.8;margin-bottom:1rem}
+.section-body ul,.section-body ol{margin:0 0 1.25rem 1.25rem}
+.section-body li{font-size:14px;color:#374151;line-height:1.7;margin-bottom:.4rem}
+.highlight-box{background:#e1f5ee;border-left:4px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.highlight-box p{color:#065f46;margin:0;font-size:14px;line-height:1.7}
+.warning-box{background:#fff8e1;border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.warning-box p{color:#92400e;margin:0;font-size:14px;line-height:1.7}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.25rem 0}
+.info-card{background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:1rem 1.25rem}
+.info-card-title{font-size:12px;font-weight:700;color:#0f6e56;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.4rem;display:flex;align-items:center;gap:6px}
+.info-card p{font-size:13px;color:#374151;line-height:1.6;margin:0}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.5rem 0}
+.stat-card{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:1.25rem;text-align:center}
+.stat-num{font-size:28px;font-weight:700;color:#065f46}
+.stat-label{font-size:12px;color:#6b7280;margin-top:.25rem}
+.vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:1.25rem 0}
+.vs-card{border-radius:12px;padding:1.25rem}
+.vs-bad{background:#fef2f2;border:1px solid #fecaca}
+.vs-good{background:#f0fdf4;border:1px solid #bbf7d0}
+.vs-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem;display:flex;align-items:center;gap:6px}
+.vs-bad .vs-label{color:#dc2626}
+.vs-good .vs-label{color:#059669}
+.vs-card p{font-size:13px;line-height:1.6;margin:0}
+.comparison-table{width:100%;border-collapse:collapse;margin:1.25rem 0;border-radius:10px;overflow:hidden;border:1px solid #e2e8f0}
+.comparison-table th{background:#f3f3f3;font-size:11px;font-weight:700;color:#595959;padding:8px 14px;text-align:left;text-transform:uppercase;letter-spacing:.05em}
+.comparison-table td{font-size:13px;padding:8px 14px;border-bottom:1px solid #f0f0f0;vertical-align:top;line-height:1.5}
+.prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative}
+.prompt-block code{font-family:'SF Mono',Monaco,Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.7;white-space:pre-wrap;display:block}
+.copy-btn{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
+.copy-btn:hover{background:rgba(255,255,255,.2);color:#fff}
+.step-list{counter-reset:steps;list-style:none;margin:1.25rem 0;padding:0}
+.step-list li{counter-increment:steps;display:flex;gap:12px;align-items:flex-start;margin-bottom:1rem;font-size:14px;color:#374151;line-height:1.7}
+.step-list li::before{content:counter(steps);min-width:28px;height:28px;border-radius:50%;background:#e1f5ee;color:#065f46;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.nav-buttons{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 3rem;border-top:1px solid #e8ecef;flex-shrink:0}
+.btn-back,.btn-next{display:flex;align-items:center;gap:6px;padding:10px 22px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;text-decoration:none;border:none}
+.btn-back{background:#f1f5f9;border:1px solid #e2e8f0;color:#64748b}
+.btn-back:hover{background:#e2e8f0;color:#334155}
+.btn-next{background:#1d9e75;color:#fff}
+.btn-next:hover{background:#178a64}
+.btn-back.disabled{opacity:.4;pointer-events:none}
+.quiz-container{margin:1.25rem 0}
+.quiz-question{background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:1.25rem;margin-bottom:1rem}
+.quiz-question h4{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:.75rem}
+.quiz-options{display:flex;flex-direction:column;gap:6px}
+.quiz-option{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid #e2e8f0;border-radius:8px;cursor:pointer;transition:all .15s;font-size:13px;color:#374151}
+.quiz-option:hover{border-color:#1d9e75;background:#f0fdf4}
+.quiz-option.selected{border-color:#1d9e75;background:#e1f5ee;color:#065f46;font-weight:500}
+.quiz-option.correct{border-color:#059669;background:#d1fae5;color:#065f46}
+.quiz-option.incorrect{border-color:#ef4444;background:#fee2e2;color:#991b1b}
+.quiz-radio{width:16px;height:16px;border-radius:50%;border:2px solid #d1d5db;flex-shrink:0;transition:all .15s}
+.quiz-option.selected .quiz-radio{border-color:#1d9e75;background:#1d9e75;box-shadow:inset 0 0 0 3px #fff}
+.quiz-feedback{display:none;padding:.75rem 1rem;border-radius:8px;font-size:13px;line-height:1.6;margin-top:.5rem}
+.quiz-feedback.correct{display:block;background:#d1fae5;color:#065f46;border:1px solid #6ee7b7}
+.quiz-feedback.incorrect{display:block;background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
+.quiz-check{margin-top:.75rem;padding:8px 18px;background:#1d9e75;color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;display:none}
+.quiz-check.visible{display:inline-block}
+.score-box{background:#e1f5ee;border:1px solid #6ee7b7;border-radius:10px;padding:1.25rem;text-align:center;margin-top:1.5rem;display:none}
+.score-box.visible{display:block}
+.score-box .score{font-size:36px;font-weight:700;color:#065f46}
+.score-box .score-label{font-size:14px;color:#374151;margin-top:.25rem}
+#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
+#searchOverlay.open{display:flex}
+.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
+.search-close-btn:hover{color:#fff}
+.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
+.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
+.search-box input::placeholder{color:rgba(255,255,255,.35)}
+.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
+@media(max-width:768px){
+.sidebar{display:none}
+.course-container{flex-direction:column}
+.section-header{padding:1.25rem 1.5rem}
+.section-title{font-size:20px}
+.section-body{padding:1.5rem}
+.nav-buttons{padding:1rem 1.5rem}
+.info-grid{grid-template-columns:1fr}
+.stat-grid{grid-template-columns:1fr}
+.vs-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -92,82 +156,188 @@
 <a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
 </nav>
 </noscript>
-<div class="suggest-wrap">
-  <a href="/index.html" class="back-link"><i class="ti ti-arrow-left" style="font-size:14px"></i> Back to courses</a>
-  <div class="suggest-card">
+<div class="page-wrap">
+<div class="course-container">
+<aside class="sidebar">
+<div class="sidebar-badge">Gemini AI — HR</div>
+<div class="sidebar-title">Recruitment, Onboarding and People Operations</div>
+<div class="sidebar-subtitle">Use Gemini inside Google Workspace to speed up HR workflows.</div>
+<div class="progress-row"><span class="progress-label">Progress</span><span class="progress-label" id="progCount">1 of 4</span></div>
+<div class="progress-bar"><div class="progress-fill" id="progBar" style="width:25%"></div></div>
+<div class="nav-item active" onclick="goTo(0)"><div class="nav-num">1</div><div class="nav-text">Why Gemini for HR</div></div>
+<div class="nav-item" onclick="goTo(1)"><div class="nav-num">2</div><div class="nav-text">The Workspace workflow</div></div>
+<div class="nav-item" onclick="goTo(2)"><div class="nav-num">3</div><div class="nav-text">Prompts and checklist</div></div>
+<div class="nav-item" onclick="goTo(3)"><div class="nav-num">4</div><div class="nav-text">Quiz: test your knowledge</div></div>
+</aside>
+<main class="main-content">
 
-    <div id="suggestForm">
-      <div class="suggest-icon"><i class="ti ti-bulb"></i></div>
-      <h1 class="suggest-title">What should we teach next?</h1>
-      <p class="suggest-sub">Have an idea for a practical AI mini-course? Tell us. If it's useful for busy professionals, there's a good chance we'll build it — for free, as usual.</p>
-      <div class="suggest-divider"></div>
+<div class="section-slide active" id="s0">
+<div class="section-header"><div class="section-tag">Section 01</div><div class="section-title">Why Gemini changes how HR teams work inside Google Workspace.</div></div>
+<div class="section-body">
+<p>HR teams spend enormous amounts of time on repetitive writing — job descriptions, candidate emails, onboarding documents, policy updates, survey analysis. Most of this work already happens inside Google Workspace: Docs for policies, Sheets for people data, Gmail for candidate communication, Slides for training materials.</p>
+<p>Gemini sits inside all of these tools natively. You don't copy data into an external AI — you open the Gemini side panel in the tool you're already using and ask it to help. This eliminates the biggest friction point: context switching.</p>
+<div class="highlight-box"><p><strong>The key advantage for HR:</strong> Gemini reads your actual Google Sheets data, your Docs content, and your Gmail threads. When you ask it to draft a candidate response, it can reference the actual conversation. When you ask it to analyse survey data, it reads the sheet directly.</p></div>
+<div class="stat-grid">
+<div class="stat-card"><div class="stat-num">0</div><div class="stat-label">copy-paste steps needed</div></div>
+<div class="stat-card"><div class="stat-num">~80%</div><div class="stat-label">less time on routine HR writing</div></div>
+<div class="stat-card"><div class="stat-num">Native</div><div class="stat-label">in Gmail, Sheets, Docs, Slides</div></div>
+</div>
+<h3>Where Gemini helps most in HR</h3>
+<div class="info-grid">
+<div class="info-card"><div class="info-card-title"><i class="ti ti-mail" style="font-size:14px"></i> Candidate communication</div><p>Draft and personalise candidate emails at scale directly in Gmail — rejection letters, interview invitations, offer follow-ups.</p></div>
+<div class="info-card"><div class="info-card-title"><i class="ti ti-chart-bar" style="font-size:14px"></i> Survey analysis</div><p>Analyse employee engagement survey responses in Sheets — extract themes, flag concerns, summarise sentiment.</p></div>
+<div class="info-card"><div class="info-card-title"><i class="ti ti-file-text" style="font-size:14px"></i> Policy drafting</div><p>Draft handbook sections, onboarding guides, and policy updates in Docs with consistent tone and language.</p></div>
+<div class="info-card"><div class="info-card-title"><i class="ti ti-presentation" style="font-size:14px"></i> Training materials</div><p>Build onboarding presentations and training content in Slides from your existing documents.</p></div>
+</div>
+</div>
+<div class="nav-buttons"><button class="btn-back disabled">← Back</button><button class="btn-next" onclick="goTo(1)">Next →</button></div>
+</div>
 
-      <form action="https://api.web3forms.com/submit" method="POST" id="suggestCourseForm">
-        <input type="hidden" name="access_key" value="27235b0f-ea5f-4d0e-a7ab-bf1bb4bbc8b8">
-        <input type="hidden" name="subject" value="New course suggestion from PairWorkflows">
-        <input type="hidden" name="redirect" value="false">
+<div class="section-slide" id="s1">
+<div class="section-header"><div class="section-tag">Section 02</div><div class="section-title">The workflow: from HR task to done — without leaving Workspace.</div></div>
+<div class="section-body">
+<h3>Candidate communication workflow</h3>
+<ol class="step-list">
+<li>Open the candidate's email thread in Gmail</li>
+<li>Click the Gemini icon to open the side panel</li>
+<li>Ask Gemini to draft a response — for example "Draft a professional but warm interview invitation for this candidate for next Tuesday at 2pm"</li>
+<li>Gemini reads the thread context and drafts the email</li>
+<li>Review, adjust the tone if needed, and send</li>
+</ol>
+<h3>Employee survey analysis workflow</h3>
+<ol class="step-list">
+<li>Open your survey results in Google Sheets</li>
+<li>Open the Gemini side panel</li>
+<li>Ask "Analyse the responses in column C. Identify the top 5 themes and flag any concerning patterns"</li>
+<li>Gemini reads the data directly and returns structured analysis</li>
+<li>Ask Gemini to draft a summary report in Docs for leadership</li>
+</ol>
+<div class="vs-grid">
+<div class="vs-card vs-bad"><div class="vs-label"><i class="ti ti-x" style="font-size:14px"></i> Without Gemini</div><p>Export survey data → paste into external AI → explain the columns → get analysis → copy into a Doc → reformat → draft the email summary separately. 5+ tools, 30+ minutes.</p></div>
+<div class="vs-card vs-good"><div class="vs-label"><i class="ti ti-check" style="font-size:14px"></i> With Gemini</div><p>Open Sheets → ask Gemini to analyse → get results → ask Gemini to draft the summary in Docs → done. One ecosystem, under 10 minutes.</p></div>
+</div>
+<h3>What Gemini can do in each HR context</h3>
+<table class="comparison-table">
+<tr><th>Tool</th><th>HR use case</th><th>Example prompt</th></tr>
+<tr><td>Gmail</td><td>Candidate communication</td><td>"Draft a warm rejection email thanking the candidate for their time"</td></tr>
+<tr><td>Sheets</td><td>Survey analysis</td><td>"Identify themes in column D and flag negative sentiment"</td></tr>
+<tr><td>Docs</td><td>Policy writing</td><td>"Draft a remote work policy section covering equipment and expenses"</td></tr>
+<tr><td>Slides</td><td>Onboarding materials</td><td>"Create a 5-slide new hire orientation covering company values and key contacts"</td></tr>
+</table>
+<div class="warning-box"><p><strong>Privacy reminder:</strong> Always anonymise employee names and sensitive HR data before asking Gemini to analyse it. Use "Employee A", "Employee B" etc. For survey data, remove any identifying information before analysis.</p></div>
+</div>
+<div class="nav-buttons"><button class="btn-back" onclick="goTo(0)">← Back</button><button class="btn-next" onclick="goTo(2)">Next →</button></div>
+</div>
+<div class="section-slide" id="s2">
+<div class="section-header"><div class="section-tag">Section 03</div><div class="section-title">Prompts that work: copy these directly into the Gemini side panel.</div></div>
+<div class="section-body">
+<h3>Job description drafting</h3>
+<div class="prompt-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Draft a job description for a [JOB TITLE] role in our [DEPARTMENT] team.
 
-        <div class="sf-row">
-          <div class="sf-group">
-            <label for="sg-name">Your name</label>
-            <input type="text" id="sg-name" name="name" placeholder="e.g. Sarah Mitchell" required>
-          </div>
-          <div class="sf-group">
-            <label for="sg-email">Email <span class="sf-optional">(optional)</span></label>
-            <input type="email" id="sg-email" name="email" placeholder="you@company.com">
-          </div>
-        </div>
+Company context: [BRIEF COMPANY DESCRIPTION — size, industry, culture]
+Work model: [Remote / Hybrid / On-site] in [LOCATION]
+Reporting to: [MANAGER TITLE]
 
-        <div class="sf-group">
-          <label for="sg-category">Category</label>
-          <select id="sg-category" name="category" required>
-            <option value="" disabled selected>Choose a category...</option>
-            <option value="General">General</option>
-            <option value="HR">HR</option>
-            <option value="Finance">Finance</option>
-            <option value="Marketing">Marketing</option>
-            <option value="Legal">Legal</option>
-            <option value="Operations">Operations</option>
-            <option value="Sales">Sales</option>
-            <option value="Customer Service">Customer Service</option>
-            <option value="Excel">Excel</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
+Key responsibilities (from hiring manager notes):
+[PASTE MANAGER'S BULLET POINTS OR NOTES HERE]
 
-        <div class="sf-group">
-          <label for="sg-idea">Describe the problem you'd like this course to solve</label>
-          <textarea id="sg-idea" name="idea" placeholder="e.g. I spend hours every week manually creating performance review summaries. I'd love a mini-course on how Claude can help me do this in minutes..." required></textarea>
-        </div>
+Requirements:
+- Must have: [LIST MANDATORY REQUIREMENTS]
+- Nice to have: [LIST PREFERRED QUALIFICATIONS]
 
-        <button type="submit" class="submit-btn" id="submitBtn">
-          <i class="ti ti-send" style="font-size:15px"></i>
-          Submit Idea
-        </button>
-        <p class="submit-note">We read every suggestion. We can't build them all, but every idea helps shape what comes next.</p>
-        <div id="formMsg" style="display:none;text-align:center;margin-top:.75rem;font-size:13px;padding:10px;border-radius:8px"></div>
-      </form>
+Output structure:
+1. About Us (2-3 sentences)
+2. The Role (1 paragraph)
+3. What You'll Do (5-7 bullets starting with action verbs)
+4. What You Bring (split Required and Preferred)
+5. Leave placeholders for [Salary Range] and [Benefits]
 
-      <div class="inspiration-section">
-        <div class="inspiration-title">Looking for inspiration? People have suggested ideas like these</div>
-        <div class="inspiration-chips">
-          <span class="chip chip-c" onclick="fillIdea(this)">How to write performance reviews in half the time with Claude</span>
-          <span class="chip chip-c" onclick="fillIdea(this)">Auditing a complex Excel model with Claude AI</span>
-          <span class="chip chip-g" onclick="fillIdea(this)">Turning a Google Meet transcript into a project brief with Gemini</span>
-          <span class="chip chip-c" onclick="fillIdea(this)">Writing legally safe client communications during outages</span>
-          <span class="chip chip-g" onclick="fillIdea(this)">Building a monthly finance report in Google Sheets with Gemini</span>
-        </div>
-      </div>
-    </div>
+Use inclusive language. Avoid jargon like "ninja" or "rockstar". Keep it professional but not stiff.</code></div>
 
-    <div class="suggest-success" id="suggestSuccess">
-      <div class="suggest-success-icon"><i class="ti ti-circle-check"></i></div>
-      <h3>Mission accomplished.</h3>
-      <p>Your idea has landed safely in our inbox. We read every suggestion — and the best ones often become future mini-courses. Thanks for helping make PairWorkflows more useful.</p>
-      <a href="/index.html">← Back to all courses</a>
-    </div>
+<h3>Interview feedback email</h3>
+<div class="prompt-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Based on this email thread, draft a professional response to the candidate.
 
-  </div>
+Context: [ACCEPTED FOR NEXT ROUND / REJECTED / ON HOLD]
+
+If rejected: be warm, thank them for their time, and encourage them to apply for future roles. Do not give specific feedback on their performance.
+
+If accepted: confirm the next interview date, provide logistics, and let them know what to prepare.
+
+Tone: professional, human, empathetic. Not corporate or template-sounding.</code></div>
+
+<h3>Employee survey analysis</h3>
+<div class="prompt-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>Analyse the employee survey responses in this sheet.
+
+The responses are in column [COLUMN LETTER]. Each row is one employee response.
+
+Please:
+1. Identify the top 5 recurring themes
+2. Flag any responses that suggest urgent concerns (burnout, harassment, safety)
+3. Summarise the overall sentiment as Positive, Mixed, or Negative
+4. Suggest 3 concrete actions HR should consider based on the findings
+
+Format the output as a structured report suitable for sharing with the VP of People.
+
+Do not identify individual employees. Work only with the anonymised data in the sheet.</code></div>
+
+<h3>HR prompts checklist</h3>
+<div class="highlight-box"><p><strong>Before using Gemini for HR work:</strong><br>1. Anonymise all employee names and identifying information<br>2. Specify the audience — candidate, employee, manager, or leadership<br>3. Specify the tone — empathetic, formal, conversational<br>4. Include "Do not identify individual employees" for any survey or feedback analysis<br>5. Review every output for sensitivity before sending — AI can miss nuance in HR situations</p></div>
+</div>
+<div class="nav-buttons"><button class="btn-back" onclick="goTo(1)">← Back</button><button class="btn-next" onclick="goTo(3)">Next →</button></div>
+</div>
+
+<div class="section-slide" id="s3">
+<div class="section-header"><div class="section-tag">Section 04</div><div class="section-title">Quiz: test your knowledge.</div></div>
+<div class="section-body">
+<div class="quiz-container">
+<div class="quiz-question" id="q1">
+<h4>1. What is Gemini's main advantage for HR teams compared to standalone AI tools?</h4>
+<div class="quiz-options">
+<div class="quiz-option" onclick="selectOption(this,'q1')"><div class="quiz-radio"></div>It writes better job descriptions</div>
+<div class="quiz-option" onclick="selectOption(this,'q1')"><div class="quiz-radio"></div>It works directly inside Gmail, Sheets, Docs and Slides without copy-pasting</div>
+<div class="quiz-option" onclick="selectOption(this,'q1')"><div class="quiz-radio"></div>It is free for all users</div>
+</div>
+<div class="quiz-feedback" id="q1-feedback"></div>
+<button class="quiz-check" id="q1-check" onclick="checkAnswer('q1',1,'Gemini sits natively inside Google Workspace tools. You work where your data already lives — no export, no paste, no context switching.')">Check answer</button>
+</div>
+<div class="quiz-question" id="q2">
+<h4>2. What should you always do before asking Gemini to analyse employee survey data?</h4>
+<div class="quiz-options">
+<div class="quiz-option" onclick="selectOption(this,'q2')"><div class="quiz-radio"></div>Share the sheet with your manager first</div>
+<div class="quiz-option" onclick="selectOption(this,'q2')"><div class="quiz-radio"></div>Anonymise employee names and identifying information</div>
+<div class="quiz-option" onclick="selectOption(this,'q2')"><div class="quiz-radio"></div>Export the data to Excel first</div>
+</div>
+<div class="quiz-feedback" id="q2-feedback"></div>
+<button class="quiz-check" id="q2-check" onclick="checkAnswer('q2',1,'Always anonymise before analysis. Remove names, employee IDs, and any data that could identify individuals.')">Check answer</button>
+</div>
+<div class="quiz-question" id="q3">
+<h4>3. When using Gemini to draft a candidate rejection email, what tone should you specify?</h4>
+<div class="quiz-options">
+<div class="quiz-option" onclick="selectOption(this,'q3')"><div class="quiz-radio"></div>Strictly formal and brief</div>
+<div class="quiz-option" onclick="selectOption(this,'q3')"><div class="quiz-radio"></div>Professional, warm, and empathetic</div>
+<div class="quiz-option" onclick="selectOption(this,'q3')"><div class="quiz-radio"></div>Casual and friendly</div>
+</div>
+<div class="quiz-feedback" id="q3-feedback"></div>
+<button class="quiz-check" id="q3-check" onclick="checkAnswer('q3',1,'Rejection emails need warmth and empathy. Specify this in your prompt — otherwise AI defaults to a corporate template tone that feels impersonal.')">Check answer</button>
+</div>
+<div class="quiz-question" id="q4">
+<h4>4. Which Workspace tool would you use to ask Gemini to build an onboarding presentation?</h4>
+<div class="quiz-options">
+<div class="quiz-option" onclick="selectOption(this,'q4')"><div class="quiz-radio"></div>Google Docs</div>
+<div class="quiz-option" onclick="selectOption(this,'q4')"><div class="quiz-radio"></div>Google Slides</div>
+<div class="quiz-option" onclick="selectOption(this,'q4')"><div class="quiz-radio"></div>Google Forms</div>
+</div>
+<div class="quiz-feedback" id="q4-feedback"></div>
+<button class="quiz-check" id="q4-check" onclick="checkAnswer('q4',1,'Google Slides with Gemini lets you create structured onboarding presentations directly from your content and company information.')">Check answer</button>
+</div>
+</div>
+<div class="score-box" id="scoreBox"><div class="score" id="scoreNum"></div><div class="score-label">Correct answers</div></div>
+</div>
+<div class="nav-buttons"><button class="btn-back" onclick="goTo(2)">← Back</button><button class="btn-next disabled" style="opacity:.4;pointer-events:none">Complete ✓</button></div>
+</div>
+
+</main>
+</div>
 </div>
 
 <footer style="background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0">
@@ -194,17 +364,12 @@
 </div>
 <div>
 <strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Resources</strong>
-<a href="https://www.pairworkflows.com/claude-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Claude Courses</a>
-<a href="https://www.pairworkflows.com/gemini-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Gemini Courses</a>
 <a href="https://www.pairworkflows.com/glossary.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI Glossary</a>
 <a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Claude vs Gemini</a>
 <a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
 </div>
 <div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company & Legal</strong>
-<a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
-<a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
-<a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Legal</strong>
 <a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Privacy Policy</a>
 <a href="https://www.pairworkflows.com/legal.html#terms" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Terms of Use</a>
 <a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Cookie Policy</a>
@@ -216,19 +381,12 @@
 <div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem">
 <span style="font-size:13px; color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
 <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
-<button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-  Copy link
-</button>
-<a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-  <span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span>
+<button onclick="navigator.clipboard.writeText(window.location.href);this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy link'},2000)" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer">Copy link</button>
+<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none" title="Share on LinkedIn">
+<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
 </a>
-<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn">
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-</a>
-<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none" title="Share on X">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
 </a>
 </div>
 </div>
@@ -236,48 +394,14 @@
 </footer>
 
 <script>
-function toggleResources(){document.getElementById('resourcesMenu').classList.toggle('open');}
-document.addEventListener('click',function(e){if(!e.target.closest('.resources-dropdown')){var m=document.getElementById('resourcesMenu');if(m)m.classList.remove('open');}});
-
-function fillIdea(chip){
-  var ta=document.getElementById('sg-idea');
-  ta.value=chip.textContent.trim();
-  ta.focus();
-  ta.scrollIntoView({behavior:'smooth',block:'center'});
-}
-
-document.getElementById('suggestCourseForm').addEventListener('submit',async function(e){
-  e.preventDefault();
-  var btn=document.getElementById('submitBtn');
-  var msg=document.getElementById('formMsg');
-  btn.disabled=true;
-  btn.innerHTML='<i class="ti ti-loader" style="font-size:15px"></i> Sending...';
-  try{
-    var res=await fetch('https://api.web3forms.com/submit',{
-      method:'POST',
-      body:new FormData(this)
-    });
-    var data=await res.json();
-    if(data.success){
-      document.getElementById('suggestForm').style.display='none';
-      document.getElementById('suggestSuccess').style.display='block';
-    }else{
-      msg.style.display='block';
-      msg.style.background='#fef2f2';
-      msg.style.color='#dc2626';
-      msg.textContent='Something went wrong. Please try again.';
-      btn.disabled=false;
-      btn.innerHTML='<i class="ti ti-send" style="font-size:15px"></i> Submit Idea';
-    }
-  }catch(err){
-    msg.style.display='block';
-    msg.style.background='#fef2f2';
-    msg.style.color='#dc2626';
-    msg.textContent='Connection error. Please try again.';
-    btn.disabled=false;
-    btn.innerHTML='<i class="ti ti-send" style="font-size:15px"></i> Submit Idea';
-  }
-});
+var current=0;var total=4;var answers={};var correctAnswers={q1:1,q2:1,q3:1,q4:1};
+function goTo(n){document.querySelectorAll('.section-slide').forEach(s=>{s.classList.remove('active');s.style.display='none'});var slide=document.getElementById('s'+n);slide.classList.add('active');slide.style.display='flex';document.querySelectorAll('.nav-item').forEach((item,i)=>{item.classList.remove('active');if(i<n)item.classList.add('completed');if(i===n)item.classList.add('active')});current=n;document.getElementById('progCount').textContent=(n+1)+' of '+total;document.getElementById('progBar').style.width=((n+1)/total*100)+'%';window.scrollTo(0,0)}
+function selectOption(el,qid){el.parentElement.querySelectorAll('.quiz-option').forEach(o=>o.classList.remove('selected'));el.classList.add('selected');answers[qid]=Array.from(el.parentElement.children).indexOf(el);document.getElementById(qid+'-check').classList.add('visible')}
+function checkAnswer(qid,correct,explanation){var opts=document.getElementById(qid).querySelectorAll('.quiz-option');var fb=document.getElementById(qid+'-feedback');opts.forEach((o,i)=>{o.style.pointerEvents='none';if(i===correct)o.classList.add('correct');else if(o.classList.contains('selected'))o.classList.add('incorrect')});if(answers[qid]===correct){fb.className='quiz-feedback correct';fb.textContent='Correct! '+explanation}else{fb.className='quiz-feedback incorrect';fb.textContent='Not quite. '+explanation}document.getElementById(qid+'-check').style.display='none';if(document.querySelectorAll('.quiz-feedback.correct,.quiz-feedback.incorrect').length===Object.keys(correctAnswers).length){var score=document.querySelectorAll('.quiz-feedback.correct').length;document.getElementById('scoreNum').textContent=score+'/'+Object.keys(correctAnswers).length;document.getElementById('scoreBox').classList.add('visible')}}
+function copyCode(btn){var code=btn.parentElement.querySelector('code');navigator.clipboard.writeText(code.textContent);btn.textContent='Copied!';setTimeout(()=>btn.textContent='Copy',2000)}
+function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(()=>document.getElementById('searchOverlayInput').focus(),50)}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch()});
 </script>
 </body>
 </html>
