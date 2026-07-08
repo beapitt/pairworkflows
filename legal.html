@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#ffffff;min-height:100vh}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
 .navbar{background:#042e1f;border-bottom:1px solid rgba(255,255,255,.08);padding:0 3rem;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
 .logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
 .logo-pair{font-size:18px;font-weight:800;color:#ffffff;letter-spacing:-.3px}
@@ -19,12 +19,13 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#ffffff;
 .nav-links{display:flex;align-items:center;gap:2rem}
 .nav-links a{font-size:13px;color:rgba(255,255,255,.6);text-decoration:none;transition:color .15s}
 .nav-links a:hover{color:#ffffff}
-.page-wrap{max-width:1280px;margin:0 auto;padding:3rem}
+.page-wrap{max-width:880px;margin:0 auto;width:100%;padding:2.5rem 1rem;flex:1}
 .legal-nav{display:flex;gap:12px;margin-bottom:3rem;flex-wrap:wrap}
-.legal-nav a{font-size:13px;font-weight:500;padding:7px 18px;border-radius:30px;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.7);text-decoration:none;transition:all .15s}
+.legal-nav a{font-size:13px;font-weight:500;padding:7px 18px;border-radius:30px;border:1px solid #d1d5db;color:#6b7280;text-decoration:none;transition:all .15s}
+.legal-nav a:hover,.legal-nav a.active{border-color:#1d9e75;color:#0f6e56;background:#e1f5ee}
 .legal-nav a:hover,.legal-nav a.active{border-color:#9fe1cb;color:#9fe1cb;background:rgba(159,225,203,.08)}
-.legal-card{background:#ffffff;border-radius:20px;padding:3rem;margin-bottom:2rem;box-shadow:0 4px 32px rgba(0,0,0,.3)}
-.legal-tag{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#d97756;margin-bottom:.5rem}
+.legal-card{background:#ffffff;border-radius:16px;padding:2.5rem;margin-bottom:2rem;border:1px solid #e8ecef}
+.legal-tag{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#1d9e75;margin-bottom:.5rem}
 .legal-card h1{font-size:26px;font-weight:700;color:#1a1a2e;margin-bottom:.5rem}
 .legal-card .updated{font-size:13px;color:#9ca3af;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid #f0f2f5}
 .legal-card h2{font-size:16px;font-weight:600;color:#1a1a2e;margin:1.75rem 0 .625rem}
@@ -40,9 +41,9 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#ffffff;
 .footer-links a:hover{color:#9fe1cb}
 .footer-copy{font-size:12px;color:rgba(255,255,255,.2)}
 
-.cookie-banner{position:fixed;bottom:0;left:0;right:0;background:#1a2e24;border-top:1px solid rgba(159,225,203,.2);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;z-index:999;flex-wrap:wrap}
+.cookie-banner{position:fixed;bottom:0;left:0;right:0;background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;z-index:999;flex-wrap:wrap}
 .cookie-banner p{font-size:13px;color:rgba(255,255,255,.8);line-height:1.6;flex:1;min-width:200px}
-.cookie-banner a{color:#9fe1cb;text-decoration:underline}
+.cookie-banner a{color:#1d9e75;text-decoration:underline}
 .cookie-banner-btns{display:flex;gap:8px;flex-shrink:0}
 .cookie-accept{background:#1d9e75;color:#ffffff;border:none;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;transition:background .15s}
 .cookie-accept:hover{background:#0f6e56}
@@ -64,16 +65,6 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#ffffff;
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-
-<div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
-<div class="search-overlay-inner">
-<button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
-<form action="/search.html" method="get">
-<div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
-</form>
-<p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
-</div>
-</div>
 <div id="navbar-placeholder"></div>
 <script src="/navbar.js"></script>
 <noscript>
