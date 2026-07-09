@@ -177,7 +177,7 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1a1a2e;min-height:
 <div class="seo-section active-section" id="slide-0">
 <div class="section-hero"><div class="section-tag">Section 01</div><h2>Your pipeline review is broken — here's why deals keep slipping.</h2></div>
 <div class="content-body">
-<p>Every sales team does pipeline reviews. Most do them badly. A manager opens a spreadsheet, scrolls through 40 deals, asks the rep for updates on each one, and writes notes that nobody reads again until the next review.</p>
+<p>Every sales team conducts pipeline reviews, yet most rely on manual, error-prone processes. A manager typically exports CRM data into a massive spreadsheet, spending hours trying to build <a href="https://www.pairworkflows.com/claude-excel-dynamic-reports.html" style="color:#1d9e75;text-decoration:underline">dynamic reports</a> just to figure out what changed since last week. You end up scrolling through 40 deals, asking reps for updates, and taking notes that nobody reads again until the next review.</p>
 <p>The result: deals that should have been flagged two weeks ago are still sitting in "Negotiation." Deals that need executive attention are buried under a list of smaller opportunities. And the forecast is a guess dressed up as a number.</p>
 <div class="highlight-box"><p><strong>The core problem:</strong> Pipeline reviews are subjective. Two managers looking at the same data will prioritize different deals. Claude makes the review structured, consistent, and data-driven — every time.</p></div>
 <div class="stat-grid">
@@ -201,7 +201,7 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1a1a2e;min-height:
 <div class="content-body">
 <p>This workflow takes your CRM export or pipeline spreadsheet and turns it into a prioritized review with risk flags and action items. No custom tools needed — just Claude and your data.</p>
 <h3>Step 1: Prepare your data</h3>
-<p>Export your pipeline from your CRM or copy it from your spreadsheet. Claude works best with these columns:</p>
+<p>Export your raw pipeline data from your CRM or copy it from your current forecasting spreadsheet. If you are merging data from multiple regional CRMs, you might need to run an <a href="https://www.pairworkflows.com/claude-excel-xlookup.html" style="color:#1d9e75;text-decoration:underline">XLOOKUP</a> to align the account owners and target values before the AI can process them cleanly. Claude works best when fed these specific columns:</p>
 <table class="pipeline-table">
 <tr><th>Column</th><th>What it contains</th><th>Why Claude needs it</th></tr>
 <tr><td>Deal name</td><td>Account or opportunity name</td><td>Identifies the deal</td></tr>
@@ -265,7 +265,7 @@ Here is my pipeline data:
 <div class="info-grid">
 <div class="info-card"><div class="info-card-title"><i class="ti ti-alert-circle" style="font-size:14px"></i> Immediate attention</div><p>Deals flagged as high risk with specific reasons — "no activity for 21 days", "close date passed 2 weeks ago", "no next step defined."</p></div>
 <div class="info-card"><div class="info-card-title"><i class="ti ti-check" style="font-size:14px"></i> On track</div><p>Deals with recent activity, defined next steps, and realistic close dates. Brief summary so you can skip quickly.</p></div>
-<div class="info-card"><div class="info-card-title"><i class="ti ti-chart-pie" style="font-size:14px"></i> Forecast</div><p>Deals categorized into Commit, Best Case, Upside with total values. Ready to paste into your forecast report.</p></div>
+<div class="info-card"><div class="info-card-title"><i class="ti ti-chart-pie" style="font-size:14px"></i> Forecast</div><p>Deals clearly categorized into Commit, Best Case, and Upside with total values. You can paste this structured output directly into your sheet and use <a href="https://www.pairworkflows.com/claude-excel-if-ifs.html" style="color:#1d9e75;text-decoration:underline">IF/IFS</a> logic to trigger alerts for high-risk accounts.</p></div>
 <div class="info-card"><div class="info-card-title"><i class="ti ti-flag" style="font-size:14px"></i> Data gaps</div><p>Deals where information is missing — "no close date", "no owner assigned." These need rep input before you can assess them.</p></div>
 </div>
 
