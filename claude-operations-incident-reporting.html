@@ -204,9 +204,11 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 <div class="content-area">
 <div class="section-hero"><div class="section-tag" id="heroTag">Section 01</div><h2 id="heroTitle">Incident reports need to be clear and factual. Claude can structure your notes into a professional report.</h2></div>
 <div class="content-body" id="cnt">
+
 <div id="seo-sec-0" class="seo-section active-section">
 <p>When an operational incident occurs — a system outage, a safety event, a process failure — the pressure to communicate quickly and clearly is high. Writing a structured report from raw notes and a stressed recollection of events is difficult, and a poorly written report can create problems in investigations, insurance claims or regulatory reviews.</p>
 <p>Claude can help turn your incident notes into a clear, structured report. Give it the facts of what happened, when, who was involved and what actions were taken, and it can produce a professional draft with a logical sequence of events, impact summary and corrective actions — ready for you to review and submit.</p>
+<p>In many operations teams, incident data lives in <a href="https://www.pairworkflows.com/ai-for-excel.html" style="color:#1d9e75;text-decoration:underline">Excel</a> — log exports, shift records, timestamped event tables. Before you can ask Claude to draft a report from that data, the spreadsheet needs to be reliable: duplicates removed, timestamps in a consistent format, and no blank rows breaking the sequence. If your incident logs need preparation first, see our guide on how to <a href="https://www.pairworkflows.com/claude-excel-clean-data.html" style="color:#1d9e75;text-decoration:underline">clean imported data in Excel with Claude</a>.</p>
 <div class="highlight-box"><div class="highlight-icon"><i class="ti ti-bulb"></i></div><div class="highlight-text"><strong>Key insight:</strong> Claude structures and drafts from the facts you provide — it does not know what happened, cannot fill in gaps in your notes, and must never be used to add or infer details that were not part of the actual incident.</div></div>
 <div class="task-grid">
 <div class="task-card"><div class="task-icon"><i class="ti ti-file-report"></i></div><div class="task-name">Incident report drafting</div><div class="task-desc">Turn rough notes into a structured report with a clear timeline, impact summary and corrective actions.</div></div>
@@ -214,47 +216,66 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 <div class="task-card"><div class="task-icon"><i class="ti ti-checklist"></i></div><div class="task-name">Corrective action summaries</div><div class="task-desc">Summarise the actions taken and planned in response to the incident in plain, professional language.</div></div>
 </div>
 <div class="before-after">
-<div class="ba-card ba-before"><div class="ba-label ba-label-before"><i class="ti ti-x"></i> Without Claude</div><div class="ba-text">Write an incident report under time pressure from fragmented notes, risking unclear language or an illogical sequence that complicates the investigation.</div></div>
-<div class="ba-card ba-after"><div class="ba-label ba-label-after"><i class="ti ti-check"></i> With Claude</div><div class="ba-text">Paste your notes and get a structured, professionally worded draft — so you can focus on verifying the facts rather than wrestling with the writing.</div></div>
+<div class="ba-card ba-before"><div class="ba-label ba-label-before"><i class="ti ti-x"></i> Without Claude</div><div class="ba-text">Write an incident report under time pressure from fragmented notes or messy spreadsheet exports, risking unclear language or an illogical sequence that complicates the investigation.</div></div>
+<div class="ba-card ba-after"><div class="ba-label ba-label-after"><i class="ti ti-check"></i> With Claude</div><div class="ba-text">Paste your notes or cleaned spreadsheet data and get a structured, professionally worded draft — so you can focus on verifying the facts rather than wrestling with the writing.</div></div>
 </div>
 </div>
+
 <div id="seo-sec-1" class="seo-section">
 <p>A structured workflow keeps the incident report factually accurate and produces a document that holds up under scrutiny.</p>
 <div class="workflow-steps">
-<div class="wf-step"><div class="wf-num">1</div><div class="wf-content"><div class="wf-title">Record the facts immediately</div><div class="wf-desc">Write down what happened, when, where, who was involved and what actions were taken — as close to the event as possible, while details are fresh.</div></div></div>
+<div class="wf-step"><div class="wf-num">1</div><div class="wf-content"><div class="wf-title">Record the facts immediately</div><div class="wf-desc">Write down what happened, when, where, who was involved and what actions were taken — as close to the event as possible, while details are fresh. If your team logs incidents in a spreadsheet, export the relevant rows with timestamps, categories and descriptions.</div></div></div>
 <div class="wf-step"><div class="wf-num">2</div><div class="wf-content"><div class="wf-title">Identify the required report format</div><div class="wf-desc">Check whether your organisation or regulator requires a specific report structure, and note any mandatory sections.</div></div></div>
-<div class="wf-step"><div class="wf-num">3</div><div class="wf-content"><div class="wf-title">Ask Claude to draft the report</div><div class="wf-desc">Paste your notes and ask Claude to produce a structured incident report with a timeline, impact summary and corrective actions section.</div></div></div>
-<div class="wf-step"><div class="wf-num">4</div><div class="wf-content"><div class="wf-title">Verify every fact in the draft</div><div class="wf-desc">Read the draft carefully against your original notes — confirm every date, time, name and action is accurate and that Claude has not added anything not in your notes.</div></div></div>
-<div class="wf-step"><div class="wf-num">5</div><div class="wf-content"><div class="wf-title">Review, approve and submit</div><div class="wf-desc">Have the report reviewed by the appropriate manager or safety officer before submitting through your organisation's incident reporting system.</div></div></div>
+<div class="wf-step"><div class="wf-num">3</div><div class="wf-content"><div class="wf-title">Prepare your source data</div><div class="wf-desc">If working from a spreadsheet, make sure the data is clean: consistent date formats, no duplicate rows, and complete entries. For incident logs that pull data from multiple sheets, use a lookup function like <a href="https://www.pairworkflows.com/claude-excel-xlookup.html" style="color:#1d9e75;text-decoration:underline">XLOOKUP</a> to consolidate details such as employee names, department codes or equipment IDs into a single view before pasting into Claude.</div></div></div>
+<div class="wf-step"><div class="wf-num">4</div><div class="wf-content"><div class="wf-title">Ask Claude to draft the report</div><div class="wf-desc">Paste your notes or prepared data and ask Claude to produce a structured incident report with a timeline, impact summary and corrective actions section.</div></div></div>
+<div class="wf-step"><div class="wf-num">5</div><div class="wf-content"><div class="wf-title">Verify every fact in the draft</div><div class="wf-desc">Read the draft carefully against your original notes — confirm every date, time, name and action is accurate and that Claude has not added anything not in your notes.</div></div></div>
+<div class="wf-step"><div class="wf-num">6</div><div class="wf-content"><div class="wf-title">Review, approve and submit</div><div class="wf-desc">Have the report reviewed by the appropriate manager or safety officer before submitting through your organisation's incident reporting system.</div></div></div>
 </div>
 <div class="info-box"><p><strong>Note:</strong> Claude may reorder or reword events to improve clarity — always check that the sequence of events in the draft matches what actually happened, in the correct order.</p></div>
 </div>
+
 <div id="seo-sec-2" class="seo-section">
 <p>These prompts help structure incident notes into a formal report and draft a stakeholder communication, with strict limits on what Claude should add.</p>
 <div class="prompt-block">
 <div class="prompt-block-label">Prompt 1 — Draft an incident report</div>
 <div class="prompt-block-text">Using the following incident notes, draft a structured incident report: [Insert Incident Notes].
+
 Structure the report with these sections: Incident Summary, Date and Time, Location, People Involved, Sequence of Events, Impact, Immediate Actions Taken, and Corrective Actions Planned.
+
 Crucial instruction: Base every section strictly on the facts provided. Do not infer causes, add context or include details not present in the notes.</div>
 <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
 </div>
 <div class="prompt-block">
 <div class="prompt-block-label">Prompt 2 — Draft a stakeholder update</div>
 <div class="prompt-block-text">Based on this incident report: [Insert Incident Report or Summary], draft a brief update for [Audience, e.g. senior management / affected customers / the operations team].
+
 Keep the tone [Insert Tone, e.g. factual and calm / reassuring / direct].
+
 Crucial instruction: Only include information present in the report. Do not speculate about causes, assign blame or make promises about outcomes not confirmed in the facts.</div>
 <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
 </div>
+<div class="prompt-block">
+<div class="prompt-block-label">Prompt 3 — Summarise incident data from a spreadsheet</div>
+<div class="prompt-block-text">Here is a table of incident log data exported from our tracking spreadsheet: [Paste table data].
+
+For each incident, extract: date, category, severity, brief description, and resolution status. Then provide a summary paragraph covering total incidents, most common category, and any patterns in timing or severity.
+
+Crucial instruction: Only summarise what is present in the data. Do not infer trends that the numbers do not support or add incidents not in the table.</div>
+<button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+</div>
+<p>If your team tracks incidents over time and you need to turn that raw log into a management-ready view, Claude can also help you build <a href="https://www.pairworkflows.com/claude-excel-dynamic-reports.html" style="color:#1d9e75;text-decoration:underline">dynamic reports in Excel</a> — with filters by date range, category or severity — so the data is always presentation-ready before it reaches the written report stage.</p>
 <div class="checklist-box">
 <div class="checklist-title">Before submitting a Claude-drafted incident report</div>
 <div class="checklist-item"><i class="ti ti-square-check"></i> Factual accuracy: does every date, time, name and action in the report match your original notes exactly?</div>
 <div class="checklist-item"><i class="ti ti-square-check"></i> No added details: has Claude not inferred causes, assigned blame or added context not in your notes?</div>
 <div class="checklist-item"><i class="ti ti-square-check"></i> Correct sequence: does the timeline of events in the report match the actual order in which things happened?</div>
 <div class="checklist-item"><i class="ti ti-square-check"></i> Completeness: are all required sections present and filled — including corrective actions?</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Source data integrity: if the report was drafted from spreadsheet data, have you confirmed the source data was clean — no duplicates, no missing timestamps, no broken formulas?</div>
 <div class="checklist-item"><i class="ti ti-square-check"></i> Approval: has the report been reviewed and approved by the appropriate manager or safety officer?</div>
 </div>
 <div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>Important:</strong> Incident reports for safety events, regulatory incidents or insurance claims may have legal implications. Never submit a report that contains information you cannot verify — and always follow your organisation's incident reporting procedures, which Claude cannot know or replicate.</div></div>
 </div>
+
 <div id="seo-sec-3" class="seo-section"><div id="quiz-interactive-container"></div></div>
 </div>
 <div class="content-footer"><button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button><button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button></div>
@@ -343,15 +364,15 @@ var quiz=[
   {q:'What limitation does Claude have when structuring incident notes?',
    opts:['It cannot produce reports with a timeline section','It may reorder or reword events — the sequence must always be checked against what actually happened','It can only process incidents that occurred within the last 24 hours'],
    correct:1},
-  {q:'Why should incident reports for safety or regulatory events never contain unverified information?',
-  opts:['Because your incident management system will reject reports with unverified data','Because Claude automatically flags unverified content in its output','Because these reports may have legal implications and inaccurate details can cause serious problems'],
-  correct:2}
+  {q:'Why is it important to clean your spreadsheet data before asking Claude to draft an incident report from it?',
+  opts:['Because Claude cannot read data from Excel files','Because duplicates, inconsistent date formats or blank rows can produce an inaccurate or incomplete report','Because Claude requires data to be in CSV format only'],
+  correct:1}
 ];
 function buildQuizHTML(){
   if(quizDone){
     var score=0;
     for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
-    var msgs=['Review Section 1 and 3 — understanding what Claude needs and what must be verified is the foundation.','Good effort — re-read the workflow steps and the report review checklist before trying again.','Almost there! One concept to sharpen — revisit why unverified details in incident reports are a serious problem.','Perfect mark! Try drafting a real incident report from your notes using the first prompt.'];
+    var msgs=['Review Section 1 and 3 — understanding what Claude needs and what must be verified is the foundation.','Good effort — re-read the workflow steps and the report review checklist before trying again.','Almost there! One concept to sharpen — revisit the workflow and data preparation steps.','Perfect mark! Try drafting a real incident report from your notes using the first prompt.'];
     return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
   }
   var html='';
