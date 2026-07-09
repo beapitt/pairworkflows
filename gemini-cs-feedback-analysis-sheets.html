@@ -21,15 +21,15 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
 .navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
 .logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
 .logo-workflows{font-size:16px;font-weight:400;color:#fff}
 .nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
 .nav-back:hover{color:#1d9e75}
-.page-wrap{width:100%;padding:0;flex:1}
-.course-shell{background:#fff;display:grid;grid-template-columns:240px 1fr;min-height:580px}
+.page-wrap{width:100%;flex:1;display:flex}
+.course-shell{background:#fff;display:grid;grid-template-columns:240px 1fr;min-height:580px;flex:1;width:100%}
 .sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
 .sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
 .course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
@@ -51,72 +51,75 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 .section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
 .section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
 .section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3}
-.content-body{padding:1.75rem 2rem;flex:1}
+.content-body{padding:1.75rem 2rem;flex:1;width:100%;max-width:100%;overflow-x:hidden}
 .seo-section{display:none}
 .seo-section.active-section{display:block}
 .seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
-.task-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.5rem 0}
-.task-card{background:#f8fafb;border:1px solid #e8ecef;border-top:3px solid #1d9e75;padding:1.25rem;text-align:center}
+.task-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.5rem 0;max-width:100%}
+.task-card{background:#f8fafb;border:1px solid #e8ecef;border-top:3px solid #1d9e75;border-radius:4px 4px 10px 10px;padding:1.25rem;text-align:center}
 .task-icon{font-size:26px;color:#1d9e75;margin-bottom:.5rem}
 .task-name{font-size:13px;font-weight:700;color:#0f6e56;margin-bottom:.3rem}
 .task-desc{font-size:12px;color:#374151;line-height:1.5}
 .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.5rem 0}
-.stat-item{background:#085041;padding:1.25rem 1rem;text-align:center}
+.stat-item{background:#085041;border-radius:10px;padding:1.25rem 1rem;text-align:center}
 .stat-num{font-size:26px;font-weight:700;color:#fff;line-height:1;margin-bottom:.35rem}
 .stat-label{font-size:11px;color:#9fe1cb;line-height:1.4;text-transform:uppercase;letter-spacing:.04em}
 .sentiment-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:1.5rem 0}
-.sentiment-card{padding:1rem 1.25rem;text-align:center;border:2px solid transparent}
+.sentiment-card{padding:1rem 1.25rem;text-align:center;border:2px solid transparent;border-radius:10px}
 .sent-positive{background:linear-gradient(135deg,#065f46,#059669);border-color:#34d399}
 .sent-neutral{background:linear-gradient(135deg,#1e3a5f,#1d4ed8);border-color:#93c5fd}
 .sent-negative{background:linear-gradient(135deg,#7f1d1d,#b91c1c);border-color:#fca5a5}
 .sentiment-icon{font-size:24px;color:#fff;margin-bottom:.3rem}
 .sentiment-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.85);margin-bottom:.2rem}
 .sentiment-desc{font-size:11px;color:rgba(255,255,255,.65);line-height:1.4}
-.before-after{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.5rem 0}
-.ba-card{padding:1.25rem}
+.before-after{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.5rem 0;max-width:100%}
+.ba-card{border-radius:12px;padding:1.25rem}
 .ba-before{background:#fef2f2;border:1px solid #fecaca}
 .ba-after{background:#e1f5ee;border:1px solid #6ee7b7}
 .ba-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem;display:flex;align-items:center;gap:6px}
 .ba-label-before{color:#dc2626}
 .ba-label-after{color:#059669}
 .ba-text{font-size:13px;line-height:1.6;color:#374151}
-.prompt-block{background:#1a1a2e;padding:1.25rem;margin:1.25rem 0}
+.prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
 .prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
 .prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
-.prompt-block-copy{background:transparent;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px}
+.prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}
+.prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#fff}
 .workflow-steps{display:flex;flex-direction:column;gap:10px;margin:1.5rem 0}
-.wf-step{display:flex;align-items:flex-start;gap:14px;background:#f8fafb;border:1px solid #e8ecef;padding:1rem 1.25rem}
-.wf-num{width:30px;height:30px;background:#0f6e56;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0}
+.wf-step{display:flex;align-items:flex-start;gap:14px;background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:1rem 1.25rem}
+.wf-num{width:30px;height:30px;border-radius:50%;background:#0f6e56;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0}
 .wf-content{flex:1;min-width:0}
 .wf-title{font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.2rem}
 .wf-desc{font-size:13px;color:#374151;line-height:1.55}
 .tag-palette{display:flex;flex-wrap:wrap;gap:8px;margin:1.25rem 0}
-.tag-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;font-size:12px;font-weight:600}
+.tag-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;font-size:12px;font-weight:600;border-radius:6px}
 .tag-pricing{background:#fff8e1;color:#92400e;border:1px solid #fcd34d}
 .tag-usability{background:#e1f5ee;color:#065f46;border:1px solid #6ee7b7}
 .tag-support{background:#ede9fe;color:#5b21b6;border:1px solid #c4b5fd}
 .tag-feature{background:#fce7f3;color:#9d174d;border:1px solid #f9a8d4}
-.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;padding:1.25rem;margin:1.5rem 0}
+.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;border-radius:12px;padding:1.25rem;margin:1.5rem 0}
 .checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
 .checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
 .checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
-.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;padding:1rem 1.25rem;margin:1.25rem 0}
+.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
 .highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
 .highlight-text{font-size:13px;color:#374151;line-height:1.65}
-.warning-box{background:#fef2f2;border-left:3px solid #dc2626;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
+.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
 .warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
 .warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
-.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;padding:1rem 1.25rem;margin:1.25rem 0}
+.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
 .info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
 .content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc;flex-shrink:0}
-.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;font-size:13px;font-family:inherit;cursor:pointer}
+.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-back:hover{background:#f0f2f5}
 .btn-back:disabled{opacity:.35;cursor:default}
-.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer}
+.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-fwd:hover{background:#0f6e56}
 .quiz-q{margin-bottom:1.5rem}
 .quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
-.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;line-height:1.45}
+.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
 .opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
-.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}
 .opt.selected .radio{border-color:#1d9e75;background:#1d9e75}
 .opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
@@ -124,30 +127,35 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 .opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
 .opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
 .opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
-.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem}
+.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}
+.submit-global:hover{background:#0f6e56}
 .submit-global:disabled{opacity:.35;cursor:default}
-.result-box{background:#f8fafb;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
+.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
 .result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
 .result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
-.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer}
+.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.retake-btn:hover{background:#e1f5ee}
 .page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:2rem}
 .page-footer a{color:#1d9e75;text-decoration:none}
 .page-footer a:hover{text-decoration:underline}
 #searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
 #searchOverlay.open{display:flex}
 .search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
-.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1}
-.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;padding:12px 16px;background:transparent}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
+.search-close-btn:hover{color:#fff}
+.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
 .search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
 .search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
 .search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center;letter-spacing:.02em}
+.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
 @media(max-width:700px){
   .navbar{padding:0 1rem}
   .page-wrap{padding:0}
   .course-shell{grid-template-columns:1fr}
   .sidebar{display:none}
-  .content-body{padding:1.25rem 1rem}
+  .content-body{padding:1.25rem 1rem;max-width:100%;overflow-x:hidden}
   .section-hero{padding:1.25rem 1rem}
   .content-footer{padding:1rem}
   .task-grid,.before-after,.stat-row,.sentiment-row{grid-template-columns:1fr}
@@ -208,6 +216,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 <div id="seo-sec-0" class="seo-section active-section">
 <p>Reading through hundreds of survey responses, Net Promoter Score (NPS) comments or post-sale interview notes manually is an overwhelming task. Sales and account management teams often leave valuable qualitative data sitting in spreadsheets simply because identifying recurring themes and classifying sentiment takes too much administrative time.</p>
 <p>Gemini in Google Sheets acts as a rapid qualitative data analyzer to eliminate this bottleneck. By prompting the AI to review columns of open-text feedback, you can automatically categorize responses, extract the most common feature requests and evaluate overall client sentiment. This transforms unstructured, messy text into quantifiable data ready for strategic review.</p>
+<p>This course focuses on Google Sheets, but many teams export their final categorized data into <a href="https://www.pairworkflows.com/ai-for-excel.html" style="color:#1d9e75;text-decoration:underline">Excel</a> for further analysis, reporting or sharing with stakeholders who don't use Google Workspace. The same principles of structured categorization apply regardless of the spreadsheet tool.</p>
 <div class="highlight-box"><div class="highlight-icon"><i class="ti ti-bulb"></i></div><div class="highlight-text"><strong>Key insight:</strong> Gemini analyzes qualitative text strictly based on the definitions and categories you provide in your prompt — it cannot inherently understand your specific industry context or infer emotions that are not explicitly written.</div></div>
 <div class="stat-row">
 <div class="stat-item"><div class="stat-num">4</div><div class="stat-label">Feedback categories Gemini can tag per row</div></div>
@@ -233,11 +242,11 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#042e1f;color:#1a1a2e;
 <div id="seo-sec-1" class="seo-section">
 <p>A systematic approach to data analysis ensures your AI-driven feedback categorization remains objective, accurate and commercially relevant.</p>
 <div class="workflow-steps">
-<div class="wf-step"><div class="wf-num">1</div><div class="wf-content"><div class="wf-title">Consolidate your data</div><div class="wf-desc">Export NPS comments, churn reasons or client survey responses from your CRM into a single, clean Google Sheet.</div></div></div>
+<div class="wf-step"><div class="wf-num">1</div><div class="wf-content"><div class="wf-title">Consolidate and clean your data</div><div class="wf-desc">Export NPS comments, churn reasons or client survey responses from your CRM into a single, clean Google Sheet. Remove duplicate rows, fix inconsistent date formats and strip out blank entries — the same <a href="https://www.pairworkflows.com/claude-excel-clean-data.html" style="color:#1d9e75;text-decoration:underline">data cleaning principles</a> apply whether you work in Sheets or Excel.</div></div></div>
 <div class="wf-step"><div class="wf-num">2</div><div class="wf-content"><div class="wf-title">Define your categories</div><div class="wf-desc">Determine the specific business tags you want to track, such as onboarding, product stability or contract terms.</div></div></div>
 <div class="wf-step"><div class="wf-num">3</div><div class="wf-content"><div class="wf-title">Prompt for categorization</div><div class="wf-desc">Use the Gemini side panel to evaluate the text column and assign your predefined tags and sentiment ratings to each row.</div></div></div>
 <div class="wf-step"><div class="wf-num">4</div><div class="wf-content"><div class="wf-title">Extract overarching themes</div><div class="wf-desc">Ask the AI to generate a high-level summary of the most common complaints or praises across the entire dataset.</div></div></div>
-<div class="wf-step"><div class="wf-num">5</div><div class="wf-content"><div class="wf-title">Review and pivot</div><div class="wf-desc">Manually verify a sample of the tagged rows for accuracy before building pivot tables to present the findings to your sales team.</div></div></div>
+<div class="wf-step"><div class="wf-num">5</div><div class="wf-content"><div class="wf-title">Review and build reports</div><div class="wf-desc">Manually verify a sample of the tagged rows for accuracy, then build pivot tables or <a href="https://www.pairworkflows.com/claude-excel-dynamic-reports.html" style="color:#1d9e75;text-decoration:underline">dynamic reports</a> to present the findings to your sales or leadership team.</div></div></div>
 </div>
 <p style="font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.75rem">Example category tags Gemini can apply:</p>
 <div class="tag-palette">
@@ -265,6 +274,7 @@ Crucial instruction: Only use the exact categories provided. Do not create new t
 Crucial instruction: Base the summary strictly on the provided text. Do not guess the root cause of the client issues or suggest internal product roadmaps.</div>
 <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
 </div>
+<p>Once your feedback is categorized, you may want to build conditional logic to flag specific patterns — for example, automatically highlighting rows where sentiment is "Negative" and category is "Pricing". If you do this in Excel, <a href="https://www.pairworkflows.com/claude-excel-if-ifs.html" style="color:#1d9e75;text-decoration:underline">IF and IFS formulas</a> are the right tool for that kind of conditional tagging.</p>
 <div class="checklist-box">
 <div class="checklist-title">Before presenting Gemini-analyzed feedback</div>
 <div class="checklist-item"><i class="ti ti-square-check"></i> Category adherence: did the AI strictly use your predefined tags without inventing new, unapproved categories?</div>
