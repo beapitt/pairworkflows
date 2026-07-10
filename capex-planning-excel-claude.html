@@ -600,18 +600,18 @@ var heroes=[
   {tag:'Section 04 — Quiz',title:'Test your understanding'}
 ];
 var quiz=[
-  {q:'A $320,000 warehouse roof project will be paid 50% in Q2 and 50% in Q3. How should this appear in the spend-phasing section?',
-   opts:['$320,000 in the month the project is approved','$160,000 spread across Q2 months and $160,000 spread across Q3 months','$26,667 per month for 12 months'],
-   correct:1},
-  {q:'Why does the template use SUMIFS rather than SUM for the total row?',
-   opts:['SUMIFS is faster than SUM in large workbooks','SUMIFS allows totalling only approved projects while excluding proposed, submitted, and rejected ones','SUMIFS is required for conditional formatting to work'],
-   correct:1},
-  {q:'An ERP upgrade costs $450,000 with zero salvage and a 7-year useful life. What is the estimated annual straight-line depreciation?',
-   opts:['$450,000 ÷ 7 = $64,286','$450,000 ÷ 10 = $45,000','$450,000 — depreciation doesn\'t apply to software'],
+  {q:'What happens in a rolling forecast when a new month closes?',
+   opts:['Actuals replace the oldest forecast column and a new forecast month is added at the far end','The entire model is rebuilt from scratch','The forecast horizon shrinks by one month'],
    correct:0},
-  {q:'Why should rejected projects remain in the CapEx template instead of being deleted?',
-   opts:['So the template has more rows and looks more comprehensive','For audit trail purposes and to give leadership a full view of all evaluated projects','Because Excel formulas break if rows are deleted'],
-   correct:1}
+  {q:'Why should forecast columns use formulas referencing an Assumptions tab instead of hard-coded numbers?',
+   opts:['Hard-coded numbers make the file size larger','Excel requires formulas for conditional formatting to work','Formulas let you update one assumption and have every forecast month recalculate automatically'],
+   correct:2},
+  {q:'Your company does 30% of annual revenue in Q4 and 20% in Q1. How should you account for this in the rolling forecast?',
+   opts:['Ignore it — monthly averages are close enough','Provide a seasonality index so the forecast weights each month realistically','Build a separate model for each quarter'],
+   correct:1},
+  {q:'A planned $50,000 office relocation is scheduled for September. How should this appear in the forecast?',
+   opts:['Entered as a hard-coded override in the September column only','Spread equally across all 12 forecast months at roughly $4,167 per month','Excluded from the forecast because it is a one-off item'],
+   correct:0}
 ];
 function buildQuizHTML(){
   if(quizDone){
