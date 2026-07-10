@@ -580,17 +580,17 @@ var heroes=[
 ];
 var quiz=[
   {q:'An asset costs £40,000, has a £4,000 salvage value, and a 5-year useful life. What is the annual straight-line depreciation?',
-   opts:['£8,000','£7,200','£40,000 ÷ 5 = £8,000 minus salvage = £4,000'],
-   correct:1},
+   opts:['£7,200','£8,000','£40,000 ÷ 5 = £8,000 (no salvage deduction)'],
+   correct:0},
   {q:'Why does the prompt tell Claude to add a MAX or IF check on annual depreciation?',
-   opts:['To make the formula run faster in large spreadsheets','To prevent depreciation from driving NBV below the salvage value','To ensure all assets use the same depreciation method'],
-   correct:1},
+   opts:['To ensure all assets use the same depreciation method','To make the formula run faster in large spreadsheets','To prevent depreciation from driving NBV below the salvage value'],
+   correct:2},
   {q:'An asset was placed in service on 1 July with a full-year depreciation of £12,000. Using half-year convention, what is the first-year charge?',
-   opts:['£12,000 — half-year convention uses the full amount','£6,000 — half a year of depreciation regardless of the exact date','£7,000 — 7 months of depreciation'],
-   correct:1},
+   opts:['£6,000 — half a year of depreciation regardless of the exact date','£12,000 — half-year convention uses the full amount','£7,000 — 7 months of depreciation'],
+   correct:0},
   {q:'Which depreciation method front-loads the most expense in the early years?',
-   opts:['Straight-line (SLN)','Sum-of-years\' digits (SYD)','Double declining balance (DDB)'],
-   correct:2}
+   opts:['Straight-line (SLN)','Double declining balance (DDB)','Sum-of-years\' digits (SYD)'],
+   correct:1}
 ];
 function buildQuizHTML(){
   if(quizDone){
