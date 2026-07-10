@@ -565,17 +565,17 @@ var heroes=[
 ];
 var quiz=[
   {q:'Entity A sells $150,000 of services to Entity B. Both entities record the transaction. What happens if you skip the elimination?',
-   opts:['Net income is overstated by $150,000','Group revenue is overstated by $150,000 and group COGS is overstated by $150,000','Only revenue is affected — COGS stays correct'],
-   correct:1},
+   opts:['Group revenue is overstated by $150,000 and group COGS is overstated by $150,000','Net income is overstated by $150,000','Only revenue is affected — COGS stays correct'],
+   correct:0},
   {q:'Entity A records $150,000 of intercompany revenue but Entity B records only $145,000 of intercompany COGS. What should the template do?',
-   opts:['Eliminate $150,000 from both sides and ignore the $5,000 difference','Eliminate $145,000 from both sides and flag the $5,000 imbalance for investigation','Average the two amounts and eliminate $147,500 from each side'],
-   correct:1},
+   opts:['Eliminate $150,000 from both sides and ignore the $5,000 difference','Average the two amounts and eliminate $147,500 from each side','Eliminate $145,000 from both sides and flag the $5,000 imbalance for investigation'],
+   correct:2},
   {q:'Why must line-item names be identical across all entities before consolidation?',
    opts:['Excel formulas are case-sensitive','Claude matches rows by exact line-item text — different names create duplicate rows instead of a clean sum','It is required by accounting standards'],
    correct:1},
   {q:'Entity B reports in EUR and the group reports in USD. Which exchange rate should you use for the consolidated P&L?',
-   opts:['The closing (spot) rate on the last day of the period','The average exchange rate for the reporting period','The rate on the date each invoice was issued'],
-   correct:1}
+   opts:['The average exchange rate for the reporting period','The closing (spot) rate on the last day of the period','The rate on the date each invoice was issued'],
+   correct:0}
 ];
 function buildQuizHTML(){
   if(quizDone){
