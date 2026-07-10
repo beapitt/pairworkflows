@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Build an Accounts Payable Aging Dashboard in Excel with Claude AI — PairWorkflows</title>
+<meta name="description" content="Learn how to build an Accounts Payable (AP) Aging Dashboard in Excel using Claude AI. Automate your 30-60-90 day invoice buckets and improve cash flow forecasting.">
+<link rel="canonical" href="https://www.pairworkflows.com/build-accounts-payable-aging-dashboard-excel-claude.html">
+<meta property="og:title" content="Build an Accounts Payable Aging Dashboard in Excel with Claude AI — PairWorkflows">
+<meta property="og:description" content="Learn how to build an Accounts Payable (AP) Aging Dashboard in Excel using Claude AI. Automate your 30-60-90 day invoice buckets and improve cash flow forecasting.">
+<meta property="og:url" content="https://www.pairworkflows.com/build-accounts-payable-aging-dashboard-excel-claude.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PairWorkflows">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Build an Accounts Payable Aging Dashboard in Excel with Claude AI","description":"Learn how to use Claude AI to build an Accounts Payable Aging Dashboard in Excel. Automate your 30-60-90 day invoice buckets to streamline vendor payments.","url":"https://www.pairworkflows.com/build-accounts-payable-aging-dashboard-excel-claude.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude handle my company's specific net payment terms?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can instruct Claude to adjust the calculation logic based on specific payment terms (e.g., Net 30, Net 60) if you include that column in your data prompt."}},{"@type":"Question","name":"Should I use IF formulas or a PivotTable for the aging report?","acceptedAnswer":{"@type":"Answer","text":"You need both. Claude will generate the IF or IFS formulas to assign each invoice to an aging bucket at the row level, and then guide you on summarizing those buckets using a PivotTable."}},{"@type":"Question","name":"How do I keep the AP aging buckets updating automatically?","acceptedAnswer":{"@type":"Answer","text":"Claude will utilize the TODAY() function in the Excel formulas. This ensures that every time you open the workbook, the invoice aging recalculates dynamically based on the current date."}}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="icon" type="image/png" href="/favicon.png">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
+.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
+.logo-workflows{font-size:16px;font-weight:400;color:#fff}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
+.nav-back:hover{color:#1d9e75}
+.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
+.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
+.course-shell{background:#fff;border-radius:16px;border:1px solid #e8ecef;overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
+.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
+.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
+.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
+.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
+.prog-wrap{padding:1rem 1.25rem .75rem}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
+.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
+.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
+.nav-list{padding:.5rem 0;flex:1}
+.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
+.nav-item:hover{background:#eef1f4}
+.nav-item.active{border-left-color:#1d9e75;background:#fff}
+.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
+.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
+.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
+.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
+.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
+.content-area{display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
+.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
+.section-hero h1{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
+.content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
+.seo-section{display:none}
+.seo-section.active-section{display:block}
+.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
+.seo-section h2{font-size:18px;font-weight:600;color:#1a1a2e;margin:1.5rem 0 1rem;line-height:1.3}
+.seo-section h3{font-size:15px;font-weight:600;color:#1a1a2e;margin:1.2rem 0 .8rem;line-height:1.3}
+
+.xl-grade-table{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.xl-gt-header-bar-7col{background:#f3f3f3;border-bottom:1px solid #d0d0d0;padding:4px 0;display:grid;grid-template-columns:44px 2fr 1fr 1fr 1fr 1fr 1.2fr}
+.xl-gt-row-7col{display:grid;grid-template-columns:44px 2fr 1fr 1fr 1fr 1fr 1.2fr;border-bottom:1px solid #e8e8e8}
+.xl-gt-header-bar-6col{background:#f3f3f3;border-bottom:1px solid #d0d0d0;padding:4px 0;display:grid;grid-template-columns:44px 1.5fr 1.5fr 1fr 1fr 1fr}
+.xl-gt-row-6col{display:grid;grid-template-columns:44px 1.5fr 1.5fr 1fr 1fr 1fr;border-bottom:1px solid #e8e8e8}
+.xl-gt-col-h{font-size:11px;font-weight:600;color:#595959;text-align:center;padding:3px 0;border-right:1px solid #e0e0e0}
+.xl-gt-col-h:last-child{border-right:none}
+.xl-gt-rows{display:flex;flex-direction:column}
+.xl-gt-row-7col:last-child, .xl-gt-row-6col:last-child{border-bottom:none}
+.xl-gt-row-num{font-size:11px;color:#595959;text-align:right;padding:7px 8px;background:#f3f3f3;border-right:1px solid #d0d0d0;font-weight:500}
+.xl-gt-cell{font-size:12px;font-family:'Inter',sans-serif;padding:7px 10px;border-right:1px solid #e8e8e8;display:flex;align-items:center}
+.xl-gt-cell:last-child{border-right:none}
+.xl-gt-cell.hdr{background:#f3f3f3;font-weight:600;color:#374151;font-size:11px}
+.xl-gt-cell.score{color:#374151;font-weight:500}
+.xl-gt-cell.num{justify-content:flex-end;font-family:'SFMono-Regular',Consolas,monospace;font-size:11px}
+.xl-gt-cell.grade-a{background:#c6efce;color:#276221;font-weight:700;justify-content:flex-end}
+.xl-gt-cell.grade-b{background:#ffeb9c;color:#9c6500;font-weight:700;justify-content:flex-end}
+.xl-gt-cell.grade-f{background:#ffc7ce;color:#9c0006;font-weight:700;justify-content:flex-end}
+.xl-gt-caption{background:#f8fafc;border-top:1px solid #e2e8f0;padding:8px 14px;font-size:11px;color:#64748b;font-style:italic}
+
+.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
+.prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
+.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
+.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}
+.prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#fff}
+.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;border-radius:12px;padding:1.25rem;margin:1.5rem 0}
+.checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
+.checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
+.checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
+.quiz-q{margin-bottom:1.5rem}
+.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
+.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
+.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
+.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}
+.opt.selected .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}
+.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
+.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
+.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
+.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}
+.submit-global:hover{background:#0f6e56}
+.submit-global:disabled{opacity:.35;cursor:default}
+.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
+.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
+.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
+.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.retake-btn:hover{background:#e1f5ee}
+.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc;flex-shrink:0}
+.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-back:hover{background:#f0f2f5}
+.btn-back:disabled{opacity:.35;cursor:default}
+.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-fwd:hover{background:#0f6e56}
+#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
+#searchOverlay.open{display:flex}
+.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
+.search-close-btn:hover{color:#fff}
+.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
+.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
+.search-box input::placeholder{color:rgba(255,255,255,.35)}
+.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
+@media(max-width:700px){
+  .navbar{padding:0 1rem}
+  .page-wrap{padding:1rem .5rem}
+  .course-shell{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
+  .content-footer{padding:1rem}
+  .section-hero{padding:1.25rem 1rem}
+  .xl-gt-header-bar-7col{grid-template-columns:36px 1fr 1fr 1fr 1fr 1fr 1fr}
+  .xl-gt-row-7col{grid-template-columns:36px 1fr 1fr 1fr 1fr 1fr 1fr}
+  .xl-gt-header-bar-6col{grid-template-columns:36px 1fr 1fr 1fr 1fr 1fr}
+  .xl-gt-row-6col{grid-template-columns:36px 1fr 1fr 1fr 1fr 1fr}
+  .xl-gt-cell{font-size:10px;padding:6px 4px}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
+<div class="search-overlay-inner">
+<button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+<form action="/search.html" method="get">
+<div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
+</form>
+<p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
+</div>
+</div>
+<div id="navbar-placeholder"></div>
+<script src="/navbar.js"></script>
+<noscript>
+<nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
+<a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
+<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a>
+<a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a>
+<a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a>
+<a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a>
+<a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a>
+<a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a>
+<a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
+<a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a>
+<a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a>
+<a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
+</nav>
+</noscript>
+<div class="page-wrap">
+<div class="course-shell">
+  <div class="sidebar">
+    <div class="sidebar-top">
+      <div class="course-label">Claude AI — Excel Course</div>
+      <div class="course-title-side">Build an Accounts Payable Aging Dashboard in Excel with Claude AI</div>
+    </div>
+    <div class="prog-wrap">
+      <div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
+      <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+    </div>
+    <div class="nav-list">
+      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">The AP Aging Dashboard</div></div>
+      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">Preparing Your AP Data</div></div>
+      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">The Exact Claude Prompt</div></div>
+      <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quick quiz</div></div>
+    </div>
+  </div>
+
+  <div class="content-area">
+    <div class="section-hero">
+      <div class="section-tag" id="heroTag">Section 01</div>
+      <h1 id="heroTitle">Build an Accounts Payable Aging Dashboard in Excel with Claude AI</h1>
+    </div>
+    <div class="content-body" id="cnt">
+
+      <div id="seo-sec-0" class="seo-section active-section">
+        <p>Tracking vendor invoices manually across disparate spreadsheets leads to missed payments, damaged supplier relationships, and inaccurate cash flow forecasting. This guide shows you how to use Claude AI to automatically categorize your open invoices into standard 30-day aging buckets. By having Claude generate the required date math and PivotTable structure, you can transform a raw AP subledger into a dynamic aging dashboard.</p>
+        
+        <h2>The Final Aging Dashboard</h2>
+        <p>By the end of this process, you will have a summarized view of exactly who you owe and how far past due those invoices are, structured like this:</p>
+
+        <div class="xl-grade-table">
+          <div class="xl-gt-header-bar-7col">
+            <div class="xl-gt-col-h"></div>
+            <div class="xl-gt-col-h">A</div>
+            <div class="xl-gt-col-h">B</div>
+            <div class="xl-gt-col-h">C</div>
+            <div class="xl-gt-col-h">D</div>
+            <div class="xl-gt-col-h">E</div>
+            <div class="xl-gt-col-h">F</div>
+          </div>
+          <div class="xl-gt-rows">
+            <div class="xl-gt-row-7col">
+              <div class="xl-gt-row-num">1</div>
+              <div class="xl-gt-cell hdr">Vendor</div>
+              <div class="xl-gt-cell hdr">Current ($)</div>
+              <div class="xl-gt-cell hdr">1-30 Days</div>
+              <div class="xl-gt-cell hdr">31-60 Days</div>
+              <div class="xl-gt-cell hdr">&gt; 60 Days</div>
+              <div class="xl-gt-cell hdr">Total Balance</div>
+            </div>
+            <div class="xl-gt-row-7col">
+              <div class="xl-gt-row-num">2</div>
+              <div class="xl-gt-cell score">Acme Corp</div>
+              <div class="xl-gt-cell num">15,000</div>
+              <div class="xl-gt-cell num grade-b">2,500</div>
+              <div class="xl-gt-cell num">0</div>
+              <div class="xl-gt-cell num">0</div>
+              <div class="xl-gt-cell num score">17,500</div>
+            </div>
+            <div class="xl-gt-row-7col">
+              <div class="xl-gt-row-num">3</div>
+              <div class="xl-gt-cell score">Global Tech</div>
+              <div class="xl-gt-cell num">0</div>
+              <div class="xl-gt-cell num">0</div>
+              <div class="xl-gt-cell num grade-f">4,200</div>
+              <div class="xl-gt-cell num grade-f">1,100</div>
+              <div class="xl-gt-cell num score">5,300</div>
+            </div>
+            <div class="xl-gt-row-7col">
+              <div class="xl-gt-row-num">4</div>
+              <div class="xl-gt-cell score">Office Supplies Ltd</div>
+              <div class="xl-gt-cell num">800</div>
+              <div class="xl-gt-cell num grade-b">150</div>
+              <div class="xl-gt-cell num">0</div>
+              <div class="xl-gt-cell num">0</div>
+              <div class="xl-gt-cell num score">950</div>
+            </div>
+            <div class="xl-gt-row-7col">
+              <div class="xl-gt-row-num">5</div>
+              <div class="xl-gt-cell hdr">Grand Total</div>
+              <div class="xl-gt-cell num hdr">15,800</div>
+              <div class="xl-gt-cell num hdr">2,650</div>
+              <div class="xl-gt-cell num hdr">4,200</div>
+              <div class="xl-gt-cell num hdr">1,100</div>
+              <div class="xl-gt-cell num hdr">23,750</div>
+            </div>
+          </div>
+          <div class="xl-gt-caption">This output is achieved by applying Claude's formula to the raw data and summarizing it via PivotTable.</div>
+        </div>
+      </div>
+
+      <div id="seo-sec-1" class="seo-section">
+        <h2>Preparing Your AP Data</h2>
+        <p>Before prompting Claude, extract your open payables from your accounting system (like QuickBooks, Xero, or NetSuite). The key is to ensure every row represents a single invoice and includes a definitive "Due Date."</p>
+
+        <div class="xl-grade-table">
+          <div class="xl-gt-header-bar-6col">
+            <div class="xl-gt-col-h"></div>
+            <div class="xl-gt-col-h">A</div>
+            <div class="xl-gt-col-h">B</div>
+            <div class="xl-gt-col-h">C</div>
+            <div class="xl-gt-col-h">D</div>
+            <div class="xl-gt-col-h">E</div>
+          </div>
+          <div class="xl-gt-rows">
+            <div class="xl-gt-row-6col">
+              <div class="xl-gt-row-num">1</div>
+              <div class="xl-gt-cell hdr">Vendor</div>
+              <div class="xl-gt-cell hdr">Invoice Num</div>
+              <div class="xl-gt-cell hdr">Invoice Date</div>
+              <div class="xl-gt-cell hdr">Due Date</div>
+              <div class="xl-gt-cell hdr">Amount ($)</div>
+            </div>
+            <div class="xl-gt-row-6col">
+              <div class="xl-gt-row-num">2</div>
+              <div class="xl-gt-cell score">Global Tech</div>
+              <div class="xl-gt-cell score">INV-8890</div>
+              <div class="xl-gt-cell num">08/01/2026</div>
+              <div class="xl-gt-cell num">08/31/2026</div>
+              <div class="xl-gt-cell num">4,200</div>
+            </div>
+            <div class="xl-gt-row-6col">
+              <div class="xl-gt-row-num">3</div>
+              <div class="xl-gt-cell score">Acme Corp</div>
+              <div class="xl-gt-cell score">AC-104</div>
+              <div class="xl-gt-cell num">09/15/2026</div>
+              <div class="xl-gt-cell num">10/15/2026</div>
+              <div class="xl-gt-cell num">15,000</div>
+            </div>
+            <div class="xl-gt-row-6col">
+              <div class="xl-gt-row-num">4</div>
+              <div class="xl-gt-cell score">Global Tech</div>
+              <div class="xl-gt-cell score">INV-8712</div>
+              <div class="xl-gt-cell num">07/05/2026</div>
+              <div class="xl-gt-cell num">08/04/2026</div>
+              <div class="xl-gt-cell num">1,100</div>
+            </div>
+          </div>
+          <div class="xl-gt-caption">Raw data requirement: Vendor, Due Date, and Amount are mandatory. Claude will create the "Bucket" column using formula logic.</div>
+        </div>
+
+        <p>Consistent data is crucial when using <a href="/ai-for-excel.html">AI for Excel</a>. If your Due Dates are sometimes text or missing entirely, the aging formula will fail. Clean the dataset first, ensuring all dates are formatted correctly.</p>
+
+        <h3>Why this matters for Cash Flow</h3>
+        <p>Understanding precisely when cash needs to leave the business prevents liquidity crises. Keeping this aging report updated is the first step toward building a reliable forecast, which you can explore further in our course on how to <a href="/automate-cash-flow-dashboard-excel-claude.html">automate a cash flow dashboard</a>.</p>
+      </div>
+
+      <div id="seo-sec-2" class="seo-section">
+        <h2>The Exact Claude Prompt</h2>
+        <p>Copy this prompt directly into Claude. It provides the strict guardrails necessary to ensure Claude writes a functional, error-free formula utilizing the <code>TODAY()</code> function, preventing hallucinations.</p>
+
+        <div class="prompt-block">
+          <div class="prompt-block-label">Prompt — paste into Claude</div>
+          <div class="prompt-block-text">I have an Accounts Payable raw data report in Excel. My columns are: Vendor Name, Invoice Number, Invoice Date, Due Date, and Outstanding Amount. 
+
+Task 1: I need to categorize each invoice into an aging bucket. Please write the exact Excel formula (using IF or IFS) to compare the Due Date against TODAY() and output one of these categories:
+- "Current" (Not yet due)
+- "1-30 Days Past Due"
+- "31-60 Days Past Due"
+- "Over 60 Days Past Due"
+
+Task 2: After providing the formula, give me brief, step-by-step instructions on how to use a PivotTable to summarize this data into a dashboard where rows are Vendors and columns are the Aging Buckets.
+
+CRITICAL INSTRUCTIONS:
+- Only use the data structure provided. Do not invent financial figures.
+- Ensure the formula handles blank due dates gracefully.
+- Write the formula so it is ready to paste directly into my spreadsheet.</div>
+          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+        </div>
+
+        <h2>Frequently Asked Questions</h2>
+        <h3>Can Claude handle my company's specific net payment terms?</h3>
+        <p>Yes. You can instruct Claude to adjust the calculation logic based on specific payment terms (e.g., Net 30, Net 60) if you include that column in your data prompt.</p>
+
+        <h3>Should I use IF formulas or a PivotTable for the aging report?</h3>
+        <p>You need both. Claude will generate the IF or IFS formulas to assign each invoice to an aging bucket at the row level, and then guide you on summarizing those buckets using a PivotTable.</p>
+
+        <h3>How do I keep the AP aging buckets updating automatically?</h3>
+        <p>Claude will utilize the <code>TODAY()</code> function in the Excel formulas. This ensures that every time you open the workbook, the invoice aging recalculates dynamically based on the current date.</p>
+
+        <div class="checklist-box">
+          <div class="checklist-title">Related Courses</div>
+          <div class="checklist-item"><i class="ti ti-link"></i><a href="/automate-accounts-receivable-tracking-excel-claude.html" style="color:#085041; text-decoration:none; font-weight:500;">Automate Accounts Receivable Tracking in Excel with Claude AI</a></div>
+          <div class="checklist-item"><i class="ti ti-link"></i><a href="/build-financial-kpi-dashboard-excel-claude.html" style="color:#085041; text-decoration:none; font-weight:500;">Build a Financial KPI Dashboard in Excel Using Claude AI</a></div>
+          <div class="checklist-item"><i class="ti ti-link"></i><a href="/automate-cash-flow-dashboard-excel-claude.html" style="color:#085041; text-decoration:none; font-weight:500;">Automate a Cash Flow Dashboard in Excel with Claude AI</a></div>
+        </div>
+      </div>
+
+      <div id="seo-sec-3" class="seo-section">
+        <div id="quiz-interactive-container"></div>
+      </div>
+
+    </div>
+    <div class="content-footer">
+      <button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button>
+      <button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>
+    </div>
+  </div>
+</div>
+</div>
+
+<footer style="background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0">
+<div style="max-width:1100px; margin:0 auto">
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
+<div>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Guides by Role</strong>
+<a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Finance Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for HR Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Marketing Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Legal Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Operations Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Sales Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Customer Service</a>
+<a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Excel</a>
+</div>
+<div>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Prompt Tools</strong>
+<a href="https://www.pairworkflows.com/claude-prompts-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Excel Prompt Builder</a>
+<a href="https://www.pairworkflows.com/claude-prompts-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Finance Prompt Builder</a>
+<a href="https://www.pairworkflows.com/claude-prompts-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">HR Prompt Builder</a>
+<a href="https://www.pairworkflows.com/claude-prompts-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Marketing Prompt Builder</a>
+<a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">General Prompt Library</a>
+</div>
+<div>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Resources</strong>
+<a href="https://www.pairworkflows.com/claude-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Claude Courses</a>
+<a href="https://www.pairworkflows.com/gemini-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Gemini Courses</a>
+<a href="https://www.pairworkflows.com/glossary.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI Glossary</a>
+<a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Claude vs Gemini</a>
+<a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
+</div>
+<div>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company & Legal</strong>
+<a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
+<a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
+<a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
+<a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Privacy Policy</a>
+<a href="https://www.pairworkflows.com/legal.html#terms" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Terms of Use</a>
+<a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Cookie Policy</a>
+</div>
+</div>
+<div style="text-align:center; margin-bottom:2rem">
+<p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:520px; margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p>
+</div>
+<div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem">
+<span style="font-size:13px; color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
+<div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
+<button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
+  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+  Copy link
+</button>
+<a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+  <span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span>
+</a>
+<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+</a>
+<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+
+<script>
+var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
+var heroes=[
+  {tag:'Section 01',title:'Build an Accounts Payable Aging Dashboard in Excel with Claude AI'},
+  {tag:'Section 02',title:'Preparing Your AP Data'},
+  {tag:'Section 03',title:'The Exact Claude Prompt'},
+  {tag:'Section 04 — Quiz',title:'Quick quiz'}
+];
+var quiz=[
+  {q:'Which Excel function is crucial for creating dynamic aging buckets that update automatically?',
+   opts:['VLOOKUP()','TODAY()','SUM()'],
+   correct:1},
+  {q:'Why must you ensure your AP data has a definitively formatted Due Date column?',
+   opts:['Because text-based dates will cause the aging formula to fail or return an error','Because Claude needs text to read the file','Because PivotTables cannot group numbers'],
+   correct:0},
+  {q:'What is the correct two-step process recommended in this course for AP Aging?',
+   opts:['Use Claude to write a Python script, then run it in Excel','Use Claude to write the row-level IF formulas for buckets, then summarize via PivotTable','Manually sort rows by date, then ask Claude for a subtotal'],
+   correct:1},
+  {q:'What is a key instruction in the prompt to prevent Claude from inventing data?',
+   opts:['"Only use the data structure provided. Do not invent financial figures."','"Write a macro to create sample data."','"Calculate the total accounts payable for a Fortune 500 company."'],
+   correct:0}
+];
+function buildQuizHTML(){
+  if(quizDone){
+    var score=0;
+    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
+    var msgs=['Worth re-reading section 1 — understanding the TODAY() function is key.','Good effort — review the data preparation step before diving in.','Almost there! One concept to sharpen — revisit how to structure the two-step formula and PivotTable process.','Perfect score — you are ready to automate your AP Aging reporting with Claude.'];
+    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
+  }
+  var html='';
+  for(var i=0;i<quiz.length;i++){
+    var q=quiz[i];
+    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
+    for(var j=0;j<q.opts.length;j++){
+      var cls='opt';
+      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
+      else if(sel[i]===j)cls+=' selected';
+      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
+    }
+    html+='</div>';
+  }
+  var allSel=Object.keys(sel).length===quiz.length;
+  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
+  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
+  return html;
+}
+function render(){
+  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
+  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
+  document.getElementById('heroTag').textContent=heroes[cur].tag;
+  document.getElementById('heroTitle').textContent=heroes[cur].title;
+  for(var i=0;i<4;i++){
+    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),sec=document.getElementById('seo-sec-'+i);
+    ni.className='nav-item'+(i===cur?' active':'');
+    if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');
+    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
+    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
+    else{nd.className='nav-dot';nd.textContent=(i+1);}
+  }
+  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
+  document.getElementById('btnBack').disabled=(cur===0);
+  var fwd=document.getElementById('btnFwd');
+  if(cur===3){fwd.style.display='none';}
+  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
+}
+function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
+function goFwd(){if(cur<3)go(cur+1);}
+function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
+function showResult(){quizDone=true;render();}
+function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
+function copyPrompt(btn){var block=btn.closest('.prompt-block');var text=block.querySelector('.prompt-block-text').innerText;navigator.clipboard.writeText(text);btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);}
+function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
+function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+document.getElementById('cnt').addEventListener('click',function(e){
+  if(cur!==3||quizSubmitted||quizDone)return;
+  var opt=e.target.closest('.opt');
+  if(!opt)return;
+  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
+  render();
+});
+render();
+</script>
+</body>
+</html>
