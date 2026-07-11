@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Build a Financial KPI Dashboard in Excel Using Claude AI — PairWorkflows</title>
-<meta name="description" content="Stop manually updating executive reports. Learn how to use Claude AI to build a dynamic Financial KPI Dashboard in Excel that tracks revenue, margins, and EBITDA.">
+<meta name="description" content="Use Claude AI to build a financial KPI dashboard in Excel. Track gross margin, DSO, current ratio, and EBITDA with automatic RAG status flags and trend tracking.">
 <link rel="canonical" href="https://www.pairworkflows.com/build-financial-kpi-dashboard-excel-claude.html">
 <meta property="og:title" content="Build a Financial KPI Dashboard in Excel Using Claude AI — PairWorkflows">
-<meta property="og:description" content="Learn how to use Claude AI to build a dynamic Financial KPI Dashboard in Excel that tracks revenue, margins, and EBITDA.">
+<meta property="og:description" content="Build a KPI dashboard in Excel with Claude AI. Profitability, liquidity, and efficiency metrics — formula-driven with threshold alerts and period-over-period trends.">
 <meta property="og:url" content="https://www.pairworkflows.com/build-financial-kpi-dashboard-excel-claude.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PairWorkflows">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Build a Financial KPI Dashboard in Excel Using Claude AI","description":"Learn how to use Claude AI to build a dynamic Financial KPI Dashboard in Excel that tracks revenue, margins, and EBITDA.","url":"https://www.pairworkflows.com/build-financial-kpi-dashboard-excel-claude.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude create the actual visual charts in Excel?","acceptedAnswer":{"@type":"Answer","text":"No, Claude cannot output a visual Excel chart directly. However, it will generate the exact formulas for your summary table and provide step-by-step instructions on which chart types (e.g., Line, Bar) to insert over that data."}},{"@type":"Question","name":"How do I update the dashboard next month?","acceptedAnswer":{"@type":"Answer","text":"By instructing Claude to use dynamic functions like SUMIFS pointing to entire columns, you only need to paste your new month's raw data into the data tab. The dashboard will update automatically."}},{"@type":"Question","name":"Can Claude handle complex custom KPIs like CAC or LTV?","acceptedAnswer":{"@type":"Answer","text":"Yes. You simply need to define the mathematical logic for your custom KPIs (e.g., Marketing Spend / New Customers) in the prompt, and Claude will translate that into the correct Excel formulas."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Build a Financial KPI Dashboard in Excel Using Claude AI","description":"Use Claude AI to build a financial KPI dashboard in Excel. Track gross margin, DSO, current ratio, and EBITDA with automatic RAG status flags and trend tracking.","url":"https://www.pairworkflows.com/build-financial-kpi-dashboard-excel-claude.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Which financial KPIs should a dashboard include?","acceptedAnswer":{"@type":"Answer","text":"Start with the metrics your leadership actually reviews. Common ones include gross margin, operating margin, EBITDA margin, current ratio, quick ratio, DSO (days sales outstanding), DPO (days payable outstanding), and revenue growth rate. The prompt in this course lets you specify exactly which KPIs to include — Claude does not add extras you haven't asked for."}},{"@type":"Question","name":"Can Claude calculate KPIs directly from raw financial statements?","acceptedAnswer":{"@type":"Answer","text":"Yes. Paste your income statement and balance sheet data, tell Claude which KPIs to calculate and their formulas, and Claude produces a dashboard with the computed values. It uses only the data you provide and writes out each formula so you can verify the logic."}},{"@type":"Question","name":"What do the RAG status colours mean in a KPI dashboard?","acceptedAnswer":{"@type":"Answer","text":"RAG stands for Red, Amber, Green. Green means the KPI is within target. Amber means it is approaching a threshold and needs attention. Red means it has breached the threshold and requires action. You define the thresholds — Claude applies conditional formatting based on your rules."}},{"@type":"Question","name":"How often should a financial KPI dashboard be updated?","acceptedAnswer":{"@type":"Answer","text":"Monthly is standard for most finance teams, aligned with the month-end close. Some KPIs like DSO and cash position benefit from weekly updates. The dashboard structure Claude builds works for any frequency — you simply paste updated figures into the input cells."}},{"@type":"Question","name":"Can I track KPI trends over multiple periods?","acceptedAnswer":{"@type":"Answer","text":"Yes. The prompt asks Claude to include period-over-period change columns showing both the absolute change and the percentage movement. This makes it easy to spot trends — a margin that dropped 0.5% this month isn't alarming, but a margin that has dropped 0.5% every month for six months is."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -23,14 +23,6 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
 .navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
-.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
-.logo-workflows{font-size:16px;font-weight:400;color:#fff}
-.nav-right{display:flex;align-items:center;gap:16px}
-.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
-.nav-back:hover{color:#1d9e75}
-.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
 .page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
 .course-shell{background:#fff;border-radius:16px;border:1px solid #e8ecef;overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
 .sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
@@ -53,44 +45,80 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .content-area{display:flex;flex-direction:column;min-width:0;overflow:hidden}
 .section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
 .section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
-.section-hero h1{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
+.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
 .content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
 .seo-section{display:none}
 .seo-section.active-section{display:block}
 .seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
-.seo-section h2{font-size:18px;font-weight:600;color:#1a1a2e;margin:1.5rem 0 1rem;line-height:1.3}
-.seo-section h3{font-size:15px;font-weight:600;color:#1a1a2e;margin:1.2rem 0 .8rem;line-height:1.3}
-
+.seo-section h1{font-size:24px;font-weight:600;color:#1a1a2e;margin-bottom:1rem;line-height:1.3}
+.seo-section h2{font-size:18px;font-weight:600;color:#1a1a2e;margin-bottom:.75rem;line-height:1.35}
+.seo-section h3{font-size:15px;font-weight:600;color:#1a1a2e;margin-bottom:.5rem;line-height:1.4}
 .xl-grade-table{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.xl-gt-header-bar{background:#f3f3f3;border-bottom:1px solid #d0d0d0;padding:4px 0;display:grid;grid-template-columns:44px 1.5fr 1fr 1fr 1fr 1fr}
-.xl-gt-row{display:grid;grid-template-columns:44px 1.5fr 1fr 1fr 1fr 1fr;border-bottom:1px solid #e8e8e8}
-.xl-gt-header-bar-4col{background:#f3f3f3;border-bottom:1px solid #d0d0d0;padding:4px 0;display:grid;grid-template-columns:44px 1fr 2fr 1fr}
-.xl-gt-row-4col{display:grid;grid-template-columns:44px 1fr 2fr 1fr;border-bottom:1px solid #e8e8e8}
+.xl-gt-header-bar{background:#f3f3f3;border-bottom:1px solid #d0d0d0;padding:4px 0;display:grid}
 .xl-gt-col-h{font-size:11px;font-weight:600;color:#595959;text-align:center;padding:3px 0;border-right:1px solid #e0e0e0}
 .xl-gt-col-h:last-child{border-right:none}
 .xl-gt-rows{display:flex;flex-direction:column}
-.xl-gt-row:last-child, .xl-gt-row-4col:last-child{border-bottom:none}
+.xl-gt-row{display:grid;border-bottom:1px solid #e8e8e8}
+.xl-gt-row:last-child{border-bottom:none}
 .xl-gt-row-num{font-size:11px;color:#595959;text-align:right;padding:7px 8px;background:#f3f3f3;border-right:1px solid #d0d0d0;font-weight:500}
 .xl-gt-cell{font-size:12px;font-family:'Inter',sans-serif;padding:7px 10px;border-right:1px solid #e8e8e8;display:flex;align-items:center}
 .xl-gt-cell:last-child{border-right:none}
 .xl-gt-cell.hdr{background:#f3f3f3;font-weight:600;color:#374151;font-size:11px}
 .xl-gt-cell.score{color:#374151;font-weight:500}
-.xl-gt-cell.num{justify-content:flex-end;font-family:'SFMono-Regular',Consolas,monospace;font-size:11px}
-.xl-gt-cell.grade-a{background:#c6efce;color:#276221;font-weight:700;justify-content:flex-end}
-.xl-gt-cell.grade-f{background:#ffc7ce;color:#9c0006;font-weight:700;justify-content:flex-end}
+.xl-gt-cell.rag-g{background:#c6efce;color:#276221;font-weight:700;justify-content:center}
+.xl-gt-cell.rag-a{background:#ffeb9c;color:#9c6500;font-weight:700;justify-content:center}
+.xl-gt-cell.rag-r{background:#ffc7ce;color:#9c0006;font-weight:700;justify-content:center}
+.xl-gt-cell.trend-up{color:#276221;font-weight:600}
+.xl-gt-cell.trend-down{color:#9c0006;font-weight:600}
+.xl-gt-cell.trend-flat{color:#595959;font-weight:500}
+.xl-gt-cell.section-hdr{background:#eef1f4;color:#1a1a2e;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.03em}
 .xl-gt-caption{background:#f8fafc;border-top:1px solid #e2e8f0;padding:8px 14px;font-size:11px;color:#64748b;font-style:italic}
-
 .info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
 .info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
+.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
+.highlight-text{font-size:13px;color:#374151;line-height:1.65}
+.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
+.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
+.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
+.steps-list{display:flex;flex-direction:column;gap:0;margin:1rem 0}
+.step-row{display:flex;gap:16px;padding:1.1rem 0;border-bottom:1px solid #f0f2f5}
+.step-row:last-child{border-bottom:none}
+.step-num{font-size:26px;font-weight:700;color:#d1fae5;line-height:1;flex-shrink:0;width:36px;text-align:right;padding-top:2px}
+.step-body h3{font-size:14px;font-weight:600;color:#085041;margin-bottom:.3rem}
+.step-body p{font-size:13px;color:#374151;line-height:1.75;margin:0}
+.step-body code{background:#f0fdf4;color:#0f6e56;padding:1px 6px;border-radius:4px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;border:1px solid #d1fae5}
 .prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
 .prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
 .prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
 .prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}
 .prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#fff}
-.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;border-radius:12px;padding:1.25rem;margin:1.5rem 0}
-.checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
-.checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
-.checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
+.arch-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:1.5rem 0}
+.arch-card{border:1px solid #e2e8f0;border-radius:10px;padding:1rem;background:#fff;text-align:center}
+.arch-card-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6rem;padding-bottom:.5rem;border-bottom:2px solid}
+.arch-card-title.prof-title{color:#0f6e56;border-color:#1d9e75}
+.arch-card-title.liq-title{color:#1f4e79;border-color:#3b82f6}
+.arch-card-title.eff-title{color:#9c6500;border-color:#f59e0b}
+.arch-card-item{font-size:12px;color:#374151;padding:3px 0;line-height:1.5}
+.arch-card-item.bold{font-weight:600;color:#1a1a2e}
+.flow-horizontal{display:flex;align-items:center;justify-content:center;gap:0;margin:1.5rem 0;flex-wrap:wrap}
+.flow-h-node{padding:10px 14px;border-radius:8px;text-align:center;font-size:12px;font-weight:600;border:1px solid;white-space:nowrap}
+.flow-h-node.src{background:#f8fafb;border-color:#d1d5db;color:#374151}
+.flow-h-node.calc{background:#f0fdf4;border-color:#6ee7b7;color:#085041}
+.flow-h-node.thresh{background:#fff8e1;border-color:#fde68a;color:#9c6500}
+.flow-h-node.out{background:#e8f0fe;border-color:#93c5fd;color:#1f4e79}
+.flow-h-arrow{width:28px;height:2px;background:#d1d5db;position:relative;flex-shrink:0}
+.flow-h-arrow::after{content:'';position:absolute;right:-3px;top:-3px;width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:5px solid #d1d5db}
+.faq-section{margin:1.5rem 0}
+.faq-item{border-bottom:1px solid #f0f2f5;padding:.85rem 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:.35rem}
+.faq-a{font-size:13px;color:#374151;line-height:1.7}
+.related-courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:1rem 0}
+.related-card{border:1px solid #e8ecef;border-radius:10px;padding:1rem;transition:all .15s;text-decoration:none;color:#1a1a2e}
+.related-card:hover{border-color:#1d9e75;background:#f5fdf9}
+.related-card-title{font-size:13px;font-weight:500;line-height:1.4;margin-bottom:.25rem}
+.related-card-tag{font-size:11px;color:#6b7280}
 .quiz-q{margin-bottom:1.5rem}
 .quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
 .opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
@@ -135,11 +163,12 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
   .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
   .content-footer{padding:1rem}
   .section-hero{padding:1.25rem 1rem}
-  .xl-gt-header-bar{grid-template-columns:36px 1fr 1fr 1fr 1fr 1fr}
-  .xl-gt-row{grid-template-columns:36px 1fr 1fr 1fr 1fr 1fr}
-  .xl-gt-header-bar-4col{grid-template-columns:36px 1fr 1.5fr 1fr}
-  .xl-gt-row-4col{grid-template-columns:36px 1fr 1.5fr 1fr}
-  .xl-gt-cell{font-size:10px;padding:6px 4px}
+  .xl-gt-cell{font-size:11px;padding:6px 5px}
+  .arch-cards{grid-template-columns:1fr;gap:8px}
+  .flow-horizontal{flex-direction:column;gap:6px}
+  .flow-h-arrow{width:2px;height:20px;transform:rotate(90deg)}
+  .related-courses{grid-template-columns:1fr}
+  .seo-section p{word-break:break-word;overflow-wrap:break-word}
 }
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
@@ -176,7 +205,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 <div class="course-shell">
   <div class="sidebar">
     <div class="sidebar-top">
-      <div class="course-label">Claude AI — Excel Course</div>
+      <div class="course-label">Claude AI — Excel / Finance</div>
       <div class="course-title-side">Build a Financial KPI Dashboard in Excel Using Claude AI</div>
     </div>
     <div class="prog-wrap">
@@ -184,9 +213,9 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
       <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
     </div>
     <div class="nav-list">
-      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">The Executive View</div></div>
-      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">Raw Data Setup</div></div>
-      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">The Dashboard Prompt</div></div>
+      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">How the dashboard works</div></div>
+      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">What Claude needs from you</div></div>
+      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompt, FAQ &amp; related</div></div>
       <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quick quiz</div></div>
     </div>
   </div>
@@ -194,161 +223,387 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
   <div class="content-area">
     <div class="section-hero">
       <div class="section-tag" id="heroTag">Section 01</div>
-      <h1 id="heroTitle">Build a Financial KPI Dashboard in Excel Using Claude AI</h1>
+      <h2 id="heroTitle">Your financials have the data. The KPI dashboard makes it talk.</h2>
     </div>
     <div class="content-body" id="cnt">
 
+      <!-- ═══════ SECTION 0 ═══════ -->
       <div id="seo-sec-0" class="seo-section active-section">
-        <p>Executives don't want to dig through raw P&L data; they want immediate answers. This guide shows you how to use Claude AI to build a dynamic Financial KPI Dashboard in Excel. You will learn how to prompt Claude to generate the formulas required to summarize key metrics like Gross Profit Margin, Operating Expenses, and Net Income, turning flat data into an executive-ready view instantly.</p>
-        
-        <h2>The Final KPI Dashboard</h2>
-        <p>By the end of this process, you will have a structured summary table that automatically calculates critical financial health metrics based on your raw input data:</p>
+        <h1>Build a Financial KPI Dashboard in Excel Using Claude AI</h1>
+        <p>Financial statements are full of numbers. KPIs are the handful that actually drive decisions. Gross margin tells you whether the product is profitable. DSO tells you how fast you collect. Current ratio tells you whether you can pay next month's bills. The problem is that extracting these from raw statements — and tracking them period over period with status flags — takes time that most finance teams don't have.</p>
+        <p>Claude takes your income statement and balance sheet, computes the KPIs you specify, applies the thresholds you define, and returns a dashboard with RAG status flags and trend arrows. You update it monthly by pasting new numbers into the same input cells.</p>
+
+        <h2>The Pipeline: Statements → Metrics → Signals</h2>
+
+        <div class="flow-horizontal">
+          <div class="flow-h-node src">IS &amp; BS data</div>
+          <div class="flow-h-arrow"></div>
+          <div class="flow-h-node calc">KPI formulas</div>
+          <div class="flow-h-arrow"></div>
+          <div class="flow-h-node thresh">Threshold rules</div>
+          <div class="flow-h-arrow"></div>
+          <div class="flow-h-node out">RAG dashboard</div>
+        </div>
+
+        <h2>Three Families of Financial KPIs</h2>
+
+        <div class="arch-cards">
+          <div class="arch-card">
+            <div class="arch-card-title prof-title">Profitability</div>
+            <div class="arch-card-item">Gross Margin %</div>
+            <div class="arch-card-item">Operating Margin %</div>
+            <div class="arch-card-item">EBITDA Margin %</div>
+            <div class="arch-card-item">Net Profit Margin %</div>
+            <div class="arch-card-item bold">= Are we making money?</div>
+          </div>
+          <div class="arch-card">
+            <div class="arch-card-title liq-title">Liquidity</div>
+            <div class="arch-card-item">Current Ratio</div>
+            <div class="arch-card-item">Quick Ratio</div>
+            <div class="arch-card-item">Cash Ratio</div>
+            <div class="arch-card-item">Working Capital</div>
+            <div class="arch-card-item bold">= Can we pay our bills?</div>
+          </div>
+          <div class="arch-card">
+            <div class="arch-card-title eff-title">Efficiency</div>
+            <div class="arch-card-item">DSO (Days Sales Outstanding)</div>
+            <div class="arch-card-item">DPO (Days Payable Outstanding)</div>
+            <div class="arch-card-item">Inventory Turnover</div>
+            <div class="arch-card-item">Revenue per Employee</div>
+            <div class="arch-card-item bold">= How well do we operate?</div>
+          </div>
+        </div>
+
+        <h2>The Output: What Claude Produces</h2>
 
         <div class="xl-grade-table">
-          <div class="xl-gt-header-bar">
+          <div class="xl-gt-header-bar" style="grid-template-columns:44px 120px repeat(5,1fr)">
             <div class="xl-gt-col-h"></div>
             <div class="xl-gt-col-h">A</div>
             <div class="xl-gt-col-h">B</div>
             <div class="xl-gt-col-h">C</div>
             <div class="xl-gt-col-h">D</div>
             <div class="xl-gt-col-h">E</div>
+            <div class="xl-gt-col-h">F</div>
           </div>
           <div class="xl-gt-rows">
-            <div class="xl-gt-row">
+            <div class="xl-gt-row" style="grid-template-columns:44px 120px repeat(5,1fr)">
               <div class="xl-gt-row-num">1</div>
-              <div class="xl-gt-cell hdr">Metric</div>
-              <div class="xl-gt-cell hdr">Jan-26</div>
-              <div class="xl-gt-cell hdr">Feb-26</div>
-              <div class="xl-gt-cell hdr">Mar-26</div>
-              <div class="xl-gt-cell hdr">Q1 Total</div>
+              <div class="xl-gt-cell hdr">KPI</div>
+              <div class="xl-gt-cell hdr">May</div>
+              <div class="xl-gt-cell hdr">Jun</div>
+              <div class="xl-gt-cell hdr">Change</div>
+              <div class="xl-gt-cell hdr">Target</div>
+              <div class="xl-gt-cell hdr">Status</div>
             </div>
-            <div class="xl-gt-row">
+            <div class="xl-gt-row" style="grid-template-columns:44px 120px repeat(5,1fr)">
               <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell score">Total Revenue</div>
-              <div class="xl-gt-cell num">120,000</div>
-              <div class="xl-gt-cell num">135,000</div>
-              <div class="xl-gt-cell num">142,000</div>
-              <div class="xl-gt-cell num score">397,000</div>
+              <div class="xl-gt-cell section-hdr" style="grid-column:span 6">Profitability</div>
             </div>
-            <div class="xl-gt-row">
+            <div class="xl-gt-row" style="grid-template-columns:44px 120px repeat(5,1fr)">
               <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell score">Gross Margin %</div>
-              <div class="xl-gt-cell num">65.0%</div>
-              <div class="xl-gt-cell num">67.2%</div>
-              <div class="xl-gt-cell num grade-a">68.5%</div>
-              <div class="xl-gt-cell num score">67.0%</div>
+              <div class="xl-gt-cell score">Gross Margin</div>
+              <div class="xl-gt-cell score">61.2%</div>
+              <div class="xl-gt-cell score">60.8%</div>
+              <div class="xl-gt-cell trend-down">-0.4pp</div>
+              <div class="xl-gt-cell score">≥ 60%</div>
+              <div class="xl-gt-cell rag-g">Green</div>
             </div>
-            <div class="xl-gt-row">
+            <div class="xl-gt-row" style="grid-template-columns:44px 120px repeat(5,1fr)">
               <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell score">Operating Expenses</div>
-              <div class="xl-gt-cell num">45,000</div>
-              <div class="xl-gt-cell num">48,000</div>
-              <div class="xl-gt-cell num grade-f">55,000</div>
-              <div class="xl-gt-cell num score">148,000</div>
+              <div class="xl-gt-cell score">EBITDA Margin</div>
+              <div class="xl-gt-cell score">18.5%</div>
+              <div class="xl-gt-cell score">16.1%</div>
+              <div class="xl-gt-cell trend-down">-2.4pp</div>
+              <div class="xl-gt-cell score">≥ 18%</div>
+              <div class="xl-gt-cell rag-r">Red</div>
             </div>
-            <div class="xl-gt-row">
+            <div class="xl-gt-row" style="grid-template-columns:44px 120px repeat(5,1fr)">
               <div class="xl-gt-row-num">5</div>
-              <div class="xl-gt-cell score">Net Income</div>
-              <div class="xl-gt-cell num">33,000</div>
-              <div class="xl-gt-cell num">42,720</div>
-              <div class="xl-gt-cell num">42,270</div>
-              <div class="xl-gt-cell num score">117,990</div>
+              <div class="xl-gt-cell section-hdr" style="grid-column:span 6">Liquidity</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 120px repeat(5,1fr)">
+              <div class="xl-gt-row-num">6</div>
+              <div class="xl-gt-cell score">Current Ratio</div>
+              <div class="xl-gt-cell score">1.85</div>
+              <div class="xl-gt-cell score">1.72</div>
+              <div class="xl-gt-cell trend-down">-0.13</div>
+              <div class="xl-gt-cell score">≥ 1.50</div>
+              <div class="xl-gt-cell rag-g">Green</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 120px repeat(5,1fr)">
+              <div class="xl-gt-row-num">7</div>
+              <div class="xl-gt-cell score">Quick Ratio</div>
+              <div class="xl-gt-cell score">1.10</div>
+              <div class="xl-gt-cell score">0.95</div>
+              <div class="xl-gt-cell trend-down">-0.15</div>
+              <div class="xl-gt-cell score">≥ 1.00</div>
+              <div class="xl-gt-cell rag-a">Amber</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 120px repeat(5,1fr)">
+              <div class="xl-gt-row-num">8</div>
+              <div class="xl-gt-cell section-hdr" style="grid-column:span 6">Efficiency</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 120px repeat(5,1fr)">
+              <div class="xl-gt-row-num">9</div>
+              <div class="xl-gt-cell score">DSO</div>
+              <div class="xl-gt-cell score">42 days</div>
+              <div class="xl-gt-cell score">47 days</div>
+              <div class="xl-gt-cell trend-down">+5 days</div>
+              <div class="xl-gt-cell score">≤ 45</div>
+              <div class="xl-gt-cell rag-r">Red</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 120px repeat(5,1fr)">
+              <div class="xl-gt-row-num">10</div>
+              <div class="xl-gt-cell score">DPO</div>
+              <div class="xl-gt-cell score">33 days</div>
+              <div class="xl-gt-cell score">31 days</div>
+              <div class="xl-gt-cell trend-flat">-2 days</div>
+              <div class="xl-gt-cell score">≥ 30</div>
+              <div class="xl-gt-cell rag-g">Green</div>
             </div>
           </div>
-          <div class="xl-gt-caption">Claude provides the SUMIFS and margin calculation formulas linking this summary tab directly to your raw data.</div>
+          <div class="xl-gt-caption">EBITDA Margin dropped below the 18% target — Red. DSO worsened past the 45-day threshold — Red. Quick Ratio dipped below 1.0 — Amber. Every status is formula-driven from the thresholds you set, not manually coloured.</div>
         </div>
 
-        <p>A well-structured dashboard prevents the need to manually recalculate metrics during the month-end close, as discussed in our <a href="/claude-for-finance.html" style="color:#1d9e75; font-weight:500; text-decoration:none;">AI for Finance Teams</a> overview.</p>
+        <div class="info-box"><p><strong>Key insight:</strong> The dashboard doesn't just calculate ratios — it tells you which ones need attention <em>right now</em>. A single-period KPI is a data point. Two periods with a trend arrow is a signal. A signal that crosses a threshold is a call to action. That's the difference between a spreadsheet and a dashboard.</p></div>
       </div>
 
+      <!-- ═══════ SECTION 1 ═══════ -->
       <div id="seo-sec-1" class="seo-section">
-        <h2>Raw Data Setup</h2>
-        <p>For Claude to generate functional Excel formulas, your raw data must be formatted vertically (tabular format) rather than horizontally. Ensure you have a central data tab with columns defining the Date, Account Category, and Amount.</p>
+        <h2>What Claude Needs From You</h2>
+        <p>Claude computes KPIs from raw financial data — it doesn't pull numbers from thin air. You supply the income statement and balance sheet; you choose which KPIs to track; you set the thresholds. Claude handles the formula writing, status logic, and formatting.</p>
 
+        <h3>Input Data: Two Periods of Financial Statements</h3>
         <div class="xl-grade-table">
-          <div class="xl-gt-header-bar-4col">
+          <div class="xl-gt-header-bar" style="grid-template-columns:44px 1fr 1fr 1fr">
             <div class="xl-gt-col-h"></div>
             <div class="xl-gt-col-h">A</div>
             <div class="xl-gt-col-h">B</div>
             <div class="xl-gt-col-h">C</div>
           </div>
           <div class="xl-gt-rows">
-            <div class="xl-gt-row-4col">
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
               <div class="xl-gt-row-num">1</div>
-              <div class="xl-gt-cell hdr">Month</div>
-              <div class="xl-gt-cell hdr">Account Category</div>
-              <div class="xl-gt-cell hdr">Amount ($)</div>
+              <div class="xl-gt-cell hdr">Line Item</div>
+              <div class="xl-gt-cell hdr">May 2025</div>
+              <div class="xl-gt-cell hdr">Jun 2025</div>
             </div>
-            <div class="xl-gt-row-4col">
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
               <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell num">01/31/2026</div>
               <div class="xl-gt-cell score">Revenue</div>
-              <div class="xl-gt-cell num">120,000</div>
+              <div class="xl-gt-cell score">520,000</div>
+              <div class="xl-gt-cell score">535,000</div>
             </div>
-            <div class="xl-gt-row-4col">
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
               <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell num">01/31/2026</div>
-              <div class="xl-gt-cell score">Cost of Goods Sold</div>
-              <div class="xl-gt-cell num">42,000</div>
+              <div class="xl-gt-cell score">COGS</div>
+              <div class="xl-gt-cell score">201,760</div>
+              <div class="xl-gt-cell score">209,720</div>
             </div>
-            <div class="xl-gt-row-4col">
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
               <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell num">01/31/2026</div>
               <div class="xl-gt-cell score">Operating Expenses</div>
-              <div class="xl-gt-cell num">45,000</div>
+              <div class="xl-gt-cell score">180,000</div>
+              <div class="xl-gt-cell score">195,000</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">5</div>
+              <div class="xl-gt-cell score">D&amp;A</div>
+              <div class="xl-gt-cell score">22,000</div>
+              <div class="xl-gt-cell score">22,000</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">6</div>
+              <div class="xl-gt-cell score">Accounts Receivable</div>
+              <div class="xl-gt-cell score">240,000</div>
+              <div class="xl-gt-cell score">276,000</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">7</div>
+              <div class="xl-gt-cell score">Current Assets</div>
+              <div class="xl-gt-cell score">680,000</div>
+              <div class="xl-gt-cell score">695,000</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">8</div>
+              <div class="xl-gt-cell score">Current Liabilities</div>
+              <div class="xl-gt-cell score">368,000</div>
+              <div class="xl-gt-cell score">404,000</div>
             </div>
           </div>
-          <div class="xl-gt-caption">This tabular format allows Claude to confidently generate SUMIFS formulas that sum values based on the month and category.</div>
         </div>
 
-        <p>If you struggle to organize your raw exports efficiently, checking off preliminary data-cleaning steps via an <a href="/month-end-close-excel-claude.html" style="color:#1d9e75; font-weight:500; text-decoration:none;">automated month-end close checklist</a> is highly recommended.</p>
+        <div class="steps-list">
+          <div class="step-row">
+            <div class="step-num">01</div>
+            <div class="step-body"><h3>Pick your KPIs deliberately — don't track everything</h3><p>A dashboard with 25 metrics is a spreadsheet with a green header. Pick 6–10 KPIs that your leadership actually reviews. The prompt lets you specify exactly which ones — Claude doesn't add extras.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">02</div>
+            <div class="step-body"><h3>Provide at least two periods of data</h3><p>One period gives you a snapshot. Two periods give you a trend. The Change column in the dashboard only works if Claude has a prior period to compare against. More periods (3–6 months) make trend analysis even more useful.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">03</div>
+            <div class="step-body"><h3>Define your thresholds — not someone else's</h3><p>A "good" gross margin depends entirely on your industry and business model. SaaS companies run 70–80%. Manufacturing might be 25–35%. Tell Claude <em>your</em> targets: <code>Gross Margin ≥ 60%</code>, <code>DSO ≤ 45 days</code>, <code>Current Ratio ≥ 1.5</code>. These drive the RAG colours.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">04</div>
+            <div class="step-body"><h3>Decide on RAG rules: two-tier or three-tier</h3><p>Two-tier: Green (on target) and Red (off target). Three-tier adds Amber for "approaching the threshold." If you want three tiers, tell Claude the buffer — for example, <code>Amber if within 2 percentage points of target</code>.</p></div>
+          </div>
+        </div>
+
+        <div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>Common mistake:</strong> Using DSO that's calculated from revenue rather than credit sales. If 30% of your revenue is cash at point of sale, DSO based on total revenue will look artificially low. Tell Claude which revenue figure to use, and whether you track this through <a href="/accounts-receivable-excel-claude.html" style="color:#7f1d1d;font-weight:500">accounts receivable tracking</a> separately.</div></div>
+
+        <div class="highlight-box">
+          <div class="highlight-icon"><i class="ti ti-bulb"></i></div>
+          <div class="highlight-text"><strong>Pro tip:</strong> Structure your input as a dedicated "Data" tab in the workbook. Every KPI formula references that tab. Each month, you update just the Data tab — every KPI, trend, and RAG status recalculates instantly. Claude can build this structure for you if you ask for it in the prompt.</div>
+        </div>
       </div>
 
+      <!-- ═══════ SECTION 2 ═══════ -->
       <div id="seo-sec-2" class="seo-section">
-        <h2>The Exact Claude Prompt for KPIs</h2>
-        <p>Use the following prompt to instruct Claude. It explicitly asks for formulas, preventing the AI from simply doing the math and returning dead text. We want living, dynamic Excel functions.</p>
+        <h2>The Claude Prompt for a Financial KPI Dashboard</h2>
 
         <div class="prompt-block">
           <div class="prompt-block-label">Prompt — paste into Claude</div>
-          <div class="prompt-block-text">I want to build a Financial KPI Dashboard in Excel. 
-I have a raw data sheet named 'Data' with columns: Month (Col A), Account Category (Col B), and Amount (Col C).
-My dashboard sheet is named 'Dashboard'. In row 1, starting in cell B1, I have month headers (e.g., Jan-26, Feb-26).
+          <div class="prompt-block-text">ROLE
+You are a senior FP&A analyst building a monthly KPI dashboard in Excel.
 
-Please write the exact Excel formulas (using SUMIFS or similar) to calculate the following in the 'Dashboard' sheet under the respective month columns:
-1. Total Revenue
-2. Total Cost of Goods Sold (COGS)
-3. Gross Margin % (Formula: (Revenue - COGS) / Revenue)
-4. Total Operating Expenses
-5. Net Income (Formula: Gross Profit - Operating Expenses)
+OBJECTIVE
+Take my financial statement data and produce a KPI dashboard with computed metrics, period-over-period trends, threshold-based RAG status flags, and conditional formatting.
 
-CRITICAL INSTRUCTIONS:
-- Do not invent any financial numbers. Only provide the Excel formulas.
-- Ensure the formulas are easily draggable across columns for future months.
-- Account for potential divide-by-zero errors in the Gross Margin % calculation.</div>
+DATA
+[Paste your income statement and balance sheet data here — at least two periods, with consistent line-item names across periods]
+
+KPIs TO CALCULATE
+[List each KPI with its formula. Examples:]
+- Gross Margin % = (Revenue - COGS) / Revenue
+- Operating Margin % = Operating Income / Revenue
+- EBITDA Margin % = (Operating Income + D&A) / Revenue
+- Current Ratio = Current Assets / Current Liabilities
+- Quick Ratio = (Current Assets - Inventory) / Current Liabilities
+- DSO = (Accounts Receivable / Revenue) × days in period
+- DPO = (Accounts Payable / COGS) × days in period
+
+THRESHOLDS (for RAG status)
+[List each KPI with Green / Amber / Red rules. Examples:]
+- Gross Margin: Green ≥ 60%, Amber 55-59%, Red < 55%
+- Current Ratio: Green ≥ 1.5, Amber 1.2-1.49, Red < 1.2
+- DSO: Green ≤ 45, Amber 46-55, Red > 55
+
+CONSTRAINTS
+- Calculate each KPI using the formula I specified — do not substitute alternative definitions.
+- Add a Change column showing the period-over-period movement (absolute and percentage or pp where appropriate).
+- Apply conditional formatting: green fill for Green, amber/yellow fill for Amber, red fill for Red.
+- Group KPIs by category (Profitability, Liquidity, Efficiency) with section headers.
+- Do NOT invent financial data or thresholds I haven't provided.
+- Do NOT add KPIs beyond the ones I listed.
+- Write formulas explicitly (e.g. =(B2-B3)/B2) so I can audit the logic.
+
+OUTPUT FORMAT
+- Tab-separated dashboard table ready to paste into Excel.
+- Separate Data Input section with labelled cells for each financial line item per period — so I can update monthly by changing just the input cells.</div>
           <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
         </div>
 
-        <h3>Context: The Next Step</h3>
-        <p>Once you have this underlying data table built by Claude, you can highlight it and insert visual charts in Excel. This robust foundation is the same principle used when <a href="/automate-cash-flow-dashboard-excel-claude.html" style="color:#1d9e75; font-weight:500; text-decoration:none;">automating cash flow dashboards</a> or building full three-statement models.</p>
+        <h2>The Dashboard Is the Starting Point, Not the Answer</h2>
+        <p>A KPI turning Red doesn't mean something is wrong — it means something needs investigation. EBITDA Margin dropped 2.4 percentage points this month. Was it a one-off legal expense? A deliberate hiring push? A pricing problem? The dashboard surfaces the question. Your team answers it.</p>
+        <p>If the answer involves analysing the gap between planned and actual spending, the <a href="/budget-variance-excel-claude.html" style="color:#1d9e75;font-weight:500">budget variance analysis course</a> gives you a structured way to do that. If the concern is cash position rather than profitability, the <a href="/automate-cash-flow-dashboard-excel-claude.html" style="color:#1d9e75;font-weight:500">cash flow dashboard</a> tracks where the money is going week by week. Both feed naturally into this KPI view — the variance report explains the <em>why</em>, the cash dashboard shows the <em>when</em>.</p>
+
+        <h3>KPI Formulas Quick Reference</h3>
+        <div class="xl-grade-table">
+          <div class="xl-gt-header-bar" style="grid-template-columns:44px 1fr 1fr 1fr">
+            <div class="xl-gt-col-h"></div>
+            <div class="xl-gt-col-h">A</div>
+            <div class="xl-gt-col-h">B</div>
+            <div class="xl-gt-col-h">C</div>
+          </div>
+          <div class="xl-gt-rows">
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">1</div>
+              <div class="xl-gt-cell hdr">KPI</div>
+              <div class="xl-gt-cell hdr">Formula</div>
+              <div class="xl-gt-cell hdr">Watch Out For</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">2</div>
+              <div class="xl-gt-cell score">Gross Margin %</div>
+              <div class="xl-gt-cell score">(Revenue − COGS) / Revenue</div>
+              <div class="xl-gt-cell score">Inconsistent COGS definitions between periods</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">3</div>
+              <div class="xl-gt-cell score">EBITDA Margin %</div>
+              <div class="xl-gt-cell score">(Op. Income + D&amp;A) / Revenue</div>
+              <div class="xl-gt-cell score">D&amp;A must be broken out from OpEx</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">4</div>
+              <div class="xl-gt-cell score">Current Ratio</div>
+              <div class="xl-gt-cell score">Current Assets / Current Liabilities</div>
+              <div class="xl-gt-cell score">A ratio above 3.0 may signal idle capital</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">5</div>
+              <div class="xl-gt-cell score">DSO</div>
+              <div class="xl-gt-cell score">(AR / Revenue) × Days</div>
+              <div class="xl-gt-cell score">Use credit sales, not total revenue, if material</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">6</div>
+              <div class="xl-gt-cell score">Quick Ratio</div>
+              <div class="xl-gt-cell score">(CA − Inventory) / CL</div>
+              <div class="xl-gt-cell score">Excludes inventory — stricter than current ratio</div>
+            </div>
+          </div>
+          <div class="xl-gt-caption">Tell Claude exactly which formulas to use. Different definitions of EBITDA or DSO will produce different dashboard values — clarity in the prompt prevents surprises in the output.</div>
+        </div>
 
         <h2>Frequently Asked Questions</h2>
-        <h3>Can Claude create the actual visual charts in Excel?</h3>
-        <p>No, Claude cannot output a visual Excel chart directly. However, it will generate the exact formulas for your summary table and provide step-by-step instructions on which chart types (e.g., Line, Bar) to insert over that data.</p>
-
-        <h3>How do I update the dashboard next month?</h3>
-        <p>By instructing Claude to use dynamic functions like SUMIFS pointing to entire columns, you only need to paste your new month's raw data into the data tab. The dashboard will update automatically.</p>
-
-        <h3>Can Claude handle complex custom KPIs like CAC or LTV?</h3>
-        <p>Yes. You simply need to define the mathematical logic for your custom KPIs (e.g., Marketing Spend / New Customers) in the prompt, and Claude will translate that into the correct Excel formulas.</p>
-
-        <div class="checklist-box">
-          <div class="checklist-title">Related Courses</div>
-          <div class="checklist-item"><i class="ti ti-link"></i><a href="/build-budget-variance-analysis-report-excel-claude.html" style="color:#085041; text-decoration:none; font-weight:500;">Build a Budget Variance Analysis Report in Excel with Claude AI</a></div>
-          <div class="checklist-item"><i class="ti ti-link"></i><a href="/automate-cash-flow-dashboard-excel-claude.html" style="color:#085041; text-decoration:none; font-weight:500;">Automate a Cash Flow Dashboard in Excel with Claude AI</a></div>
-          <div class="checklist-item"><i class="ti ti-link"></i><a href="/build-3-statement-financial-model-excel-claude.html" style="color:#085041; text-decoration:none; font-weight:500;">Build a 3-Statement Financial Model Excel Template with Claude AI</a></div>
+        <div class="faq-section">
+          <div class="faq-item">
+            <div class="faq-q">Which financial KPIs should a dashboard include?</div>
+            <div class="faq-a">Start with the metrics your leadership actually reviews. Common ones include gross margin, operating margin, EBITDA margin, current ratio, quick ratio, DSO, and DPO. The prompt lets you specify exactly which ones — Claude doesn't add extras.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Can Claude calculate KPIs directly from raw financial statements?</div>
+            <div class="faq-a">Yes. Paste your income statement and balance sheet, tell Claude which KPIs to calculate and their formulas, and Claude produces the dashboard with computed values. It writes out each formula so you can verify the logic.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">What do the RAG status colours mean?</div>
+            <div class="faq-a">RAG stands for Red, Amber, Green. Green means on target. Amber means approaching a threshold. Red means the threshold has been breached. You define the thresholds — Claude applies them.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">How often should a financial KPI dashboard be updated?</div>
+            <div class="faq-a">Monthly is standard, aligned with the month-end close. Some KPIs like DSO and cash position benefit from weekly updates. The structure works at any frequency — you paste new figures into the input cells.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Can I track KPI trends over multiple periods?</div>
+            <div class="faq-a">Yes. The prompt includes period-over-period change columns. A margin that drops 0.5% this month isn't alarming. A margin that drops 0.5% every month for six months is. The trend makes the difference.</div>
+          </div>
         </div>
+
+        <h2>Related Excel Finance Courses</h2>
+        <div class="related-courses">
+          <a href="/budget-variance-excel-claude.html" class="related-card">
+            <div class="related-card-title">Build a Budget Variance Analysis Report in Excel with Claude AI</div>
+            <div class="related-card-tag">Excel · Finance</div>
+          </a>
+          <a href="/automate-cash-flow-dashboard-excel-claude.html" class="related-card">
+            <div class="related-card-title">Automate a Cash Flow Dashboard in Excel with Claude AI</div>
+            <div class="related-card-tag">Excel · Finance</div>
+          </a>
+          <a href="/build-3-statement-financial-model-excel-claude.html" class="related-card">
+            <div class="related-card-title">Build a 3-Statement Financial Model in Excel with Claude AI</div>
+            <div class="related-card-tag">Excel · Finance</div>
+          </a>
+        </div>
+
+        <div class="info-box"><p>Browse all courses on the <a href="/ai-for-excel.html" style="color:#085041;font-weight:600">AI for Excel</a> hub page, or explore the full <a href="/claude-for-finance.html" style="color:#085041;font-weight:600">AI for Finance Teams</a> collection.</p></div>
       </div>
 
+      <!-- ═══════ SECTION 3: QUIZ ═══════ -->
       <div id="seo-sec-3" class="seo-section">
         <div id="quiz-interactive-container"></div>
       </div>
@@ -393,7 +648,7 @@ CRITICAL INSTRUCTIONS:
 <a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
 </div>
 <div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company & Legal</strong>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company &amp; Legal</strong>
 <a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
 <a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
 <a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
@@ -430,30 +685,30 @@ CRITICAL INSTRUCTIONS:
 <script>
 var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
 var heroes=[
-  {tag:'Section 01',title:'Build a Financial KPI Dashboard in Excel Using Claude AI'},
-  {tag:'Section 02',title:'Raw Data Setup'},
-  {tag:'Section 03',title:'The Dashboard Prompt'},
-  {tag:'Section 04 — Quiz',title:'Quick quiz'}
+  {tag:'Section 01',title:'Your financials have the data. The KPI dashboard makes it talk.'},
+  {tag:'Section 02',title:'What Claude needs from you to build the dashboard'},
+  {tag:'Section 03',title:'The prompt, FAQ & related courses'},
+  {tag:'Section 04 — Quiz',title:'Do you know what the numbers are telling you?'}
 ];
 var quiz=[
-  {q:'Why must you explicitly ask Claude to write the Excel formulas for a KPI dashboard?',
-   opts:['Because Claude cannot do basic math','To prevent Claude from just outputting static text numbers instead of functional, updating Excel logic','Because you have to paste formulas into Word first'],
+  {q:'Revenue is $535,000 and COGS is $209,720. What is the gross margin?',
+   opts:['39.2%','60.8%','$325,280'],
    correct:1},
-  {q:'Which function is most critical for summing financial metrics by category and month?',
-   opts:['CONCATENATE','SUMIFS','VLOOKUP'],
+  {q:'The Quick Ratio dropped from 1.10 to 0.95 this month. Your threshold is ≥ 1.00. What RAG status should it show?',
+   opts:['Green — it was above target last month','Red — it is below 1.00','Amber — if the three-tier rule uses a buffer within 0.15 of the target, 0.95 falls in the Amber zone'],
+   correct:2},
+  {q:'DSO increased from 42 to 47 days. What does this tell you about the business?',
+   opts:['Revenue grew faster than expected','Customers are taking longer to pay — cash collection is slowing','The company extended payment terms to suppliers'],
    correct:1},
-  {q:'Can Claude automatically generate a bar chart inside your Excel file?',
-   opts:['Yes, Claude generates complete .xlsx files with charts','No, Claude provides the summary data formulas and instructions on how to insert the chart manually','Yes, if you use the CHART() function'],
-   correct:1},
-  {q:'How should your raw financial data be structured for best results?',
-   opts:['In a flat, tabular layout (columns for Date, Category, and Amount)','Spread across 12 different horizontal tabs','With multiple blank rows and subtotals interspersed'],
-   correct:0}
+  {q:'A dashboard tracks 22 KPIs. Why is this likely a problem?',
+   opts:['Excel cannot handle more than 20 conditional formatting rules','Too many KPIs dilute attention — leadership can\'t focus on what matters when everything is flagged','Claude cannot compute more than 15 KPIs in a single prompt'],
+   correct:1}
 ];
 function buildQuizHTML(){
   if(quizDone){
     var score=0;
     for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
-    var msgs=['Worth re-reading section 2 — understanding the importance of formulas is key.','Good effort — review the data preparation step before diving in.','Almost there! One concept to sharpen — revisit Claude\'s charting limitations.','Perfect score — you are ready to build dynamic dashboards with Claude.'];
+    var msgs=['Review the KPI formulas and RAG logic — these are the foundation of any dashboard.','Good instincts — revisit how Amber zones work and the DSO interpretation.','Nearly there — sharpen the last concept and your dashboard will drive real decisions.','You understand what the numbers mean. Go build the dashboard.'];
     return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
   }
   var html='';
