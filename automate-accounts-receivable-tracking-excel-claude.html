@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Automate Accounts Receivable Tracking in Excel with Claude AI — PairWorkflows</title>
-<meta name="description" content="Stop manually calculating days overdue. Learn how to use Claude AI to build an automated Accounts Receivable (AR) tracking spreadsheet in Excel.">
+<meta name="description" content="Use Claude AI to automate accounts receivable tracking in Excel. Calculate days past due, assign aging buckets dynamically, and flag high-risk invoices for collection.">
 <link rel="canonical" href="https://www.pairworkflows.com/automate-accounts-receivable-tracking-excel-claude.html">
 <meta property="og:title" content="Automate Accounts Receivable Tracking in Excel with Claude AI — PairWorkflows">
-<meta property="og:description" content="Stop manually calculating days overdue. Learn how to use Claude AI to build an automated Accounts Receivable (AR) tracking spreadsheet in Excel.">
+<meta property="og:description" content="Build an AR aging schedule in Excel with Claude AI. Dynamic due dates, 30-60-90 day aging buckets, and conditional RAG formatting for overdue accounts.">
 <meta property="og:url" content="https://www.pairworkflows.com/automate-accounts-receivable-tracking-excel-claude.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PairWorkflows">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Automate Accounts Receivable Tracking in Excel with Claude AI","description":"Stop manually calculating days overdue. Learn how to use Claude AI to build an automated Accounts Receivable (AR) tracking spreadsheet in Excel.","url":"https://www.pairworkflows.com/automate-accounts-receivable-tracking-excel-claude.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How does Claude handle partial invoice payments in Excel?","acceptedAnswer":{"@type":"Answer","text":"Claude does not automatically know about partial payments unless your data includes an 'Amount Paid' column. You must instruct Claude to calculate the 'Remaining Balance' (Invoice Amount - Amount Paid) and only flag the invoice as overdue if the Remaining Balance is greater than zero."}},{"@type":"Question","name":"Can I use Claude to calculate Days Sales Outstanding (DSO)?","acceptedAnswer":{"@type":"Answer","text":"Yes. Once your basic AR tracker is functioning, you can prompt Claude to write the formula for DSO using your total accounts receivable and total credit sales over a specific period."}},{"@type":"Question","name":"Will the AR tracker update automatically tomorrow?","acceptedAnswer":{"@type":"Answer","text":"Yes, provided Claude uses the TODAY() function in the formula. This ensures the 'Days Overdue' calculation recalculates dynamically every time you open the Excel file."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Automate Accounts Receivable Tracking in Excel with Claude AI","description":"Use Claude AI to automate accounts receivable tracking in Excel. Calculate days past due, assign aging buckets dynamically, and flag high-risk invoices for collection.","url":"https://www.pairworkflows.com/automate-accounts-receivable-tracking-excel-claude.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How does Claude automate AR tracking?","acceptedAnswer":{"@type":"Answer","text":"Claude writes the formulas to calculate days outstanding, assigns invoices to aging buckets (e.g., 30-60-90 days), and applies conditional formatting to flag overdue accounts."}},{"@type":"Question","name":"Can Claude handle partial payments?","acceptedAnswer":{"@type":"Answer","text":"Yes, if your data includes an 'Amount Paid' column, Claude can calculate the 'Remaining Balance' and only flag invoices where the balance is greater than zero."}},{"@type":"Question","name":"What is an aging schedule?","acceptedAnswer":{"@type":"Answer","text":"It is a table that categorizes accounts receivable according to the length of time an invoice has been outstanding, helping finance teams prioritize cash collections."}},{"@type":"Question","name":"Do I need to manually update the current date?","acceptedAnswer":{"@type":"Answer","text":"No, Claude will use the TODAY() formula so your aging report dynamically updates every time you open the Excel workbook."}},{"@type":"Question","name":"How do I handle different payment terms?","acceptedAnswer":{"@type":"Answer","text":"You can provide a 'Payment Terms' column (e.g., 30, 60 days). Claude will calculate the due date dynamically based on the invoice date and those specific terms."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -23,17 +23,9 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
 .navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
-.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
-.logo-workflows{font-size:16px;font-weight:400;color:#fff}
-.nav-right{display:flex;align-items:center;gap:16px}
-.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
-.nav-back:hover{color:#1d9e75}
-.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
-.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
-.course-shell{background:#fff;border-radius:16px;border:1px solid #e8ecef;overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
-.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
+.page-wrap{max-width:100%;margin:0;width:100%;padding:0;flex:1;display:flex}
+.course-shell{background:#fff;display:flex;width:100%;min-height:100vh;border:none;border-radius:0;box-shadow:none;overflow:hidden}
+.sidebar{width:240px;flex-shrink:0;background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
 .sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
 .course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
 .course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
@@ -50,48 +42,83 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
 .nav-text{font-size:13px;color:#6b7280;line-height:1.35}
 .nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
-.content-area{display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.content-area{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden}
 .section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
 .section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
-.section-hero h1{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
+.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
 .content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
 .seo-section{display:none}
 .seo-section.active-section{display:block}
 .seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
-.seo-section h2{font-size:18px;font-weight:600;color:#1a1a2e;margin:1.5rem 0 1rem;line-height:1.3}
-.seo-section h3{font-size:15px;font-weight:600;color:#1a1a2e;margin:1.2rem 0 .8rem;line-height:1.3}
-
+.seo-section h1{font-size:24px;font-weight:600;color:#1a1a2e;margin-bottom:1rem;line-height:1.3}
+.seo-section h2{font-size:18px;font-weight:600;color:#1a1a2e;margin-bottom:.75rem;line-height:1.35}
+.seo-section h3{font-size:15px;font-weight:600;color:#1a1a2e;margin-bottom:.5rem;line-height:1.4}
 .xl-grade-table{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.xl-gt-header-bar{background:#f3f3f3;border-bottom:1px solid #d0d0d0;padding:4px 0;display:grid;grid-template-columns:44px 1.5fr 1fr 1fr 1fr 1.5fr}
-.xl-gt-row{display:grid;grid-template-columns:44px 1.5fr 1fr 1fr 1fr 1.5fr;border-bottom:1px solid #e8e8e8}
-.xl-gt-header-bar-5col{background:#f3f3f3;border-bottom:1px solid #d0d0d0;padding:4px 0;display:grid;grid-template-columns:44px 2fr 1fr 1fr 1.5fr}
-.xl-gt-row-5col{display:grid;grid-template-columns:44px 2fr 1fr 1fr 1.5fr;border-bottom:1px solid #e8e8e8}
+.xl-gt-header-bar{background:#f3f3f3;border-bottom:1px solid #d0d0d0;padding:4px 0;display:grid}
 .xl-gt-col-h{font-size:11px;font-weight:600;color:#595959;text-align:center;padding:3px 0;border-right:1px solid #e0e0e0}
 .xl-gt-col-h:last-child{border-right:none}
 .xl-gt-rows{display:flex;flex-direction:column}
-.xl-gt-row:last-child, .xl-gt-row-5col:last-child{border-bottom:none}
+.xl-gt-row{display:grid;border-bottom:1px solid #e8e8e8}
+.xl-gt-row:last-child{border-bottom:none}
 .xl-gt-row-num{font-size:11px;color:#595959;text-align:right;padding:7px 8px;background:#f3f3f3;border-right:1px solid #d0d0d0;font-weight:500}
 .xl-gt-cell{font-size:12px;font-family:'Inter',sans-serif;padding:7px 10px;border-right:1px solid #e8e8e8;display:flex;align-items:center}
 .xl-gt-cell:last-child{border-right:none}
 .xl-gt-cell.hdr{background:#f3f3f3;font-weight:600;color:#374151;font-size:11px}
 .xl-gt-cell.score{color:#374151;font-weight:500}
-.xl-gt-cell.num{justify-content:flex-end;font-family:'SFMono-Regular',Consolas,monospace;font-size:11px}
-.xl-gt-cell.grade-a{background:#c6efce;color:#276221;font-weight:700;justify-content:center}
-.xl-gt-cell.grade-b{background:#ffeb9c;color:#9c6500;font-weight:700;justify-content:center}
-.xl-gt-cell.grade-f{background:#ffc7ce;color:#9c0006;font-weight:700;justify-content:center}
+.xl-gt-cell.rag-g{background:#c6efce;color:#276221;font-weight:700;justify-content:center}
+.xl-gt-cell.rag-a{background:#ffeb9c;color:#9c6500;font-weight:700;justify-content:center}
+.xl-gt-cell.rag-r{background:#ffc7ce;color:#9c0006;font-weight:700;justify-content:center}
+.xl-gt-cell.trend-up{color:#276221;font-weight:600}
+.xl-gt-cell.trend-down{color:#9c0006;font-weight:600}
+.xl-gt-cell.trend-flat{color:#595959;font-weight:500}
+.xl-gt-cell.section-hdr{background:#eef1f4;color:#1a1a2e;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.03em}
 .xl-gt-caption{background:#f8fafc;border-top:1px solid #e2e8f0;padding:8px 14px;font-size:11px;color:#64748b;font-style:italic}
-
 .info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
 .info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
+.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
+.highlight-text{font-size:13px;color:#374151;line-height:1.65}
+.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
+.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
+.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
+.steps-list{display:flex;flex-direction:column;gap:0;margin:1rem 0}
+.step-row{display:flex;gap:16px;padding:1.1rem 0;border-bottom:1px solid #f0f2f5}
+.step-row:last-child{border-bottom:none}
+.step-num{font-size:26px;font-weight:700;color:#d1fae5;line-height:1;flex-shrink:0;width:36px;text-align:right;padding-top:2px}
+.step-body h3{font-size:14px;font-weight:600;color:#085041;margin-bottom:.3rem}
+.step-body p{font-size:13px;color:#374151;line-height:1.75;margin:0}
+.step-body code{background:#f0fdf4;color:#0f6e56;padding:1px 6px;border-radius:4px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;border:1px solid #d1fae5}
 .prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
 .prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
 .prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
 .prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}
 .prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#fff}
-.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;border-radius:12px;padding:1.25rem;margin:1.5rem 0}
-.checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
-.checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
-.checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
+.arch-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:1.5rem 0}
+.arch-card{border:1px solid #e2e8f0;border-radius:10px;padding:1rem;background:#fff;text-align:center}
+.arch-card-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6rem;padding-bottom:.5rem;border-bottom:2px solid}
+.arch-card-title.prof-title{color:#0f6e56;border-color:#1d9e75}
+.arch-card-title.liq-title{color:#1f4e79;border-color:#3b82f6}
+.arch-card-title.eff-title{color:#9c6500;border-color:#f59e0b}
+.arch-card-item{font-size:12px;color:#374151;padding:3px 0;line-height:1.5}
+.arch-card-item.bold{font-weight:600;color:#1a1a2e}
+.flow-horizontal{display:flex;align-items:center;justify-content:center;gap:0;margin:1.5rem 0;flex-wrap:wrap}
+.flow-h-node{padding:10px 14px;border-radius:8px;text-align:center;font-size:12px;font-weight:600;border:1px solid;white-space:nowrap}
+.flow-h-node.src{background:#f8fafb;border-color:#d1d5db;color:#374151}
+.flow-h-node.calc{background:#f0fdf4;border-color:#6ee7b7;color:#085041}
+.flow-h-node.thresh{background:#fff8e1;border-color:#fde68a;color:#9c6500}
+.flow-h-node.out{background:#e8f0fe;border-color:#93c5fd;color:#1f4e79}
+.flow-h-arrow{width:28px;height:2px;background:#d1d5db;position:relative;flex-shrink:0}
+.flow-h-arrow::after{content:'';position:absolute;right:-3px;top:-3px;width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:5px solid #d1d5db}
+.faq-section{margin:1.5rem 0}
+.faq-item{border-bottom:1px solid #f0f2f5;padding:.85rem 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:.35rem}
+.faq-a{font-size:13px;color:#374151;line-height:1.7}
+.related-courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:1rem 0}
+.related-card{border:1px solid #e8ecef;border-radius:10px;padding:1rem;transition:all .15s;text-decoration:none;color:#1a1a2e}
+.related-card:hover{border-color:#1d9e75;background:#f5fdf9}
+.related-card-title{font-size:13px;font-weight:500;line-height:1.4;margin-bottom:.25rem}
+.related-card-tag{font-size:11px;color:#6b7280}
 .quiz-q{margin-bottom:1.5rem}
 .quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
 .opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
@@ -127,20 +154,20 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
 .search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
-.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
 @media(max-width:700px){
   .navbar{padding:0 1rem}
-  .page-wrap{padding:1rem .5rem}
-  .course-shell{grid-template-columns:1fr}
+  .page-wrap{padding:0}
+  .course-shell{flex-direction:column}
   .sidebar{display:none}
   .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
   .content-footer{padding:1rem}
   .section-hero{padding:1.25rem 1rem}
-  .xl-gt-header-bar{grid-template-columns:36px 1fr 1fr 1fr 1fr 1fr}
-  .xl-gt-row{grid-template-columns:36px 1fr 1fr 1fr 1fr 1fr}
-  .xl-gt-header-bar-5col{grid-template-columns:36px 1.5fr 1fr 1fr 1.5fr}
-  .xl-gt-row-5col{grid-template-columns:36px 1.5fr 1fr 1fr 1.5fr}
-  .xl-gt-cell{font-size:10px;padding:6px 4px}
+  .xl-gt-cell{font-size:11px;padding:6px 5px}
+  .arch-cards{grid-template-columns:1fr;gap:8px}
+  .flow-horizontal{flex-direction:column;gap:6px}
+  .flow-h-arrow{width:2px;height:20px;transform:rotate(90deg)}
+  .related-courses{grid-template-columns:1fr}
+  .seo-section p{word-break:break-word;overflow-wrap:break-word}
 }
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
@@ -152,7 +179,6 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 <form action="/search.html" method="get">
 <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
 </form>
-<p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
 </div>
 </div>
 <div id="navbar-placeholder"></div>
@@ -177,7 +203,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 <div class="course-shell">
   <div class="sidebar">
     <div class="sidebar-top">
-      <div class="course-label">Claude AI — Excel Course</div>
+      <div class="course-label">Claude AI — Excel / Finance</div>
       <div class="course-title-side">Automate Accounts Receivable Tracking in Excel with Claude AI</div>
     </div>
     <div class="prog-wrap">
@@ -185,9 +211,9 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
       <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
     </div>
     <div class="nav-list">
-      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">The AR Tracker Result</div></div>
-      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">Preparing Invoice Data</div></div>
-      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">The Automation Prompts</div></div>
+      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">How AR automation works</div></div>
+      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">What Claude needs from you</div></div>
+      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompt, FAQ &amp; related</div></div>
       <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quick quiz</div></div>
     </div>
   </div>
@@ -195,18 +221,135 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
   <div class="content-area">
     <div class="section-hero">
       <div class="section-tag" id="heroTag">Section 01</div>
-      <h1 id="heroTitle">Automate Accounts Receivable Tracking in Excel with Claude AI</h1>
+      <h2 id="heroTitle">Stop guessing who owes you money. Automate the aging schedule.</h2>
     </div>
     <div class="content-body" id="cnt">
 
+      <!-- ═══════ SECTION 0 ═══════ -->
       <div id="seo-sec-0" class="seo-section active-section">
-        <p>Stop manually counting days on the calendar to figure out which clients owe you money. This guide demonstrates how to use Claude AI to build an automated Accounts Receivable (AR) tracker in Excel. You will learn to generate dynamic formulas that automatically calculate days outstanding and assign past-due invoices into priority collection buckets, ensuring your finance team focuses on securing cash flow rather than updating spreadsheets.</p>
-        
-        <h2>The Final AR Output</h2>
-        <p>By the end of this mini-course, your raw invoice data will be transformed into a dynamic tracker that instantly flags overdue accounts. It will look like this:</p>
+        <h1>Automate Accounts Receivable Tracking in Excel with Claude AI</h1>
+        <p>Accounts Receivable (AR) is the lifeblood of cash flow. Manually calculating days past due and sorting invoices into aging buckets is a waste of finance hours, and relying on stale data destroys your ability to collect effectively. You need to know exactly which clients are in the 90+ day bucket today, not last week.</p>
+        <p>Claude takes your raw invoice exports, builds dynamic formulas to calculate outstanding days against the current date, and automatically categorizes every balance into standardized aging buckets (Current, 1-30, 31-60, 90+). Instead of manual sorting, you get an automated tracking report that updates the moment you open the file.</p>
+
+        <h2>The Pipeline: Invoice Data → Dynamic Logic → Aging Report</h2>
+
+        <div class="flow-horizontal">
+          <div class="flow-h-node src">Raw Invoices</div>
+          <div class="flow-h-arrow"></div>
+          <div class="flow-h-node calc">TODAY() Logic</div>
+          <div class="flow-h-arrow"></div>
+          <div class="flow-h-node thresh">Aging Buckets</div>
+          <div class="flow-h-arrow"></div>
+          <div class="flow-h-node out">Collection Action</div>
+        </div>
+
+        <h2>Three Components of AR Automation</h2>
+
+        <div class="arch-cards">
+          <div class="arch-card">
+            <div class="arch-card-title prof-title">Invoice Details</div>
+            <div class="arch-card-item">Customer Name</div>
+            <div class="arch-card-item">Invoice Date</div>
+            <div class="arch-card-item">Payment Terms</div>
+            <div class="arch-card-item">Invoice Amount</div>
+            <div class="arch-card-item bold">= The raw inputs</div>
+          </div>
+          <div class="arch-card">
+            <div class="arch-card-title liq-title">Time Logic</div>
+            <div class="arch-card-item">Calculated Due Date</div>
+            <div class="arch-card-item">Current Date Check</div>
+            <div class="arch-card-item">Days Outstanding</div>
+            <div class="arch-card-item">Past Due Flag</div>
+            <div class="arch-card-item bold">= The time vectors</div>
+          </div>
+          <div class="arch-card">
+            <div class="arch-card-title eff-title">Action Output</div>
+            <div class="arch-card-item">Remaining Balance</div>
+            <div class="arch-card-item">Assigned Bucket</div>
+            <div class="arch-card-item">Collection Priority</div>
+            <div class="arch-card-item">High-Risk Status</div>
+            <div class="arch-card-item bold">= The collection signals</div>
+          </div>
+        </div>
+
+        <h2>The Output: What Claude Produces</h2>
 
         <div class="xl-grade-table">
-          <div class="xl-gt-header-bar">
+          <div class="xl-gt-header-bar" style="grid-template-columns:44px 100px 120px 80px 80px 100px 100px 1fr">
+            <div class="xl-gt-col-h"></div>
+            <div class="xl-gt-col-h">A</div>
+            <div class="xl-gt-col-h">B</div>
+            <div class="xl-gt-col-h">C</div>
+            <div class="xl-gt-col-h">D</div>
+            <div class="xl-gt-col-h">E</div>
+            <div class="xl-gt-col-h">F</div>
+            <div class="xl-gt-col-h">G</div>
+          </div>
+          <div class="xl-gt-rows">
+            <div class="xl-gt-row" style="grid-template-columns:44px 100px 120px 80px 80px 100px 100px 1fr">
+              <div class="xl-gt-row-num">1</div>
+              <div class="xl-gt-cell hdr">Invoice #</div>
+              <div class="xl-gt-cell hdr">Customer</div>
+              <div class="xl-gt-cell hdr">Due Date</div>
+              <div class="xl-gt-cell hdr">Balance</div>
+              <div class="xl-gt-cell hdr">Overdue</div>
+              <div class="xl-gt-cell hdr">Bucket</div>
+              <div class="xl-gt-cell hdr">Status</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 100px 120px 80px 80px 100px 100px 1fr">
+              <div class="xl-gt-row-num">2</div>
+              <div class="xl-gt-cell score">INV-1001</div>
+              <div class="xl-gt-cell score">Acme Corp</div>
+              <div class="xl-gt-cell score">15-Aug-2026</div>
+              <div class="xl-gt-cell score">$5,000</div>
+              <div class="xl-gt-cell trend-down">45 days</div>
+              <div class="xl-gt-cell score">31-60 Days</div>
+              <div class="xl-gt-cell rag-a">Follow Up</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 100px 120px 80px 80px 100px 100px 1fr">
+              <div class="xl-gt-row-num">3</div>
+              <div class="xl-gt-cell score">INV-1002</div>
+              <div class="xl-gt-cell score">Beta Ltd</div>
+              <div class="xl-gt-cell score">10-Oct-2026</div>
+              <div class="xl-gt-cell score">$2,250</div>
+              <div class="xl-gt-cell trend-flat">0 days</div>
+              <div class="xl-gt-cell score">Current</div>
+              <div class="xl-gt-cell rag-g">Good Standing</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 100px 120px 80px 80px 100px 100px 1fr">
+              <div class="xl-gt-row-num">4</div>
+              <div class="xl-gt-cell score">INV-1003</div>
+              <div class="xl-gt-cell score">Gamma Inc</div>
+              <div class="xl-gt-cell score">01-May-2026</div>
+              <div class="xl-gt-cell score">$12,400</div>
+              <div class="xl-gt-cell trend-down">151 days</div>
+              <div class="xl-gt-cell score">90+ Days</div>
+              <div class="xl-gt-cell rag-r">High Risk</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 100px 120px 80px 80px 100px 100px 1fr">
+              <div class="xl-gt-row-num">5</div>
+              <div class="xl-gt-cell score">INV-1004</div>
+              <div class="xl-gt-cell score">Delta LLC</div>
+              <div class="xl-gt-cell score">20-Sep-2026</div>
+              <div class="xl-gt-cell score">$0</div>
+              <div class="xl-gt-cell trend-up">0 days</div>
+              <div class="xl-gt-cell score">Closed</div>
+              <div class="xl-gt-cell rag-g">Paid</div>
+            </div>
+          </div>
+          <div class="xl-gt-caption">Gamma Inc is severely overdue (Red). Acme Corp requires immediate follow-up (Amber). Delta LLC drops off the aging schedule entirely because the balance is zero. The days overdue recalculate automatically every day.</div>
+        </div>
+
+        <div class="info-box"><p><strong>Key insight:</strong> An AR report is only useful if it drives action. By explicitly mapping specific aging buckets to RAG statuses (e.g., &gt; 90 Days = Red), you immediately highlight which accounts require escalation to account managers or legal.</p></div>
+      </div>
+      <!-- ═══════ SECTION 1 ═══════ -->
+      <div id="seo-sec-1" class="seo-section">
+        <h2>What Claude Needs From You</h2>
+        <p>Claude cannot pull collection targets out of thin air. It needs your raw invoice data, a clear definition of your specific aging brackets, and the payment terms associated with your clients to build an accurate schedule.</p>
+
+        <h3>Input Data: Standardized Invoice Extract</h3>
+        <div class="xl-grade-table">
+          <div class="xl-gt-header-bar" style="grid-template-columns:44px 1fr 1fr 1fr 1fr 1fr">
             <div class="xl-gt-col-h"></div>
             <div class="xl-gt-col-h">A</div>
             <div class="xl-gt-col-h">B</div>
@@ -215,146 +358,199 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
             <div class="xl-gt-col-h">E</div>
           </div>
           <div class="xl-gt-rows">
-            <div class="xl-gt-row">
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr 1fr 1fr">
               <div class="xl-gt-row-num">1</div>
+              <div class="xl-gt-cell hdr">Invoice #</div>
               <div class="xl-gt-cell hdr">Customer</div>
-              <div class="xl-gt-cell hdr">Invoice Date</div>
-              <div class="xl-gt-cell hdr">Due Date</div>
-              <div class="xl-gt-cell hdr">Amount ($)</div>
-              <div class="xl-gt-cell hdr">Collection Status</div>
+              <div class="xl-gt-cell hdr">Date Issued</div>
+              <div class="xl-gt-cell hdr">Terms (Days)</div>
+              <div class="xl-gt-cell hdr">Amt Billed</div>
             </div>
-            <div class="xl-gt-row">
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr 1fr 1fr">
               <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell score">Global Industries</div>
-              <div class="xl-gt-cell num">08/01/2026</div>
-              <div class="xl-gt-cell num">08/31/2026</div>
-              <div class="xl-gt-cell num">12,500</div>
-              <div class="xl-gt-cell grade-f">31-60 Days Late</div>
+              <div class="xl-gt-cell score">INV-1001</div>
+              <div class="xl-gt-cell score">Acme Corp</div>
+              <div class="xl-gt-cell score">16-Jul-2026</div>
+              <div class="xl-gt-cell score">30</div>
+              <div class="xl-gt-cell score">10,000</div>
             </div>
-            <div class="xl-gt-row">
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr 1fr 1fr">
               <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell score">Tech Solutions</div>
-              <div class="xl-gt-cell num">09/25/2026</div>
-              <div class="xl-gt-cell num">10/25/2026</div>
-              <div class="xl-gt-cell num">3,400</div>
-              <div class="xl-gt-cell grade-a">Current</div>
+              <div class="xl-gt-cell score">INV-1002</div>
+              <div class="xl-gt-cell score">Beta Ltd</div>
+              <div class="xl-gt-cell score">10-Sep-2026</div>
+              <div class="xl-gt-cell score">30</div>
+              <div class="xl-gt-cell score">2,250</div>
             </div>
-            <div class="xl-gt-row">
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr 1fr 1fr">
               <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell score">Apex Logistics</div>
-              <div class="xl-gt-cell num">09/10/2026</div>
-              <div class="xl-gt-cell num">10/10/2026</div>
-              <div class="xl-gt-cell num">8,200</div>
-              <div class="xl-gt-cell grade-b">1-30 Days Late</div>
-            </div>
-            <div class="xl-gt-row">
-              <div class="xl-gt-row-num">5</div>
-              <div class="xl-gt-cell score">Global Industries</div>
-              <div class="xl-gt-cell num">07/15/2026</div>
-              <div class="xl-gt-cell num">08/14/2026</div>
-              <div class="xl-gt-cell num">5,000</div>
-              <div class="xl-gt-cell grade-f">60+ Days Late</div>
+              <div class="xl-gt-cell score">INV-1003</div>
+              <div class="xl-gt-cell score">Gamma Inc</div>
+              <div class="xl-gt-cell score">01-Apr-2026</div>
+              <div class="xl-gt-cell score">30</div>
+              <div class="xl-gt-cell score">12,400</div>
             </div>
           </div>
-          <div class="xl-gt-caption">Claude generates the formula for Column E, dynamically comparing the Due Date to today's date and assigning a status.</div>
         </div>
 
-        <p>Managing AR is the lifeblood of corporate liquidity. As detailed in our <a href="/claude-for-finance.html" style="color:#1d9e75; font-weight:500; text-decoration:none;">AI for Finance</a> hub, keeping a real-time view of outstanding collections allows you to proactively mitigate bad debt.</p>
+        <div class="steps-list">
+          <div class="step-row">
+            <div class="step-num">01</div>
+            <div class="step-body"><h3>Standardize your payment terms</h3><p>If your system exports terms as "Net 30" in one row and simply "30" in another, formula logic breaks. Ensure your terms column uses standard numeric days (e.g., 30, 45, 60) so Claude can easily calculate due dates mathematically.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">02</div>
+            <div class="step-body"><h3>Include partial payments</h3><p>If you don't track the 'Amount Paid' against the invoice, you will end up chasing customers who have already settled their accounts. Ask Claude to calculate the Remaining Balance (Billed - Paid) and only flag balances > 0.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">03</div>
+            <div class="step-body"><h3>Define your exact aging buckets</h3><p>Don't let Claude guess. Tell it explicitly: <code>Current (Not due), 1-30 Days, 31-60 Days, 61-90 Days, and 90+ Days</code>. This ensures the output matches your internal reporting standards.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">04</div>
+            <div class="step-body"><h3>Require dynamic dates</h3><p>Never let Claude hardcode a date. The prompt must explicitly instruct the use of Excel's <code>TODAY()</code> function so that days outstanding increment automatically over time without manual intervention.</p></div>
+          </div>
+        </div>
+
+        <div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>Common mistake:</strong> Calculating 'Days Overdue' based on the Invoice Date instead of the Due Date. If you give a client 60-day terms, they are not past due on day 30. Ensure Claude's logic subtracts the Due Date from TODAY(), not the Invoice Date.</div></div>
+
+        <div class="highlight-box">
+          <div class="highlight-icon"><i class="ti ti-bulb"></i></div>
+          <div class="highlight-text"><strong>Pro tip:</strong> Once the table is built, ask Claude for the instructions to build a PivotTable summarizing the total outstanding balances by Customer and Aging Bucket. This gives you a high-level executive view for your weekly finance meeting.</div>
+        </div>
       </div>
 
-      <div id="seo-sec-1" class="seo-section">
-        <h2>Preparing Invoice Data</h2>
-        <p>Before prompting Claude, export your open receivables from your billing software. Ensure each row represents a single unpaid invoice. For the formula to work accurately, you need an exact Due Date. If your export only provides an "Invoice Date" and "Terms" (e.g., Net 30), Claude can help you calculate the Due Date first.</p>
+      <!-- ═══════ SECTION 2 ═══════ -->
+      <div id="seo-sec-2" class="seo-section">
+        <h2>The Claude Prompt for an Automated AR Schedule</h2>
+        <p style="font-size:13px; color:#374151; margin-bottom:1rem; font-weight:500;">This prompt works with Claude, Gemini, and ChatGPT.</p>
+        <div class="prompt-block">
+          <div class="prompt-block-label">Prompt — paste into AI</div>
+          <div class="prompt-block-text">ROLE
+You are a senior FP&A analyst and Collections Manager building an automated Accounts Receivable (AR) aging schedule in Excel.
 
+OBJECTIVE
+Take my raw invoice data, write the Excel formulas to calculate remaining balances, determine due dates, calculate days past due dynamically, and assign each invoice to an aging bucket with a collection status.
+
+DATA
+[Paste your raw invoice data here: Invoice #, Customer, Date Issued, Terms (Days), Amount Billed, Amount Paid]
+
+TASK
+Create a new comprehensive table with the following columns and logic:
+1. All original data columns.
+2. Remaining Balance = Amount Billed - Amount Paid
+3. Due Date = Date Issued + Terms (Days)
+4. Days Overdue = Use the TODAY() function. If Remaining Balance is 0, return 0. Otherwise, MAX(0, TODAY() - Due Date).
+5. Aging Bucket = Use an IFS statement based on Days Overdue:
+   - 0 days = "Current"
+   - 1-30 days = "1-30 Days"
+   - 31-60 days = "31-60 Days"
+   - 61-90 days = "61-90 Days"
+   - > 90 days = "90+ Days"
+   - If Remaining Balance is 0, return "Closed".
+6. Status = Flag "Closed" as Green. Flag "Current" as Green. Flag "1-60 Days" as Amber (Follow Up). Flag "> 60 Days" as Red (High Risk).
+
+CONSTRAINTS
+- Formulas MUST use TODAY() to ensure the sheet is dynamic.
+- Write the exact Excel formula string for the first row of data (assuming data starts in row 2) so I can copy/paste it into my spreadsheet.
+- Output a tab-separated table of the calculated results.
+
+OUTPUT FORMAT
+- The calculated tab-separated table.
+- A clear list of the exact Excel formulas required for the new calculated columns.</div>
+          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+        </div>
+
+        <h2>Tracking AR is Just the Beginning</h2>
+        <p>Knowing that an invoice is 90 days past due is vital, but the impact of that delay hits your bank account. If major clients are shifting into the Amber and Red buckets, your available cash will dip. The AR report feeds directly into your broader financial operations.</p>
+        <p>If overdue invoices are starting to threaten payroll, you need to plug these figures into a <a href="/automate-cash-flow-dashboard-excel-claude.html" style="color:#1d9e75;font-weight:500">cash flow dashboard</a> to model the short-term impact. Furthermore, consistently high Days Sales Outstanding (DSO) should be monitored at the executive level through a structured <a href="/build-financial-kpi-dashboard-excel-claude.html" style="color:#1d9e75;font-weight:500">financial KPI dashboard</a>.</p>
+
+        <h3>AR Formulas Quick Reference</h3>
         <div class="xl-grade-table">
-          <div class="xl-gt-header-bar-5col">
+          <div class="xl-gt-header-bar" style="grid-template-columns:44px 1fr 1fr 1fr">
             <div class="xl-gt-col-h"></div>
             <div class="xl-gt-col-h">A</div>
             <div class="xl-gt-col-h">B</div>
             <div class="xl-gt-col-h">C</div>
-            <div class="xl-gt-col-h">D</div>
           </div>
           <div class="xl-gt-rows">
-            <div class="xl-gt-row-5col">
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
               <div class="xl-gt-row-num">1</div>
-              <div class="xl-gt-cell hdr">Customer Name</div>
-              <div class="xl-gt-cell hdr">Invoice Date</div>
-              <div class="xl-gt-cell hdr">Terms</div>
-              <div class="xl-gt-cell hdr">Amount ($)</div>
+              <div class="xl-gt-cell hdr">Metric</div>
+              <div class="xl-gt-cell hdr">Formula</div>
+              <div class="xl-gt-cell hdr">Watch Out For</div>
             </div>
-            <div class="xl-gt-row-5col">
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
               <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell score">Global Industries</div>
-              <div class="xl-gt-cell num">08/01/2026</div>
-              <div class="xl-gt-cell score">Net 30</div>
-              <div class="xl-gt-cell num">12,500</div>
+              <div class="xl-gt-cell score">Due Date</div>
+              <div class="xl-gt-cell score">Inv Date + Terms</div>
+              <div class="xl-gt-cell score">Ensure Terms is a number, not text ("Net 30")</div>
             </div>
-            <div class="xl-gt-row-5col">
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
               <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell score">Tech Solutions</div>
-              <div class="xl-gt-cell num">09/25/2026</div>
-              <div class="xl-gt-cell score">Net 30</div>
-              <div class="xl-gt-cell num">3,400</div>
+              <div class="xl-gt-cell score">Days Overdue</div>
+              <div class="xl-gt-cell score">MAX(0, TODAY() − Due Date)</div>
+              <div class="xl-gt-cell score">MAX(0, ...) prevents negative days for future dates</div>
             </div>
-            <div class="xl-gt-row-5col">
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
               <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell score">Apex Logistics</div>
-              <div class="xl-gt-cell num">09/10/2026</div>
-              <div class="xl-gt-cell score">Due on Receipt</div>
-              <div class="xl-gt-cell num">8,200</div>
+              <div class="xl-gt-cell score">Balance</div>
+              <div class="xl-gt-cell score">Amount Billed − Amount Paid</div>
+              <div class="xl-gt-cell score">Filter out closed invoices from aging alerts</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">5</div>
+              <div class="xl-gt-cell score">Bucket Logic</div>
+              <div class="xl-gt-cell score">IFS(Days&lt;=30, "1-30", ...)</div>
+              <div class="xl-gt-cell score">Order matters in IFS; evaluate smallest to largest</div>
             </div>
           </div>
-          <div class="xl-gt-caption">If your data looks like this, you will need a prompt that calculates the Due Date based on the Terms before finding the days overdue.</div>
+          <div class="xl-gt-caption">Always ask Claude for explicit formulas. Hardcoded numbers become stale the next day. The TODAY() function ensures your report is always accurate on opening.</div>
         </div>
-
-        <p>Once you have standardized dates, the process becomes entirely automated. You can even link this clean data into a larger visual representation, <a href="/automate-cash-flow-dashboard-excel-claude.html" style="color:#1d9e75; font-weight:500; text-decoration:none;">as shown in our cash flow dashboard course</a>.</p>
-      </div>
-
-      <div id="seo-sec-2" class="seo-section">
-        <h2>The Exact Claude Prompt for AR Tracking</h2>
-        <p>Copy this prompt into Claude. It contains instructions to handle empty dates gracefully and to use the dynamic <code>TODAY()</code> function so your spreadsheet remains accurate every day you open it.</p>
-
-        <div class="prompt-block">
-          <div class="prompt-block-label">Prompt — paste into Claude</div>
-          <div class="prompt-block-text">I am building an Accounts Receivable tracking spreadsheet in Excel.
-I have the following columns: Customer Name, Invoice Date, Due Date, and Amount.
-
-Please provide the exact Excel IF or IFS formula to calculate the Collection Status for each invoice. The logic should compare the Due Date against TODAY().
-
-Use these exact buckets:
-- "Current" (Due Date is in the future or today)
-- "1-30 Days Late"
-- "31-60 Days Late"
-- "60+ Days Late"
-
-CRITICAL INSTRUCTIONS:
-1. Do not invent any financial figures. Output only the formula and brief instructions on how to use it.
-2. If the Due Date cell is blank, the formula should return "Missing Data".
-3. Write the formula so it is ready to paste directly into the first row of my data.</div>
-          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
-        </div>
-
-        <h3>Context: Taking Action on the Data</h3>
-        <p>Once the formula assigns every invoice a status, you can easily use Excel's filter functionality to isolate the "60+ Days Late" bucket. This allows your collections team to prioritize their morning calls based on age and amount outstanding.</p>
 
         <h2>Frequently Asked Questions</h2>
-        <h3>How does Claude handle partial invoice payments in Excel?</h3>
-        <p>Claude does not automatically know about partial payments unless your data includes an "Amount Paid" column. You must instruct Claude to calculate the "Remaining Balance" (Invoice Amount - Amount Paid) and only flag the invoice as overdue if the Remaining Balance is greater than zero.</p>
-
-        <h3>Can I use Claude to calculate Days Sales Outstanding (DSO)?</h3>
-        <p>Yes. Once your basic AR tracker is functioning, you can prompt Claude to write the formula for DSO using your total accounts receivable and total credit sales over a specific period.</p>
-
-        <h3>Will the AR tracker update automatically tomorrow?</h3>
-        <p>Yes, provided Claude uses the <code>TODAY()</code> function in the formula. This ensures the "Days Overdue" calculation recalculates dynamically every time you open the Excel file.</p>
-
-        <div class="checklist-box">
-          <div class="checklist-title">Related Courses</div>
-          <div class="checklist-item"><i class="ti ti-link"></i><a href="/automate-cash-flow-dashboard-excel-claude.html" style="color:#1d9e75; font-weight:600; text-decoration:none;">Automate a Cash Flow Dashboard in Excel with Claude AI</a></div>
-          <div class="checklist-item"><i class="ti ti-link"></i><a href="/automate-month-end-close-checklist-excel-claude.html" style="color:#1d9e75; font-weight:600; text-decoration:none;">Automate Your Month End Close Checklist in Excel with Claude AI</a></div>
-          <div class="checklist-item"><i class="ti ti-link"></i><a href="/build-financial-kpi-dashboard-excel-claude.html" style="color:#1d9e75; font-weight:600; text-decoration:none;">Build a Financial KPI Dashboard in Excel Using Claude AI</a></div>
+        <div class="faq-section">
+          <div class="faq-item">
+            <div class="faq-q">How does Claude automate AR tracking?</div>
+            <div class="faq-a">Claude writes the formulas to calculate days outstanding dynamically, assigns invoices to aging buckets, and applies conditional formatting rules to flag high-risk overdue accounts.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Can Claude handle partial payments?</div>
+            <div class="faq-a">Yes. If you provide an 'Amount Paid' column, Claude will generate a 'Remaining Balance' calculation and apply aging logic exclusively to the unpaid portion of the invoice.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">What is an aging schedule?</div>
+            <div class="faq-a">An aging schedule categorizes outstanding accounts receivable according to the length of time an invoice has been overdue (e.g., 30, 60, 90 days), helping finance teams prioritize collections.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Do I need to manually update the current date?</div>
+            <div class="faq-a">No. The prompt strictly instructs Claude to use the Excel TODAY() formula. Your aging report will automatically calculate days past due relative to the actual day you open the workbook.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">How do I handle different payment terms?</div>
+            <div class="faq-a">Feed a numeric 'Payment Terms' column (e.g., 15, 30, 60) into the prompt. Claude calculates the specific Due Date for each invoice by adding those terms to the invoice issuance date.</div>
+          </div>
         </div>
-      </div>
 
+        <h2>Related Excel Finance Courses</h2>
+        <div class="related-courses">
+          <a href="/automate-cash-flow-dashboard-excel-claude.html" class="related-card">
+            <div class="related-card-title">Automate a Cash Flow Dashboard in Excel with Claude AI</div>
+            <div class="related-card-tag">Excel · Finance</div>
+          </a>
+          <a href="/build-financial-kpi-dashboard-excel-claude.html" class="related-card">
+            <div class="related-card-title">Build a Financial KPI Dashboard in Excel Using Claude AI</div>
+            <div class="related-card-tag">Excel · Finance</div>
+          </a>
+          <a href="/budget-variance-excel-claude.html" class="related-card">
+            <div class="related-card-title">Build a Budget Variance Analysis Report in Excel with Claude AI</div>
+            <div class="related-card-tag">Excel · Finance</div>
+          </a>
+        </div>
+
+        <div class="info-box"><p>Browse all courses on the <a href="/ai-for-excel.html" style="color:#085041;font-weight:600">AI for Excel</a> hub page, or explore the full <a href="/claude-for-finance.html" style="color:#085041;font-weight:600">AI for Finance Teams</a> collection.</p></div>
+      </div>
+      <!-- ═══════ SECTION 3: QUIZ ═══════ -->
       <div id="seo-sec-3" class="seo-section">
         <div id="quiz-interactive-container"></div>
       </div>
@@ -399,7 +595,7 @@ CRITICAL INSTRUCTIONS:
 <a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
 </div>
 <div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company & Legal</strong>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company &amp; Legal</strong>
 <a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
 <a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
 <a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
@@ -436,30 +632,30 @@ CRITICAL INSTRUCTIONS:
 <script>
 var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
 var heroes=[
-  {tag:'Section 01',title:'Automate Accounts Receivable Tracking in Excel with Claude AI'},
-  {tag:'Section 02',title:'Preparing Invoice Data'},
-  {tag:'Section 03',title:'The Automation Prompts'},
-  {tag:'Section 04 — Quiz',title:'Quick quiz'}
+  {tag:'Section 01',title:'Stop guessing who owes you money. Automate the aging schedule.'},
+  {tag:'Section 02',title:'What Claude needs from you to categorize invoices'},
+  {tag:'Section 03',title:'The prompt, FAQ & related courses'},
+  {tag:'Section 04 — Quiz',title:'Do you know how to build AR aging formulas?'}
 ];
 var quiz=[
-  {q:'Which function ensures your "Days Late" calculation updates automatically every morning?',
-   opts:['NOW()','TODAY()','DATE()'],
+  {q:'Which Excel function ensures your aging report is always up to date?',
+   opts:['VLOOKUP()','TODAY()','NOW()'],
    correct:1},
-  {q:'Why must the prompt include instructions for handling blank Due Dates?',
-   opts:['Because Claude cannot process empty cells at all','To prevent the formula from returning an error or a false "overdue" flag when data is missing','Because blank cells automatically delete the entire row in Excel'],
-   correct:1},
-  {q:'What is required for the AR tracker to handle partial invoice payments?',
-   opts:['An "Amount Paid" column so you can calculate the Remaining Balance','A macro written in VBA','A separate worksheet for every customer'],
+  {q:'If an invoice was due 15 days ago, which aging bucket does it typically fall into?',
+   opts:['Current','31-60 Days','1-30 Days'],
+   correct:2},
+  {q:'Why must you track \'Amount Paid\' alongside the total \'Invoice Amount\'?',
+   opts:['To properly calculate the remaining balance and prevent flagging closed invoices','To ensure tax compliance and revenue recognition','To calculate the discount rate automatically'],
    correct:0},
-  {q:'If you only have the Invoice Date and Terms (e.g., Net 30), what should you do?',
-   opts:['Manually guess the due date','Ask Claude to build a formula that calculates the Due Date before building the aging buckets','Skip those invoices entirely'],
-   correct:1}
+  {q:'What is the primary purpose of an Accounts Receivable aging schedule?',
+   opts:['To categorize outstanding invoices by time overdue to prioritize cash collection efforts','To forecast future sales volumes','To analyze the operational expenses of the company'],
+   correct:0}
 ];
 function buildQuizHTML(){
   if(quizDone){
     var score=0;
     for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
-    var msgs=['Worth re-reading section 1 — understanding the TODAY() function is key.','Good effort — review the data preparation step before diving in.','Almost there! One concept to sharpen — revisit how to structure your prompt for missing data.','Perfect score — you are ready to automate your AR tracking with Claude.'];
+    var msgs=['Review the core logic of AR tracking—time formulas are essential.','Good instincts—revisit how partial payments impact aging brackets.','Nearly there—remember that automated reports rely on dynamic functions like TODAY().','You understand the mechanics of AR automation. Go build your schedule.'];
     return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
   }
   var html='';
