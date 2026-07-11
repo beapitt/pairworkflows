@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Automate a Cash Flow Dashboard in Excel with Claude AI — PairWorkflows</title>
-<meta name="description" content="Stop guessing your cash position. Learn how to build an automated Cash Flow Dashboard in Excel using Claude AI to track inflows and outflows dynamically.">
+<meta name="description" content="Use Claude AI to build an automated cash flow dashboard in Excel. Categorise transactions, track operating vs investing vs financing flows, and monitor runway.">
 <link rel="canonical" href="https://www.pairworkflows.com/automate-cash-flow-dashboard-excel-claude.html">
 <meta property="og:title" content="Automate a Cash Flow Dashboard in Excel with Claude AI — PairWorkflows">
-<meta property="og:description" content="Stop guessing your cash position. Learn how to build an automated Cash Flow Dashboard in Excel using Claude AI to track inflows and outflows dynamically.">
+<meta property="og:description" content="Build a cash flow dashboard in Excel with Claude AI. Operating, investing, and financing flows categorised automatically with weekly and monthly views.">
 <meta property="og:url" content="https://www.pairworkflows.com/automate-cash-flow-dashboard-excel-claude.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PairWorkflows">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Automate a Cash Flow Dashboard in Excel with Claude AI","description":"Learn how to build an automated Cash Flow Dashboard in Excel using Claude AI to track inflows and outflows dynamically.","url":"https://www.pairworkflows.com/automate-cash-flow-dashboard-excel-claude.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude link my bank account directly to Excel?","acceptedAnswer":{"@type":"Answer","text":"No, Claude cannot connect to live bank feeds. You must export your bank statements as a CSV, paste them into the data tab, and let the Claude-generated formulas do the rest."}},{"@type":"Question","name":"How do I handle opening balances?","acceptedAnswer":{"@type":"Answer","text":"You should establish a starting balance in a dedicated cell at the top of your dashboard. The formula for month one will be (Opening Balance + Net Cash Flow). Subsequent months will use the previous month's closing balance."}},{"@type":"Question","name":"What if a transaction category doesn't match?","acceptedAnswer":{"@type":"Answer","text":"If you use SUMIFS, a misspelled category in your raw data will be ignored, leading to inaccurate totals. It is highly recommended to use data validation (drop-down lists) for categorizing your raw data."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Automate a Cash Flow Dashboard in Excel with Claude AI","description":"Use Claude AI to build an automated cash flow dashboard in Excel. Categorise transactions, track operating vs investing vs financing flows, and monitor runway.","url":"https://www.pairworkflows.com/automate-cash-flow-dashboard-excel-claude.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between a cash flow dashboard and a cash flow statement?","acceptedAnswer":{"@type":"Answer","text":"A cash flow statement is a formal financial report prepared monthly or quarterly under accounting standards. A cash flow dashboard is an operational tool — it shows where cash is right now, where it went this week, and how many weeks of runway remain. The dashboard updates as often as you paste in new data; the statement is prepared at period-end."}},{"@type":"Question","name":"Can Claude categorise bank transactions into operating, investing, and financing?","acceptedAnswer":{"@type":"Answer","text":"Yes, if the transaction descriptions are reasonably clear. The prompt instructs Claude to categorise each transaction and flag any it cannot classify with confidence. You review the flagged items and assign them manually — Claude never guesses silently."}},{"@type":"Question","name":"How do I calculate cash runway from this dashboard?","acceptedAnswer":{"@type":"Answer","text":"The dashboard includes a runway formula: current cash balance divided by average weekly net cash burn over the trailing period you specify (typically 4-8 weeks). This gives you estimated weeks of runway at the current burn rate."}},{"@type":"Question","name":"Should I use bank data or general ledger data as input?","acceptedAnswer":{"@type":"Answer","text":"Bank data shows actual cash movements and is better for operational dashboards. GL data may include accruals that haven't settled yet. For a cash-focused dashboard, bank transactions are the cleaner input. Make sure to reconcile against the GL periodically — the bank reconciliation course covers that process."}},{"@type":"Question","name":"How often should I update the cash flow dashboard?","acceptedAnswer":{"@type":"Answer","text":"Weekly is the most common cadence for operational cash management. Daily updates are useful during cash-constrained periods. Monthly is sufficient if the dashboard is used primarily for board reporting rather than day-to-day management."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -23,14 +23,6 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
 .navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
-.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
-.logo-workflows{font-size:16px;font-weight:400;color:#fff}
-.nav-right{display:flex;align-items:center;gap:16px}
-.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
-.nav-back:hover{color:#1d9e75}
-.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
 .page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
 .course-shell{background:#fff;border-radius:16px;border:1px solid #e8ecef;overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
 .sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
@@ -53,42 +45,84 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .content-area{display:flex;flex-direction:column;min-width:0;overflow:hidden}
 .section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
 .section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
-.section-hero h1{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
+.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
 .content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
 .seo-section{display:none}
 .seo-section.active-section{display:block}
 .seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
-.seo-section h2{font-size:18px;font-weight:600;color:#1a1a2e;margin:1.5rem 0 1rem;line-height:1.3}
-.seo-section h3{font-size:15px;font-weight:600;color:#1a1a2e;margin:1.2rem 0 .8rem;line-height:1.3}
-
+.seo-section h1{font-size:24px;font-weight:600;color:#1a1a2e;margin-bottom:1rem;line-height:1.3}
+.seo-section h2{font-size:18px;font-weight:600;color:#1a1a2e;margin-bottom:.75rem;line-height:1.35}
+.seo-section h3{font-size:15px;font-weight:600;color:#1a1a2e;margin-bottom:.5rem;line-height:1.4}
 .xl-grade-table{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.xl-gt-header-bar{background:#f3f3f3;border-bottom:1px solid #d0d0d0;padding:4px 0;display:grid;grid-template-columns:44px 1.5fr 1fr 1fr 1fr}
-.xl-gt-row{display:grid;grid-template-columns:44px 1.5fr 1fr 1fr 1fr;border-bottom:1px solid #e8e8e8}
+.xl-gt-header-bar{background:#f3f3f3;border-bottom:1px solid #d0d0d0;padding:4px 0;display:grid}
 .xl-gt-col-h{font-size:11px;font-weight:600;color:#595959;text-align:center;padding:3px 0;border-right:1px solid #e0e0e0}
 .xl-gt-col-h:last-child{border-right:none}
 .xl-gt-rows{display:flex;flex-direction:column}
+.xl-gt-row{display:grid;border-bottom:1px solid #e8e8e8}
 .xl-gt-row:last-child{border-bottom:none}
 .xl-gt-row-num{font-size:11px;color:#595959;text-align:right;padding:7px 8px;background:#f3f3f3;border-right:1px solid #d0d0d0;font-weight:500}
 .xl-gt-cell{font-size:12px;font-family:'Inter',sans-serif;padding:7px 10px;border-right:1px solid #e8e8e8;display:flex;align-items:center}
 .xl-gt-cell:last-child{border-right:none}
 .xl-gt-cell.hdr{background:#f3f3f3;font-weight:600;color:#374151;font-size:11px}
 .xl-gt-cell.score{color:#374151;font-weight:500}
-.xl-gt-cell.num{justify-content:flex-end;font-family:'SFMono-Regular',Consolas,monospace;font-size:11px}
-.xl-gt-cell.grade-a{background:#c6efce;color:#276221;font-weight:700;justify-content:flex-end}
-.xl-gt-cell.grade-f{background:#ffc7ce;color:#9c0006;font-weight:700;justify-content:flex-end}
+.xl-gt-cell.pos{color:#276221;font-weight:600}
+.xl-gt-cell.neg{color:#9c0006;font-weight:600}
+.xl-gt-cell.subtotal{background:#f0fdf4;color:#276221;font-weight:700}
+.xl-gt-cell.subtotal-neg{background:#fef2f2;color:#9c0006;font-weight:700}
+.xl-gt-cell.total-row{background:#e8f0fe;color:#1f4e79;font-weight:700}
+.xl-gt-cell.section-hdr{background:#eef1f4;color:#1a1a2e;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.03em}
+.xl-gt-cell.flagged{background:#ffeb9c;color:#9c6500;font-weight:600;font-style:italic}
 .xl-gt-caption{background:#f8fafc;border-top:1px solid #e2e8f0;padding:8px 14px;font-size:11px;color:#64748b;font-style:italic}
-
 .info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
 .info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
+.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
+.highlight-text{font-size:13px;color:#374151;line-height:1.65}
+.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
+.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
+.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
+.feature-list{list-style:none;padding:0;margin:0 0 1.25rem}
+.feature-list li{padding:.5rem 0 .5rem 1.25rem;position:relative;font-size:14px;color:#374151;border-bottom:1px solid #f0f2f5;line-height:1.6}
+.feature-list li:last-child{border-bottom:none}
+.feature-list li::before{content:'▸';position:absolute;left:0;color:#1d9e75;font-size:13px}
+.steps-list{display:flex;flex-direction:column;gap:0;margin:1rem 0}
+.step-row{display:flex;gap:16px;padding:1.1rem 0;border-bottom:1px solid #f0f2f5}
+.step-row:last-child{border-bottom:none}
+.step-num{font-size:26px;font-weight:700;color:#d1fae5;line-height:1;flex-shrink:0;width:36px;text-align:right;padding-top:2px}
+.step-body h3{font-size:14px;font-weight:600;color:#085041;margin-bottom:.3rem}
+.step-body p{font-size:13px;color:#374151;line-height:1.75;margin:0}
+.step-body code{background:#f0fdf4;color:#0f6e56;padding:1px 6px;border-radius:4px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;border:1px solid #d1fae5}
 .prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
 .prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
 .prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
 .prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}
 .prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#fff}
-.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;border-radius:12px;padding:1.25rem;margin:1.5rem 0}
-.checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
-.checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
-.checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
+.arch-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:1.5rem 0}
+.arch-card{border:1px solid #e2e8f0;border-radius:10px;padding:1rem;background:#fff;text-align:center}
+.arch-card-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6rem;padding-bottom:.5rem;border-bottom:2px solid}
+.arch-card-title.op-title{color:#0f6e56;border-color:#1d9e75}
+.arch-card-title.inv-title{color:#1f4e79;border-color:#3b82f6}
+.arch-card-title.fin-title{color:#9c6500;border-color:#f59e0b}
+.arch-card-item{font-size:12px;color:#374151;padding:3px 0;line-height:1.5}
+.arch-card-item.bold{font-weight:600;color:#1a1a2e}
+.flow-horizontal{display:flex;align-items:center;justify-content:center;gap:0;margin:1.5rem 0;flex-wrap:wrap}
+.flow-h-node{padding:10px 14px;border-radius:8px;text-align:center;font-size:12px;font-weight:600;border:1px solid;white-space:nowrap}
+.flow-h-node.src{background:#f8fafb;border-color:#d1d5db;color:#374151}
+.flow-h-node.cat{background:#f0fdf4;border-color:#6ee7b7;color:#085041}
+.flow-h-node.out{background:#e8f0fe;border-color:#93c5fd;color:#1f4e79}
+.flow-h-node.run{background:#fff8e1;border-color:#fde68a;color:#9c6500}
+.flow-h-arrow{width:28px;height:2px;background:#d1d5db;position:relative;flex-shrink:0}
+.flow-h-arrow::after{content:'';position:absolute;right:-3px;top:-3px;width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:5px solid #d1d5db}
+.faq-section{margin:1.5rem 0}
+.faq-item{border-bottom:1px solid #f0f2f5;padding:.85rem 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:.35rem}
+.faq-a{font-size:13px;color:#374151;line-height:1.7}
+.related-courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:1rem 0}
+.related-card{border:1px solid #e8ecef;border-radius:10px;padding:1rem;transition:all .15s;text-decoration:none;color:#1a1a2e}
+.related-card:hover{border-color:#1d9e75;background:#f5fdf9}
+.related-card-title{font-size:13px;font-weight:500;line-height:1.4;margin-bottom:.25rem}
+.related-card-tag{font-size:11px;color:#6b7280}
 .quiz-q{margin-bottom:1.5rem}
 .quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
 .opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
@@ -133,9 +167,12 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
   .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
   .content-footer{padding:1rem}
   .section-hero{padding:1.25rem 1rem}
-  .xl-gt-header-bar{grid-template-columns:36px 1.5fr 1fr 1fr 1fr}
-  .xl-gt-row{grid-template-columns:36px 1.5fr 1fr 1fr 1fr}
-  .xl-gt-cell{font-size:10px;padding:6px 4px}
+  .xl-gt-cell{font-size:11px;padding:6px 5px}
+  .arch-cards{grid-template-columns:1fr;gap:8px}
+  .flow-horizontal{flex-direction:column;gap:6px}
+  .flow-h-arrow{width:2px;height:20px;transform:rotate(90deg)}
+  .related-courses{grid-template-columns:1fr}
+  .seo-section p{word-break:break-word;overflow-wrap:break-word}
 }
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
@@ -172,7 +209,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 <div class="course-shell">
   <div class="sidebar">
     <div class="sidebar-top">
-      <div class="course-label">Claude AI — Excel Course</div>
+      <div class="course-label">Claude AI — Excel / Finance</div>
       <div class="course-title-side">Automate a Cash Flow Dashboard in Excel with Claude AI</div>
     </div>
     <div class="prog-wrap">
@@ -180,9 +217,9 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
       <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
     </div>
     <div class="nav-list">
-      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">The Final Dashboard</div></div>
-      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">Data Preparation</div></div>
-      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">The Exact Claude Prompt</div></div>
+      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">How the dashboard works</div></div>
+      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">What to feed Claude</div></div>
+      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompt, FAQ &amp; related</div></div>
       <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quick quiz</div></div>
     </div>
   </div>
@@ -190,80 +227,171 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
   <div class="content-area">
     <div class="section-hero">
       <div class="section-tag" id="heroTag">Section 01</div>
-      <h1 id="heroTitle">Automate a Cash Flow Dashboard in Excel with Claude AI</h1>
+      <h2 id="heroTitle">Revenue is an opinion. Cash is a fact. This dashboard tracks the fact.</h2>
     </div>
     <div class="content-body" id="cnt">
 
+      <!-- ═══════ SECTION 0 ═══════ -->
       <div id="seo-sec-0" class="seo-section active-section">
-        <p>Tracking cash moving in and out of your business shouldn't rely on guesswork. This guide explains how to use Claude AI to build an automated Cash Flow Dashboard. By structuring raw bank statement exports properly, Claude will generate the formulas needed to track your liquidity in real-time.</p>
-        
-        <h2>The Final Cash Flow Output</h2>
-        <p>By the end of this process, your scattered transaction data will roll up into a single, clean dashboard tracking your exact opening and closing balances.</p>
+        <h1>Automate a Cash Flow Dashboard in Excel with Claude AI</h1>
+        <p>Most finance teams can tell you last month's revenue within seconds. Ask them how much cash went out the door last week, split by operating vs investing vs financing — and the answer takes an hour of spreadsheet work. That's the gap this dashboard fills.</p>
+        <p>You paste bank transactions. Claude categorises them, calculates weekly and monthly totals by type, and adds a runway calculation that tells you how many weeks of cash you have at the current burn rate. The result is a dashboard you update in minutes, not hours.</p>
 
-        <div class="xl-grade-table">
-          <div class="xl-gt-header-bar">
-            <div class="xl-gt-col-h"></div>
-            <div class="xl-gt-col-h">A</div>
-            <div class="xl-gt-col-h">B</div>
-            <div class="xl-gt-col-h">C</div>
-            <div class="xl-gt-col-h">D</div>
-          </div>
-          <div class="xl-gt-rows">
-            <div class="xl-gt-row">
-              <div class="xl-gt-row-num">1</div>
-              <div class="xl-gt-cell hdr">Metric</div>
-              <div class="xl-gt-cell hdr">Month 1</div>
-              <div class="xl-gt-cell hdr">Month 2</div>
-              <div class="xl-gt-cell hdr">Month 3</div>
-            </div>
-            <div class="xl-gt-row">
-              <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell score">Opening Balance</div>
-              <div class="xl-gt-cell num">50,000</div>
-              <div class="xl-gt-cell num">62,000</div>
-              <div class="xl-gt-cell num">58,500</div>
-            </div>
-            <div class="xl-gt-row">
-              <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell score">Total Inflows</div>
-              <div class="xl-gt-cell num grade-a">35,000</div>
-              <div class="xl-gt-cell num grade-a">28,000</div>
-              <div class="xl-gt-cell num grade-a">40,000</div>
-            </div>
-            <div class="xl-gt-row">
-              <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell score">Total Outflows</div>
-              <div class="xl-gt-cell num grade-f">(23,000)</div>
-              <div class="xl-gt-cell num grade-f">(31,500)</div>
-              <div class="xl-gt-cell num grade-f">(25,000)</div>
-            </div>
-            <div class="xl-gt-row">
-              <div class="xl-gt-row-num">5</div>
-              <div class="xl-gt-cell score">Net Cash Flow</div>
-              <div class="xl-gt-cell num">12,000</div>
-              <div class="xl-gt-cell num grade-f">(3,500)</div>
-              <div class="xl-gt-cell num">15,000</div>
-            </div>
-            <div class="xl-gt-row">
-              <div class="xl-gt-row-num">6</div>
-              <div class="xl-gt-cell score">Closing Balance</div>
-              <div class="xl-gt-cell num score">62,000</div>
-              <div class="xl-gt-cell num score">58,500</div>
-              <div class="xl-gt-cell num score">73,500</div>
-            </div>
-          </div>
-          <div class="xl-gt-caption">Claude links the raw bank data to this summary view via SUMIFS and date-range logic.</div>
+        <h2>The Pipeline: Raw Transactions → Actionable Dashboard</h2>
+
+        <div class="flow-horizontal">
+          <div class="flow-h-node src">Bank export</div>
+          <div class="flow-h-arrow"></div>
+          <div class="flow-h-node cat">Categorise</div>
+          <div class="flow-h-arrow"></div>
+          <div class="flow-h-node out">Op / Inv / Fin totals</div>
+          <div class="flow-h-arrow"></div>
+          <div class="flow-h-node run">Runway calc</div>
         </div>
 
-        <p>Understanding liquidity is just as important as monitoring <a href="/automate-accounts-receivable-tracking-excel-claude.html" style="color:#1d9e75; font-weight:500; text-decoration:none;">accounts receivable</a>. If your cash flow turns negative, showing a profit on paper won't prevent bounced payroll.</p>
-      </div>
+        <h2>The Three Buckets of Cash Flow</h2>
 
-      <div id="seo-sec-1" class="seo-section">
-        <h2>Data Preparation</h2>
-        <p>Before prompting Claude, your transaction data must be clean. Export your bank statement to a CSV and structure it into a flat table. You must include a "Type" column that explicitly states whether the transaction is an Inflow or an Outflow.</p>
+        <div class="arch-cards">
+          <div class="arch-card">
+            <div class="arch-card-title op-title">Operating</div>
+            <div class="arch-card-item">Customer receipts</div>
+            <div class="arch-card-item">Supplier payments</div>
+            <div class="arch-card-item">Payroll</div>
+            <div class="arch-card-item">Rent &amp; utilities</div>
+            <div class="arch-card-item">Tax payments</div>
+            <div class="arch-card-item bold">= Day-to-day cash burn</div>
+          </div>
+          <div class="arch-card">
+            <div class="arch-card-title inv-title">Investing</div>
+            <div class="arch-card-item">Equipment purchases</div>
+            <div class="arch-card-item">Asset disposals</div>
+            <div class="arch-card-item">Software / IT spend</div>
+            <div class="arch-card-item">Security deposits</div>
+            <div class="arch-card-item">&nbsp;</div>
+            <div class="arch-card-item bold">= Long-term asset moves</div>
+          </div>
+          <div class="arch-card">
+            <div class="arch-card-title fin-title">Financing</div>
+            <div class="arch-card-item">Loan drawdowns</div>
+            <div class="arch-card-item">Loan repayments</div>
+            <div class="arch-card-item">Equity injections</div>
+            <div class="arch-card-item">Dividend payments</div>
+            <div class="arch-card-item">Line of credit moves</div>
+            <div class="arch-card-item bold">= How you fund the business</div>
+          </div>
+        </div>
+
+        <h2>The Output: What Claude Produces</h2>
 
         <div class="xl-grade-table">
-          <div class="xl-gt-header-bar">
+          <div class="xl-gt-header-bar" style="grid-template-columns:44px 130px repeat(4,1fr)">
+            <div class="xl-gt-col-h"></div>
+            <div class="xl-gt-col-h">A</div>
+            <div class="xl-gt-col-h">B</div>
+            <div class="xl-gt-col-h">C</div>
+            <div class="xl-gt-col-h">D</div>
+            <div class="xl-gt-col-h">E</div>
+          </div>
+          <div class="xl-gt-rows">
+            <div class="xl-gt-row" style="grid-template-columns:44px 130px repeat(4,1fr)">
+              <div class="xl-gt-row-num">1</div>
+              <div class="xl-gt-cell hdr"></div>
+              <div class="xl-gt-cell hdr">Wk 1</div>
+              <div class="xl-gt-cell hdr">Wk 2</div>
+              <div class="xl-gt-cell hdr">Wk 3</div>
+              <div class="xl-gt-cell hdr">Wk 4</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 130px repeat(4,1fr)">
+              <div class="xl-gt-row-num">2</div>
+              <div class="xl-gt-cell section-hdr" style="grid-column:span 5">Operating Cash Flow</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 130px repeat(4,1fr)">
+              <div class="xl-gt-row-num">3</div>
+              <div class="xl-gt-cell score">Customer receipts</div>
+              <div class="xl-gt-cell pos">85,000</div>
+              <div class="xl-gt-cell pos">62,000</div>
+              <div class="xl-gt-cell pos">91,000</div>
+              <div class="xl-gt-cell pos">78,000</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 130px repeat(4,1fr)">
+              <div class="xl-gt-row-num">4</div>
+              <div class="xl-gt-cell score">Supplier payments</div>
+              <div class="xl-gt-cell neg">-42,000</div>
+              <div class="xl-gt-cell neg">-38,000</div>
+              <div class="xl-gt-cell neg">-51,000</div>
+              <div class="xl-gt-cell neg">-44,000</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 130px repeat(4,1fr)">
+              <div class="xl-gt-row-num">5</div>
+              <div class="xl-gt-cell score">Payroll</div>
+              <div class="xl-gt-cell score">—</div>
+              <div class="xl-gt-cell neg">-95,000</div>
+              <div class="xl-gt-cell score">—</div>
+              <div class="xl-gt-cell neg">-95,000</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 130px repeat(4,1fr)">
+              <div class="xl-gt-row-num">6</div>
+              <div class="xl-gt-cell hdr">Net Operating</div>
+              <div class="xl-gt-cell subtotal">43,000</div>
+              <div class="xl-gt-cell subtotal-neg">-71,000</div>
+              <div class="xl-gt-cell subtotal">40,000</div>
+              <div class="xl-gt-cell subtotal-neg">-61,000</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 130px repeat(4,1fr)">
+              <div class="xl-gt-row-num">7</div>
+              <div class="xl-gt-cell section-hdr" style="grid-column:span 5">Investing</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 130px repeat(4,1fr)">
+              <div class="xl-gt-row-num">8</div>
+              <div class="xl-gt-cell score">Equipment purchase</div>
+              <div class="xl-gt-cell score">—</div>
+              <div class="xl-gt-cell score">—</div>
+              <div class="xl-gt-cell neg">-28,000</div>
+              <div class="xl-gt-cell score">—</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 130px repeat(4,1fr)">
+              <div class="xl-gt-row-num">9</div>
+              <div class="xl-gt-cell section-hdr" style="grid-column:span 5">Financing</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 130px repeat(4,1fr)">
+              <div class="xl-gt-row-num">10</div>
+              <div class="xl-gt-cell score">Loan repayment</div>
+              <div class="xl-gt-cell neg">-12,500</div>
+              <div class="xl-gt-cell score">—</div>
+              <div class="xl-gt-cell score">—</div>
+              <div class="xl-gt-cell score">—</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 130px repeat(4,1fr)">
+              <div class="xl-gt-row-num">11</div>
+              <div class="xl-gt-cell hdr">Net Cash Change</div>
+              <div class="xl-gt-cell total-row">30,500</div>
+              <div class="xl-gt-cell total-row">-71,000</div>
+              <div class="xl-gt-cell total-row">12,000</div>
+              <div class="xl-gt-cell total-row">-61,000</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 130px repeat(4,1fr)">
+              <div class="xl-gt-row-num">12</div>
+              <div class="xl-gt-cell hdr">Closing Balance</div>
+              <div class="xl-gt-cell total-row">530,500</div>
+              <div class="xl-gt-cell total-row">459,500</div>
+              <div class="xl-gt-cell total-row">471,500</div>
+              <div class="xl-gt-cell total-row">410,500</div>
+            </div>
+          </div>
+          <div class="xl-gt-caption">Payroll hits weeks 2 and 4 (biweekly). The pattern is immediately visible. Opening balance: $500,000. Runway at current average burn: ~21 weeks.</div>
+        </div>
+
+        <div class="info-box"><p><strong>Key insight:</strong> The dashboard doesn't just sum inflows and outflows — it separates <em>why</em> cash moved. A -$71k week looks alarming until you see it's payroll week and operating receipts simply hit the following Monday. Without categories, you're reacting to noise instead of signal.</p></div>
+      </div>
+
+      <!-- ═══════ SECTION 1 ═══════ -->
+      <div id="seo-sec-1" class="seo-section">
+        <h2>What to Feed Claude</h2>
+        <p>The dashboard is only as good as the data behind it. Claude needs a clean bank transaction export — no summary rows, no running balances, just one row per transaction. The quality of the categorisation depends entirely on how descriptive the transaction data is.</p>
+
+        <h3>Bank Transaction Layout</h3>
+        <div class="xl-grade-table">
+          <div class="xl-gt-header-bar" style="grid-template-columns:44px repeat(4,1fr)">
             <div class="xl-gt-col-h"></div>
             <div class="xl-gt-col-h">A</div>
             <div class="xl-gt-col-h">B</div>
@@ -271,85 +399,208 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
             <div class="xl-gt-col-h">D</div>
           </div>
           <div class="xl-gt-rows">
-            <div class="xl-gt-row">
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
               <div class="xl-gt-row-num">1</div>
               <div class="xl-gt-cell hdr">Date</div>
               <div class="xl-gt-cell hdr">Description</div>
-              <div class="xl-gt-cell hdr">Type</div>
-              <div class="xl-gt-cell hdr">Amount ($)</div>
+              <div class="xl-gt-cell hdr">Amount</div>
+              <div class="xl-gt-cell hdr">Reference</div>
             </div>
-            <div class="xl-gt-row">
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
               <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell num">10/02/2026</div>
-              <div class="xl-gt-cell score">Client Payment - Invoice 101</div>
-              <div class="xl-gt-cell score">Inflow</div>
-              <div class="xl-gt-cell num">15,000</div>
+              <div class="xl-gt-cell score">02/06/2025</div>
+              <div class="xl-gt-cell score">Acme Ltd – inv 1044</div>
+              <div class="xl-gt-cell pos">28,500</div>
+              <div class="xl-gt-cell score">CR-8821</div>
             </div>
-            <div class="xl-gt-row">
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
               <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell num">10/05/2026</div>
-              <div class="xl-gt-cell score">Software Subscription</div>
-              <div class="xl-gt-cell score">Outflow</div>
-              <div class="xl-gt-cell num">800</div>
+              <div class="xl-gt-cell score">02/06/2025</div>
+              <div class="xl-gt-cell score">ADP Payroll – Jun W1</div>
+              <div class="xl-gt-cell neg">-95,000</div>
+              <div class="xl-gt-cell score">DD-4401</div>
             </div>
-            <div class="xl-gt-row">
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
               <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell num">10/15/2026</div>
-              <div class="xl-gt-cell score">Payroll Processing</div>
-              <div class="xl-gt-cell score">Outflow</div>
-              <div class="xl-gt-cell num">22,200</div>
+              <div class="xl-gt-cell score">03/06/2025</div>
+              <div class="xl-gt-cell score">Dell Financial – server</div>
+              <div class="xl-gt-cell neg">-28,000</div>
+              <div class="xl-gt-cell score">PO-0312</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
+              <div class="xl-gt-row-num">5</div>
+              <div class="xl-gt-cell score">04/06/2025</div>
+              <div class="xl-gt-cell score">HSBC loan – monthly</div>
+              <div class="xl-gt-cell neg">-12,500</div>
+              <div class="xl-gt-cell score">LN-0087</div>
             </div>
           </div>
-          <div class="xl-gt-caption">This tabular data structure guarantees Claude can accurately sum transactions based on their Type and Date.</div>
         </div>
 
-        <p>If categorizing your outflows takes too long, you can use Claude to analyze bank statements. We cover that process in the broader <a href="/claude-for-finance.html" style="color:#1d9e75; font-weight:500; text-decoration:none;">AI for Finance Teams</a> guide.</p>
+        <div class="steps-list">
+          <div class="step-row">
+            <div class="step-num">01</div>
+            <div class="step-body"><h3>Delete summary rows and running balances</h3><p>Bank exports often include "Opening Balance", "Closing Balance", and "Total Debits" rows. Delete them. Claude should see only individual transactions — one row, one cash movement.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">02</div>
+            <div class="step-body"><h3>Use a consistent sign convention</h3><p>Positive = cash in. Negative = cash out. If your bank uses separate debit and credit columns, consolidate into a single Amount column before pasting. Tell Claude which convention you're using.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">03</div>
+            <div class="step-body"><h3>Include the opening cash balance</h3><p>Claude needs a starting point. State it clearly: <code>Opening cash balance as of 01/06/2025: $500,000</code>. Without this, the Closing Balance row in the dashboard is meaningless.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">04</div>
+            <div class="step-body"><h3>Specify what "weekly" means to you</h3><p>Monday-to-Sunday? Monday-to-Friday? Some teams use the calendar week; others use the working week. Tell Claude so the weekly groupings match how your team already thinks about cash.</p></div>
+          </div>
+        </div>
+
+        <div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>Common mistake:</strong> Treating a transfer between your own accounts as a cash inflow. Moving $50,000 from savings to chequing is not operating cash — it's a reclassification. The prompt tells Claude to flag internal transfers separately so they don't inflate your operating receipts.</div></div>
+
+        <div class="highlight-box">
+          <div class="highlight-icon"><i class="ti ti-bulb"></i></div>
+          <div class="highlight-text"><strong>Pro tip:</strong> If your bank descriptions are cryptic (e.g. "POS 04/06 REF 882314"), add a fifth column with your own plain-English descriptions before pasting. Claude categorises based on text — better descriptions produce better categorisation. Alternatively, make sure your data is first <a href="/bank-reconciliation-excel-claude.html" style="color:#374151;font-weight:500">reconciled against the GL</a> where descriptions are usually cleaner.</div>
+        </div>
       </div>
 
+      <!-- ═══════ SECTION 2 ═══════ -->
       <div id="seo-sec-2" class="seo-section">
-        <h2>The Exact Claude Prompt</h2>
-        <p>Copy this prompt into Claude. It instructs the AI to use specific functions to calculate the opening and closing balances sequentially without causing circular references.</p>
+        <h2>The Claude Prompt for a Cash Flow Dashboard</h2>
+        <p>Structured in sections so Claude knows exactly what role to play, what constraints to follow, and how to format the output.</p>
 
         <div class="prompt-block">
           <div class="prompt-block-label">Prompt — paste into Claude</div>
-          <div class="prompt-block-text">I want to build a Cash Flow Dashboard in Excel.
-I have a 'Data' sheet with columns: Date (Col A), Description (Col B), Type (Col C, marked as "Inflow" or "Outflow"), and Amount (Col D).
-I have a 'Dashboard' sheet with month headers starting in row 1 (B1 = Month 1, C1 = Month 2, etc.).
+          <div class="prompt-block-text">ROLE
+You are a treasury analyst building a weekly cash flow dashboard in Excel.
 
-Please provide the exact Excel formulas for the 'Dashboard' sheet to calculate:
-1. Total Inflows (SUMIFS based on month and "Inflow")
-2. Total Outflows (SUMIFS based on month and "Outflow")
-3. Net Cash Flow (Total Inflows - Total Outflows)
-4. Closing Balance (Opening Balance + Net Cash Flow)
+OBJECTIVE
+Take a bank transaction export and produce a categorised cash flow dashboard with weekly columns, a monthly summary, and a runway calculation.
 
-CRITICAL INSTRUCTIONS:
-- Do not invent any numbers. Output only the formulas.
-- Clearly explain how to set the Opening Balance for Month 1 versus subsequent months to avoid circular reference errors.
-- Write formulas that can be dragged across columns.</div>
+DATA
+Opening cash balance as of [date]: $[amount]
+Date format: DD/MM/YYYY
+Week definition: [Monday–Sunday / Monday–Friday]
+Transactions (columns: Date, Description, Amount, Reference):
+[Paste your bank transactions here]
+
+CATEGORISATION RULES
+Assign each transaction to exactly one category:
+- OPERATING INFLOW: customer payments, refunds received, interest earned
+- OPERATING OUTFLOW: supplier payments, payroll, rent, utilities, insurance, tax, professional fees
+- INVESTING: equipment/asset purchases, asset sales, software purchases, security deposits
+- FINANCING: loan drawdowns, loan repayments, equity injections, dividends, line of credit
+- INTERNAL TRANSFER: movements between the company's own bank accounts
+- UNCATEGORISED: anything you cannot classify with confidence — flag these, do not guess
+
+CONSTRAINTS
+- Do NOT guess categories for ambiguous transactions — mark them UNCATEGORISED and flag for review.
+- Do NOT fabricate transaction amounts or descriptions.
+- Internal transfers must NOT appear in Operating, Investing, or Financing totals.
+- Every transaction must appear in exactly one category. No double-counting.
+
+OUTPUT FORMAT
+1. TRANSACTION LOG: Full list with columns: Date | Description | Amount | Reference | Category
+2. WEEKLY DASHBOARD: Rows grouped by category (Operating Inflows, Operating Outflows, Net Operating, Investing, Financing, Net Cash Change, Closing Balance). One column per week.
+3. MONTHLY SUMMARY: Same structure, one column for the full month.
+4. RUNWAY: Current cash balance ÷ average weekly net burn (trailing 4 weeks) = estimated weeks of runway.
+5. FLAGGED ITEMS: List of all UNCATEGORISED and INTERNAL TRANSFER transactions for manual review.
+
+Format as tab-separated tables I can paste directly into Excel.</div>
           <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
         </div>
 
-        <h3>Context: Avoiding Excel Errors</h3>
-        <p>The most common failure point in cash flow tracking is the circular reference. Claude's instructions will explicitly show you that Month 1's Opening Balance is a hardcoded starting number, while Month 2's Opening Balance equals Month 1's Closing Balance.</p>
+        <h2>Dashboard vs Statement: Different Tools, Different Jobs</h2>
+        <p>A cash flow <em>statement</em> is a formal financial report — prepared at period-end, under accounting standards, with accruals and adjustments. A cash flow <em>dashboard</em> is operational — it shows where cash is right now, how fast it's moving, and when you'll run out. The statement tells the board what happened. The dashboard tells the CFO what's happening.</p>
+        <p>If you need the formal statement for a <a href="/build-3-statement-financial-model-excel-claude.html" style="color:#1d9e75;font-weight:500">3-statement financial model</a>, that course covers the indirect method CFS linked to the IS and BS. This dashboard feeds a different need: operational visibility and cash planning. For teams tracking overdue payments that affect future cash, the <a href="/accounts-receivable-excel-claude.html" style="color:#1d9e75;font-weight:500">accounts receivable tracking course</a> provides the receivables data that predicts next week's inflows.</p>
+
+        <h3>Common Categorisation Mistakes</h3>
+        <div class="xl-grade-table">
+          <div class="xl-gt-header-bar" style="grid-template-columns:44px 1fr 1fr 1fr">
+            <div class="xl-gt-col-h"></div>
+            <div class="xl-gt-col-h">A</div>
+            <div class="xl-gt-col-h">B</div>
+            <div class="xl-gt-col-h">C</div>
+          </div>
+          <div class="xl-gt-rows">
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">1</div>
+              <div class="xl-gt-cell hdr">Transaction</div>
+              <div class="xl-gt-cell hdr">Wrong Category</div>
+              <div class="xl-gt-cell hdr">Correct Category</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">2</div>
+              <div class="xl-gt-cell score">Transfer to savings account</div>
+              <div class="xl-gt-cell score">Operating Outflow</div>
+              <div class="xl-gt-cell score">Internal Transfer (excluded)</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">3</div>
+              <div class="xl-gt-cell score">Server purchase — $28k</div>
+              <div class="xl-gt-cell score">Operating Outflow</div>
+              <div class="xl-gt-cell score">Investing (asset purchase)</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">4</div>
+              <div class="xl-gt-cell score">Credit line drawdown</div>
+              <div class="xl-gt-cell score">Operating Inflow</div>
+              <div class="xl-gt-cell score">Financing (debt drawdown)</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">5</div>
+              <div class="xl-gt-cell score">Customer refund issued</div>
+              <div class="xl-gt-cell score">Operating Outflow (new)</div>
+              <div class="xl-gt-cell score">Operating Outflow (reversal of inflow) — correct but must net against receipts</div>
+            </div>
+          </div>
+          <div class="xl-gt-caption">Getting categories wrong doesn't change total cash — but it distorts the operating burn rate, which distorts the runway calculation. Small errors compound.</div>
+        </div>
 
         <h2>Frequently Asked Questions</h2>
-        <h3>Can Claude link my bank account directly to Excel?</h3>
-        <p>No, Claude cannot connect to live bank feeds. You must export your bank statements as a CSV, paste them into the data tab, and let the Claude-generated formulas do the rest.</p>
-
-        <h3>How do I handle opening balances?</h3>
-        <p>You should establish a starting balance in a dedicated cell at the top of your dashboard. The formula for month one will be (Opening Balance + Net Cash Flow). Subsequent months will use the previous month's closing balance.</p>
-
-        <h3>What if a transaction category doesn't match?</h3>
-        <p>If you use SUMIFS, a misspelled category in your raw data will be ignored, leading to inaccurate totals. It is highly recommended to use data validation (drop-down lists) for categorizing your raw data.</p>
-
-        <div class="checklist-box">
-          <div class="checklist-title">Related Courses</div>
-          <div class="checklist-item"><i class="ti ti-link"></i><a href="/build-financial-kpi-dashboard-excel-claude.html" style="color:#085041; text-decoration:none; font-weight:500;">Build a Financial KPI Dashboard in Excel Using Claude AI</a></div>
-          <div class="checklist-item"><i class="ti ti-link"></i><a href="/automate-month-end-close-checklist-excel-claude.html" style="color:#085041; text-decoration:none; font-weight:500;">Automate Your Month End Close Checklist in Excel with Claude AI</a></div>
-          <div class="checklist-item"><i class="ti ti-link"></i><a href="/automate-accounts-receivable-tracking-excel-claude.html" style="color:#085041; text-decoration:none; font-weight:500;">Automate Accounts Receivable Tracking in Excel with Claude AI</a></div>
+        <div class="faq-section">
+          <div class="faq-item">
+            <div class="faq-q">What's the difference between a cash flow dashboard and a cash flow statement?</div>
+            <div class="faq-a">The statement is a formal financial report prepared at period-end under accounting standards. The dashboard is operational — it shows where cash is now, how fast it's moving, and when you'll run out. The statement tells the board what happened. The dashboard tells the CFO what's happening.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Can Claude categorise bank transactions into operating, investing, and financing?</div>
+            <div class="faq-a">Yes, if the descriptions are reasonably clear. The prompt instructs Claude to flag anything it can't classify with confidence. You review the flagged items and assign them manually — Claude never guesses silently.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">How do I calculate cash runway from this dashboard?</div>
+            <div class="faq-a">Current cash balance divided by average weekly net cash burn over the trailing period you specify (typically 4–8 weeks). This gives estimated weeks of runway at the current burn rate.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Bank data or GL data — which should I use?</div>
+            <div class="faq-a">Bank data shows actual cash movements and is better for operational dashboards. GL data may include accruals that haven't settled. For a cash-focused dashboard, bank transactions are cleaner. Reconcile against the GL periodically.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">How often should I update this dashboard?</div>
+            <div class="faq-a">Weekly is the most common cadence. Daily during cash-constrained periods. Monthly if the dashboard is primarily for board reporting rather than day-to-day management.</div>
+          </div>
         </div>
+
+        <h2>Related Excel Finance Courses</h2>
+        <div class="related-courses">
+          <a href="/bank-reconciliation-excel-claude.html" class="related-card">
+            <div class="related-card-title">Automated Bank Reconciliation in Excel Using Claude AI</div>
+            <div class="related-card-tag">Excel · Finance</div>
+          </a>
+          <a href="/build-3-statement-financial-model-excel-claude.html" class="related-card">
+            <div class="related-card-title">Build a 3-Statement Financial Model in Excel with Claude AI</div>
+            <div class="related-card-tag">Excel · Finance</div>
+          </a>
+          <a href="/rolling-forecast-excel-claude.html" class="related-card">
+            <div class="related-card-title">Create a Rolling Forecast Model in Excel with Claude AI</div>
+            <div class="related-card-tag">Excel · Finance</div>
+          </a>
+        </div>
+
+        <div class="info-box"><p>Browse all courses on the <a href="/ai-for-excel.html" style="color:#085041;font-weight:600">AI for Excel</a> hub page, or explore the full <a href="/claude-for-finance.html" style="color:#085041;font-weight:600">AI for Finance Teams</a> collection.</p></div>
       </div>
 
+      <!-- ═══════ SECTION 3: QUIZ ═══════ -->
       <div id="seo-sec-3" class="seo-section">
         <div id="quiz-interactive-container"></div>
       </div>
@@ -394,7 +645,7 @@ CRITICAL INSTRUCTIONS:
 <a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
 </div>
 <div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company & Legal</strong>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company &amp; Legal</strong>
 <a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
 <a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
 <a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
@@ -431,30 +682,30 @@ CRITICAL INSTRUCTIONS:
 <script>
 var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
 var heroes=[
-  {tag:'Section 01',title:'Automate a Cash Flow Dashboard in Excel with Claude AI'},
-  {tag:'Section 02',title:'Data Preparation'},
-  {tag:'Section 03',title:'The Exact Claude Prompt'},
-  {tag:'Section 04 — Quiz',title:'Quick quiz'}
+  {tag:'Section 01',title:'Revenue is an opinion. Cash is a fact. This dashboard tracks the fact.'},
+  {tag:'Section 02',title:'What to feed Claude — and what to clean first'},
+  {tag:'Section 03',title:'The prompt, FAQ & related courses'},
+  {tag:'Section 04 — Quiz',title:'Can you categorise like a treasury analyst?'}
 ];
 var quiz=[
-  {q:'Why must the prompt specifically address how to set the Opening Balance?',
-   opts:['To avoid circular reference errors in Excel','Because Claude cannot calculate addition without it','Because the opening balance is a legal requirement'],
-   correct:0},
-  {q:'Can Claude automatically sync live data from your bank account to Excel?',
-   opts:['Yes, via an API key','Yes, if you provide your login details','No, you must paste the exported bank data manually into the raw data tab'],
+  {q:'You transfer $50,000 from your company savings account to your company chequing account. How should the dashboard treat this?',
+   opts:['Operating Inflow — cash entered the chequing account','Financing Inflow — the company is funding itself','Internal Transfer — exclude from all three cash flow categories'],
    correct:2},
-  {q:'What happens if a transaction is labeled "Out flows" instead of "Outflow" in your data?',
-   opts:['Claude will automatically fix the typo in Excel','The SUMIFS formula will ignore the row, resulting in inaccurate totals','Excel will crash'],
+  {q:'Your company buys a $28,000 server. A colleague categorises it as an Operating Outflow because "we use servers every day." What\'s wrong?',
+   opts:['Nothing — servers are operational expenses','The server is a long-term asset purchase and belongs in Investing, not Operating','It should be Financing because it was purchased on a payment plan'],
    correct:1},
-  {q:'Which of these data columns is absolutely critical for the cash flow formula to work?',
-   opts:['A column explicitly marking the transaction "Type" (Inflow or Outflow)','The transaction ID','The bank account number'],
-   correct:0}
+  {q:'The dashboard shows average weekly net burn of -$22,500 and a current cash balance of $410,000. What\'s the estimated runway?',
+   opts:['About 18 weeks','About 22 weeks','Cannot calculate without knowing revenue'],
+   correct:0},
+  {q:'Week 2 shows Net Operating of -$71,000 while Week 1 shows +$43,000. Before raising an alarm, what should you check?',
+   opts:['Whether revenue declined by 50% in one week','Whether a large recurring outflow like payroll hit in Week 2, making the pattern normal','Whether the bank made an error'],
+   correct:1}
 ];
 function buildQuizHTML(){
   if(quizDone){
     var score=0;
     for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
-    var msgs=['Worth re-reading section 3 — understanding circular references is key.','Good effort — review the limitations on live bank data syncing.','Almost there! One concept to sharpen — revisit how SUMIFS handles typos.','Perfect score — you are ready to automate your cash flow dashboard with Claude.'];
+    var msgs=['Review the three buckets and the categorisation table — getting categories right is what makes the dashboard useful.','Good instincts — revisit the internal transfer and runway concepts.','One concept away from perfect — trace the payroll timing pattern one more time.','You think like a treasury analyst. Go build the dashboard.'];
     return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
   }
   var html='';
