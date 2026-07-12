@@ -247,36 +247,87 @@
 <script>
 var cur=0, TOTAL=7, visited=[true,false,false,false,false,false,false];
 var heroes=[
-  {tag:'Section 01',title:'Quick verdict'},
-  {tag:'Section 02',title:'Side-by-side comparison'},
-  {tag:'Section 03',title:'When Claude wins'},
-  {tag:'Section 04',title:'When Gemini wins'},
-  {tag:'Section 05',title:'Which tool by role'},
-  {tag:'Section 06',title:'The bottom line'},
-  {tag:'Section 07',title:'Frequently asked questions'}
+  {tag:'Section 01',title:'The quick answer: Claude or Gemini?'},
+  {tag:'Section 02',title:'Side-by-side comparison across 7 dimensions.'},
+  {tag:'Section 03',title:'When Claude is the right choice.'},
+  {tag:'Section 04',title:'When Gemini is the right choice.'},
+  {tag:'Section 05',title:'Which tool for which role?'},
+  {tag:'Section 06',title:'The bottom line.'},
+  {tag:'Section 07',title:'Frequently asked questions.'}
 ];
-function go(n){if(n<0||n>=TOTAL)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
+
+function go(n){
+    if(n<0||n>=TOTAL)return;
+    visited[n]=true;
+    cur=n;
+    render();
+    window.scrollTo(0,0);
+}
+
 function render(){
   document.getElementById('heroTag').textContent=heroes[cur].tag;
   document.getElementById('heroTitle').textContent=heroes[cur].title;
-  for(var i=0;i<TOTAL;i++){
-    var ni=document.getElementById('ni'+i), nd=document.getElementById('nd'+i), sec=document.getElementById('seo-sec-'+i);
-    if(ni) ni.className='nav-item'+(i===cur?' active':'');
-    if(sec){ if(i===cur) sec.classList.add('active-section'); else sec.classList.remove('active-section'); }
-    if(nd){ if(visited[i]&&i!==cur){ nd.className='nav-dot done'; nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>'; } else if(i===cur){ nd.className='nav-dot active'; nd.textContent=(i+1); } else { nd.className='nav-dot'; nd.textContent=(i+1); } }
+  
+  for(var i=0; i<TOTAL; i++){
+    var ni = document.getElementById('ni'+i);
+    var nd = document.getElementById('nd'+i);
+    var sec = document.getElementById('seo-sec-'+i);
+    
+    if(ni) ni.className = 'nav-item' + (i===cur ? ' active' : '');
+    
+    if(sec){ 
+        if(i===cur) sec.classList.add('active-section'); 
+        else sec.classList.remove('active-section'); 
+    }
+    
+    if(nd){ 
+        if(visited[i] && i!==cur){ 
+            nd.className = 'nav-dot done'; 
+            nd.innerHTML = '<i class="ti ti-check" style="font-size:11px"></i>'; 
+        } else if(i===cur){ 
+            nd.className = 'nav-dot active'; 
+            nd.textContent = (i+1); 
+        } else { 
+            nd.className = 'nav-dot'; 
+            nd.textContent = (i+1); 
+        } 
+    }
   }
-  document.getElementById('btnBack').disabled=(cur===0);
-  var fwd=document.getElementById('btnFwd');
-  if(cur===TOTAL-1){ fwd.style.display='none'; }
-  else{ fwd.style.display=''; fwd.innerHTML='Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>'; }
+  
+  document.getElementById('btnBack').disabled = (cur===0);
+  var fwd = document.getElementById('btnFwd');
+  if(cur===TOTAL-1){ 
+      fwd.style.display = 'none'; 
+  } else { 
+      fwd.style.display = ''; 
+      fwd.innerHTML = 'Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>'; 
+  }
 }
+
 render();
 
-// Funzioni Search e Copia
-function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
-function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
+function openSearch(){
+    document.getElementById('searchOverlay').classList.add('open');
+    document.body.style.overflow='hidden';
+    setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);
+}
+
+function closeSearch(){
+    document.getElementById('searchOverlay').classList.remove('open');
+    document.body.style.overflow='';
+}
+
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
-function copyLink(){navigator.clipboard.writeText(window.location.href).then(function(){var b=document.getElementById('copyLinkBtn');b.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){b.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);});}
+
+function copyLink(){
+    navigator.clipboard.writeText(window.location.href).then(function(){
+        var b = document.getElementById('copyLinkBtn');
+        b.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';
+        setTimeout(function(){
+            b.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';
+        }, 2000);
+    });
+}
 </script>
 </body>
 </html>
