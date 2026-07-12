@@ -13,6 +13,7 @@
 <meta property="og:site_name" content="PairWorkflows">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"How to Fix #N/A Errors in VLOOKUP and XLOOKUP Using Claude AI","description":"Why is your VLOOKUP or XLOOKUP returning #N/A? Learn how to use Claude AI to identify the mismatch, fix the formula, and wrap it in IFERROR for clean results.","url":"https://www.pairworkflows.com/claude-excel-na-errors.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why does VLOOKUP return #N/A when the value exists?","acceptedAnswer":{"@type":"Answer","text":"VLOOKUP returns #N/A when it cannot find an exact match, even if the value appears to exist in the table. The most common causes are trailing spaces in the lookup value, a data type mismatch (number stored as text or vice versa), or a missing FALSE argument in the fourth parameter, which makes VLOOKUP use approximate match on unsorted data."}},{"@type":"Question","name":"How do I fix #N/A caused by trailing spaces?","acceptedAnswer":{"@type":"Answer","text":"Wrap your lookup value in the TRIM() function to remove leading and trailing spaces. For example, change =VLOOKUP(A2, D:F, 2, FALSE) to =VLOOKUP(TRIM(A2), D:F, 2, FALSE). You can also clean the source data column by using TRIM in a helper column and pasting the cleaned values back."}},{"@type":"Question","name":"Does XLOOKUP still return #N/A errors?","acceptedAnswer":{"@type":"Answer","text":"Yes. XLOOKUP defaults to exact match, so the match argument is rarely the problem. However, XLOOKUP still returns #N/A when there is a data type mismatch or trailing spaces in the lookup value. The fix is the same: use TRIM() or VALUE()/TEXT() to align the data types, and wrap in IFERROR for genuinely missing values."}},{"@type":"Question","name":"What is the fastest way to tell if #N/A is a formula problem or a data problem?","acceptedAnswer":{"@type":"Answer","text":"Replace the cell reference in your formula with the value typed directly — for example, change =VLOOKUP(A2, D:F, 2, FALSE) to =VLOOKUP(\"Smith\", D:F, 2, FALSE). If the hardcoded version returns a result but the cell reference version returns #N/A, the problem is in the data (spaces or type mismatch), not the formula structure."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -52,7 +53,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .content-area{display:flex;flex-direction:column}
 .section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
 .section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
-.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
+.section-hero h1{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
 .content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
 .seo-section{display:none}
 .seo-section.active-section{display:block}
@@ -266,7 +267,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
   <div class="content-area">
     <div class="section-hero">
       <div class="section-tag" id="heroTag">Section 01</div>
-      <h2 id="heroTitle">Your VLOOKUP or XLOOKUP is returning #N/A — but the value is right there</h2>
+      <h1 id="heroTitle">Your VLOOKUP or XLOOKUP is returning #N/A — but the value is right there</h1>
     </div>
     <div class="content-body" id="cnt">
 
@@ -302,7 +303,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
           </div>
         </div>
 
-        <p>This is where Claude comes in. You paste the formula and a few rows of data, and Claude reads the structure, spots the likely mismatch, and tells you exactly what to fix — whether that's the formula, the data, or both.</p>
+        <p>This is where Claude comes in. You paste the formula and a few rows of data, and Claude reads the structure, spots the likely mismatch, and tells you exactly what to fix — whether that's the formula, the data, or both. If your data has broader formatting issues — inconsistent spacing, mixed types across columns — you may want to <a href="/claude-excel-clean-data.html" style="color:#0f6e56;font-weight:500">clean the data first</a> before running lookups.</p>
 
         <!-- VISUAL 2: 4 cause cards -->
         <p><strong>The four most common causes of #N/A in lookups:</strong></p>
@@ -340,7 +341,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
           <li>Claude explains whether the problem is in the formula, the data, or both</li>
         </ul>
 
-        <div class="info-box"><p><strong>XLOOKUP vs VLOOKUP:</strong> XLOOKUP defaults to exact match automatically — so if you're using XLOOKUP and still getting #N/A, the problem is almost always in the data (spaces or type mismatch), not the formula arguments. XLOOKUP is available in Excel 365 and Excel 2021 and later.</p></div>
+        <div class="info-box"><p><strong>XLOOKUP vs VLOOKUP:</strong> XLOOKUP defaults to exact match automatically — so if you're using XLOOKUP and still getting #N/A, the problem is almost always in the data (spaces or type mismatch), not the formula arguments. See our <a href="/claude-excel-xlookup.html" style="color:#085041;font-weight:500">XLOOKUP course</a> for a full walkthrough of XLOOKUP syntax and advanced patterns. XLOOKUP is available in Excel 365 and Excel 2021 and later.</p></div>
       </div>
 
       <!-- SECTION 1 -->
@@ -466,6 +467,36 @@ Please identify why the match is failing and give me the corrected formula.</div
         </div>
 
         <div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>Important:</strong> Claude diagnoses based on what you share. The more specific the sample data, the more accurate the fix. If possible, paste the actual values from both the lookup cell and the table column — not just the formula.</div></div>
+
+        <p><strong>Frequently asked questions</strong></p>
+
+        <p><strong>Why does VLOOKUP return #N/A when the value exists?</strong></p>
+        <p>VLOOKUP returns #N/A when it cannot find an exact match in the first column of the lookup range. Even if the value appears to exist, invisible differences like trailing spaces, a number stored as text (or vice versa), or a missing FALSE in the fourth argument will prevent the match. Use the manual test described in section 2 to isolate whether the problem is in the data or the formula.</p>
+
+        <p><strong>How do I fix #N/A caused by trailing spaces?</strong></p>
+        <p>Wrap your lookup value in TRIM() to strip leading and trailing spaces — for example, <code style="background:#f0fdf4;color:#0f6e56;padding:1px 6px;border-radius:4px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;border:1px solid #d1fae5">=VLOOKUP(TRIM(A2), D:F, 2, FALSE)</code>. You can also <a href="/claude-excel-clean-data.html" style="color:#0f6e56;font-weight:500">clean the source data</a> by applying TRIM across the entire column and pasting the results as values.</p>
+
+        <p><strong>Does XLOOKUP still return #N/A errors?</strong></p>
+        <p>Yes. XLOOKUP defaults to exact match, so the match argument is rarely the cause. However, XLOOKUP still returns #N/A when there is a data type mismatch or trailing spaces in the lookup value. The fixes are the same — TRIM() for spaces, VALUE() or TEXT() for type mismatches. For a deeper look at XLOOKUP syntax and advanced patterns, see our <a href="/claude-excel-xlookup.html" style="color:#0f6e56;font-weight:500">XLOOKUP course</a>.</p>
+
+        <p><strong>What is the fastest way to tell if #N/A is a formula problem or a data problem?</strong></p>
+        <p>Replace the cell reference in your formula with the value typed directly — for example, change <code style="background:#f0fdf4;color:#0f6e56;padding:1px 6px;border-radius:4px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;border:1px solid #d1fae5">=VLOOKUP(A2,...)</code> to <code style="background:#f0fdf4;color:#0f6e56;padding:1px 6px;border-radius:4px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;border:1px solid #d1fae5">=VLOOKUP("Smith",...)</code>. If the hardcoded version works, the problem is in the data in the lookup cell, not the formula structure. Include this test result when you paste into Claude for the most accurate diagnosis.</p>
+
+        <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin:1.5rem 0 .6rem">Related courses</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem">
+        <a href="/claude-excel-xlookup.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
+        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">How to Use XLOOKUP with Claude AI</span>
+        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Master XLOOKUP syntax, nested lookups, and multiple criteria.</span>
+        </a>
+        <a href="/claude-excel-clean-data.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
+        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">How to Clean Data in Excel with Claude AI</span>
+        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Fix formatting, remove duplicates, and standardise messy datasets.</span>
+        </a>
+        <a href="/ai-for-excel.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
+        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">AI for Excel — All Courses</span>
+        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Browse the full library of Excel courses and prompt guides.</span>
+        </a>
+        </div>
       </div>
 
       <!-- SECTION 3 QUIZ -->
