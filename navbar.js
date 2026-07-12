@@ -268,6 +268,7 @@
           <a href="https://www.pairworkflows.com/claude-courses.html" class="nav-link${isActive('claude-courses')}">Claude Courses</a>
           <a href="https://www.pairworkflows.com/gemini-courses.html" class="nav-link${isActive('gemini-courses')}">Gemini Courses</a>
           <a href="https://www.pairworkflows.com/claude-vs-gemini.html" class="nav-link${isActive('claude-vs-gemini')}">Claude vs Gemini</a>
+          <a href="https://www.pairworkflows.com/claude-vs-gemini-finance.html" class="nav-link${isActive('claude-vs-gemini-finance')}">Claude vs Gemini Finance</a>
           <a href="https://www.pairworkflows.com/claude-vs-copilot-excel.html" class="nav-link${isActive('claude-vs-copilot-excel')}">Claude vs Copilot Excel</a>
           <a href="https://www.pairworkflows.com/glossary.html" class="nav-link${isActive('glossary')}">Glossary</a>
 
@@ -291,6 +292,8 @@
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Navigate</div>
         <a href="https://www.pairworkflows.com/claude-vs-gemini.html">Claude vs Gemini</a>
+        <a href="https://www.pairworkflows.com/claude-vs-copilot-excel.html">Claude vs Copilot Excel</a>
+        <a href="https://www.pairworkflows.com/claude-vs-gemini-finance.html">Claude vs Gemini Finance</a>
         <a href="https://www.pairworkflows.com/glossary.html">AI Glossary</a>
       </div>
       <div class="nav-mobile-section">
