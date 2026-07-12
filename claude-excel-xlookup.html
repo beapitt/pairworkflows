@@ -13,6 +13,7 @@
 <meta property="og:site_name" content="PairWorkflows">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Use Claude to Write an XLOOKUP Formula in Excel","description":"Need an XLOOKUP formula in Excel? Learn how to use Claude AI to write it from scratch, debug #N/A errors, and convert old VLOOKUPs to XLOOKUP fast.","url":"https://www.pairworkflows.com/claude-excel-xlookup.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is XLOOKUP better than VLOOKUP?","acceptedAnswer":{"@type":"Answer","text":"Yes. XLOOKUP improves on VLOOKUP in several important ways: it uses a direct range reference instead of a fragile column index number, it can look left, it has a built-in argument for handling missing values, and its match modes are clearer. XLOOKUP is the recommended replacement wherever Excel 365 or Excel 2019+ is available."}},{"@type":"Question","name":"Why is my XLOOKUP returning #N/A?","acceptedAnswer":{"@type":"Answer","text":"The most common cause is a data type mismatch between the lookup value and the lookup column — for example, one is stored as text and the other as a number. Trailing spaces or invisible characters in either value are the second most frequent cause. Paste the formula and a few sample rows into Claude and it will identify the exact issue."}},{"@type":"Question","name":"What Excel versions support XLOOKUP?","acceptedAnswer":{"@type":"Answer","text":"XLOOKUP is available in Microsoft 365 (formerly Office 365) and Excel 2021. It is not available in Excel 2019, 2016, or earlier. If you are on an older version, use INDEX/MATCH instead — it offers the same flexibility and works in every Excel version."}},{"@type":"Question","name":"Does XLOOKUP replace INDEX MATCH?","acceptedAnswer":{"@type":"Answer","text":"XLOOKUP and INDEX/MATCH solve the same problems, but XLOOKUP has simpler syntax and built-in error handling. If everyone on your team uses Excel 365 or 2021, XLOOKUP is the cleaner choice. If any colleagues use older versions, INDEX/MATCH is safer because it works everywhere."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -52,7 +53,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .content-area{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden}
 .section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
 .section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
-.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
+.section-hero h1{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
 .content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
 .seo-section{display:none}
 .seo-section.active-section{display:block}
@@ -129,10 +130,10 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .steps-list{display:flex;flex-direction:column;gap:0;margin:1rem 0}
 .step-row{display:flex;gap:16px;padding:1.1rem 0;border-bottom:1px solid #f0f2f5}
 .step-row:last-child{border-bottom:none}
-.step-num{font-size:26px;font-weight:700;color:#d1fae5;line-height:1;flex-shrink:0;width:36px;text-align:right;padding-top:2px}
 .step-body h3{font-size:14px;font-weight:600;color:#085041;margin-bottom:.3rem}
 .step-body p{font-size:13px;color:#374151;line-height:1.75;margin:0}
 .step-body code{background:#f0fdf4;color:#0f6e56;padding:1px 6px;border-radius:4px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;border:1px solid #d1fae5}
+.step-num{font-size:26px;font-weight:700;color:#d1fae5;line-height:1;flex-shrink:0;width:36px;text-align:right;padding-top:2px}
 .prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
 .prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
 .prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
@@ -258,7 +259,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
   <div class="content-area">
     <div class="section-hero">
       <div class="section-tag" id="heroTag">Section 01</div>
-      <h2 id="heroTitle">XLOOKUP is better than VLOOKUP — here's how to write it with Claude.</h2>
+      <h1 id="heroTitle">XLOOKUP is better than VLOOKUP — here's how to write it with Claude.</h1>
     </div>
     <div class="content-body" id="cnt">
 
@@ -312,7 +313,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
               <div class="xl-ca-xlookup advantage">0=exact, -1=next smaller, 1=next larger, 2=wildcard</div>
             </div>
           </div>
-          <div class="xl-ca-footer"><i class="ti ti-check" style="color:#059669;flex-shrink:0"></i> XLOOKUP is available in Excel 365 and Excel 2019+. On older versions, use INDEX/MATCH instead — Claude handles both.</div>
+          <div class="xl-ca-footer"><i class="ti ti-check" style="color:#059669;flex-shrink:0"></i> XLOOKUP is available in Excel 365 and Excel 2019+. On older versions, use INDEX/MATCH instead — <a href="/ai-for-excel.html" style="color:#065f46;font-weight:500">Claude handles both</a>.</div>
         </div>
 
         <ul class="feature-list">
@@ -322,7 +323,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
           <li>Claude converts old VLOOKUPs to XLOOKUP cleanly, including column index fixes</li>
         </ul>
 
-        <div class="info-box"><p><strong>Not on Excel 365 or 2019?</strong> Tell Claude your Excel version and it will write INDEX/MATCH instead — which works in all versions and has the same advantages over VLOOKUP. Claude handles the conversion automatically.</p></div>
+        <div class="info-box"><p><strong>Not on Excel 365 or 2019?</strong> Tell Claude your Excel version and it will write <a href="/claude-excel-index-match.html" style="color:#085041;font-weight:500">INDEX/MATCH</a> instead — which works in all versions and has the same advantages over VLOOKUP. Claude handles the conversion automatically.</p></div>
       </div>
 
       <!-- SECTION 1 -->
@@ -395,7 +396,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
           </div>
           <div class="step-row">
             <div class="step-num">04</div>
-            <div class="step-body"><h3>Test immediately</h3><p>Always test with a value you know should work. If it returns <code>#N/A</code>, send Claude the formula and 3 sample rows. The cause is almost always a data type mismatch or trailing space — Claude finds it instantly.</p></div>
+            <div class="step-body"><h3>Test immediately</h3><p>Always test with a value you know should work. If it returns <a href="/claude-excel-na-errors.html" style="color:#0f6e56;font-weight:500"><code>#N/A</code></a>, send Claude the formula and 3 sample rows. The cause is almost always a data type mismatch or trailing space — Claude finds it instantly.</p></div>
           </div>
           <div class="step-row">
             <div class="step-num">05</div>
@@ -458,6 +459,36 @@ Data is on sheet [name]. Keep any existing IFERROR wrapper.</div>
         </div>
 
         <div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>XLOOKUP availability:</strong> XLOOKUP requires Excel 365 or Excel 2019+. If you or your colleagues are on Excel 2016 or older, use INDEX/MATCH instead — tell Claude your version and it will write the right formula automatically.</div></div>
+
+        <p><strong>Frequently asked questions</strong></p>
+
+        <p><strong>Is XLOOKUP better than VLOOKUP?</strong></p>
+        <p>Yes. XLOOKUP improves on VLOOKUP in several important ways: it uses a direct range reference instead of a fragile column index number, it can look left, and it has a built-in argument for handling missing values. Wherever Excel 365 or Excel 2021 is available, XLOOKUP is the recommended choice.</p>
+
+        <p><strong>Why is my XLOOKUP returning #N/A?</strong></p>
+        <p>The most common cause is a data type mismatch — for example, the lookup value is stored as text while the lookup column contains numbers, or vice versa. Trailing spaces and invisible characters are the second most frequent culprit. Paste the formula and a few sample rows into Claude and it will pinpoint the issue immediately.</p>
+
+        <p><strong>What Excel versions support XLOOKUP?</strong></p>
+        <p>XLOOKUP is available in Microsoft 365 and Excel 2021. It is not supported in Excel 2019, 2016, or earlier. If you need a formula that works across all versions, use INDEX/MATCH instead — Claude can write either one and convert between them.</p>
+
+        <p><strong>Does XLOOKUP replace INDEX MATCH?</strong></p>
+        <p>XLOOKUP and INDEX/MATCH solve the same problems, but XLOOKUP has simpler syntax and built-in error handling. If everyone on your team uses Excel 365 or 2021, XLOOKUP is the cleaner option. If any colleagues use older versions, INDEX/MATCH is safer because it works everywhere.</p>
+
+        <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin:1.5rem 0 .6rem">Related courses</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem">
+        <a href="/claude-excel-na-errors.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
+        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Fix #N/A Errors in Excel with Claude</span>
+        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Diagnose and fix every type of #N/A error in your lookup formulas.</span>
+        </a>
+        <a href="/claude-excel-index-match.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
+        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Use Claude to Write INDEX MATCH in Excel</span>
+        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">The universal lookup method that works in every Excel version.</span>
+        </a>
+        <a href="/claude-excel-lambda.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
+        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Use Claude to Write LAMBDA Functions in Excel</span>
+        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Build reusable custom functions without VBA.</span>
+        </a>
+        </div>
       </div>
 
       <!-- SECTION 3 QUIZ -->
