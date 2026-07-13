@@ -13,6 +13,7 @@
 <meta property="og:site_name" content="PairWorkflows">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Use Claude to Clean and Standardise Imported Data in Excel","description":"Imported data breaking your Excel formulas? Learn how to use Claude AI to diagnose invisible data problems and get the exact cleaning formulas fast.","url":"https://www.pairworkflows.com/claude-excel-clean-data.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I remove trailing spaces in Excel?","acceptedAnswer":{"@type":"Answer","text":"Use the TRIM function (e.g., =TRIM(A2)). It automatically removes all leading, trailing, and double spaces between words. If you still have invisible spaces after using TRIM, they might be non-printable characters — use =CLEAN(TRIM(A2)) to remove them."}},{"@type":"Question","name":"Why are my numbers stored as text in Excel?","acceptedAnswer":{"@type":"Answer","text":"When data is imported from external systems like CRMs or accounting software, numbers are often formatted with text characters or invisible apostrophes. Excel treats them as text, meaning math formulas and SUMIFS will ignore them or return 0. Use the =VALUE() function to convert them back to real numbers."}},{"@type":"Question","name":"How do I fix dates that won't sort in Excel?","acceptedAnswer":{"@type":"Answer","text":"If dates sort alphabetically instead of chronologically, Excel is treating them as text rather than serial date numbers. You can fix this by applying the =DATEVALUE() function to the text dates, and then formatting the result as a Date."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -266,8 +267,8 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 
       <!-- SECTION 0 -->
       <div id="seo-sec-0" class="seo-section active-section">
-        <p>Every import from a CRM, accounting system, HR platform or supplier CSV brings the same issues: dates that won't sort, numbers stored as text, trailing spaces, inconsistent capitalisation, and duplicates that aren't detected. These problems are often invisible — yet they break your formulas and waste hours.</p>
-        <p>Claude can't clean the data for you, but it excels at two things: diagnosing exactly what's wrong from a small sample, and giving you the precise formulas to fix it fast.</p>
+        <p>Every import from a CRM, accounting system (especially when you <a href="/automate-accounts-receivable-tracking-excel-claude.html" style="color:#0f6e56;font-weight:500">track accounts receivable</a>), HR platform or supplier CSV brings the same issues: dates that won't sort, numbers stored as text, trailing spaces, inconsistent capitalisation, and duplicates that aren't detected. These problems are often invisible — yet they break your formulas and waste hours.</p>
+        <p>Claude can't clean the data for you, but it excels at two things: diagnosing exactly what's wrong from a small sample, and giving you the precise <a href="/ai-for-excel.html" style="color:#0f6e56;font-weight:500">Excel cleaning formulas</a> to fix it fast.</p>
 
         <!-- VISUAL 1: Dirty vs Clean data comparison -->
         <div class="xl-dirty-clean">
@@ -349,7 +350,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
         </div>
 
         <ul class="feature-list">
-          <li>Paste sample rows and Claude identifies invisible problems — spaces, type mismatches, inconsistent formats</li>
+          <li>Paste sample rows and Claude identifies invisible problems — spaces, type mismatches, inconsistent formats that often cause <a href="/claude-excel-na-errors.html" style="color:#0f6e56;font-weight:500">#N/A errors</a></li>
           <li>Claude writes the cleaning formula for each column — TRIM, VALUE, PROPER, DATEVALUE or a combination</li>
           <li>Claude tells you whether to fix in place or use a helper column</li>
           <li>Claude writes a reusable cleaning template for every future import from the same source</li>
@@ -476,6 +477,33 @@ Create a complete reusable cleaning checklist and formula set I can apply every 
         </div>
 
         <div class="info-box"><p><strong>CLEAN vs TRIM:</strong> TRIM removes spaces. CLEAN removes non-printable characters — the hidden characters that appear when you import from legacy systems or mainframes. If TRIM doesn't fix the problem, try <code>=CLEAN(TRIM(A2))</code>.</p></div>
+        
+        <p><strong>Frequently asked questions</strong></p>
+        
+        <p><strong>How do I remove trailing spaces in Excel?</strong></p>
+        <p>Use the TRIM function (e.g., <code>=TRIM(A2)</code>). It automatically removes all leading, trailing, and double spaces between words. If you still have invisible spaces after using TRIM, they might be non-printable characters — use <code>=CLEAN(TRIM(A2))</code> to remove them.</p>
+
+        <p><strong>Why are my numbers stored as text in Excel?</strong></p>
+        <p>When data is imported from external systems like CRMs or accounting software, numbers are often formatted with text characters or invisible apostrophes. Excel treats them as text, meaning math formulas and SUMIFS will ignore them or return 0. Use the <code>=VALUE()</code> function to convert them back to real numbers.</p>
+
+        <p><strong>How do I fix dates that won't sort in Excel?</strong></p>
+        <p>If dates sort alphabetically instead of chronologically, Excel is treating them as text rather than serial date numbers. You can fix this by applying the <code>=DATEVALUE()</code> function to the text dates, and then formatting the result as a Date.</p>
+
+        <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin:1.5rem 0 .6rem">Related courses</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem">
+        <a href="/claude-excel-na-errors.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
+        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Fix #N/A Errors in VLOOKUP and XLOOKUP</span>
+        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Diagnose and fix #N/A errors caused by data mismatches, trailing spaces, and missing values.</span>
+        </a>
+        <a href="/claude-excel-dynamic-reports.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
+        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Convert Manual Reports into Dynamic Models</span>
+        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Learn how to replace static data with formulas that update automatically.</span>
+        </a>
+        <a href="/bank-reconciliation-excel-claude.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
+        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Automated Bank Reconciliation in Excel</span>
+        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Use Claude to match transactions and find discrepancies instantly.</span>
+        </a>
+        </div>
       </div>
 
       <!-- SECTION 3 QUIZ -->
