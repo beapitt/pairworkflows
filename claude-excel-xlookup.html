@@ -31,8 +31,8 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .nav-back:hover{color:#1d9e75}
 .search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
-.page-wrap{width:100%;padding:0;flex:1}
-.course-shell{background:#fff;border-radius:0;box-shadow:none;overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
+.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
+.course-shell{background:#fff;border-radius:16px;border:1px solid #e8ecef;overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
 .sidebar{width:240px;background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
 .sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
 .course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
@@ -192,7 +192,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .page-footer a:hover{text-decoration:underline}
 @media(max-width:700px){
   .navbar{padding:0 1rem}
- .page-wrap{width:100%;padding:0;flex:1}
+  .page-wrap{padding:1rem .5rem}
   .course-shell{grid-template-columns:1fr}
   .sidebar{display:none}
   .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
@@ -301,8 +301,8 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
               <div class="xl-ca-label">Look left</div>
               <div class="xl-ca-vlookup">Not possible — lookup must be leftmost column</div>
               <div class="xl-ca-xlookup advantage">Yes — lookup and return can be any columns</div>
-            </div>
-            <div class="xl-ca-row">
+          </div>
+          <div class="xl-ca-row">
               <div class="xl-ca-label">Missing values</div>
               <div class="xl-ca-vlookup">Needs IFERROR wrapper to avoid #N/A</div>
               <div class="xl-ca-xlookup advantage">Built-in 4th argument handles missing values</div>
@@ -313,7 +313,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
               <div class="xl-ca-xlookup advantage">0=exact, -1=next smaller, 1=next larger, 2=wildcard</div>
             </div>
           </div>
-          <div class="xl-ca-footer"><i class="ti ti-check" style="color:#059669;flex-shrink:0"></i> XLOOKUP is available in Excel 365 and Excel 2019+. On older versions, use INDEX/MATCH instead — <a href="/ai-for-excel.html" style="color:#065f46;font-weight:500">Claude handles both</a>.</div>
+          <div class="xl-ca-footer"><i class="ti ti-check" style="color:#059669;flex-shrink:0"></i> XLOOKUP is available in Excel 365 and Excel 2019+. On older versions, use INDEX/MATCH instead.</div>
         </div>
 
         <ul class="feature-list">
@@ -396,7 +396,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
           </div>
           <div class="step-row">
             <div class="step-num">04</div>
-            <div class="step-body"><h3>Test immediately</h3><p>Always test with a value you know should work. If it returns <a href="/claude-excel-na-errors.html" style="color:#0f6e56;font-weight:500"><code>#N/A</code></a>, send Claude the formula and 3 sample rows. The cause is almost always a data type mismatch or trailing space — Claude finds it instantly.</p></div>
+            <div class="step-body"><h3>Test immediately</h3><p>Always test with a value you know should work. If it returns <code>#N/A</code>, send Claude the formula and 3 sample rows. The cause is almost always a data type mismatch or trailing space — Claude finds it instantly.</p></div>
           </div>
           <div class="step-row">
             <div class="step-num">05</div>
@@ -410,7 +410,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 
         <div class="highlight-box">
           <div class="highlight-icon"><i class="ti ti-bulb"></i></div>
-          <div class="highlight-text"><strong>Tip:</strong> XLOOKUP can return multiple columns at once. If you need both name and salary from a lookup, tell Claude and it will write <a href="/claude-excel-lambda.html" style="color:#0f6e56;font-weight:500">a single formula that spills both results</a> automatically — no need to write two separate formulas.</div>
+          <div class="highlight-text"><strong>Tip:</strong> XLOOKUP can return multiple columns at once. If you need both name and salary from a lookup, tell Claude and it will write a single formula that spills both results automatically — no need to write two separate formulas.</div>
         </div>
       </div>
 
@@ -446,7 +446,7 @@ Please identify why it's failing and give me the corrected formula.</div>
 
 Data is on sheet [name]. Keep any existing IFERROR wrapper.</div>
           <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
-        </div>
+      </div>
 
         <div class="checklist-box">
           <div class="checklist-title">Checklist</div>
@@ -461,7 +461,6 @@ Data is on sheet [name]. Keep any existing IFERROR wrapper.</div>
         <div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>XLOOKUP availability:</strong> XLOOKUP requires Excel 365 or Excel 2019+. If you or your colleagues are on Excel 2016 or older, use INDEX/MATCH instead — tell Claude your version and it will write the right formula automatically.</div></div>
 
         <p><strong>Frequently asked questions</strong></p>
-
         <p><strong>Is XLOOKUP better than VLOOKUP?</strong></p>
         <p>Yes. XLOOKUP improves on VLOOKUP in several important ways: it uses a direct range reference instead of a fragile column index number, it can look left, and it has a built-in argument for handling missing values. Wherever Excel 365 or Excel 2021 is available, XLOOKUP is the recommended choice.</p>
 
@@ -473,22 +472,6 @@ Data is on sheet [name]. Keep any existing IFERROR wrapper.</div>
 
         <p><strong>Does XLOOKUP replace INDEX MATCH?</strong></p>
         <p>XLOOKUP and INDEX/MATCH solve the same problems, but XLOOKUP has simpler syntax and built-in error handling. If everyone on your team uses Excel 365 or 2021, XLOOKUP is the cleaner option. If any colleagues use older versions, INDEX/MATCH is safer because it works everywhere.</p>
-
-        <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin:1.5rem 0 .6rem">Related courses</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem">
-        <a href="/claude-excel-na-errors.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
-        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Fix #N/A Errors in Excel with Claude</span>
-        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Diagnose and fix every type of #N/A error in your lookup formulas.</span>
-        </a>
-        <a href="/claude-excel-index-match.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
-        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Use Claude to Write INDEX MATCH in Excel</span>
-        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">The universal lookup method that works in every Excel version.</span>
-        </a>
-        <a href="/claude-excel-lambda.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
-        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Use Claude to Write LAMBDA Functions in Excel</span>
-        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Build reusable custom functions without VBA.</span>
-        </a>
-        </div>
       </div>
 
       <!-- SECTION 3 QUIZ -->
