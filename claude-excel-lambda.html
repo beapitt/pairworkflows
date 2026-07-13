@@ -13,6 +13,7 @@
 <meta property="og:site_name" content="PairWorkflows">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Use Claude to Build a Reusable LAMBDA Function in Excel","description":"Want to create a custom reusable Excel function? Learn how to use Claude AI to write LAMBDA functions, test them, and register them in Name Manager.","url":"https://www.pairworkflows.com/claude-excel-lambda.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a LAMBDA function in Excel?","acceptedAnswer":{"@type":"Answer","text":"A LAMBDA function allows you to create custom, reusable functions in Excel using formula logic, which can then be named and called anywhere in your workbook."}},{"@type":"Question","name":"How do I create a custom function in Excel without VBA?","acceptedAnswer":{"@type":"Answer","text":"You can use the LAMBDA function in Excel 365 to define custom calculations, test them, and register them in the Name Manager to make them available as native functions."}},{"@type":"Question","name":"What Excel version supports LAMBDA?","acceptedAnswer":{"@type":"Answer","text":"LAMBDA functions are currently supported exclusively in Excel 365."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -71,12 +72,12 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .xl-la-fx{color:#595959;font-size:13px;padding:9px 10px;border-right:1px solid #e8e8e8;font-style:italic;flex-shrink:0;font-family:monospace}
 .xl-la-formula{font-family:'SFMono-Regular',Consolas,monospace;font-size:12px;padding:9px 12px;flex:1;overflow-x:auto;white-space:nowrap;line-height:1.4}
 /* LAMBDA colour layers */
-.lf-fn{color:#217346;font-weight:700}        /* LAMBDA keyword */
-.lf-p1{color:#7c3aed;font-weight:600}        /* param 1 */
-.lf-p2{color:#2563eb;font-weight:600}        /* param 2 */
-.lf-body{color:#d97706;font-weight:600}      /* formula body */
-.lf-op{color:#dc2626;font-weight:700}        /* operators */
-.lf-nest{color:#059669;font-weight:600}      /* nested fn */
+.lf-fn{color:#217346;font-weight:700}    /* LAMBDA keyword */
+.lf-p1{color:#7c3aed;font-weight:600}    /* param 1 */
+.lf-p2{color:#2563eb;font-weight:600}    /* param 2 */
+.lf-body{color:#d97706;font-weight:600}   /* formula body */
+.lf-op{color:#dc2626;font-weight:700}    /* operators */
+.lf-nest{color:#059669;font-weight:600}   /* nested fn */
 
 /* LAMBDA layer legend */
 .xl-la-legend{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:10px 14px 12px;border-top:1px solid #e2e8f0;background:#f8fafc}
@@ -296,14 +297,14 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
   <div class="content-area">
     <div class="section-hero">
       <div class="section-tag" id="heroTag">Section 01</div>
-      <h1 id="heroTitle">Stop copying the same formula everywhere. Build a LAMBDA.</h2>
+      <h1 id="heroTitle">Stop copying the same formula everywhere. Build a LAMBDA.</h1>
     </div>
     <div class="content-body" id="cnt">
 
       <!-- SECTION 0 -->
       <div id="seo-sec-0" class="seo-section active-section">
-        <p>LAMBDA is one of the most powerful features in Excel 365. It lets you create your own custom functions — named, reusable, available workbook-wide — just like built-in functions such as SUM or XLOOKUP. The downside: LAMBDA has unusual syntax that most users find confusing. Writing it correctly by hand is error-prone.</p>
-        <p>Claude is very good at this. Describe the calculation you repeat often, and Claude writes the complete LAMBDA with clear parameter names, a test formula, and the exact text to paste into Name Manager.</p>
+        <p>LAMBDA is one of the most powerful features in Excel 365. It lets you create your own custom functions — named, reusable, available workbook-wide — just like built-in functions such as SUM or <a href="/claude-excel-xlookup.html" style="color:#0f6e56;font-weight:500">XLOOKUP</a>. The downside: LAMBDA has unusual syntax that most users find confusing. Writing it correctly by hand is error-prone.</p>
+        <p>Claude is very good at this. Describe the calculation you repeat often, and Claude writes the complete LAMBDA with clear parameter names, a test formula, and the exact text to paste into Name Manager. Explore more ways to automate your spreadsheet in our <a href="/ai-for-excel.html" style="color:#0f6e56;font-weight:500">Excel hub</a>.</p>
 
         <!-- VISUAL 1: LAMBDA anatomy in formula bar -->
         <div class="xl-lambda-anatomy">
@@ -429,7 +430,6 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
             <div class="xl-cf-cell revenue">£98,300</div>
             <div class="xl-cf-cell costs">£74,100</div>
             <div class="xl-cf-cell result">24.6%</div>
-            <div class="xl-cf-rnum">5</div>
             <div class="xl-cf-cell formula-show" style="grid-column:span 4;font-size:10px;color:#7c3aed">Column E formula: =NET_MARGIN(C2,D2) copied down — no complex formula visible, just the function name</div>
           </div>
           <div class="xl-cf-badge"><i class="ti ti-check" style="flex-shrink:0"></i> NET_MARGIN registered in Name Manager — available in every cell across the entire workbook</div>
@@ -442,7 +442,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
           </div>
           <div class="step-row">
             <div class="step-num">02</div>
-            <div class="step-body"><h3>Describe it clearly to Claude</h3><p>Explain the logic in plain English: "Calculate net margin as revenue minus costs divided by revenue, shown as a percentage. Return 0 if revenue is zero." Claude translates this into correct LAMBDA syntax with named parameters.</p></div>
+            <div class="step-body"><h3>Describe it clearly to Claude</h3><p>Explain the logic in plain English: "Calculate net margin as revenue minus costs divided by revenue, shown as a percentage. Return 0 if revenue is zero." Claude translates this into correct LAMBDA syntax with named parameters. If you need complex conditional logic, consider brushing up on <a href="/claude-excel-if-ifs.html" style="color:#0f6e56;font-weight:500">IF/IFS structures</a>.</p></div>
           </div>
           <div class="step-row">
             <div class="step-num">03</div>
@@ -519,6 +519,27 @@ Convert it into a reusable LAMBDA function with a clear name and descriptive par
         </div>
 
         <div class="info-box"><p><strong>LAMBDA + LET:</strong> For complex calculations, Claude will often combine LAMBDA with LET — another Excel 365 function that lets you define named variables inside a formula. This keeps the logic readable even when the calculation is multi-step. Ask Claude to use LET if the formula body is getting long.</p></div>
+
+        <p style="font-size:16px; font-weight:600; margin-bottom:1rem">Frequently Asked Questions</p>
+        <p><strong>What is a LAMBDA function in Excel?</strong><br>A LAMBDA function allows you to create custom, reusable functions in Excel using formula logic, which can then be named and called anywhere in your workbook.</p>
+        <p><strong>How do I create a custom function in Excel without VBA?</strong><br>You can use the LAMBDA function in Excel 365 to define custom calculations, test them, and register them in the Name Manager to make them available as native functions.</p>
+        <p><strong>What Excel version supports LAMBDA?</strong><br>LAMBDA functions are currently supported exclusively in Excel 365.</p>
+
+        <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin:1.5rem 0 .6rem">Related courses</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:1rem">
+        <a href="/claude-excel-if-ifs.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
+        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Write Clean IF and IFS Formulas</span>
+        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Simplify complex conditional logic.</span>
+        </a>
+        <a href="/claude-excel-xlookup.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
+        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Write an XLOOKUP Formula</span>
+        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Dynamic lookups for your LAMBDA models.</span>
+        </a>
+        <a href="/claude-excel-explain-formulas.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
+        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Understand and Document Inherited Formulas</span>
+        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Master complex inherited worksheets.</span>
+        </a>
+        </div>
       </div>
 
       <!-- SECTION 3 QUIZ -->
