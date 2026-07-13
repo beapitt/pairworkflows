@@ -13,6 +13,7 @@
 <meta property="og:site_name" content="PairWorkflows">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Use Claude to Build a SUMIFS Formula for Multi-Criteria Excel Reports","description":"Need a SUMIFS formula for a multi-criteria Excel report? Learn how to use Claude AI to write it from scratch, debug a SUMIFS returning 0, and handle dates, wildcards and OR logic.","url":"https://www.pairworkflows.com/claude-excel-sumifs.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why does my SUMIFS return 0?","acceptedAnswer":{"@type":"Answer","text":"A SUMIFS formula usually returns 0 because of a mismatch in range sizes, missing quotation marks around text criteria, dates stored as text, or extra hidden spaces in your data. Ensure your sum range and criteria ranges are exactly the same size."}},{"@type":"Question","name":"Can SUMIFS handle OR conditions?","acceptedAnswer":{"@type":"Answer","text":"Yes, but not within a single standard SUMIFS statement. To handle OR conditions (e.g., summing if a region is North OR South), you need to write two separate SUMIFS formulas and add them together using the + operator."}},{"@type":"Question","name":"How do I use date ranges in SUMIFS criteria?","acceptedAnswer":{"@type":"Answer","text":"To use date ranges, wrap the logical operators in quotes and use the ampersand to join them to the date value or cell reference. For example, use \">=\"&DATE(2026,1,1) or \">=\"&A1 to sum values on or after a specific date."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -218,7 +219,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
       <!-- SECTION 0 -->
       <div id="seo-sec-0" class="seo-section active-section">
         <p>SUMIFS is one of those formulas that looks simple on paper… until you actually need to use it in a real report. The syntax is straightforward — you give it a sum range and then pairs of criteria range + criteria — but the moment you add three or four conditions, dates, wildcards, or references to another sheet, things get messy fast.</p>
-        <p>Most of the time the problem isn't deep logic. It's the small annoying stuff: the ranges aren't the same size, a date is formatted as text, you forgot the quotes around a text criterion, or one column is off by one. Excel just returns 0 and gives you zero clues.</p>
+        <p>Most of the time the problem isn't deep logic. It's the small annoying stuff: the ranges aren't the same size, a date is formatted as text (a common <a href="/claude-excel-clean-data.html" style="color:#0f6e56;font-weight:500">data cleaning</a> issue), you forgot the quotes around a text criterion, or one column is off by one. Excel just returns 0 and gives you zero clues.</p>
 
         <!-- VISUAL 1: SUMIFS anatomy -->
         <div class="sumifs-anatomy">
@@ -235,7 +236,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
           </div>
         </div>
 
-        <p>This is where Claude really shines. You describe in plain English what you want to sum and under which conditions, paste a few rows of sample data, and it writes the formula for you. If you already have a SUMIFS that's returning 0 or wrong numbers, you paste it in and Claude spots the mistake immediately.</p>
+        <p>This is where Claude really shines for <a href="/ai-for-excel.html" style="color:#0f6e56;font-weight:500">AI Excel workflows</a>. You describe in plain English what you want to sum and under which conditions, paste a few rows of sample data, and it writes the formula for you. If you already have a SUMIFS that's returning 0 or wrong numbers, you paste it in and Claude spots the mistake immediately.</p>
 
         <!-- VISUAL 2: Common reasons it returns 0 -->
         <p><strong>Why SUMIFS returns 0 — the four most common culprits:</strong></p>
@@ -268,7 +269,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
         <ul class="feature-list">
           <li>You explain the report in normal English and Claude turns it into a correct SUMIFS</li>
           <li>You paste a broken formula and Claude tells you exactly why it's failing</li>
-          <li>Claude handles multiple criteria, dates, wildcards, and cross-sheet references</li>
+          <li>Claude handles multiple criteria, dates, wildcards, and cross-sheet references (just as it does for <a href="/claude-excel-xlookup.html" style="color:#0f6e56;font-weight:500">XLOOKUP formulas</a>)</li>
           <li>Claude explains every part of the formula so you can modify it yourself next time</li>
         </ul>
 
@@ -374,6 +375,32 @@ The expected result for these rows is [expected value]. Please tell me what's wr
         </div>
 
         <div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>Date criteria:</strong> if your SUMIFS uses date conditions, make sure the date column contains real Excel dates — not text that looks like a date. Check by selecting a date cell and looking at the format in the ribbon. If it says "Text", the dates need converting before SUMIFS will match them.</div></div>
+
+        <p><strong>Frequently asked questions</strong></p>
+        <p><strong>Why does my SUMIFS return 0?</strong></p>
+        <p>A SUMIFS formula usually returns 0 because of a mismatch in range sizes, missing quotation marks around text criteria, dates stored as text, or extra hidden spaces in your data. Ensure your sum range and criteria ranges are exactly the same size.</p>
+
+        <p><strong>Can SUMIFS handle OR conditions?</strong></p>
+        <p>Yes, but not within a single standard SUMIFS statement. To handle OR conditions (e.g., summing if a region is North OR South), you need to write two separate SUMIFS formulas and add them together using the + operator.</p>
+
+        <p><strong>How do I use date ranges in SUMIFS criteria?</strong></p>
+        <p>To use date ranges, wrap the logical operators in quotes and use the ampersand to join them to the date value or cell reference. For example, use <code>"&gt;="&amp;DATE(2026,1,1)</code> or <code>"&gt;="&amp;A1</code> to sum values on or after a specific date.</p>
+
+        <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin:1.5rem 0 .6rem">Related courses</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem">
+        <a href="/claude-excel-xlookup.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
+        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Write an XLOOKUP Formula</span>
+        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Learn how to replace VLOOKUP and find exact matches using Claude.</span>
+        </a>
+        <a href="/claude-excel-if-ifs.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
+        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Write Clean IF and IFS Formulas</span>
+        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Build nested IF and IFS statements without missing parentheses or logical errors.</span>
+        </a>
+        <a href="/build-budget-variance-analysis-report-excel-claude.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
+        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Build a Budget Variance Analysis Report</span>
+        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Use Claude to assemble a complete budget variance dashboard from raw data.</span>
+        </a>
+        </div>
       </div>
 
       <!-- SECTION 3 QUIZ -->
