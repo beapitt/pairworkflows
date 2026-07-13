@@ -13,6 +13,7 @@
 <meta property="og:site_name" content="PairWorkflows">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Use Claude to Understand and Document Complex Inherited Excel Formulas","description":"Inherited a complex Excel formula with no documentation? Learn how to use Claude AI to explain it layer by layer, identify fragile parts, and write clear documentation.","url":"https://www.pairworkflows.com/claude-excel-explain-formulas.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I understand a complex Excel formula someone else wrote?","acceptedAnswer":{"@type":"Answer","text":"You can use Claude AI to paste the formula and ask it to break it down layer by layer, explaining each function and its purpose within the overall calculation."}},{"@type":"Question","name":"How do I document Excel formulas for handover?","acceptedAnswer":{"@type":"Answer","text":"Ask Claude to write a plain-English explanation of the formula, then copy this text into a cell comment or a dedicated 'DOCUMENTATION' sheet within your workbook to ensure the next user understands your logic."}},{"@type":"Question","name":"Can AI explain nested IF formulas?","acceptedAnswer":{"@type":"Answer","text":"Yes, AI models like Claude are very effective at parsing nested IF statements, clarifying the logic of each condition and highlighting potential errors or improvements."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -251,13 +252,13 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
   <div class="content-area">
     <div class="section-hero">
       <div class="section-tag" id="heroTag">Section 01</div>
-      <h1 id="heroTitle">Inherited a formula you don't understand and can't touch?</h2>
+      <h1 id="heroTitle">Inherited a formula you don't understand and can't touch?</h1>
     </div>
     <div class="content-body" id="cnt">
 
       <!-- SECTION 0 -->
       <div id="seo-sec-0" class="seo-section active-section">
-        <p>You open a workbook built by someone else and find a monster formula like this in a key cell. No comments. No documentation. You have no idea what it does, whether it's reliable, or if it's safe to touch.</p>
+        <p>You open a workbook built by someone else and find a monster formula like this in a key cell. No comments. No documentation. You have no idea what it does, whether it's reliable, or if it's safe to touch. Handling complex <a href="/claude-excel-if-ifs.html" style="color:#0f6e56;font-weight:500">IF or IFS logic</a> can be particularly tricky when you don't have the original context.</p>
 
         <!-- VISUAL 1: Formula bar with colour-coded anatomy -->
         <div class="xl-formulabar">
@@ -275,7 +276,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
           </div>
         </div>
 
-        <p>This is super common in corporate Excel. You inherit files and need to understand them before you can use them, modify them, or explain them to your boss. Manually reverse-engineering these formulas takes forever. Claude is excellent at this — just paste the formula, give a bit of context, and it breaks everything down layer by layer.</p>
+        <p>This is super common in corporate Excel. You inherit files and need to understand them before you can use them, modify them, or explain them to your boss. Manually reverse-engineering these formulas takes forever. Claude is excellent at this — just paste the formula, give a bit of context, and it breaks everything down layer by layer. Explore more strategies in our <a href="/ai-for-excel.html" style="color:#0f6e56;font-weight:500">Excel hub</a>.</p>
 
         <!-- VISUAL 2: Layer breakdown table -->
         <div class="xl-layers">
@@ -363,7 +364,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
           </div>
           <div class="step-row">
             <div class="step-num">06</div>
-            <div class="step-body"><h3>Check safety before changing anything</h3><p>Before modifying the formula or the data it uses, ask Claude what the consequences would be. This helps you avoid breaking other parts of the file you didn't know were connected.</p></div>
+            <div class="step-body"><h3>Check safety before changing anything</h3><p>Before modifying the formula or the data it uses, ask Claude what the consequences would be. If your changes seem to trigger errors, check our course on <a href="/claude-excel-circular-reference.html" style="color:#0f6e56;font-weight:500">fixing circular reference errors</a>, as those are the most common issues after modifying complex formulas. This helps you avoid breaking other parts of the file you didn't know were connected.</p></div>
           </div>
         </div>
         <div class="highlight-box">
@@ -419,17 +420,42 @@ Please explain this formula layer by layer, starting from the outermost function
         </div>
 
         <div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>Important:</strong> Claude explains the formula based on what you paste and describe. If the sheet names or data structure are unusual, include that in your prompt — it affects the explanation significantly.</div></div>
+
+        <p style="font-size:16px; font-weight:600; margin-bottom:1rem">Frequently Asked Questions</p>
+        <p><strong>How do I understand a complex Excel formula someone else wrote?</strong><br>You can use Claude AI to paste the formula and ask it to break it down layer by layer, explaining each function and its purpose within the overall calculation.</p>
+        <p><strong>How do I document Excel formulas for handover?</strong><br>Ask Claude to write a plain-English explanation of the formula, then copy this text into a cell comment or a dedicated 'DOCUMENTATION' sheet within your workbook to ensure the next user understands your logic.</p>
+        <p><strong>Can AI explain nested IF formulas?</strong><br>Yes, AI models like Claude are very effective at parsing nested IF statements, clarifying the logic of each condition and highlighting potential errors or improvements.</p>
+
+        <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin:1.5rem 0 .6rem">Related courses</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:1rem">
+        <a href="/claude-excel-circular-reference.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
+        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Fix Circular Reference Errors</span>
+        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Identify and resolve loops in your Excel formulas.</span>
+        </a>
+        <a href="/claude-excel-if-ifs.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
+        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Write Clean IF and IFS Formulas</span>
+        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Simplify your logical formulas with Claude.</span>
+        </a>
+        <a href="/claude-excel-dynamic-reports.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
+        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Convert Manual Reports into Dynamic Models</span>
+        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Automate your reporting workflow.</span>
+        </a>
+        </div>
       </div>
 
       <!-- SECTION 3 QUIZ -->
-     <div id="seo-sec-3" class="seo-section">
+      <div id="seo-sec-3" class="seo-section">
         <div id="quiz-interactive-container"></div>
       </div>
 
     </div><!-- /content-body -->
-  </div><!-- /content-area -->
-</div><!-- /course-shell -->
-</div><!-- /page-wrap -->
+    <div class="content-footer">
+      <button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button>
+      <button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>
+    </div>
+  </div>
+</div>
+</div>
 
 <footer style="background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0">
 <div style="max-width:1100px; margin:0 auto">
