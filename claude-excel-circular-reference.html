@@ -223,15 +223,14 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
   <div class="content-area">
     <div class="section-hero">
       <div class="section-tag" id="heroTag">Section 01</div>
-      <h1 id="heroTitle">Excel is showing a circular reference warning — now what?</h2>
+      <h1 id="heroTitle">Excel is showing a circular reference warning — now what?</h1>
     </div>
-  <div class="content-body" id="cnt">
+    <div class="content-body" id="cnt">
 
       <!-- SECTION 0 -->
       <div id="seo-sec-0" class="seo-section active-section">
         <p>A circular reference happens when a formula refers back to its own cell — directly or through a chain of other formulas. Classic example: <code style="background:#fef2f2;color:#dc2626;padding:2px 6px;border-radius:4px;font-size:12px;border:1px solid #fca5a5">=C5+B5</code> inside cell C5. Excel freaks out because it can't calculate something that depends on itself.</p>
-        <p>The warning is easy to understand. The annoying part is finding where the problem actually is, especially in a big workbook where the loop runs through five or six different cells. Claude can't open your file, but if you paste the formulas Excel is flagging, it's very good at tracing the chain, spotting where the loop closes, and suggesting a proper fix. If you see <a href="/claude-excel-ref-errors.html" style="color:#0f6e56;font-weight:500">#REF! errors</a> appearing alongside these issues, check our guide on fixing those first.</p>
-        <p>If you find it difficult to untangle complex logic, our course on how to <a href="/claude-excel-explain-formulas.html" style="color:#0f6e56;font-weight:500">understand inherited formulas</a> can help you decompose the logic. For a broader look at improving your speed with data, visit our <a href="/ai-for-excel.html" style="color:#0f6e56;font-weight:500">Excel hub</a>.</p>
+        <p>The warning is easy to understand. The annoying part is finding where the problem actually is, especially in a big workbook where the loop runs through five or six different cells. Claude can't open your file, but if you paste the formulas Excel is flagging, it's very good at tracing the chain, spotting where the loop closes, and suggesting a proper fix. If you see <a href="/claude-excel-ref-errors.html">#REF! errors</a> appearing alongside these issues, check our guide on fixing those first. If you find it difficult to untangle complex logic, our course on how to <a href="/claude-excel-explain-formulas.html">understand inherited formulas</a> can help you decompose the logic. For a broader look at improving your speed with data, visit our <a href="/ai-for-excel.html">Excel hub</a>.</p>
 
         <!-- VISUAL 1: Direct vs Indirect -->
         <div class="circ-types">
@@ -286,10 +285,10 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
             </div>
           </div>
           <div class="circ-trace-result"><i class="ti ti-alert-circle" style="color:#dc2626;flex-shrink:0"></i> Claude identifies F3 as the problem — it should reference a fixed input cell, not D3.</div>
-      </div>
+        </div>
 
-      <!-- VISUAL 3: Before/After -->
-      <div class="circ-fix">
+        <!-- VISUAL 3: Before/After -->
+        <div class="circ-fix">
           <div class="circ-fix-card before">
             <div class="circ-fix-header"><i class="ti ti-x"></i> Broken — causes circular loop</div>
             <div class="circ-fix-body">
