@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Loan Amortization Schedule in Excel with Claude AI — PairWorkflows</title>
+<meta name="description" content="Generate a full loan amortization schedule in Excel using Claude AI. See principal, interest, and remaining balance for every payment period.">
+<link rel="canonical" href="https://www.pairworkflows.com/loan-amortization-schedule-excel-claude.html">
+<meta property="og:title" content="Loan Amortization Schedule in Excel with Claude AI — PairWorkflows">
+<meta property="og:description" content="Use Claude AI to build a loan amortization table in Excel showing principal, interest, and balance for each payment period.">
+<meta property="og:url" content="https://www.pairworkflows.com/loan-amortization-schedule-excel-claude.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PairWorkflows">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Generate a Loan Amortization Schedule in Excel with Claude AI","description":"Generate a full loan amortization schedule in Excel using Claude AI. See principal, interest, and remaining balance for every payment period.","url":"https://www.pairworkflows.com/loan-amortization-schedule-excel-claude.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude handle variable interest rates in an amortization schedule?","acceptedAnswer":{"@type":"Answer","text":"Yes. Include a rate schedule in your prompt — for example, 4.5% for months 1–24, then 5.2% from month 25 onward. The prompt in this course instructs Claude to recalculate the payment amount at each rate change so principal and interest splits remain accurate."}},{"@type":"Question","name":"How does Claude calculate the monthly payment amount?","acceptedAnswer":{"@type":"Answer","text":"Claude uses the standard annuity formula: PMT = P × [r(1+r)^n] / [(1+r)^n − 1], where P is the principal, r is the periodic interest rate, and n is the total number of payments. This is the same formula behind Excel's PMT function."}},{"@type":"Question","name":"Can I model extra principal payments or lump-sum prepayments?","acceptedAnswer":{"@type":"Answer","text":"Yes. Add an Extra Payment column to your input data and specify which periods include prepayments. Claude will reduce the outstanding balance accordingly and recalculate interest for all subsequent periods."}},{"@type":"Question","name":"Will the schedule work for quarterly or annual payment frequencies?","acceptedAnswer":{"@type":"Answer","text":"Yes. Specify the payment frequency in your prompt — monthly, quarterly, semi-annual, or annual. Claude adjusts the periodic rate and number of periods automatically. A 5-year loan at 6% annual with quarterly payments becomes 20 periods at 1.5% per period."}},{"@type":"Question","name":"How do I verify Claude's amortization output?","acceptedAnswer":{"@type":"Answer","text":"Check three things: (1) the first payment's interest equals the principal × periodic rate, (2) the final remaining balance is exactly zero (or within a rounding penny), and (3) the sum of all principal payments equals the original loan amount. If any of these fail, the schedule has an error."}}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="icon" type="image/png" href="/favicon.png">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
+.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
+.logo-workflows{font-size:16px;font-weight:400;color:#fff}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
+.nav-back:hover{color:#1d9e75}
+.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
+.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
+.course-shell{background:#fff;border-radius:16px;border:1px solid #e8ecef;overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
+.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
+.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
+.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
+.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
+.prog-wrap{padding:1rem 1.25rem .75rem}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
+.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
+.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
+.nav-list{padding:.5rem 0;flex:1}
+.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
+.nav-item:hover{background:#eef1f4}
+.nav-item.active{border-left-color:#1d9e75;background:#fff}
+.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
+.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
+.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
+.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
+.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
+.content-area{display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
+.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
+.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
+.content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
+.seo-section{display:none}
+.seo-section.active-section{display:block}
+.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
+.seo-section h1{font-size:24px;font-weight:600;color:#1a1a2e;margin-bottom:1rem;line-height:1.3}
+.seo-section h2{font-size:18px;font-weight:600;color:#1a1a2e;margin-bottom:.75rem;line-height:1.35}
+.seo-section h3{font-size:15px;font-weight:600;color:#1a1a2e;margin-bottom:.5rem;line-height:1.4}
+.xl-grade-table{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.xl-gt-header-bar{background:#f3f3f3;border-bottom:1px solid #d0d0d0;padding:4px 0;display:grid}
+.xl-gt-col-h{font-size:11px;font-weight:600;color:#595959;text-align:center;padding:3px 0;border-right:1px solid #e0e0e0}
+.xl-gt-col-h:last-child{border-right:none}
+.xl-gt-rows{display:flex;flex-direction:column}
+.xl-gt-row{display:grid;border-bottom:1px solid #e8e8e8}
+.xl-gt-row:last-child{border-bottom:none}
+.xl-gt-row-num{font-size:11px;color:#595959;text-align:right;padding:7px 8px;background:#f3f3f3;border-right:1px solid #d0d0d0;font-weight:500}
+.xl-gt-cell{font-size:12px;font-family:'Inter',sans-serif;padding:7px 10px;border-right:1px solid #e8e8e8;display:flex;align-items:center}
+.xl-gt-cell:last-child{border-right:none}
+.xl-gt-cell.hdr{background:#f3f3f3;font-weight:600;color:#374151;font-size:11px}
+.xl-gt-cell.score{color:#374151;font-weight:500}
+.xl-gt-cell.matched{background:#c6efce;color:#276221;font-weight:600;justify-content:center}
+.xl-gt-cell.unmatched{background:#ffc7ce;color:#9c0006;font-weight:600;justify-content:center}
+.xl-gt-cell.partial{background:#ffeb9c;color:#9c6500;font-weight:600;justify-content:center}
+.xl-gt-caption{background:#f8fafc;border-top:1px solid #e2e8f0;padding:8px 14px;font-size:11px;color:#64748b;font-style:italic}
+.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
+.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
+.highlight-text{font-size:13px;color:#374151;line-height:1.65}
+.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
+.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
+.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
+.feature-list{list-style:none;padding:0;margin:0 0 1.25rem}
+.feature-list li{padding:.5rem 0 .5rem 1.25rem;position:relative;font-size:14px;color:#374151;border-bottom:1px solid #f0f2f5;line-height:1.6}
+.feature-list li:last-child{border-bottom:none}
+.feature-list li::before{content:'▸';position:absolute;left:0;color:#1d9e75;font-size:13px}
+.steps-list{display:flex;flex-direction:column;gap:0;margin:1rem 0}
+.step-row{display:flex;gap:16px;padding:1.1rem 0;border-bottom:1px solid #f0f2f5}
+.step-row:last-child{border-bottom:none}
+.step-num{font-size:26px;font-weight:700;color:#d1fae5;line-height:1;flex-shrink:0;width:36px;text-align:right;padding-top:2px}
+.step-body h3{font-size:14px;font-weight:600;color:#085041;margin-bottom:.3rem}
+.step-body p{font-size:13px;color:#374151;line-height:1.75;margin:0}
+.step-body code{background:#f0fdf4;color:#0f6e56;padding:1px 6px;border-radius:4px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;border:1px solid #d1fae5}
+.prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
+.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
+.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}
+.prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#fff}
+.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;border-radius:12px;padding:1.25rem;margin:1.5rem 0}
+.checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
+.checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
+.checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
+.faq-section{margin:1.5rem 0}
+.faq-item{border-bottom:1px solid #f0f2f5;padding:.85rem 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:.35rem}
+.faq-a{font-size:13px;color:#374151;line-height:1.7}
+.related-courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:1rem 0}
+.related-card{border:1px solid #e8ecef;border-radius:10px;padding:1rem;transition:all .15s;text-decoration:none;color:#1a1a2e}
+.related-card:hover{border-color:#1d9e75;background:#f5fdf9}
+.related-card-title{font-size:13px;font-weight:500;line-height:1.4;margin-bottom:.25rem}
+.related-card-tag{font-size:11px;color:#6b7280}
+.quiz-q{margin-bottom:1.5rem}
+.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
+.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
+.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
+.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}
+.opt.selected .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}
+.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
+.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
+.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
+.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}
+.submit-global:hover{background:#0f6e56}
+.submit-global:disabled{opacity:.35;cursor:default}
+.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
+.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
+.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
+.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.retake-btn:hover{background:#e1f5ee}
+.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc;flex-shrink:0}
+.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-back:hover{background:#f0f2f5}
+.btn-back:disabled{opacity:.35;cursor:default}
+.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-fwd:hover{background:#0f6e56}
+#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
+#searchOverlay.open{display:flex}
+.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
+.search-close-btn:hover{color:#fff}
+.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
+.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
+.search-box input::placeholder{color:rgba(255,255,255,.35)}
+.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
+.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:2rem}
+.page-footer a{color:#1d9e75;text-decoration:none}
+.page-footer a:hover{text-decoration:underline}
+@media(max-width:700px){
+  .navbar{padding:0 1rem}
+  .page-wrap{padding:1rem .5rem}
+  .course-shell{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
+  .content-footer{padding:1rem}
+  .section-hero{padding:1.25rem 1rem}
+  .xl-gt-header-bar{grid-template-columns:36px repeat(6,1fr)}
+  .xl-gt-row{grid-template-columns:36px repeat(6,1fr)}
+  .xl-gt-cell{font-size:11px;padding:6px 6px}
+  .related-courses{grid-template-columns:1fr}
+  .seo-section p{word-break:break-word;overflow-wrap:break-word}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
+<div class="search-overlay-inner">
+<button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+<form action="/search.html" method="get">
+<div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
+</form>
+<p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
+</div>
+</div>
+<div id="navbar-placeholder"></div>
+<script src="/navbar.js"></script>
+<noscript>
+<nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
+<a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
+<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a>
+<a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a>
+<a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a>
+<a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a>
+<a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a>
+<a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a>
+<a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
+<a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a>
+<a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a>
+<a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
+</nav>
+</noscript>
+<div class="page-wrap">
+<div class="course-shell">
+  <div class="sidebar">
+    <div class="sidebar-top">
+      <div class="course-label">Claude AI — Excel / Finance</div>
+      <div class="course-title-side">Generate a Loan Amortization Schedule in Excel with Claude AI</div>
+    </div>
+    <div class="prog-wrap">
+      <div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
+      <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+    </div>
+    <div class="nav-list">
+      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">The finished schedule</div></div>
+      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">Set up your loan data</div></div>
+      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompt, FAQ &amp; related</div></div>
+      <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quick quiz</div></div>
+    </div>
+  </div>
+
+  <div class="content-area">
+    <div class="section-hero">
+      <div class="section-tag" id="heroTag">Section 01</div>
+      <h2 id="heroTitle">What the finished amortization schedule looks like</h2>
+    </div>
+    <div class="content-body" id="cnt">
+
+      <div id="seo-sec-0" class="seo-section active-section">
+        <h1>Generate a Loan Amortization Schedule in Excel with Claude AI</h1>
+        <p>This course gives you a Claude prompt that converts basic loan terms — principal, rate, tenor, and payment frequency — into a complete amortization schedule you can paste into Excel. Every row shows the payment breakdown between principal and interest, plus the remaining balance after each instalment.</p>
+
+        <h2>Your Finished Amortization Table</h2>
+        <p>Here is a sample schedule Claude produces for a £150,000 term loan at 5.0% annual interest over 5 years (60 monthly payments). Notice how the interest portion shrinks and the principal portion grows with each payment — the hallmark of a standard amortizing loan.</p>
+
+        <div class="xl-grade-table">
+          <div class="xl-gt-header-bar" style="grid-template-columns:44px repeat(6,1fr)">
+            <div class="xl-gt-col-h"></div>
+            <div class="xl-gt-col-h">A</div>
+            <div class="xl-gt-col-h">B</div>
+            <div class="xl-gt-col-h">C</div>
+            <div class="xl-gt-col-h">D</div>
+            <div class="xl-gt-col-h">E</div>
+            <div class="xl-gt-col-h">F</div>
+          </div>
+          <div class="xl-gt-rows">
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
+              <div class="xl-gt-row-num">1</div>
+              <div class="xl-gt-cell hdr">Period</div>
+              <div class="xl-gt-cell hdr">Payment</div>
+              <div class="xl-gt-cell hdr">Principal</div>
+              <div class="xl-gt-cell hdr">Interest</div>
+              <div class="xl-gt-cell hdr">Extra Pmt</div>
+              <div class="xl-gt-cell hdr">Balance</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
+              <div class="xl-gt-row-num">2</div>
+              <div class="xl-gt-cell score">0</div>
+              <div class="xl-gt-cell score">—</div>
+              <div class="xl-gt-cell score">—</div>
+              <div class="xl-gt-cell score">—</div>
+              <div class="xl-gt-cell score">—</div>
+              <div class="xl-gt-cell matched">150,000.00</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
+              <div class="xl-gt-row-num">3</div>
+              <div class="xl-gt-cell score">1</div>
+              <div class="xl-gt-cell score">2,830.46</div>
+              <div class="xl-gt-cell score">2,205.46</div>
+              <div class="xl-gt-cell score">625.00</div>
+              <div class="xl-gt-cell score">0.00</div>
+              <div class="xl-gt-cell score">147,794.54</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
+              <div class="xl-gt-row-num">4</div>
+              <div class="xl-gt-cell score">2</div>
+              <div class="xl-gt-cell score">2,830.46</div>
+              <div class="xl-gt-cell score">2,214.65</div>
+              <div class="xl-gt-cell score">615.81</div>
+              <div class="xl-gt-cell score">0.00</div>
+              <div class="xl-gt-cell score">145,579.89</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
+              <div class="xl-gt-row-num">5</div>
+              <div class="xl-gt-cell score">3</div>
+              <div class="xl-gt-cell score">2,830.46</div>
+              <div class="xl-gt-cell score">2,223.88</div>
+              <div class="xl-gt-cell score">606.58</div>
+              <div class="xl-gt-cell score">0.00</div>
+              <div class="xl-gt-cell score">143,356.01</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
+              <div class="xl-gt-row-num">6</div>
+              <div class="xl-gt-cell score">…</div>
+              <div class="xl-gt-cell score">…</div>
+              <div class="xl-gt-cell score">…</div>
+              <div class="xl-gt-cell score">…</div>
+              <div class="xl-gt-cell score">…</div>
+              <div class="xl-gt-cell score">…</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
+              <div class="xl-gt-row-num">62</div>
+              <div class="xl-gt-cell score">60</div>
+              <div class="xl-gt-cell score">2,830.46</div>
+              <div class="xl-gt-cell score">2,818.72</div>
+              <div class="xl-gt-cell score">11.74</div>
+              <div class="xl-gt-cell score">0.00</div>
+              <div class="xl-gt-cell matched">0.00</div>
+            </div>
+          </div>
+          <div class="xl-gt-caption">Period 0 is the loan origination row. The final balance reaches exactly zero, confirming the schedule is mathematically complete.</div>
+        </div>
+
+        <ul class="feature-list">
+          <li>Period-by-period breakdown of principal repayment versus interest expense</li>
+          <li>Extra Payment column for modelling lump-sum prepayments and their effect on total interest</li>
+          <li>Automatic recalculation of remaining balance after each instalment</li>
+          <li>Summary row showing total interest paid, total principal repaid, and effective cost of borrowing</li>
+        </ul>
+
+        <div class="info-box"><p><strong>Where this fits:</strong> Amortization schedules are one of many finance templates in our <a href="/ai-for-excel.html" style="color:#085041;font-weight:600">AI for Excel</a> course library. If the loan feeds into a larger financial model, the <a href="/build-3-statement-financial-model-excel-claude.html" style="color:#085041;font-weight:600">3-statement financial model course</a> shows how to wire the interest expense and principal repayment into your income statement and balance sheet.</p></div>
+      </div>
+
+      <div id="seo-sec-1" class="seo-section">
+        <h2>Set Up Your Loan Parameters</h2>
+        <p>Claude needs the core terms of the loan. Most of this comes from the term sheet or loan agreement. If you're modelling a prospective loan, use your best estimates — the schedule is easy to regenerate once terms are finalised.</p>
+
+        <h3>Loan Input Table</h3>
+        <div class="xl-grade-table">
+          <div class="xl-gt-header-bar" style="grid-template-columns:44px 1fr 1fr">
+            <div class="xl-gt-col-h"></div>
+            <div class="xl-gt-col-h">A</div>
+            <div class="xl-gt-col-h">B</div>
+          </div>
+          <div class="xl-gt-rows">
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr">
+              <div class="xl-gt-row-num">1</div>
+              <div class="xl-gt-cell hdr">Parameter</div>
+              <div class="xl-gt-cell hdr">Value</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr">
+              <div class="xl-gt-row-num">2</div>
+              <div class="xl-gt-cell score">Loan principal</div>
+              <div class="xl-gt-cell score">£150,000</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr">
+              <div class="xl-gt-row-num">3</div>
+              <div class="xl-gt-cell score">Annual interest rate</div>
+              <div class="xl-gt-cell score">5.0%</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr">
+              <div class="xl-gt-row-num">4</div>
+              <div class="xl-gt-cell score">Loan term</div>
+              <div class="xl-gt-cell score">5 years</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr">
+              <div class="xl-gt-row-num">5</div>
+              <div class="xl-gt-cell score">Payment frequency</div>
+              <div class="xl-gt-cell score">Monthly</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr">
+              <div class="xl-gt-row-num">6</div>
+              <div class="xl-gt-cell score">First payment date</div>
+              <div class="xl-gt-cell score">01/08/2025</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr">
+              <div class="xl-gt-row-num">7</div>
+              <div class="xl-gt-cell score">Extra payments</div>
+              <div class="xl-gt-cell score">£5,000 in period 12; £10,000 in period 24</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="steps-list">
+          <div class="step-row">
+            <div class="step-num">01</div>
+            <div class="step-body"><h3>Confirm the rate basis</h3><p>Is your rate nominal or effective? Most loan agreements quote a nominal annual rate. If the agreement says "5% per annum compounded monthly," the periodic rate is 5% ÷ 12 = 0.4167%. State this clearly in the prompt so Claude doesn't assume the wrong convention.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">02</div>
+            <div class="step-body"><h3>Decide on extra payments upfront</h3><p>If you plan to model prepayments, list each one with its period number and amount. Claude will apply the extra payment to principal immediately and recalculate interest for every subsequent period. This is how you measure the interest savings from early repayment.</p></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">03</div>
+            <div class="step-body"><h3>Handle variable rates as a rate schedule</h3><p>For loans with rate resets — a fixed rate for 24 months then a floating rate — provide a simple table: periods 1–24 at 5.0%, periods 25–60 at 5.75%. Claude recalculates the payment amount at each step change, which is the same approach used in the <a href="/fixed-asset-depreciation-excel-claude.html" style="color:#374151;font-weight:500">fixed asset depreciation course</a> when switching between depreciation methods mid-life.</p></div>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <div class="highlight-icon"><i class="ti ti-bulb"></i></div>
+          <div class="highlight-text"><strong>Tip:</strong> If your loan has an interest-only period followed by full amortization, specify both phases. For example: "Months 1–6 interest only, months 7–60 fully amortizing." Claude will generate zero-principal rows for the interest-only phase and recalculate the payment for the amortizing phase based on the remaining balance.</div>
+        </div>
+      </div>
+
+      <div id="seo-sec-2" class="seo-section">
+        <h2>The Exact Claude Prompt for a Loan Amortization Schedule</h2>
+        <p>Copy this prompt into Claude. Replace the bracketed values with your actual loan terms. The prompt includes guardrails to prevent Claude from rounding prematurely or dropping the final penny of balance.</p>
+
+        <div class="prompt-block">
+          <div class="prompt-block-label">Prompt — paste into Claude</div>
+          <div class="prompt-block-text">I need a complete loan amortization schedule for Excel. Here are the loan terms:
+
+LOAN PARAMETERS:
+- Principal: [e.g. £150,000]
+- Annual interest rate: [e.g. 5.0% nominal, compounded monthly]
+- Loan term: [e.g. 5 years]
+- Payment frequency: [e.g. Monthly]
+- First payment date: [e.g. 01/08/2025]
+
+EXTRA PAYMENTS (optional):
+[e.g. Period 12: £5,000 extra principal; Period 24: £10,000 extra principal]
+
+RATE CHANGES (optional — omit if rate is fixed for the full term):
+[e.g. Periods 1–24: 5.0%; Periods 25–60: 5.75%]
+
+Rules:
+- Calculate the periodic rate as Annual rate ÷ Number of payments per year.
+- Use the standard annuity formula for the fixed payment: PMT = P × [r(1+r)^n] / [(1+r)^n − 1].
+- If extra payments are provided, reduce the outstanding balance immediately and recalculate interest from the next period onward. Do NOT recalculate the fixed payment amount unless there is a rate change.
+- If there is a rate change, recalculate the fixed payment at the new rate based on the remaining balance and remaining periods at the point of change.
+- Carry all calculations to at least 6 decimal places internally. Round displayed amounts to 2 decimal places.
+- The final period's balance must be exactly 0.00 (adjust the last payment if rounding creates a residual of a few pence).
+- Do NOT invent loan terms. Use ONLY the parameters I provided.
+
+Output:
+1. An amortization table with columns: Period | Payment Date | Payment | Principal | Interest | Extra Payment | Remaining Balance
+2. A summary showing: Total payments made, Total interest paid, Total principal repaid, Interest saved by extra payments (vs. no extra payments), Effective payoff period (if shortened by prepayments)
+
+Format the output as an Excel-ready table I can paste directly into a spreadsheet.</div>
+          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+        </div>
+
+        <h2>When You Actually Need an Amortization Schedule</h2>
+        <p>Excel's <code>PMT</code> function tells you the monthly payment. That's useful, but it's a single number. An amortization schedule tells you something <code>PMT</code> can't: exactly how much of your December payment goes to principal versus interest, and what the outstanding balance will be on 15 March next year. That granularity matters in at least three situations.</p>
+        <p>First, accrual accounting requires you to book interest expense in the period it accrues, not when you pay it. The schedule gives you the interest figure for each month without a separate IPMT calculation. Second, covenant compliance often hinges on the outstanding balance at a specific date — the schedule gives you that directly. Third, if you're evaluating whether to prepay, you need to see the cumulative interest saved period by period, not just the headline total.</p>
+
+        <h3>Common Amortization Errors</h3>
+        <div class="xl-grade-table">
+          <div class="xl-gt-header-bar" style="grid-template-columns:44px 1fr 1fr 1fr">
+            <div class="xl-gt-col-h"></div>
+            <div class="xl-gt-col-h">A</div>
+            <div class="xl-gt-col-h">B</div>
+            <div class="xl-gt-col-h">C</div>
+          </div>
+          <div class="xl-gt-rows">
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">1</div>
+              <div class="xl-gt-cell hdr">Error</div>
+              <div class="xl-gt-cell hdr">Impact</div>
+              <div class="xl-gt-cell hdr">Prevention</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">2</div>
+              <div class="xl-gt-cell score">Using annual rate as the periodic rate</div>
+              <div class="xl-gt-cell score">Massively overstates interest — a 5% monthly rate vs. 0.417%</div>
+              <div class="xl-gt-cell score">State "compounded monthly" in the prompt; Claude divides by 12</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">3</div>
+              <div class="xl-gt-cell score">Final balance not reaching zero</div>
+              <div class="xl-gt-cell score">Rounding errors accumulate across 60+ rows</div>
+              <div class="xl-gt-cell score">The prompt tells Claude to adjust the last payment to zero out the balance</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">4</div>
+              <div class="xl-gt-cell score">Recalculating PMT after an extra payment</div>
+              <div class="xl-gt-cell score">Changes the fixed payment, confusing borrowers and accountants</div>
+              <div class="xl-gt-cell score">Prompt specifies: hold PMT constant; extra payments shorten the term instead</div>
+            </div>
+          </div>
+        </div>
+
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-section">
+          <div class="faq-item">
+            <div class="faq-q">Can Claude handle variable interest rates in an amortization schedule?</div>
+            <div class="faq-a">Yes. Include a rate schedule in your prompt — for example, 4.5% for months 1–24, then 5.2% from month 25 onward. The prompt instructs Claude to recalculate the payment amount at each rate change so principal and interest splits remain accurate.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">How does Claude calculate the monthly payment amount?</div>
+            <div class="faq-a">Claude uses the standard annuity formula: PMT = P × [r(1+r)^n] / [(1+r)^n − 1], where P is the principal, r is the periodic interest rate, and n is the total number of payments. This is the same formula behind Excel's PMT function.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Can I model extra principal payments or lump-sum prepayments?</div>
+            <div class="faq-a">Yes. Add the period number and amount to the Extra Payments section of the prompt. Claude reduces the outstanding balance immediately and recalculates interest for all subsequent periods, showing you exactly how much interest the prepayment saves.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Will the schedule work for quarterly or annual payment frequencies?</div>
+            <div class="faq-a">Yes. Specify the frequency in the prompt — monthly, quarterly, semi-annual, or annual. Claude adjusts the periodic rate and number of periods. A 5-year loan at 6% annual with quarterly payments becomes 20 periods at 1.5% per period.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">How do I verify Claude's amortization output?</div>
+            <div class="faq-a">Check three things: the first payment's interest equals the principal multiplied by the periodic rate; the final remaining balance is exactly zero; and the sum of all principal payments equals the original loan amount. If any of these fail, the schedule has an error.</div>
+          </div>
+        </div>
+
+        <h2>Related Excel Finance Courses</h2>
+        <div class="related-courses">
+          <a href="/fixed-asset-depreciation-excel-claude.html" class="related-card">
+            <div class="related-card-title">Build a Fixed Asset Depreciation Template in Excel with Claude AI</div>
+            <div class="related-card-tag">Excel · Finance</div>
+          </a>
+          <a href="/build-3-statement-financial-model-excel-claude.html" class="related-card">
+            <div class="related-card-title">Build a 3-Statement Financial Model in Excel with Claude AI</div>
+            <div class="related-card-tag">Excel · Finance</div>
+          </a>
+          <a href="/capex-planning-excel-claude.html" class="related-card">
+            <div class="related-card-title">Build a CapEx Planning Template in Excel with Claude AI</div>
+            <div class="related-card-tag">Excel · Finance</div>
+          </a>
+        </div>
+
+        <div class="info-box"><p>Explore all finance and Excel courses on the <a href="/claude-for-finance.html" style="color:#085041;font-weight:600">AI for Finance Teams</a> hub page.</p></div>
+      </div>
+
+      <div id="seo-sec-3" class="seo-section">
+        <div id="quiz-interactive-container"></div>
+      </div>
+
+    </div>
+    <div class="content-footer">
+      <button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button>
+      <button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>
+    </div>
+  </div>
+</div>
+</div>
+
+<footer style="background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0">
+<div style="max-width:1100px; margin:0 auto">
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
+<div>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Guides by Role</strong>
+<a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Finance Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for HR Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Marketing Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Legal Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Operations Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Sales Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Customer Service</a>
+<a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Excel</a>
+</div>
+<div>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Prompt Tools</strong>
+<a href="https://www.pairworkflows.com/claude-prompts-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Excel Prompt Builder</a>
+<a href="https://www.pairworkflows.com/claude-prompts-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Finance Prompt Builder</a>
+<a href="https://www.pairworkflows.com/claude-prompts-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">HR Prompt Builder</a>
+<a href="https://www.pairworkflows.com/claude-prompts-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Marketing Prompt Builder</a>
+<a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">General Prompt Library</a>
+</div>
+<div>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Resources</strong>
+<a href="https://www.pairworkflows.com/claude-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Claude Courses</a>
+<a href="https://www.pairworkflows.com/gemini-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Gemini Courses</a>
+<a href="https://www.pairworkflows.com/glossary.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI Glossary</a>
+<a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Claude vs Gemini</a>
+<a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
+</div>
+<div>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company &amp; Legal</strong>
+<a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
+<a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
+<a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
+<a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Privacy Policy</a>
+<a href="https://www.pairworkflows.com/legal.html#terms" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Terms of Use</a>
+<a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Cookie Policy</a>
+</div>
+</div>
+<div style="text-align:center; margin-bottom:2rem">
+<p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:520px; margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p>
+</div>
+<div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem">
+<span style="font-size:13px; color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
+<div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
+<button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
+  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+  Copy link
+</button>
+<a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+  <span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span>
+</a>
+<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+</a>
+<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+
+<script>
+var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
+var heroes=[
+  {tag:'Section 01',title:'What the finished amortization schedule looks like'},
+  {tag:'Section 02',title:'Set up your loan parameters'},
+  {tag:'Section 03',title:'The prompt, FAQ & related courses'},
+  {tag:'Section 04 — Quiz',title:'Test your understanding'}
+];
+var quiz=[
+  {q:'A £150,000 loan at 5.0% annual interest is paid monthly. What periodic interest rate should Claude use?',
+   opts:['5.0%','0.4167%','0.05%'],
+   correct:1},
+  {q:'You make a £5,000 extra principal payment in period 12. What happens to the fixed monthly payment?',
+   opts:['It stays the same — the extra payment shortens the loan term instead','It decreases because the balance is now lower','It increases to compensate for the skipped interest'],
+   correct:0},
+  {q:'The final row of the amortization table shows a remaining balance of £2.14. What does this indicate?',
+   opts:['The loan has a balloon payment at the end','A rounding error — the last payment should be adjusted to zero out the balance','The borrower still owes £2.14 in interest'],
+   correct:1},
+  {q:'Why does the prompt tell Claude to carry calculations to at least 6 decimal places internally?',
+   opts:['To make the spreadsheet look more precise','To prevent small rounding errors from compounding across 60+ periods','To match the format required by UK lenders'],
+   correct:1}
+];
+function buildQuizHTML(){
+  if(quizDone){
+    var score=0;
+    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
+    var msgs=['Review sections 1 and 2 — understanding periodic rates and the PMT formula is essential.','Solid foundation — re-read the section on extra payments and rounding to close the gaps.','Almost perfect — one more concept to lock in before building your schedule.','Full marks — you\'re ready to generate amortization schedules with confidence.'];
+    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
+  }
+  var html='';
+  for(var i=0;i<quiz.length;i++){
+    var q=quiz[i];
+    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
+    for(var j=0;j<q.opts.length;j++){
+      var cls='opt';
+      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
+      else if(sel[i]===j)cls+=' selected';
+      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
+    }
+    html+='</div>';
+  }
+  var allSel=Object.keys(sel).length===quiz.length;
+  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
+  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
+  return html;
+}
+function render(){
+  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
+  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
+  document.getElementById('heroTag').textContent=heroes[cur].tag;
+  document.getElementById('heroTitle').textContent=heroes[cur].title;
+  for(var i=0;i<4;i++){
+    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),sec=document.getElementById('seo-sec-'+i);
+    ni.className='nav-item'+(i===cur?' active':'');
+    if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');
+    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
+    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
+    else{nd.className='nav-dot';nd.textContent=(i+1);}
+  }
+  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
+  document.getElementById('btnBack').disabled=(cur===0);
+  var fwd=document.getElementById('btnFwd');
+  if(cur===3){fwd.style.display='none';}
+  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
+}
+function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
+function goFwd(){if(cur<3)go(cur+1);}
+function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
+function showResult(){quizDone=true;render();}
+function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
+function copyPrompt(btn){var block=btn.closest('.prompt-block');var text=block.querySelector('.prompt-block-text').innerText;navigator.clipboard.writeText(text);btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);}
+function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
+function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+document.getElementById('cnt').addEventListener('click',function(e){
+  if(cur!==3||quizSubmitted||quizDone)return;
+  var opt=e.target.closest('.opt');
+  if(!opt)return;
+  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
+  render();
+});
+render();
+</script>
+</body>
+</html>
