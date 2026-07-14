@@ -598,16 +598,16 @@ var heroes=[
 ];
 var quiz=[
   {q:'Your date column is stored as text in the source data. What symptom will you see in the pivot table?',
-   opts:['Dates appear as numbers like 45291 instead of formatted dates','The Group by Month option is unavailable — all dates appear individually','The pivot table refuses to include the column in the Rows area'],
+   opts:['The pivot table refuses to include the column in the Rows area','The Group by Month option is unavailable — all dates appear individually','Dates appear as numbers like 45291 instead of formatted dates'],
    correct:1},
   {q:'You want to show Gross Margin % in a pivot table. Revenue and COGS are columns in your source data. What is the correct approach?',
-   opts:['Add a Gross Margin % column to the source data before building the pivot','Create a calculated field in the pivot using the formula (Revenue − COGS) / Revenue','Use a GETPIVOTDATA formula in a cell beside the pivot table'],
-   correct:1},
+   opts:['Use a GETPIVOTDATA formula in a cell beside the pivot table','Add a Gross Margin % column to the source data before building the pivot','Create a calculated field in the pivot using the formula (Revenue − COGS) / Revenue'],
+   correct:2},
   {q:'Your source data export from the CRM includes subtotal rows at the bottom of each sales rep\'s section. What should you do before building the pivot?',
-   opts:['Leave them in — pivot tables ignore rows without an Order ID','Delete them — they will cause double-counting in the pivot Grand Total','Move them to a separate sheet so they\'re available for reference'],
-   correct:1},
+   opts:['Delete them — they will cause double-counting in the pivot Grand Total','Move them to a separate sheet so they\'re available for reference','Leave them in — pivot tables ignore rows without an Order ID'],
+   correct:0},
   {q:'The prompt instructs Claude to flag when a metric "cannot be safely implemented as a calculated field." What is the likely alternative it suggests?',
-   opts:['Use a SUMPRODUCT formula outside the pivot instead','Add a helper column to the source data, then use that column as a Values field','Switch to Power Query to compute the metric before loading into the pivot'],
+   opts:['Switch to Power Query to compute the metric before loading into the pivot','Add a helper column to the source data, then use that column as a Values field','Use a SUMPRODUCT formula outside the pivot instead'],
    correct:1}
 ];
 function buildQuizHTML(){
