@@ -651,17 +651,17 @@ var heroes=[
 ];
 var quiz=[
   {q:'The Operations cost centre shows a payroll total of £57,800 but a GL posting of £55,300, while Employer NIC shows a GL posting £2,500 higher than the payroll figure. What does Claude flag this as?',
-   opts:['Two separate variances requiring separate journals','A probable GL miscoding — equal-and-opposite pattern detected','A timing difference — the payroll run posted in the wrong period'],
-   correct:1},
+   opts:['A probable GL miscoding — equal-and-opposite pattern detected','Two separate variances requiring separate journals','A timing difference — the payroll run posted in the wrong period'],
+   correct:0},
   {q:'Before pasting your payroll export into the prompt, what aggregation step is recommended?',
-   opts:['Sort by Employee ID ascending','Sum payroll totals to cost-centre and GL account level','Remove all off-cycle runs from the dataset'],
-   correct:1},
+   opts:['Sort by Employee ID ascending','Remove all off-cycle runs from the dataset','Sum payroll totals to cost-centre and GL account level'],
+   correct:2},
   {q:'A payroll line appears in your payroll extract but has no matching entry in the GL. How does Claude label it?',
-   opts:['VARIANCE','MISSING FROM GL','UNMATCHED GL ENTRY'],
-   correct:1},
+   opts:['UNMATCHED GL ENTRY','VARIANCE','MISSING FROM GL'],
+   correct:2},
   {q:'You set the reconciliation tolerance to £0.50. A cost centre shows a £0.38 difference between payroll and GL. What status does Claude assign?',
-   opts:['VARIANCE — any difference should be investigated','MATCH — the difference falls within tolerance','PROBABLE ROUNDING — flagged for review but not escalated'],
-   correct:1}
+   opts:['VARIANCE — any difference should be investigated','PROBABLE ROUNDING — flagged for review but not escalated','MATCH — the difference falls within tolerance'],
+   correct:2}
 ];
 function buildQuizHTML(){
   if(quizDone){
