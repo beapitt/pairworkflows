@@ -600,16 +600,16 @@ var heroes=[
 ];
 var quiz=[
   {q:'A £150,000 loan at 5.0% annual interest is paid monthly. What periodic interest rate should Claude use?',
-   opts:['5.0%','0.4167%','0.05%'],
-   correct:1},
+   opts:['5.0%','0.05%','0.4167%'],
+   correct:2},
   {q:'You make a £5,000 extra principal payment in period 12. What happens to the fixed monthly payment?',
-   opts:['It stays the same — the extra payment shortens the loan term instead','It decreases because the balance is now lower','It increases to compensate for the skipped interest'],
-   correct:0},
+   opts:['It decreases because the balance is now lower','It increases to compensate for the skipped interest','It stays the same — the extra payment shortens the loan term instead'],
+   correct:2},
   {q:'The final row of the amortization table shows a remaining balance of £2.14. What does this indicate?',
-   opts:['The loan has a balloon payment at the end','A rounding error — the last payment should be adjusted to zero out the balance','The borrower still owes £2.14 in interest'],
-   correct:1},
+   opts:['A rounding error — the last payment should be adjusted to zero out the balance','The borrower still owes £2.14 in interest','The loan has a balloon payment at the end'],
+   correct:0},
   {q:'Why does the prompt tell Claude to carry calculations to at least 6 decimal places internally?',
-   opts:['To make the spreadsheet look more precise','To prevent small rounding errors from compounding across 60+ periods','To match the format required by UK lenders'],
+   opts:['To match the format required by UK lenders','To prevent small rounding errors from compounding across 60+ periods','To make the spreadsheet look more precise'],
    correct:1}
 ];
 function buildQuizHTML(){
