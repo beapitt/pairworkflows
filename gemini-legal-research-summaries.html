@@ -51,7 +51,7 @@ body{font-family:'Inter','Segoe UI',Helvetica Neue,sans-serif;background:#042e1f
 .section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
 .section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
 .section-hero h2{font-size:22px;font-weight:500;color:#ffffff;line-height:1.3}
-.content-body{padding:1.75rem 2rem;flex:1;max-width:860px;width:100%}
+.content-body{padding:1.75rem 2rem;flex:1;width:100%}
 .seo-section{display:none}
 .seo-section.active-section{display:block}
 .seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
@@ -126,13 +126,17 @@ body{font-family:'Inter','Segoe UI',Helvetica Neue,sans-serif;background:#042e1f
 .search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center;letter-spacing:.02em}
 @media(max-width:700px){
   .navbar{padding:0 1rem}
-  .page-wrap{padding:0}
+  .page-wrap{padding:1rem .5rem}
   .course-shell{grid-template-columns:1fr}
   .sidebar{display:none}
-  .content-body{padding:1.25rem 1rem}
-  .section-hero{padding:1.25rem 1rem}
+  .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
   .content-footer{padding:1rem}
-  .task-grid,.before-after,.scenario-grid{grid-template-columns:1fr}
+  .section-hero{padding:1.25rem 1rem}
+  .xl-gt-header-bar{grid-template-columns:36px repeat(6,1fr)}
+  .xl-gt-row{grid-template-columns:36px repeat(6,1fr)}
+  .xl-gt-cell{font-size:11px;padding:6px 6px}
+  .related-courses{grid-template-columns:1fr}
+  .seo-section p{word-break:break-word;overflow-wrap:break-word}
 }
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
