@@ -41,7 +41,7 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1a1a2e;min-height:
 .content-area{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden}
 .section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.5rem 2rem 1.75rem 2rem}
 .section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
-.section-hero h1, .section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:600px}
+.section-hero h1, .section-hero h2{font-size:22px;font-weight:500;color:#fff !important;line-height:1.3;max-width:600px}
 .content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
 .seo-section{display:none}
 .seo-section.active-section{display:block}
@@ -165,7 +165,11 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1a1a2e;min-height:
 </div>
 <div class="content-body" id="cnt">
 <div id="seo-sec-0" class="seo-section active-section">
-<div class="section-hero"><div class="section-tag">Section 01</div><h1>Claude Token Management: Stop Wasting Your Daily Budget.</h1></div>
+<div class="section-hero">
+<div class="section-tag">Section 01</div>
+<h1>Claude Token Management: Stop Wasting Your Daily Budget.</h1>
+<p style="color: rgba(255, 255, 255, 0.85); font-size: 15px; margin-top: 8px; margin-bottom: 0; line-height: 1.5;">Scrivi qui il tuo sottotitolo.</p>
+</div>
 <div class="content-body">
 <p>When you send a message to Claude, it doesn't process your text word by word. It breaks everything down into <strong>tokens</strong> — small chunks of text that typically represent about three-quarters of a word.</p>
 <p>Every prompt you write, every document you upload, every reply Claude generates is measured and counted in tokens. Your Claude subscription comes with a daily usage limit measured in tokens.</p>
