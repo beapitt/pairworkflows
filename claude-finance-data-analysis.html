@@ -3,16 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Use Claude to Write an XLOOKUP Formula in Excel — PairWorkflows</title>
-<meta name="description" content="Need an XLOOKUP formula in Excel? Learn how to use Claude AI to write it from scratch, debug #N/A errors, and convert old VLOOKUPs to XLOOKUP fast.">
-<link rel="canonical" href="https://www.pairworkflows.com/claude-excel-xlookup.html">
-<meta property="og:title" content="Use Claude to Write an XLOOKUP Formula in Excel — PairWorkflows">
-<meta property="og:description" content="Use Claude AI to write XLOOKUP formulas, fix #N/A errors, and convert VLOOKUPs in Excel.">
-<meta property="og:url" content="https://www.pairworkflows.com/claude-excel-xlookup.html">
+<title>Financial Data Analysis in Excel Using Claude AI — PairWorkflows</title>
+<meta name="description" content="Use Claude AI to analyze financial datasets in Excel. Calculate key ratios, spot trends, flag anomalies, and generate a summary report in minutes.">
+<link rel="canonical" href="https://www.pairworkflows.com/claude-finance-data-analysis.html">
+<meta property="og:title" content="Financial Data Analysis in Excel Using Claude AI — PairWorkflows">
+<meta property="og:description" content="Use Claude AI to analyze financial datasets in Excel — calculate ratios, spot trends, and flag anomalies automatically.">
+<meta property="og:url" content="https://www.pairworkflows.com/claude-finance-data-analysis.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PairWorkflows">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Use Claude to Write an XLOOKUP Formula in Excel","description":"Need an XLOOKUP formula in Excel? Learn how to use Claude AI to write it from scratch, debug #N/A errors, and convert old VLOOKUPs to XLOOKUP fast.","url":"https://www.pairworkflows.com/claude-excel-xlookup.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Financial Data Analysis in Excel Using Claude AI","description":"Use Claude AI to analyze financial datasets in Excel. Calculate key ratios, spot trends, flag anomalies, and generate a summary report in minutes.","url":"https://www.pairworkflows.com/claude-finance-data-analysis.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude analyze my financial data directly from Excel?","acceptedAnswer":{"@type":"Answer","text":"Claude cannot open .xlsx files natively in the free chat. Copy the relevant columns from Excel and paste them as text into the prompt, or use Claude Pro, which supports direct file attachments."}},{"@type":"Question","name":"What kind of financial insights can Claude generate from raw data?","acceptedAnswer":{"@type":"Answer","text":"Claude can calculate margins and ratios, identify period-over-period trends, flag unusual swings in any line item, and summarize the overall financial picture in plain language, all from the numbers you provide."}},{"@type":"Question","name":"Will Claude's calculations always be accurate?","acceptedAnswer":{"@type":"Answer","text":"Claude performs arithmetic reliably when given clean, well-labeled data, but you should always spot-check key totals and ratios against your source figures before using them in a report."}},{"@type":"Question","name":"Can I use this for multi-year or multi-period financial data?","acceptedAnswer":{"@type":"Answer","text":"Yes. Include a Period column identifying each row (e.g. Q1 2024, Q2 2024) and Claude will compare across periods to calculate growth rates and highlight trends."}},{"@type":"Question","name":"Does this replace a financial analyst?","acceptedAnswer":{"@type":"Answer","text":"No. Claude accelerates the data-crunching and first-pass insight generation, but interpreting business context, validating assumptions, and making decisions still requires a human analyst."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -30,9 +31,9 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .nav-back:hover{color:#1d9e75}
 .search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
-.page-wrap{width:100%;padding:0;margin:0;flex:1}
-.course-shell{background:#fff;display:flex;margin-top:0;min-height:580px;width:100%}
-.sidebar{width:240px;background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
+.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
+.course-shell{background:#fff;border-radius:16px;border:1px solid #e8ecef;overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
+.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
 .sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
 .course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
 .course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
@@ -49,71 +50,33 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
 .nav-text{font-size:13px;color:#6b7280;line-height:1.35}
 .nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
-.content-area{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden}
-.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.5rem 2rem 1.75rem 2rem}
+.content-area{display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
 .section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
 .section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
 .content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
 .seo-section{display:none}
 .seo-section.active-section{display:block}
-.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem} .seo-section h1{font-size:24px;font-weight:600;color:#1a1a2e;margin-bottom:1.5rem;line-height:1.3}
-
-/* ── VISUAL 1: XLOOKUP anatomy in Excel formula bar ── */
-.xl-formulabar{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.xl-ribbon{background:#217346;padding:5px 14px;display:flex;align-items:center;gap:2px}
-.xl-ribbon-tab{font-size:11px;color:rgba(255,255,255,.65);padding:4px 10px;border-radius:4px 4px 0 0;font-weight:500}
-.xl-ribbon-tab.active{background:rgba(255,255,255,.18);color:#fff;font-weight:600}
-.xl-fb-bar{background:#fff;border-bottom:1px solid #d0d0d0;display:flex;align-items:center}
-.xl-fb-cellref{background:#f3f3f3;color:#1a1a2e;font-family:'SFMono-Regular',Consolas,monospace;font-size:12px;font-weight:700;padding:8px 12px;border-right:1px solid #d0d0d0;min-width:54px;text-align:center;flex-shrink:0}
-.xl-fb-fx{color:#595959;font-size:13px;padding:8px 10px;border-right:1px solid #e8e8e8;font-style:italic;flex-shrink:0;font-family:monospace}
-.xl-fb-formula{font-family:'SFMono-Regular',Consolas,monospace;font-size:12px;padding:8px 12px;flex:1;overflow-x:auto;white-space:nowrap}
-.f-fn{color:#217346;font-weight:700}
-.f-lookup{color:#7c3aed;font-weight:600}
-.f-larray{color:#2563eb}
-.f-rarray{color:#d97706}
-.f-notfound{color:#059669}
-.f-matchmode{color:#dc2626}
-
-/* ── VISUAL 2: XLOOKUP vs VLOOKUP argument comparison ── */
-.xl-compare-args{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.xl-ca-header{background:#f3f3f3;border-bottom:1px solid #d0d0d0;display:grid;grid-template-columns:140px 1fr 1fr;padding:0}
-.xl-ca-hcell{padding:8px 12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#595959;border-right:1px solid #d0d0d0}
-.xl-ca-hcell:last-child{border-right:none}
-.xl-ca-rows{display:flex;flex-direction:column}
-.xl-ca-row{display:grid;grid-template-columns:140px 1fr 1fr;border-bottom:1px solid #e8e8e8;align-items:start}
-.xl-ca-row:last-child{border-bottom:none}
-.xl-ca-label{padding:8px 12px;font-size:12px;font-weight:600;color:#374151;border-right:1px solid #e8e8e8;background:#f8fafc}
-.xl-ca-vlookup{padding:8px 12px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;color:#d97706;background:#fffbeb;border-right:1px solid #e8e8e8;line-height:1.5}
-.xl-ca-xlookup{padding:8px 12px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;color:#059669;background:#f0fdf4;border-right:1px solid #e8e8e8;line-height:1.5}
-.xl-ca-xlookup.advantage{font-weight:600}
-.xl-ca-footer{background:#f0fdf4;border-top:1px solid #bbf7d0;padding:8px 14px;font-size:11px;color:#065f46;display:flex;align-items:center;gap:6px}
-
-/* ── VISUAL 3: XLOOKUP data table with result (Section 2) ── */
-.xl-lookup-demo{margin:1.25rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.xl-ld-ribbon{background:#217346;padding:5px 14px;display:flex;gap:6px}
-.xl-ld-tab{font-size:10px;background:rgba(255,255,255,.15);color:#fff;padding:3px 10px;border-radius:3px 3px 0 0;font-weight:600}
-.xl-ld-tab.inactive{background:rgba(255,255,255,.07);color:rgba(255,255,255,.6);font-weight:400}
-.xl-ld-bar{background:#fff;border-bottom:1px solid #d0d0d0;display:flex;align-items:center}
-.xl-ld-ref{background:#f3f3f3;font-family:monospace;font-size:11px;font-weight:700;padding:6px 10px;border-right:1px solid #d0d0d0;min-width:44px;text-align:center;flex-shrink:0;color:#1a1a2e}
-.xl-ld-fx{color:#595959;font-size:12px;padding:6px 8px;border-right:1px solid #e8e8e8;font-style:italic;flex-shrink:0}
-.xl-ld-formula{font-family:'SFMono-Regular',Consolas,monospace;font-size:11px;padding:6px 10px;flex:1;overflow-x:auto;white-space:nowrap;color:#1a1a2e}
-.xl-ld-fn{color:#217346;font-weight:700}
-.xl-ld-arg1{color:#7c3aed}
-.xl-ld-arg2{color:#2563eb}
-.xl-ld-arg3{color:#d97706}
-.xl-ld-arg4{color:#059669}
-.xl-ld-grid{display:grid;grid-template-columns:36px repeat(4,1fr)}
-.xl-ld-row{display:contents}
-.xl-ld-rnum{font-size:10px;color:#595959;text-align:right;padding:5px 6px;background:#f3f3f3;border-right:1px solid #d0d0d0;border-bottom:1px solid #e8e8e8;font-weight:500}
-.xl-ld-cell{font-size:11px;padding:5px 8px;border-right:1px solid #e8e8e8;border-bottom:1px solid #e8e8e8;font-family:'SFMono-Regular',Consolas,monospace}
-.xl-ld-cell:last-child{border-right:none}
-.xl-ld-cell.hdr{background:#f3f3f3;font-family:'Inter',sans-serif;font-weight:700;color:#374151;font-size:10px}
-.xl-ld-cell.lookup-col{background:#faf5ff;color:#7c3aed}
-.xl-ld-cell.return-col{background:#fffbeb;color:#d97706}
-.xl-ld-cell.result{background:#f0fdf4;color:#059669;font-weight:700}
-.xl-ld-cell.active-row{background:#eff6ff}
-
-/* Common */
+.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
+.seo-section h1{font-size:24px;font-weight:600;color:#1a1a2e;margin-bottom:1rem;line-height:1.3}
+.seo-section h2{font-size:18px;font-weight:600;color:#1a1a2e;margin-bottom:.75rem;line-height:1.35}
+.seo-section h3{font-size:15px;font-weight:600;color:#1a1a2e;margin-bottom:.5rem;line-height:1.4}
+.xl-grade-table{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.xl-gt-header-bar{background:#f3f3f3;border-bottom:1px solid #d0d0d0;padding:4px 0;display:grid}
+.xl-gt-col-h{font-size:11px;font-weight:600;color:#595959;text-align:center;padding:3px 0;border-right:1px solid #e0e0e0}
+.xl-gt-col-h:last-child{border-right:none}
+.xl-gt-rows{display:flex;flex-direction:column}
+.xl-gt-row{display:grid;border-bottom:1px solid #e8e8e8}
+.xl-gt-row:last-child{border-bottom:none}
+.xl-gt-row-num{font-size:11px;color:#595959;text-align:right;padding:7px 8px;background:#f3f3f3;border-right:1px solid #d0d0d0;font-weight:500}
+.xl-gt-cell{font-size:12px;font-family:'Inter',sans-serif;padding:7px 10px;border-right:1px solid #e8e8e8;display:flex;align-items:center}
+.xl-gt-cell:last-child{border-right:none}
+.xl-gt-cell.hdr{background:#f3f3f3;font-weight:600;color:#374151;font-size:11px}
+.xl-gt-cell.score{color:#374151;font-weight:500}
+.xl-gt-cell.matched{background:#c6efce;color:#276221;font-weight:600;justify-content:center}
+.xl-gt-cell.unmatched{background:#ffc7ce;color:#9c0006;font-weight:600;justify-content:center}
+.xl-gt-cell.partial{background:#ffeb9c;color:#9c6500;font-weight:600;justify-content:center}
+.xl-gt-caption{background:#f8fafc;border-top:1px solid #e2e8f0;padding:8px 14px;font-size:11px;color:#64748b;font-style:italic}
 .info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
 .info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
 .highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
@@ -142,6 +105,16 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
 .checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
 .checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
+.faq-section{margin:1.5rem 0}
+.faq-item{border-bottom:1px solid #f0f2f5;padding:.85rem 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:.35rem}
+.faq-a{font-size:13px;color:#374151;line-height:1.7}
+.related-courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:1rem 0}
+.related-card{border:1px solid #e8ecef;border-radius:10px;padding:1rem;transition:all .15s;text-decoration:none;color:#1a1a2e}
+.related-card:hover{border-color:#1d9e75;background:#f5fdf9}
+.related-card-title{font-size:13px;font-weight:500;line-height:1.4;margin-bottom:.25rem}
+.related-card-tag{font-size:11px;color:#6b7280}
 .quiz-q{margin-bottom:1.5rem}
 .quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
 .opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
@@ -168,14 +141,6 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .btn-back:disabled{opacity:.35;cursor:default}
 .btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
 .btn-fwd:hover{background:#0f6e56}
-.share-section{max-width:1100px;margin:2.5rem auto 0;padding:0 1rem}
-.share-inner{display:flex;align-items:center;justify-content:center;gap:16px;padding:1.75rem 1.5rem;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap}
-.share-copy{display:flex;align-items:center;gap:10px;height:48px;padding:0 20px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;color:#e5e7eb;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .2s}
-.share-copy:hover{background:#374151;transform:scale(1.04)}
-.share-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;text-decoration:none;transition:all .2s}
-.share-icon:hover{transform:scale(1.08)}
-.share-li:hover{background:#0a66c2;border-color:#0a66c2}
-.share-x:hover{background:#000;border-color:#000}
 #searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
 #searchOverlay.open{display:flex}
 .search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
@@ -197,11 +162,10 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
   .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
   .content-footer{padding:1rem}
   .section-hero{padding:1.25rem 1rem}
-  .xl-compare-args{overflow-x:auto}
-  .xl-ca-header{min-width:480px}
-  .xl-ca-row{min-width:480px}
-  .xl-fb-formula{font-size:10px}
-  .xl-ld-formula{font-size:10px}
+  .xl-gt-header-bar{grid-template-columns:36px repeat(6,1fr)}
+  .xl-gt-row{grid-template-columns:36px repeat(6,1fr)}
+  .xl-gt-cell{font-size:11px;padding:6px 6px}
+  .related-courses{grid-template-columns:1fr}
   .seo-section p{word-break:break-word;overflow-wrap:break-word}
 }
 </style>
@@ -239,142 +203,147 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 <div class="course-shell">
   <div class="sidebar">
     <div class="sidebar-top">
-      <div class="course-label">Claude AI — Excel Course</div>
-      <div class="course-title-side">Use Claude to Write an XLOOKUP Formula in Excel</div>
+      <div class="course-label">Claude AI — Excel / Finance</div>
+      <h1 class="course-title-side">Financial Data Analysis in Excel Using Claude AI</h1>
     </div>
     <div class="prog-wrap">
       <div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
       <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
     </div>
     <div class="nav-list">
-      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">The problem Claude solves</div></div>
-      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">The workflow</div></div>
-      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompts and checklist</div></div>
+      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">The finished analysis</div></div>
+      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">Prepare your dataset</div></div>
+      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompt, FAQ &amp; related</div></div>
       <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quick quiz</div></div>
     </div>
   </div>
+
   <div class="content-area">
     <div class="section-hero">
       <div class="section-tag" id="heroTag">Section 01</div>
-      <h2 id="heroTitle">XLOOKUP is better than VLOOKUP — here's how to write it with Claude.</h2>
+      <h2 id="heroTitle">What the finished financial analysis looks like</h2>
     </div>
     <div class="content-body" id="cnt">
-<div id="seo-sec-0" class="seo-section active-section">
 
-   <!-- SECTION 0 -->
+      <!-- SECTION 0: Intro + Final Result -->
       <div id="seo-sec-0" class="seo-section active-section">
-        <p>XLOOKUP is the modern, better replacement for VLOOKUP. It's more flexible, easier to read, and available in Excel 365 and Excel 2019+. Yet many users still struggle with it — the argument order is different, the match modes are confusing, and #N/A errors appear without clear explanation.</p>
-        <p>Claude handles XLOOKUP very well. Describe what you want to look up and what you need to return, and it writes the correct formula with the right match mode and error handling. If your existing XLOOKUP is broken, paste it in and Claude will diagnose and fix it quickly.</p>
+       <p>This course gives you a ready-to-use Claude prompt that turns a raw financial dataset — a P&amp;L export, a set of period-over-period figures, or a simple revenue/expense breakdown — into calculated ratios, trend commentary, and flagged anomalies. You'll get a clean summary table plus a written narrative you can drop straight into a report. The whole process takes under five minutes once your data is prepared.</p>
 
-        <!-- VISUAL 1: XLOOKUP anatomy in formula bar -->
-        <div class="xl-formulabar">
-          <div class="xl-ribbon">
-            <div class="xl-ribbon-tab">Home</div>
-            <div class="xl-ribbon-tab">Insert</div>
-            <div class="xl-ribbon-tab active">Formulas</div>
-            <div class="xl-ribbon-tab">Data</div>
-          </div>
-          <div class="xl-fb-bar">
-            <div class="xl-fb-cellref">E2</div>
-            <div class="xl-fb-fx">fx</div>
-            <div class="xl-fb-formula"><span class="f-fn">=IFERROR(XLOOKUP(</span><span class="f-lookup">B2</span>, <span class="f-larray">Staff!$A$2:$A$500</span>, <span class="f-rarray">Staff!$D$2:$D$500</span>, <span class="f-notfound">""</span>, <span class="f-matchmode">0</span><span class="f-fn">), "")</span></div>
-          </div>
-        </div>
+        <h2>What Your Finished Financial Analysis Looks Like</h2>
+        <p>Below is the kind of output Claude produces from a quarterly dataset. Each period is compared to the one before it, key ratios are calculated automatically, and any line item moving outside a normal range is flagged for review.</p>
 
-        <!-- VISUAL 2: XLOOKUP vs VLOOKUP argument comparison -->
-        <p><strong>XLOOKUP vs VLOOKUP — why XLOOKUP wins:</strong></p>
-        <div class="xl-compare-args">
-          <div class="xl-ca-header">
-            <div class="xl-ca-hcell">Feature</div>
-            <div class="xl-ca-hcell" style="color:#d97706">VLOOKUP</div>
-            <div class="xl-ca-hcell" style="color:#059669">XLOOKUP</div>
+        <div class="xl-grade-table">
+          <div class="xl-gt-header-bar" style="grid-template-columns:44px repeat(6,1fr)">
+            <div class="xl-gt-col-h"></div>
+            <div class="xl-gt-col-h">A</div>
+            <div class="xl-gt-col-h">B</div>
+            <div class="xl-gt-col-h">C</div>
+            <div class="xl-gt-col-h">D</div>
+            <div class="xl-gt-col-h">E</div>
+            <div class="xl-gt-col-h">F</div>
           </div>
-          <div class="xl-ca-rows">
-            <div class="xl-ca-row">
-              <div class="xl-ca-label">Return column</div>
-              <div class="xl-ca-vlookup">Column index number — breaks if columns are inserted</div>
-              <div class="xl-ca-xlookup advantage">Direct range reference — never breaks</div>
+          <div class="xl-gt-rows">
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
+              <div class="xl-gt-row-num">1</div>
+              <div class="xl-gt-cell hdr">Period</div>
+              <div class="xl-gt-cell hdr">Revenue</div>
+              <div class="xl-gt-cell hdr">Gross Margin %</div>
+              <div class="xl-gt-cell hdr">OpEx</div>
+              <div class="xl-gt-cell hdr">Net Margin %</div>
+              <div class="xl-gt-cell hdr">Flag</div>
             </div>
-            <div class="xl-ca-row">
-              <div class="xl-ca-label">Look left</div>
-              <div class="xl-ca-vlookup">Not possible — lookup must be leftmost column</div>
-              <div class="xl-ca-xlookup advantage">Yes — lookup and return can be any columns</div>
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
+              <div class="xl-gt-row-num">2</div>
+              <div class="xl-gt-cell score">Q1 2025</div>
+              <div class="xl-gt-cell score">412,000</div>
+              <div class="xl-gt-cell score">58.2%</div>
+              <div class="xl-gt-cell score">145,000</div>
+              <div class="xl-gt-cell score">22.9%</div>
+              <div class="xl-gt-cell matched">Normal</div>
             </div>
-            <div class="xl-ca-row">
-              <div class="xl-ca-label">Missing values</div>
-              <div class="xl-ca-vlookup">Needs IFERROR wrapper to avoid #N/A</div>
-              <div class="xl-ca-xlookup advantage">Built-in 4th argument handles missing values</div>
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
+              <div class="xl-gt-row-num">3</div>
+              <div class="xl-gt-cell score">Q2 2025</div>
+              <div class="xl-gt-cell score">438,500</div>
+              <div class="xl-gt-cell score">57.6%</div>
+              <div class="xl-gt-cell score">151,000</div>
+              <div class="xl-gt-cell score">21.8%</div>
+              <div class="xl-gt-cell matched">Normal</div>
             </div>
-            <div class="xl-ca-row">
-              <div class="xl-ca-label">Match mode</div>
-              <div class="xl-ca-vlookup">TRUE/FALSE — confusing, defaults to approximate</div>
-              <div class="xl-ca-xlookup advantage">0=exact, -1=next smaller, 1=next larger, 2=wildcard</div>
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
+              <div class="xl-gt-row-num">4</div>
+              <div class="xl-gt-cell score">Q3 2025</div>
+              <div class="xl-gt-cell score">401,200</div>
+              <div class="xl-gt-cell score">52.1%</div>
+              <div class="xl-gt-cell score">149,500</div>
+              <div class="xl-gt-cell score">17.4%</div>
+              <div class="xl-gt-cell partial">Watch</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
+              <div class="xl-gt-row-num">5</div>
+              <div class="xl-gt-cell score">Q4 2025</div>
+              <div class="xl-gt-cell score">395,800</div>
+              <div class="xl-gt-cell score">41.3%</div>
+              <div class="xl-gt-cell score">162,000</div>
+              <div class="xl-gt-cell score">6.2%</div>
+              <div class="xl-gt-cell unmatched">Anomaly</div>
             </div>
           </div>
-          <div class="xl-ca-footer"><i class="ti ti-check" style="color:#059669;flex-shrink:0"></i> XLOOKUP is available in Excel 365 and Excel 2019+. On older versions, use INDEX/MATCH instead — Claude handles both.</div>
+          <div class="xl-gt-caption">Claude flags gross margin or net margin swings beyond a normal range so you can investigate the underlying cause before reporting the numbers.</div>
         </div>
 
         <ul class="feature-list">
-          <li>You describe what you need to find and Claude writes the XLOOKUP formula with all arguments correct</li>
-          <li>Claude chooses the right match mode — exact, approximate, or wildcard</li>
-          <li>Claude handles complex cases — looking left, returning multiple columns, nested XLOOKUPs</li>
-          <li>Claude converts old VLOOKUPs to XLOOKUP cleanly, including column index fixes</li>
+          <li>Calculates gross margin, net margin, and other core ratios from raw revenue and cost figures</li>
+          <li>Compares each period to the previous one and reports growth or decline in plain language</li>
+          <li>Flags any line item whose movement falls outside a normal range — no silent averaging</li>
+          <li>Produces a written summary you can paste directly into a report or send to stakeholders</li>
         </ul>
 
-        <div class="info-box"><p><strong>Not on Excel 365 or 2019?</strong> Tell Claude your Excel version and it will write INDEX/MATCH instead — which works in all versions and has the same advantages over VLOOKUP. Claude handles the conversion automatically.</p></div>
+        <div class="info-box"><p><strong>Where this fits:</strong> Financial data analysis is one of the core tasks covered in our <a href="/ai-for-excel.html" style="color:#085041;font-weight:600">AI for Excel</a> course hub. If you want to track these ratios on an ongoing basis rather than one-off, see the <a href="/financial-kpi-dashboard-excel-claude.html" style="color:#085041;font-weight:600">Financial KPI dashboard course</a> next.</p></div>
       </div>
 
-      <!-- SECTION 1 -->
+      <!-- SECTION 1: Data Preparation -->
       <div id="seo-sec-1" class="seo-section">
-        <p>Six steps — from describing your lookup to a tested, production-ready formula.</p>
+        <h2>Prepare Your Financial Dataset for Analysis</h2>
+        <p>Claude works best with a single, clean table rather than a full formatted P&amp;L export. Pull the core line items into Excel or CSV with one row per period, and keep the column headers consistent. Here is the minimum required layout:</p>
 
-        <!-- VISUAL 3: Live lookup demo table -->
-        <div class="xl-lookup-demo">
-          <div class="xl-ld-ribbon">
-            <div class="xl-ld-tab">Summary</div>
-            <div class="xl-ld-tab inactive">Staff</div>
-            <div class="xl-ld-tab inactive">Raw_Data</div>
+        <h3>Financial Summary Layout</h3>
+        <div class="xl-grade-table">
+          <div class="xl-gt-header-bar" style="grid-template-columns:44px repeat(4,1fr)">
+            <div class="xl-gt-col-h"></div>
+            <div class="xl-gt-col-h">A</div>
+            <div class="xl-gt-col-h">B</div>
+            <div class="xl-gt-col-h">C</div>
+            <div class="xl-gt-col-h">D</div>
           </div>
-          <div class="xl-ld-bar">
-            <div class="xl-ld-ref">E2</div>
-            <div class="xl-ld-fx">fx</div>
-            <div class="xl-ld-formula"><span class="xl-ld-fn">=XLOOKUP(</span><span class="xl-ld-arg1">B2</span>, <span class="xl-ld-arg2">Staff!$A:$A</span>, <span class="xl-ld-arg3">Staff!$D:$D</span>, <span class="xl-ld-arg4">""</span>, 0<span class="xl-ld-fn">)</span></div>
-          </div>
-          <div class="xl-ld-grid">
-            <div class="xl-ld-row">
-              <div class="xl-ld-rnum">1</div>
-              <div class="xl-ld-cell hdr">Name</div>
-              <div class="xl-ld-cell hdr" style="background:#f3f3f3;color:#7c3aed">Emp ID ← lookup</div>
-              <div class="xl-ld-cell hdr">Dept</div>
-              <div class="xl-ld-cell hdr" style="background:#f3f3f3;color:#d97706">Salary ← return</div>
+          <div class="xl-gt-rows">
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
+              <div class="xl-gt-row-num">1</div>
+              <div class="xl-gt-cell hdr">Period</div>
+              <div class="xl-gt-cell hdr">Revenue</div>
+              <div class="xl-gt-cell hdr">COGS</div>
+              <div class="xl-gt-cell hdr">OpEx</div>
             </div>
-            <div class="xl-ld-row">
-              <div class="xl-ld-rnum">2</div>
-              <div class="xl-ld-cell">Sarah M.</div>
-              <div class="xl-ld-cell lookup-col">EMP-042</div>
-              <div class="xl-ld-cell">Finance</div>
-              <div class="xl-ld-cell result">£52,000</div>
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
+              <div class="xl-gt-row-num">2</div>
+              <div class="xl-gt-cell score">Q1 2025</div>
+              <div class="xl-gt-cell score">412,000</div>
+              <div class="xl-gt-cell score">172,200</div>
+              <div class="xl-gt-cell score">145,000</div>
             </div>
-            <div class="xl-ld-row">
-              <div class="xl-ld-rnum">3</div>
-              <div class="xl-ld-cell">James T.</div>
-              <div class="xl-ld-cell lookup-col">EMP-017</div>
-              <div class="xl-ld-cell">HR</div>
-              <div class="xl-ld-cell result">£44,500</div>
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
+              <div class="xl-gt-row-num">3</div>
+              <div class="xl-gt-cell score">Q2 2025</div>
+              <div class="xl-gt-cell score">438,500</div>
+              <div class="xl-gt-cell score">186,000</div>
+              <div class="xl-gt-cell score">151,000</div>
             </div>
-            <div class="xl-ld-row">
-              <div class="xl-ld-rnum">4</div>
-              <div class="xl-ld-cell">Priya K.</div>
-              <div class="xl-ld-cell lookup-col">EMP-099</div>
-              <div class="xl-ld-cell">Ops</div>
-              <div class="xl-ld-cell result">£48,200</div>
-            </div>
-            <div class="xl-ld-row">
-              <div class="xl-ld-rnum">5</div>
-              <div class="xl-ld-cell">David R.</div>
-              <div class="xl-ld-cell lookup-col">EMP-???</div>
-              <div class="xl-ld-cell">Sales</div>
-              <div class="xl-ld-cell" style="background:#f8fafc;color:#94a3b8;font-style:italic">""  (not found)</div>
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
+              <div class="xl-gt-row-num">4</div>
+              <div class="xl-gt-cell score">Q3 2025</div>
+              <div class="xl-gt-cell score">401,200</div>
+              <div class="xl-gt-cell score">192,100</div>
+              <div class="xl-gt-cell score">149,500</div>
             </div>
           </div>
         </div>
@@ -382,84 +351,137 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
         <div class="steps-list">
           <div class="step-row">
             <div class="step-num">01</div>
-            <div class="step-body"><h3>Clearly define what you need</h3><p>Tell Claude the lookup value, the column where it's located, and the column you want to return. One sentence is enough: "Look up employee ID in column A of the Staff sheet and return their salary from column D."</p></div>
+            <div class="step-body"><h3>Use one row per period, not per transaction</h3><p>Aggregate transaction-level data into period totals first. Claude analyzes trends and ratios far more reliably from a compact summary table than from thousands of raw rows.</p></div>
           </div>
           <div class="step-row">
             <div class="step-num">02</div>
-            <div class="step-body"><h3>Provide the data location</h3><p>Specify the sheet name, the range, and whether the data has a fixed size or grows. Claude uses this to write references that won't break when rows are added.</p></div>
+            <div class="step-body"><h3>Keep every period in the same currency and units</h3><p>Mixing currencies or reporting some periods in thousands and others in full figures will throw off every ratio Claude calculates. Normalize first.</p></div>
           </div>
           <div class="step-row">
             <div class="step-num">03</div>
-            <div class="step-body"><h3>Get the formula</h3><p>Claude writes the full XLOOKUP, explains the key arguments, and chooses the right match mode — exact match for IDs and codes, approximate for tiered pricing or grades, wildcard for partial text searches.</p></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">04</div>
-            <div class="step-body"><h3>Test immediately</h3><p>Always test with a value you know should work. If it returns <code>#N/A</code>, send Claude the formula and 3 sample rows. The cause is almost always a data type mismatch or trailing space — Claude finds it instantly.</p></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">05</div>
-            <div class="step-body"><h3>Add error handling</h3><p>Once the formula works, wrap it with <code>IFERROR</code> to return a blank, dash, or "Not Found" instead of <code>#N/A</code> for genuinely missing values. Or use the built-in 4th argument of XLOOKUP — Claude will show you both options.</p></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">06</div>
-            <div class="step-body"><h3>Convert old VLOOKUPs</h3><p>Paste any existing VLOOKUP formulas into Claude and ask it to rewrite them as XLOOKUP. Claude handles the conversion cleanly — including fixing the hardcoded column index numbers that break when columns are inserted.</p></div>
+            <div class="step-body"><h3>Label periods clearly and consistently</h3><p>Use a consistent format like <code>Q1 2025</code> or <code>Jan 2025</code> across every row so Claude can order periods correctly and calculate period-over-period change.</p></div>
           </div>
         </div>
 
         <div class="highlight-box">
           <div class="highlight-icon"><i class="ti ti-bulb"></i></div>
-          <div class="highlight-text"><strong>Tip:</strong> XLOOKUP can return multiple columns at once. If you need both name and salary from a lookup, tell Claude and it will write a single formula that spills both results automatically — no need to write two separate formulas.</div>
+          <div class="highlight-text"><strong>Tip:</strong> If your export includes subtotal or "Total" rows mixed in with the period rows, remove them before pasting into the prompt — otherwise Claude may double-count them as an extra period.</div>
         </div>
       </div>
 
-      <!-- SECTION 2 -->
+      <!-- SECTION 2: Prompt + Context + FAQ + Related -->
       <div id="seo-sec-2" class="seo-section">
-        <p>Copy these prompts into Claude. Replace the bracketed placeholders with your actual data and column references.</p>
+        <h2>The Exact Claude Prompt for Financial Data Analysis</h2>
+        <p>Copy this prompt into Claude and paste your dataset where indicated. The prompt includes guardrails so Claude calculates from your actual figures rather than estimating or filling gaps.</p>
 
-        <p><strong>Build from scratch</strong></p>
         <div class="prompt-block">
           <div class="prompt-block-label">Prompt — paste into Claude</div>
-          <div class="prompt-block-text">I need an XLOOKUP formula. I want to look up [lookup value / cell reference] in [lookup column/range] and return the value from [return column/range]. Data is on sheet [name], rows 2 to [last row]. Please write the XLOOKUP and add an IFERROR wrapper for missing values.</div>
+          <div class="prompt-block-text">I need you to analyze a financial dataset in Excel. Below is the data, one row per period.
+
+FINANCIAL DATA (columns: Period, Revenue, COGS, OpEx):
+[Paste your rows here]
+
+Rules:
+- Calculate Gross Margin % as (Revenue - COGS) / Revenue for each period.
+- Calculate Net Margin % as (Revenue - COGS - OpEx) / Revenue for each period.
+- Compare each period to the immediately preceding period and calculate the % change in Revenue, Gross Margin %, and Net Margin %.
+- Flag any period where Gross Margin % or Net Margin % moves more than 5 percentage points versus the prior period as "Watch", and more than 10 percentage points as "Anomaly". Otherwise mark it "Normal".
+- Do NOT estimate or fill in missing figures. If a period is missing a value, state that explicitly instead of guessing.
+- Base every number strictly on the data provided — do not reference external benchmarks unless I ask for them.
+
+Output:
+1. A summary table with columns: Period | Revenue | Gross Margin % | OpEx | Net Margin % | Flag
+2. A short written summary (3-5 sentences) describing the overall trend and calling out any period flagged as "Watch" or "Anomaly"
+3. One sentence suggesting what might be worth investigating for each flagged period
+
+Format the table as Excel-ready so I can paste it directly into a spreadsheet.</div>
           <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
         </div>
 
-        <p><strong>Debug a broken XLOOKUP</strong></p>
-        <div class="prompt-block">
-          <div class="prompt-block-label">Prompt — paste into Claude</div>
-          <div class="prompt-block-text">My XLOOKUP is returning #N/A. Here is the formula:
-[paste formula]
+        <h2>Why Financial Data Analysis Still Needs Human Judgment</h2>
+        <p>Claude is fast at arithmetic and pattern spotting, but it doesn't know why a number moved — it only knows that it did. A margin drop could mean a pricing problem, a one-off cost, or a data entry error, and only someone with business context can tell the difference. Treat every "Watch" or "Anomaly" flag as a starting point for a question, not a finished conclusion.</p>
+        <p>Claude handles the repetitive calculation and comparison work across periods. Your job is to investigate each flagged item, confirm the numbers against source data, and decide what — if anything — needs to change. If you want to track these same ratios on a rolling basis rather than analyzing a static export, the <a href="/financial-kpi-dashboard-excel-claude.html" style="color:#1d9e75;font-weight:500">Financial KPI dashboard course</a> shows how to keep this analysis continuously updated.</p>
 
-The lookup value is [value] and it exists in the table. Here are 3 sample rows from the lookup column:
-[paste rows]
-
-Please identify why it's failing and give me the corrected formula.</div>
-          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+        <h3>Common Analysis Errors</h3>
+        <div class="xl-grade-table">
+          <div class="xl-gt-header-bar" style="grid-template-columns:44px 1fr 1fr 1fr">
+            <div class="xl-gt-col-h"></div>
+            <div class="xl-gt-col-h">A</div>
+            <div class="xl-gt-col-h">B</div>
+            <div class="xl-gt-col-h">C</div>
+          </div>
+          <div class="xl-gt-rows">
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">1</div>
+              <div class="xl-gt-cell hdr">Error</div>
+              <div class="xl-gt-cell hdr">Likely Cause</div>
+              <div class="xl-gt-cell hdr">Fix</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">2</div>
+              <div class="xl-gt-cell score">Every period shows "Anomaly"</div>
+              <div class="xl-gt-cell score">Mixed currencies or units between periods</div>
+              <div class="xl-gt-cell score">Normalize every row to the same currency and scale before pasting</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">3</div>
+              <div class="xl-gt-cell score">Ratios look implausibly high or low</div>
+              <div class="xl-gt-cell score">A "Total" row was included alongside period rows</div>
+              <div class="xl-gt-cell score">Remove subtotal/total rows so each row is a single period</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">4</div>
+              <div class="xl-gt-cell score">Periods analyzed out of order</div>
+              <div class="xl-gt-cell score">Inconsistent period labels (e.g. "Q1" vs "2025 Q1")</div>
+              <div class="xl-gt-cell score">Use one consistent label format across every row</div>
+            </div>
+          </div>
         </div>
 
-        <p><strong>Convert VLOOKUP to XLOOKUP</strong></p>
-        <div class="prompt-block">
-          <div class="prompt-block-label">Prompt — paste into Claude</div>
-          <div class="prompt-block-text">Please convert this VLOOKUP to XLOOKUP:
-[paste VLOOKUP formula]
-
-Data is on sheet [name]. Keep any existing IFERROR wrapper.</div>
-          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-section">
+          <div class="faq-item">
+            <div class="faq-q">Can Claude analyze my financial data directly from Excel?</div>
+            <div class="faq-a">Claude cannot open .xlsx files natively in the free chat. Copy the relevant columns from Excel and paste them as text into the prompt, or use Claude Pro, which supports direct file attachments.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">What kind of financial insights can Claude generate from raw data?</div>
+            <div class="faq-a">Claude can calculate margins and ratios, identify period-over-period trends, flag unusual swings in any line item, and summarize the overall financial picture in plain language, all from the numbers you provide.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Will Claude's calculations always be accurate?</div>
+            <div class="faq-a">Claude performs arithmetic reliably when given clean, well-labeled data, but you should always spot-check key totals and ratios against your source figures before using them in a report.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Can I use this for multi-year or multi-period financial data?</div>
+            <div class="faq-a">Yes. Include a Period column identifying each row (e.g. Q1 2024, Q2 2024) and Claude will compare across periods to calculate growth rates and highlight trends.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Does this replace a financial analyst?</div>
+            <div class="faq-a">No. Claude accelerates the data-crunching and first-pass insight generation, but interpreting business context, validating assumptions, and making decisions still requires a human analyst.</div>
+          </div>
         </div>
 
-        <div class="checklist-box">
-          <div class="checklist-title">Checklist</div>
-          <div class="checklist-item"><i class="ti ti-square-check"></i>Lookup value, lookup column, and return column described clearly to Claude</div>
-          <div class="checklist-item"><i class="ti ti-square-check"></i>Sheet name and data range specified</div>
-          <div class="checklist-item"><i class="ti ti-square-check"></i>Formula tested with at least one known value</div>
-          <div class="checklist-item"><i class="ti ti-square-check"></i>#N/A investigated if it appears — data type or trailing spaces likely</div>
-          <div class="checklist-item"><i class="ti ti-square-check"></i>IFERROR wrapper added for production use</div>
-          <div class="checklist-item"><i class="ti ti-square-check"></i>Old VLOOKUPs converted to XLOOKUP where relevant</div>
+        <h2>Related Excel Finance Courses</h2>
+        <div class="related-courses">
+          <a href="/financial-kpi-dashboard-excel-claude.html" class="related-card">
+            <div class="related-card-title">Build a Financial KPI Dashboard in Excel with Claude AI</div>
+            <div class="related-card-tag">Excel · Finance</div>
+          </a>
+          <a href="/budget-variance-analysis-excel-claude.html" class="related-card">
+            <div class="related-card-title">Automate Budget Variance Analysis in Excel with Claude AI</div>
+            <div class="related-card-tag">Excel · Finance</div>
+          </a>
+          <a href="/bank-reconciliation-excel-claude.html" class="related-card">
+            <div class="related-card-title">Automated Bank Reconciliation in Excel Using Claude AI</div>
+            <div class="related-card-tag">Excel · Finance</div>
+          </a>
         </div>
 
-        <div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>XLOOKUP availability:</strong> XLOOKUP requires Excel 365 or Excel 2019+. If you or your colleagues are on Excel 2016 or older, use INDEX/MATCH instead — tell Claude your version and it will write the right formula automatically.</div></div>
+        <div class="info-box"><p>Explore all finance and Excel courses on the <a href="/claude-for-finance.html" style="color:#085041;font-weight:600">AI for Finance Teams</a> hub page.</p></div>
       </div>
 
-      <!-- SECTION 3 QUIZ -->
+      <!-- SECTION 3: Quiz -->
       <div id="seo-sec-3" class="seo-section">
         <div id="quiz-interactive-container"></div>
       </div>
@@ -504,7 +526,7 @@ Data is on sheet [name]. Keep any existing IFERROR wrapper.</div>
 <a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
 </div>
 <div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company & Legal</strong>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company &amp; Legal</strong>
 <a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
 <a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
 <a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
@@ -537,33 +559,34 @@ Data is on sheet [name]. Keep any existing IFERROR wrapper.</div>
 </div>
 </div>
 </footer>
+
 <script>
 var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
 var heroes=[
-  {tag:'Section 01',title:'XLOOKUP is better than VLOOKUP — here\'s how to write it with Claude.'},
-  {tag:'Section 02',title:'Six steps to a tested, production-ready XLOOKUP formula'},
-  {tag:'Section 03',title:'Prompts and checklist'},
-  {tag:'Section 04 — Quiz',title:'Quick quiz'}
+  {tag:'Section 01',title:'What the finished financial analysis looks like'},
+  {tag:'Section 02',title:'Prepare your financial dataset'},
+  {tag:'Section 03',title:'The prompt, FAQ & related courses'},
+  {tag:'Section 04 — Quiz',title:'Test your understanding'}
 ];
 var quiz=[
-  {q:'What is the main advantage of XLOOKUP over VLOOKUP?',
-   opts:['XLOOKUP is faster on large datasets','XLOOKUP can look left, does not need a column index number, and handles missing values more cleanly','XLOOKUP works in all Excel versions including 2010'],
+  {q:'What is the recommended row structure for the dataset you paste into Claude?',
+   opts:['One row per raw transaction','One row per period, aggregated into totals','One row per line item across all periods'],
    correct:1},
-  {q:'Your XLOOKUP returns #N/A but the value exists in the lookup column. What should you check first?',
-   opts:['Whether the return column is wide enough to display the result','Whether there is a data type mismatch or trailing space between the lookup value and the table','Whether XLOOKUP is available in your Excel version'],
-   correct:1},
-  {q:'What does the fourth argument of XLOOKUP control?',
-   opts:['The column to return','What to return when no match is found','Whether to search left or right'],
-   correct:1},
-  {q:'What is the best way to migrate old VLOOKUP formulas to XLOOKUP?',
-   opts:['Delete all VLOOKUPs and rewrite from scratch','Paste the VLOOKUP into Claude and ask it to convert — it handles column index numbers automatically','VLOOKUP and XLOOKUP are interchangeable so no conversion is needed'],
-   correct:1}
+  {q:'A quarter shows Net Margin % dropping 12 percentage points versus the prior quarter. How should this be classified per the prompt rules in this course?',
+   opts:['Normal — margins fluctuate naturally','Watch','Anomaly'],
+   correct:2},
+  {q:'What should you do before pasting financial data into the Claude prompt?',
+   opts:['Normalize currency and units, and remove any subtotal/total rows','Convert every figure to a percentage','Sort the data alphabetically by period name'],
+   correct:0},
+  {q:'Why does the prompt tell Claude not to estimate or fill in missing figures?',
+   opts:['To make the response shorter','To keep the output consistent with a template','To prevent Claude from inventing numbers that aren\'t actually in your data'],
+   correct:2}
 ];
 function buildQuizHTML(){
   if(quizDone){
     var score=0;
     for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
-    var msgs=['Worth re-reading section 1 — understanding why XLOOKUP beats VLOOKUP is the foundation.','Good effort — review the workflow steps before diving in.','Almost there! One concept to sharpen — revisit what the fourth XLOOKUP argument controls.','Perfect score — you are ready to write and debug any XLOOKUP with Claude.'];
+    var msgs=['Review sections 1 and 2 — understanding data prep and the flagging logic is essential.','Decent start — re-read the prompt guardrails section to sharpen your approach.','Nearly there — one concept to revisit before you run your first analysis.','Full marks — you\'re ready to analyze your own financial data with confidence.'];
     return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
   }
   var html='';
