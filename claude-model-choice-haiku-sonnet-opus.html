@@ -15,7 +15,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Claude Sonnet vs Opus vs Haiku: Models Explained","description":"A practical guide for professionals on choosing the right Claude AI model. Compare Haiku, Sonnet, and Opus to save time and token limits.","url":"https://www.pairworkflows.com/claude-model-choice-haiku-sonnet-opus.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>
@@ -25,11 +25,6 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
 .logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
 .logo-workflows{font-size:16px;font-weight:400;color:#fff}
-.nav-right{display:flex;align-items:center;gap:16px}
-.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
-.nav-back:hover{color:#1d9e75}
-.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
 .page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
 .course-shell{background:#fff;border-radius:16px;border:1px solid #e8ecef;overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
 .sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
@@ -57,27 +52,27 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .seo-section{display:none}
 .seo-section.active-section{display:block}
 .seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
-.seo-section h1{font-size:24px;font-weight:600;color:#1a1a2e;margin-bottom:1rem;line-height:1.3;display:none;}
 .seo-section h2{font-size:18px;font-weight:600;color:#1a1a2e;margin-bottom:.75rem;line-height:1.35}
 .seo-section h3{font-size:15px;font-weight:600;color:#1a1a2e;margin-bottom:.5rem;line-height:1.4}
+.model-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.25rem 0}
+.mc{border:1px solid #e8ecef;border-radius:12px;padding:1.25rem;background:#fafbfc;display:flex;flex-direction:column}
+.mc.rec{border:2px solid #1d9e75;background:#f5fdf9}
+.mc-badge{font-size:10px;background:#e1f5ee;color:#085041;padding:2px 8px;border-radius:20px;display:inline-block;margin-bottom:.4rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.mc-name{font-size:15px;font-weight:700;color:#1a1a2e;margin-bottom:.5rem}
+.mc-desc{font-size:12.5px;color:#4b5563;line-height:1.6;margin-bottom:1rem}
+.mc-list{list-style:none;padding:0;margin:0;margin-top:auto}
+.mc-list li{font-size:12px;color:#374151;padding:3px 0 3px 12px;position:relative;line-height:1.4}
+.mc-list li::before{content:'•';position:absolute;left:0;color:#1d9e75}
+.token-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.25rem 0}
+.tg{border:1px solid #e8ecef;border-radius:12px;padding:1.25rem;text-align:center;background:#fafbfc}
+.tg-icon{font-size:24px;color:#1d9e75;margin-bottom:.5rem}
+.tg-label{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:.25rem}
+.tg-desc{font-size:12.5px;color:#6b7280;line-height:1.5}
 .info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
 .info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
 .highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
 .highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
 .highlight-text{font-size:13px;color:#374151;line-height:1.65}
-.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
-.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
-.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
-.feature-list{list-style:none;padding:0;margin:0 0 1.25rem}
-.feature-list li{padding:.5rem 0 .5rem 1.25rem;position:relative;font-size:14px;color:#374151;border-bottom:1px solid #f0f2f5;line-height:1.6}
-.feature-list li:last-child{border-bottom:none}
-.feature-list li::before{content:'▸';position:absolute;left:0;color:#1d9e75;font-size:13px}
-.steps-list{display:flex;flex-direction:column;gap:0;margin:1rem 0}
-.step-row{display:flex;gap:16px;padding:1.1rem 0;border-bottom:1px solid #f0f2f5}
-.step-row:last-child{border-bottom:none}
-.step-num{font-size:26px;font-weight:700;color:#d1fae5;line-height:1;flex-shrink:0;width:36px;text-align:right;padding-top:2px}
-.step-body h3{font-size:14px;font-weight:600;color:#085041;margin-bottom:.3rem}
-.step-body p{font-size:13px;color:#374151;line-height:1.75;margin:0}
 .quiz-q{margin-bottom:1.5rem}
 .quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
 .opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
@@ -117,15 +112,14 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:2rem}
 .page-footer a{color:#1d9e75;text-decoration:none}
 .page-footer a:hover{text-decoration:underline}
-@media(max-width:700px){
+@media(max-width:768px){
   .navbar{padding:0 1rem}
   .page-wrap{padding:1rem .5rem}
   .course-shell{grid-template-columns:1fr}
   .sidebar{display:none}
-  .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
-  .content-footer{padding:1rem}
-  .section-hero{padding:1.25rem 1rem}
-  .seo-section p{word-break:break-word;overflow-wrap:break-word}
+  .content-body{padding:1.25rem 1rem}
+  .model-grid{grid-template-columns:1fr}
+  .token-grid{grid-template-columns:1fr}
 }
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
@@ -192,38 +186,42 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
       </div>
 
       <div id="seo-sec-1" class="seo-section">
-        <h2>Haiku — The Workhorse</h2>
-        <p>Fast. Minimal impact on your usage limits. Use it when accuracy matters, but deep reasoning doesn't. Throw routine volume at it.</p>
-        <ul class="feature-list">
-          <li>Summarizing meeting notes.</li>
-          <li>Classifying customer feedback.</li>
-          <li>Translating documents.</li>
-          <li>Extracting tables from PDFs.</li>
-          <li>Formatting spreadsheets and cleaning lists.</li>
-        </ul>
-        <div class="info-box"><p><strong>Rule:</strong> If the answer should take a human seconds to process, start with Haiku.</p></div>
-
-        <h2>Sonnet — The Smart Default</h2>
-        <p>This is where 80% of your actual business work belongs. It balances speed, high-quality reasoning, and token usage.</p>
-        <ul class="feature-list">
-          <li>Writing reports and drafting difficult emails.</li>
-          <li>Analyzing Excel data.</li>
-          <li>Generating or debugging code.</li>
-          <li>Reviewing business documents and process docs.</li>
-        </ul>
-        <div class="info-box"><p><strong>Rule:</strong> If you're unsure, choose Sonnet. It handles almost everything without burning your budget too fast.</p></div>
-
-        <h2>Opus — The Heavy Craftsman</h2>
-        <p>Opus is powerful, but it's heavy. It reaches your usage limits much faster than Haiku or Sonnet.</p>
-        <ul class="feature-list">
-          <li>Strategic planning and executive recommendations.</li>
-          <li>Complex legal analysis.</li>
-          <li>Multi-step business decisions with heavy constraints.</li>
-          <li>Tasks where Sonnet has already failed to give you the right answer twice.</li>
-        </ul>
-        <div class="warning-box">
-          <div class="warning-icon"><i class="ti ti-alert-triangle"></i></div>
-          <div class="warning-text"><strong>Rule:</strong> If the answer doesn't need exceptional reasoning, it doesn't need Opus.</div>
+        <h2>Choose the Right Model</h2>
+        <p>Compare the three models available on Claude Pro and Team plans to match your workload with the right resource.</p>
+        
+        <div class="model-grid">
+          <div class="mc">
+            <div class="mc-name">Haiku</div>
+            <div class="mc-desc">Fast and lightweight. Minimal impact on your usage limits. Use when accuracy matters, but deep reasoning doesn't.</div>
+            <ul class="mc-list">
+              <li>Summarizing meeting notes</li>
+              <li>Classifying customer feedback</li>
+              <li>Translating documents</li>
+              <li>Extracting tables from PDFs</li>
+              <li>Formatting spreadsheets</li>
+            </ul>
+          </div>
+          <div class="mc rec">
+            <div class="mc-badge">Smart Default</div>
+            <div class="mc-name">Sonnet</div>
+            <div class="mc-desc">Balances speed, high-quality reasoning, and token usage. Handles 80% of actual business deliverables.</div>
+            <ul class="mc-list">
+              <li>Writing reports & emails</li>
+              <li>Analyzing Excel data</li>
+              <li>Generating & debugging code</li>
+              <li>Reviewing business documents</li>
+            </ul>
+          </div>
+          <div class="mc">
+            <div class="mc-name">Opus</div>
+            <div class="mc-desc">Powerful and heavy. Reaches your usage limits much faster than Haiku or Sonnet. Reserve for complex work.</div>
+            <ul class="mc-list">
+              <li>Strategic planning & execution</li>
+              <li>Complex legal analysis</li>
+              <li>Multi-step business decisions</li>
+              <li>Fallback when Sonnet fails</li>
+            </ul>
+          </div>
         </div>
 
         <div class="highlight-box">
@@ -234,25 +232,28 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 
       <div id="seo-sec-2" class="seo-section">
         <h2>How You Burn Your Token Budget</h2>
-        <p>Every message eats your limit in three ways:</p>
+        <p>Every message eats your limit across three distinct variables:</p>
         
-        <div class="steps-list">
-          <div class="step-row">
-            <div class="step-num">01</div>
-            <div class="step-body"><h3>Input</h3><p>Everything you type or paste. Long prompts burn more.</p></div>
+        <div class="token-grid">
+          <div class="tg">
+            <div class="tg-icon"><i class="ti ti-keyboard"></i></div>
+            <div class="tg-label">Input</div>
+            <div class="tg-desc">Everything you type or paste. Long prompts consume more budget upfront.</div>
           </div>
-          <div class="step-row">
-            <div class="step-num">02</div>
-            <div class="step-body"><h3>Context</h3><p>Every attached file, uploaded document, <em>and your previous conversation history</em>. Every time you reply, Claude re-reads the entire chat. Long chats murder your limit fast.</p></div>
+          <div class="tg">
+            <div class="tg-icon"><i class="ti ti-history"></i></div>
+            <div class="tg-label">Context</div>
+            <div class="tg-desc">Attached files and your previous conversation history. Every reply re-reads the entire chat.</div>
           </div>
-          <div class="step-row">
-            <div class="step-num">03</div>
-            <div class="step-body"><h3>Output</h3><p>Everything the model spits back. Asking for a 10-page report burns more than asking for a bulleted summary.</p></div>
+          <div class="tg">
+            <div class="tg-icon"><i class="ti ti-message-chatbot"></i></div>
+            <div class="tg-label">Output</div>
+            <div class="tg-desc">Everything Claude spits back. Asking for a 10-page report burns much more than a summary.</div>
           </div>
         </div>
 
-        <div class="highlight-box">
-          <div class="highlight-icon"><i class="ti ti-bulb"></i></div>
+        <div class="highlight-box" style="margin-top:1.5rem">
+          <div class="highlight-icon"><i class="ti ti-clock"></i></div>
           <div class="highlight-text"><strong>The 10-Second Rule:</strong> Before pressing Send, ask yourself: <em>Does this need Opus-level brainpower, or will Sonnet/Haiku finish it?</em> Pick. Send. Done.</div>
         </div>
       </div>
@@ -398,7 +399,7 @@ function render(){
   document.getElementById('btnBack').disabled=(cur===0);
   var fwd=document.getElementById('btnFwd');
   if(cur===3){fwd.style.display='none';}
-  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
+  else{fwd.style.display='';fwd.innerHTML=(cur==2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
 }
 function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
 function goFwd(){if(cur<3)go(cur+1);}
