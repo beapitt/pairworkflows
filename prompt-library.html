@@ -517,7 +517,7 @@ Produce: a 150-word narrative summary, a bullet list of key headcount metrics, a
             <p class="prompt-desc">Turn a detailed financial report into a concise executive summary.</p>
             <div class="prompt-usecase"><strong>Use case:</strong> Monthly or quarterly board reporting, investor updates.</div>
             <p class="prompt-need"><strong>You need:</strong> The financial report text or key figures.</p>
-            <div class="prompt-text-wrap"><div class="prompt-text" id="p2-0">You are a CFO preparing a board report. Summarise the following financial data into a concise executive summary for [Audience, e.g. Board of Directors / Investors].
+<div class="prompt-text-wrap"><div class="prompt-text" id="p2-0">You are a CFO preparing a board report. Summarise the following financial data into a concise executive summary for [Audience, e.g. Board of Directors / Investors].
 
 Period: [e.g. Q1 2026 / FY2025]
 Financial data: [Paste report text or key figures here]
@@ -529,7 +529,8 @@ Structure the summary as:
 4. Key variances vs budget or prior period (table format)
 5. Outlook and risks (2-3 sentences)
 
-Length: maximum 300 words. Use precise financial language. Flag any figures that deviate significantly from budget with [VARIANCE ALERT].</div></div>
+Length: maximum 300 words. Use precise financial language. 
+CRITICAL RULE: You must append the exact string [VARIANCE ALERT] immediately adjacent to any financial metric where Actual deviates negatively from Budget (e.g., lower income, higher expenses). Do not omit this tag under any circumstances.</div></div>
             <div class="prompt-footer"><p class="prompt-output"><strong>Output:</strong> A 300-word executive financial summary with variance flags.</p><button class="copy-btn" onclick="copyPrompt('p2-0',this)"><i class="ti ti-copy"></i> Copy</button></div>
           </div>
           
