@@ -8,7 +8,7 @@ Free practical resources to use AI effectively in your job.
 
 - **80+ Ready-to-use Prompts** organized by department (Finance, HR, Legal, Sales, Operations, Management)
 - **Smart Prompt Generators** with filters to strongly reduce hallucinations
-- **148 Mini-Courses & Guides** (short and practical)
+- **148 Mini-Guides** (short and practical)
   - Especially strong on **Claude AI + Excel**
   - Many include final tests to check your learning
 - No fluff, no 20-minute intros — just actionable knowledge in 5-15 minutes
