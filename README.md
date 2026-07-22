@@ -19,13 +19,13 @@ Free practical resources to use AI effectively in your job.
 
 → [Prompt Library](https://www.pairworkflows.com/prompt-library.html)
 
-→ [Claude + Excel Section](https://www.pairworkflows.com/)
+→ [Claude + Excel Section](https://www.pairworkflows.com/ai-for-excel.html)
 
 ## Features
 
 - Completely free
 - No registration required
-- Tested on Claude, Gemini and ChatGPT
+- Tested on Claude and Gemini
 - Designed for busy professionals
 
 ## Example Topics
