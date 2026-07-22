@@ -4,7 +4,7 @@
 
 Free practical resources: **80+ prompts** + **148 mini-guides** (especially strong on Claude + Excel).
 
-No sign-up, no fluff. Just actionable knowledge you can use in 5-15 minutes.
+No sign-up, no fluff. Just actionable knowledge you can use in 5 minutes.
 
 ## What you'll find
 
