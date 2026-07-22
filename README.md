@@ -1,41 +1,23 @@
 # PairWorkflows
 
-**Master Claude & Gemini for real work.**
+**Master Claude & Gemini for real professional work.**
 
-Free practical resources to use AI effectively in your job.
+Free practical resources: **80+ prompts** + **148 mini-guides** (especially strong on Claude + Excel).
+
+No sign-up, no fluff. Just actionable knowledge you can use in 5-15 minutes.
 
 ## What you'll find
 
-- **80+ Ready-to-use Prompts** organized by department (Finance, HR, Legal, Sales, Operations, Management)
-- **Smart Prompt Generators** with filters to strongly reduce hallucinations
-- **148 Mini-Guides** (short and practical)
-  - Especially strong on **Claude AI + Excel**
-  - Many include final tests to check your learning
-- No fluff, no 20-minute intros — just actionable knowledge in 5-15 minutes
+- **Prompt Library** – 80+ ready-to-use prompts organized by department (Finance, HR, Legal, Sales, Operations, Management)
+- **Smart Prompt Generators** with built-in filters to reduce hallucinations
+- **148 Mini-Courses & Guides** with final tests
+- Heavy focus on **Claude AI + Excel** workflows
 
-## Main Links
+## Quick Links
 
-→ [Visit PairWorkflows](https://www.pairworkflows.com/)
-
+→ [Visit PairWorkflows](https://www.pairworkflows.com/)  
 → [Prompt Library](https://www.pairworkflows.com/prompt-library.html)
-
-→ [Claude + Excel Section](https://www.pairworkflows.com/ai-for-excel.html)
-
-## Features
-
-- Completely free
-- No registration required
-- Tested on Claude and Gemini
-- Designed for busy professionals
-
-## Example Topics
-- Budget Variance Analysis
-- Cash Flow Forecasting
-- Accounts Receivable & Payable Automation
-- Financial Modeling
-- Bank Reconciliation with AI
-- ... and 140+ more
 
 ---
 
-**Made with ❤️ for professionals who want to work smarter with AI.**
+**Designed for busy professionals who want to work smarter with AI.**
