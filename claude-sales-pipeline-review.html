@@ -282,22 +282,22 @@ Here is my pipeline data:
 <div class="quiz-question" id="q1">
 <h4>1. You're prepping for the weekly forecast call and want every deal judged by the same criteria, not just the ones you happen to remember. What does Claude actually give you here?</h4>
 <div class="quiz-options">
-<div class="quiz-option" onclick="selectOption(this,'q1')"><div class="quiz-radio"></div>It replaces the sales manager's judgment entirely</div>
 <div class="quiz-option" onclick="selectOption(this,'q1')"><div class="quiz-radio"></div>A structured, consistent read on every deal, so nothing gets judged from memory alone</div>
+<div class="quiz-option" onclick="selectOption(this,'q1')"><div class="quiz-radio"></div>It replaces the sales manager's judgment entirely</div>
 <div class="quiz-option" onclick="selectOption(this,'q1')"><div class="quiz-radio"></div>An automatic update to your CRM</div>
 </div>
 <div class="quiz-feedback" id="q1-feedback"></div>
-<button class="quiz-check" id="q1-check" onclick="checkAnswer('q1',1,'Claude structures the review so every deal gets assessed on the same criteria. The manager still makes the decisions.')">Check answer</button>
+<button class="quiz-check" id="q1-check" onclick="checkAnswer('q1',0,'Claude structures the review so every deal gets assessed on the same criteria. The manager still makes the decisions.')">Check answer</button>
 </div>
 <div class="quiz-question" id="q2">
 <h4>2. You're about to paste your pipeline spreadsheet into Claude, and it still has real client and contact names in it. What do you do first?</h4>
 <div class="quiz-options">
 <div class="quiz-option" onclick="selectOption(this,'q2')"><div class="quiz-radio"></div>Paste it as-is — Claude only needs the numbers anyway</div>
-<div class="quiz-option" onclick="selectOption(this,'q2')"><div class="quiz-radio"></div>Replace company and contact names with placeholders, and keep the numbers and dates</div>
 <div class="quiz-option" onclick="selectOption(this,'q2')"><div class="quiz-radio"></div>Strip out all the numbers before pasting</div>
+<div class="quiz-option" onclick="selectOption(this,'q2')"><div class="quiz-radio"></div>Replace company and contact names with placeholders, and keep the numbers and dates</div>
 </div>
 <div class="quiz-feedback" id="q2-feedback"></div>
-<button class="quiz-check" id="q2-check" onclick="checkAnswer('q2',1,'Replace real company and contact names with placeholders. Keep the numbers and dates — those are what Claude needs to analyze.')">Check answer</button>
+<button class="quiz-check" id="q2-check" onclick="checkAnswer('q2',2,'Replace real company and contact names with placeholders. Keep the numbers and dates — those are what Claude needs to analyze.')">Check answer</button>
 </div>
 <div class="quiz-question" id="q3">
 <h4>3. A deal has sat in "Negotiation" for six weeks, with no logged activity and a close date that's already passed. How would Claude flag it?</h4>
@@ -395,7 +395,7 @@ Here is my pipeline data:
 </footer>
 
 <script>
-var current=0;var total=4;var answers={};var correctAnswers={q1:1,q2:1,q3:1,q4:2};
+var current=0;var total=4;var answers={};var correctAnswers={q1:0,q2:2,q3:1,q4:2};
 function goToSlide(n){document.querySelectorAll('.seo-section').forEach(s=>s.classList.remove('active-section'));document.getElementById('slide-'+n).classList.add('active-section');document.querySelectorAll('.nav-item').forEach((item,i)=>{item.classList.remove('active');if(i<n)item.querySelector('.nav-dot').classList.add('done');if(i===n){item.classList.add('active');item.querySelector('.nav-dot').classList.add('active')}});current=n;document.getElementById('progText').textContent=(n+1)+' of '+total;document.getElementById('progBar').style.width=((n+1)/total*100)+'%';window.scrollTo(0,0)}
 function selectOption(el,qid){el.parentElement.querySelectorAll('.quiz-option').forEach(o=>o.classList.remove('selected'));el.classList.add('selected');answers[qid]=Array.from(el.parentElement.children).indexOf(el);document.getElementById(qid+'-check').classList.add('visible')}
 function checkAnswer(qid,correct,explanation){var opts=document.getElementById(qid).querySelectorAll('.quiz-option');var fb=document.getElementById(qid+'-feedback');opts.forEach((o,i)=>{o.style.pointerEvents='none';if(i===correct)o.classList.add('correct');else if(o.classList.contains('selected'))o.classList.add('incorrect')});if(answers[qid]===correct){fb.className='quiz-feedback correct';fb.textContent='Correct! '+explanation}else{fb.className='quiz-feedback incorrect';fb.textContent='Not quite. '+explanation}document.getElementById(qid+'-check').style.display='none';if(document.querySelectorAll('.quiz-feedback.correct,.quiz-feedback.incorrect').length===Object.keys(correctAnswers).length){var score=document.querySelectorAll('.quiz-feedback.correct').length;document.getElementById('scoreNum').textContent=score+'/'+Object.keys(correctAnswers).length;document.getElementById('scoreBox').classList.add('visible')}}
