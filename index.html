@@ -6,19 +6,19 @@
 <meta name="trustpilot-one-time-domain-verification-id" content="fb708f17-a42e-472f-8a6b-2ecfb2c6eddc"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>PairWorkflows — Free 5-Minute Claude & Gemini Courses for Professionals</title>
-<meta name="description" content="Short, practical AI mini-courses for busy professionals. Learn to use Claude and Gemini effectively at work — without wasting credits or time. Free courses for UK and USA corporate teams.">
-<meta name="keywords" content="Claude AI course, Gemini course, AI training professionals, prompt engineering, AI for business, corporate AI training UK USA">
+<meta name="description" content="Short, practical AI mini-courses for anyone who uses Claude or Gemini at work. Learn faster, waste less time, get better results. Free.">
+<meta name="keywords" content="Claude AI course, Gemini course, AI training professionals, prompt engineering, AI for business, AI courses freelancers consultants">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.pairworkflows.com/">
 <meta property="og:title" content="PairWorkflows — Free AI Mini-Courses for Professionals">
-<meta property="og:description" content="5-minute practical courses on Claude and Gemini for UK and USA corporate teams. No fluff. Real workflows. Free.">
+<meta property="og:description" content="5-minute practical courses on Claude and Gemini. No fluff. Real workflows. Free.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.pairworkflows.com/">
 <meta property="og:site_name" content="PairWorkflows">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="PairWorkflows — Free AI Mini-Courses for Professionals">
-<meta name="twitter:description" content="5-minute practical courses on Claude and Gemini for UK and USA corporate teams.">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"EducationalOrganization","name":"PairWorkflows","url":"https://www.pairworkflows.com","description":"Free practical AI mini-courses for professionals using Claude and Gemini in corporate environments.","isAccessibleForFree":true,"sameAs":["https://github.com/beapitt/pairworkflows"],"audience":{"@type":"Audience","audienceType":"Corporate professionals, managers, knowledge workers"}}</script>
+<meta name="twitter:description" content="5-minute practical courses on Claude and Gemini. Real workflows, zero fluff.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"EducationalOrganization","name":"PairWorkflows","url":"https://www.pairworkflows.com","description":"Free practical AI mini-courses for anyone using Claude and Gemini at work.","isAccessibleForFree":true,"sameAs":["https://github.com/beapitt/pairworkflows"],"audience":{"@type":"Audience","audienceType":"Professionals, freelancers, consultants, small business owners"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Are all courses really free?","acceptedAnswer":{"@type":"Answer","text":"Most courses on PairWorkflows are completely free. A small number of advanced courses are marked as Premium — these will be available for a one-time fee. Free courses will always remain free."}},{"@type":"Question","name":"Do I need a Claude or Gemini subscription to follow the courses?","acceptedAnswer":{"@type":"Answer","text":"No subscription is required to take the courses. However, to practise what you learn, a free or paid Claude or Gemini account is recommended."}},{"@type":"Question","name":"How long does each course take?","acceptedAnswer":{"@type":"Answer","text":"Each mini-course is designed to take 5 minutes or less. They are built for busy professionals who need practical answers fast — not hour-long lectures."}},{"@type":"Question","name":"Which AI tools do the courses cover?","acceptedAnswer":{"@type":"Answer","text":"PairWorkflows covers Claude AI by Anthropic and Gemini AI by Google, including its integration with Google Workspace."}},{"@type":"Question","name":"Are the courses suitable for non-technical professionals?","acceptedAnswer":{"@type":"Answer","text":"Yes. PairWorkflows is designed for managers, analysts, marketers, HR professionals, and anyone who uses AI tools at work — no coding or technical background required."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,6 +26,85 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <link rel="stylesheet" href="styles.css">
 <script defer src="/_vercel/insights/script.js"></script>
+<style>
+/* ── Hero override ─────────────────────────────────────────── */
+.hero-wrap {
+  background: #f8f9fb;
+  background-image:
+    radial-gradient(ellipse 70% 60% at 65% 45%, #e6f4ed 0%, transparent 65%),
+    radial-gradient(ellipse 45% 55% at 15% 80%, #edf1fb 0%, transparent 60%);
+}
+.hero-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4rem 2rem 3.5rem;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+.hero-left { flex: 1 1 340px; }
+.hero-badge {
+  display: inline-block;
+  background: #e6f7f0;
+  color: #0e7a50;
+  border: 1px solid #b6e8d3;
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  margin-bottom: 1.25rem;
+}
+.hero-left h1 {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #0d1b14;
+  margin: 0 0 1.1rem;
+  letter-spacing: -0.5px;
+}
+.hero-left h1 span { color: #1d9e75; }
+.hero-sub {
+  font-size: 1.05rem;
+  color: #4b5563;
+  line-height: 1.65;
+  margin: 0;
+  max-width: 420px;
+}
+.hero-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  flex: 0 0 auto;
+}
+.hero-stat {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 1.1rem 1.25rem;
+  min-width: 130px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.hero-stat-num {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0d1b14;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+}
+.hero-stat-label {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+@media (max-width: 640px) {
+  .hero-inner { padding: 2.5rem 1.25rem 2rem; gap: 2rem; }
+  .hero-right { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .hero-stat { min-width: 0; }
+}
+</style>
 </head>
 <body>
 <div id="navbar-placeholder"></div>
@@ -49,7 +128,33 @@
 </nav>
 </noscript>
 <div id="homeView">
-<div class="hero-wrap"><div class="hero-inner"><div class="hero-left"><div class="hero-badge">Free practical courses</div><h1>Use Claude & Gemini <span>smarter</span> at work.</h1><p class="hero-sub">Short, practical mini-courses for busy professionals. No 20-minute intros. No fluff. Just the answers you need, in 5 minutes.</p></div><div class="hero-right"><div class="hero-stat"><div class="hero-stat-num">148</div><div class="hero-stat-label">Mini-courses across Claude & Gemini</div></div><div class="hero-stat"><div class="hero-stat-num">5 min</div><div class="hero-stat-label">Average course length</div></div><div class="hero-stat"><div class="hero-stat-num">Free</div><div class="hero-stat-label">Most courses, always</div></div><div class="hero-stat"><div class="hero-stat-num">Human-verified</div><div class="hero-stat-label">100% verified mini-courses</div></div></div></div></div>
+<div class="hero-wrap">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge">Free practical courses</div>
+      <h1>Get real work done<br>with Claude &amp; <span>Gemini.</span></h1>
+      <p class="hero-sub">5-minute mini-courses for anyone learning AI on their own terms. Skip the theory — go straight to what works.</p>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat">
+        <div class="hero-stat-num">148</div>
+        <div class="hero-stat-label">Mini-courses across Claude &amp; Gemini</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">5 min</div>
+        <div class="hero-stat-label">Average course length</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">Free</div>
+        <div class="hero-stat-label">Most courses, always</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">Human-verified</div>
+        <div class="hero-stat-label">100% verified mini-courses</div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="dark-area"><div class="dark-area-inner">
 <div class="tabs-wrap" role="tablist"><button class="tab-btn active-claude" id="tabClaude" onclick="switchTab('claude')" role="tab" aria-selected="true"><span class="tab-icon ti-claude">C</span>Claude Mini-Courses <span style="font-weight:300;margin-left:4px">(72)</span></button><button class="tab-btn" id="tabGemini" onclick="switchTab('gemini')" role="tab" aria-selected="false"><span class="tab-icon ti-gemini">G</span>Gemini Mini-Courses <span style="font-weight:300;margin-left:4px">(60)</span></button></div>
 <div class="filters-wrap" id="filtersWrap"></div> <div class="tools-section" id="toolsWrap" style="display:none">
@@ -96,7 +201,7 @@
 <a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
 </div>
 <div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company & Legal</strong>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company &amp; Legal</strong>
 <a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
 <a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
 <a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
@@ -250,7 +355,7 @@ fetch('courses.json')
 <li><a href="/claude-token-load-conversations.html">Claude Token Limits: How to Avoid Overruns in Long Conversations.</a></li>
 <li><a href="/claude-common-patterns-professional-habits.html">5 Claude AI Productivity Habits for Corporate Professionals.</a></li>
 <li><a href="/claude-prompting-playbook-professionals.html">Claude Prompt Engineering: Practical Guide for Enterprise Teams.</a></li>
-<li><a href="/claude-projects-team-guide.html">Claude Projects for Teams: Setup & Scaling Guide (2026).</a></li>
+<li><a href="/claude-projects-team-guide.html">Claude Projects for Teams: Setup &amp; Scaling Guide (2026).</a></li>
 <li><a href="/claude-data-privacy-what-not-to-share.html">Claude AI Data Privacy at Work: Enterprise Compliance Guide.</a></li>
 <li><a href="/claude-how-claude-thinks-and-reasons.html">How Claude AI Thinks: Understanding AI Reasoning at Work.</a></li>
 <li><a href="/claude-prompts-that-work.html">Claude AI Prompts That Actually Work: Stop Getting Generic Answers.</a></li>
@@ -272,7 +377,7 @@ fetch('courses.json')
 </ul>
 <h3>Claude AI — Finance</h3>
 <ul>
-<li><a href="/claude-prompt-templates-finance.html">Claude AI Prompt Templates for Finance Teams: Analysis, Reporting & Compliance.</a></li>
+<li><a href="/claude-prompt-templates-finance.html">Claude AI Prompt Templates for Finance Teams: Analysis, Reporting &amp; Compliance.</a></li>
 <li><a href="/claude-finance-data-analysis.html">How to Use Claude AI for Financial Data Analysis and Reporting.</a></li>
 <li><a href="/claude-month-end-close.html">How to Use Claude AI for Month-End Close: Checklists and Reporting Narratives.</a></li>
 <li><a href="/claude-cash-flow-forecasting.html">How to Use Claude AI for Cash Flow Forecasting.</a></li>
@@ -280,7 +385,7 @@ fetch('courses.json')
 </ul>
 <h3>Claude AI — Marketing</h3>
 <ul>
-<li><a href="/claude-prompt-templates-marketing.html">Claude AI Prompt Templates for Marketing Teams: Campaigns, Content & Strategy.</a></li>
+<li><a href="/claude-prompt-templates-marketing.html">Claude AI Prompt Templates for Marketing Teams: Campaigns, Content &amp; Strategy.</a></li>
 <li><a href="/claude-marketing-content-strategy.html">How to Use Claude AI for Content Strategy and Campaign Planning.</a></li>
 <li><a href="/claude-marketing-seo-content-optimization.html">How to Use Claude AI for SEO Content Optimization.</a></li>
 <li><a href="/claude-marketing-email-campaign-sequences.html">How to Use Claude AI for Email Campaign Sequences.</a></li>
@@ -288,7 +393,7 @@ fetch('courses.json')
 </ul>
 <h3>Claude AI — Legal</h3>
 <ul>
-<li><a href="/claude-prompt-templates-legal.html">Claude AI Prompt Templates for Legal Teams: Contracts, Compliance & Risk.</a></li>
+<li><a href="/claude-prompt-templates-legal.html">Claude AI Prompt Templates for Legal Teams: Contracts, Compliance &amp; Risk.</a></li>
 <li><a href="/claude-legal-document-review.html">How to Use Claude AI for Contract Review and Legal Document Analysis.</a></li>
 <li><a href="/claude-legal-contract-drafting.html">How to Use Claude AI for Contract Drafting.</a></li>
 <li><a href="/claude-legal-compliance-check.html">How to Use Claude AI for Compliance Checks.</a></li>
@@ -296,7 +401,7 @@ fetch('courses.json')
 </ul>
 <h3>Claude AI — Operations</h3>
 <ul>
-<li><a href="/claude-prompt-templates-operations.html">Claude AI Prompt Templates for Operations Teams: SOPs, Suppliers & Reporting.</a></li>
+<li><a href="/claude-prompt-templates-operations.html">Claude AI Prompt Templates for Operations Teams: SOPs, Suppliers &amp; Reporting.</a></li>
 <li><a href="/claude-workflow-automation.html">How to Build Repeatable AI Workflows for Operations Teams.</a></li>
 <li><a href="/claude-operations-sop-writing.html">How to Use Claude AI for Writing Standard Operating Procedures.</a></li>
 <li><a href="/claude-operations-incident-reporting.html">How to Use Claude AI for Incident Reporting.</a></li>
@@ -345,7 +450,7 @@ fetch('courses.json')
 <ul>
 <li><a href="/gemini-gmail-inbox-overload.html">How to Use Gemini in Gmail to Beat Inbox Overload at Work.</a></li>
 <li><a href="/gemini-help-me-write-brand-voice.html">Gemini Help Me Write: Draft Professional Emails in Your Voice.</a></li>
-<li><a href="/gemini-meet-automated-notes.html">Gemini in Google Meet: Automate Meeting Notes & Action Items.</a></li>
+<li><a href="/gemini-meet-automated-notes.html">Gemini in Google Meet: Automate Meeting Notes &amp; Action Items.</a></li>
 <li><a href="/gemini-sheets-clean-data.html">Clean Messy Data Fast with Gemini in Google Sheets (2026).</a></li>
 <li><a href="/gemini-sheets-formulas-debugger.html">Fix Complex Spreadsheet Formulas with Gemini in Google Sheets.</a></li>
 <li><a href="/gemini-docs-proposal-builder.html">Build a Corporate Proposal in Minutes with Gemini in Docs.</a></li>
@@ -354,9 +459,9 @@ fetch('courses.json')
 <li><a href="/gemini-slides-enterprise-images.html">Generate On-Brand Visuals Without a Designer Using Gemini.</a></li>
 <li><a href="/gemini-drive-multi-document-analysis.html">Analyse Multiple Documents at Once with Gemini in Google Drive.</a></li>
 <li><a href="/gemini-gems-custom-team-assistants.html">Gemini Gems: Build Custom AI Assistants for Your Whole Team.</a></li>
-<li><a href="/gemini-admins-security-data-privacy.html">Gemini Admin Guide: Control AI Access & Protect Company Data.</a></li>
+<li><a href="/gemini-admins-security-data-privacy.html">Gemini Admin Guide: Control AI Access &amp; Protect Company Data.</a></li>
 <li><a href="/gemini-advanced-vs-standard.html">Gemini Advanced vs Standard: Which Plan Does Your Team Need?</a></li>
-<li><a href="/gemini-calendar-scheduling.html">Gemini + Google Calendar: Automate Scheduling & Meeting Prep at Work.</a></li>
+<li><a href="/gemini-calendar-scheduling.html">Gemini + Google Calendar: Automate Scheduling &amp; Meeting Prep at Work.</a></li>
 <li><a href="/gemini-notebooklm.html">Google NotebookLM for Professionals: Turn Documents Into Interactive Briefings.</a></li>
 </ul>
 <h3>Gemini AI — Finance</h3>
@@ -405,12 +510,12 @@ fetch('courses.json')
 <li><a href="/gemini-sales-meet-call-summaries.html">How to Use Gemini AI for Sales Call Summaries from Google Meet.</a></li>
 <li><a href="/gemini-sales-crm-data-sheets.html">How to Use Gemini AI for CRM Data Analysis in Google Sheets.</a></li>
 <li><a href="/gemini-sales-proposal-docs.html">How to Use Gemini AI for Proposal Generation in Google Docs.</a></li>
-<li><a href="/gemini-sales-account-research.html">How to Use Gemini AI for Account Research & Prospecting.</a></li>
+<li><a href="/gemini-sales-account-research.html">How to Use Gemini AI for Account Research &amp; Prospecting.</a></li>
 <li><a href="/gemini-sales-follow-up-gmail.html">How to Use Gemini AI for Follow-Up Sequences in Gmail.</a></li>
 <li><a href="/gemini-sales-pitch-deck-slides.html">How to Use Gemini AI for Pitch Deck Outlines for Google Slides.</a></li>
-<li><a href="/gemini-sales-competitor-battlecards.html">How to Use Gemini AI for Competitor Analysis & Sales Battlecards.</a></li>
-<li><a href="/gemini-sales-calendar-scheduling.html">How to Use Gemini AI for Meeting Scheduling & Calendar Prep.</a></li>
-<li><a href="/gemini-sales-territory-planning-sheets.html">How to Use Gemini AI for Territory & Quota Planning in Google Sheets.</a></li>
+<li><a href="/gemini-sales-competitor-battlecards.html">How to Use Gemini AI for Competitor Analysis &amp; Sales Battlecards.</a></li>
+<li><a href="/gemini-sales-calendar-scheduling.html">How to Use Gemini AI for Meeting Scheduling &amp; Calendar Prep.</a></li>
+<li><a href="/gemini-sales-territory-planning-sheets.html">How to Use Gemini AI for Territory &amp; Quota Planning in Google Sheets.</a></li>
 </ul>
 <h3>Gemini AI — Customer Service</h3>
 <ul>
