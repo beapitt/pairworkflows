@@ -27,91 +27,96 @@
 <link rel="stylesheet" href="styles.css">
 <script defer src="/_vercel/insights/script.js"></script>
 <style>
-/* ── Dark area override — white background ─────────────────── */
-.dark-area {
+/* ══════════════════════════════════════════════
+   GLOBAL: white background everywhere except footer
+   ══════════════════════════════════════════════ */
+body {
   background: #ffffff !important;
-}
-.dark-area-inner {
-  background: #ffffff !important;
+  color: #1a1a2e !important;
 }
 
-/* ── Hero override ─────────────────────────────────────────── */
+/* ── Hero ────────────────────────────────────── */
 .hero-wrap {
-  background: #f8f9fb;
+  background: #f8f9fb !important;
   background-image:
     radial-gradient(ellipse 70% 60% at 65% 45%, #e6f4ed 0%, transparent 65%),
-    radial-gradient(ellipse 45% 55% at 15% 80%, #edf1fb 0%, transparent 60%);
+    radial-gradient(ellipse 45% 55% at 15% 80%, #edf1fb 0%, transparent 60%) !important;
+  padding: 4rem 3rem 3.5rem;
 }
-.hero-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 4rem 2rem 3.5rem;
-  display: flex;
-  align-items: center;
-  gap: 3rem;
-  flex-wrap: wrap;
-}
-.hero-left { flex: 1 1 340px; }
 .hero-badge {
-  display: inline-block;
   background: #e6f7f0;
   color: #0e7a50;
   border: 1px solid #b6e8d3;
-  border-radius: 100px;
-  padding: 5px 14px;
-  font-size: 12.5px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  margin-bottom: 1.25rem;
 }
-.hero-left h1 {
-  font-size: clamp(2rem, 4vw, 2.75rem);
-  font-weight: 800;
-  line-height: 1.15;
-  color: #0d1b14;
-  margin: 0 0 1.1rem;
-  letter-spacing: -0.5px;
-}
-.hero-left h1 span { color: #1d9e75; }
-.hero-sub {
-  font-size: 1.05rem;
-  color: #4b5563;
-  line-height: 1.65;
-  margin: 0;
-  max-width: 420px;
-}
-.hero-right {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  flex: 0 0 auto;
-}
+.hero h1 { color: #0d1b14 !important; }
+.hero h1 span { color: #1d9e75 !important; }
+.hero-sub { color: #4b5563 !important; }
 .hero-stat {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 14px;
-  padding: 1.1rem 1.25rem;
-  min-width: 130px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  background: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06) !important;
 }
-.hero-stat-num {
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: #0d1b14;
-  letter-spacing: -0.5px;
-  line-height: 1.1;
+.hero-stat-num { color: #0d1b14 !important; }
+.hero-stat-label { color: #6b7280 !important; }
+
+/* ── Dark area → white ───────────────────────── */
+.dark-area {
+  background: #ffffff !important;
+  padding: 2.5rem 3rem 1rem;
 }
-.hero-stat-label {
-  font-size: 12px;
-  color: #6b7280;
-  margin-top: 4px;
-  line-height: 1.4;
+.dark-area-inner { background: #ffffff !important; }
+
+/* ── Tabs ────────────────────────────────────── */
+.tab-btn {
+  border-color: #d1d5db !important;
+  color: #6b7280 !important;
 }
-@media (max-width: 640px) {
-  .hero-inner { padding: 2.5rem 1.25rem 2rem; gap: 2rem; }
-  .hero-right { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .hero-stat { min-width: 0; }
+.tab-btn:hover { border-color: #9ca3af !important; color: #1a1a2e !important; }
+.tab-btn.active-claude { border-color: #d97756 !important; background: #d97756 !important; color: #ffffff !important; }
+.tab-btn.active-gemini { border-color: #378add !important; background: #378add !important; color: #ffffff !important; }
+.ti-claude { background: #fdf0ec !important; color: #b05030 !important; }
+.ti-gemini { background: #e6f1fb !important; color: #185fa5 !important; }
+.tab-btn.active-claude .ti-claude,
+.tab-btn.active-gemini .ti-gemini { background: rgba(255,255,255,.25) !important; color: #ffffff !important; }
+
+/* ── Filters ─────────────────────────────────── */
+.filter-btn {
+  border-color: #d1d5db !important;
+  color: #6b7280 !important;
 }
+.filter-btn:hover { border-color: #9ca3af !important; color: #1a1a2e !important; }
+.filter-btn.active { border-color: #1d9e75 !important; background: #1d9e75 !important; color: #ffffff !important; }
+
+/* ── BY TOOL section ─────────────────────────── */
+.filters-section-label { color: #374151 !important; }
+.tool-pill {
+  background: rgba(29,158,117,.08) !important;
+  border-color: rgba(29,158,117,.3) !important;
+  color: #0d5c3a !important;
+}
+.tool-pill:hover { background: rgba(29,158,117,.15) !important; }
+.tool-pill.active { background: #1d9e75 !important; border-color: #1d9e75 !important; color: #ffffff !important; }
+.claude-only-badge { background: #e6f7f0 !important; color: #0e7a50 !important; }
+
+/* ── Empty state ─────────────────────────────── */
+.empty-state { color: #9ca3af !important; }
+
+/* ── Resources section ───────────────────────── */
+.resources-title { color: #0d1b14 !important; }
+.resource-card {
+  background: #f8f9fb !important;
+  border: 1px solid #e5e7eb !important;
+}
+.resource-card:hover { background: #f0f4f8 !important; }
+.resource-card-title { color: #0d1b14 !important; }
+.resource-card-desc { color: #6b7280 !important; }
+.resource-card-link { color: #1d9e75 !important; }
+
+/* ── FAQ ─────────────────────────────────────── */
+.faq-section h2 { color: #0d1b14 !important; }
+.faq-item { border-bottom-color: #e5e7eb !important; }
+.faq-q { color: #1a1a2e !important; }
+.faq-a { color: #4b5563 !important; }
 </style>
 </head>
 <body>
