@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>HR Policy Draft Workflow with Claude AI — PairWorkflows</title>
+<meta name="description" content="Learn how to write an HR policy with AI in 30 min. Use Claude to turn your requirements into a clear, professional policy document — even with no legal team.">
+<link rel="canonical" href="https://www.pairworkflows.com/hr-policy-draft-workflow.html">
+<meta property="og:title" content="HR Policy Draft Workflow with Claude AI — PairWorkflows">
+<meta property="og:description" content="Draft a professional HR policy in 30 minutes — using Claude as your writing partner, even if you've never written one before.">
+<meta property="og:url" content="https://www.pairworkflows.com/hr-policy-draft-workflow.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="PairWorkflows">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- HowTo Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Draft an HR Policy with Claude",
+  "description": "A step-by-step workflow for freelancers, independent HR consultants, and small business owners who need to draft professional HR policies quickly using Claude AI — even without a legal or HR team.",
+  "url": "https://www.pairworkflows.com/hr-policy-draft-workflow.html",
+  "totalTime": "PT30M",
+  "tool": [
+    { "@type": "HowToTool", "name": "Claude" },
+    { "@type": "HowToTool", "name": "Gemini" }
+  ],
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Define the policy scope and what it needs to cover",
+      "text": "Before opening Claude, spend five minutes writing down exactly what the policy needs to address: which employees it applies to, what behaviours or situations it governs, any rules you already know you want to include, and whether there are specific legal requirements in your jurisdiction you're aware of. The more precise this input, the less rework you'll do on the draft."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Gather any existing reference material",
+      "text": "Collect whatever you have: a previous policy from a different company, an industry template, a legal requirement document, or even a handful of bullet points from the business owner about what they want the policy to say. Paste it all into a single text block. Claude works better with raw source material than with a vague brief."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Run the prompt and get a first draft",
+      "text": "Open Claude, fill in the policy prompt below with your scope details and reference material, and send it. Claude will return a structured policy draft with standard sections — Purpose, Scope, Policy Statement, Procedures, Responsibilities, and Review Date — in clear, professional language. The first draft is a working skeleton, not a finished document."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Refine for your specific context",
+      "text": "Read through the draft and flag anything that doesn't fit the company's size, culture, or actual situation. Ask Claude to adjust specific sections — tighten the language, add a missing rule, or rewrite a procedure to match how things actually work. Be direct in your follow-up requests: 'Rewrite section 3 to apply to remote employees only' gets better results than 'make it more relevant'."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Add the legal disclaimer and flag for review",
+      "text": "Before the policy leaves your desk, add a clear note that it must be reviewed by a qualified HR or legal professional before being adopted officially. Claude drafts the structure and language — it does not verify legal compliance. This step is not optional."
+    }
+  ],
+  "provider": {
+    "@type": "Organization",
+    "name": "PairWorkflows",
+    "sameAs": "https://www.pairworkflows.com"
+  },
+  "isAccessibleForFree": true,
+  "inLanguage": "en"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="icon" type="image/png" href="/favicon.png">
+<style>
+/* ── Reset ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+
+/* ── Navbar placeholder (filled by navbar.js) ── */
+.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+
+/* ── Search overlay ── */
+#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
+#searchOverlay.open{display:flex}
+.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
+.search-close-btn:hover{color:#fff}
+.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
+.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
+.search-box input::placeholder{color:rgba(255,255,255,.35)}
+.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
+
+/* ── Layout ── */
+.page-wrap{max-width:760px;margin:0 auto;width:100%;padding:1rem 1rem 5rem;flex:1}
+
+/* ── Hero ── */
+.hero{padding:0.5rem 0 2.5rem;border-bottom:1px solid #e8ecef;margin-bottom:2.5rem}
+.hero-eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#1d9e75;margin-bottom:.75rem}
+.hero h1{font-size:36px;font-weight:600;color:#1a1a2e;line-height:1.2;margin-bottom:1rem;max-width:680px}
+.hero-sub{font-size:16px;color:#374151;line-height:1.65;max-width:620px;margin-bottom:1.75rem}
+.hero-meta{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:#f0fdf4;border:1px solid #d1fae5;color:#065f46;border-radius:20px;padding:4px 12px;font-size:12px;font-weight:500}
+.hero-badge i{font-size:13px;color:#1d9e75}
+
+/* ── Section headings ── */
+.section-h2{font-size:20px;font-weight:600;color:#1a1a2e;margin-bottom:1.25rem}
+
+/* ── Legal disclaimer ── */
+.disclaimer-box{background:#fffbeb;border:1px solid #fcd34d;border-left:4px solid #f59e0b;border-radius:0 12px 12px 0;padding:1.25rem 1.5rem;margin-bottom:2.5rem;display:flex;gap:12px;align-items:flex-start}
+.disclaimer-box i{font-size:20px;color:#d97706;flex-shrink:0;margin-top:1px}
+.disclaimer-box p{font-size:14px;color:#92400e;line-height:1.65}
+.disclaimer-box strong{color:#78350f}
+
+/* ── TL;DR box ── */
+.tldr-box{background:#f0fdf4;border:1px solid #d1fae5;border-radius:12px;padding:1.5rem 1.75rem;margin-bottom:2.5rem}
+.tldr-box h2{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#065f46;margin-bottom:1rem}
+.tldr-box ul{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.tldr-box li{font-size:14px;color:#065f46;line-height:1.6;padding-left:1.25rem;position:relative}
+.tldr-box li::before{content:"→";position:absolute;left:0;color:#1d9e75;font-weight:600}
+
+/* ── Prerequisites ── */
+.prereq-section{margin-bottom:2.5rem}
+.prereq-list{list-style:none;display:flex;flex-direction:column;gap:.75rem}
+.prereq-list li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:#374151;line-height:1.6}
+.prereq-list li i{font-size:16px;color:#1d9e75;flex-shrink:0;margin-top:1px}
+
+/* ── Step-by-step ── */
+.steps-section{margin-bottom:2.5rem}
+.step{display:flex;gap:1.25rem;margin-bottom:2rem}
+.step:last-child{margin-bottom:0}
+.step-num{width:36px;height:36px;border-radius:50%;background:#1d9e75;color:#fff;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step-body{flex:1}
+.step-body h3{font-size:16px;font-weight:600;color:#1a1a2e;margin-bottom:.5rem}
+.step-body p{font-size:14px;color:#374151;line-height:1.75}
+
+/* ── Prompt block ── */
+.prompt-section{margin-bottom:2.5rem}
+.prompt-block{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:1.5rem;position:relative}
+.prompt-block pre{font-family:'Menlo','Consolas','Courier New',monospace;font-size:13px;color:#1a1a2e;line-height:1.75;white-space:pre-wrap;word-break:break-word}
+.prompt-block .prompt-var{color:#0f6e56;font-weight:600}
+.copy-btn{position:absolute;top:1rem;right:1rem;display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:5px 12px;font-size:12px;font-weight:500;color:#374151;cursor:pointer;font-family:'Inter',sans-serif;transition:border-color .15s,color .15s}
+.copy-btn:hover{border-color:#1d9e75;color:#1d9e75}
+.copy-btn i{font-size:13px}
+
+/* ── Output example ── */
+.output-section{margin-bottom:2.5rem}
+.output-box{background:#fff;border:1px solid #e2e8f0;border-left:4px solid #1d9e75;border-radius:0 12px 12px 0;padding:1.5rem 1.75rem}
+.output-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#1d9e75;margin-bottom:1rem}
+.output-box p{font-size:14px;color:#374151;line-height:1.75;margin-bottom:.75rem}
+.output-box p:last-child{margin-bottom:0}
+.output-box strong{color:#1a1a2e}
+
+/* ── Comparison table ── */
+.compare-section{margin-bottom:2.5rem}
+.compare-table{width:100%;border-collapse:collapse;font-size:14px}
+.compare-table th{background:#f8fafc;color:#374151;font-weight:600;text-align:left;padding:10px 14px;border:1px solid #e2e8f0;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.compare-table th:nth-child(2),.compare-table th:nth-child(3){text-align:center}
+.compare-table td{padding:10px 14px;border:1px solid #e2e8f0;color:#374151;vertical-align:middle}
+.compare-table td:nth-child(2),.compare-table td:nth-child(3){text-align:center}
+.compare-table tr:nth-child(even) td{background:#fafbfc}
+.badge-winner{display:inline-block;background:#f0fdf4;color:#065f46;border:1px solid #d1fae5;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:500}
+.badge-ok{display:inline-block;background:#f8fafc;color:#6b7280;border:1px solid #e2e8f0;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:500}
+
+/* ── Customise section ── */
+.custom-section{margin-bottom:2.5rem}
+.custom-section h3{font-size:15px;font-weight:600;color:#1a1a2e;margin-bottom:.4rem;margin-top:1.25rem}
+.custom-section h3:first-of-type{margin-top:0}
+.custom-section p{font-size:14px;color:#374151;line-height:1.7}
+
+/* ── FAQ ── */
+.faq-section{margin-bottom:2.5rem}
+.faq-list{display:flex;flex-direction:column;gap:.5rem}
+details{border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+summary{padding:1rem 1.25rem;font-size:14px;font-weight:600;color:#1a1a2e;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"\002B";font-size:18px;color:#1d9e75;flex-shrink:0;line-height:1}
+details[open] summary::after{content:"\2212"}
+details[open] summary{border-bottom:1px solid #e2e8f0}
+.faq-answer{padding:1rem 1.25rem;font-size:14px;color:#374151;line-height:1.75}
+.faq-answer a{color:#1d9e75;text-decoration:none}
+.faq-answer a:hover{text-decoration:underline}
+
+/* ── Related aside ── */
+.related-aside{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:1.5rem 1.75rem;margin-top:3rem}
+.related-aside h2{font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;margin-bottom:1.25rem}
+.related-links{display:flex;flex-direction:column;gap:.75rem}
+.related-link{display:flex;align-items:flex-start;gap:10px;text-decoration:none;color:#1a1a2e;padding:.75rem 1rem;background:#fff;border:1px solid #e2e8f0;border-radius:10px;transition:border-color .15s,box-shadow .15s}
+.related-link:hover{border-color:#1d9e75;box-shadow:0 2px 8px rgba(29,158,117,.08)}
+.related-link-icon{width:32px;height:32px;background:#f0fdf4;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.related-link-icon i{font-size:16px;color:#1d9e75}
+.related-link-text strong{display:block;font-size:13px;font-weight:600;color:#1a1a2e;margin-bottom:2px}
+.related-link-text span{font-size:12px;color:#6b7280}
+
+/* ── Inline links ── */
+article a{color:#1d9e75;text-decoration:none}
+article a:hover{text-decoration:underline}
+
+/* ── Responsive ── */
+@media(max-width:700px){
+  .navbar{padding:0 1rem}
+  .page-wrap{padding:1rem .75rem 3rem}
+  .hero h1{font-size:26px}
+  .hero-sub{font-size:14px}
+  .copy-btn{position:static;margin-top:1rem}
+  .prompt-block{padding-top:1.25rem}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+<!-- ── Search overlay ── -->
+<div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
+  <div class="search-overlay-inner">
+    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+    <form action="/search.html" method="get">
+      <div class="search-box">
+        <i class="ti ti-search"></i>
+        <input type="text" name="q" id="searchOverlayInput" placeholder="Search across workflows, prompts, and resources..." autocomplete="off">
+      </div>
+    </form>
+    <p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
+  </div>
+</div>
+
+<!-- ── Navbar ── -->
+<div id="navbar-placeholder"></div>
+<script src="/navbar.js"></script>
+<noscript><nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px"><a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a><a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a><a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a><a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a><a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a><a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a><a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a><a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a><a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a><a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a><a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a><a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a></nav></noscript>
+
+<!-- ── Main content ── -->
+<div class="page-wrap">
+<article>
+
+  <!-- ── 1. Hero ── -->
+  <header class="hero">
+    <div class="hero-eyebrow">HR Workflow</div>
+    <h1>How to Draft an HR Policy with Claude</h1>
+    <p class="hero-sub">You'll finish with a complete, professionally structured HR policy document — even if you've never written one before, even if the company has no existing HR documentation, and even if you're not sure what the legal requirements are. Paste your requirements, run one prompt, refine twice. That's the whole thing.</p>
+    <div class="hero-meta">
+      <span class="hero-badge"><i class="ti ti-check"></i> Free</span>
+      <span class="hero-badge"><i class="ti ti-clock"></i> 30 min</span>
+      <span class="hero-badge"><i class="ti ti-user"></i> Freelancers &amp; HR consultants</span>
+    </div>
+  </header>
+
+  <!-- ── Legal disclaimer ── -->
+  <div class="disclaimer-box" role="note" aria-label="Legal disclaimer">
+    <i class="ti ti-alert-triangle"></i>
+    <p><strong>Have this reviewed before you use it.</strong> Claude can draft a clear, well-structured policy — it cannot verify legal compliance. Before adopting any HR policy officially, have it reviewed by a qualified HR consultant or employment lawyer in your jurisdiction. This is especially true for policies covering disciplinary procedures, termination, data privacy, and equal opportunity.</p>
+  </div>
+
+  <!-- ── 2. TL;DR box ── -->
+  <div class="tldr-box">
+    <h2>TL;DR</h2>
+    <ul>
+      <li>You'll have a complete policy draft in under two minutes — from a handful of bullet points.</li>
+      <li>Free plan works fine; one conversation handles a full policy including follow-up edits.</li>
+      <li>Claude writes the structure and language — you supply the rules and sign off on the content.</li>
+      <li>What used to take half a day takes 30 minutes, including the review pass.</li>
+    </ul>
+  </div>
+
+  <!-- ── 3. Prerequisites ── -->
+  <section class="prereq-section" aria-labelledby="prereq-heading">
+    <h2 id="prereq-heading" class="section-h2">Before you start</h2>
+    <ul class="prereq-list">
+      <li><i class="ti ti-circle-check"></i> <span>A <a href="https://claude.ai" target="_blank" rel="noopener">Claude.ai</a> account — free plan handles a full policy draft without issue.</span></li>
+      <li><i class="ti ti-circle-check"></i> <span>A clear sense of what the policy needs to cover: which employees it applies to, which situations or behaviours it governs, and any specific rules the business owner has already decided on. Even rough bullet points work — don't clean them up first.</span></li>
+      <li><i class="ti ti-circle-check"></i> <span>The country or jurisdiction where the policy will apply. Employment law varies significantly — Claude needs this to frame the language correctly, even if you're handling the legal review separately.</span></li>
+      <li><i class="ti ti-circle-check"></i> <span>Any existing reference material: a previous policy, an industry template, or a contract clause you want reflected. Not required, but it shortens the editing phase significantly.</span></li>
+    </ul>
+  </section>
+
+  <!-- ── 4. Step-by-step workflow ── -->
+  <section class="steps-section" aria-labelledby="steps-heading">
+    <h2 id="steps-heading" class="section-h2">How to do it — step by step</h2>
+
+    <section class="step" aria-label="Step 1">
+      <div class="step-num" aria-hidden="true">1</div>
+      <div class="step-body">
+        <h3>Define exactly what the policy needs to cover</h3>
+        <p>Start by writing down — before opening Claude — the specific rules you want the policy to enforce. Not "something about remote work" but: who can work remotely, how many days per week, whether manager approval is required, how equipment is handled, and what happens when someone doesn't follow the rules. Spend an extra minute listing the exact rules you want the policy to cover, because vague input produces vague output and you'll spend three rounds of edits fixing something that five minutes of thinking would have prevented. If you're working with a client who hasn't thought this through yet, use the <a href="/claude-prompts-hr.html">HR Prompt Builder</a> — it has a scoping prompt designed to pull these decisions out of a business owner in a structured conversation before you touch the policy itself. Once you have the rules written down, note the policy type (Remote Work, Disciplinary, Leave, Data Privacy, etc.) and which employees it applies to — all staff, full-time only, managers. That's your input.</p>
+      </div>
+    </section>
+
+    <section class="step" aria-label="Step 2">
+      <div class="step-num" aria-hidden="true">2</div>
+      <div class="step-body">
+        <h3>Collect any reference material you have</h3>
+        <p>At this point, pull together anything that already exists: a policy from a previous client in the same industry, a government template for your jurisdiction, a clause from an employment contract, or a competitor's publicly available handbook. You're not plagiarising — you're giving Claude anchoring material so the output matches the register and format your client expects. Don't worry if the reference is outdated or from a different company size; Claude will adapt it. If the company has no existing HR documentation at all, skip this step and move straight to the prompt — Claude can work from your scoped requirements alone.</p>
+      </div>
+    </section>
+
+    <section class="step" aria-label="Step 3">
+      <div class="step-num" aria-hidden="true">3</div>
+      <div class="step-body">
+        <h3>Run the prompt and get a first draft</h3>
+        <p>Now open Claude and paste the prompt below. Fill in the green placeholders — policy type, jurisdiction, who it applies to, your list of rules — then paste any reference material at the bottom. Send it. Claude returns a structured draft with standard sections (Purpose, Scope, Policy Statement, Procedures, Responsibilities, Review Date) in plain, professional language, usually in under 90 seconds. Don't try to perfect the prompt before sending. A rough first pass gives you something concrete to react to, which is always faster than trying to get the prompt exactly right before you've seen any output. The goal at this stage is a working skeleton you can read through and react to — not a document you'd hand to a client today.</p>
+      </div>
+    </section>
+
+    <section class="step" aria-label="Step 4">
+      <div class="step-num" aria-hidden="true">4</div>
+      <div class="step-body">
+        <h3>Refine for the company's actual context</h3>
+        <p>This is where most of the real work happens. Read the draft once and flag anything that doesn't fit — language that's too formal for a 10-person startup, a procedure that assumes an HR department that doesn't exist, a responsibility assigned to a "line manager" when this company doesn't use that title. Then go back into Claude and fix them one section at a time. "Rewrite the Disciplinary Procedure section to reflect a three-step verbal warning, written warning, final written warning process" is a better follow-up request than "make it more practical." The <a href="/claude-for-hr.html">AI for HR Teams</a> hub has specific examples of how to phrase these refinement requests for different policy types. Expect two to three rounds of editing. That's normal for a policy of any complexity — Claude gets you to a strong draft quickly, but the fit to a specific company's culture and language takes iteration.</p>
+      </div>
+    </section>
+
+    <section class="step" aria-label="Step 5">
+      <div class="step-num" aria-hidden="true">5</div>
+      <div class="step-body">
+        <h3>Add metadata and flag for legal review</h3>
+        <p>Before the draft leaves your desk, fill in the policy metadata: version number, effective date, review date, owner (the role responsible for maintaining the policy, not the person). Then add the legal review disclaimer — see the note at the top of this page. Send it to the relevant HR or legal reviewer with a clear note about which sections you're most uncertain about. Done.</p>
+      </div>
+    </section>
+  </section>
+
+  <!-- ── 5. Prompt block ── -->
+  <section class="prompt-section" aria-labelledby="prompt-heading">
+    <h2 id="prompt-heading" class="section-h2">The prompt</h2>
+    <div class="prompt-block">
+      <button class="copy-btn" onclick="copyPrompt(this)" aria-label="Copy prompt to clipboard">
+        <i class="ti ti-copy"></i> Copy
+      </button>
+      <pre id="workflow-prompt">You are helping me draft a professional HR policy document for a company.
+
+Context:
+- <span class="prompt-var">Policy type</span>: [e.g. Remote Work Policy / Disciplinary Policy / Annual Leave Policy / Data Privacy Policy]
+- <span class="prompt-var">Company size and type</span>: [e.g. 25-person marketing agency / 8-person e-commerce startup]
+- <span class="prompt-var">Jurisdiction</span>: [e.g. United Kingdom / California, USA / Australia]
+- <span class="prompt-var">Who this policy applies to</span>: [e.g. all permanent employees / full-time and part-time staff / managers only]
+- <span class="prompt-var">Tone</span>: [e.g. professional and formal / plain language and approachable / legally precise]
+
+Rules and requirements this policy must include:
+[List every rule, limit, or procedure the policy needs to cover — bullet points are fine. Be specific: "Employees may work remotely up to 3 days per week with manager approval" rather than "something about remote work limits."]
+
+Reference material (optional):
+[Paste any existing policy, template, or relevant contract clause here. Leave blank if you don't have one.]
+
+Using the rules and requirements above, draft a complete HR policy document with the following structure:
+1. Purpose
+2. Scope
+3. Policy Statement
+4. Procedures (step-by-step where relevant)
+5. Roles and Responsibilities
+6. Non-compliance
+7. Review and Updates
+
+Write in clear, professional language appropriate for the tone I specified. Do not add rules or requirements that are not in my input above. If a standard section has no relevant content based on my requirements, say so briefly rather than padding it with generic text.
+
+Format it as a complete policy document I can refine and send for legal review.</pre>
+    </div>
+  </section>
+
+  <!-- ── 6. Output example ── -->
+  <section class="output-section" aria-labelledby="output-heading">
+    <h2 id="output-heading" class="section-h2">What the output looks like</h2>
+    <div class="output-box">
+      <div class="output-label">Example output — Remote Work Policy</div>
+      <p><strong>1. Purpose</strong></p>
+      <p>This policy sets out the conditions under which employees of Alderton Digital Ltd may work remotely, and the responsibilities of both the employee and their line manager in supporting effective remote working arrangements.</p>
+      <p><strong>2. Scope</strong></p>
+      <p>This policy applies to all permanent full-time and part-time employees of Alderton Digital Ltd based in the United Kingdom. It does not apply to contractors, freelancers, or employees on fixed-term contracts of less than three months.</p>
+      <p><strong>3. Policy Statement</strong></p>
+      <p>Alderton Digital supports flexible working and recognises that remote work can benefit both employees and the business. Employees may work remotely for up to three days per week, subject to manager approval and the operational requirements of their role. Remote working is a privilege, not an entitlement, and may be modified or withdrawn if performance or collaboration is adversely affected.</p>
+      <p><strong>4. Procedures</strong></p>
+      <p>Employees wishing to establish a regular remote working arrangement must submit a written request to their line manager at least five working days in advance. The manager will confirm approval or request a discussion within three working days. Ad hoc remote working requests may be made informally on the day, subject to manager discretion.</p>
+    </div>
+  </section>
+
+  <!-- ── 7. Claude vs Gemini table ── -->
+  <section class="compare-section" aria-labelledby="compare-heading">
+    <h2 id="compare-heading" class="section-h2">Claude vs Gemini for this workflow</h2>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>Claude</th>
+          <th>Gemini</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Following a precise list of rules</td>
+          <td><span class="badge-winner">Better</span></td>
+          <td><span class="badge-ok">Good</span></td>
+        </tr>
+        <tr>
+          <td>Professional, legally appropriate tone</td>
+          <td><span class="badge-winner">Better</span></td>
+          <td><span class="badge-ok">Good</span></td>
+        </tr>
+        <tr>
+          <td>Avoiding invented content</td>
+          <td><span class="badge-winner">Better</span></td>
+          <td><span class="badge-ok">Good</span></td>
+        </tr>
+        <tr>
+          <td>Integration with Google Docs</td>
+          <td><span class="badge-ok">Good</span></td>
+          <td><span class="badge-winner">Better</span></td>
+        </tr>
+        <tr>
+          <td>Speed on free plan</td>
+          <td><span class="badge-ok">Good</span></td>
+          <td><span class="badge-winner">Better</span></td>
+        </tr>
+        <tr>
+          <td>Overall recommendation</td>
+          <td><span class="badge-winner">Recommended</span></td>
+          <td><span class="badge-ok">Solid alternative</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ── 8. How to customise ── -->
+  <section class="custom-section" aria-labelledby="custom-heading">
+    <h2 id="custom-heading" class="section-h2">How to customise this workflow</h2>
+
+    <h3>For small business owners writing their first policy</h3>
+    <p>Add one line to the prompt: "Assume this company has never had a formal HR policy before — write in plain language that any employee can understand without HR training." Then, before filling in the rules, ask Claude in a separate message: "What are the minimum things a Remote Work Policy for a 10-person UK company should cover?" It'll give you a checklist in 20 seconds that you can use to fill in the requirements field. The <a href="/claude-for-hr.html">AI for HR Teams</a> hub has more guides written specifically for non-specialists doing HR work without a dedicated team.</p>
+
+    <h3>For HR consultants managing multiple clients</h3>
+    <p>Don't rewrite the prompt for every engagement — save a base version per policy type in your notes tool, then swap in the client's company name, size, jurisdiction, and specific rules before pasting. That drops the setup from ten minutes to two. The <a href="/claude-prompts-hr.html">HR Prompt Builder</a> is built exactly for this: configure the prompt once per policy type, store it, and reuse it without starting from scratch each time.</p>
+
+    <h3>For policies that need to reference existing documentation</h3>
+    <p>Skip this if you're starting from scratch. But if the client already has an employment contract or employee handbook, paste the relevant sections into the reference material field and add this instruction: "Ensure this policy is consistent with the contract clauses I've included — flag any conflicts rather than silently overriding them." Claude will surface inconsistencies as notes in the draft, which saves you from discovering them during the legal review.</p>
+
+    <h3>For sensitive policy types (disciplinary, termination, harassment)</h3>
+    <p>Before moving on to the prompt, add one line to the context section: "This policy may be used in formal disciplinary proceedings — ensure the language is precise, unambiguous, and procedurally sound." Claude tends to soften language in sensitive areas by default; this instruction tells it to prioritise clarity over diplomacy. Then flag the draft explicitly for legal review before it goes anywhere near an employee — these are the policy types where jurisdiction-specific employment law matters most.</p>
+  </section>
+
+  <!-- ── 9. FAQ ── -->
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <h2 id="faq-heading" class="section-h2">Frequently asked questions</h2>
+    <div class="faq-list">
+
+      <details>
+        <summary>Can Claude draft a legally compliant HR policy?</summary>
+        <div class="faq-answer">Claude can draft a structurally sound, professionally written policy — but it cannot verify legal compliance. Employment law varies by jurisdiction, changes regularly, and often depends on company-specific factors that aren't in your prompt. Use Claude to produce the draft, then have a qualified HR consultant or employment lawyer review it before it becomes official. That review is faster and cheaper when you're handing them a clean draft rather than a blank page.</div>
+      </details>
+
+      <details>
+        <summary>What if I don't know what the policy should say?</summary>
+        <div class="faq-answer">Ask Claude before running the main prompt. In a separate message, type: "What does a [policy type] policy for a [company size] company in [jurisdiction] typically need to cover?" Claude will give you a starting checklist you can use to fill in the requirements field. Don't worry if you're not sure what the legal requirements are — that's what the legal review step is for. Your job at this stage is to capture the business rules the company has already decided on; Claude handles the structure and language.</div>
+      </details>
+
+      <details>
+        <summary>Is it safe to include company-specific details in my prompt?</summary>
+        <div class="faq-answer">Anthropic doesn't use your conversations to train Claude by default. That said, check your client's data handling policy before pasting any identifiable company information into an external tool — some organisations have blanket rules about this. A safe workaround: use a generic company name (e.g. "Company A") in the prompt and replace it with the real name when you paste the final draft into your document. The output quality is identical.</div>
+      </details>
+
+      <details>
+        <summary>How do I handle policies that need to apply across multiple countries?</summary>
+        <div class="faq-answer">Draft one version per jurisdiction rather than trying to write a single cross-border policy — the differences in employment law are usually too significant to paper over with one document. Run the prompt once per country, changing the jurisdiction field each time. Then, in your follow-up request, ask: "Flag any sections that are likely to differ significantly between [Country A] and [Country B] — I'll need to check those with local counsel." The <a href="/hr-workflow.html">HR Workflows hub</a> has a multi-jurisdiction checklist that helps you track which versions are at which stage of review.</div>
+      </details>
+
+    </div>
+  </section>
+
+</article>
+
+<!-- ── 10. Related aside ── -->
+<aside class="related-aside" aria-label="Related resources">
+  <h2>Related resources</h2>
+  <div class="related-links">
+
+    <a href="/claude-prompts-hr.html" class="related-link">
+      <div class="related-link-icon"><i class="ti ti-prompt"></i></div>
+      <div class="related-link-text">
+        <strong>HR Prompt Builder</strong>
+        <span>Generate custom prompts for any HR task</span>
+      </div>
+    </a>
+
+    <a href="/hr-workflow.html" class="related-link">
+      <div class="related-link-icon"><i class="ti ti-book"></i></div>
+      <div class="related-link-text">
+        <strong>HR Workflows Hub</strong>
+        <span>All HR workflows, prompts, and step-by-step guides</span>
+      </div>
+    </a>
+
+    <a href="/claude-for-hr.html" class="related-link">
+      <div class="related-link-icon"><i class="ti ti-layout-grid"></i></div>
+      <div class="related-link-text">
+        <strong>AI for HR Teams</strong>
+        <span>Full hub — workflows, tools, and guides for HR professionals</span>
+      </div>
+    </a>
+
+  </div>
+</aside>
+
+</div><!-- /page-wrap -->
+
+<!-- ── Footer ── -->
+<footer style="background:#021a12;padding:2.5rem 1rem 1.5rem;margin-top:0">
+<div style="max-width:1100px;margin:0 auto">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:2.5rem;margin-bottom:2rem">
+<div><strong style="display:block;font-size:13.5px;font-weight:600;color:#ffffff;margin-bottom:1rem;letter-spacing:0.5px">Guides by Role</strong><a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Finance Teams</a><a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for HR Teams</a><a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Marketing Teams</a><a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Legal Teams</a><a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Operations Teams</a><a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Sales Teams</a><a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Customer Service</a><a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Excel</a></div>
+<div><strong style="display:block;font-size:13.5px;font-weight:600;color:#ffffff;margin-bottom:1rem;letter-spacing:0.5px">Prompt Tools</strong><a href="https://www.pairworkflows.com/claude-prompts-excel.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Excel Prompt Builder</a><a href="https://www.pairworkflows.com/claude-prompts-finance.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Finance Prompt Builder</a><a href="https://www.pairworkflows.com/claude-prompts-hr.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">HR Prompt Builder</a><a href="https://www.pairworkflows.com/claude-prompts-marketing.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Marketing Prompt Builder</a><a href="https://www.pairworkflows.com/prompt-library.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">General Prompt Library</a></div>
+<div><strong style="display:block;font-size:13.5px;font-weight:600;color:#ffffff;margin-bottom:1rem;letter-spacing:0.5px">Resources</strong><a href="https://www.pairworkflows.com/claude-courses.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">All Claude Courses</a><a href="https://www.pairworkflows.com/gemini-courses.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">All Gemini Courses</a><a href="https://www.pairworkflows.com/glossary.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI Glossary</a><a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Claude vs Gemini</a><a href="https://www.pairworkflows.com/index.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">All Mini-Courses</a></div>
+<div><strong style="display:block;font-size:13.5px;font-weight:600;color:#ffffff;margin-bottom:1rem;letter-spacing:0.5px">Company &amp; Legal</strong><a href="https://www.pairworkflows.com/about.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">About</a><a href="https://www.pairworkflows.com/contact.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Contact</a><a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Suggest a Course</a><a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Privacy Policy</a><a href="https://www.pairworkflows.com/legal.html#terms" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Terms of Use</a><a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Cookie Policy</a></div>
+</div>
+<div style="text-align:center;margin-bottom:2rem"><p style="font-size:13.5px;color:#64748b;line-height:1.55;max-width:520px;margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p></div>
+<div style="border-top:1px solid #0a4a30;padding-top:1.25rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+<span style="font-size:13px;color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75;text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
+<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+<button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link</button>
+<a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'"><svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg><span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span></a>
+<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>
+<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+</div></div></div></footer>
+
+<script>
+/* Search overlay */
+function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+
+/* Footer copy link */
+function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
+
+/* Prompt copy button */
+function copyPrompt(btn){
+  var text = document.getElementById('workflow-prompt').textContent;
+  navigator.clipboard.writeText(text);
+  var orig = btn.innerHTML;
+  btn.innerHTML = '<i class="ti ti-check"></i> Copied!';
+  btn.style.color = '#1d9e75';
+  btn.style.borderColor = '#1d9e75';
+  setTimeout(function(){btn.innerHTML=orig;btn.style.color='';btn.style.borderColor='';},2000);
+}
+</script>
+</body>
+</html>
