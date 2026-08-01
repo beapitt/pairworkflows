@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Candidate Shortlisting Workflow with Claude AI — PairWorkflows</title>
+<meta name="description" content="How to shortlist candidates with AI in 20 min. Use Claude to screen CVs, apply your criteria consistently, and produce a ranked shortlist — even without an ATS.">
+<link rel="canonical" href="https://www.pairworkflows.com/candidate-shortlisting-workflow.html">
+<meta property="og:title" content="Candidate Shortlisting Workflow with Claude AI — PairWorkflows">
+<meta property="og:description" content="Screen CVs and build a ranked shortlist in 20 minutes — using Claude to apply your criteria consistently across every application.">
+<meta property="og:url" content="https://www.pairworkflows.com/candidate-shortlisting-workflow.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="PairWorkflows">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- HowTo Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Shortlist Candidates with Claude",
+  "description": "A step-by-step workflow for freelancers, independent HR consultants, and small business owners who need to screen CVs and build a ranked shortlist quickly and consistently — without an ATS or a dedicated hiring team.",
+  "url": "https://www.pairworkflows.com/candidate-shortlisting-workflow.html",
+  "totalTime": "PT20M",
+  "tool": [
+    { "@type": "HowToTool", "name": "Claude" },
+    { "@type": "HowToTool", "name": "Gemini" }
+  ],
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Define your shortlisting criteria before opening Claude",
+      "text": "Spend an extra minute writing down your three non-negotiable criteria — the requirements a candidate must meet to be considered at all — and two to four desirable criteria that would move someone up the list. Write them in plain language, tied to the actual job rather than vague traits, before you open Claude. This is the step that determines the quality of everything that follows. Criteria framed around skills, experience, and demonstrated outcomes rather than personal characteristics also help reduce the risk of unconscious bias filtering into your screening."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Prepare your CVs for Claude",
+      "text": "Copy the text of each CV into a single document, separated by a clear label — 'CV 1:', 'CV 2:' — or paste them one at a time if you prefer to screen individually. Don't worry if they arrived in different formats: PDF, Word, email body. Copy the text out as-is; you don't need to reformat. If names or personal details feel likely to introduce bias, anonymise them before pasting — replace the name with 'Candidate A', 'Candidate B', and so on. The screening result will be identical."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Run the shortlisting prompt",
+      "text": "Paste the prompt below into Claude, fill in your criteria and the job title, then add the CV text underneath. Claude will read each CV against your criteria, flag which requirements each candidate meets or doesn't meet, and return a structured assessment. For a batch of 10 to 15 CVs you'll have a first-pass ranking in under two minutes. For 40 CVs, split them into two or three batches and run the same prompt each time — the criteria stay consistent because they're in the prompt, not in your head."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Review the output and apply your own judgment",
+      "text": "At this point, read Claude's assessments as a structured starting point, not a verdict. Claude can surface how well each CV matches the criteria you gave it — it cannot weigh up things it can't see: a career gap that has a good explanation, a non-traditional background that signals exactly the kind of thinking you need, or a hunch you get from reading a well-written covering letter. Go through the top candidates yourself before deciding who moves forward. The final shortlisting decision is always yours."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Document your shortlist and reasoning",
+      "text": "Ask Claude to produce a one-paragraph summary per shortlisted candidate — what they meet, what they're missing, and one thing worth probing at interview. Save this alongside your shortlist. You now have a record of how you made the decision, which is useful if you need to explain your reasoning to a client, a hiring manager, or yourself when you revisit the role in three months."
+    }
+  ],
+  "provider": {
+    "@type": "Organization",
+    "name": "PairWorkflows",
+    "sameAs": "https://www.pairworkflows.com"
+  },
+  "isAccessibleForFree": true,
+  "inLanguage": "en"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="icon" type="image/png" href="/favicon.png">
+<style>
+/* ── Reset ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+
+/* ── Navbar placeholder (filled by navbar.js) ── */
+.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+
+/* ── Search overlay ── */
+#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
+#searchOverlay.open{display:flex}
+.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
+.search-close-btn:hover{color:#fff}
+.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
+.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
+.search-box input::placeholder{color:rgba(255,255,255,.35)}
+.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
+
+/* ── Layout ── */
+.page-wrap{max-width:760px;margin:0 auto;width:100%;padding:1rem 1rem 5rem;flex:1}
+
+/* ── Hero ── */
+.hero{padding:0.5rem 0 2.5rem;border-bottom:1px solid #e8ecef;margin-bottom:2.5rem}
+.hero-eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#1d9e75;margin-bottom:.75rem}
+.hero h1{font-size:36px;font-weight:600;color:#1a1a2e;line-height:1.2;margin-bottom:1rem;max-width:680px}
+.hero-sub{font-size:16px;color:#374151;line-height:1.65;max-width:620px;margin-bottom:1.75rem}
+.hero-meta{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:#f0fdf4;border:1px solid #d1fae5;color:#065f46;border-radius:20px;padding:4px 12px;font-size:12px;font-weight:500}
+.hero-badge i{font-size:13px;color:#1d9e75}
+
+/* ── Section headings ── */
+.section-h2{font-size:20px;font-weight:600;color:#1a1a2e;margin-bottom:1.25rem}
+
+/* ── TL;DR box ── */
+.tldr-box{background:#f0fdf4;border:1px solid #d1fae5;border-radius:12px;padding:1.5rem 1.75rem;margin-bottom:2.5rem}
+.tldr-box h2{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#065f46;margin-bottom:1rem}
+.tldr-box ul{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.tldr-box li{font-size:14px;color:#065f46;line-height:1.6;padding-left:1.25rem;position:relative}
+.tldr-box li::before{content:"→";position:absolute;left:0;color:#1d9e75;font-weight:600}
+
+/* ── Prerequisites ── */
+.prereq-section{margin-bottom:2.5rem}
+.prereq-list{list-style:none;display:flex;flex-direction:column;gap:.75rem}
+.prereq-list li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:#374151;line-height:1.6}
+.prereq-list li i{font-size:16px;color:#1d9e75;flex-shrink:0;margin-top:1px}
+
+/* ── Step-by-step ── */
+.steps-section{margin-bottom:2.5rem}
+.step{display:flex;gap:1.25rem;margin-bottom:2rem}
+.step:last-child{margin-bottom:0}
+.step-num{width:36px;height:36px;border-radius:50%;background:#1d9e75;color:#fff;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step-body{flex:1}
+.step-body h3{font-size:16px;font-weight:600;color:#1a1a2e;margin-bottom:.5rem}
+.step-body p{font-size:14px;color:#374151;line-height:1.75}
+
+/* ── Prompt block ── */
+.prompt-section{margin-bottom:2.5rem}
+.prompt-block{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:1.5rem;position:relative}
+.prompt-block pre{font-family:'Menlo','Consolas','Courier New',monospace;font-size:13px;color:#1a1a2e;line-height:1.75;white-space:pre-wrap;word-break:break-word}
+.prompt-block .prompt-var{color:#0f6e56;font-weight:600}
+.copy-btn{position:absolute;top:1rem;right:1rem;display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:5px 12px;font-size:12px;font-weight:500;color:#374151;cursor:pointer;font-family:'Inter',sans-serif;transition:border-color .15s,color .15s}
+.copy-btn:hover{border-color:#1d9e75;color:#1d9e75}
+.copy-btn i{font-size:13px}
+
+/* ── Output example ── */
+.output-section{margin-bottom:2.5rem}
+.output-box{background:#fff;border:1px solid #e2e8f0;border-left:4px solid #1d9e75;border-radius:0 12px 12px 0;padding:1.5rem 1.75rem}
+.output-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#1d9e75;margin-bottom:1rem}
+.output-box p{font-size:14px;color:#374151;line-height:1.75;margin-bottom:.75rem}
+.output-box p:last-child{margin-bottom:0}
+.output-box strong{color:#1a1a2e}
+
+/* ── Comparison table ── */
+.compare-section{margin-bottom:2.5rem}
+.compare-table{width:100%;border-collapse:collapse;font-size:14px}
+.compare-table th{background:#f8fafc;color:#374151;font-weight:600;text-align:left;padding:10px 14px;border:1px solid #e2e8f0;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.compare-table th:nth-child(2),.compare-table th:nth-child(3){text-align:center}
+.compare-table td{padding:10px 14px;border:1px solid #e2e8f0;color:#374151;vertical-align:middle}
+.compare-table td:nth-child(2),.compare-table td:nth-child(3){text-align:center}
+.compare-table tr:nth-child(even) td{background:#fafbfc}
+.badge-winner{display:inline-block;background:#f0fdf4;color:#065f46;border:1px solid #d1fae5;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:500}
+.badge-ok{display:inline-block;background:#f8fafc;color:#6b7280;border:1px solid #e2e8f0;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:500}
+
+/* ── Customise section ── */
+.custom-section{margin-bottom:2.5rem}
+.custom-section h3{font-size:15px;font-weight:600;color:#1a1a2e;margin-bottom:.4rem;margin-top:1.25rem}
+.custom-section h3:first-of-type{margin-top:0}
+.custom-section p{font-size:14px;color:#374151;line-height:1.7}
+
+/* ── FAQ ── */
+.faq-section{margin-bottom:2.5rem}
+.faq-list{display:flex;flex-direction:column;gap:.5rem}
+details{border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+summary{padding:1rem 1.25rem;font-size:14px;font-weight:600;color:#1a1a2e;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"\002B";font-size:18px;color:#1d9e75;flex-shrink:0;line-height:1}
+details[open] summary::after{content:"\2212"}
+details[open] summary{border-bottom:1px solid #e2e8f0}
+.faq-answer{padding:1rem 1.25rem;font-size:14px;color:#374151;line-height:1.75}
+.faq-answer a{color:#1d9e75;text-decoration:none}
+.faq-answer a:hover{text-decoration:underline}
+
+/* ── Related aside ── */
+.related-aside{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:1.5rem 1.75rem;margin-top:3rem}
+.related-aside h2{font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;margin-bottom:1.25rem}
+.related-links{display:flex;flex-direction:column;gap:.75rem}
+.related-link{display:flex;align-items:flex-start;gap:10px;text-decoration:none;color:#1a1a2e;padding:.75rem 1rem;background:#fff;border:1px solid #e2e8f0;border-radius:10px;transition:border-color .15s,box-shadow .15s}
+.related-link:hover{border-color:#1d9e75;box-shadow:0 2px 8px rgba(29,158,117,.08)}
+.related-link-icon{width:32px;height:32px;background:#f0fdf4;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.related-link-icon i{font-size:16px;color:#1d9e75}
+.related-link-text strong{display:block;font-size:13px;font-weight:600;color:#1a1a2e;margin-bottom:2px}
+.related-link-text span{font-size:12px;color:#6b7280}
+
+/* ── Inline links ── */
+article a{color:#1d9e75;text-decoration:none}
+article a:hover{text-decoration:underline}
+
+/* ── Responsive ── */
+@media(max-width:700px){
+  .navbar{padding:0 1rem}
+  .page-wrap{padding:1rem .75rem 3rem}
+  .hero h1{font-size:26px}
+  .hero-sub{font-size:14px}
+  .copy-btn{position:static;margin-top:1rem}
+  .prompt-block{padding-top:1.25rem}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+<!-- ── Search overlay ── -->
+<div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
+  <div class="search-overlay-inner">
+    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+    <form action="/search.html" method="get">
+      <div class="search-box">
+        <i class="ti ti-search"></i>
+        <input type="text" name="q" id="searchOverlayInput" placeholder="Search across workflows, prompts, and resources..." autocomplete="off">
+      </div>
+    </form>
+    <p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
+  </div>
+</div>
+
+<!-- ── Navbar ── -->
+<div id="navbar-placeholder"></div>
+<script src="/navbar.js"></script>
+<noscript><nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px"><a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a><a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a><a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a><a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a><a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a><a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a><a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a><a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a><a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a><a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a><a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a><a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a></nav></noscript>
+
+<!-- ── Main content ── -->
+<div class="page-wrap">
+<article>
+
+  <!-- ── 1. Hero ── -->
+  <header class="hero">
+    <div class="hero-eyebrow">HR Workflow</div>
+    <h1>How to Shortlist Candidates with Claude</h1>
+    <p class="hero-sub">You'll finish with a ranked shortlist and a one-paragraph summary per candidate — even if you have 40 CVs, no ATS, and no time to read them all properly. Define your criteria, run one prompt, review the output. That's the whole thing.</p>
+    <div class="hero-meta">
+      <span class="hero-badge"><i class="ti ti-check"></i> Free</span>
+      <span class="hero-badge"><i class="ti ti-clock"></i> 20 min</span>
+      <span class="hero-badge"><i class="ti ti-user"></i> Freelancers &amp; independent HR consultants</span>
+    </div>
+  </header>
+
+  <!-- ── 2. TL;DR box ── -->
+  <div class="tldr-box">
+    <h2>TL;DR</h2>
+    <ul>
+      <li>You'll have a structured assessment of every CV in minutes — even if applications arrived in five different formats.</li>
+      <li>Free plan works fine for up to 15 CVs per session; batch larger piles across two or three runs.</li>
+      <li>Claude applies your criteria consistently. You decide who actually gets through.</li>
+      <li>What used to take three hours of back-and-forth reading takes 20 minutes, including your own review.</li>
+    </ul>
+  </div>
+
+  <!-- ── 3. Prerequisites ── -->
+  <section class="prereq-section" aria-labelledby="prereq-heading">
+    <h2 id="prereq-heading" class="section-h2">Before you start</h2>
+    <ul class="prereq-list">
+      <li><i class="ti ti-circle-check"></i> <span>A <a href="https://claude.ai" target="_blank" rel="noopener">Claude.ai</a> account — the free plan handles a full screening session without issue. Use Pro if you're processing 30+ CVs back to back.</span></li>
+      <li><i class="ti ti-circle-check"></i> <span>The CVs themselves in any format — PDF, Word, email body, LinkedIn export. Copy the text out; you don't need them formatted consistently.</span></li>
+      <li><i class="ti ti-circle-check"></i> <span>A clear job description or at minimum a list of the three or four things this hire actually needs to be able to do. Without this, your criteria will be vague and the screening will be vague too.</span></li>
+      <li><i class="ti ti-circle-check"></i> <span>Five minutes to write your criteria down before you start — this is the step most people skip, and it's the one that matters most. See Step 1.</span></li>
+    </ul>
+  </section>
+
+  <!-- ── 4. Step-by-step workflow ── -->
+  <section class="steps-section" aria-labelledby="steps-heading">
+    <h2 id="steps-heading" class="section-h2">How to do it — step by step</h2>
+
+    <section class="step" aria-label="Step 1">
+      <div class="step-num" aria-hidden="true">1</div>
+      <div class="step-body">
+        <h3>Define your criteria before opening Claude</h3>
+        <p>Spend an extra minute writing down your three non-negotiable requirements — the things a candidate must demonstrate to be considered at all — before you do anything else. Not "good communicator" or "team player", but things you can actually verify from a CV: "three or more years running paid social campaigns", "previously hired or managed a small team", "demonstrable experience with B2B sales cycles of six months or longer". Then list two to four desirable criteria that would move someone up the shortlist. The reason to do this now, not inside Claude, is simple: once you're reading CVs, your criteria drift based on what you see. Writing them first locks in what you actually need.
+
+        One more thing: frame criteria around skills, experience, and demonstrated outcomes rather than personal characteristics. Beyond being the right thing to do, it also produces a more useful screening — Claude can assess "five years of client-facing account management" from a CV; it can't meaningfully assess "cultural fit". If you want a template to work from, the <a href="/claude-prompts-hr.html">HR Prompt Builder</a> has a criteria-setting prompt that walks you through this in under three minutes.</p>
+      </div>
+    </section>
+
+    <section class="step" aria-label="Step 2">
+      <div class="step-num" aria-hidden="true">2</div>
+      <div class="step-body">
+        <h3>Prepare your CVs for Claude</h3>
+        <p>Don't worry if the applications arrived in different formats — copy the text from each one and paste it into a single document, with a clear label before each: "CV 1:", "CV 2:", and so on. Skip reformatting; raw copied text is fine. If you want to reduce the chance that names, universities, or addresses subtly influence the assessment, replace identifying details with neutral labels before pasting: "Candidate A", "Candidate B". The screening result will be identical, and you'll be applying your criteria more cleanly.</p>
+      </div>
+    </section>
+
+    <section class="step" aria-label="Step 3">
+      <div class="step-num" aria-hidden="true">3</div>
+      <div class="step-body">
+        <h3>Run the shortlisting prompt</h3>
+        <p>Now open Claude and paste the prompt below — fill in your job title, your non-negotiable criteria, and your desirable criteria, then paste the CV text underneath. Hit send. Claude will read each CV against the exact criteria you gave it and return a structured assessment for every candidate: which requirements they meet, which they don't, and an overall tier (Strong / Possible / Unlikely). For a batch of 10 to 15 CVs, you'll have a first-pass ranking in under two minutes. Even if you have 40 CVs and no time to read them all, split them into three batches and run the same prompt each time — the criteria stay consistent because they're in the prompt, not in your head.</p>
+      </div>
+    </section>
+
+    <section class="step" aria-label="Step 4">
+      <div class="step-num" aria-hidden="true">4</div>
+      <div class="step-body">
+        <h3>Review the output and apply your own judgment</h3>
+        <p>At this point, treat Claude's assessments as a structured starting point, not a final answer. Claude can tell you how well each CV matches the criteria you gave it. It cannot tell you that a candidate who spent two years freelancing after redundancy is actually a stronger hire than their CV suggests, or that the person with the most impressive job titles wrote the most evasive covering letter you've ever read. Go through the Strong and Possible tiers yourself before deciding who moves forward. Claude is not a replacement for human judgment in hiring decisions — it's a tool for applying your criteria consistently at scale, so the judgment you do exercise is better informed and less exhausting.</p>
+      </div>
+    </section>
+
+    <section class="step" aria-label="Step 5">
+      <div class="step-num" aria-hidden="true">5</div>
+      <div class="step-body">
+        <h3>Document your shortlist</h3>
+        <p>Before moving on, ask Claude to write a one-paragraph summary per shortlisted candidate — what they bring, what's missing, and one thing worth exploring at interview. Save this alongside your shortlist. You now have a record of how you made the call.</p>
+      </div>
+    </section>
+  </section>
+
+  <!-- ── 5. Prompt block ── -->
+  <section class="prompt-section" aria-labelledby="prompt-heading">
+    <h2 id="prompt-heading" class="section-h2">The prompt</h2>
+    <div class="prompt-block">
+      <button class="copy-btn" onclick="copyPrompt(this)" aria-label="Copy prompt to clipboard">
+        <i class="ti ti-copy"></i> Copy
+      </button>
+      <pre id="workflow-prompt">You are helping me screen CVs and build a shortlist for a hiring decision.
+
+Role I'm hiring for: <span class="prompt-var">[Job title — e.g. Marketing Manager, Operations Coordinator]</span>
+
+Non-negotiable criteria (must meet all of these to be considered):
+1. <span class="prompt-var">[e.g. At least 3 years in a B2B sales role]</span>
+2. <span class="prompt-var">[e.g. Experience managing a team of two or more people]</span>
+3. <span class="prompt-var">[e.g. Hands-on experience with CRM tools, e.g. Salesforce or HubSpot]</span>
+
+Desirable criteria (would strengthen a candidate's case):
+1. <span class="prompt-var">[e.g. Experience in SaaS or tech sector]</span>
+2. <span class="prompt-var">[e.g. Track record of hitting or exceeding revenue targets]</span>
+3. <span class="prompt-var">[e.g. Experience hiring or onboarding team members]</span>
+
+For each CV below, do the following:
+- List which non-negotiable criteria the candidate meets and which they don't — based only on what's in their CV.
+- Note which desirable criteria they meet.
+- Assign a tier: Strong (meets all non-negotiables plus two or more desirables), Possible (meets all non-negotiables, few or no desirables), or Unlikely (missing one or more non-negotiables).
+- Write one sentence noting anything worth clarifying or probing if this candidate moves forward.
+
+Base your assessment only on the CV text provided. Do not infer or assume experience that isn't stated. If a criterion cannot be assessed from the CV, say so rather than guessing.
+
+CVs to screen:
+
+<span class="prompt-var">[Paste CV text here — separate each with a clear label: "CV 1:", "CV 2:", etc.]</span></pre>
+    </div>
+  </section>
+
+  <!-- ── 6. Output example ── -->
+  <section class="output-section" aria-labelledby="output-heading">
+    <h2 id="output-heading" class="section-h2">What the output looks like</h2>
+    <div class="output-box">
+      <div class="output-label">Example output — CV 1</div>
+      <p><strong>Candidate: CV 1</strong></p>
+      <p><strong>Non-negotiable criteria:</strong><br>
+      ✓ B2B sales experience — 4 years in an enterprise software sales role, stated explicitly.<br>
+      ✓ Team management — managed a team of three SDRs for 18 months at current employer.<br>
+      ✗ CRM tools — no specific CRM mentioned anywhere in the CV. Worth asking.</p>
+      <p><strong>Desirable criteria:</strong><br>
+      ✓ SaaS sector — current and previous roles both in SaaS.<br>
+      ✓ Revenue targets — CV states "exceeded Q3 target by 22%"; no other figures given.<br>
+      ✗ Hiring experience — not mentioned.</p>
+      <p><strong>Tier: Possible</strong> — Meets all non-negotiables except CRM, which is unclear rather than absent. Strong sector fit. Probe CRM experience before deciding.</p>
+    </div>
+  </section>
+
+  <!-- ── 7. Claude vs Gemini table ── -->
+  <section class="compare-section" aria-labelledby="compare-heading">
+    <h2 id="compare-heading" class="section-h2">Claude vs Gemini for this workflow</h2>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>Claude</th>
+          <th>Gemini</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Sticking to the criteria you set</td>
+          <td><span class="badge-winner">Better</span></td>
+          <td><span class="badge-ok">Good</span></td>
+        </tr>
+        <tr>
+          <td>Flagging what's missing vs what's unclear</td>
+          <td><span class="badge-winner">Better</span></td>
+          <td><span class="badge-ok">Good</span></td>
+        </tr>
+        <tr>
+          <td>Handling large batches of CVs in one go</td>
+          <td><span class="badge-winner">Better</span></td>
+          <td><span class="badge-ok">Good</span></td>
+        </tr>
+        <tr>
+          <td>Integration with Google Drive / Docs</td>
+          <td><span class="badge-ok">Good</span></td>
+          <td><span class="badge-winner">Better</span></td>
+        </tr>
+        <tr>
+          <td>Speed on free plan</td>
+          <td><span class="badge-ok">Good</span></td>
+          <td><span class="badge-winner">Better</span></td>
+        </tr>
+        <tr>
+          <td>Overall recommendation</td>
+          <td><span class="badge-winner">Recommended</span></td>
+          <td><span class="badge-ok">Solid alternative</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ── 8. How to customise ── -->
+  <section class="custom-section" aria-labelledby="custom-heading">
+    <h2 id="custom-heading" class="section-h2">How to customise this workflow</h2>
+
+    <h3>For small business owners who've never shortlisted before</h3>
+    <p>Even if you've never shortlisted before, the prompt above works as a starting point — but you'll get a sharper output if you add one line at the end: "If my criteria seem vague or hard to assess from a CV, flag it and suggest how I could make them more specific." Claude will tell you if "strong communicator" is doing nothing for you, which saves you from screening 20 CVs on a criterion you can't actually evaluate. The <a href="/claude-for-hr.html">AI for HR Teams</a> hub has more guides written for non-specialists doing hiring work without a team behind them.</p>
+
+    <h3>For independent HR consultants working on multiple roles at once</h3>
+    <p>Don't rewrite the criteria section for every role — save a version of the prompt per role type in your notes tool and swap in the specific criteria before pasting CVs. That drops the setup from five minutes to under one. The <a href="/claude-prompts-hr.html">HR Prompt Builder</a> is built for exactly this kind of reuse: you configure once, run repeatedly, and the output stays consistent across clients.</p>
+
+    <h3>For roles where the job description didn't attract the right candidates</h3>
+    <p>Before moving on to the next round, paste your shortlist summary back into Claude and ask: "Based on these assessments, what gaps or patterns are you seeing across the candidate pool? Is there anything in my criteria or the role description that might have attracted the wrong applications?" You'll often get a useful read on whether the problem was the brief, the channel, or the criteria themselves. Skip this if you're happy with the pool — it's only worth doing when you're not.</p>
+
+    <h3>For diverse hiring and reducing unconscious bias</h3>
+    <p>Criteria framed around skills and outcomes are more inclusive than criteria framed around pedigree — "experience leading a product launch" is assessable from many career paths; "worked at a top-10 agency" filters for one. Before running the prompt, read through your non-negotiables and ask: does each one trace directly back to something this hire will actually do? If the answer is "not really", cut it or reframe it. Anonymising CVs before pasting — replacing names and identifying details with neutral labels — also reduces the chance that pattern-matching on names or institutions shapes the assessment. The <a href="/job-description-workflow.html">Job Description Workflow</a> covers how to write a brief that attracts a broader candidate pool in the first place.</p>
+  </section>
+
+  <!-- ── 9. FAQ ── -->
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <h2 id="faq-heading" class="section-h2">Frequently asked questions</h2>
+    <div class="faq-list">
+
+      <details>
+        <summary>Can I use this with the free version of Claude?</summary>
+        <div class="faq-answer">Yes — the free plan at <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> handles a batch of 10 to 15 CVs comfortably in one session. Where it gets tight is volume: if you're processing 30+ CVs back to back you'll likely hit the message limit. Split your pile into batches of 10 to 12 and run the same prompt each time — the output stays consistent because the criteria don't change.</div>
+      </details>
+
+      <details>
+        <summary>Is it safe to paste CV data into Claude?</summary>
+        <div class="faq-answer">Anthropic doesn't use your conversations to train Claude by default. That said, CVs contain personal data, and whether it's appropriate to paste them into an external tool depends on your organisation's data policy and applicable employment law in your region. The practical workaround most consultants use: replace candidates' names and contact details with labels ("Candidate A", "Candidate B") before pasting. The screening quality is identical, and you stay clearly on the right side of most data handling requirements.</div>
+      </details>
+
+      <details>
+        <summary>Can Claude make the final hiring decision?</summary>
+        <div class="faq-answer">No — and it shouldn't. Claude can assess how well a CV matches the criteria you gave it, but a CV is a curated document, not a person. The shortlisting decision involves context Claude doesn't have: the career gap that has a completely reasonable explanation, the non-traditional background that's actually a strength for your specific culture, the covering letter that told you more than the CV did. Use Claude to do the consistent, criteria-based first pass. Use your own judgment to decide who moves forward. The <a href="/hr-workflow.html">HR Workflows hub</a> has guides for structuring the interview stage once your shortlist is ready.</div>
+      </details>
+
+      <details>
+        <summary>What if my CVs are in PDF format?</summary>
+        <div class="faq-answer">Claude can't read PDF files directly in the free web interface — you'll need to copy the text out. On most PDFs, Ctrl+A then Ctrl+C gets you the text; paste it into a plain text document and clean up any obvious formatting debris before adding it to the prompt. If you're on Claude Pro, you can upload PDF files directly and Claude will read them. Either way, the prompt works the same — the only difference is how the CV text gets in.</div>
+      </details>
+
+      <details>
+        <summary>How do I handle CVs that are vague or hard to assess?</summary>
+        <div class="faq-answer">The prompt tells Claude to flag when a criterion can't be assessed from the CV rather than guessing — so you'll see "not mentioned" or "unclear" rather than an invented assessment. When Claude flags something as unclear, treat it as a question for the candidate, not as a disqualifier. A CV that doesn't mention CRM tools might belong to someone who uses them every day and assumed it was obvious. The assessment tells you what to ask, not what to assume.</div>
+      </details>
+
+    </div>
+  </section>
+
+</article>
+
+<!-- ── 10. Related aside ── -->
+<aside class="related-aside" aria-label="Related resources">
+  <h2>Related resources</h2>
+  <div class="related-links">
+
+    <a href="/job-description-workflow.html" class="related-link">
+      <div class="related-link-icon"><i class="ti ti-file-text"></i></div>
+      <div class="related-link-text">
+        <strong>Job Description Workflow</strong>
+        <span>Write a clear, inclusive job brief that attracts the right candidates</span>
+      </div>
+    </a>
+
+    <a href="/claude-prompts-hr.html" class="related-link">
+      <div class="related-link-icon"><i class="ti ti-prompt"></i></div>
+      <div class="related-link-text">
+        <strong>HR Prompt Builder</strong>
+        <span>Generate custom prompts for any HR task</span>
+      </div>
+    </a>
+
+    <a href="/hr-workflow.html" class="related-link">
+      <div class="related-link-icon"><i class="ti ti-book"></i></div>
+      <div class="related-link-text">
+        <strong>HR Workflows Hub</strong>
+        <span>All HR workflows, prompts, and step-by-step guides</span>
+      </div>
+    </a>
+
+    <a href="/claude-for-hr.html" class="related-link">
+      <div class="related-link-icon"><i class="ti ti-layout-grid"></i></div>
+      <div class="related-link-text">
+        <strong>AI for HR Teams</strong>
+        <span>Full hub — workflows, tools, and guides for HR professionals</span>
+      </div>
+    </a>
+
+  </div>
+</aside>
+
+</div><!-- /page-wrap -->
+
+<!-- ── Footer ── -->
+<footer style="background:#021a12;padding:2.5rem 1rem 1.5rem;margin-top:0">
+<div style="max-width:1100px;margin:0 auto">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:2.5rem;margin-bottom:2rem">
+<div><strong style="display:block;font-size:13.5px;font-weight:600;color:#ffffff;margin-bottom:1rem;letter-spacing:0.5px">Guides by Role</strong><a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Finance Teams</a><a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for HR Teams</a><a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Marketing Teams</a><a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Legal Teams</a><a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Operations Teams</a><a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Sales Teams</a><a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Customer Service</a><a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Excel</a></div>
+<div><strong style="display:block;font-size:13.5px;font-weight:600;color:#ffffff;margin-bottom:1rem;letter-spacing:0.5px">Prompt Tools</strong><a href="https://www.pairworkflows.com/claude-prompts-excel.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Excel Prompt Builder</a><a href="https://www.pairworkflows.com/claude-prompts-finance.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Finance Prompt Builder</a><a href="https://www.pairworkflows.com/claude-prompts-hr.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">HR Prompt Builder</a><a href="https://www.pairworkflows.com/claude-prompts-marketing.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Marketing Prompt Builder</a><a href="https://www.pairworkflows.com/prompt-library.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">General Prompt Library</a></div>
+<div><strong style="display:block;font-size:13.5px;font-weight:600;color:#ffffff;margin-bottom:1rem;letter-spacing:0.5px">Resources</strong><a href="https://www.pairworkflows.com/claude-courses.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">All Claude Courses</a><a href="https://www.pairworkflows.com/gemini-courses.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">All Gemini Courses</a><a href="https://www.pairworkflows.com/glossary.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI Glossary</a><a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Claude vs Gemini</a><a href="https://www.pairworkflows.com/index.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">All Mini-Courses</a></div>
+<div><strong style="display:block;font-size:13.5px;font-weight:600;color:#ffffff;margin-bottom:1rem;letter-spacing:0.5px">Company &amp; Legal</strong><a href="https://www.pairworkflows.com/about.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">About</a><a href="https://www.pairworkflows.com/contact.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Contact</a><a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Suggest a Course</a><a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Privacy Policy</a><a href="https://www.pairworkflows.com/legal.html#terms" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Terms of Use</a><a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Cookie Policy</a></div>
+</div>
+<div style="text-align:center;margin-bottom:2rem"><p style="font-size:13.5px;color:#64748b;line-height:1.55;max-width:520px;margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p></div>
+<div style="border-top:1px solid #0a4a30;padding-top:1.25rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+<span style="font-size:13px;color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75;text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
+<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+<button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link</button>
+<a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'"><svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg><span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span></a>
+<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>
+<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+</div></div></div></footer>
+
+<script>
+/* Search overlay */
+function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+
+/* Footer copy link */
+function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
+
+/* Prompt copy button */
+function copyPrompt(btn){
+  var text = document.getElementById('workflow-prompt').textContent;
+  navigator.clipboard.writeText(text);
+  var orig = btn.innerHTML;
+  btn.innerHTML = '<i class="ti ti-check"></i> Copied!';
+  btn.style.color = '#1d9e75';
+  btn.style.borderColor = '#1d9e75';
+  setTimeout(function(){btn.innerHTML=orig;btn.style.color='';btn.style.borderColor='';},2000);
+}
+</script>
+</body>
+</html>
