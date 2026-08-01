@@ -34,23 +34,7 @@
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 8px;
-    }
-    .nav-link {
-      font-size: 13px;
-      color: rgba(255,255,255,0.7);
-      text-decoration: none;
-      padding: 6px 10px;
-      border-radius: 6px;
-      transition: all .15s;
-      white-space: nowrap;
-    }
-    .nav-link:hover {
-      color: #ffffff;
-      background: rgba(255,255,255,0.08);
-    }
-    .nav-link.active {
-      color: #1d9e75;
+      gap: 4px;
     }
 
     /* DROPDOWN */
@@ -72,7 +56,8 @@
       font-family: 'Inter', sans-serif;
       white-space: nowrap;
     }
-    .nav-dropdown-toggle:hover {
+    .nav-dropdown-toggle:hover,
+    .nav-dropdown-toggle.open {
       color: #ffffff;
       background: rgba(255,255,255,0.08);
     }
@@ -83,17 +68,19 @@
     .nav-dropdown-toggle.open svg {
       transform: rotate(180deg);
     }
+
+    /* ALL DROPDOWN MENUS — white background, dark text */
     .nav-dropdown-menu {
       display: none;
       position: absolute;
       top: calc(100% + 8px);
-      right: 0;
-      background: #021a12;
-      border: 1px solid #0a4a30;
+      left: 0;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
       border-radius: 10px;
       padding: 6px;
-      min-width: 220px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      min-width: 200px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
       z-index: 999;
     }
     .nav-dropdown-menu.open {
@@ -102,7 +89,7 @@
     .nav-dropdown-menu a {
       display: block;
       font-size: 13px;
-      color: rgba(255,255,255,0.7);
+      color: #374151;
       text-decoration: none;
       padding: 8px 12px;
       border-radius: 6px;
@@ -110,12 +97,12 @@
       white-space: nowrap;
     }
     .nav-dropdown-menu a:hover {
-      color: #ffffff;
-      background: rgba(255,255,255,0.08);
+      color: #111827;
+      background: #f3f4f6;
     }
     .nav-dropdown-divider {
       height: 1px;
-      background: #0a4a30;
+      background: #e5e7eb;
       margin: 4px 6px;
     }
     .nav-dropdown-label {
@@ -125,6 +112,38 @@
       letter-spacing: .08em;
       color: #1d9e75;
       padding: 6px 12px 2px;
+    }
+
+    /* WORKFLOWS DROPDOWN — two-column grid */
+    .nav-dropdown-menu.workflows-menu {
+      min-width: 380px;
+      left: 0;
+    }
+    .workflows-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      padding: 2px;
+    }
+    .workflows-grid a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #374151;
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 6px;
+      transition: all .15s;
+      white-space: nowrap;
+    }
+    .workflows-grid a:hover {
+      color: #111827;
+      background: #f3f4f6;
+    }
+    .workflows-grid a .wf-icon {
+      font-size: 15px;
+      flex-shrink: 0;
     }
 
     /* SEARCH TRIGGER */
@@ -142,6 +161,7 @@
       justify-content: center;
       transition: all .15s;
       flex-shrink: 0;
+      margin-left: 4px;
     }
     .search-trigger:hover {
       background: rgba(255,255,255,0.15);
@@ -162,6 +182,7 @@
       justify-content: center;
       transition: all .15s;
       flex-shrink: 0;
+      margin-left: 4px;
     }
     .nav-hamburger:hover {
       background: rgba(255,255,255,0.15);
@@ -175,11 +196,13 @@
       top: 52px;
       left: 0;
       right: 0;
-      background: #021a12;
-      border-bottom: 1px solid #0a4a30;
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
       padding: 1rem;
       z-index: 99;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      max-height: calc(100vh - 52px);
+      overflow-y: auto;
     }
     .nav-mobile-menu.open {
       display: block;
@@ -202,15 +225,20 @@
     .nav-mobile-menu a {
       display: block;
       font-size: 14px;
-      color: rgba(255,255,255,0.7);
+      color: #374151;
       text-decoration: none;
       padding: 9px 12px;
       border-radius: 6px;
       transition: all .15s;
     }
     .nav-mobile-menu a:hover {
-      color: #ffffff;
-      background: rgba(255,255,255,0.08);
+      color: #111827;
+      background: #f3f4f6;
+    }
+    .nav-mobile-divider {
+      height: 1px;
+      background: #e5e7eb;
+      margin: 8px 0;
     }
 
     @media(max-width:700px) {
@@ -242,35 +270,69 @@
 
         <!-- DESKTOP LINKS -->
         <div class="nav-desktop-links" style="display:flex;align-items:center;gap:4px;">
-        
-         <!-- PROMPTS DROPDOWN -->
+
+          <!-- WORKFLOWS DROPDOWN -->
           <div class="nav-dropdown">
-            <button class="nav-dropdown-toggle" onclick="toggleNavDropdown()" id="navDropdownToggle">
-              Prompts &amp; Tools
+            <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('workflows')" id="navDropdownToggle-workflows">
+              Workflows
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </button>
-            <div class="nav-dropdown-menu" id="navDropdownMenu">
-  <div class="nav-dropdown-label">⚡ Prompt Builder — generate a custom prompt</div>
-  <a href="https://www.pairworkflows.com/claude-prompts-excel.html">Excel &amp; Google Sheets</a>
-  <a href="https://www.pairworkflows.com/claude-prompts-finance.html">Finance</a>
-  <a href="https://www.pairworkflows.com/claude-prompts-hr.html">HR</a>
-  <a href="https://www.pairworkflows.com/claude-prompts-marketing.html">Marketing</a>
-  <a href="https://www.pairworkflows.com/claude-prompts-sales.html">Sales</a>
-  <a href="https://www.pairworkflows.com/claude-prompts-customer-service.html">Customer Service</a>
-  <a href="https://www.pairworkflows.com/claude-prompts-operations.html">Operations</a>
-  <a href="https://www.pairworkflows.com/claude-prompts-legal.html">Legal</a>
-  <div class="nav-dropdown-divider"></div>
-  <div class="nav-dropdown-label">📋 Prompt Library — ready to copy</div>
-  <a href="https://www.pairworkflows.com/prompt-library.html">Browse All Prompts</a>
-   </div>
+            <div class="nav-dropdown-menu workflows-menu" id="navDropdownMenu-workflows">
+              <div class="nav-dropdown-label">Browse by department</div>
+              <div class="workflows-grid">
+                <a href="https://www.pairworkflows.com/hr-workflow.html"><span class="wf-icon">👥</span> HR Workflows</a>
+                <a href="#"><span class="wf-icon">💰</span> Finance Workflows</a>
+                <a href="#"><span class="wf-icon">📣</span> Marketing Workflows</a>
+                <a href="#"><span class="wf-icon">⚖️</span> Legal Workflows</a>
+                <a href="#"><span class="wf-icon">🤝</span> Sales Workflows</a>
+                <a href="#"><span class="wf-icon">📊</span> Excel Workflows</a>
+              </div>
+            </div>
           </div>
 
-          <a href="https://www.pairworkflows.com/claude-courses.html" class="nav-link${isActive('claude-courses')}">Claude Courses</a>
-          <a href="https://www.pairworkflows.com/gemini-courses.html" class="nav-link${isActive('gemini-courses')}">Gemini Courses</a>
-          <a href="https://www.pairworkflows.com/claude-vs-gemini.html" class="nav-link${isActive('claude-vs-gemini')}">Claude vs Gemini</a>
-          <a href="https://www.pairworkflows.com/claude-vs-gemini-finance.html" class="nav-link${isActive('claude-vs-gemini-finance')}">Claude vs Gemini Finance</a>
-          <a href="https://www.pairworkflows.com/claude-vs-copilot-excel.html" class="nav-link${isActive('claude-vs-copilot-excel')}">Claude vs Copilot Excel</a>
-          <a href="https://www.pairworkflows.com/glossary.html" class="nav-link${isActive('glossary')}">Glossary</a>
+          <!-- PROMPT BUILDER DROPDOWN -->
+          <div class="nav-dropdown">
+            <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('prompts')" id="navDropdownToggle-prompts">
+              Prompt Builder
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="nav-dropdown-menu" id="navDropdownMenu-prompts">
+              <div class="nav-dropdown-label">⚡ Generate a custom prompt</div>
+              <a href="https://www.pairworkflows.com/claude-prompts-excel.html">Excel &amp; Google Sheets</a>
+              <a href="https://www.pairworkflows.com/claude-prompts-finance.html">Finance</a>
+              <a href="https://www.pairworkflows.com/claude-prompts-hr.html">HR</a>
+              <a href="https://www.pairworkflows.com/claude-prompts-marketing.html">Marketing</a>
+              <a href="https://www.pairworkflows.com/claude-prompts-sales.html">Sales</a>
+              <a href="https://www.pairworkflows.com/claude-prompts-customer-service.html">Customer Service</a>
+              <a href="https://www.pairworkflows.com/claude-prompts-operations.html">Operations</a>
+              <a href="https://www.pairworkflows.com/claude-prompts-legal.html">Legal</a>
+            </div>
+          </div>
+
+          <!-- GUIDES DROPDOWN -->
+          <div class="nav-dropdown">
+            <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('guides')" id="navDropdownToggle-guides">
+              Guides
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="nav-dropdown-menu" id="navDropdownMenu-guides">
+              <a href="https://www.pairworkflows.com/claude-courses.html">Claude Courses</a>
+              <a href="https://www.pairworkflows.com/gemini-courses.html">Gemini Courses</a>
+            </div>
+          </div>
+
+          <!-- COMPARE AI DROPDOWN -->
+          <div class="nav-dropdown">
+            <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('compare')" id="navDropdownToggle-compare">
+              Compare AI
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="nav-dropdown-menu" id="navDropdownMenu-compare">
+              <a href="https://www.pairworkflows.com/claude-vs-gemini.html">Claude vs Gemini</a>
+              <a href="https://www.pairworkflows.com/claude-vs-gemini-finance.html">Claude vs Gemini Finance</a>
+              <a href="https://www.pairworkflows.com/claude-vs-copilot-excel.html">Claude vs Copilot Excel</a>
+            </div>
+          </div>
 
         </div>
 
@@ -290,14 +352,17 @@
     <!-- MOBILE MENU -->
     <div class="nav-mobile-menu" id="navMobileMenu">
       <div class="nav-mobile-section">
-        <div class="nav-mobile-label">Navigate</div>
-        <a href="https://www.pairworkflows.com/claude-vs-gemini.html">Claude vs Gemini</a>
-        <a href="https://www.pairworkflows.com/claude-vs-copilot-excel.html">Claude vs Copilot Excel</a>
-        <a href="https://www.pairworkflows.com/claude-vs-gemini-finance.html">Claude vs Gemini Finance</a>
-        <a href="https://www.pairworkflows.com/glossary.html">AI Glossary</a>
+        <div class="nav-mobile-label">Workflows</div>
+        <a href="https://www.pairworkflows.com/hr-workflow.html">HR Workflows</a>
+        <a href="#">Finance Workflows</a>
+        <a href="#">Marketing Workflows</a>
+        <a href="#">Legal Workflows</a>
+        <a href="#">Sales Workflows</a>
+        <a href="#">Excel Workflows</a>
       </div>
+      <div class="nav-mobile-divider"></div>
       <div class="nav-mobile-section">
-       <div class="nav-mobile-label">Prompts &amp; Tools</div>
+        <div class="nav-mobile-label">Prompt Builder</div>
         <a href="https://www.pairworkflows.com/claude-prompts-excel.html">Excel &amp; Google Sheets</a>
         <a href="https://www.pairworkflows.com/claude-prompts-finance.html">Finance</a>
         <a href="https://www.pairworkflows.com/claude-prompts-hr.html">HR</a>
@@ -306,7 +371,19 @@
         <a href="https://www.pairworkflows.com/claude-prompts-customer-service.html">Customer Service</a>
         <a href="https://www.pairworkflows.com/claude-prompts-operations.html">Operations</a>
         <a href="https://www.pairworkflows.com/claude-prompts-legal.html">Legal</a>
-        <a href="https://www.pairworkflows.com/prompt-library.html">General Prompt Library</a>
+      </div>
+      <div class="nav-mobile-divider"></div>
+      <div class="nav-mobile-section">
+        <div class="nav-mobile-label">Guides</div>
+        <a href="https://www.pairworkflows.com/claude-courses.html">Claude Courses</a>
+        <a href="https://www.pairworkflows.com/gemini-courses.html">Gemini Courses</a>
+      </div>
+      <div class="nav-mobile-divider"></div>
+      <div class="nav-mobile-section">
+        <div class="nav-mobile-label">Compare AI</div>
+        <a href="https://www.pairworkflows.com/claude-vs-gemini.html">Claude vs Gemini</a>
+        <a href="https://www.pairworkflows.com/claude-vs-gemini-finance.html">Claude vs Gemini Finance</a>
+        <a href="https://www.pairworkflows.com/claude-vs-copilot-excel.html">Claude vs Copilot Excel</a>
       </div>
     </div>
   `;
@@ -317,13 +394,23 @@
     placeholder.innerHTML = navbarHTML;
   }
 
-  // DROPDOWN TOGGLE
-  window.toggleNavDropdown = function() {
-    var toggle = document.getElementById('navDropdownToggle');
-    var menu = document.getElementById('navDropdownMenu');
+  // DROPDOWN TOGGLE — supports multiple independent dropdowns by id
+  window.toggleNavDropdown = function(id) {
+    var toggle = document.getElementById('navDropdownToggle-' + id);
+    var menu = document.getElementById('navDropdownMenu-' + id);
     if (!toggle || !menu) return;
-    toggle.classList.toggle('open');
-    menu.classList.toggle('open');
+
+    var isOpen = menu.classList.contains('open');
+
+    // Close all dropdowns first
+    document.querySelectorAll('.nav-dropdown-toggle').forEach(function(t) { t.classList.remove('open'); });
+    document.querySelectorAll('.nav-dropdown-menu').forEach(function(m) { m.classList.remove('open'); });
+
+    // Re-open this one if it was closed
+    if (!isOpen) {
+      toggle.classList.add('open');
+      menu.classList.add('open');
+    }
   };
 
   // MOBILE MENU TOGGLE
@@ -337,14 +424,11 @@
       : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
   };
 
-  // CLOSE DROPDOWN ON OUTSIDE CLICK
+  // CLOSE ALL DROPDOWNS ON OUTSIDE CLICK
   document.addEventListener('click', function(e) {
-    var dropdown = document.querySelector('.nav-dropdown');
-    if (dropdown && !dropdown.contains(e.target)) {
-      var toggle = document.getElementById('navDropdownToggle');
-      var menu = document.getElementById('navDropdownMenu');
-      if (toggle) toggle.classList.remove('open');
-      if (menu) menu.classList.remove('open');
+    if (!e.target.closest('.nav-dropdown')) {
+      document.querySelectorAll('.nav-dropdown-toggle').forEach(function(t) { t.classList.remove('open'); });
+      document.querySelectorAll('.nav-dropdown-menu').forEach(function(m) { m.classList.remove('open'); });
     }
   });
 
