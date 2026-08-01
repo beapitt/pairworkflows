@@ -3,109 +3,68 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Performance Review Workflow with Claude AI [2026]</title>
-<meta name="description" content="Learn how to write a performance review with AI in minutes. Claude structures peer feedback, goal data, and manager notes into a complete, balanced review ready to submit.">
+<title>Performance Review Workflow with Claude AI — PairWorkflows</title>
+<meta name="description" content="Learn how to write a performance review with AI in 20 min. Use Claude to turn your raw notes into a fair, structured, professional appraisal.">
 <link rel="canonical" href="https://www.pairworkflows.com/performance-review-workflow.html">
-<meta property="og:title" content="Performance Review Workflow with Claude AI [2026] — PairWorkflows">
-<meta property="og:description" content="Write structured, fair performance reviews faster with Claude AI. Follow this 5-step workflow: gather inputs, run the prompt, review the draft, customise, and submit.">
+<meta property="og:title" content="Performance Review Workflow with Claude AI — PairWorkflows">
+<meta property="og:description" content="Turn scattered notes into a fair, professional performance review in 20 minutes — using Claude as your drafting partner.">
 <meta property="og:url" content="https://www.pairworkflows.com/performance-review-workflow.html">
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:site_name" content="PairWorkflows">
 <meta name="twitter:card" content="summary_large_image">
 
+<!-- HowTo Schema -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "HowTo",
-  "name": "How to Write a Performance Review with Claude AI",
-  "description": "A step-by-step workflow for writing a structured, fair performance review using Claude AI. Covers input preparation, prompting, drafting, customisation, and submission.",
+  "name": "How to Write a Performance Review with Claude",
+  "description": "A step-by-step workflow for freelancers, independent HR consultants, and small business owners who need to write professional performance reviews quickly using Claude AI.",
   "url": "https://www.pairworkflows.com/performance-review-workflow.html",
   "totalTime": "PT20M",
-  "supply": [
-    {"@type": "HowToSupply","name": "Peer feedback collected from colleagues"},
-    {"@type": "HowToSupply","name": "Objective data: KPIs, targets, output metrics"},
-    {"@type": "HowToSupply","name": "Manager notes and direct observations"},
-    {"@type": "HowToSupply","name": "Employee self-assessment (if available)"},
-    {"@type": "HowToSupply","name": "Access to Claude (claude.ai or API)"}
+  "tool": [
+    { "@type": "HowToTool", "name": "Claude" },
+    { "@type": "HowToTool", "name": "Gemini" }
   ],
   "step": [
     {
       "@type": "HowToStep",
       "position": 1,
-      "name": "Gather your inputs",
-      "text": "Collect peer feedback, KPI data, manager notes, and the employee's self-assessment before opening Claude. The quality of your review depends entirely on the quality of the inputs you provide."
+      "name": "Collect your raw notes and evidence",
+      "text": "Before opening Claude, gather everything you have on the employee: 1-on-1 notes, project outcomes, peer feedback summaries, self-assessment answers, and any metrics or KPI data. Paste them into a single document or text block so you can give Claude a complete picture in one go."
     },
     {
       "@type": "HowToStep",
       "position": 2,
-      "name": "Structure the context for Claude",
-      "text": "Paste all inputs into the prompt template, filling in the employee name, role, review period, and rating scale used by your organisation."
+      "name": "Define the review format and tone",
+      "text": "Decide what structure your organisation or client expects — sections like Overall Performance, Key Achievements, Areas for Development, and Goals — and whether the tone should be formal, coaching-oriented, or concise. Include these instructions explicitly in your prompt so Claude produces a draft that fits the format without rework."
     },
     {
       "@type": "HowToStep",
       "position": 3,
-      "name": "Run the prompt and review the draft",
-      "text": "Send the prompt to Claude and read the generated draft carefully. Check that every claim is grounded in the inputs you provided — Claude should not invent achievements or weaknesses."
+      "name": "Run the prompt and get a first draft",
+      "text": "Paste your raw notes and the performance review prompt into Claude. Claude will synthesise the evidence, identify themes, balance positive and constructive observations, and produce a structured draft in plain, professional language — typically in under a minute."
     },
     {
       "@type": "HowToStep",
       "position": 4,
-      "name": "Customise tone and add your voice",
-      "text": "Adjust language to match your company's review template, soften or sharpen the tone as needed, and add any context Claude could not know — team dynamics, interim conversations, or role changes mid-period."
+      "name": "Refine tone, evidence, and balance",
+      "text": "Read the draft with two questions in mind: Is every claim backed by a specific example from your notes? Does the balance of positive to constructive feedback feel fair and proportionate? Ask Claude to sharpen any weak sections — for example, 'Make the development areas more specific' or 'Soften the opening paragraph slightly'."
     },
     {
       "@type": "HowToStep",
       "position": 5,
-      "name": "Submit and archive",
-      "text": "Copy the finalised review into your HR system or document. Archive the source inputs separately for any calibration discussions or appeals."
+      "name": "Final check and personalise before sharing",
+      "text": "Replace any generic phrases with the employee's actual name, project names, and dates. Verify that nothing was hallucinated — cross-check key claims against your original notes. Then copy the final text into your HR system, document, or email template."
     }
   ],
   "provider": {
     "@type": "Organization",
     "name": "PairWorkflows",
     "sameAs": "https://www.pairworkflows.com"
-  }
-}
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Is it ethical to use AI to write a performance review?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, provided you supply accurate inputs and review the output before submitting. Claude drafts — you validate. The manager remains responsible for the final assessment. Using AI to structure and articulate observations is no different from using a template; the judgement is still human."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What inputs does Claude need to write a performance review?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Claude needs: the employee name and role, the review period, your rating scale, peer feedback verbatims, quantitative data (KPIs, targets vs actuals), and any specific manager observations. The self-assessment is optional but improves balance."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can Claude handle multiple rating scales (1–5, Exceeds/Meets/Below)?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Specify your exact scale in the prompt and Claude will frame the summary and competency sections around it. If your company uses a custom label set, paste the label definitions into the prompt context."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How long does this workflow take compared to writing from scratch?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Gathering inputs takes the same time either way — that is the real work. With Claude, the drafting step drops from 30–60 minutes to under 5 minutes. Most managers spend a further 10 minutes reviewing and editing, versus 45–90 minutes writing an equivalent draft unaided."
-      }
-    }
-  ]
+  },
+  "isAccessibleForFree": true,
+  "inLanguage": "en"
 }
 </script>
 
@@ -115,152 +74,14 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>
+/* ── Reset ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+
+/* ── Navbar placeholder (filled by navbar.js) ── */
 .navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
-.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
-.logo-workflows{font-size:16px;font-weight:400;color:#fff}
-.nav-right{display:flex;align-items:center;gap:16px}
-.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
-.nav-back:hover{color:#1d9e75}
-.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
-.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
-.course-shell{background:#fff;border-radius:16px;border:1px solid #e8ecef;overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
-.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
-.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
-.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
-.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
-.prog-wrap{padding:1rem 1.25rem .75rem}
-.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
-.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
-.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
-.nav-list{padding:.5rem 0;flex:1}
-.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
-.nav-item:hover{background:#eef1f4}
-.nav-item.active{border-left-color:#1d9e75;background:#fff}
-.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
-.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
-.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
-.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
-.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
-.content-area{display:flex;flex-direction:column;min-width:0;overflow:hidden}
-.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
-.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
-.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
-.content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
-.seo-section{display:none}
-.seo-section.active-section{display:block}
-.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
-.seo-section h1{font-size:24px;font-weight:600;color:#1a1a2e;margin-bottom:1rem;line-height:1.3}
-.seo-section h2{font-size:18px;font-weight:600;color:#1a1a2e;margin-bottom:.75rem;line-height:1.35}
-.seo-section h3{font-size:15px;font-weight:600;color:#1a1a2e;margin-bottom:.5rem;line-height:1.4}
-/* TL;DR box */
-.tldr-box{background:#f0fdf4;border:1px solid #6ee7b7;border-radius:12px;padding:1.25rem 1.5rem;margin:1.25rem 0 1.5rem}
-.tldr-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.65rem}
-.tldr-box ul{list-style:none;padding:0;margin:0}
-.tldr-box ul li{font-size:13px;color:#085041;line-height:1.7;padding:.2rem 0 .2rem 1.2rem;position:relative}
-.tldr-box ul li::before{content:'▸';position:absolute;left:0;color:#1d9e75;font-size:12px}
-/* prereqs checklist */
-.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;border-radius:12px;padding:1.25rem;margin:1.5rem 0}
-.checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
-.checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
-.checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
-/* steps */
-.steps-list{display:flex;flex-direction:column;gap:0;margin:1rem 0}
-.step-row{display:flex;gap:16px;padding:1.1rem 0;border-bottom:1px solid #f0f2f5}
-.step-row:last-child{border-bottom:none}
-.step-num{font-size:26px;font-weight:700;color:#d1fae5;line-height:1;flex-shrink:0;width:36px;text-align:right;padding-top:2px}
-.step-body h3{font-size:14px;font-weight:600;color:#085041;margin-bottom:.3rem}
-.step-body p{font-size:13px;color:#374151;line-height:1.75;margin:0}
-.step-body code{background:#f0fdf4;color:#0f6e56;padding:1px 6px;border-radius:4px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;border:1px solid #d1fae5}
-/* prompt block */
-.prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
-.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
-.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
-.prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}
-.prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#fff}
-/* example output block */
-.output-block{background:#f8fafb;border:1px solid #e2e8f0;border-radius:10px;padding:1.25rem 1.5rem;margin:1.25rem 0;font-size:13px;color:#374151;line-height:1.8}
-.output-block-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;margin-bottom:.8rem}
-.output-block p{margin-bottom:.75rem}
-.output-block p:last-child{margin-bottom:0}
-.output-block strong{color:#1a1a2e}
-/* comparison table */
-.xl-grade-table{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.xl-gt-header-bar{background:#f3f3f3;border-bottom:1px solid #d0d0d0;padding:4px 0;display:grid}
-.xl-gt-col-h{font-size:11px;font-weight:600;color:#595959;text-align:center;padding:3px 0;border-right:1px solid #e0e0e0}
-.xl-gt-col-h:last-child{border-right:none}
-.xl-gt-rows{display:flex;flex-direction:column}
-.xl-gt-row{display:grid;border-bottom:1px solid #e8e8e8}
-.xl-gt-row:last-child{border-bottom:none}
-.xl-gt-row-num{font-size:11px;color:#595959;text-align:right;padding:7px 8px;background:#f3f3f3;border-right:1px solid #d0d0d0;font-weight:500}
-.xl-gt-cell{font-size:12px;font-family:'Inter',sans-serif;padding:7px 10px;border-right:1px solid #e8e8e8;display:flex;align-items:center}
-.xl-gt-cell:last-child{border-right:none}
-.xl-gt-cell.hdr{background:#f3f3f3;font-weight:600;color:#374151;font-size:11px}
-.xl-gt-cell.win{background:#c6efce;color:#276221;font-weight:600}
-.xl-gt-cell.tie{background:#ffeb9c;color:#9c6500;font-weight:600}
-.xl-gt-cell.score{color:#374151}
-.xl-gt-caption{background:#f8fafc;border-top:1px solid #e2e8f0;padding:8px 14px;font-size:11px;color:#64748b;font-style:italic}
-/* info / highlight / warning */
-.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
-.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
-.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
-.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
-.highlight-text{font-size:13px;color:#374151;line-height:1.65}
-.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
-.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
-.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
-/* variants table */
-.feature-list{list-style:none;padding:0;margin:0 0 1.25rem}
-.feature-list li{padding:.5rem 0 .5rem 1.25rem;position:relative;font-size:14px;color:#374151;border-bottom:1px solid #f0f2f5;line-height:1.6}
-.feature-list li:last-child{border-bottom:none}
-.feature-list li::before{content:'▸';position:absolute;left:0;color:#1d9e75;font-size:13px}
-/* related cards */
-.related-courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:1rem 0}
-.related-card{border:1px solid #e8ecef;border-radius:10px;padding:1rem;transition:all .15s;text-decoration:none;color:#1a1a2e}
-.related-card:hover{border-color:#1d9e75;background:#f5fdf9}
-.related-card-title{font-size:13px;font-weight:500;line-height:1.4;margin-bottom:.25rem}
-.related-card-tag{font-size:11px;color:#6b7280}
-/* aside box */
-.aside-box{border:1px solid #e8ecef;border-radius:12px;padding:1.25rem;margin:1.5rem 0;background:#fafbfc}
-.aside-box-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#6b7280;margin-bottom:.75rem}
-/* FAQ */
-.faq-section{margin:1.5rem 0}
-.faq-item{border-bottom:1px solid #f0f2f5;padding:.85rem 0}
-.faq-item:last-child{border-bottom:none}
-.faq-q{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:.35rem}
-.faq-a{font-size:13px;color:#374151;line-height:1.7}
-/* quiz */
-.quiz-q{margin-bottom:1.5rem}
-.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
-.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
-.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
-.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}
-.opt.selected .radio{border-color:#1d9e75;background:#1d9e75}
-.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}
-.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
-.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
-.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
-.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
-.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}
-.submit-global:hover{background:#0f6e56}
-.submit-global:disabled{opacity:.35;cursor:default}
-.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
-.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
-.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
-.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
-.retake-btn:hover{background:#e1f5ee}
-/* footer nav */
-.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc;flex-shrink:0}
-.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}
-.btn-back:hover{background:#f0f2f5}
-.btn-back:disabled{opacity:.35;cursor:default}
-.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
-.btn-fwd:hover{background:#0f6e56}
-/* search overlay */
+
+/* ── Search overlay ── */
 #searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
 #searchOverlay.open{display:flex}
 .search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
@@ -271,514 +92,428 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
 .search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
+
+/* ── Layout ── */
+.page-wrap{max-width:760px;margin:0 auto;width:100%;padding:2.5rem 1rem 5rem;flex:1}
+
+/* ── Hero ── */
+.hero{padding:3rem 0 2.5rem;border-bottom:1px solid #e8ecef;margin-bottom:2.5rem}
+.hero-eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#1d9e75;margin-bottom:.75rem}
+.hero h1{font-size:36px;font-weight:600;color:#1a1a2e;line-height:1.2;margin-bottom:1rem;max-width:680px}
+.hero-sub{font-size:16px;color:#374151;line-height:1.65;max-width:620px;margin-bottom:1.75rem}
+.hero-meta{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:#f0fdf4;border:1px solid #d1fae5;color:#065f46;border-radius:20px;padding:4px 12px;font-size:12px;font-weight:500}
+.hero-badge i{font-size:13px;color:#1d9e75}
+
+/* ── Section headings ── */
+.section-h2{font-size:20px;font-weight:600;color:#1a1a2e;margin-bottom:1.25rem}
+
+/* ── TL;DR box ── */
+.tldr-box{background:#f0fdf4;border:1px solid #d1fae5;border-radius:12px;padding:1.5rem 1.75rem;margin-bottom:2.5rem}
+.tldr-box h2{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#065f46;margin-bottom:1rem}
+.tldr-box ul{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.tldr-box li{font-size:14px;color:#065f46;line-height:1.6;padding-left:1.25rem;position:relative}
+.tldr-box li::before{content:"→";position:absolute;left:0;color:#1d9e75;font-weight:600}
+
+/* ── Prerequisites ── */
+.prereq-section{margin-bottom:2.5rem}
+.prereq-list{list-style:none;display:flex;flex-direction:column;gap:.75rem}
+.prereq-list li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:#374151;line-height:1.6}
+.prereq-list li i{font-size:16px;color:#1d9e75;flex-shrink:0;margin-top:1px}
+
+/* ── Step-by-step ── */
+.steps-section{margin-bottom:2.5rem}
+.step{display:flex;gap:1.25rem;margin-bottom:2rem}
+.step:last-child{margin-bottom:0}
+.step-num{width:36px;height:36px;border-radius:50%;background:#1d9e75;color:#fff;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step-body{flex:1}
+.step-body h3{font-size:16px;font-weight:600;color:#1a1a2e;margin-bottom:.5rem}
+.step-body p{font-size:14px;color:#374151;line-height:1.75}
+
+/* ── Prompt block ── */
+.prompt-section{margin-bottom:2.5rem}
+.prompt-block{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:1.5rem;position:relative}
+.prompt-block pre{font-family:'Menlo','Consolas','Courier New',monospace;font-size:13px;color:#1a1a2e;line-height:1.75;white-space:pre-wrap;word-break:break-word}
+.prompt-block .prompt-var{color:#0f6e56;font-weight:600}
+.copy-btn{position:absolute;top:1rem;right:1rem;display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:5px 12px;font-size:12px;font-weight:500;color:#374151;cursor:pointer;font-family:'Inter',sans-serif;transition:border-color .15s,color .15s}
+.copy-btn:hover{border-color:#1d9e75;color:#1d9e75}
+.copy-btn i{font-size:13px}
+
+/* ── Output example ── */
+.output-section{margin-bottom:2.5rem}
+.output-box{background:#fff;border:1px solid #e2e8f0;border-left:4px solid #1d9e75;border-radius:0 12px 12px 0;padding:1.5rem 1.75rem}
+.output-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#1d9e75;margin-bottom:1rem}
+.output-box p{font-size:14px;color:#374151;line-height:1.75;margin-bottom:.75rem}
+.output-box p:last-child{margin-bottom:0}
+.output-box strong{color:#1a1a2e}
+
+/* ── Comparison table ── */
+.compare-section{margin-bottom:2.5rem}
+.compare-table{width:100%;border-collapse:collapse;font-size:14px}
+.compare-table th{background:#f8fafc;color:#374151;font-weight:600;text-align:left;padding:10px 14px;border:1px solid #e2e8f0;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.compare-table th:nth-child(2),.compare-table th:nth-child(3){text-align:center}
+.compare-table td{padding:10px 14px;border:1px solid #e2e8f0;color:#374151;vertical-align:middle}
+.compare-table td:nth-child(2),.compare-table td:nth-child(3){text-align:center}
+.compare-table tr:nth-child(even) td{background:#fafbfc}
+.badge-winner{display:inline-block;background:#f0fdf4;color:#065f46;border:1px solid #d1fae5;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:500}
+.badge-ok{display:inline-block;background:#f8fafc;color:#6b7280;border:1px solid #e2e8f0;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:500}
+
+/* ── Customise section ── */
+.custom-section{margin-bottom:2.5rem}
+.custom-section h3{font-size:15px;font-weight:600;color:#1a1a2e;margin-bottom:.4rem;margin-top:1.25rem}
+.custom-section h3:first-of-type{margin-top:0}
+.custom-section p{font-size:14px;color:#374151;line-height:1.7}
+
+/* ── FAQ ── */
+.faq-section{margin-bottom:2.5rem}
+.faq-list{display:flex;flex-direction:column;gap:.5rem}
+details{border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+summary{padding:1rem 1.25rem;font-size:14px;font-weight:600;color:#1a1a2e;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"\002B";font-size:18px;color:#1d9e75;flex-shrink:0;line-height:1}
+details[open] summary::after{content:"\2212"}
+details[open] summary{border-bottom:1px solid #e2e8f0}
+.faq-answer{padding:1rem 1.25rem;font-size:14px;color:#374151;line-height:1.75}
+.faq-answer a{color:#1d9e75;text-decoration:none}
+.faq-answer a:hover{text-decoration:underline}
+
+/* ── Related aside ── */
+.related-aside{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:1.5rem 1.75rem;margin-top:3rem}
+.related-aside h2{font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;margin-bottom:1.25rem}
+.related-links{display:flex;flex-direction:column;gap:.75rem}
+.related-link{display:flex;align-items:flex-start;gap:10px;text-decoration:none;color:#1a1a2e;padding:.75rem 1rem;background:#fff;border:1px solid #e2e8f0;border-radius:10px;transition:border-color .15s,box-shadow .15s}
+.related-link:hover{border-color:#1d9e75;box-shadow:0 2px 8px rgba(29,158,117,.08)}
+.related-link-icon{width:32px;height:32px;background:#f0fdf4;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.related-link-icon i{font-size:16px;color:#1d9e75}
+.related-link-text strong{display:block;font-size:13px;font-weight:600;color:#1a1a2e;margin-bottom:2px}
+.related-link-text span{font-size:12px;color:#6b7280}
+
+/* ── Inline links ── */
+article a{color:#1d9e75;text-decoration:none}
+article a:hover{text-decoration:underline}
+
+/* ── Responsive ── */
 @media(max-width:700px){
   .navbar{padding:0 1rem}
-  .page-wrap{padding:1rem .5rem}
-  .course-shell{grid-template-columns:1fr}
-  .sidebar{display:none}
-  .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
-  .content-footer{padding:1rem}
-  .section-hero{padding:1.25rem 1rem}
-  .xl-gt-cell{font-size:11px;padding:6px 6px}
-  .related-courses{grid-template-columns:1fr}
-  .seo-section p{word-break:break-word;overflow-wrap:break-word}
+  .page-wrap{padding:1.5rem .75rem 3rem}
+  .hero h1{font-size:26px}
+  .hero-sub{font-size:14px}
+  .copy-btn{position:static;margin-top:1rem}
+  .prompt-block{padding-top:1.25rem}
 }
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 
-<!-- Search overlay -->
+<!-- ── Search overlay ── -->
 <div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
   <div class="search-overlay-inner">
     <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
     <form action="/search.html" method="get">
-      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
+      <div class="search-box">
+        <i class="ti ti-search"></i>
+        <input type="text" name="q" id="searchOverlayInput" placeholder="Search across workflows, prompts, and resources..." autocomplete="off">
+      </div>
     </form>
     <p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
   </div>
 </div>
 
+<!-- ── Navbar ── -->
 <div id="navbar-placeholder"></div>
 <script src="/navbar.js"></script>
-<noscript>
-<nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
-<a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
-<a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a>
-<a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a>
-<a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a>
-<a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a>
-<a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a>
-<a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a>
-<a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a>
-<a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a>
-<a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
-</nav>
-</noscript>
+<noscript><nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px"><a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a><a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a><a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a><a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a><a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a><a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a><a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a><a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a><a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a><a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a><a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a><a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a></nav></noscript>
 
+<!-- ── Main content ── -->
 <div class="page-wrap">
-<div class="course-shell">
+<article>
 
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-    <div class="sidebar-top">
-      <div class="course-label">Claude AI — HR Workflow</div>
-      <div class="course-title-side">Performance Review Workflow with Claude AI</div>
+  <!-- ── 1. Hero ── -->
+  <header class="hero">
+    <div class="hero-eyebrow">HR Workflow</div>
+    <h1>How to Write a Performance Review with Claude</h1>
+    <p class="hero-sub">Turn scattered notes and feedback into a fair, structured performance appraisal — without staring at a blank page. This workflow shows you exactly how to use Claude as your drafting partner, from raw input to polished review.</p>
+    <div class="hero-meta">
+      <span class="hero-badge"><i class="ti ti-check"></i> Free</span>
+      <span class="hero-badge"><i class="ti ti-clock"></i> 20 min</span>
+      <span class="hero-badge"><i class="ti ti-user"></i> Freelancers &amp; HR consultants</span>
     </div>
-    <div class="prog-wrap">
-      <div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
-      <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
-    </div>
-    <div class="nav-list">
-      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">What the review looks like</div></div>
-      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">Prepare inputs &amp; 5 steps</div></div>
-      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompt, FAQ &amp; related</div></div>
-      <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quick quiz</div></div>
-    </div>
+  </header>
+
+  <!-- ── 2. TL;DR box ── -->
+  <div class="tldr-box">
+    <h2>TL;DR</h2>
+    <ul>
+      <li>Paste your notes and use one structured prompt — Claude drafts the review.</li>
+      <li>Works on the free plan; no special setup needed.</li>
+      <li>You stay in control: Claude drafts, you verify and personalise.</li>
+      <li>Cuts writing time from hours to under 20 minutes.</li>
+    </ul>
   </div>
 
-  <!-- CONTENT AREA -->
-  <div class="content-area">
-    <div class="section-hero">
-      <div class="section-tag" id="heroTag">Section 01</div>
-      <h2 id="heroTitle">What a Claude-assisted performance review looks like</h2>
+  <!-- ── 3. Prerequisites ── -->
+  <section class="prereq-section" aria-labelledby="prereq-heading">
+    <h2 id="prereq-heading" class="section-h2">Before you start</h2>
+    <ul class="prereq-list">
+      <li><i class="ti ti-circle-check"></i> Access to <a href="https://claude.ai" target="_blank" rel="noopener">Claude.ai</a> — the free plan is sufficient for this workflow.</li>
+      <li><i class="ti ti-circle-check"></i> Your raw notes on the employee: 1-on-1 records, project outcomes, peer feedback, self-assessment responses, or any KPI data you have.</li>
+      <li><i class="ti ti-circle-check"></i> A clear idea of the review format your organisation or client expects (sections, length, rating scale if any).</li>
+      <li><i class="ti ti-circle-check"></i> The employee's job title, main responsibilities, and the review period — so Claude can contextualise everything correctly.</li>
+    </ul>
+  </section>
+
+  <!-- ── 4. Step-by-step workflow ── -->
+  <section class="steps-section" aria-labelledby="steps-heading">
+    <h2 id="steps-heading" class="section-h2">How to do it — step by step</h2>
+
+    <section class="step" aria-label="Step 1">
+      <div class="step-num" aria-hidden="true">1</div>
+      <div class="step-body">
+        <h3>Collect your raw notes and evidence</h3>
+        <p>Before opening Claude, gather everything you have on the employee into one place: 1-on-1 notes, project outcomes, peer feedback summaries, self-assessment answers, and any measurable results. The more specific the input, the more specific the review — bullet points are fine, no need to write full sentences yet. If you use an <a href="/hr-workflow.html">HR workflow</a> system to track this data through the year, now is when it pays off.</p>
+      </div>
+    </section>
+
+    <section class="step" aria-label="Step 2">
+      <div class="step-num" aria-hidden="true">2</div>
+      <div class="step-body">
+        <h3>Define the review format and tone you need</h3>
+        <p>Decide what structure your organisation or client expects — for example: Overall Summary, Key Achievements, Areas for Development, Goals for Next Period. Also decide on tone: formal and evaluative, coaching-focused, or concise and direct. Include all of this in the prompt you'll write in the next step. If you're working with multiple clients or formats, the <a href="/claude-prompts-hr.html">HR Prompt Builder</a> can help you save and reuse different configurations.</p>
+      </div>
+    </section>
+
+    <section class="step" aria-label="Step 3">
+      <div class="step-num" aria-hidden="true">3</div>
+      <div class="step-body">
+        <h3>Run the prompt and get a first draft</h3>
+        <p>Open a new Claude conversation. Paste the prompt from the section below, replacing each placeholder with your real data. Claude will read through your notes, identify the key themes and evidence, and produce a structured draft in professional language — typically in under 60 seconds. Don't worry about perfection at this stage; the goal is a solid skeleton, not a final document.</p>
+      </div>
+    </section>
+
+    <section class="step" aria-label="Step 4">
+      <div class="step-num" aria-hidden="true">4</div>
+      <div class="step-body">
+        <h3>Refine tone, evidence, and balance</h3>
+        <p>Read the draft with two questions in mind: Is every positive or constructive claim backed by a specific example from your notes? Does the overall balance feel proportionate to the employee's actual performance? You can ask Claude to adjust in the same conversation — for example: "Make the development section more specific and actionable" or "The opening summary feels too generic — rewrite it based on the Q3 product launch." Keep iterating until the review reflects your genuine assessment. For inspiration on how to frame these follow-up requests, see the wider range of <a href="/claude-for-hr.html">AI for HR Teams</a> resources.</p>
+      </div>
+    </section>
+
+    <section class="step" aria-label="Step 5">
+      <div class="step-num" aria-hidden="true">5</div>
+      <div class="step-body">
+        <h3>Final check and personalise before sharing</h3>
+        <p>Replace any remaining generic phrases with the employee's actual name, project names, dates, and figures. Cross-check every factual claim against your original notes — AI can occasionally misread or blend details, and you are the one signing off on this document. Once satisfied, copy the final text into your HR platform, document template, or review email. The whole process — from pasting notes to ready-to-send review — should take around 20 minutes.</p>
+      </div>
+    </section>
+  </section>
+
+  <!-- ── 5. Prompt block ── -->
+  <section class="prompt-section" aria-labelledby="prompt-heading">
+    <h2 id="prompt-heading" class="section-h2">The prompt</h2>
+    <div class="prompt-block">
+      <button class="copy-btn" onclick="copyPrompt(this)" aria-label="Copy prompt to clipboard">
+        <i class="ti ti-copy"></i> Copy
+      </button>
+      <pre id="workflow-prompt">You are helping me write a professional performance review for one of my employees or team members.
+
+Context:
+- <span class="prompt-var">Employee name and job title</span>: [e.g. Sarah Chen, Senior Marketing Coordinator]
+- <span class="prompt-var">Review period</span>: [e.g. January–December 2024]
+- <span class="prompt-var">Review format</span>: [e.g. Overall Performance Summary / Key Achievements / Areas for Development / Goals for Next Period]
+- <span class="prompt-var">Desired tone</span>: [e.g. professional and coaching-focused, not punitive]
+- <span class="prompt-var">Rating scale (if applicable)</span>: [e.g. Exceeds / Meets / Below expectations, or leave blank if no rating]
+
+Raw notes and evidence:
+[Paste your notes here — bullet points are fine. Include specific examples, project outcomes, feedback received, metrics, and anything relevant to this employee's performance during the review period.]
+
+Using only the evidence in my notes above, write a structured performance review for this employee. Follow the format I specified. For each section, include specific examples drawn from my notes rather than generic statements. Balance positive observations with honest, constructive feedback. Keep the language professional, clear, and direct — avoid jargon and filler phrases like "goes above and beyond."
+
+Do not invent details that are not in my notes. If a section of the format has no supporting evidence in my notes, say so briefly rather than padding with generic content.
+
+Please produce a draft performance review that I can refine and personalise before sharing with the employee.</pre>
     </div>
+  </section>
 
-    <div class="content-body" id="cnt">
-
-      <!-- ===== SECTION 0: intro + example output ===== -->
-      <article id="seo-sec-0" class="seo-section active-section">
-        <h1>How to Write a Performance Review with Claude</h1>
-
-        <div class="tldr-box">
-          <div class="tldr-label">TL;DR</div>
-          <ul>
-            <li>Paste peer feedback, KPI data, and manager notes into Claude's prompt template</li>
-            <li>Claude drafts a structured review with summary, competency ratings, and development areas</li>
-            <li>Review the output for accuracy — you validate, Claude drafts</li>
-            <li>Adapt tone and submit: most managers finish in under 20 minutes total</li>
-          </ul>
-        </div>
-
-        <p>This course gives you a Claude prompt that turns raw manager notes, peer feedback verbatims, and goal data into a complete, balanced performance review — structured for any HR system, ready to edit and submit. No more staring at a blank page at review time.</p>
-
-        <h2>Example Output: What Claude Produces</h2>
-        <p>Below is a simulated example of the performance review Claude generates from the prompt in Section 3. Every section maps directly to inputs you provide — Claude does not invent achievements or fabricate weaknesses.</p>
-
-        <div class="output-block">
-          <div class="output-block-label">Claude output — simulated example (Marketing Manager, Q1–Q4 2025)</div>
-
-          <p><strong>Overall Summary</strong><br>
-          Sarah demonstrated strong performance across the review period, consistently delivering on her core KPIs while taking on additional scope in the product launch campaign. Her work on the Q3 demand generation programme exceeded the lead target by 18% and contributed directly to a pipeline increase reported by the Sales team. Peer feedback was uniformly positive on collaboration and communication; one development area — structured project hand-offs to agency partners — is noted below.</p>
-
-          <p><strong>Goal Achievement</strong><br>
-          Target: generate 1,200 MQLs in H2. Actual: 1,416 MQLs (+18%). Target: launch refreshed brand identity by end of Q3. Actual: delivered on schedule, with stakeholder sign-off two weeks ahead of deadline. Target: reduce cost-per-lead by 10%. Actual: CPL reduced by 14% through channel mix optimisation.</p>
-
-          <p><strong>Competency Assessment</strong><br>
-          <em>Strategic thinking:</em> Exceeds expectations. Proactively identified a gap in mid-funnel nurture content and proposed a new programme that is now being piloted.<br>
-          <em>Collaboration:</em> Meets expectations. Strong internal relationships; agency briefing process needs tightening to reduce revision cycles.<br>
-          <em>Communication:</em> Exceeds expectations. Consistently praised by cross-functional partners for clarity and responsiveness in Slack and in project reviews.<br>
-          <em>Execution &amp; delivery:</em> Exceeds expectations. Three major projects delivered on or ahead of schedule with no escalations.</p>
-
-          <p><strong>Development Areas</strong><br>
-          Structured hand-off documentation: introduce a one-page brief template for external agency engagements to reduce the current average of 2.1 revision rounds per project. Suggested resource: internal project management training available on the learning platform.</p>
-
-          <p><strong>Recommended Rating:</strong> Exceeds Expectations</p>
-        </div>
-
-        <div class="highlight-box">
-          <div class="highlight-icon"><i class="ti ti-bulb"></i></div>
-          <div class="highlight-text"><strong>Tip:</strong> The quality of Claude's output is directly proportional to the quality of your inputs. Vague notes ("good communicator") produce generic text. Specific examples ("praised by three peers for clarity in Slack") produce evidence-based reviews. See the <a href="/claude-for-hr.html" style="color:#374151;font-weight:500">AI for HR Teams hub</a> for other HR prompts that help you collect better inputs.</div>
-        </div>
-      </article>
-
-      <!-- ===== SECTION 1: prerequisites + 5 steps ===== -->
-      <section id="seo-sec-1" class="seo-section">
-        <h2>What to Prepare Before You Open Claude</h2>
-        <p>Claude needs context to produce a useful review. Gather these inputs before you start. The actual writing takes minutes — the preparation is where the work lives, and it would take the same time if you were writing from scratch.</p>
-
-        <div class="checklist-box">
-          <div class="checklist-title">Prerequisites checklist</div>
-          <div class="checklist-item"><i class="ti ti-circle-check"></i><span><strong>Peer feedback:</strong> verbatim or summarised responses from colleagues who worked directly with the employee. Three to five responses are enough; more is better.</span></div>
-          <div class="checklist-item"><i class="ti ti-circle-check"></i><span><strong>Objective data:</strong> KPIs, targets vs actuals, output volume, error rates, customer satisfaction scores — whatever metrics apply to the role.</span></div>
-          <div class="checklist-item"><i class="ti ti-circle-check"></i><span><strong>Manager notes:</strong> your own direct observations from the review period — one-to-ones, project outcomes, incidents worth noting.</span></div>
-          <div class="checklist-item"><i class="ti ti-circle-check"></i><span><strong>Self-assessment</strong> (optional but valuable): if your company collects one, paste the employee's own written response. It improves the balance of the final review.</span></div>
-          <div class="checklist-item"><i class="ti ti-circle-check"></i><span><strong>Your rating scale:</strong> the exact labels used in your HR system (e.g. 1–5, or Exceptional / Exceeds / Meets / Below / Unsatisfactory).</span></div>
-        </div>
-
-        <div class="warning-box">
-          <div class="warning-icon"><i class="ti ti-alert-triangle"></i></div>
-          <div class="warning-text"><strong>Before pasting:</strong> remove or anonymise anything you would not want stored in a third-party system — full legal names in sensitive contexts, health or medical details, or any data your company's AI policy restricts from cloud tools. Check your organisation's policy if unsure.</div>
-        </div>
-
-        <h2>5-Step Workflow: From Notes to Submitted Review</h2>
-
-        <div class="steps-list">
-          <div class="step-row">
-            <div class="step-num">1</div>
-            <div class="step-body">
-              <h3>Gather and organise your inputs</h3>
-              <p>Pull together all five input types listed above. If peer feedback arrived in different formats (survey export, email, Slack messages), copy the relevant text into a single document. You do not need to rewrite anything — paste raw notes and Claude will structure them.</p>
-            </div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">2</div>
-            <div class="step-body">
-              <h3>Fill in the prompt template</h3>
-              <p>Open the <a href="/claude-prompts-hr.html" style="color:#1d9e75;font-weight:500">HR Prompt Builder</a> or copy the prompt from Section 3 of this course. Replace all bracketed fields: <code>[Employee name]</code>, <code>[Role]</code>, <code>[Review period]</code>, <code>[Rating scale]</code>, and paste your inputs into the designated areas. The more specific your inputs, the more specific the review.</p>
-            </div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">3</div>
-            <div class="step-body">
-              <h3>Run the prompt and read the draft carefully</h3>
-              <p>Send the prompt to Claude and read every sentence of the output. Verify that each claim traces back to something you provided. If Claude has generalised or softened a specific concern, ask it to revise: <em>"The third peer mentioned difficulty meeting deadlines — include that specifically under development areas."</em> Claude iterates on request.</p>
-            </div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">4</div>
-            <div class="step-body">
-              <h3>Customise tone and add manager voice</h3>
-              <p>Adjust language to match your company's template requirements. Add any context Claude could not know: team dynamics, an informal promotion conversation mid-period, or a circumstance that affected performance (restructure, extended absence). This is also where you confirm the recommended rating before it goes on record. The <a href="/claude-for-hr.html" style="color:#1d9e75;font-weight:500">AI for HR mini-guide</a> has a list of tone-adjustment prompts you can use to make the language more formal, more direct, or more development-focused.</p>
-            </div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">5</div>
-            <div class="step-body">
-              <h3>Submit and archive inputs</h3>
-              <p>Copy the finalised review into your HR system. Archive your source inputs — the raw peer feedback, KPI data, and notes — separately for at least one full review cycle. You will need them if the employee requests clarification, if the rating is challenged in a calibration session, or if the review feeds into a compensation decision.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="info-box"><p>Freelancers and independent HR consultants managing reviews for multiple clients: keep a separate input file per employee and never mix inputs across clients in the same Claude session. Start a new conversation for each review.</p></div>
-      </section>
-
-      <!-- ===== SECTION 2: prompt + Claude vs Gemini + customisation + FAQ + related + aside ===== -->
-      <section id="seo-sec-2" class="seo-section">
-        <h2>The Claude Prompt for Writing a Performance Review</h2>
-        <p>Copy this prompt into Claude. Fill in all bracketed fields with your actual data. Claude will return a structured review with an overall summary, goal achievement section, competency ratings, development areas, and a recommended overall rating.</p>
-
-        <div class="prompt-block">
-          <div class="prompt-block-label">Prompt — paste into Claude</div>
-          <div class="prompt-block-text">You are helping a manager write a formal performance review. Use only the information I provide below — do NOT invent achievements, weaknesses, or examples I have not mentioned.
-
-EMPLOYEE DETAILS:
-Name: [Employee name]
-Role: [Job title]
-Department: [Department]
-Review period: [e.g. January–December 2025]
-Manager: [Your name]
-Rating scale used by our company: [e.g. 1–5, or Exceptional / Exceeds Expectations / Meets Expectations / Below Expectations / Unsatisfactory]
-
-GOAL ACHIEVEMENT:
-[Paste targets vs actuals for each goal set at the start of the period. Include numbers where available.]
-
-PEER FEEDBACK (verbatim or summarised):
-[Paste peer feedback here. Include both positive observations and any concerns raised.]
-
-MANAGER OBSERVATIONS:
-[Paste your own notes from one-to-ones, project outcomes, and direct observations across the period.]
-
-SELF-ASSESSMENT (optional):
-[Paste the employee's own written response if available, or leave blank.]
-
-COMPETENCIES TO ASSESS:
-[List the competencies your company uses, e.g.: Strategic thinking, Collaboration, Communication, Execution & delivery, Leadership (if applicable)]
-
-OUTPUT FORMAT:
-Write the review in the following sections:
-1. Overall Summary (2–3 paragraphs)
-2. Goal Achievement (bullet format, target vs actual for each goal)
-3. Competency Assessment (one paragraph per competency with a rating from the scale above)
-4. Development Areas (2–3 specific, actionable items with suggested next steps)
-5. Recommended Overall Rating (with one sentence of justification)
-
-Tone: professional, balanced, specific. Do not use filler phrases like "a true team player" or "goes above and beyond" unless supported by a specific example from the inputs. Flag with [NEEDS INPUT] any section where you do not have enough information to write confidently.</div>
-          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
-        </div>
-
-        <h2>Claude vs Gemini for Performance Reviews</h2>
-        <p>Both Claude and Gemini can draft performance reviews from structured inputs. The differences show up in tone consistency, instruction-following, and how each handles sensitive feedback. The table below reflects the same prompt run on both models.</p>
-
-        <div class="xl-grade-table">
-          <div class="xl-gt-header-bar" style="grid-template-columns:44px 1fr 1fr 1fr">
-            <div class="xl-gt-col-h"></div>
-            <div class="xl-gt-col-h">Dimension</div>
-            <div class="xl-gt-col-h">Claude</div>
-            <div class="xl-gt-col-h">Gemini</div>
-          </div>
-          <div class="xl-gt-rows">
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell score">Instruction-following</div>
-              <div class="xl-gt-cell win">Strictly follows format and [NEEDS INPUT] guardrail</div>
-              <div class="xl-gt-cell score">Generally follows format; occasionally fills in gaps with plausible-sounding text</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell score">Tone consistency</div>
-              <div class="xl-gt-cell win">Maintains professional, neutral tone throughout; does not over-soften</div>
-              <div class="xl-gt-cell score">Tends toward slightly warmer, more positive framing even for development sections</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell score">Handling negative feedback</div>
-              <div class="xl-gt-cell win">Articulates concerns directly with evidence; avoids euphemisms unless tone is explicitly softened</div>
-              <div class="xl-gt-cell score">Tends to soften critical points; may require follow-up prompting to make development areas specific</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">5</div>
-              <div class="xl-gt-cell score">Output length</div>
-              <div class="xl-gt-cell tie">Calibrated — matches the volume of inputs provided</div>
-              <div class="xl-gt-cell tie">Calibrated — similar length, slightly more verbose in summaries</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">6</div>
-              <div class="xl-gt-cell score">Iteration speed</div>
-              <div class="xl-gt-cell win">Responds precisely to follow-up edit instructions</div>
-              <div class="xl-gt-cell score">Good iteration; occasionally reinterprets rather than making the exact requested change</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">7</div>
-              <div class="xl-gt-cell score">Google Workspace integration</div>
-              <div class="xl-gt-cell score">Via copy-paste or API</div>
-              <div class="xl-gt-cell win">Native Gemini-in-Docs option for direct draft insertion</div>
-            </div>
-          </div>
-          <div class="xl-gt-caption">Green = advantage for that model on this dimension. Both models tested with identical inputs and the prompt above.</div>
-        </div>
-
-        <p>For most standalone review workflows, Claude's stricter instruction-following and cleaner handling of critical feedback make it the stronger choice. If your team works entirely inside Google Docs and values native integration, Gemini's Workspace tie-in is a practical advantage. See the <a href="/claude-vs-gemini.html" style="color:#1d9e75;font-weight:500">Claude vs Gemini comparison guide</a> for a broader breakdown across HR use cases.</p>
-
-        <h2>How to Customise This Workflow</h2>
-        <p>The core prompt works across roles and industries. Adjust these variables to fit your context.</p>
-
-        <h3>By sector</h3>
-        <ul class="feature-list">
-          <li><strong>Technology / SaaS:</strong> Add a "Technical skills" competency block and paste in code review comments, sprint velocity data, or incident retrospective notes as inputs.</li>
-          <li><strong>Professional services (consulting, legal, accounting):</strong> Replace "Goal achievement" with "Client matter outcomes" and include billable hour attainment and client satisfaction scores.</li>
-          <li><strong>Retail / frontline:</strong> Add attendance reliability, customer satisfaction scores, and upsell conversion data. Simplify the competency list to five or fewer items.</li>
-          <li><strong>Startups and small businesses:</strong> Remove the formal competency section and replace with "What went well / What to improve / What to focus on next period" — lower process overhead, same quality output.</li>
-          <li><strong>Freelancers reviewing contractors:</strong> Use the prompt with the <code>[Employee name]</code> field replaced by the contractor's name and <code>[Role]</code> replaced by the project or engagement title. Remove the "Self-assessment" section unless you collected one.</li>
-        </ul>
-
-        <h3>By review type</h3>
-        <ul class="feature-list">
-          <li><strong>Mid-year check-in:</strong> Shorten the goal achievement section to "Progress to date vs target" and omit the recommended overall rating — use "Trajectory" instead (On track / At risk / Off track).</li>
-          <li><strong>Probation review:</strong> Add a "Meets the bar for confirmation / Does not yet meet the bar" binary at the end and ask Claude to keep the tone neutral and factual throughout.</li>
-          <li><strong>360 review:</strong> Pass in feedback from upward, peer, and downward sources in clearly labelled sections. Ask Claude to summarise themes across all three directions rather than treating each source separately.</li>
-        </ul>
-
-        <h2>Frequently Asked Questions</h2>
-        <div class="faq-section">
-          <div class="faq-item">
-            <div class="faq-q">Is it ethical to use AI to write a performance review?</div>
-            <div class="faq-a">Yes, provided you supply accurate inputs and review the output before submitting. Claude drafts — you validate. The manager remains responsible for the final assessment. Using AI to structure and articulate observations is no different from using a template; the judgement is still human.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">What inputs does Claude need to write a performance review?</div>
-            <div class="faq-a">Claude needs: the employee name and role, the review period, your rating scale, peer feedback verbatims, quantitative data (KPIs, targets vs actuals), and your manager observations. The self-assessment is optional but improves balance.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">Can Claude handle multiple rating scales (1–5, Exceeds/Meets/Below)?</div>
-            <div class="faq-a">Yes. Specify your exact scale in the prompt and Claude will frame the summary and competency sections around it. If your company uses a custom label set, paste the label definitions into the prompt context.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">How long does this workflow take compared to writing from scratch?</div>
-            <div class="faq-a">Gathering inputs takes the same time either way — that is the real work. With Claude, the drafting step drops from 30–60 minutes to under 5 minutes. Most managers spend a further 10 minutes reviewing and editing, versus 45–90 minutes writing an equivalent draft unaided.</div>
-          </div>
-        </div>
-
-        <!-- Aside: related tools -->
-        <aside class="aside-box">
-          <div class="aside-box-title">Related tools on PairWorkflows</div>
-          <div class="related-courses">
-            <a href="/claude-prompts-hr.html" class="related-card">
-              <div class="related-card-title">HR Prompt Builder — build, customise, and copy HR prompts</div>
-              <div class="related-card-tag">Tool · HR</div>
-            </a>
-            <a href="/claude-for-hr.html" class="related-card">
-              <div class="related-card-title">AI for HR Teams — the complete mini-guide for HR professionals</div>
-              <div class="related-card-tag">Guide · HR</div>
-            </a>
-            <a href="/claude-vs-gemini.html" class="related-card">
-              <div class="related-card-title">Claude vs Gemini — which AI wins for HR workflows?</div>
-              <div class="related-card-tag">Comparison · HR</div>
-            </a>
-          </div>
-        </aside>
-
-        <div class="info-box"><p>Browse all HR AI workflows on the <a href="/claude-for-hr.html" style="color:#085041;font-weight:600">AI for HR Teams</a> hub page, including onboarding templates, job description generators, and meeting summary prompts.</p></div>
-      </section>
-
-      <!-- ===== SECTION 3: Quiz ===== -->
-      <section id="seo-sec-3" class="seo-section">
-        <div id="quiz-interactive-container"></div>
-      </section>
-
-    </div><!-- /content-body -->
-
-    <div class="content-footer">
-      <button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button>
-      <button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>
+  <!-- ── 6. Output example ── -->
+  <section class="output-section" aria-labelledby="output-heading">
+    <h2 id="output-heading" class="section-h2">What the output looks like</h2>
+    <div class="output-box">
+      <div class="output-label">Example output</div>
+      <p><strong>Overall Performance Summary</strong></p>
+      <p>Sarah delivered a strong year in the Marketing Coordinator role, taking clear ownership of the Q3 product launch campaign and demonstrating consistent reliability across recurring responsibilities. Her performance meets expectations in most areas and exceeds them in project coordination and cross-team communication.</p>
+      <p><strong>Key Achievements</strong></p>
+      <p>Led the end-to-end coordination of the Horizon product launch, managing timelines across four departments and delivering all deliverables on schedule. The campaign generated 2,400 qualified leads in its first month — 20% above the target set in January. Additionally, Sarah redesigned the internal content calendar process, reducing missed deadlines across the team by approximately 30% in H2.</p>
+      <p><strong>Areas for Development</strong></p>
+      <p>Sarah's written communication is strong in internal documents but less consistent in external-facing copy, where tone can occasionally drift from the brand voice. A structured review step with the brand team before publishing would address this. She has also flagged a desire to build more confidence in data analysis; enrolling in the Q1 analytics workshop would be a practical next step.</p>
     </div>
-  </div><!-- /content-area -->
+  </section>
 
-</div><!-- /course-shell -->
+  <!-- ── 7. Claude vs Gemini table ── -->
+  <section class="compare-section" aria-labelledby="compare-heading">
+    <h2 id="compare-heading" class="section-h2">Claude vs Gemini for this workflow</h2>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>Claude</th>
+          <th>Gemini</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Tone nuance and sensitivity</td>
+          <td><span class="badge-winner">Better</span></td>
+          <td><span class="badge-ok">Good</span></td>
+        </tr>
+        <tr>
+          <td>Sticking to your notes only</td>
+          <td><span class="badge-winner">Better</span></td>
+          <td><span class="badge-ok">Good</span></td>
+        </tr>
+        <tr>
+          <td>Following a custom format</td>
+          <td><span class="badge-winner">Better</span></td>
+          <td><span class="badge-ok">Good</span></td>
+        </tr>
+        <tr>
+          <td>Integration with Google Docs</td>
+          <td><span class="badge-ok">Good</span></td>
+          <td><span class="badge-winner">Better</span></td>
+        </tr>
+        <tr>
+          <td>Speed on free plan</td>
+          <td><span class="badge-ok">Good</span></td>
+          <td><span class="badge-winner">Better</span></td>
+        </tr>
+        <tr>
+          <td>Overall recommendation</td>
+          <td><span class="badge-winner">Recommended</span></td>
+          <td><span class="badge-ok">Solid alternative</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ── 8. How to customise ── -->
+  <section class="custom-section" aria-labelledby="custom-heading">
+    <h2 id="custom-heading" class="section-h2">How to customise this workflow</h2>
+
+    <h3>For small business owners with no HR background</h3>
+    <p>If you're writing a performance review for the first time, add this line to the prompt: "Assume I have no HR background — use plain language and avoid jargon." You can also ask Claude to suggest a suitable review format based on your company size and the employee's role before you start drafting. The <a href="/claude-for-hr.html">AI for HR Teams</a> hub has additional guides for non-specialists managing HR tasks solo.</p>
+
+    <h3>For independent HR consultants working with multiple clients</h3>
+    <p>Create a version of the prompt for each client's review format and save them as templates in your own notes tool. When starting a new review, swap in the client-specific format, rating scale, and competency framework before pasting your notes. The <a href="/claude-prompts-hr.html">HR Prompt Builder</a> is designed exactly for this: it lets you generate and customise prompts for different HR scenarios without starting from scratch each time.</p>
+
+    <h3>For 360-degree or peer-inclusive reviews</h3>
+    <p>If you have peer feedback alongside your own manager observations, paste both into the notes section and label each source clearly (e.g. "Peer feedback from design team:", "Manager observations:"). Ask Claude to synthesise across sources and flag any significant discrepancies between self-perception and peer feedback. This gives you a more rounded picture to work from before the review conversation.</p>
+
+    <h3>For remote or distributed teams</h3>
+    <p>Remote reviews often lack the informal observation data you'd naturally gather in an office. Compensate by including Slack messages, async feedback threads, or written project retrospectives in your notes. Ask Claude to specifically acknowledge collaboration patterns and communication quality — areas that are especially important for remote workers and easy to overlook in a text-based review.</p>
+  </section>
+
+  <!-- ── 9. FAQ ── -->
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <h2 id="faq-heading" class="section-h2">Frequently asked questions</h2>
+    <div class="faq-list">
+
+      <details>
+        <summary>Can I use this workflow with the free version of Claude?</summary>
+        <div class="faq-answer">Yes. The free plan at <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> handles this workflow comfortably for a single review. If you're writing several reviews in one session, you may hit the free-plan message limit — in that case, space them out across a few sessions or upgrade to Claude Pro for uninterrupted access.</div>
+      </details>
+
+      <details>
+        <summary>Is it safe to paste employee information into Claude?</summary>
+        <div class="faq-answer">Claude does not use your conversation data to train its models by default. That said, you should follow your organisation's data handling policies before pasting identifiable employee information into any AI tool. A practical approach: use the employee's first name only, or replace names with role labels (e.g. "the marketing coordinator") if your policy requires it. The output quality is unaffected.</div>
+      </details>
+
+      <details>
+        <summary>What if I don't have detailed notes — can Claude still help?</summary>
+        <div class="faq-answer">Claude can only work with the evidence you provide. If your notes are thin, the draft will be generic — and the prompt specifically instructs Claude not to invent details. Use this as a signal: if you find yourself with little to say at review time, it's worth setting up a lightweight note-taking habit throughout the year. The <a href="/hr-workflow.html">HR Workflows hub</a> has guidance on building simple tracking systems that make future reviews much easier.</div>
+      </details>
+
+      <details>
+        <summary>How do I make sure the review doesn't sound AI-generated?</summary>
+        <div class="faq-answer">The most effective step is to add specific names, dates, and project references from your own notes — these are the details that make a review feel personal and credible. In the same Claude conversation, you can also ask: "Rewrite any generic phrases to be more specific and direct." After two or three rounds of refinement, the output typically reads as a thoughtful manager's assessment rather than a template.</div>
+      </details>
+
+    </div>
+  </section>
+
+</article>
+
+<!-- ── 10. Related aside ── -->
+<aside class="related-aside" aria-label="Related resources">
+  <h2>Related resources</h2>
+  <div class="related-links">
+
+    <a href="/claude-prompts-hr.html" class="related-link">
+      <div class="related-link-icon"><i class="ti ti-prompt"></i></div>
+      <div class="related-link-text">
+        <strong>HR Prompt Builder</strong>
+        <span>Generate custom prompts for any HR task</span>
+      </div>
+    </a>
+
+    <a href="/hr-workflow.html" class="related-link">
+      <div class="related-link-icon"><i class="ti ti-book"></i></div>
+      <div class="related-link-text">
+        <strong>HR Workflows Hub</strong>
+        <span>All HR workflows, prompts, and step-by-step guides</span>
+      </div>
+    </a>
+
+    <a href="/claude-for-hr.html" class="related-link">
+      <div class="related-link-icon"><i class="ti ti-layout-grid"></i></div>
+      <div class="related-link-text">
+        <strong>AI for HR Teams</strong>
+        <span>Full hub — workflows, tools, and guides for HR professionals</span>
+      </div>
+    </a>
+
+  </div>
+</aside>
+
 </div><!-- /page-wrap -->
 
-<!-- FOOTER -->
-<footer style="background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0">
-<div style="max-width:1100px; margin:0 auto">
-<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Guides by Role</strong>
-<a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Finance Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for HR Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Marketing Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Legal Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Operations Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Sales Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Customer Service</a>
-<a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Excel</a>
+<!-- ── Footer ── -->
+<footer style="background:#021a12;padding:2.5rem 1rem 1.5rem;margin-top:0">
+<div style="max-width:1100px;margin:0 auto">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:2.5rem;margin-bottom:2rem">
+<div><strong style="display:block;font-size:13.5px;font-weight:600;color:#ffffff;margin-bottom:1rem;letter-spacing:0.5px">Guides by Role</strong><a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Finance Teams</a><a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for HR Teams</a><a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Marketing Teams</a><a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Legal Teams</a><a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Operations Teams</a><a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Sales Teams</a><a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Customer Service</a><a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Excel</a></div>
+<div><strong style="display:block;font-size:13.5px;font-weight:600;color:#ffffff;margin-bottom:1rem;letter-spacing:0.5px">Prompt Tools</strong><a href="https://www.pairworkflows.com/claude-prompts-excel.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Excel Prompt Builder</a><a href="https://www.pairworkflows.com/claude-prompts-finance.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Finance Prompt Builder</a><a href="https://www.pairworkflows.com/claude-prompts-hr.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">HR Prompt Builder</a><a href="https://www.pairworkflows.com/claude-prompts-marketing.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Marketing Prompt Builder</a><a href="https://www.pairworkflows.com/prompt-library.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">General Prompt Library</a></div>
+<div><strong style="display:block;font-size:13.5px;font-weight:600;color:#ffffff;margin-bottom:1rem;letter-spacing:0.5px">Resources</strong><a href="https://www.pairworkflows.com/claude-courses.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">All Claude Courses</a><a href="https://www.pairworkflows.com/gemini-courses.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">All Gemini Courses</a><a href="https://www.pairworkflows.com/glossary.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI Glossary</a><a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Claude vs Gemini</a><a href="https://www.pairworkflows.com/index.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">All Mini-Courses</a></div>
+<div><strong style="display:block;font-size:13.5px;font-weight:600;color:#ffffff;margin-bottom:1rem;letter-spacing:0.5px">Company &amp; Legal</strong><a href="https://www.pairworkflows.com/about.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">About</a><a href="https://www.pairworkflows.com/contact.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Contact</a><a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Suggest a Course</a><a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Privacy Policy</a><a href="https://www.pairworkflows.com/legal.html#terms" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Terms of Use</a><a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Cookie Policy</a></div>
 </div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Prompt Tools</strong>
-<a href="https://www.pairworkflows.com/claude-prompts-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Excel Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Finance Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">HR Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Marketing Prompt Builder</a>
-<a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">General Prompt Library</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Resources</strong>
-<a href="https://www.pairworkflows.com/claude-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Claude Courses</a>
-<a href="https://www.pairworkflows.com/gemini-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Gemini Courses</a>
-<a href="https://www.pairworkflows.com/glossary.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI Glossary</a>
-<a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Claude vs Gemini</a>
-<a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company &amp; Legal</strong>
-<a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
-<a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
-<a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
-<a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Privacy Policy</a>
-<a href="https://www.pairworkflows.com/legal.html#terms" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Terms of Use</a>
-<a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Cookie Policy</a>
-</div>
-</div>
-<div style="text-align:center; margin-bottom:2rem">
-<p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:520px; margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p>
-</div>
-<div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem">
-<span style="font-size:13px; color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
-<div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
-<button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-  Copy link
-</button>
-<a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-  <span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span>
-</a>
-<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn">
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-</a>
-<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-</a>
-</div>
-</div>
-</div>
-</footer>
+<div style="text-align:center;margin-bottom:2rem"><p style="font-size:13.5px;color:#64748b;line-height:1.55;max-width:520px;margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p></div>
+<div style="border-top:1px solid #0a4a30;padding-top:1.25rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+<span style="font-size:13px;color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75;text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
+<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+<button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link</button>
+<a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'"><svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg><span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span></a>
+<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>
+<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+</div></div></div></footer>
 
 <script>
-var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
-var heroes=[
-  {tag:'Section 01',title:'What a Claude-assisted performance review looks like'},
-  {tag:'Section 02',title:'Prepare your inputs and follow the 5-step workflow'},
-  {tag:'Section 03',title:'The prompt, Claude vs Gemini, customisation &amp; FAQ'},
-  {tag:'Section 04 — Quiz',title:'Test your understanding'}
-];
-var quiz=[
-  {q:'Why does the prompt include a [NEEDS INPUT] guardrail instruction?',
-   opts:['It reduces the length of Claude\'s output','It prevents Claude from filling gaps with plausible-sounding text the manager cannot verify','It tells Claude to skip sections that are not relevant to the role'],
-   correct:1},
-  {q:'Which input most improves the balance of a performance review generated by Claude?',
-   opts:['A longer list of peer reviewers','The employee\'s own self-assessment','The manager\'s rating decision made before writing'],
-   correct:1},
-  {q:'Why should you archive the raw inputs after submitting a performance review?',
-   opts:['So Claude can reference them in the next review cycle','Because HR systems require it by law','For calibration discussions, employee questions, or appeals against the rating'],
-   correct:2},
-  {q:'In the Claude vs Gemini comparison, which advantage does Gemini have over Claude for this workflow?',
-   opts:['Stricter instruction-following','Native Google Docs integration for direct draft insertion','More balanced handling of negative feedback'],
-   correct:1}
-];
-function buildQuizHTML(){
-  if(quizDone){
-    var score=0;
-    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
-    var msgs=['Review sections 2 and 3 — the guardrail and archiving concepts are key.','Good foundation — re-read the Claude vs Gemini section to lock in the details.','Almost perfect — one more concept to sharpen and you\'re ready to use this in production.','Full marks — your performance reviews will be faster, more specific, and better documented.'];
-    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
-  }
-  var html='';
-  for(var i=0;i<quiz.length;i++){
-    var q=quiz[i];
-    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
-    for(var j=0;j<q.opts.length;j++){
-      var cls='opt';
-      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
-      else if(sel[i]===j)cls+=' selected';
-      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
-    }
-    html+='</div>';
-  }
-  var allSel=Object.keys(sel).length===quiz.length;
-  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
-  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
-  return html;
-}
-function render(){
-  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
-  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
-  document.getElementById('heroTag').textContent=heroes[cur].tag;
-  document.getElementById('heroTitle').innerHTML=heroes[cur].title;
-  for(var i=0;i<4;i++){
-    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),sec=document.getElementById('seo-sec-'+i);
-    ni.className='nav-item'+(i===cur?' active':'');
-    if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');
-    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
-    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
-    else{nd.className='nav-dot';nd.textContent=(i+1);}
-  }
-  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
-  document.getElementById('btnBack').disabled=(cur===0);
-  var fwd=document.getElementById('btnFwd');
-  if(cur===3){fwd.style.display='none';}
-  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
-}
-function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
-function goFwd(){if(cur<3)go(cur+1);}
-function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
-function showResult(){quizDone=true;render();}
-function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
-function copyPrompt(btn){var block=btn.closest('.prompt-block');var text=block.querySelector('.prompt-block-text').innerText;navigator.clipboard.writeText(text);btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);}
-function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
+/* Search overlay */
 function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
 function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
-document.getElementById('cnt').addEventListener('click',function(e){
-  if(cur!==3||quizSubmitted||quizDone)return;
-  var opt=e.target.closest('.opt');
-  if(!opt)return;
-  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
-  render();
-});
-render();
+
+/* Footer copy link */
+function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
+
+/* Prompt copy button */
+function copyPrompt(btn){
+  var text = document.getElementById('workflow-prompt').textContent;
+  navigator.clipboard.writeText(text);
+  var orig = btn.innerHTML;
+  btn.innerHTML = '<i class="ti ti-check"></i> Copied!';
+  btn.style.color = '#1d9e75';
+  btn.style.borderColor = '#1d9e75';
+  setTimeout(function(){btn.innerHTML=orig;btn.style.color='';btn.style.borderColor='';},2000);
+}
 </script>
 </body>
 </html>
