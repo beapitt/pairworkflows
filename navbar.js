@@ -281,12 +281,7 @@
               <div class="nav-dropdown-label">Browse by department</div>
               <div class="workflows-grid">
                 <a href="https://www.pairworkflows.com/hr-workflow.html"><span class="wf-icon">👥</span> HR Workflows</a>
-                <a href="#"><span class="wf-icon">💰</span> Finance Workflows</a>
-                <a href="#"><span class="wf-icon">📣</span> Marketing Workflows</a>
-                <a href="#"><span class="wf-icon">⚖️</span> Legal Workflows</a>
-                <a href="#"><span class="wf-icon">🤝</span> Sales Workflows</a>
-                <a href="#"><span class="wf-icon">📊</span> Excel Workflows</a>
-              </div>
+                </div>
             </div>
           </div>
 
@@ -354,12 +349,7 @@
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Workflows</div>
         <a href="https://www.pairworkflows.com/hr-workflow.html">HR Workflows</a>
-        <a href="#">Finance Workflows</a>
-        <a href="#">Marketing Workflows</a>
-        <a href="#">Legal Workflows</a>
-        <a href="#">Sales Workflows</a>
-        <a href="#">Excel Workflows</a>
-      </div>
+        </div>
       <div class="nav-mobile-divider"></div>
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Prompt Builder</div>
