@@ -314,6 +314,7 @@
             <div class="nav-dropdown-menu" id="navDropdownMenu-templates">
               <div class="nav-dropdown-label">📥 Free Excel Templates</div>
               <a href="https://www.pairworkflows.com/car-loan-template.html">Car Loan Amortization Schedule</a>
+              <a href="https://www.pairworkflows.com/kpi-dashboard-template.html">KPI Dashboard Excel</a>
             </div>
           </div>
 
@@ -367,6 +368,7 @@
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Templates</div>
         <a href="https://www.pairworkflows.com/car-loan-template.html">Car Loan Amortization Schedule</a>
+        <a href="https://www.pairworkflows.com/kpi-dashboard-template.html">KPI Dashboard Excel</a>
       </div>
     </div>
   `;
