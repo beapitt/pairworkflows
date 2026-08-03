@@ -331,6 +331,17 @@
 
         </div>
 
+        <!-- TEMPLATES DROPDOWN -->
+<div class="nav-dropdown">
+  <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('templates')" id="navDropdownToggle-templates">
+    Templates
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+  </button>
+  <div class="nav-dropdown-menu" id="navDropdownMenu-templates">
+    <div class="nav-dropdown-label">📥 Free Excel Templates</div>
+    <a href="https://www.pairworkflows.com/car-loan-template.html">Car Loan Amortization Schedule</a>
+  </div>
+</div>
         <!-- SEARCH -->
         <button class="search-trigger" onclick="openSearch()">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -376,8 +387,14 @@
         <a href="https://www.pairworkflows.com/claude-vs-copilot-excel.html">Claude vs Copilot Excel</a>
       </div>
     </div>
-  `;
 
+    <div class="nav-mobile-divider"></div>
+<div class="nav-mobile-section">
+  <div class="nav-mobile-label">Templates</div>
+  <a href="https://www.pairworkflows.com/car-loan-template.html">Car Loan Amortization Schedule</a>
+</div>
+</div>
+  `;
   // INJECT NAVBAR
   var placeholder = document.getElementById('navbar-placeholder');
   if (placeholder) {
