@@ -1,5 +1,4 @@
 (function() {
-  // NAVBAR STYLES
   var style = document.createElement('style');
   style.textContent = `
     .navbar {
@@ -36,8 +35,6 @@
       align-items: center;
       gap: 4px;
     }
-
-    /* DROPDOWN */
     .nav-dropdown {
       position: relative;
     }
@@ -68,8 +65,6 @@
     .nav-dropdown-toggle.open svg {
       transform: rotate(180deg);
     }
-
-    /* ALL DROPDOWN MENUS — white background, dark text */
     .nav-dropdown-menu {
       display: none;
       position: absolute;
@@ -113,8 +108,6 @@
       color: #1d9e75;
       padding: 6px 12px 2px;
     }
-
-    /* WORKFLOWS DROPDOWN — two-column grid */
     .nav-dropdown-menu.workflows-menu {
       min-width: 380px;
       left: 0;
@@ -145,8 +138,6 @@
       font-size: 15px;
       flex-shrink: 0;
     }
-
-    /* SEARCH TRIGGER */
     .search-trigger {
       width: 32px;
       height: 32px;
@@ -167,8 +158,6 @@
       background: rgba(255,255,255,0.15);
       color: #ffffff;
     }
-
-    /* MOBILE HAMBURGER */
     .nav-hamburger {
       display: none;
       width: 32px;
@@ -188,8 +177,6 @@
       background: rgba(255,255,255,0.15);
       color: #ffffff;
     }
-
-    /* MOBILE MENU */
     .nav-mobile-menu {
       display: none;
       position: fixed;
@@ -240,7 +227,6 @@
       background: #e5e7eb;
       margin: 8px 0;
     }
-
     @media(max-width:700px) {
       .navbar { padding: 0 1rem; }
       .nav-desktop-links { display: none !important; }
@@ -253,25 +239,15 @@
   `;
   document.head.appendChild(style);
 
-  // NAVBAR HTML
-  var currentPath = window.location.pathname;
-
-  function isActive(path) {
-    return currentPath.includes(path) ? ' active' : '';
-  }
-
   var navbarHTML = `
     <nav class="navbar">
       <a href="https://www.pairworkflows.com" class="nav-logo">
         <span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span>
       </a>
-
       <div class="nav-right">
-
-        <!-- DESKTOP LINKS -->
         <div class="nav-desktop-links" style="display:flex;align-items:center;gap:4px;">
 
-          <!-- WORKFLOWS DROPDOWN -->
+          <!-- WORKFLOWS -->
           <div class="nav-dropdown">
             <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('workflows')" id="navDropdownToggle-workflows">
               Workflows
@@ -281,11 +257,11 @@
               <div class="nav-dropdown-label">Browse by department</div>
               <div class="workflows-grid">
                 <a href="https://www.pairworkflows.com/hr-workflow.html"><span class="wf-icon">👥</span> HR Workflows</a>
-                </div>
+              </div>
             </div>
           </div>
 
-          <!-- PROMPT BUILDER DROPDOWN -->
+          <!-- PROMPT BUILDER -->
           <div class="nav-dropdown">
             <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('prompts')" id="navDropdownToggle-prompts">
               Prompt Builder
@@ -304,7 +280,7 @@
             </div>
           </div>
 
-          <!-- GUIDES DROPDOWN -->
+          <!-- GUIDES -->
           <div class="nav-dropdown">
             <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('guides')" id="navDropdownToggle-guides">
               Guides
@@ -316,7 +292,7 @@
             </div>
           </div>
 
-          <!-- COMPARE AI DROPDOWN -->
+          <!-- COMPARE AI -->
           <div class="nav-dropdown">
             <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('compare')" id="navDropdownToggle-compare">
               Compare AI
@@ -329,19 +305,20 @@
             </div>
           </div>
 
+          <!-- TEMPLATES -->
+          <div class="nav-dropdown">
+            <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('templates')" id="navDropdownToggle-templates">
+              Templates
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="nav-dropdown-menu" id="navDropdownMenu-templates">
+              <div class="nav-dropdown-label">📥 Free Excel Templates</div>
+              <a href="https://www.pairworkflows.com/car-loan-template.html">Car Loan Amortization Schedule</a>
+            </div>
+          </div>
+
         </div>
 
-        <!-- TEMPLATES DROPDOWN -->
-<div class="nav-dropdown">
-  <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('templates')" id="navDropdownToggle-templates">
-    Templates
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
-  </button>
-  <div class="nav-dropdown-menu" id="navDropdownMenu-templates">
-    <div class="nav-dropdown-label">📥 Free Excel Templates</div>
-    <a href="https://www.pairworkflows.com/car-loan-template.html">Car Loan Amortization Schedule</a>
-  </div>
-</div>
         <!-- SEARCH -->
         <button class="search-trigger" onclick="openSearch()">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -360,7 +337,7 @@
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Workflows</div>
         <a href="https://www.pairworkflows.com/hr-workflow.html">HR Workflows</a>
-        </div>
+      </div>
       <div class="nav-mobile-divider"></div>
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Prompt Builder</div>
@@ -386,41 +363,32 @@
         <a href="https://www.pairworkflows.com/claude-vs-gemini-finance.html">Claude vs Gemini Finance</a>
         <a href="https://www.pairworkflows.com/claude-vs-copilot-excel.html">Claude vs Copilot Excel</a>
       </div>
+      <div class="nav-mobile-divider"></div>
+      <div class="nav-mobile-section">
+        <div class="nav-mobile-label">Templates</div>
+        <a href="https://www.pairworkflows.com/car-loan-template.html">Car Loan Amortization Schedule</a>
+      </div>
     </div>
-
-    <div class="nav-mobile-divider"></div>
-<div class="nav-mobile-section">
-  <div class="nav-mobile-label">Templates</div>
-  <a href="https://www.pairworkflows.com/car-loan-template.html">Car Loan Amortization Schedule</a>
-</div>
-</div>
   `;
-  // INJECT NAVBAR
+
   var placeholder = document.getElementById('navbar-placeholder');
   if (placeholder) {
     placeholder.innerHTML = navbarHTML;
   }
 
-  // DROPDOWN TOGGLE — supports multiple independent dropdowns by id
   window.toggleNavDropdown = function(id) {
     var toggle = document.getElementById('navDropdownToggle-' + id);
     var menu = document.getElementById('navDropdownMenu-' + id);
     if (!toggle || !menu) return;
-
     var isOpen = menu.classList.contains('open');
-
-    // Close all dropdowns first
     document.querySelectorAll('.nav-dropdown-toggle').forEach(function(t) { t.classList.remove('open'); });
     document.querySelectorAll('.nav-dropdown-menu').forEach(function(m) { m.classList.remove('open'); });
-
-    // Re-open this one if it was closed
     if (!isOpen) {
       toggle.classList.add('open');
       menu.classList.add('open');
     }
   };
 
-  // MOBILE MENU TOGGLE
   window.toggleMobileMenu = function() {
     var menu = document.getElementById('navMobileMenu');
     var hamburger = document.getElementById('navHamburger');
@@ -431,7 +399,6 @@
       : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
   };
 
-  // CLOSE ALL DROPDOWNS ON OUTSIDE CLICK
   document.addEventListener('click', function(e) {
     if (!e.target.closest('.nav-dropdown')) {
       document.querySelectorAll('.nav-dropdown-toggle').forEach(function(t) { t.classList.remove('open'); });
