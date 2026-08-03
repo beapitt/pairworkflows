@@ -59,6 +59,60 @@ body {
 }
 .hero-stat-num { color: #0d1b14 !important; }
 .hero-stat-label { color: #6b7280 !important; }
+   /* ── Hero compact layout ─────────────────────── */
+.hero-inner--compact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 680px;
+  gap: 0;
+}
+.hero-inner--compact h1 {
+  margin: 0.5rem 0 0.6rem;
+}
+.hero-inner--compact .hero-sub {
+  margin: 0 0 1.25rem;
+}
+.hero-stats-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
+}
+.hero-stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 0;
+}
+.hero-stat-pill .hero-stat-num {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0d1b14 !important;
+}
+.hero-stat-pill .hero-stat-label {
+  font-size: 13px;
+  color: #6b7280 !important;
+  font-weight: 400;
+}
+.hero-stat-sep {
+  width: 1px;
+  height: 16px;
+  background: #d1d5db;
+  margin: 0 14px;
+}
+
+/* ── Hero-wrap più compatto ──────────────────── */
+.hero-wrap {
+  padding: 2.2rem 3rem 2rem !important;
+}
+
+@media (max-width: 600px) {
+  .hero-stat-sep { display: none; }
+  .hero-stats-row { gap: 8px 16px; }
+  .hero-stat-pill { padding: 2px 0; }
+  .hero-wrap { padding: 1.5rem 1.25rem 1.25rem !important; }
+}
 
 /* ── Dark area → white ───────────────────────── */
 .dark-area {
@@ -143,29 +197,18 @@ body {
 </noscript>
 <div id="homeView">
 <div class="hero-wrap">
-  <div class="hero-inner">
-    <div class="hero-left">
-      <div class="hero-badge">Free practical courses</div>
-      <h1>Get real work done<br>with Claude &amp; <span>Gemini.</span></h1>
-      <p class="hero-sub">5-minute mini-courses for anyone learning AI on their own terms. Skip the theory — go straight to what works.</p>
-    </div>
-    <div class="hero-right">
-      <div class="hero-stat">
-        <div class="hero-stat-num">148</div>
-        <div class="hero-stat-label">Mini-courses across Claude &amp; Gemini</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">5 min</div>
-        <div class="hero-stat-label">Average course length</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">Free</div>
-        <div class="hero-stat-label">Most courses, always</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">Human-verified</div>
-        <div class="hero-stat-label">100% verified mini-courses</div>
-      </div>
+  <div class="hero-inner hero-inner--compact">
+    <div class="hero-badge">Free practical courses</div>
+    <h1>Get real work done<br>with Claude &amp; <span>Gemini.</span></h1>
+    <p class="hero-sub">5-minute mini-courses for anyone learning AI on their own terms. Skip the theory — go straight to what works.</p>
+    <div class="hero-stats-row">
+      <div class="hero-stat-pill"><span class="hero-stat-num">148</span><span class="hero-stat-label">Mini-courses</span></div>
+      <div class="hero-stat-sep"></div>
+      <div class="hero-stat-pill"><span class="hero-stat-num">5 min</span><span class="hero-stat-label">Average length</span></div>
+      <div class="hero-stat-sep"></div>
+      <div class="hero-stat-pill"><span class="hero-stat-num">Free</span><span class="hero-stat-label">Always</span></div>
+      <div class="hero-stat-sep"></div>
+      <div class="hero-stat-pill"><span class="hero-stat-num">Human-verified</span><span class="hero-stat-label">Every course</span></div>
     </div>
   </div>
 </div>
