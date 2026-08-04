@@ -15,102 +15,48 @@
 <meta name="twitter:title" content="Free Claude AI Courses for Professionals — PairWorkflows">
 <meta name="twitter:description" content="Browse free Claude AI mini-courses organized by business function. Practical 5-minute guides for Finance, HR, Legal, Excel, Marketing, Operations, and Sales professionals.">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Free Claude AI Courses for Professionals","description":"Browse free Claude AI mini-courses organized by business function. Practical 5-minute guides for Finance, HR, Legal, Excel, Marketing, Operations, and Sales professionals.","url":"https://www.pairworkflows.com/claude-courses.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"isAccessibleForFree":true,"inLanguage":"en"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Are these guides free?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every Claude AI course on PairWorkflows is completely free to access. There are no paywalls, no sign-ups, and no ads. You can start any guide immediately and use the prompts and workflows in your own work right away."}},{"@type":"Question","name":"Do I need a paid Claude account?","acceptedAnswer":{"@type":"Answer","text":"No. Most workflows can be completed using the free tier of Claude. Some advanced features, such as larger file uploads or extended conversations, may benefit from a paid plan, but the core techniques taught in every guide work with a free account."}},{"@type":"Question","name":"How long does each workflow take?","acceptedAnswer":{"@type":"Answer","text":"Each mini-course is designed to be completed in approximately 5 minutes. The guides focus on one specific task at a time, so you can learn a practical workflow during a short break and apply it to your work immediately."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="icon" type="image/png" href="/favicon.png">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
-.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
-.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
-.logo-workflows{font-size:16px;font-weight:400;color:#fff}
-.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
-.nav-back:hover{color:#1d9e75}
-.page-wrap{width:100%;padding:0;flex:1}
-.course-shell{background:#fff;display:grid;grid-template-columns:1fr;min-height:580px}
-.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
-.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
-.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
-.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
-.prog-wrap{padding:1rem 1.25rem .75rem}
-.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
-.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
-.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
-.nav-list{padding:.5rem 0;flex:1}
-.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
-.nav-item:hover{background:#eef1f4}
-.nav-item.active{border-left-color:#1d9e75;background:#fff}
-.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
-.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
-.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
-.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
-.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
-.content-area{display:flex;flex-direction:column}
-.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
-.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
-.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3}
-.content-body{padding:1.75rem 2rem;flex:1}
-.content-body p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
-.task-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.5rem 0}
-.task-card{background:#f8fafb;border:1px solid #e8ecef;border-top:3px solid #1d9e75;padding:1.25rem;text-align:center;display:flex;flex-direction:column;justify-content:flex-start}
-.task-icon{font-size:26px;color:#1d9e75;margin-bottom:.5rem}
-.task-name{font-size:13px;font-weight:700;color:#0f6e56;margin-bottom:.5rem}
-.task-name a:hover{text-decoration:underline}
-.task-desc{font-size:12px;color:#374151;line-height:1.5;margin-top:auto}
-.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.5rem 0}
-.stat-item{background:#085041;padding:1.25rem 1rem;text-align:center}
-.stat-num{font-size:26px;font-weight:700;color:#fff;line-height:1;margin-bottom:.35rem}
-.stat-label{font-size:11px;color:#9fe1cb;line-height:1.4;text-transform:uppercase;letter-spacing:.04em}
-.before-after{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.5rem 0}
-.ba-card{padding:1.25rem}
-.ba-before{background:#fef2f2;border:1px solid #fecaca}
-.ba-after{background:#e1f5ee;border:1px solid #6ee7b7}
-.ba-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem;display:flex;align-items:center;gap:6px}
-.ba-label-before{color:#dc2626}
-.ba-label-after{color:#059669}
-.ba-text{font-size:13px;line-height:1.6;color:#374151}
-.brief-sections{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:1.5rem 0}
-.brief-card{padding:1rem 1.1rem;border-left:4px solid transparent}
-.brief-complaint{background:#fef2f2;border-left-color:#dc2626}
-.brief-impact{background:#fff8e1;border-left-color:#f59e0b}
-.brief-actions{background:#e1f5ee;border-left-color:#1d9e75}
-.brief-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.3rem}
-.brief-complaint .brief-label{color:#dc2626}
-.brief-impact .brief-label{color:#92400e}
-.brief-actions .brief-label{color:#0f6e56}
-.brief-desc{font-size:12px;color:#374151;line-height:1.5}
-.prompt-block{background:#1a1a2e;padding:1.25rem;margin:1.25rem 0}
-.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
-.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
-.prompt-block-copy{background:transparent;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px}
-.workflow-steps{display:flex;flex-direction:column;gap:10px;margin:1.5rem 0}
-.wf-step{display:flex;align-items:flex-start;gap:14px;background:#f8fafb;border:1px solid #e8ecef;padding:1rem 1.25rem}
-.wf-num{width:30px;height:30px;background:#0f6e56;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0}
-.wf-content{flex:1;min-width:0}
-.wf-title{font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.2rem}
-.wf-desc{font-size:13px;color:#374151;line-height:1.55}
-.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;padding:1.25rem;margin:1.5rem 0}
-.checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
-.checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
-.checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
-.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;padding:1rem 1.25rem;margin:1.25rem 0}
-.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
-.highlight-text{font-size:13px;color:#374151;line-height:1.65}
-.warning-box{background:#fef2f2;border-left:3px solid #dc2626;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
-.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
-.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
-.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;padding:1rem 1.25rem;margin:1.25rem 0}
-.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
-.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc;flex-shrink:0}
-.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;font-size:13px;font-family:inherit;cursor:pointer}
-.btn-back:disabled{opacity:.35;cursor:default}
-.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer}
-.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:2rem}
-.page-footer a{color:#1d9e75;text-decoration:none}
-.page-footer a:hover{text-decoration:underline}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#f5f5f5;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+.page-wrap{width:100%;max-width:1100px;margin:0 auto;padding:2rem 2rem 3rem;flex:1}
+.breadcrumb{font-size:12px;color:#6b7280;margin-bottom:.75rem;display:flex;align-items:center;gap:6px}
+.breadcrumb a{color:#6b7280;text-decoration:none}
+.breadcrumb a:hover{color:#0f6e56}
+.breadcrumb span{color:#d1d5db}
+.page-hero{margin-bottom:1.75rem}
+.page-hero h1{font-size:26px;font-weight:600;color:#1a1a2e;line-height:1.25;margin-bottom:.6rem}
+.page-hero p{font-size:14px;color:#6b7280;line-height:1.6;max-width:560px}
+.stat-row{display:flex;gap:2rem;margin-bottom:2rem;flex-wrap:wrap}
+.stat-item{background:#fff;border-radius:10px;padding:.75rem 1.25rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.stat-num{font-size:22px;font-weight:700;color:#0f6e56;line-height:1}
+.stat-label{font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
+.section-header{display:flex;align-items:center;gap:10px;margin:2.5rem 0 1rem;padding-bottom:.6rem;border-bottom:2px solid #e8ecef}
+.section-header h2{font-size:17px;font-weight:600;color:#0f6e56}
+.section-header i{font-size:19px;color:#0f6e56}
+.cards-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);transition:box-shadow .2s,transform .2s;cursor:pointer;display:flex;flex-direction:column;min-height:160px}
+.active-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.1);transform:translateY(-2px)}
+.card-top-bar{height:4px;flex-shrink:0}
+.bar-claude{background:#c0673a}
+.card-body{padding:1rem;display:flex;flex-direction:column;flex:1}
+.card-brand{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem;color:#c0673a}
+.card-body h3{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45;flex:1;margin-bottom:.75rem}
+.card-meta{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.card-meta-left{display:flex;align-items:center;gap:8px}
+.badge-free{background:#fef3ee;color:#c0673a;border:1px solid #f5c4ad;font-size:10px;font-weight:600;padding:3px 8px;border-radius:20px}
+.card-time{font-size:11px;color:#9ca3af;display:flex;align-items:center;gap:3px}
+.card-action{width:26px;height:26px;border-radius:50%;background:#fef3ee;display:flex;align-items:center;justify-content:center;color:#c0673a;font-size:14px}
+/* Hidden cards */
+.card-hidden{display:none}
+/* Show more button */
+.show-more-wrap{text-align:center;margin-top:1.25rem}
+.btn-show-more{background:#fff;border:1.5px solid #1d9e75;color:#0f6e56;font-size:13px;font-weight:600;font-family:'Inter',sans-serif;padding:10px 28px;border-radius:8px;cursor:pointer;transition:all .15s}
+.btn-show-more:hover{background:#1d9e75;color:#fff}
 #searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
 #searchOverlay.open{display:flex}
 .search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
@@ -120,200 +66,187 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
 .search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center;letter-spacing:.02em}
-@media(max-width:700px){
-  .navbar{padding:0 1rem}
-  .page-wrap{padding:0}
-  .course-shell{grid-template-columns:1fr}
-  .sidebar{display:none}
-  .content-body{padding:1.25rem 1rem}
-  .section-hero{padding:1.25rem 1rem}
-  .content-footer{padding:1rem}
-  .task-grid,.before-after,.stat-row,.brief-sections{grid-template-columns:1fr}
-}
+@media(max-width:900px){.cards-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.cards-grid{grid-template-columns:1fr}.page-wrap{padding:1.25rem 1rem 2rem}}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
-<div class="search-overlay-inner">
-<button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
-<form action="/search.html" method="get">
-<div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
-</form>
-<p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
-</div>
+  <div class="search-overlay-inner">
+    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+    <form action="/search.html" method="get">
+      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
+    </form>
+    <p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
+  </div>
 </div>
 <div id="navbar-placeholder"></div>
 <script src="/navbar.js"></script>
 <noscript>
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
-<a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a>
-<a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a>
-<a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a>
-<a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a>
-<a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a>
-<a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a>
-<a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a>
-<a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a>
-<a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
 </nav>
 </noscript>
+
 <div class="page-wrap">
-<div class="course-shell">
-<div class="content-area">
-<div class="section-hero"><div class="section-tag">Course Catalog</div><h1 style="font-size:22px; font-weight:500; color:#ffffff; line-height:1.3;">Free Claude AI Courses for Professionals</h1></div>
-<div class="content-body">
 
-<p>Whether you're using Claude to analyze data, draft documents, automate routine tasks, or improve day-to-day productivity, finding practical guidance can be difficult. This collection of free Claude courses is designed for busy professionals who want useful workflows they can apply immediately, without spending hours on theory. Instead of long lessons, you'll find free 5-minute mini-guides organized by business function, making it easy to learn exactly what you need. Browse Claude AI training for professionals across Finance, HR, Legal, Excel, Marketing, Operations, and Sales, with each guide focused on solving real workplace tasks. Every lesson includes step-by-step examples, ready-to-use workflows, and Claude prompts for work that can be adapted to your own projects. Whether you need to summarize reports, review contracts, analyze spreadsheets, create marketing content, streamline operational processes, or prepare sales materials, you can jump directly to the most relevant topic. Explore the role-based categories below and build practical Claude skills one workflow at a time, with concise lessons designed to fit into even the busiest workday.</p>
+  <div class="breadcrumb">
+    <a href="https://www.pairworkflows.com/">PairWorkflows</a>
+    <span>›</span>
+    <span>Claude Courses</span>
+  </div>
 
-<div class="stat-row">
-<div class="stat-item"><div class="stat-num">72</div><div class="stat-label">Mini-Courses</div></div>
-<div class="stat-item"><div class="stat-num">5 min</div><div class="stat-label">Average length</div></div>
-<div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Free — no sign-up</div></div>
-</div>
+  <div class="page-hero">
+    <h1>Free Claude AI Courses for Professionals</h1>
+    <p>Practical 5-minute guides organised by business function. No sign-up, no paywalls.</p>
+  </div>
 
-<!-- ===== GENERAL & CORE SKILLS ===== -->
-<h2 style="font-size:17px;font-weight:600;color:#0f6e56;margin:2.5rem 0 .25rem;padding-bottom:.5rem;border-bottom:2px solid #e8ecef"><i class="ti ti-bulb" style="font-size:19px;vertical-align:-2px;margin-right:6px"></i>General & Core Skills</h2>
-<div class="task-grid">
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-model-choice-haiku-sonnet-opus.html" style="color:#0f6e56;text-decoration:none">Claude Haiku vs Sonnet vs Opus: Which Model Saves Time & Money?</a></div><div class="task-desc">Learn which Claude model to choose to save time and token limits.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-ai-tokens-explained.html" style="color:#0f6e56;text-decoration:none">What Are AI Tokens? Free 5-Minute Guide for Business Professionals.</a></div><div class="task-desc">Understand how Claude counts usage and limits to avoid hitting caps.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-why-model-choice-matters.html" style="color:#0f6e56;text-decoration:none">Claude AI Model Costs Explained: Same Task, Three Price Tags.</a></div><div class="task-desc">Discover why the same task has three different price tags based on model choice.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-token-load-conversations.html" style="color:#0f6e56;text-decoration:none">Claude Token Limits: How to Avoid Overruns in Long Conversations.</a></div><div class="task-desc">Strategies to manage context windows in extended work sessions.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-common-patterns-professional-habits.html" style="color:#0f6e56;text-decoration:none">5 Claude AI Productivity Habits for Corporate Professionals.</a></div><div class="task-desc">Adopt the daily habits of highly effective AI users at work.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-prompting-playbook-professionals.html" style="color:#0f6e56;text-decoration:none">Claude Prompt Engineering: Practical Guide for Enterprise Teams.</a></div><div class="task-desc">A practical framework to write effective prompts without complex jargon.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-projects-team-guide.html" style="color:#0f6e56;text-decoration:none">Claude Projects for Teams: Setup & Scaling Guide (2026).</a></div><div class="task-desc">Set up and scale collaborative Claude workspaces for your department.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-data-privacy-what-not-to-share.html" style="color:#0f6e56;text-decoration:none">Claude AI Data Privacy at Work: Enterprise Compliance Guide.</a></div><div class="task-desc">Learn what is safe to share and how to maintain corporate compliance.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-how-claude-thinks-and-reasons.html" style="color:#0f6e56;text-decoration:none">How Claude AI Thinks: Understanding AI Reasoning at Work.</a></div><div class="task-desc">Understand the underlying logic of AI to get better, more accurate outputs.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-prompts-that-work.html" style="color:#0f6e56;text-decoration:none">Claude AI Prompts That Actually Work: Stop Getting Generic Answers.</a></div><div class="task-desc">Use advanced framing techniques to stop getting robotic or generic responses.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-conversation-structure.html" style="color:#0f6e56;text-decoration:none">How to Structure Claude AI Conversations for Better Results at Work.</a></div><div class="task-desc">Organize your chats logically to maintain context and improve output quality.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-microsoft-365-connector.html" style="color:#0f6e56;text-decoration:none">Claude AI + Microsoft 365: Access SharePoint, Outlook and Teams Without Uploading.</a></div><div class="task-desc">Connect Claude directly to your Microsoft environment safely.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-projects-rag-advanced.html" style="color:#0f6e56;text-decoration:none">Claude Projects Power Guide: RAG, File Strategy and Context That Scales.</a></div><div class="task-desc">Advanced strategies for document retrieval and context management.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-power-user-habits.html" style="color:#0f6e56;text-decoration:none">Claude Power User Habits: Context Summaries, Prompt Saving and Smarter Sessions.</a></div><div class="task-desc">Master context summaries and prompt libraries to speed up daily work.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-prompting-with-examples.html" style="color:#0f6e56;text-decoration:none">How to Use Examples in Claude Prompts: The Technique That Doubles Output Quality.</a></div><div class="task-desc">Double your output quality using the few-shot prompting technique.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-artifacts-guide.html" style="color:#0f6e56;text-decoration:none">Claude Artifacts Explained: Build Reports, Docs and Visuals Without Leaving Claude.</a></div><div class="task-desc">Use Artifacts to generate and edit dedicated documents and code snippets.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-handling-errors-hallucinations.html" style="color:#0f6e56;text-decoration:none">When Claude Gets It Wrong: How to Spot Errors and Handle Hallucinations.</a></div><div class="task-desc">Learn to spot AI errors quickly and handle hallucinations effectively.</div></div>
-</div>
+  <div class="stat-row">
+    <div class="stat-item"><div class="stat-num">88</div><div class="stat-label">Mini-Courses</div></div>
+    <div class="stat-item"><div class="stat-num">5 min</div><div class="stat-label">Average length</div></div>
+    <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Free — no sign-up</div></div>
+  </div>
 
-<!-- ===== EXCEL ===== -->
-<h2 style="font-size:17px;font-weight:600;color:#0f6e56;margin:2.5rem 0 .25rem;padding-bottom:.5rem;border-bottom:2px solid #e8ecef"><i class="ti ti-table" style="font-size:19px;vertical-align:-2px;margin-right:6px"></i>Excel & Google Sheets</h2>
-<div class="task-grid">
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-excel-ref-errors.html" style="color:#0f6e56;text-decoration:none">How to Fix #REF! Errors in Excel Using Claude AI</a></div><div class="task-desc">Learn how to diagnose and resolve broken reference errors instantly.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-excel-na-errors.html" style="color:#0f6e56;text-decoration:none">How to Fix #N/A Errors in VLOOKUP and XLOOKUP Using Claude AI</a></div><div class="task-desc">Troubleshoot missing data and lookup failures in your spreadsheets.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-excel-circular-reference.html" style="color:#0f6e56;text-decoration:none">How to Fix a Circular Reference Error in Excel Using Claude AI</a></div><div class="task-desc">Identify and untangle circular logic in complex financial models.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-excel-sumifs.html" style="color:#0f6e56;text-decoration:none">Use Claude to Build a SUMIFS Formula for Multi-Criteria Excel Reports</a></div><div class="task-desc">Create dynamic multi-criteria aggregations for your reports effortlessly.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-excel-if-ifs.html" style="color:#0f6e56;text-decoration:none">Use Claude to Write Complex IF and IFS Formulas for HR and Payroll</a></div><div class="task-desc">Structure advanced conditional logic without nested formula headaches.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-excel-explain-formulas.html" style="color:#0f6e56;text-decoration:none">Use Claude to Understand and Document Complex Inherited Excel Formulas</a></div><div class="task-desc">Decode and document messy spreadsheets built by former colleagues.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-excel-clean-data.html" style="color:#0f6e56;text-decoration:none">Use Claude to Clean and Standardise Imported Data in Excel</a></div><div class="task-desc">Automate data cleaning for messy CSVs and CRM system exports.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-excel-dynamic-reports.html" style="color:#0f6e56;text-decoration:none">Turn a Manual Excel Report into a Dynamic Formula-Based Model with Claude</a></div><div class="task-desc">Upgrade static reports into automated templates using AI-guided logic.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-excel-xlookup.html" style="color:#0f6e56;text-decoration:none">Use Claude to Write an XLOOKUP Formula in Excel</a></div><div class="task-desc">Master the modern, robust replacement for traditional VLOOKUP formulas.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-excel-lambda.html" style="color:#0f6e56;text-decoration:none">Use Claude to Build a Reusable LAMBDA Function in Excel</a></div><div class="task-desc">Create custom reusable functions directly in Excel without writing VBA.</div></div>
-</div>
+  <!-- GENERAL & CORE SKILLS -->
+  <div class="section-header"><i class="ti ti-bulb"></i><h2>General &amp; Core Skills</h2></div>
+  <div class="cards-grid" id="grid-general">
+    <a href="https://www.pairworkflows.com/claude-model-choice-haiku-sonnet-opus.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Claude Haiku vs Sonnet vs Opus: Which Model Saves Time &amp; Money?</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-ai-tokens-explained.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>What Are AI Tokens? Free 5-Minute Guide for Business Professionals.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-why-model-choice-matters.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Claude AI Model Costs Explained: Same Task, Three Price Tags.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-token-load-conversations.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Claude Token Limits: How to Avoid Overruns in Long Conversations.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-common-patterns-professional-habits.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>5 Claude AI Productivity Habits for Corporate Professionals.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>10 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-prompting-playbook-professionals.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Claude Prompt Engineering: Practical Guide for Enterprise Teams.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>10 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-projects-team-guide.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Claude Projects for Teams: Setup &amp; Scaling Guide (2026).</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-data-privacy-what-not-to-share.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Claude AI Data Privacy at Work: Enterprise Compliance Guide.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-how-claude-thinks-and-reasons.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="general"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How Claude AI Thinks: Understanding AI Reasoning at Work.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-prompts-that-work.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="general"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Claude AI Prompts That Actually Work: Stop Getting Generic Answers.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-conversation-structure.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="general"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Structure Claude AI Conversations for Better Results at Work.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-microsoft-365-connector.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="general"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Claude AI + Microsoft 365: Access SharePoint, Outlook and Teams Without Uploading.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-projects-rag-advanced.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="general"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Claude Projects Power Guide: RAG, File Strategy and Context That Scales.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-power-user-habits.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="general"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Claude Power User Habits: Context Summaries, Prompt Saving and Smarter Sessions.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-prompting-with-examples.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="general"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Examples in Claude Prompts: The Technique That Doubles Output Quality.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-artifacts-guide.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="general"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Claude Artifacts Explained: Build Reports, Docs and Visuals Without Leaving Claude.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-handling-errors-hallucinations.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="general"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>When Claude Gets It Wrong: How to Spot Errors and Handle Hallucinations.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+  </div>
+  <div class="show-more-wrap" id="more-general"><button class="btn-show-more" onclick="showMore('general')">Show all 17 courses ↓</button></div>
 
-<!-- ===== FINANCE ===== -->
-<h2 style="font-size:17px;font-weight:600;color:#0f6e56;margin:2.5rem 0 .25rem;padding-bottom:.5rem;border-bottom:2px solid #e8ecef"><i class="ti ti-report-money" style="font-size:19px;vertical-align:-2px;margin-right:6px"></i>Finance</h2>
-<div class="task-grid">
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-prompt-templates-finance.html" style="color:#0f6e56;text-decoration:none">Claude AI Prompt Templates for Finance Teams: Analysis, Reporting & Compliance.</a></div><div class="task-desc">Access ready-to-use prompt templates for daily financial workflows.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-finance-data-analysis.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Financial Data Analysis and Reporting.</a></div><div class="task-desc">Learn how to analyze complex financial datasets and build reports.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-month-end-close.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Month-End Close: Checklists and Reporting Narratives.</a></div><div class="task-desc">Automate your month-end close checklists and variance narratives.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-cash-flow-forecasting.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Cash Flow Forecasting.</a></div><div class="task-desc">Build accurate cash flow forecasts using Claude's analytical capabilities.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-excel-sheets-finance-formulas.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Excel and Google Sheets Formulas in Finance.</a></div><div class="task-desc">Generate and debug complex spreadsheet formulas for financial models.</div></div>
-</div>
+  <!-- EXCEL -->
+  <div class="section-header"><i class="ti ti-table"></i><h2>Excel &amp; Google Sheets</h2></div>
+  <div class="cards-grid" id="grid-excel">
+    <a href="https://www.pairworkflows.com/claude-excel-ref-errors.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Fix #REF! Errors in Excel — Step by Step</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-excel-na-errors.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Fix #N/A Errors in VLOOKUP and XLOOKUP — Free Guide</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-excel-circular-reference.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Fix Circular Reference Errors in Excel</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-excel-sumifs.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>SUMIFS Excel: Multiple Criteria Formula Guide</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-excel-if-ifs.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>IF and IFS Formulas in Excel: Step-by-Step Guide</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-excel-explain-formulas.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Explain Excel Formula with Example</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-excel-clean-data.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Automated Data Cleaning Excel</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-excel-dynamic-reports.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Dynamic Excel Report Template</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-excel-xlookup.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="excel"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>XLOOKUP Formula in Excel with Example</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-excel-lambda.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="excel"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Excel LAMBDA Function Library</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/bank-reconciliation-excel-claude.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="excel"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Automated Bank Reconciliation in Excel</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/month-end-close-excel-claude.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="excel"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Month End Close Checklist Excel Template</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/fixed-asset-depreciation-excel-claude.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="excel"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Fixed Asset Depreciation Excel Template</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/build-budget-variance-analysis-report-excel-claude.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="excel"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Budget Variance Analysis Excel Template</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/build-accounts-payable-aging-dashboard-excel-claude.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="excel"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Accounts Payable Aging Report Excel Template</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/automate-accounts-receivable-tracking-excel-claude.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="excel"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Accounts Receivable Tracking Excel Template</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/build-financial-kpi-dashboard-excel-claude.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="excel"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Financial KPI Dashboard Excel Template</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/automate-cash-flow-dashboard-excel-claude.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="excel"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Cash Flow Dashboard Excel Template</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/build-3-statement-financial-model-excel-claude.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="excel"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>3 Statement Financial Model Excel Template</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/rolling-forecast-excel-claude.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="excel"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Rolling Forecast Excel Template</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/capex-planning-excel-claude.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="excel"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>CapEx Planning Template Excel</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/multi-entity-financials-excel-claude.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="excel"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Consolidate Multiple Excel Sheets Into One</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/13-week-cash-flow-forecast-excel-claude.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="excel"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>13 Week Cash Flow Forecast Excel Template</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/loan-amortization-schedule-excel-claude.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="excel"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Loan Amortization Schedule Excel Template</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/payroll-reconciliation-excel-claude.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="excel"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Payroll Reconciliation Template Excel</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/pivot-table-reports-excel-claude.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="excel"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Pivot Table Excel Tutorial For Beginners</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+  </div>
+  <div class="show-more-wrap" id="more-excel"><button class="btn-show-more" onclick="showMore('excel')">Show all 26 courses ↓</button></div>
 
-<!-- ===== HR ===== -->
-<h2 style="font-size:17px;font-weight:600;color:#0f6e56;margin:2.5rem 0 .25rem;padding-bottom:.5rem;border-bottom:2px solid #e8ecef"><i class="ti ti-users" style="font-size:19px;vertical-align:-2px;margin-right:6px"></i>HR</h2>
-<div class="task-grid">
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-prompt-templates-hr.html" style="color:#0f6e56;text-decoration:none">Claude AI Prompt Templates for HR Professionals: Ready-to-Use Workflows.</a></div><div class="task-desc">Essential prompt templates for everyday HR communications and tasks.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-hr-performance-reviews.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Performance Reviews and Employee Feedback.</a></div><div class="task-desc">Draft objective, constructive performance reviews and feedback summaries.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-hr-recruitment-screening.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Recruitment and CV Screening.</a></div><div class="task-desc">Speed up your hiring process by analyzing CVs and screening candidates.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-hr-employee-handbook-drafting.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Drafting Employee Handbook Policies.</a></div><div class="task-desc">Write clear, compliant, and inclusive company policies from scratch.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-hr-exit-offboarding.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Exit and Offboarding Communications.</a></div><div class="task-desc">Draft sensitive and professional offboarding documents and scripts.</div></div>
-</div>
+  <!-- FINANCE -->
+  <div class="section-header"><i class="ti ti-report-money"></i><h2>Finance</h2></div>
+  <div class="cards-grid" id="grid-finance">
+    <a href="https://www.pairworkflows.com/claude-prompt-templates-finance.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Claude AI Prompt Templates for Finance Teams: Analysis, Reporting &amp; Compliance.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-finance-data-analysis.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Financial Data Analysis and Reporting.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-month-end-close.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Month-End Close: Checklists and Reporting Narratives.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-cash-flow-forecasting.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Cash Flow Forecasting.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-excel-sheets-finance-formulas.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Excel and Google Sheets Formulas in Finance.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+  </div>
 
-<!-- ===== LEGAL ===== -->
-<h2 style="font-size:17px;font-weight:600;color:#0f6e56;margin:2.5rem 0 .25rem;padding-bottom:.5rem;border-bottom:2px solid #e8ecef"><i class="ti ti-scale" style="font-size:19px;vertical-align:-2px;margin-right:6px"></i>Legal</h2>
-<div class="task-grid">
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-prompt-templates-legal.html" style="color:#0f6e56;text-decoration:none">Claude AI Prompt Templates for Legal Teams: Contracts, Compliance & Risk.</a></div><div class="task-desc">A library of prompts for contract review, risk assessment, and compliance.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-legal-document-review.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Contract Review and Legal Document Analysis.</a></div><div class="task-desc">Analyze legal documents and extract key clauses or liabilities quickly.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-legal-contract-drafting.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Contract Drafting.</a></div><div class="task-desc">Draft standard contracts and legal agreements with precise language.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-legal-compliance-check.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Compliance Checks.</a></div><div class="task-desc">Verify documents against regulatory requirements and internal policies.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-legal-nda-review.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for NDA Review.</a></div><div class="task-desc">Review Non-Disclosure Agreements for standard terms and red flags.</div></div>
-</div>
+  <!-- HR -->
+  <div class="section-header"><i class="ti ti-users"></i><h2>HR</h2></div>
+  <div class="cards-grid" id="grid-hr">
+    <a href="https://www.pairworkflows.com/claude-prompt-templates-hr.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Claude AI Prompt Templates for HR Professionals: Ready-to-Use Workflows.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-hr-performance-reviews.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Performance Reviews and Employee Feedback.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-hr-recruitment-screening.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Recruitment and CV Screening.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-hr-employee-handbook-drafting.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Drafting Employee Handbook Policies.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-hr-exit-offboarding.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Exit and Offboarding Communications.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+  </div>
 
-<!-- ===== MARKETING ===== -->
-<h2 style="font-size:17px;font-weight:600;color:#0f6e56;margin:2.5rem 0 .25rem;padding-bottom:.5rem;border-bottom:2px solid #e8ecef"><i class="ti ti-speakerphone" style="font-size:19px;vertical-align:-2px;margin-right:6px"></i>Marketing</h2>
-<div class="task-grid">
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-prompt-templates-marketing.html" style="color:#0f6e56;text-decoration:none">Claude AI Prompt Templates for Marketing Teams: Campaigns, Content & Strategy.</a></div><div class="task-desc">Workflows for campaigns, content creation, and market strategy.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-marketing-content-strategy.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Content Strategy and Campaign Planning.</a></div><div class="task-desc">Brainstorm and structure comprehensive multi-channel marketing campaigns.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-marketing-seo-content-optimization.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for SEO Content Optimization.</a></div><div class="task-desc">Optimize blog posts and web copy for search engines using AI analysis.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-marketing-email-campaign-sequences.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Email Campaign Sequences.</a></div><div class="task-desc">Draft high-converting automated email drip campaigns for your audience.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-marketing-customer-persona-development.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Customer Persona Development.</a></div><div class="task-desc">Build detailed buyer personas using market data and Claude's insights.</div></div>
-</div>
+  <!-- LEGAL -->
+  <div class="section-header"><i class="ti ti-scale"></i><h2>Legal</h2></div>
+  <div class="cards-grid" id="grid-legal">
+    <a href="https://www.pairworkflows.com/claude-prompt-templates-legal.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Claude AI Prompt Templates for Legal Teams: Contracts, Compliance &amp; Risk.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-legal-document-review.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Contract Review and Legal Document Analysis.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-legal-contract-drafting.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Contract Drafting.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-legal-compliance-check.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Compliance Checks.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-legal-nda-review.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for NDA Review.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+  </div>
 
-<!-- ===== OPERATIONS ===== -->
-<h2 style="font-size:17px;font-weight:600;color:#0f6e56;margin:2.5rem 0 .25rem;padding-bottom:.5rem;border-bottom:2px solid #e8ecef"><i class="ti ti-settings" style="font-size:19px;vertical-align:-2px;margin-right:6px"></i>Operations</h2>
-<div class="task-grid">
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-prompt-templates-operations.html" style="color:#0f6e56;text-decoration:none">Claude AI Prompt Templates for Operations Teams: SOPs, Suppliers & Reporting.</a></div><div class="task-desc">Automate SOP generation, supplier communications, and daily reporting.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-workflow-automation.html" style="color:#0f6e56;text-decoration:none">How to Build Repeatable AI Workflows for Operations Teams.</a></div><div class="task-desc">Standardize your team's operational processes using scalable AI steps.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-operations-sop-writing.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Writing Standard Operating Procedures.</a></div><div class="task-desc">Draft clear, step-by-step SOPs in minutes instead of hours.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-operations-incident-reporting.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Incident Reporting.</a></div><div class="task-desc">Document operational incidents and root cause analyses professionally.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-operations-kpi-reporting.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for KPI Reporting.</a></div><div class="task-desc">Summarize operational metrics and KPIs into executive briefings.</div></div>
-</div>
+  <!-- MARKETING -->
+  <div class="section-header"><i class="ti ti-speakerphone"></i><h2>Marketing</h2></div>
+  <div class="cards-grid" id="grid-marketing">
+    <a href="https://www.pairworkflows.com/claude-prompt-templates-marketing.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Claude AI Prompt Templates for Marketing Teams: Campaigns, Content &amp; Strategy.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-marketing-content-strategy.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Content Strategy and Campaign Planning.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-marketing-seo-content-optimization.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for SEO Content Optimization.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-marketing-email-campaign-sequences.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Email Campaign Sequences.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-marketing-customer-persona-development.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Customer Persona Development.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+  </div>
 
-<!-- ===== SALES ===== -->
-<h2 style="font-size:17px;font-weight:600;color:#0f6e56;margin:2.5rem 0 .25rem;padding-bottom:.5rem;border-bottom:2px solid #e8ecef"><i class="ti ti-chart-bar" style="font-size:19px;vertical-align:-2px;margin-right:6px"></i>Sales</h2>
-<div class="task-grid">
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-sales-weekly-insight-reports.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Weekly Sales Activity and Insight Reports.</a></div><div class="task-desc">Summarize weekly CRM activities into actionable leadership insights.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-sales-objection-roleplay.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Objection Handling Roleplay and Simulation.</a></div><div class="task-desc">Practice handling tough prospect objections with an AI buyer persona.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-sales-pre-call-research.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Pre-Call Research and Stakeholder Mapping.</a></div><div class="task-desc">Analyze accounts and map stakeholders before your discovery calls.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-sales-win-loss-analysis.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Win/Loss Interview Analysis.</a></div><div class="task-desc">Extract themes and lessons from deal win/loss transcripts.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-sales-contract-redlining.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Contract Redlining and Term Summary.</a></div><div class="task-desc">Summarize sales contract changes and commercial terms quickly.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-sales-call-coaching.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Rep Performance and Call Coaching Critique.</a></div><div class="task-desc">Critique sales calls and provide structured coaching feedback.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-sales-value-proposition.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Value Proposition and Messaging Alignment.</a></div><div class="task-desc">Tailor your messaging to specific industries and buyer personas.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-sales-mutual-action-plan.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Mutual Action Plan Drafting.</a></div><div class="task-desc">Create structured Mutual Action Plans to keep complex deals on track.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-sales-linkedin-voice.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for LinkedIn Social Selling and Voice Matching.</a></div><div class="task-desc">Draft outreach messages that match your authentic personal voice.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-sales-pipeline-review.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Pipeline Review and Deal Prioritization.</a></div><div class="task-desc">Prioritize deals and identify risks in your current sales pipeline.</div></div>
-</div>
+  <!-- OPERATIONS -->
+  <div class="section-header"><i class="ti ti-settings"></i><h2>Operations</h2></div>
+  <div class="cards-grid" id="grid-operations">
+    <a href="https://www.pairworkflows.com/claude-prompt-templates-operations.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>Claude AI Prompt Templates for Operations Teams: SOPs, Suppliers &amp; Reporting.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-workflow-automation.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Build Repeatable AI Workflows for Operations Teams.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-operations-sop-writing.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Writing Standard Operating Procedures.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-operations-incident-reporting.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Incident Reporting.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-operations-kpi-reporting.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for KPI Reporting.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+  </div>
 
-<!-- ===== CUSTOMER SERVICE ===== -->
-<h2 style="font-size:17px;font-weight:600;color:#0f6e56;margin:2.5rem 0 .25rem;padding-bottom:.5rem;border-bottom:2px solid #e8ecef"><i class="ti ti-headset" style="font-size:19px;vertical-align:-2px;margin-right:6px"></i>Customer Service</h2>
-<div class="task-grid">
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-cs-qbr-narrative.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for QBR Deck Narrative Writing.</a></div><div class="task-desc">Draft compelling narratives for Quarterly Business Reviews.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-cs-sla-breach.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for SLA Breach and Outage Communication.</a></div><div class="task-desc">Write professional, empathetic incident and outage communications.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-cs-rca-drafting.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Post-Incident Root Cause Analysis.</a></div><div class="task-desc">Document Root Cause Analyses clearly for enterprise customers.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-cs-renewal-negotiation.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Renewal Negotiation Prep and Defense.</a></div><div class="task-desc">Prepare defense strategies for difficult contract renewals.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-cs-churn-risk.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Churn Risk and Sentiment Shift Detection.</a></div><div class="task-desc">Identify early warning signs of churn in customer email threads.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-cs-policy-exception.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Policy Exception and Edge-Case Evaluation.</a></div><div class="task-desc">Evaluate and respond to edge-case or out-of-policy customer requests.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-cs-unresponsive-accounts.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Account Strategy for Unresponsive Clients.</a></div><div class="task-desc">Generate re-engagement strategies for unresponsive or ghosting clients.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-cs-upsell-signals.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Expansion and Upsell Signal Spotting.</a></div><div class="task-desc">Identify growth opportunities hidden in everyday client interactions.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-cs-advocacy-interview.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Customer Advocacy and Case Study Interview Prep.</a></div><div class="task-desc">Prepare questions and frameworks for successful case study interviews.</div></div>
-<div class="task-card"><div class="task-name"><a href="https://www.pairworkflows.com/claude-cs-onboarding-plans.html" style="color:#0f6e56;text-decoration:none">How to Use Claude AI for Personalized Onboarding and Adoption Plans.</a></div><div class="task-desc">Create tailored software adoption plans for new enterprise clients.</div></div>
-</div>
+  <!-- SALES -->
+  <div class="section-header"><i class="ti ti-chart-bar"></i><h2>Sales</h2></div>
+  <div class="cards-grid" id="grid-sales">
+    <a href="https://www.pairworkflows.com/claude-sales-weekly-insight-reports.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Weekly Sales Activity and Insight Reports.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-sales-objection-roleplay.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Objection Handling Roleplay and Simulation.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-sales-pre-call-research.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Pre-Call Research and Stakeholder Mapping.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-sales-win-loss-analysis.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Win/Loss Interview Analysis.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-sales-contract-redlining.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Contract Redlining and Term Summary.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-sales-call-coaching.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Rep Performance and Call Coaching Critique.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-sales-value-proposition.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Value Proposition and Messaging Alignment.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-sales-mutual-action-plan.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="sales"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Mutual Action Plan Drafting.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-sales-linkedin-voice.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="sales"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for LinkedIn Social Selling and Voice Matching.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-sales-pipeline-review.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="sales"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Pipeline Review and Deal Prioritization.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+  </div>
+  <div class="show-more-wrap" id="more-sales"><button class="btn-show-more" onclick="showMore('sales')">Show all 10 courses ↓</button></div>
 
-<!-- ===== FAQ ===== -->
-<h2 style="font-size:17px;font-weight:600;color:#0f6e56;margin:2.5rem 0 .25rem;padding-bottom:.5rem;border-bottom:2px solid #e8ecef"><i class="ti ti-help-circle" style="font-size:19px;vertical-align:-2px;margin-right:6px"></i>Frequently Asked Questions</h2>
+  <!-- CUSTOMER SERVICE -->
+  <div class="section-header"><i class="ti ti-headset"></i><h2>Customer Service</h2></div>
+  <div class="cards-grid" id="grid-cs">
+    <a href="https://www.pairworkflows.com/claude-cs-qbr-narrative.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for QBR Deck Narrative Writing.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-cs-sla-breach.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for SLA Breach and Outage Communication.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-cs-rca-drafting.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Post-Incident Root Cause Analysis.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-cs-renewal-negotiation.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Renewal Negotiation Prep and Defense.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-cs-churn-risk.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Churn Risk and Sentiment Shift Detection.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-cs-policy-exception.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Policy Exception and Edge-Case Evaluation.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-cs-unresponsive-accounts.html" style="text-decoration:none;color:inherit;"><div class="card active-card"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Account Strategy for Unresponsive Clients.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-cs-upsell-signals.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="cs"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Expansion and Upsell Signal Spotting.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-cs-advocacy-interview.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="cs"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Customer Advocacy and Case Study Interview Prep.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+    <a href="https://www.pairworkflows.com/claude-cs-onboarding-plans.html" style="text-decoration:none;color:inherit;"><div class="card active-card card-hidden" data-section="cs"><div class="card-top-bar bar-claude"></div><div class="card-body"><div class="card-brand">Claude AI</div><h3>How to Use Claude AI for Personalized Onboarding and Adoption Plans.</h3><div class="card-meta"><div class="card-meta-left"><span class="badge-free">Free</span><span class="card-time"><i class="ti ti-clock"></i>5 min</span></div><div class="card-action">↗</div></div></div></div></a>
+  </div>
+  <div class="show-more-wrap" id="more-cs"><button class="btn-show-more" onclick="showMore('cs')">Show all 10 courses ↓</button></div>
 
-<div class="highlight-box" style="margin-top:1.5rem">
-<div class="highlight-icon"><i class="ti ti-help-circle"></i></div>
-<div class="highlight-text"><strong>Are these guides free?</strong><br>Yes. Every Claude AI course on PairWorkflows is completely free to access. There are no paywalls, no sign-ups, and no ads. You can start any guide immediately and use the prompts and workflows in your own work right away.</div>
-</div>
+</div><!-- /page-wrap -->
 
-<div class="highlight-box">
-<div class="highlight-icon"><i class="ti ti-help-circle"></i></div>
-<div class="highlight-text"><strong>Do I need a paid Claude account?</strong><br>No. Most workflows can be completed using the free tier of Claude. Some advanced features, such as larger file uploads or extended conversations, may benefit from a paid plan, but the core techniques taught in every guide work with a free account.</div>
-</div>
-
-<div class="highlight-box">
-<div class="highlight-icon"><i class="ti ti-help-circle"></i></div>
-<div class="highlight-text"><strong>How long does each workflow take?</strong><br>Each mini-course is designed to be completed in approximately 5 minutes. The guides focus on one specific task at a time, so you can learn a practical workflow during a short break and apply it to your work immediately.</div>
-</div>
-
-</div>
-</div>
-</div>
-</div>
 <footer style="background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0">
 <div style="max-width:1100px; margin:0 auto">
 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
@@ -330,10 +263,10 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 </div>
 <div>
 <strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Prompt Tools</strong>
-<a href="https://www.pairworkflows.com/claude-prompts-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Excel Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Finance Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">HR Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Marketing Prompt Builder</a>
+<a href="https://www.pairworkflows.com/prompt-generator-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Excel Prompt Generator</a>
+<a href="https://www.pairworkflows.com/prompt-generator-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Finance Prompt Generator</a>
+<a href="https://www.pairworkflows.com/prompt-generator-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">HR Prompt Generator</a>
+<a href="https://www.pairworkflows.com/prompt-generator-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Marketing Prompt Generator</a>
 <a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">General Prompt Library</a>
 </div>
 <div>
@@ -345,7 +278,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 <a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
 </div>
 <div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company & Legal</strong>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company &amp; Legal</strong>
 <a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
 <a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
 <a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
@@ -378,7 +311,14 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 </div>
 </div>
 </footer>
+
 <script>
+function showMore(section) {
+  var hidden = document.querySelectorAll('[data-section="' + section + '"]');
+  hidden.forEach(function(el) { el.style.display = 'flex'; });
+  var btn = document.getElementById('more-' + section);
+  if (btn) btn.style.display = 'none';
+}
 function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
 function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
 function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
