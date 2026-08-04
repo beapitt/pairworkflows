@@ -308,8 +308,7 @@
                 <a href="https://www.pairworkflows.com/gemini-operations-courses.html">Operations</a>
                 <a href="https://www.pairworkflows.com/gemini-sales-courses.html">Sales</a>
                 <a href="https://www.pairworkflows.com/gemini-customer-service-courses.html">Customer Service</a>
-                <a href="https://www.pairworkflows.com/gemini-general-courses.html">General</a>
-              </div>
+                </div>
             </div>
           </div>
 
