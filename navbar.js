@@ -269,14 +269,14 @@
             </button>
             <div class="nav-dropdown-menu" id="navDropdownMenu-prompts">
               <div class="nav-dropdown-label">⚡ Generate a custom prompt</div>
-              <a href="https://www.pairworkflows.com/claude-prompts-excel.html">Excel &amp; Google Sheets</a>
-              <a href="https://www.pairworkflows.com/claude-prompts-finance.html">Finance</a>
-              <a href="https://www.pairworkflows.com/claude-prompts-hr.html">HR</a>
-              <a href="https://www.pairworkflows.com/claude-prompts-marketing.html">Marketing</a>
-              <a href="https://www.pairworkflows.com/claude-prompts-sales.html">Sales</a>
-              <a href="https://www.pairworkflows.com/claude-prompts-customer-service.html">Customer Service</a>
-              <a href="https://www.pairworkflows.com/claude-prompts-operations.html">Operations</a>
-              <a href="https://www.pairworkflows.com/claude-prompts-legal.html">Legal</a>
+              <a href="https://www.pairworkflows.com/prompt-generator-excel.html">Excel &amp; Google Sheets</a>
+              <a href="https://www.pairworkflows.com/prompt-generator-finance.html">Finance</a>
+              <a href="https://www.pairworkflows.com/prompt-generator-hr.html">HR</a>
+              <a href="https://www.pairworkflows.com/prompt-generator-marketing.html">Marketing</a>
+              <a href="https://www.pairworkflows.com/prompt-generator-sales.html">Sales</a>
+              <a href="https://www.pairworkflows.com/prompt-generator-customer-service.html">Customer Service</a>
+              <a href="https://www.pairworkflows.com/prompt-generator-operations.html">Operations</a>
+              <a href="https://www.pairworkflows.com/prompt-generator-legal.html">Legal</a>
             </div>
           </div>
 
@@ -362,14 +362,14 @@
       <div class="nav-mobile-divider"></div>
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Prompt Builder</div>
-        <a href="https://www.pairworkflows.com/claude-prompts-excel.html">Excel &amp; Google Sheets</a>
-        <a href="https://www.pairworkflows.com/claude-prompts-finance.html">Finance</a>
-        <a href="https://www.pairworkflows.com/claude-prompts-hr.html">HR</a>
-        <a href="https://www.pairworkflows.com/claude-prompts-marketing.html">Marketing</a>
-        <a href="https://www.pairworkflows.com/claude-prompts-sales.html">Sales</a>
-        <a href="https://www.pairworkflows.com/claude-prompts-customer-service.html">Customer Service</a>
-        <a href="https://www.pairworkflows.com/claude-prompts-operations.html">Operations</a>
-        <a href="https://www.pairworkflows.com/claude-prompts-legal.html">Legal</a>
+        <a href="https://www.pairworkflows.com/prompt-generator-excel.html">Excel &amp; Google Sheets</a>
+        <a href="https://www.pairworkflows.com/prompt-generator-finance.html">Finance</a>
+        <a href="https://www.pairworkflows.com/prompt-generator-hr.html">HR</a>
+        <a href="https://www.pairworkflows.com/prompt-generator-marketing.html">Marketing</a>
+        <a href="https://www.pairworkflows.com/prompt-generator-sales.html">Sales</a>
+        <a href="https://www.pairworkflows.com/prompt-generator-customer-service.html">Customer Service</a>
+        <a href="https://www.pairworkflows.com/prompt-generator-operations.html">Operations</a>
+        <a href="https://www.pairworkflows.com/prompt-generator-legal.html">Legal</a>
       </div>
       <div class="nav-mobile-divider"></div>
       <div class="nav-mobile-section">
