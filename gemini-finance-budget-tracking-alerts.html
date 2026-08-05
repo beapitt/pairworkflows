@@ -83,6 +83,29 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#f5f5f5;color:#1a1a2e;
 .search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
 .search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
 .search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center}
+
+/* Stili aggiornati per il quiz */
+.quiz-q{margin-bottom:1.5rem}
+.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
+.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
+.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
+.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}
+.opt.selected .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}
+.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
+.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
+.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
+.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}
+.submit-global:hover{background:#0f6e56}
+.submit-global:disabled{opacity:.35;cursor:default}
+.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
+.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
+.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
+.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.retake-btn:hover{background:#e1f5ee}
+
 @media(max-width:700px){.navbar{padding:0 1rem}.page-wrap{padding:0}.course-shell{grid-template-columns:1fr}.sidebar{display:none}.content-body{padding:1.25rem 1rem}.section-hero{padding:1.25rem 1rem}.content-footer{padding:1rem}}
 .page-wrap-fix{max-width:1100px;margin:2rem auto;padding:0 1rem}.course-wrap-outer{width:100%}</style>
 </head>
@@ -114,7 +137,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#f5f5f5;color:#1a1a2e;
 <a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
 </nav>
 </noscript>
-<div class="page-wrap-fix"><div class="course-wrap-outer"><div class="course-shell">
+<div class="page-wrap"><div class="course-wrap-outer"><div class="course-shell">
 <div class="sidebar">
 <div class="sidebar-top">
 <div class="course-label">Gemini AI — Finance Course</div>
@@ -233,35 +256,116 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#f5f5f5;color:#1a1a2e;
 </div>
 </div>
 </footer>
+
 <script>
 var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
-var heroes=[{tag:'Section 01',title:'A budget is only useful if someone notices when it is being missed. Gemini can help you build that early warning.'},{tag:'Section 02',title:'Setting up a budget tracking sheet that Gemini can review effectively.'},{tag:'Section 03',title:'Prompts for flagging budget lines and drafting alert messages.'},{tag:'Section 04 — Quiz',title:'Test your knowledge.'}];
-var quiz=[{q:'What role does Gemini play in budget tracking?',opts:['It monitors your spreadsheet automatically','It helps review figures you share and draft messages','It replaces the tracking sheet entirely'],correct:1},{q:'Why is an "Expected Spend to Date" column useful?',opts:['It allows comparison to a fair run-rate for the period','It is required by Google Sheets','It removes the need for an annual budget'],correct:0},{q:'What should Gemini do if no budget lines exceed the threshold?',opts:['Lower the threshold until some lines qualify','Say clearly that no lines exceed the threshold','List lines closest to the threshold'],correct:1},{q:'For this to work as an early-warning system, what is needed?',opts:['A regular habit of sharing updated figures','A one-off annual review','Removing the budget holder column'],correct:0}];
+var heroes=[
+  {tag:'Section 01',title:'A budget is only useful if someone notices when it is being missed. Gemini can help you build that early warning.'},
+  {tag:'Section 02',title:'Setting up a budget tracking sheet that Gemini can review effectively.'},
+  {tag:'Section 03',title:'Prompts for flagging budget lines and drafting alert messages.'},
+  {tag:'Section 04 — Quiz',title:'Test your knowledge.'}
+];
+var quiz=[
+  {q:'What role does Gemini play in budget tracking?',
+   opts:['It monitors your spreadsheet automatically','It helps review figures you share and draft messages','It replaces the tracking sheet entirely'],
+   correct:1},
+  {q:'Why is an "Expected Spend to Date" column useful?',
+   opts:['It allows comparison to a fair run-rate for the period','It is required by Google Sheets','It removes the need for an annual budget'],
+   correct:0},
+  {q:'What should Gemini do if no budget lines exceed the threshold?',
+   opts:['Lower the threshold until some lines qualify','Say clearly that no lines exceed the threshold','List lines closest to the threshold'],
+   correct:1},
+  {q:'For this to work as an early-warning system, what is needed?',
+   opts:['A regular habit of sharing updated figures','A one-off annual review','Removing the budget holder column'],
+   correct:0}
+];
+
 function buildQuizHTML(){
-if(quizDone){var score=0;for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
-return '<div class="result-box"><div class="result-score">'+score+'/4</div><button class="retake-btn" onclick="retake()">Retake quiz</button></div>';}
-var html='';for(var i=0;i<quiz.length;i++){
-var q=quiz[i];html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
-for(var j=0;j<q.opts.length;j++){var cls='opt'+(sel[i]===j?' selected':'');html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';}html+='</div>';}
-html+='<button class="submit-global" onclick="submitAll()">Submit quiz</button>';return html;}
+  if(quizDone){
+    var score=0;
+    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
+    var msgs=[
+      'Review section 1 to understand how Gemini evaluates budgets.',
+      'Good effort — review the setup of your tracking sheet before diving in.',
+      'Almost there! Check the prompts in section 3.',
+      'Perfect score — you are ready to set up Gemini for budget alerts.'
+    ];
+    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
+  }
+  var html='';
+  for(var i=0;i<quiz.length;i++){
+    var q=quiz[i];
+    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
+    for(var j=0;j<q.opts.length;j++){
+      var cls='opt';
+      if(quizSubmitted){
+        if(j===q.correct)cls+=' correct locked';
+        else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';
+        else cls+=' locked';
+      }
+      else if(sel[i]===j)cls+=' selected';
+      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
+    }
+    html+='</div>';
+  }
+  var allSel=Object.keys(sel).length===quiz.length;
+  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
+  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
+  return html;
+}
+
 function render(){
-document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';document.getElementById('progTxt').textContent=(cur+1)+' of 4';
-document.getElementById('heroTag').textContent=heroes[cur].tag;document.getElementById('heroTitle').textContent=heroes[cur].title;
-for(var i=0;i<4;i++){var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),secBlock=document.getElementById('seo-sec-'+i);
-ni.className='nav-item'+(i===cur?' active':'');if(i===cur)secBlock.classList.add('active-section');else secBlock.classList.remove('active-section');
-nd.className='nav-dot'+(visited[i]&&i!==cur?' done':'')+(i===cur?' active':'');}
-if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
-document.getElementById('btnBack').disabled=(cur===0);var fwd=document.getElementById('btnFwd');
-if(cur===3){fwd.style.display='none';}else{fwd.style.display='';fwd.textContent=(cur===2?'Take the quiz':'Next');}}
-function go(n){visited[n]=true;cur=n;render();window.scrollTo(0,0);}
+  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
+  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
+  document.getElementById('heroTag').textContent=heroes[cur].tag;
+  document.getElementById('heroTitle').textContent=heroes[cur].title;
+  
+  for(var i=0;i<4;i++){
+    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),sec=document.getElementById('seo-sec-'+i);
+    ni.className='nav-item'+(i===cur?' active':'');
+    if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');
+    
+    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
+    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
+    else{nd.className='nav-dot';nd.textContent=(i+1);}
+  }
+  
+  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
+  document.getElementById('btnBack').disabled=(cur===0);
+  
+  var fwd=document.getElementById('btnFwd');
+  if(cur===3){
+    fwd.style.display='none';
+  } else {
+    fwd.style.display='';
+    fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';
+  }
+}
+
+function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
 function goFwd(){if(cur<3)go(cur+1);}
-function submitAll(){quizSubmitted=true;quizDone=true;render();}
-function retake(){quizSubmitted=false;quizDone=false;render();}
-function copyPrompt(btn){navigator.clipboard.writeText(btn.nextElementSibling.innerText);btn.textContent='Copied!';setTimeout(()=>{btn.textContent='Copy';},2000);}
+function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
+function showResult(){quizDone=true;render();}
+function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
+
+function copyPrompt(btn){
+  navigator.clipboard.writeText(btn.nextElementSibling.innerText);
+  btn.textContent='Copied!';
+  setTimeout(()=>{btn.textContent='Copy';},2000);
+}
+
 function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(()=>document.getElementById('searchOverlayInput').focus(),50);}
 function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();});
-document.getElementById('cnt').addEventListener('click',e=>{var opt=e.target.closest('.opt');if(opt){sel[opt.dataset.qi]=parseInt(opt.dataset.oi);render();}});
+
+document.getElementById('cnt').addEventListener('click',e=>{
+  if(cur!==3||quizSubmitted||quizDone)return;
+  var opt=e.target.closest('.opt');
+  if(!opt)return;
+  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
+  render();
+});
+
 render();
 </script>
 </body>

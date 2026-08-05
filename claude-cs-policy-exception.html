@@ -188,7 +188,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#f5f5f5;color:#1a1a2e;
 <body>
 <div id="searchOverlay" onclick="if(event.target===this)closeSearch()"><div class="search-overlay-inner"><button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button><form action="/search.html" method="get"><div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div></form><p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p></div></div>
 <div id="navbar-placeholder"></div>
-<script src="/navbar.js"></script><script src="/footer.js"></script><script src="/footer.js"></script>
+<script src="/navbar.js"></script><script src="/footer.js"></script>
 <noscript>
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
@@ -205,7 +205,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#f5f5f5;color:#1a1a2e;
 <a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
 </nav>
 </noscript>
-<div class="page-wrap-fix"><div class="course-wrap-outer"><div class="course-shell">
+<div class="page-wrap"><div class="course-wrap-outer"><div class="course-shell">
 <div class="sidebar">
 <div class="sidebar-top">
 <div class="course-label">Claude AI — Customer Service Course</div>
@@ -392,7 +392,6 @@ Crucial instruction: Keep it objective. Summarize the client's request, the spec
 </div>
 </footer>
 <script>
-/* Quiz positions: Q1=B, Q2=C, Q3=A, Q4=B — verified */
 var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
 var heroes=[
   {tag:'Section 01',title:'Weighing Complex Edge Cases Without the Emotional Baggage'},
@@ -402,16 +401,32 @@ var heroes=[
 ];
 var quiz=[
   {q:'What is Claude\'s primary role when dealing with an edge-case request?',
-   opts:['It automatically approves exceptions for high-value clients so you don\'t have to wait for management.','It acts as an objective sounding board to weigh the request against internal policies without emotional bias.','It emails the client directly to tell them their request is ridiculous.'],
+   opts:[
+     'It automatically approves exceptions for high-value clients so you don\'t have to wait for management.',
+     'It acts as an objective sounding board to weigh the request against internal policies without emotional bias.',
+     'It emails the client directly to tell them their request is ridiculous.'
+   ],
    correct:1},
   {q:'What is a clear limitation of Claude when evaluating policy exceptions?',
-   opts:['It refuses to read internal company documents or service level agreements.','It automatically deletes any client request that violates a standard rule.','It can\'t know your company\'s unwritten historical precedents unless you explicitly include them in the prompt.'],
+   opts:[
+     'It refuses to read internal company documents or service level agreements.',
+     'It automatically deletes any client request that violates a standard rule.',
+     'It can\'t know your company\'s unwritten historical precedents unless you explicitly include them in the prompt.'
+   ],
    correct:2},
   {q:'What must you always remember about AI and exception approvals?',
-   opts:['Final exception decisions always require human authorization because the AI only provides analysis, not authority.','You must forward the AI\'s exact prompt to your legal team for archiving before you make a decision.','You should let the AI email the final approval directly to the client to save time.'],
+   opts:[
+     'Final exception decisions always require human authorization because the AI only provides analysis, not authority.',
+     'You must forward the AI\'s exact prompt to your legal team for archiving before you make a decision.',
+     'You should let the AI email the final approval directly to the client to save time.'
+   ],
    correct:0},
   {q:'What is the first step in the workflow for evaluating an edge case?',
-   opts:['Ask Claude to rewrite your company\'s terms of service to fit the client.','Grab the client\'s specific exception request so you know exactly what they are asking for.','Escalate the raw email immediately to your manager before looking at the policy.'],
+   opts:[
+     'Ask Claude to rewrite your company\'s terms of service to fit the client.',
+     'Grab the client\'s specific exception request so you know exactly what they are asking for.',
+     'Escalate the raw email immediately to your manager before looking at the policy.'
+   ],
    correct:1}
 ];
 function buildQuizHTML(){
@@ -463,7 +478,7 @@ function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted
 function showResult(){quizDone=true;render();}
 function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
 function copyPrompt(btn){var block=btn.closest('.prompt-block');var text=block.querySelector('.prompt-block-text').innerText;navigator.clipboard.writeText(text);btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);}
-function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
+function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
 function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
 function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
