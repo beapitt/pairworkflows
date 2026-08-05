@@ -7,7 +7,7 @@
   function renderFooter() {
     var footer = document.querySelector('footer');
     if (!footer) return;
-    footer.style.cssText = 'background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0';
+    footer.style.cssText = 'background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0; width:100vw; position:relative; left:50%; right:50%; margin-left:-50vw; margin-right:-50vw';
     footer.innerHTML = `
 <div style="max-width:1100px; margin:0 auto">
 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
