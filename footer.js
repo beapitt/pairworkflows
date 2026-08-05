@@ -1,4 +1,9 @@
 (function() {
+  // Inject CSS fix for layout
+  var style = document.createElement('style');
+  style.textContent = '.course-wrap{max-width:1100px!important;margin:0 auto!important;padding:2rem 1rem!important;display:block!important}.course-shell{border-radius:16px!important;border:1px solid #e8ecef!important;overflow:hidden!important;display:grid!important;grid-template-columns:240px 1fr!important;margin:0!important;max-width:none!important}.section-hero{margin:0!important;border-radius:0!important}';
+  document.head.appendChild(style);
+
   function renderFooter() {
     var footer = document.querySelector('footer');
     if (!footer) return;
@@ -67,6 +72,7 @@
 </div>
 </div>`;
   }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', renderFooter);
   } else {
