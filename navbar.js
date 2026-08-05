@@ -271,32 +271,32 @@
 
           <!-- GUIDES -->
           <div class="nav-dropdown">
-            <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('guides')" id="navDropdownToggle-guides">
-              Guides
+            <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('workflows')" id="navDropdownToggle-workflows">
+              Workflows
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </button>
-            <div class="nav-dropdown-menu" id="navDropdownMenu-guides" style="min-width:420px;">
-              <div class="nav-dropdown-label">📘 Claude Guides</div>
+            <div class="nav-dropdown-menu" id="navDropdownMenu-workflows" style="min-width:420px;">
+              <div class="nav-dropdown-label">📘 Claude Workflows</div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;padding:2px;">
-                <a href="https://www.pairworkflows.com/claude-finance-courses.html">Finance</a>
-                <a href="https://www.pairworkflows.com/claude-hr-courses.html">HR</a>
-                <a href="https://www.pairworkflows.com/claude-marketing-courses.html">Marketing</a>
-                <a href="https://www.pairworkflows.com/claude-legal-courses.html">Legal</a>
-                <a href="https://www.pairworkflows.com/claude-operations-courses.html">Operations</a>
-                <a href="https://www.pairworkflows.com/claude-sales-courses.html">Sales</a>
-                <a href="https://www.pairworkflows.com/claude-customer-service-courses.html">Customer Service</a>
-                <a href="https://www.pairworkflows.com/claude-excel-courses.html">Excel</a>
+                <a href="https://www.pairworkflows.com/claude-finance-workflows.html">Finance</a>
+                <a href="https://www.pairworkflows.com/claude-hr-workflows.html">HR</a>
+                <a href="https://www.pairworkflows.com/claude-marketing-workflows.html">Marketing</a>
+                <a href="https://www.pairworkflows.com/claude-legal-workflows.html">Legal</a>
+                <a href="https://www.pairworkflows.com/claude-operations-workflows.html">Operations</a>
+                <a href="https://www.pairworkflows.com/claude-sales-workflows.html">Sales</a>
+                <a href="https://www.pairworkflows.com/claude-customer-service-workflows.html">Customer Service</a>
+                <a href="https://www.pairworkflows.com/claude-excel-workflows.html">Excel</a>
               </div>
               <div class="nav-dropdown-divider"></div>
-              <div class="nav-dropdown-label">✨ Gemini Guides</div>
+              <div class="nav-dropdown-label">✨ Gemini Workflows</div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;padding:2px;">
-                <a href="https://www.pairworkflows.com/gemini-finance-courses.html">Finance</a>
-                <a href="https://www.pairworkflows.com/gemini-hr-courses.html">HR</a>
-                <a href="https://www.pairworkflows.com/gemini-marketing-courses.html">Marketing</a>
-                <a href="https://www.pairworkflows.com/gemini-legal-courses.html">Legal</a>
-                <a href="https://www.pairworkflows.com/gemini-operations-courses.html">Operations</a>
-                <a href="https://www.pairworkflows.com/gemini-sales-courses.html">Sales</a>
-                <a href="https://www.pairworkflows.com/gemini-customer-service-courses.html">Customer Service</a>
+                <a href="https://www.pairworkflows.com/gemini-finance-workflows.html">Finance</a>
+                <a href="https://www.pairworkflows.com/gemini-hr-workflows.html">HR</a>
+                <a href="https://www.pairworkflows.com/gemini-marketing-workflows.html">Marketing</a>
+                <a href="https://www.pairworkflows.com/gemini-legal-workflows.html">Legal</a>
+                <a href="https://www.pairworkflows.com/gemini-operations-workflows.html">Operations</a>
+                <a href="https://www.pairworkflows.com/gemini-sales-workflows.html">Sales</a>
+                <a href="https://www.pairworkflows.com/gemini-customer-service-workflows.html">Customer Service</a>
                 </div>
             </div>
           </div>
@@ -358,25 +358,25 @@
       </div>
       <div class="nav-mobile-divider"></div>
       <div class="nav-mobile-section">
-        <div class="nav-mobile-label">Claude Guides</div>
-        <a href="https://www.pairworkflows.com/claude-finance-courses.html">Finance</a>
-        <a href="https://www.pairworkflows.com/claude-hr-courses.html">HR</a>
-        <a href="https://www.pairworkflows.com/claude-marketing-courses.html">Marketing</a>
-        <a href="https://www.pairworkflows.com/claude-legal-courses.html">Legal</a>
-        <a href="https://www.pairworkflows.com/claude-operations-courses.html">Operations</a>
-        <a href="https://www.pairworkflows.com/claude-sales-courses.html">Sales</a>
-        <a href="https://www.pairworkflows.com/claude-customer-service-courses.html">Customer Service</a>
-        <a href="https://www.pairworkflows.com/claude-excel-courses.html">Excel</a>
+        <div class="nav-mobile-label">Claude Workflows</div>
+        <a href="https://www.pairworkflows.com/claude-finance-workflows.html">Finance</a>
+        <a href="https://www.pairworkflows.com/claude-hr-workflows.html">HR</a>
+        <a href="https://www.pairworkflows.com/claude-marketing-workflows.html">Marketing</a>
+        <a href="https://www.pairworkflows.com/claude-legal-workflows.html">Legal</a>
+        <a href="https://www.pairworkflows.com/claude-operations-workflows.html">Operations</a>
+        <a href="https://www.pairworkflows.com/claude-sales-workflows.html">Sales</a>
+        <a href="https://www.pairworkflows.com/claude-customer-service-workflows.html">Customer Service</a>
+        <a href="https://www.pairworkflows.com/claude-excel-workflows.html">Excel</a>
         <div class="nav-mobile-divider"></div>
-        <div class="nav-mobile-label">Gemini Guides</div>
-        <a href="https://www.pairworkflows.com/gemini-finance-courses.html">Finance</a>
-        <a href="https://www.pairworkflows.com/gemini-hr-courses.html">HR</a>
-        <a href="https://www.pairworkflows.com/gemini-marketing-courses.html">Marketing</a>
-        <a href="https://www.pairworkflows.com/gemini-legal-courses.html">Legal</a>
-        <a href="https://www.pairworkflows.com/gemini-operations-courses.html">Operations</a>
-        <a href="https://www.pairworkflows.com/gemini-sales-courses.html">Sales</a>
-        <a href="https://www.pairworkflows.com/gemini-customer-service-courses.html">Customer Service</a>
-        <a href="https://www.pairworkflows.com/gemini-general-courses.html">General</a>
+        <div class="nav-mobile-label">Gemini Workflows</div>
+        <a href="https://www.pairworkflows.com/gemini-finance-workflows.html">Finance</a>
+        <a href="https://www.pairworkflows.com/gemini-hr-workflows.html">HR</a>
+        <a href="https://www.pairworkflows.com/gemini-marketing-workflows.html">Marketing</a>
+        <a href="https://www.pairworkflows.com/gemini-legal-workflows.html">Legal</a>
+        <a href="https://www.pairworkflows.com/gemini-operations-workflows.html">Operations</a>
+        <a href="https://www.pairworkflows.com/gemini-sales-workflows.html">Sales</a>
+        <a href="https://www.pairworkflows.com/gemini-customer-service-workflows.html">Customer Service</a>
+        <a href="https://www.pairworkflows.com/gemini-workflows.html">General</a>
       </div>
       <div class="nav-mobile-divider"></div>
       <div class="nav-mobile-section">
