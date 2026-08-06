@@ -410,8 +410,8 @@ input[type="color"]::-webkit-color-swatch{border:2px solid var(--border);border-
 const state = {
   profession:'', otherProfession:'',
   goal:'', style:'',
-  color:'', colorCustom:'',
-  color2:'none', color2Custom:'',
+  color:'', colorCustom:'#cccccc',
+  color2:'none', color2Custom:'#cccccc',
   sections:['Hero','About','Contact'],
   cta:'', content:'', features:[], tech:'', name:''
 };
@@ -525,7 +525,7 @@ function validate(s) {
   if (s===2 && !state.goal) { alert('Please select a goal.'); return false; }
   if (s===3 && !state.style) { alert('Please select a style.'); return false; }
   if (s===4 && !state.color) { alert('Please select a primary color.'); return false; }
-  if (s===4 && state.color==='custom-primary' && !state.colorCustom) { alert('Please enter a hex color code.'); return false; }
+  if (s===4 && state.color==='custom-primary' && !state.colorCustom) { state.colorCustom = document.getElementById('primary-color-picker').value; }
   if (s===5 && state.sections.length===0) { alert('Please select at least one section.'); return false; }
   if (s===6 && !state.cta) { alert('Please select a call to action.'); return false; }
   if (s===7 && !state.content) { alert('Please select a content option.'); return false; }
@@ -615,6 +615,7 @@ DESIGN
 - Overall style: ${state.style}
 ${colorLine}
 - Visual feel: The design should immediately communicate ${state.style.toLowerCase()} — use appropriate typography, spacing, and layout to support this mood.
+- Maintain this style consistently across typography, spacing, colors, buttons, cards, icons, and animations — not just the hero section.
 
 SECTIONS (in this order)
 ${state.sections.join(', ')}
@@ -634,6 +635,9 @@ IMAGES
 - Include placeholder <img> tags with descriptive alt text and src="your-photo.jpg" (or "portfolio-1.jpg", etc.) so the user can easily replace them.
 - If a Portfolio or Gallery section is included, create 6 image placeholders by default.
 
+PLANNING
+Before writing any code, internally plan the best website structure, visual hierarchy, and user experience based on these requirements. Then generate the complete implementation.
+
 TECHNOLOGY
 - Build using: ${state.tech}
 - Output the complete, working code. If using HTML/CSS/JS, output a single self-contained .html file. If using a framework, provide the full file structure and all necessary files.
@@ -645,7 +649,7 @@ IMPORTANT INSTRUCTIONS
 - Make reasonable, tasteful assumptions for any detail not specified.
 - Do not stop halfway or ask for confirmation.
 - Do not use any external paid services or APIs.
-- The final result must be a polished, professional website ready to deploy.`;
+- The final result should look like a premium website built by an experienced web designer, not an AI-generated template.`;
 }
 
 function showOutput() {
