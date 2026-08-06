@@ -595,17 +595,17 @@ var heroes=[
 ];
 var quiz=[
   {q:'You paste a month of bank transactions into Claude and one row just says "AMZN MKTP – $214.60". What should Claude do?',
-   opts:['Categorize it as Office & Equipment — Amazon is always a business expense','Flag it as "Review needed" with a note asking whether it\'s business or personal','Skip it and only process rows it\'s certain about'],
-   correct:1},
+   opts:['Categorize it as Office & Equipment — Amazon is always a business expense','Skip it and only process rows it\'s certain about','Flag it as "Review needed" with a note asking whether it\'s business or personal'],
+   correct:2},
   {q:'You want Claude\'s categorized output to import cleanly into QuickBooks. What\'s the most important thing to include in your prompt?',
-   opts:['Your QuickBooks account names and codes, so Claude uses them exactly','A list of every transaction from the past 12 months','Your accountant\'s email address'],
-   correct:0},
-  {q:'Which two prompts from this course work best when used together in sequence?',
-   opts:['The invoice tracker and the P&L — run them at the same time','The transaction categorizer and the P&L — the category totals from prompt 1 become the input for prompt 3','The transaction categorizer and the invoice tracker — they share the same output format'],
+   opts:['Your accountant\'s email address','Your QuickBooks account names and codes, so Claude uses them exactly','A list of every transaction from the past 12 months'],
    correct:1},
+  {q:'Which two prompts from this course work best when used together in sequence?',
+   opts:['The transaction categorizer and the P&L — the category totals from prompt 1 become the input for prompt 3','The invoice tracker and the P&L — run them at the same time','The transaction categorizer and the invoice tracker — they share the same output format'],
+   correct:0},
   {q:'A client asks if Claude can file their taxes using this bookkeeping workflow. What\'s the correct answer?',
-   opts:['Yes — if the categories match their tax return, Claude can prepare the filing','No — Claude organizes and formats the records, but tax filing still needs a qualified accountant','Yes, but only for sole traders with straightforward returns'],
-   correct:1}
+   opts:['Yes — if the categories match their tax return, Claude can prepare the filing','Yes, but only for sole traders with straightforward returns','No — Claude organizes and formats the records, but tax filing still needs a qualified accountant'],
+   correct:2}
 ];
 function buildQuizHTML(){
   if(quizDone){
