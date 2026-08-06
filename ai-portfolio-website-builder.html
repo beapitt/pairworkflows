@@ -109,6 +109,14 @@ input[type="color"]::-webkit-color-swatch{border:2px solid var(--border);border-
 .success-note{background:var(--green-light);border:1px solid #b7e4d3;border-radius:var(--radius-sm);padding:14px 16px;font-size:13px;color:var(--green-dark);line-height:1.6;margin-bottom:16px;text-align:center}
 .restart-btn{background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:13px;font-family:'Inter',sans-serif;text-decoration:underline;display:block;margin:8px auto 0;transition:color 0.15s}
 .restart-btn:hover{color:var(--text)}
+.next-steps{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-bottom:16px}
+.next-steps-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.next-step-item{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px}
+.next-step-item:last-child{margin-bottom:0}
+.next-step-num{width:24px;height:24px;background:var(--green);color:white;border-radius:50%;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.next-step-text{font-size:13px;color:var(--text-muted);line-height:1.6}
+.next-step-text strong{color:var(--text)}
+.next-step-text code{background:#f3f4f6;border:1px solid var(--border);border-radius:4px;padding:1px 6px;font-size:12px;color:var(--green-dark);font-family:'SFMono-Regular',Consolas,monospace}
 .section-divider{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin:16px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
 
 @media(max-width:600px){
@@ -400,6 +408,31 @@ input[type="color"]::-webkit-color-swatch{border:2px solid var(--border);border-
         <button class="btn-copy" id="copy-btn" onclick="copyPrompt()">📋 Copy prompt</button>
         <a href="https://claude.ai" target="_blank" class="claude-link">Open Claude AI →</a>
       </div>
+
+      <div class="next-steps">
+        <div class="next-steps-title">📋 What to do after pasting the prompt</div>
+        <div class="next-step-item">
+          <div class="next-step-num">1</div>
+          <div class="next-step-text"><strong>Paste into Claude or ChatGPT</strong> — Claude will generate a complete, self-contained HTML file. Copy all the code it returns.</div>
+        </div>
+        <div class="next-step-item">
+          <div class="next-step-num">2</div>
+          <div class="next-step-text"><strong>Save the code as <code>index.html</code></strong> — open a text editor (Notepad, TextEdit, VS Code), paste the code, and save the file.</div>
+        </div>
+        <div class="next-step-item">
+          <div class="next-step-num">3</div>
+          <div class="next-step-text"><strong>Add your images</strong> — rename your profile photo <code>your-photo.jpg</code> and your portfolio images <code>portfolio-1.jpg</code>, <code>portfolio-2.jpg</code>, etc. Put them in the same folder as <code>index.html</code>.</div>
+        </div>
+        <div class="next-step-item">
+          <div class="next-step-num">4</div>
+          <div class="next-step-text"><strong>Replace the placeholder text</strong> — open <code>index.html</code> in a text editor and search for <code>[PLACEHOLDER]</code> to find all the text to update.</div>
+        </div>
+        <div class="next-step-item">
+          <div class="next-step-num">5</div>
+          <div class="next-step-text"><strong>Open in your browser</strong> — double-click <code>index.html</code> to preview your site. To publish it online, upload the folder to any web host.</div>
+        </div>
+      </div>
+
       <button class="restart-btn" onclick="restart()">← Start over</button>
     </div>
 
