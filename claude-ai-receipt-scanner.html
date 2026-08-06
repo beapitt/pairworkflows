@@ -574,17 +574,17 @@ var heroes=[
 ];
 var quiz=[
   {q:'You tell Claude to use specific expense categories in your prompt. What happens if an expense doesn\'t fit any of them?',
-   opts:['Claude invents a new category automatically','Claude puts the expense in "Other" or flags it in the Notes column','Claude refuses to process that expense'],
-   correct:1},
-  {q:'You\'re on the free Claude plan. What\'s the best way to process a paper receipt?',
-   opts:['Upload a photo — this works on all plans','Type or paste the key details: vendor, date, and amount','Use a dedicated app instead — Claude can\'t handle receipts on the free plan'],
-   correct:1},
-  {q:'Claude flags an IKEA purchase as "Check with accountant" for deductibility. What should you do?',
-   opts:['Ignore it — Claude is usually wrong about this','Mark it as deductible anyway to save time','Follow up with your accountant before filing'],
+   opts:['Claude invents a new category automatically','Claude refuses to process that expense','Claude puts the expense in "Other" or flags it in the Notes column'],
    correct:2},
+  {q:'You\'re on the free Claude plan. What\'s the best way to process a paper receipt?',
+   opts:['Type or paste the key details: vendor, date, and amount','Upload a photo — this works on all plans','Use a dedicated app instead — Claude can\'t handle receipts on the free plan'],
+   correct:0},
+  {q:'Claude flags an IKEA purchase as "Check with accountant" for deductibility. What should you do?',
+   opts:['Ignore it — Claude is usually wrong about this','Follow up with your accountant before filing','Mark it as deductible anyway to save time'],
+   correct:1},
   {q:'You want to build a full-year expense log using Claude. What\'s the right approach?',
-   opts:['Run one giant prompt in December with all 12 months of receipts at once','Process receipts in batches (e.g. monthly) and paste each output into a running spreadsheet','Ask Claude to store your expense data between sessions'],
-   correct:1}
+   opts:['Process receipts in batches (e.g. monthly) and paste each output into a running spreadsheet','Ask Claude to store your expense data between sessions','Run one giant prompt in December with all 12 months of receipts at once'],
+   correct:0}
 ];
 function buildQuizHTML(){
   if(quizDone){
