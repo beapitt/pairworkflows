@@ -269,6 +269,18 @@
           <!-- PROMPT LIBRARY -->
           <a href="https://www.pairworkflows.com/prompt-library.html" class="nav-dropdown-toggle" style="text-decoration:none">Prompt Library</a>
 
+          <!-- SITE BUILDER -->
+          <div class="nav-dropdown">
+            <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('builder')" id="navDropdownToggle-builder">
+              Site Builder
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="nav-dropdown-menu" id="navDropdownMenu-builder">
+              <div class="nav-dropdown-label">🏗️ AI Site Builders</div>
+              <a href="https://www.pairworkflows.com/ai-portfolio-website-builder.html">Portfolio Site Builder</a>
+            </div>
+          </div>
+
           <!-- GUIDES -->
           <div class="nav-dropdown">
             <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('workflows')" id="navDropdownToggle-workflows">
@@ -355,6 +367,11 @@
         <a href="https://www.pairworkflows.com/claude-prompts-operations.html">Operations</a>
         <a href="https://www.pairworkflows.com/claude-prompts-legal.html">Legal</a>
         <a href="https://www.pairworkflows.com/prompt-library.html">Prompt Library</a>
+      </div>
+      <div class="nav-mobile-divider"></div>
+      <div class="nav-mobile-section">
+        <div class="nav-mobile-label">Site Builder</div>
+        <a href="https://www.pairworkflows.com/ai-portfolio-website-builder.html">🏗️ Portfolio Site Builder</a>
       </div>
       <div class="nav-mobile-divider"></div>
       <div class="nav-mobile-section">
