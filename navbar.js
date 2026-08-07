@@ -112,32 +112,6 @@
       min-width: 380px;
       left: 0;
     }
-    .workflows-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-      padding: 2px;
-    }
-    .workflows-grid a {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      color: #374151;
-      text-decoration: none;
-      padding: 9px 12px;
-      border-radius: 6px;
-      transition: all .15s;
-      white-space: nowrap;
-    }
-    .workflows-grid a:hover {
-      color: #111827;
-      background: #f3f4f6;
-    }
-    .workflows-grid a .wf-icon {
-      font-size: 15px;
-      flex-shrink: 0;
-    }
     .search-trigger {
       width: 32px;
       height: 32px;
@@ -247,7 +221,7 @@
       <div class="nav-right">
         <div class="nav-desktop-links" style="display:flex;align-items:center;gap:4px;">
 
-          <!-- GUIDES -->
+          <!-- WORKFLOWS -->
           <div class="nav-dropdown">
             <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('workflows')" id="navDropdownToggle-workflows">
               Workflows
@@ -275,11 +249,9 @@
                 <a href="https://www.pairworkflows.com/gemini-operations-workflows.html">Operations</a>
                 <a href="https://www.pairworkflows.com/gemini-sales-workflows.html">Sales</a>
                 <a href="https://www.pairworkflows.com/gemini-customer-service-workflows.html">Customer Service</a>
-                </div>
+              </div>
             </div>
           </div>
-
-          <!-- COMPARE AI -->
 
           <!-- PROMPT BUILDER -->
           <div class="nav-dropdown">
@@ -303,20 +275,19 @@
           <!-- PROMPT LIBRARY -->
           <a href="https://www.pairworkflows.com/prompt-library.html" class="nav-dropdown-toggle" style="text-decoration:none">Prompt Library</a>
 
-          <!-- SITE BUILDER -->
+          <!-- WEBSITE PROMPTS -->
           <div class="nav-dropdown">
             <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('builder')" id="navDropdownToggle-builder">
-              Site Builder
+              Website Prompts
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </button>
             <div class="nav-dropdown-menu" id="navDropdownMenu-builder">
-              <div class="nav-dropdown-label">🏗️ AI Site Builders</div>
-              <a href="https://www.pairworkflows.com/ai-portfolio-website-builder.html">Portfolio Site Builder</a>
-              <a href="https://www.pairworkflows.com/ai-restaurant-website-builder.html">🍽️ Restaurant Website Builder</a>
+              <div class="nav-dropdown-label">🌐 Build a site with AI</div>
+              <a href="https://www.pairworkflows.com/ai-portfolio-website-builder.html">🏗️ Portfolio Site</a>
+              <a href="https://www.pairworkflows.com/ai-restaurant-website-builder.html">🍽️ Restaurant Site</a>
             </div>
           </div>
 
-          <!-- GUIDES -->
           <!-- COMPARE AI -->
           <div class="nav-dropdown">
             <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('compare')" id="navDropdownToggle-compare">
@@ -327,19 +298,6 @@
               <a href="https://www.pairworkflows.com/claude-vs-gemini.html">Claude vs Gemini</a>
               <a href="https://www.pairworkflows.com/claude-vs-gemini-finance.html">Claude vs Gemini Finance</a>
               <a href="https://www.pairworkflows.com/claude-vs-copilot-excel.html">Claude vs Copilot Excel</a>
-            </div>
-          </div>
-
-          <!-- TEMPLATES -->
-          <div class="nav-dropdown">
-            <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('templates')" id="navDropdownToggle-templates">
-              Templates
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </button>
-            <div class="nav-dropdown-menu" id="navDropdownMenu-templates">
-              <div class="nav-dropdown-label">📥 Free Excel Templates</div>
-              <a href="https://www.pairworkflows.com/car-loan-template.html">Car Loan Amortization Schedule</a>
-              <a href="https://www.pairworkflows.com/kpi-dashboard-template.html">KPI Dashboard Excel</a>
             </div>
           </div>
 
@@ -374,8 +332,9 @@
       </div>
       <div class="nav-mobile-divider"></div>
       <div class="nav-mobile-section">
-        <div class="nav-mobile-label">Site Builder</div>
-        <a href="https://www.pairworkflows.com/ai-portfolio-website-builder.html">🏗️ Portfolio Site Builder</a>
+        <div class="nav-mobile-label">Website Prompts</div>
+        <a href="https://www.pairworkflows.com/ai-portfolio-website-builder.html">🏗️ Portfolio Site</a>
+        <a href="https://www.pairworkflows.com/ai-restaurant-website-builder.html">🍽️ Restaurant Site</a>
       </div>
       <div class="nav-mobile-divider"></div>
       <div class="nav-mobile-section">
@@ -397,7 +356,6 @@
         <a href="https://www.pairworkflows.com/gemini-operations-workflows.html">Operations</a>
         <a href="https://www.pairworkflows.com/gemini-sales-workflows.html">Sales</a>
         <a href="https://www.pairworkflows.com/gemini-customer-service-workflows.html">Customer Service</a>
-        <a href="https://www.pairworkflows.com/gemini-workflows.html">General</a>
       </div>
       <div class="nav-mobile-divider"></div>
       <div class="nav-mobile-section">
@@ -405,12 +363,6 @@
         <a href="https://www.pairworkflows.com/claude-vs-gemini.html">Claude vs Gemini</a>
         <a href="https://www.pairworkflows.com/claude-vs-gemini-finance.html">Claude vs Gemini Finance</a>
         <a href="https://www.pairworkflows.com/claude-vs-copilot-excel.html">Claude vs Copilot Excel</a>
-      </div>
-      <div class="nav-mobile-divider"></div>
-      <div class="nav-mobile-section">
-        <div class="nav-mobile-label">Templates</div>
-        <a href="https://www.pairworkflows.com/car-loan-template.html">Car Loan Amortization Schedule</a>
-        <a href="https://www.pairworkflows.com/kpi-dashboard-template.html">KPI Dashboard Excel</a>
       </div>
     </div>
   `;
