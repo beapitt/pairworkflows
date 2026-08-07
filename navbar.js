@@ -312,6 +312,7 @@
             <div class="nav-dropdown-menu" id="navDropdownMenu-builder">
               <div class="nav-dropdown-label">🏗️ AI Site Builders</div>
               <a href="https://www.pairworkflows.com/ai-portfolio-website-builder.html">Portfolio Site Builder</a>
+              <a href="https://www.pairworkflows.com/ai-restaurant-website-builder.html">Restaurant Website Builder</a>
             </div>
           </div>
 
@@ -375,6 +376,7 @@
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Site Builder</div>
         <a href="https://www.pairworkflows.com/ai-portfolio-website-builder.html">🏗️ Portfolio Site Builder</a>
+        <a href="https://www.pairworkflows.com/ai-restaurant-website-builder.html">🍕 Restaurant Website Builder</a>
       </div>
       <div class="nav-mobile-divider"></div>
       <div class="nav-mobile-section">
