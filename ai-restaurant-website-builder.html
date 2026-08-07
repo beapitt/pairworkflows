@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free AI Restaurant Website Builder — Generate Your Prompt | PairWorkflows</title>
+<meta name="description" content="Answer 10 questions and get a ready-to-use AI prompt to build your restaurant website. Works with Claude, ChatGPT and more. Free, no signup.">
+<link rel="canonical" href="https://www.pairworkflows.com/ai-restaurant-website-builder.html">
+<meta property="og:title" content="Free AI Restaurant Website Builder | PairWorkflows">
+<meta property="og:description" content="Answer 10 questions and get a ready-to-use AI prompt to build your restaurant website. Free, no signup.">
+<meta property="og:url" content="https://www.pairworkflows.com/ai-restaurant-website-builder.html">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="/navbar.js" defer></script>
+<script src="/footer.js" defer></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal:#00ccbc;--teal-dark:#00a39b;--teal-light:#e6faf9;
+  --text:#2e3333;--text-muted:#696969;--text-light:#9e9e9e;
+  --border:#e8e8e8;--bg:#f8f9fa;--white:#ffffff;
+  --radius:16px;--radius-sm:10px;--radius-pill:50px;
+  --shadow:0 2px 8px rgba(0,0,0,0.08);--shadow-hover:0 8px 24px rgba(0,0,0,0.14);
+}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+.page-wrap{max-width:780px;margin:0 auto;width:100%;padding:3rem 1rem 5rem;flex:1}
+
+/* Hero */
+.hero{text-align:center;margin-bottom:3rem}
+.hero-icon{font-size:56px;display:block;margin-bottom:16px;line-height:1}
+.hero h1{font-size:clamp(26px,5vw,40px);font-weight:800;color:var(--text);line-height:1.15;margin-bottom:14px;letter-spacing:-0.5px}
+.hero h1 span{color:var(--teal-dark)}
+
+.mechanism{
+  display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius-pill);padding:10px 20px;
+  font-size:14px;font-weight:600;color:var(--text-muted);
+  margin-bottom:16px;box-shadow:var(--shadow);
+}
+.mechanism .arrow{color:var(--teal);font-size:16px}
+
+.hero p{font-size:16px;color:var(--text-muted);line-height:1.65;max-width:520px;margin:0 auto 20px}
+
+.compat-row{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.compat-label{font-size:12px;color:var(--text-light)}
+.compat-pill{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-pill);padding:3px 12px;font-size:12px;font-weight:600;color:var(--text-muted)}
+
+/* Choose label */
+.choose-label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);text-align:center;margin-bottom:16px}
+
+/* Type cards */
+.type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:3rem}
+
+.type-card{
+  background:var(--white);border:1.5px solid var(--border);
+  border-radius:var(--radius);padding:2rem 1.5rem;
+  text-align:center;text-decoration:none;color:var(--text);
+  transition:all 0.2s ease;display:flex;flex-direction:column;
+  align-items:center;gap:12px;box-shadow:var(--shadow);
+  position:relative;overflow:hidden;
+}
+.type-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  opacity:0;transition:opacity 0.2s;
+}
+.type-card:hover{border-color:var(--teal);transform:translateY(-4px);box-shadow:var(--shadow-hover)}
+.type-card:hover::before{opacity:1}
+
+.card-pizza::before{background:linear-gradient(90deg,#e8002d,#f97316)}
+.card-dining::before{background:linear-gradient(90deg,#1a1a2e,#4a5568)}
+.card-cafe::before{background:linear-gradient(90deg,#8b5e3c,#c8a882)}
+
+.type-icon{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px}
+.type-card h2{font-size:17px;font-weight:700;color:var(--text);line-height:1.3}
+.type-card p{font-size:13px;color:var(--text-muted);line-height:1.55}
+
+.type-cta{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--teal);color:white;
+  border-radius:var(--radius-pill);padding:9px 20px;
+  font-size:13px;font-weight:700;margin-top:4px;transition:background 0.15s;
+}
+.type-card:hover .type-cta{background:var(--teal-dark)}
+
+.coming-soon{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--bg);color:var(--text-light);
+  border:1px solid var(--border);
+  border-radius:var(--radius-pill);padding:8px 16px;
+  font-size:12px;font-weight:600;margin-top:4px;
+}
+
+/* How it works */
+.how{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;box-shadow:var(--shadow)}
+.how h2{font-size:18px;font-weight:700;color:var(--text);margin-bottom:20px;text-align:center}
+.steps-row{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.how-step{text-align:center}
+.how-num{width:36px;height:36px;background:var(--teal);color:white;border-radius:50%;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
+.how-step h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.how-step p{font-size:13px;color:var(--text-muted);line-height:1.5}
+
+@media(max-width:600px){
+  .type-grid{grid-template-columns:1fr;gap:12px}
+  .steps-row{grid-template-columns:1fr;gap:16px}
+  .page-wrap{padding:2rem 1rem 4rem}
+  .mechanism{font-size:12px;gap:6px;padding:8px 14px}
+}
+</style>
+</head>
+<body>
+
+<div id="navbar-placeholder"></div>
+
+<div class="page-wrap">
+
+  <div class="hero">
+    <span class="hero-icon">🍽️</span>
+    <h1>AI Restaurant<br><span>Website Builder</span></h1>
+    <div class="mechanism">
+      <span>Answer 10 questions</span>
+      <span class="arrow">→</span>
+      <span>Get a ready-to-use prompt</span>
+      <span class="arrow">→</span>
+      <span>Paste into Claude or ChatGPT</span>
+    </div>
+    <p>Choose your restaurant type below. Each builder asks only the questions that matter for your business — no generic forms, no wasted time.</p>
+    <div class="compat-row">
+      <span class="compat-label">Works with</span>
+      <span class="compat-pill">Claude AI</span>
+      <span class="compat-pill">ChatGPT</span>
+      <span class="compat-pill">GitHub Copilot</span>
+    </div>
+  </div>
+
+  <div class="choose-label">Choose your restaurant type</div>
+
+  <div class="type-grid">
+
+    <a href="/ai-pizza-website-builder.html" class="type-card card-pizza">
+      <div class="type-icon" style="background:#fff3e0">🍕</div>
+      <h2>Pizza & Takeaway</h2>
+      <p>Fast ordering, delivery partners, menu visibility. Built for speed and convenience.</p>
+      <span class="type-cta">Start building →</span>
+    </a>
+
+    <div class="type-card card-dining" style="opacity:0.7;cursor:default">
+      <div class="type-icon" style="background:#f5f5f5">🍽️</div>
+      <h2>Fine Dining</h2>
+      <p>Reservations, chef story, wine list, tasting menu. Built for premium experience.</p>
+      <span class="coming-soon">Coming soon</span>
+    </div>
+
+    <div class="type-card card-cafe" style="opacity:0.7;cursor:default">
+      <div class="type-icon" style="background:#fdf6ec">☕</div>
+      <h2>Café & Bakery</h2>
+      <p>Ambiance, daily specials, brunch menu. Built for atmosphere and casual visits.</p>
+      <span class="coming-soon">Coming soon</span>
+    </div>
+
+  </div>
+
+  <div class="how">
+    <h2>How it works</h2>
+    <div class="steps-row">
+      <div class="how-step">
+        <div class="how-num">1</div>
+        <h3>Answer 10 questions</h3>
+        <p>Click your answers — no typing except your restaurant name and details.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">2</div>
+        <h3>Get your prompt</h3>
+        <p>We generate a detailed, ready-to-use prompt in seconds — no back-and-forth.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">3</div>
+        <h3>Paste into Claude</h3>
+        <p>Claude builds your complete site without asking any questions.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer></footer>
+</body>
+</html>
