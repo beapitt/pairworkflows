@@ -1194,10 +1194,49 @@ input[type="color"]::-webkit-color-swatch { border: 2px solid var(--border); bor
     <div class="step" id="step-12">
       <div class="data-step-badge">📋 Your real details</div>
       <div class="step-eyebrow">Your details — 3 of 3</div>
-      <div class="step-title">Add your dishes 🍽️</div>
-      <div class="step-sub">Add as many as you like. If you skip this, Claude will generate example dishes.</div>
+      <div class="step-title">Final details 🍽️</div>
+      <div class="step-sub">Add your menu and any other info — only sections you selected are shown here.</div>
+
+      <!-- MENU -->
+      <div class="section-divider">Your menu dishes <span style="font-weight:400;color:var(--text-light)">(optional — Claude generates examples if empty)</span></div>
       <div class="dishes-list" id="dishes-list"></div>
       <button class="btn-add-dish" onclick="addDish()">+ Add a dish</button>
+
+      <!-- SPECIAL OFFERS — shown only if selected -->
+      <div id="field-special-offers" style="display:none">
+        <div class="section-divider">Special Offers</div>
+        <div class="form-group">
+          <label class="form-label">Describe your current offers <span class="form-optional">(optional)</span></label>
+          <textarea class="form-input" id="info-special-offers" rows="2"
+            placeholder="e.g. Every Tuesday: 2 pizzas for the price of 1. Family meal deal: 2 mains + dessert for £25."
+            style="resize:vertical;min-height:60px;line-height:1.5"></textarea>
+        </div>
+      </div>
+
+      <!-- DELIVERY AREAS — shown only if selected -->
+      <div id="field-delivery-areas" style="display:none">
+        <div class="section-divider">Delivery Areas</div>
+        <div class="form-group">
+          <label class="form-label">Which areas do you deliver to? <span class="form-optional">(optional)</span></label>
+          <input type="text" class="form-input" id="info-delivery-areas"
+            placeholder="e.g. Terni, Narni, Amelia — free delivery over €20, minimum order €15">
+        </div>
+      </div>
+
+      <!-- CUSTOMER REVIEWS — shown only if selected -->
+      <div id="field-customer-reviews" style="display:none">
+        <div class="section-divider">Customer Reviews <span style="font-weight:400;color:var(--text-light)">(optional — Claude generates examples if empty)</span></div>
+        <div id="reviews-list"></div>
+        <button class="btn-add-dish" onclick="addReview()" style="margin-bottom:16px">+ Add a review</button>
+      </div>
+
+      <!-- FAQ — shown only if selected -->
+      <div id="field-faq" style="display:none">
+        <div class="section-divider">FAQ <span style="font-weight:400;color:var(--text-light)">(optional — Claude generates examples if empty)</span></div>
+        <div id="faqs-list"></div>
+        <button class="btn-add-dish" onclick="addFaq()" style="margin-bottom:16px">+ Add a question</button>
+      </div>
+
       <div class="nav">
         <button class="btn btn-secondary" onclick="prev(12)">← Back</button>
         <button class="btn btn-primary" onclick="next(12)">Review my answers →</button>
@@ -1278,6 +1317,8 @@ const state = {
   orderingLinks:{},
   socialInstagram:'', socialFacebook:'', socialTiktok:'', socialWhatsapp:'',
   dishes:[],
+  specialOffers:'', deliveryAreas:'',
+  reviews:[], faqs:[],
   sections:['Hero','Menu','Contact','Opening Hours'],
   style:'',
   palette: { name:'', bg:'', text:'', accent:'', btn:'', card:'' },
@@ -1418,7 +1459,6 @@ function showStep(n) {
     });
   }
   if (n === 10) {
-    // Restore info fields
     var info = [
       ['info-address','address'],['info-phone','phone'],
       ['info-email','email'],['info-hours','hours'],['info-story','story']
@@ -1427,6 +1467,24 @@ function showStep(n) {
       var el = document.getElementById(s[0]);
       if (el && state[s[1]]) el.value = state[s[1]];
     });
+  }
+  if (n === 12) {
+    // Show optional fields only if section was selected
+    var optFields = {
+      'Special Offers': 'field-special-offers',
+      'Delivery Areas': 'field-delivery-areas',
+      'Customer Reviews': 'field-customer-reviews',
+      'FAQ': 'field-faq'
+    };
+    Object.keys(optFields).forEach(function(section) {
+      var el = document.getElementById(optFields[section]);
+      if (el) el.style.display = state.sections.indexOf(section) > -1 ? 'block' : 'none';
+    });
+    // Restore saved values
+    var so = document.getElementById('info-special-offers');
+    if (so && state.specialOffers) so.value = state.specialOffers;
+    var da = document.getElementById('info-delivery-areas');
+    if (da && state.deliveryAreas) da.value = state.deliveryAreas;
   }
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
   const el = document.getElementById('step-' + n);
@@ -1456,7 +1514,8 @@ function validate(s) {
 function saveInfoFields() {
   var fields = [
     ['info-address','address'],['info-phone','phone'],
-    ['info-email','email'],['info-hours','hours'],['info-story','story']
+    ['info-email','email'],['info-hours','hours'],['info-story','story'],
+    ['info-special-offers','specialOffers'],['info-delivery-areas','deliveryAreas']
   ];
   fields.forEach(function(f) {
     var el = document.getElementById(f[0]);
@@ -1802,6 +1861,120 @@ function removeDish(id) {
 function updateDish(id, field, value) {
   var dish = state.dishes.find(function(d) { return d.id === id; });
   if (dish) dish[field] = value;
+}
+
+var reviewCount = 0;
+function addReview() {
+  reviewCount++;
+  var id = reviewCount;
+  state.reviews.push({ id: id, name: '', text: '' });
+  var list = document.getElementById('reviews-list');
+  var card = document.createElement('div');
+  card.className = 'dish-card';
+  card.id = 'review-card-' + id;
+
+  var nameInput = document.createElement('input');
+  nameInput.type = 'text'; nameInput.className = 'form-input';
+  nameInput.placeholder = 'e.g. Maria G.';
+  nameInput.style.marginBottom = '8px';
+  nameInput.addEventListener('input', function() {
+    var r = state.reviews.find(function(r){ return r.id === id; });
+    if (r) r.name = this.value;
+  });
+
+  var textInput = document.createElement('textarea');
+  textInput.className = 'form-input';
+  textInput.placeholder = 'e.g. Best pizza in town! The Margherita is incredible, fresh ingredients and perfect crust.';
+  textInput.rows = 2;
+  textInput.style.resize = 'vertical';
+  textInput.addEventListener('input', function() {
+    var r = state.reviews.find(function(r){ return r.id === id; });
+    if (r) r.text = this.value;
+  });
+
+  var removeBtn = document.createElement('button');
+  removeBtn.className = 'dish-remove'; removeBtn.innerHTML = '&times;';
+  removeBtn.addEventListener('click', function() {
+    state.reviews = state.reviews.filter(function(r){ return r.id !== id; });
+    card.remove();
+  });
+
+  var header = document.createElement('div');
+  header.className = 'dish-card-header';
+  header.innerHTML = '<span class="dish-num">Review #' + id + '</span>';
+  header.appendChild(removeBtn);
+
+  var nameGroup = document.createElement('div');
+  nameGroup.className = 'form-group';
+  nameGroup.innerHTML = '<label class="form-label">Customer name</label>';
+  nameGroup.appendChild(nameInput);
+
+  var textGroup = document.createElement('div');
+  textGroup.className = 'form-group';
+  textGroup.innerHTML = '<label class="form-label">Review text</label>';
+  textGroup.appendChild(textInput);
+
+  card.appendChild(header);
+  card.appendChild(nameGroup);
+  card.appendChild(textGroup);
+  list.appendChild(card);
+}
+
+var faqCount = 0;
+function addFaq() {
+  faqCount++;
+  var id = faqCount;
+  state.faqs.push({ id: id, question: '', answer: '' });
+  var list = document.getElementById('faqs-list');
+  var card = document.createElement('div');
+  card.className = 'dish-card';
+  card.id = 'faq-card-' + id;
+
+  var qInput = document.createElement('input');
+  qInput.type = 'text'; qInput.className = 'form-input';
+  qInput.placeholder = 'e.g. Do you offer gluten-free options?';
+  qInput.style.marginBottom = '8px';
+  qInput.addEventListener('input', function() {
+    var f = state.faqs.find(function(f){ return f.id === id; });
+    if (f) f.question = this.value;
+  });
+
+  var aInput = document.createElement('textarea');
+  aInput.className = 'form-input';
+  aInput.placeholder = 'e.g. Yes! We have a dedicated gluten-free menu. Please inform us of any allergies when ordering.';
+  aInput.rows = 2;
+  aInput.style.resize = 'vertical';
+  aInput.addEventListener('input', function() {
+    var f = state.faqs.find(function(f){ return f.id === id; });
+    if (f) f.answer = this.value;
+  });
+
+  var removeBtn = document.createElement('button');
+  removeBtn.className = 'dish-remove'; removeBtn.innerHTML = '&times;';
+  removeBtn.addEventListener('click', function() {
+    state.faqs = state.faqs.filter(function(f){ return f.id !== id; });
+    card.remove();
+  });
+
+  var header = document.createElement('div');
+  header.className = 'dish-card-header';
+  header.innerHTML = '<span class="dish-num">Q&A #' + id + '</span>';
+  header.appendChild(removeBtn);
+
+  var qGroup = document.createElement('div');
+  qGroup.className = 'form-group';
+  qGroup.innerHTML = '<label class="form-label">Question</label>';
+  qGroup.appendChild(qInput);
+
+  var aGroup = document.createElement('div');
+  aGroup.className = 'form-group';
+  aGroup.innerHTML = '<label class="form-label">Answer</label>';
+  aGroup.appendChild(aInput);
+
+  card.appendChild(header);
+  card.appendChild(qGroup);
+  card.appendChild(aGroup);
+  list.appendChild(card);
 }
 
 // Bind info fields on load
