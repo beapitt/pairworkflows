@@ -897,26 +897,126 @@ input[type="color"]::-webkit-color-swatch { border: 2px solid var(--border); bor
       </div>
     </div>
 
-    <!-- STEP 5: Color -->
+    <!-- STEP 4: Color -->
     <div class="step" id="step-4">
       <div class="step-eyebrow">Step 4 of 9</div>
-      <div class="step-title">Pick your main color 🎨</div>
-      <div class="step-sub">The AI will build the full palette around this.</div>
-      <div class="color-grid" id="color-options">
-        <div class="color-opt" data-value="Red"><div class="swatch" style="background:#e8002d"></div><span class="color-name">Red</span></div>
-        <div class="color-opt" data-value="Orange"><div class="swatch" style="background:#f97316"></div><span class="color-name">Orange</span></div>
-        <div class="color-opt" data-value="Green"><div class="swatch" style="background:#22c55e"></div><span class="color-name">Green</span></div>
-        <div class="color-opt" data-value="Black"><div class="swatch" style="background:#111;border:2px solid #e5e7eb"></div><span class="color-name">Black</span></div>
-        <div class="color-opt" data-value="Blue"><div class="swatch" style="background:#3b82f6"></div><span class="color-name">Blue</span></div>
-        <div class="color-opt" data-value="Yellow"><div class="swatch" style="background:#eab308"></div><span class="color-name">Yellow</span></div>
-        <div class="color-opt" data-value="Purple"><div class="swatch" style="background:#a855f7"></div><span class="color-name">Purple</span></div>
-        <div class="color-opt" data-value="custom" id="custom-color-opt"><div class="swatch" id="custom-swatch" style="background:#cccccc"></div><span class="color-name">Custom</span></div>
+      <div class="step-title">Choose your colour palette 🎨</div>
+      <div class="step-sub">Select a preset or build your own custom palette.</div>
+      
+      <div class="palette-grid" id="palette-options">
+        <!-- Preset 1: Classic Italian -->
+        <div class="palette-card" data-palette="preset" data-bg="#f8f9fa" data-text="#212529" data-accent="#e8002d" data-btn="#e8002d" data-card="#ffffff">
+          <div class="palette-preview pp-bg" style="background:#f8f9fa">
+            <div class="pp-bar" style="background:#e8002d"></div>
+            <div class="pp-text" style="color:#212529">Aa</div>
+            <div class="pp-btn" style="background:#e8002d;color:#ffffff">Button</div>
+          </div>
+          <div class="palette-name">Classic Italian</div>
+          <div class="palette-desc">Red accent, light background</div>
+        </div>
+
+        <!-- Preset 2: Fresh & Natural -->
+        <div class="palette-card" data-palette="preset" data-bg="#f9fbfc" data-text="#1a202c" data-accent="#22c55e" data-btn="#22c55e" data-card="#ffffff">
+          <div class="palette-preview pp-bg" style="background:#f9fbfc">
+            <div class="pp-bar" style="background:#22c55e"></div>
+            <div class="pp-text" style="color:#1a202c">Aa</div>
+            <div class="pp-btn" style="background:#22c55e;color:#ffffff">Button</div>
+          </div>
+          <div class="palette-name">Fresh & Natural</div>
+          <div class="palette-desc">Green accent, crisp look</div>
+        </div>
+
+        <!-- Preset 3: Dark & Bold -->
+        <div class="palette-card" data-palette="preset" data-bg="#111827" data-text="#f9fafb" data-accent="#f97316" data-btn="#f97316" data-card="#1f2937">
+          <div class="palette-preview pp-bg" style="background:#111827">
+            <div class="pp-bar" style="background:#f97316"></div>
+            <div class="pp-text" style="color:#f9fafb">Aa</div>
+            <div class="pp-btn" style="background:#f97316;color:#ffffff">Button</div>
+          </div>
+          <div class="palette-name">Dark & Bold</div>
+          <div class="palette-desc">Dark mode, orange accent</div>
+        </div>
+
+        <!-- Preset 4: Bright & Cheerful -->
+        <div class="palette-card" data-palette="preset" data-bg="#fffbeb" data-text="#451a03" data-accent="#eab308" data-btn="#eab308" data-card="#ffffff">
+          <div class="palette-preview pp-bg" style="background:#fffbeb">
+            <div class="pp-bar" style="background:#eab308"></div>
+            <div class="pp-text" style="color:#451a03">Aa</div>
+            <div class="pp-btn" style="background:#eab308;color:#ffffff">Button</div>
+          </div>
+          <div class="palette-name">Bright & Cheerful</div>
+          <div class="palette-desc">Warm yellow, brown text</div>
+        </div>
+
+        <!-- Preset 5: Clean & Minimal -->
+        <div class="palette-card" data-palette="preset" data-bg="#ffffff" data-text="#000000" data-accent="#3b82f6" data-btn="#000000" data-card="#f3f4f6">
+          <div class="palette-preview pp-bg" style="background:#ffffff">
+            <div class="pp-bar" style="background:#3b82f6"></div>
+            <div class="pp-text" style="color:#000000">Aa</div>
+            <div class="pp-btn" style="background:#000000;color:#ffffff">Button</div>
+          </div>
+          <div class="palette-name">Clean & Minimal</div>
+          <div class="palette-desc">Black & white, blue accent</div>
+        </div>
+
+        <!-- Preset 6: Rustic & Warm -->
+        <div class="palette-card" data-palette="preset" data-bg="#fdf8f5" data-text="#2d3748" data-accent="#9c4221" data-btn="#9c4221" data-card="#ffffff">
+          <div class="palette-preview pp-bg" style="background:#fdf8f5">
+            <div class="pp-bar" style="background:#9c4221"></div>
+            <div class="pp-text" style="color:#2d3748">Aa</div>
+            <div class="pp-btn" style="background:#9c4221;color:#ffffff">Button</div>
+          </div>
+          <div class="palette-name">Rustic & Warm</div>
+          <div class="palette-desc">Earthy tones, terracotta</div>
+        </div>
+
+        <!-- Custom -->
+        <div class="palette-card" data-palette="custom">
+          <div class="palette-preview pp-bg" style="background:#e5e7eb">
+            <div class="pp-bar" style="background:#9ca3af"></div>
+            <div class="pp-text" style="color:#4b5563">Aa</div>
+            <div class="pp-btn" style="background:#6b7280;color:#ffffff">Button</div>
+          </div>
+          <div class="palette-name">Custom</div>
+          <div class="palette-desc">Pick your own colours</div>
+        </div>
       </div>
-      <div class="custom-color-row" id="custom-color-row">
-        <label>Hex code:</label>
-        <input type="color" id="color-picker" value="#cccccc">
-        <input type="text" class="hex-input" id="hex-input" placeholder="#e8002d" maxlength="7">
+
+      <div class="custom-palette-wrap" id="custom-palette-wrap" style="display:none;">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Background</label>
+            <div style="display:flex;gap:10px;align-items:center">
+              <input type="color" id="cp-bg" value="#f8f9fa">
+              <input type="text" class="hex-input" id="cp-bg-hex" value="#f8f9fa" maxlength="7">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Text</label>
+            <div style="display:flex;gap:10px;align-items:center">
+              <input type="color" id="cp-text" value="#212529">
+              <input type="text" class="hex-input" id="cp-text-hex" value="#212529" maxlength="7">
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Accent</label>
+            <div style="display:flex;gap:10px;align-items:center">
+              <input type="color" id="cp-accent" value="#e8002d">
+              <input type="text" class="hex-input" id="cp-accent-hex" value="#e8002d" maxlength="7">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Button</label>
+            <div style="display:flex;gap:10px;align-items:center">
+              <input type="color" id="cp-btn" value="#e8002d">
+              <input type="text" class="hex-input" id="cp-btn-hex" value="#e8002d" maxlength="7">
+            </div>
+          </div>
+        </div>
       </div>
+
       <div class="nav">
         <button class="btn btn-secondary" onclick="prev(4)">← Back</button>
         <button class="btn btn-primary" onclick="next(4)">Continue →</button>
@@ -1342,8 +1442,8 @@ function validate(s) {
   if (s === 1 && state.food.length === 0) { alert('Please select at least one food type.'); return false; }
   if (s === 1 && state.food.includes('Other') && !state.foodOther.trim()) { alert('Please describe your food type.'); return false; }
   if (s === 2 && state.sections.length === 0) { alert('Please select at least one section.'); return false; }
-  if (s === 4 && !state.style) { alert('Please select a style.'); return false; }
-  if (s === 5 && !state.palette.name) { alert('Please select a colour palette.'); return false; }
+  if (s === 3 && !state.style) { alert('Please select a style.'); return false; }
+  if (s === 4 && !state.palette.name) { alert('Please select a colour palette.'); return false; }
   if (s === 7 && !state.content) { alert('Please select a content option.'); return false; }
   if (s === 8 && !state.tech) { alert('Please select a technology.'); return false; }
   if (s === 9 && !state.name.trim()) { alert('Please enter your restaurant name.'); return false; }
