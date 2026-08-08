@@ -222,6 +222,7 @@
 
   var navbarHTML = `
     <nav class="navbar">
+      <div class="nav-inner">
       <a href="https://www.pairworkflows.com" class="nav-logo">
         <span class="logo-pair">Pair</span><span class="logo-workflows">Workflows</span>
       </a>
@@ -322,6 +323,7 @@
         </button>
 
         </div>
+      </div>
       </div>
     </nav>
 
