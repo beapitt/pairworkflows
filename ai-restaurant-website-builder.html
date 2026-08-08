@@ -18,7 +18,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --teal:#00ccbc;--teal-dark:#00a39b;
+  --green:#1b966c;--green-dark:#157a56;
   --text:#2e3333;--text-muted:#696969;--text-light:#9e9e9e;
   --border:#e8e8e8;--bg:#f8f9fa;--white:#ffffff;
   --radius:12px;--radius-pill:50px;
@@ -33,9 +33,8 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--white);color:
   margin:0 auto;
   width:100%;
   padding:3rem 2rem 5rem;
-  gap:0;
-  flex:1;
   align-items:flex-start;
+  flex:1;
 }
 
 /* ── Sidebar ── */
@@ -72,7 +71,11 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--white);color:
 }
 
 /* ── Main ── */
-.main{flex:1;min-width:0;}
+.main{
+  flex:1;
+  min-width:0;
+  width:100%;
+}
 
 /* Hero */
 .hero{margin-bottom:2.5rem}
@@ -82,11 +85,11 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--white);color:
   letter-spacing:-0.5px;
 }
 .mechanism{
-  display:inline-flex;align-items:center;gap:10px;flex-wrap:nowrap;
+  display:flex;align-items:center;gap:10px;flex-wrap:nowrap;
   font-size:13px;font-weight:600;color:var(--text-muted);
   margin-bottom:12px;
 }
-.mechanism .arrow{color:var(--teal)}
+.mechanism .arrow{color:var(--green)}
 .hero p{
   font-size:15px;color:var(--text-muted);line-height:1.6;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
@@ -106,15 +109,17 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--white);color:
   text-transform:uppercase;color:var(--text-muted);margin-bottom:18px;
 }
 
-/* ── Card grid: 3 per row, landscape ── */
+/* ── Card grid ── */
 .type-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:20px;
+  width:100%;
   margin-bottom:3rem;
 }
 
 .type-card{
+  width:100%;
   background:var(--white);
   border:1px solid var(--border);
   border-radius:var(--radius);
@@ -129,20 +134,22 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--white);color:
 .type-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-2px)}
 .type-card.disabled{opacity:0.72;pointer-events:none}
 
-/* Illustration: landscape ratio, wide not tall */
 .card-thumb{
   width:100%;
   aspect-ratio:16/7;
   overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
+  display:block;
 }
-.card-thumb svg{width:100%;height:100%;display:block;}
+.card-thumb svg{
+  width:100%;
+  height:100%;
+  display:block;
+}
 
-/* Card text */
-.card-body{padding:14px 16px 18px}
+.card-body{padding:14px 16px 18px;flex:1;display:flex;flex-direction:column;}
 .card-body h2{font-size:14px;font-weight:700;color:var(--text);margin-bottom:5px;line-height:1.3}
-.card-body p{font-size:12.5px;color:var(--text-muted);line-height:1.6;margin-bottom:12px}
-.card-link{font-size:13px;font-weight:600;color:var(--teal-dark);text-decoration:none}
+.card-body p{font-size:12.5px;color:var(--text-muted);line-height:1.6;margin-bottom:12px;flex:1}
+.card-link{font-size:13px;font-weight:600;color:var(--green);text-decoration:none}
 .card-link:hover{text-decoration:underline}
 .card-soon{font-size:13px;font-weight:500;color:var(--text-light)}
 
@@ -150,12 +157,12 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--white);color:
 .how{
   background:var(--bg);border:1px solid var(--border);
   border-radius:var(--radius);padding:1.75rem 2rem;
+  width:100%;
 }
 .how h2{font-size:16px;font-weight:700;color:var(--text);margin-bottom:18px;}
 .steps-row{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.how-step{}
 .how-num{
-  width:32px;height:32px;background:var(--teal);color:white;
+  width:32px;height:32px;background:var(--green);color:white;
   border-radius:50%;font-size:13px;font-weight:700;
   display:flex;align-items:center;justify-content:center;margin-bottom:10px;
 }
@@ -290,8 +297,6 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--white);color:
             <path d="M174 78 Q177 71 174 64" stroke="#bcaaa4" stroke-width="2" fill="none" stroke-linecap="round"/>
             <path d="M54 118 Q62 100 78 110 Q70 122 54 118Z" fill="#f9a825" opacity="0.85"/>
             <path d="M266 118 Q258 100 242 110 Q250 122 266 118Z" fill="#f9a825" opacity="0.85"/>
-            <rect x="90" y="106" width="46" height="6" rx="3" fill="#d7ccc8" opacity="0.5"/>
-            <rect x="184" y="106" width="46" height="6" rx="3" fill="#d7ccc8" opacity="0.5"/>
           </svg>
         </div>
         <div class="card-body">
