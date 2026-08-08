@@ -29,7 +29,8 @@
 <a href="https://www.pairworkflows.com/hr-workflow.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">HR Workflows</a>
 <a href="https://www.pairworkflows.com/claude-workflows.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Claude Workflows</a>
 <a href="https://www.pairworkflows.com/gemini-workflows.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Gemini Workflows</a>
-<a href="https://www.pairworkflows.com/templates.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Templates</a>
+<a href="https://www.pairworkflows.com/car-loan-template.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Car Loan Template</a>
+<a href="https://www.pairworkflows.com/kpi-dashboard-template.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">KPI Dashboard Template</a>
 </div>
 <div>
 <strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company &amp; Legal</strong>
