@@ -141,7 +141,8 @@ body {
 /* ── Dark area → white ───────────────────────── */
 .dark-area {
   background: #ffffff !important;
-  padding: 2.5rem 3rem 0;
+  padding: 3.5rem 3rem 0 !important; /* CORREZIONE 1: Spazio bilanciato uguale alla what-section */
+  margin-bottom: 0 !important; /* CORREZIONE 3: Rimosso margine inferiore */
 }
 .dark-area-inner { background: #ffffff !important; }
 
@@ -192,6 +193,10 @@ body {
 .resource-card-link { color: #1d9e75 !important; }
 
 /* ── FAQ ─────────────────────────────────────── */
+.faq-section { 
+  margin-bottom: 0 !important; /* CORREZIONE 3: Eliminato lo spazio vuoto in eccesso verso il footer */
+  padding-bottom: 1.5rem !important;
+}
 .faq-section h2 { color: #0d1b14 !important; }
 .faq-item { border-bottom-color: #e5e7eb !important; }
 .faq-q { color: #1a1a2e !important; }
@@ -202,7 +207,7 @@ body {
 .what-section {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 1rem 1rem 0;
+  padding: 3.5rem 1rem 0; /* CORREZIONE 1: Aumentato da 1rem a 3.5rem per maggiore respiro e allineamento */
 }
 .what-section h2 {
   font-size: 22px;
@@ -262,7 +267,7 @@ body {
 /* ── Excel featured section ──────────────────── */
 .excel-feature {
   max-width: 1100px;
-  margin: 0 auto 2.5rem;
+  margin: 3rem auto 2.5rem; /* CORREZIONE 2: Cambiato da 0 a 3rem per non sovrapporsi alle card Gemini */
   padding: 0 1rem;
 }
 .excel-feature-inner {
