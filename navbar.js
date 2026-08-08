@@ -4,14 +4,21 @@
     .navbar {
       background: #021a12;
       border-bottom: 1px solid #0a4a30;
-      padding: 0 2rem;
       height: 52px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
       flex-shrink: 0;
       position: relative;
       z-index: 100;
+    }
+    .nav-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
     .nav-logo {
       display: flex;
@@ -202,7 +209,7 @@
       margin: 8px 0;
     }
     @media(max-width:700px) {
-      .navbar { padding: 0 1rem; }
+      .nav-inner { padding: 0 1rem; }
       .nav-desktop-links { display: none !important; }
       .nav-hamburger { display: flex; }
     }
@@ -314,6 +321,7 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         </button>
 
+        </div>
       </div>
     </nav>
 
