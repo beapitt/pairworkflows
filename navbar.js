@@ -113,6 +113,15 @@
       color: #111827;
       background: #f3f4f6;
     }
+    .nav-dropdown-menu a.sub-item {
+      padding-left: 24px;
+      font-size: 12px;
+      color: #6b7280;
+    }
+    .nav-dropdown-menu a.sub-item:hover {
+      color: #111827;
+      background: #f3f4f6;
+    }
     .nav-dropdown-divider {
       height: 1px;
       background: #e5e7eb;
@@ -214,6 +223,11 @@
       color: #111827;
       background: #f3f4f6;
     }
+    .nav-mobile-menu a.sub-item {
+      padding-left: 24px;
+      font-size: 13px;
+      color: #6b7280;
+    }
     .nav-mobile-divider {
       height: 1px;
       background: #e5e7eb;
@@ -221,7 +235,7 @@
     }
     @media(max-width:700px) {
       .nav-inner { padding: 0 1rem; }
-    .nav-left { gap: 12px; }
+      .nav-left { gap: 12px; }
       .nav-desktop-links { display: none !important; }
       .nav-hamburger { display: flex; }
     }
@@ -275,14 +289,14 @@
               </div>
             </div>
 
-            <!-- PROMPT BUILDER -->
+            <!-- PROMPT TOOLS (ex Prompt Builder + Prompt Library) -->
             <div class="nav-dropdown">
               <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('prompts')" id="navDropdownToggle-prompts">
-                Prompt Builder
+                Prompt Tools
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
               </button>
               <div class="nav-dropdown-menu" id="navDropdownMenu-prompts">
-                <div class="nav-dropdown-label">⚡ Generate a custom prompt</div>
+                <div class="nav-dropdown-label">⚡ Prompt Builder</div>
                 <a href="https://www.pairworkflows.com/claude-prompts-excel.html">Excel &amp; Google Sheets</a>
                 <a href="https://www.pairworkflows.com/claude-prompts-finance.html">Finance</a>
                 <a href="https://www.pairworkflows.com/claude-prompts-hr.html">HR</a>
@@ -291,13 +305,13 @@
                 <a href="https://www.pairworkflows.com/claude-prompts-customer-service.html">Customer Service</a>
                 <a href="https://www.pairworkflows.com/claude-prompts-operations.html">Operations</a>
                 <a href="https://www.pairworkflows.com/claude-prompts-legal.html">Legal</a>
+                <div class="nav-dropdown-divider"></div>
+                <div class="nav-dropdown-label">📚 Prompt Library</div>
+                <a href="https://www.pairworkflows.com/prompt-library.html">Browse all prompts</a>
               </div>
             </div>
 
-            <!-- PROMPT LIBRARY -->
-            <a href="https://www.pairworkflows.com/prompt-library.html" class="nav-dropdown-toggle" style="text-decoration:none">Prompt Library</a>
-
-            <!-- WEBSITE PROMPTS -->
+            <!-- WEBSITE BUILDERS (ex Website Prompts) -->
             <div class="nav-dropdown">
               <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('builder')" id="navDropdownToggle-builder">
                 Website Prompts
@@ -305,10 +319,11 @@
               </button>
               <div class="nav-dropdown-menu" id="navDropdownMenu-builder">
                 <div class="nav-dropdown-label">🌐 Build a site with AI</div>
-                <a href="https://www.pairworkflows.com/ai-portfolio-website-builder.html">🏗️ Portfolio Site</a>
-                <a href="https://www.pairworkflows.com/ai-restaurant-website-builder.html">🍽️ Restaurant Site</a>
-                <a href="https://www.pairworkflows.com/ai-fine-dining-website-builder.html">🍽️ Fine Dining Site</a>
-                <a href="https://www.pairworkflows.com/ai-cafe-bakery-website-builder.html">🍽️ Cafe Bakery Site</a>
+                <a href="https://www.pairworkflows.com/ai-portfolio-website-builder.html">🏗️ Portfolio Website</a>
+                <a href="https://www.pairworkflows.com/ai-restaurant-website-builder.html">🍽️ Restaurant Website</a>
+                <a class="sub-item" href="https://www.pairworkflows.com/ai-pizza-website-builder.html">Pizza &amp; Takeaway</a>
+                <a class="sub-item" href="https://www.pairworkflows.com/ai-fine-dining-website-builder.html">Fine Dining</a>
+                <a class="sub-item" href="https://www.pairworkflows.com/ai-cafe-bakery-website-builder.html">Café &amp; Bakery</a>
               </div>
             </div>
 
@@ -330,9 +345,9 @@
 
         <!-- RIGHT: search + hamburger only -->
         <div class="nav-right">
-          <a href="/search.html" class="search-trigger" style="text-decoration: none; display: flex;">
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-</a>
+          <a href="/search.html" class="search-trigger" style="text-decoration:none;display:flex;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </a>
           <button class="nav-hamburger" onclick="toggleMobileMenu()" id="navHamburger">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
           </button>
@@ -344,7 +359,7 @@
     <!-- MOBILE MENU -->
     <div class="nav-mobile-menu" id="navMobileMenu">
       <div class="nav-mobile-section">
-        <div class="nav-mobile-label">Prompt Builder</div>
+        <div class="nav-mobile-label">Prompt Tools</div>
         <a href="https://www.pairworkflows.com/claude-prompts-excel.html">Excel &amp; Google Sheets</a>
         <a href="https://www.pairworkflows.com/claude-prompts-finance.html">Finance</a>
         <a href="https://www.pairworkflows.com/claude-prompts-hr.html">HR</a>
@@ -358,10 +373,11 @@
       <div class="nav-mobile-divider"></div>
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Website Prompts</div>
-        <a href="https://www.pairworkflows.com/ai-portfolio-website-builder.html">🏗️ Portfolio Site</a>
-        <a href="https://www.pairworkflows.com/ai-restaurant-website-builder.html">🍽️ Restaurant Site</a>
-        <a href="https://www.pairworkflows.com/ai-fine-dining-website-builder.html">🍽️ Fine Dining Site</a>
-        <a href="https://www.pairworkflows.com/ai-cafe-bakery-website-builder.html">🍽️ Cafe Bakery Site</a>
+        <a href="https://www.pairworkflows.com/ai-portfolio-website-builder.html">🏗️ Portfolio Website</a>
+        <a href="https://www.pairworkflows.com/ai-restaurant-website-builder.html">🍽️ Restaurant Website</a>
+        <a class="sub-item" href="https://www.pairworkflows.com/ai-pizza-website-builder.html">Pizza &amp; Takeaway</a>
+        <a class="sub-item" href="https://www.pairworkflows.com/ai-fine-dining-website-builder.html">Fine Dining</a>
+        <a class="sub-item" href="https://www.pairworkflows.com/ai-cafe-bakery-website-builder.html">Café &amp; Bakery</a>
       </div>
       <div class="nav-mobile-divider"></div>
       <div class="nav-mobile-section">
