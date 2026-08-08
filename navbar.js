@@ -14,7 +14,7 @@
     .nav-inner {
       max-width: 1160px;
       margin: 0 auto;
-      padding: 0 2rem;
+      padding: 0 2rem 0 calc(2rem + 200px + 3rem);
       width: 100%;
       display: flex;
       align-items: center;
@@ -221,6 +221,7 @@
     }
     @media(max-width:700px) {
       .nav-inner { padding: 0 1rem; }
+    .nav-left { gap: 12px; }
       .nav-desktop-links { display: none !important; }
       .nav-hamburger { display: flex; }
     }
