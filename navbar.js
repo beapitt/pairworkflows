@@ -12,9 +12,9 @@
       z-index: 100;
     }
     .nav-inner {
-      max-width: 1160px;
+      max-width: 1300px;
       margin: 0 auto;
-      padding: 0 2rem 0 calc(2rem + 200px + 3rem);
+      padding: 0 2rem;
       width: 100%;
       display: flex;
       align-items: center;
