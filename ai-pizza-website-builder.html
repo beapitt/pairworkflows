@@ -19,10 +19,10 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root {
-  --teal: #00ccbc;
-  --teal-dark: #00a39b;
-  --teal-light: #e6faf9;
-  --teal-mid: #00b5ac;
+  --teal: #1b966c;
+  --teal-dark: #157a56;
+  --teal-light: #e8f5f0;
+  --teal-mid: #1b966c;
   --text: #2e3333;
   --text-muted: #696969;
   --text-light: #9e9e9e;
@@ -46,88 +46,121 @@ body {
   flex-direction: column;
 }
 
-.page-wrap {
-  max-width: 720px;
+/* ── Layout shell ── */
+.layout {
+  display: flex;
+  max-width: 1300px;
   margin: 0 auto;
   width: 100%;
-  padding: 2rem 1rem 5rem;
+  padding: 3rem 2rem 5rem;
+  align-items: flex-start;
   flex: 1;
 }
 
-/* Hero */
-.page-hero {
-  background: var(--white);
-  border-radius: var(--radius);
-  padding: 2.5rem 2rem 2rem;
-  text-align: center;
-  margin-bottom: 0;
-  border: 1px solid var(--border);
-  border-bottom: none;
-  border-radius: var(--radius) var(--radius) 0 0;
-  position: relative;
-  overflow: hidden;
+/* ── Sidebar nav ── */
+.sidebar {
+  width: 200px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 2rem;
+  padding-right: 2rem;
+  border-right: 1.5px solid var(--border);
+  margin-right: 3rem;
+  min-height: 300px;
+}
+.sidebar-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.09em;
+  text-transform: uppercase; color: var(--text-light);
+  margin-bottom: 14px; display: block;
+}
+.sidebar-nav { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+.sidebar-nav a {
+  display: block; padding: 8px 10px; border-radius: 7px;
+  font-size: 14px; font-weight: 500; color: var(--text-muted);
+  text-decoration: none; transition: background 0.15s, color 0.15s;
+}
+.sidebar-nav a:hover { background: #f0f0f0; color: var(--text); }
+.sidebar-nav a.active { background: #f0f0f0; color: var(--text); font-weight: 600; }
+.sidebar-nav .coming {
+  color: var(--text-light); font-size: 14px; padding: 8px 10px;
+  display: flex; align-items: center; gap: 6px;
+}
+.sidebar-nav .coming::after {
+  content: 'Soon'; font-size: 10px; font-weight: 700;
+  background: #f0f0f0; color: var(--text-light);
+  border-radius: 4px; padding: 1px 5px;
 }
 
-.hero-stripe {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--teal), #00e5d4, var(--teal));
+/* ── Two-column content area ── */
+.content-area {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
 }
 
-.hero-icon {
-  font-size: 52px;
-  margin-bottom: 14px;
-  display: block;
-  line-height: 1;
+/* ── Left info column ── */
+.info-col {
+  width: 280px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 2rem;
 }
-
-.page-hero h1 {
-  font-size: clamp(22px, 4vw, 30px);
+.info-col h1 {
+  font-size: clamp(20px, 2.5vw, 28px);
   font-weight: 800;
   color: var(--text);
   line-height: 1.2;
-  margin-bottom: 10px;
   letter-spacing: -0.5px;
+  margin-bottom: 12px;
 }
-
-.page-hero h1 span {
-  color: var(--teal-dark);
-}
-
-.page-hero p {
-  font-size: 15px;
+.info-col p {
+  font-size: 14px;
   color: var(--text-muted);
-  line-height: 1.6;
-  max-width: 440px;
-  margin: 0 auto 16px;
+  line-height: 1.65;
+  margin-bottom: 24px;
 }
-
 .compat-row {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
+  margin-bottom: 28px;
 }
-
 .compat-label { font-size: 12px; color: var(--text-light); }
-
 .compat-pill {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-pill);
-  padding: 3px 12px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-muted);
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 50px; padding: 3px 10px;
+  font-size: 11px; font-weight: 600; color: var(--text-muted);
+}
+.how-steps { display: flex; flex-direction: column; gap: 16px; }
+.how-step { display: flex; align-items: flex-start; gap: 12px; }
+.how-num {
+  width: 26px; height: 26px; background: var(--teal); color: white;
+  border-radius: 50%; font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.how-step-text h3 { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.how-step-text p { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 0; }
+
+/* ── Right wizard column ── */
+.wizard-col { flex: 1; min-width: 0; }
+
+/* Hero stripe at top of wizard */
+.hero-stripe {
+  height: 4px;
+  background: linear-gradient(90deg, var(--teal), #34d399, var(--teal));
+  border-radius: var(--radius) var(--radius) 0 0;
 }
 
 /* Progress */
 .progress-wrap {
   background: var(--white);
-  border-left: 1px solid var(--border);
-  border-right: 1px solid var(--border);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  border-top: none;
   padding: 14px 24px;
 }
 
@@ -749,13 +782,22 @@ input[type="color"]::-webkit-color-swatch { border: 2px solid var(--border); bor
 @media(max-width:600px){ .palette-grid { grid-template-columns: repeat(2, 1fr); } }
 @media(max-width:600px){ .form-row{grid-template-columns:1fr} .dish-fields{grid-template-columns:1fr} .dish-name-col{grid-column:1} }
 
+@media (max-width: 900px) {
+  .layout { flex-direction: column; padding: 1.5rem 1rem 4rem; }
+  .sidebar { display: none; }
+  .content-area { flex-direction: column; gap: 0; }
+  .info-col { width: 100%; position: static; margin-bottom: 1.5rem; }
+  .info-col h1 { font-size: 22px; }
+  .how-steps { flex-direction: row; flex-wrap: wrap; gap: 10px; }
+}
 @media (max-width: 600px) {
-  .page-wrap { padding: 1rem 0.75rem 4rem; }
+  .layout { padding: 1rem 0.75rem 4rem; }
   .card { padding: 1.5rem 1.25rem 2rem; }
   .food-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
   .food-circle { width: 46px; height: 46px; font-size: 22px; }
   .output-actions { flex-direction: column; }
   .options { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .how-steps { flex-direction: column; }
 }
 </style>
 </head>
@@ -763,22 +805,60 @@ input[type="color"]::-webkit-color-swatch { border: 2px solid var(--border); bor
 
 <div id="navbar-placeholder"></div>
 
-<div class="page-wrap">
+<div class="layout">
 
-  <div class="page-hero">
-    <div class="hero-stripe"></div>
-    <span class="hero-icon">🍕</span>
-    <h1>AI Pizza & Takeaway<br><span>Website Builder</span></h1>
-    <p>Answer 10 questions, get a ready-to-use prompt. Paste it into Claude or ChatGPT — your site, no back-and-forth.</p>
-    <div class="compat-row">
-      <span class="compat-label">Works with</span>
-      <span class="compat-pill">Claude AI</span>
-      <span class="compat-pill">ChatGPT</span>
-      <span class="compat-pill">GitHub Copilot</span>
+  <!-- SIDEBAR NAV -->
+  <aside class="sidebar">
+    <span class="sidebar-label">Restaurant Type</span>
+    <ul class="sidebar-nav">
+      <li><a href="/ai-pizza-website-builder.html" class="active">Pizza &amp; Takeaway</a></li>
+      <li><a href="/ai-fine-dining-website-builder.html">Fine Dining</a></li>
+      <li><span class="coming">Café &amp; Bakery</span></li>
+    </ul>
+  </aside>
+
+  <!-- CONTENT AREA: info col + wizard col -->
+  <div class="content-area">
+
+    <!-- LEFT: static info -->
+    <div class="info-col">
+      <h1>AI Pizza &amp; Takeaway Website Builder</h1>
+      <p>Answer 9 questions and get a complete AI prompt to build your pizza or takeaway website — menu, delivery info, ordering links and more.</p>
+      <div class="compat-row">
+        <span class="compat-label">Works with</span>
+        <span class="compat-pill">Claude AI</span>
+        <span class="compat-pill">ChatGPT</span>
+        <span class="compat-pill">GitHub Copilot</span>
+      </div>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="how-num">1</div>
+          <div class="how-step-text">
+            <h3>Answer 9 questions</h3>
+            <p>Click your answers — no typing except your restaurant name and details.</p>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">2</div>
+          <div class="how-step-text">
+            <h3>Get your prompt</h3>
+            <p>We generate a detailed, ready-to-use prompt in seconds.</p>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">3</div>
+          <div class="how-step-text">
+            <h3>Paste into Claude</h3>
+            <p>Claude builds your complete site without asking any questions.</p>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div class="progress-wrap">
+    <!-- RIGHT: wizard -->
+    <div class="wizard-col">
+      <div class="hero-stripe"></div>
+      <div class="progress-wrap">
     <div class="progress-info">
       <span id="step-counter">Step 1 of 9</span>
       <span id="step-pct">10%</span>
@@ -1306,7 +1386,9 @@ input[type="color"]::-webkit-color-swatch { border: 2px solid var(--border); bor
     </div>
 
   </div>
-</div>
+    </div><!-- /wizard-col -->
+  </div><!-- /content-area -->
+</div><!-- /layout -->
 
 <footer></footer>
 
