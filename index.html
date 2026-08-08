@@ -196,7 +196,118 @@ body {
 .faq-item { border-bottom-color: #e5e7eb !important; }
 .faq-q { color: #1a1a2e !important; }
 .faq-a { color: #4b5563 !important; }
-.page-wrap-fix{max-width:1100px;margin:2rem auto;padding:0 1rem}.course-wrap-outer{width:100%}</style>
+.page-wrap-fix{max-width:1100px;margin:2rem auto;padding:0 1rem}.course-wrap-outer{width:100%}
+
+/* ── What can you do section ─────────────────── */
+.what-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 1rem 0;
+}
+.what-section h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0d1b14;
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+.what-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 2.5rem;
+}
+.what-card {
+  background: #f8f9fb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  transition: all .15s;
+  display: block;
+}
+.what-card:hover {
+  border-color: #1d9e75;
+  background: #f0faf5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+.what-card-icon {
+  font-size: 28px;
+  margin-bottom: 10px;
+  display: block;
+}
+.what-card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0d1b14;
+  margin-bottom: 6px;
+}
+.what-card p {
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.55;
+}
+
+/* ── Find a workflow section ─────────────────── */
+.workflow-intro {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0d1b14;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* ── Excel featured section ──────────────────── */
+.excel-feature {
+  max-width: 1100px;
+  margin: 0 auto 2.5rem;
+  padding: 0 1rem;
+}
+.excel-feature-inner {
+  background: #f0faf5;
+  border: 1px solid #b6e8d3;
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.excel-feature-text h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0d1b14;
+  margin-bottom: 4px;
+}
+.excel-feature-text p {
+  font-size: 13px;
+  color: #4b5563;
+}
+.excel-feature-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #1d9e75;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 8px;
+  white-space: nowrap;
+  transition: background .15s;
+  flex-shrink: 0;
+}
+.excel-feature-btn:hover { background: #0e7a50; }
+
+@media(max-width:600px) {
+  .what-cards { grid-template-columns: 1fr; }
+  .excel-feature-inner { flex-direction: column; align-items: flex-start; }
+}
+</style>
 </head>
 <body>
 <div id="navbar-placeholder"></div>
@@ -223,7 +334,7 @@ body {
 <div class="hero-wrap">
   <div class="hero-inner hero-inner--compact">
     <h1>Get real work done<br>with Claude &amp; <span>Gemini.</span></h1>
-    <p class="hero-sub">5-minute AI guides for anyone who wants to get real work done. Skip the theory — go straight to what works.</p>
+    <p class="hero-sub">5-minute AI workflows, ready-to-use prompts, and practical tools for professionals, freelancers, and small businesses.</p>
     <div class="hero-stats-row">
       <div class="hero-stat-pill"><span class="hero-stat-num">148</span><span class="hero-stat-label">Mini-guides</span></div>
       <div class="hero-stat-sep"></div>
@@ -235,8 +346,30 @@ body {
     </div>
   </div>
 </div>
+<div class="what-section">
+  <h2>What can you do with PairWorkflows?</h2>
+  <div class="what-cards">
+    <a href="/claude-excel-workflows.html" class="what-card">
+      <span class="what-card-icon">⚡</span>
+      <h3>Solve a task</h3>
+      <p>5-minute workflows for specific work problems — Finance, HR, Marketing, Legal, Operations, Sales and Excel.</p>
+    </a>
+    <a href="/prompt-library.html" class="what-card">
+      <span class="what-card-icon">✍️</span>
+      <h3>Create a prompt</h3>
+      <p>Ready-to-use prompts and interactive prompt builders — copy, customise and paste into Claude or ChatGPT.</p>
+    </a>
+    <a href="/ai-restaurant-website-builder.html" class="what-card">
+      <span class="what-card-icon">🌐</span>
+      <h3>Build a website</h3>
+      <p>Interactive prompt generators that create a ready-to-use prompt for Claude, ChatGPT or Gemini to build your site.</p>
+    </a>
+  </div>
+</div>
+
 <div class="dark-area"><div class="dark-area-inner">
 <div class="directory-wrap" style="margin-bottom: 4rem;">
+  <p class="workflow-intro">Find a workflow for your task</p>
   <h2 style="text-align: center; margin-bottom: 1.5rem; color: #0d1b14;">Explore Claude Guides</h2>
   <div class="resources-grid" style="margin-bottom: 3rem;">
     <a href="/claude-finance-courses.html" class="resource-card"><div class="resource-card-title" style="text-align:center;">Finance</div></a>
@@ -259,7 +392,17 @@ body {
     <a href="/gemini-sales-courses.html" class="resource-card"><div class="resource-card-title" style="text-align:center;">Sales</div></a>
     <a href="/gemini-customer-service-courses.html" class="resource-card"><div class="resource-card-title" style="text-align:center;">Customer Service</div></a>
     </div>
+
+<div class="excel-feature">
+  <div class="excel-feature-inner">
+    <div class="excel-feature-text">
+      <h3>⭐ Popular: Excel + Claude</h3>
+      <p>26 practical workflows for solving real Excel problems with Claude — from XLOOKUP to pivot tables to financial models.</p>
+    </div>
+    <a href="/claude-excel-workflows.html" class="excel-feature-btn">Explore Excel Workflows →</a>
+  </div>
 </div>
+
 <div class="resources-section"><h2 class="resources-title">Explore our resources</h2><div class="resources-grid"><a href="/claude-vs-gemini.html" class="resource-card"><div class="resource-card-title">Claude vs Gemini</div><div class="resource-card-desc">Not sure which AI to use at work? We compare both tools by task, role and use case.</div><div class="resource-card-link">Read the guide →</div></a><a href="/claude-vs-copilot-excel.html" class="resource-card"><div class="resource-card-title">Claude vs Copilot Excel</div><div class="resource-card-desc">Not sure which AI to use for spreadsheets? We compare Microsoft's Copilot and Anthropic's Claude.</div><div class="resource-card-link">Read the guide →</div></a><a href="/claude-vs-gemini-finance.html" class="resource-card"><div class="resource-card-title">Claude vs Gemini Finance</div><div class="resource-card-desc">Which AI is better for financial modeling, reporting, and data analysis?</div><div class="resource-card-link">Read the guide →</div></a><a href="/glossary.html" class="resource-card"><div class="resource-card-title">AI Glossary</div><div class="resource-card-desc">40 essential AI terms explained in plain English with real business examples.</div><div class="resource-card-link">Browse the glossary →</div></a><a href="/prompt-library.html" class="resource-card"><div class="resource-card-title">Prompt Library</div><div class="resource-card-desc">Ready-to-copy prompts for Marketing, HR, Finance, Legal and Operations teams.</div><div class="resource-card-link">View prompts →</div></a></div></div>
 <div class="faq-section"><h2>Frequently asked questions</h2><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Are all courses really free? <i class="ti ti-chevron-down"></i></div><div class="faq-a">Most guides on PairWorkflows are completely free. A small number of advanced courses are marked as Premium — these will be available for a one-time fee. Free guides will always remain free.</div></div><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do I need a Claude or Gemini subscription to follow the courses? <i class="ti ti-chevron-down"></i></div><div class="faq-a">No subscription is required to follow the guides. However, to practise what you learn, a free or paid Claude or Gemini account is recommended. Some courses reference features available only on paid plans.</div></div><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How long does each course take? <i class="ti ti-chevron-down"></i></div><div class="faq-a">Each mini-guide is designed to take 5 minutes or less. They are built for busy professionals who need practical answers fast — not hour-long lectures.</div></div><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Which AI tools do the courses cover? <i class="ti ti-chevron-down"></i></div><div class="faq-a">PairWorkflows covers two tools: Claude AI (by Anthropic) and Gemini AI (by Google), including its integration with Google Workspace. </div></div><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Are the courses suitable for non-technical professionals? <i class="ti ti-chevron-down"></i></div><div class="faq-a">Absolutely. PairWorkflows is designed for managers, analysts, marketers, HR professionals, and anyone who uses AI tools at work — no coding or technical background required.</div></div></div>
 </div></div>
