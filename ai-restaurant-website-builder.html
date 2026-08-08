@@ -29,7 +29,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--white);color:
 /* ── Layout shell ── */
 .layout{
   display:flex;
-  max-width:1160px;
+  max-width:1300px; /* Allargato per permettere alle card di essere più ampie */
   margin:0 auto;
   width:100%;
   padding:3rem 2rem 5rem;
@@ -113,7 +113,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--white);color:
 .type-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:20px;
+  gap:24px; /* Gap aumentato per distanziare meglio le card più larghe */
   width:100%;
   margin-bottom:3rem;
 }
@@ -136,7 +136,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--white);color:
 
 .card-thumb{
   width:100%;
-  aspect-ratio:16/7;
+  aspect-ratio:16/9; /* Proporzione classica 16:9 in stile Typeform */
   overflow:hidden;
   display:block;
 }
@@ -146,12 +146,42 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--white);color:
   display:block;
 }
 
-.card-body{padding:14px 16px 18px;flex:1;display:flex;flex-direction:column;}
-.card-body h2{font-size:14px;font-weight:700;color:var(--text);margin-bottom:5px;line-height:1.3}
-.card-body p{font-size:12.5px;color:var(--text-muted);line-height:1.6;margin-bottom:12px;flex:1}
-.card-link{font-size:13px;font-weight:600;color:var(--green);text-decoration:none}
+.card-body{
+  padding:16px 18px 20px; /* Padding ridotto per rendere la card più compatta */
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
+.card-body h2{
+  font-size:15px;
+  font-weight:700;
+  color:var(--text);
+  margin-bottom:6px;
+  line-height:1.3;
+}
+.card-body p{
+  font-size:13px;
+  color:var(--text-muted);
+  line-height:1.5;
+  margin-bottom:0; /* Margine rimosso, gestito tramite margin-top: auto sui link */
+}
+.card-link{
+  font-size:13px;
+  font-weight:600;
+  color:var(--green);
+  text-decoration:none;
+  margin-top:16px; 
+  margin-top:auto; /* Spinge il link sempre sul fondo della card */
+}
 .card-link:hover{text-decoration:underline}
-.card-soon{font-size:13px;font-weight:500;color:var(--text-light)}
+
+.card-soon{
+  font-size:13px;
+  font-weight:500;
+  color:var(--text-light);
+  margin-top:16px;
+  margin-top:auto; /* Spinge il testo sempre sul fondo della card */
+}
 
 /* ── How it works ── */
 .how{
