@@ -44,6 +44,9 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#2e3333;min-height:
 .result-desc{font-size:13.5px;color:#696969;line-height:1.5;}
 
 .search-message{color:#696969;text-align:center;padding:3rem;font-size:14px;background:#f8f9fa;border-radius:12px;border:1px dashed #e8e8e8;}
+.close-search{display:flex;align-items:center;gap:6px;font-size:13px;color:#696969;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-weight:500;padding:0;margin-bottom:1rem;transition:color .15s;}
+.close-search:hover{color:#2e3333;}
+.close-search svg{flex-shrink:0;}
 </style>
 </head>
 <body>
@@ -51,6 +54,10 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#2e3333;min-height:
 <div id="navbar-placeholder"></div>
 
 <div class="search-wrap">
+  <button class="close-search" onclick="goBack()" id="closeBtn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    Back
+  </button>
   <div class="search-box-wrap">
     <input type="text" class="search-box" id="searchInput" placeholder="Search for a topic, role, or keyword..." autocomplete="off">
     <i class="ti ti-search search-icon"></i>
@@ -132,6 +139,14 @@ function doSearch(query){
   var scored=searchData.map(function(item){return{item:item,score:scoreItem(item,terms)};});
   var results=scored.filter(function(s){return s.score>0;}).sort(function(a,b){return b.score-a.score;}).map(function(s){return s.item;});
   renderResults(results,query);
+}
+
+function goBack(){
+  if(document.referrer && document.referrer !== window.location.href){
+    history.back();
+  } else {
+    window.location.href='/';
+  }
 }
 
 fetch('/search-index.json')
