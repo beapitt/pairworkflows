@@ -3,24 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Claude Prompts for Marketing Teams — Campaign Copy Builder | PairWorkflows</title>
-<meta name="description" content="Ready-to-use Claude AI prompt for marketing teams. Generate high-converting, hallucination-free copy for emails, ads, and landing pages in seconds.">
+<title>Claude Prompt Generator for Marketing — Emails, Ads & Landing Pages | Free Tool — PairWorkflows</title>
+<meta name="description" content="Free Claude prompt generator for marketing. Generate ready-to-use prompts for email campaigns, LinkedIn posts, social ads, landing pages and blog outlines. Works with Claude, ChatGPT and Gemini.">
 <link rel="canonical" href="https://www.pairworkflows.com/prompt-generator-marketing.html">
-<meta property="og:title" content="Claude Prompts for Marketing Teams — Campaign Copy Builder | PairWorkflows">
-<meta property="og:description" content="Ready-to-use Claude AI prompt for marketing teams. Generate high-converting, hallucination-free copy for your campaigns in seconds.">
+<meta property="og:title" content="Claude Prompt Generator for Marketing — Emails, Ads & Landing Pages | Free Tool — PairWorkflows">
+<meta property="og:description" content="Free Claude prompt generator for marketing copy. Works with Claude, ChatGPT and Gemini.">
 <meta property="og:url" content="https://www.pairworkflows.com/prompt-generator-marketing.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PairWorkflows">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Claude Prompts for Marketing Teams — Campaign Copy Builder","description":"Ready-to-use Claude AI prompt for marketing teams. Generate high-converting, hallucination-free copy for emails, ads, and landing pages in seconds.","url":"https://www.pairworkflows.com/prompt-generator-marketing.html","isPartOf":{"@type":"WebSite","name":"PairWorkflows","url":"https://www.pairworkflows.com"}}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Claude Prompt Generator for Marketing",
+  "description": "Free Claude prompt generator for marketing copy including email campaigns, LinkedIn posts, social ads, landing pages and blog outlines. Works with Claude, ChatGPT and Gemini.",
+  "url": "https://www.pairworkflows.com/prompt-generator-marketing.html",
+  "applicationCategory": "ProductivityApplication",
+  "operatingSystem": "Web",
+  "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"},
+  "publisher": {"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"}
+}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"><link rel="stylesheet" href="/global-fix.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="/global-fix.css">
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#f8f9fa;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
 .navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
 .logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
@@ -28,86 +39,65 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;
 .nav-right{display:flex;align-items:center;gap:16px}
 .search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
-.page-wrap{max-width:880px;margin:0 auto;width:100%;padding:2.5rem 1rem;flex:1}
-.page-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);border-radius:16px 16px 0 0;padding:2rem 2.5rem}
-.page-hero-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem}
-.page-hero h1{font-size:26px;font-weight:500;color:#fff;line-height:1.3;max-width:580px;margin-bottom:.75rem}
-.page-hero-sub{font-size:14px;color:rgba(255,255,255,.75);line-height:1.6;max-width:520px}
-.content-shell{background:#fff;border-radius:0 0 16px 16px;box-shadow:0 2px 16px rgba(0,0,0,.06);overflow:hidden}
-.how-banner{background:#f8fafb;border-bottom:1px solid #e8ecef;padding:1rem 2rem;display:flex;align-items:flex-start;gap:2rem;flex-wrap:wrap}
-.how-step{display:flex;align-items:flex-start;gap:10px;flex:1;min-width:180px}
-.how-num{width:26px;height:26px;border-radius:50%;background:#1d9e75;color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.how-text{font-size:13px;color:#374151;line-height:1.55}
-.how-text strong{color:#085041;display:block;margin-bottom:2px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;font-weight:600}
-.how-arrow{display:none}
-.builder-wrap{padding:2.25rem 2.75rem 2.5rem}
-.builder-title{font-size:16px;font-weight:500;color:#1a1a2e;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
-.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
-.form-full{margin-bottom:16px}
-.form-full{margin-bottom:12px}
-.f-label{font-size:12px;color:#6b7280;margin-bottom:4px;display:block;font-weight:500}
-.f-hint{font-size:11px;color:#9ca3af;margin-top:3px}
-input[type="text"],select,textarea{width:100%;box-sizing:border-box;font-family:'Inter',sans-serif;font-size:13px;color:#1a1a2e;background:#fff;border:1px solid #d1d5db;border-radius:8px;padding:10px 12px;outline:none;transition:border-color .15s}
-input[type="text"]:focus,select:focus,textarea:focus{border-color:#1d9e75;box-shadow:0 0 0 3px rgba(29,158,117,.1)}
-input[type="text"]::placeholder,textarea::placeholder{color:#9ca3af}
-textarea{resize:vertical}
-.gen-btn{width:100%;padding:11px;background:#1d9e75;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:background .15s;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px}
-.gen-btn:hover{background:#0f6e56}
-.output-block{background:#f8fafb;border-top:1px solid #e8ecef;padding:2.25rem 2.75rem;display:none}
-.output-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;margin-bottom:.75rem}
-.output-inner{background:#1a1a2e;border-radius:10px;padding:1.25rem;position:relative}
-.output-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.7;white-space:pre-wrap;word-break:break-word}
-.output-actions{display:flex;gap:8px;margin-top:12px}
-.btn-copy{display:flex;align-items:center;gap:6px;font-size:13px;font-family:'Inter',sans-serif;padding:7px 16px;border-radius:8px;border:1px solid #1d9e75;color:#1d9e75;background:#fff;cursor:pointer;font-weight:500;transition:all .15s}
-.btn-copy:hover{background:#e1f5ee}
-.btn-copy.copied{background:#e1f5ee;color:#085041;border-color:#085041}
-.btn-open{display:flex;align-items:center;gap:6px;font-size:13px;font-family:'Inter',sans-serif;padding:7px 16px;border-radius:8px;border:1px solid #d1d5db;color:#6b7280;background:#fff;cursor:pointer;transition:all .15s}
-.btn-open:hover{background:#f0f2f5;border-color:#9ca3af;color:#374151}
-.info-section{padding:2rem 2.75rem;border-top:1px solid #e8ecef}
-.info-section h2{font-size:15px;font-weight:600;color:#085041;margin-bottom:1rem}
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:1.5rem}
-.info-card{background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:1rem 1.25rem}
-.info-card-title{font-size:12px;font-weight:600;color:#0f6e56;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem;display:flex;align-items:center;gap:6px}
+.page-wrap{width:100%;max-width:860px;margin:0 auto;padding:2rem 1.5rem;flex:1}
+.hero{text-align:center;padding:1.5rem 1rem 1.25rem}
+.hero h1{font-size:34px;font-weight:700;color:#111827;line-height:1.2;margin-bottom:.75rem;letter-spacing:-0.5px}
+.hero p{font-size:15px;color:#6b7280;max-width:560px;margin:0 auto;line-height:1.7}
+.generator-card{background:#ffffff;border:1px solid #e5e7eb;border-radius:16px;padding:2rem;margin-bottom:1rem;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.generator-card h2{font-size:16px;font-weight:600;color:#111827;margin-bottom:1.5rem;display:flex;align-items:center;gap:8px}
+.ai-selector-label{font-size:11px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:.6rem}
+.ai-selector{display:flex;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap}
+.ai-btn-wrap{flex:1;min-width:100px;position:relative}
+.ai-btn{width:100%;padding:10px 16px;border-radius:8px;border:1.5px solid #e5e7eb;background:#f9fafb;font-size:13px;font-weight:500;color:#374151;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;text-align:center;display:block}
+.ai-btn:hover{border-color:#1d9e75;color:#1d9e75}
+.ai-btn.active{background:#1d9e75;border-color:#1d9e75;color:#fff;font-weight:600}
+.ai-tooltip{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;font-size:11px;line-height:1.5;padding:8px 12px;border-radius:8px;width:210px;text-align:left;z-index:100;pointer-events:none;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.ai-tooltip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#1a1a2e}
+.ai-btn-wrap:hover .ai-tooltip{display:block}
+.field-divider{height:1px;background:#e5e7eb;margin:1.25rem 0}
+.fields-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1rem}
+.field{display:flex;flex-direction:column;gap:6px}
+.field.full{grid-column:1/-1}
+.field label{font-size:11px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:.06em}
+.field select,.field textarea,.field input{border:1.5px solid #e5e7eb;border-radius:8px;padding:10px 12px;font-size:13px;font-family:'Inter',sans-serif;color:#111827;background:#f9fafb;transition:border-color .15s;outline:none;width:100%}
+.field select:focus,.field textarea:focus,.field input:focus{border-color:#1d9e75;background:#fff}
+.field textarea{min-height:70px;resize:vertical}
+.btn-generate{background:#1d9e75;color:#fff;border:none;border-radius:8px;padding:12px 28px;font-size:14px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:background .15s;display:inline-flex;align-items:center;gap:8px;width:100%;justify-content:center;margin-top:.5rem}
+.btn-generate:hover{background:#178a64}
+.output-box{display:none;background:#f0fdf4;border:1.5px solid #1d9e75;border-radius:12px;padding:1.25rem;margin-top:1.25rem}
+.output-box.visible{display:block}
+.output-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.6rem}
+.output-text{font-size:13px;color:#1a1a2e;line-height:1.8;white-space:pre-wrap;font-family:'Inter',sans-serif;margin-bottom:1rem}
+.output-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn-copy-output{background:#1d9e75;color:#fff;border:none;border-radius:6px;padding:8px 18px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;display:inline-flex;align-items:center;gap:6px}
+.btn-copy-output:hover{background:#178a64}
+.btn-open-ai{background:#fff;color:#374151;border:1.5px solid #e5e7eb;border-radius:6px;padding:8px 16px;font-size:12px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;display:inline-flex;align-items:center;gap:6px;text-decoration:none;transition:all .15s}
+.btn-open-ai:hover{border-color:#1d9e75;color:#1d9e75}
+.info-section{margin-top:2rem}
+.info-section h2{font-size:16px;font-weight:700;color:#111827;margin-bottom:1rem}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1rem}
+.info-card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:1rem 1.25rem}
+.info-card-title{font-size:12px;font-weight:600;color:#0f6e56;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.4rem;display:flex;align-items:center;gap:6px}
 .info-card p{font-size:13px;color:#374151;line-height:1.65}
 .tip-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem}
 .tip-box p{font-size:13px;color:#085041;line-height:1.65}
-.share-section{max-width:1100px;margin:2.5rem auto 0;padding:0 1rem}
-.share-inner{display:flex;align-items:center;justify-content:center;gap:16px;padding:1.75rem 1.5rem;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap}
-.share-copy{display:flex;align-items:center;gap:10px;height:48px;padding:0 20px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;color:#e5e7eb;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .2s}
-.share-copy:hover{background:#374151;transform:scale(1.04)}
-.share-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;text-decoration:none;transition:all .2s}
-.share-icon:hover{transform:scale(1.08)}
-.share-li:hover{background:#0a66c2;border-color:#0a66c2}
-.share-x:hover{background:#000;border-color:#000}
 #searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
 #searchOverlay.open{display:flex}
 .search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
-.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1}
 .search-close-btn:hover{color:#fff}
 .search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
 .search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
 .search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
-.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
-.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:2rem}
-.page-footer a{color:#1d9e75;text-decoration:none}
-.page-footer a:hover{text-decoration:underline}
-@media(max-width:700px){
-  .navbar{padding:0 1rem}
-  .page-wrap{padding:1rem .5rem}
-  .page-hero{padding:1.5rem 1.25rem;border-radius:12px 12px 0 0}
-  .page-hero h1{font-size:20px}
-  .how-banner{padding:.75rem 1.25rem;gap:1rem}
-  .how-arrow{display:none}
-  .builder-wrap{padding:1.25rem}
-  .form-grid-2{grid-template-columns:1fr}
-  .output-block{padding:1.25rem}
-  .info-section{padding:1.25rem}
+@media(max-width:640px){
+  .hero h1{font-size:24px}
+  .fields-grid{grid-template-columns:1fr}
   .info-grid{grid-template-columns:1fr}
-  .output-actions{flex-wrap:wrap}
+  .ai-btn{font-size:12px;padding:9px 10px}
+  .page-wrap{padding:1.25rem 1rem}
 }
 </style>
-<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 
@@ -117,85 +107,86 @@ textarea{resize:vertical}
     <form action="/search.html" method="get">
       <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
     </form>
-    <p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
   </div>
 </div>
 
 <div id="navbar-placeholder"></div>
-<script src="/navbar.js"></script><script src="/footer.js"></script><script src="/footer.js"></script>
+<script src="/navbar.js"></script><script src="/footer.js"></script>
+
+<noscript>
+<nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
+<a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
+<a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a>
+</nav>
+</noscript>
 
 <div class="page-wrap">
-  <div class="page-hero">
-    <div class="page-hero-tag">Claude AI · Marketing · Prompt Library</div>
-    <h1>Marketing Campaign Builder — ready-to-use Claude prompt</h1>
-    <p class="page-hero-sub">Fill in your product, audience, and channel details. Get high-converting, brand-aligned copy without the blank page syndrome and zero AI hallucinations.</p>
-  </div>
 
-  <div class="content-shell">
-    <div class="how-banner">
-      <div class="how-step">
-        <div class="how-num">1</div>
-        <div class="how-text"><strong>Fill in the form</strong>Product, audience, goal, and tone.</div>
+  <section class="hero">
+    <h1>Claude Prompt Generator for Marketing</h1>
+    <p>Generate ready-to-use prompts for email campaigns, LinkedIn posts, social ads, landing pages and blog outlines. Works with Claude, ChatGPT and Gemini.</p>
+  </section>
+
+  <div class="generator-card" id="builder">
+    <h2><i class="ti ti-sparkles" style="color:#1d9e75"></i> Generate Your Marketing Prompt</h2>
+
+    <span class="ai-selector-label">Which AI are you using?</span>
+    <div class="ai-selector">
+      <div class="ai-btn-wrap">
+        <button class="ai-btn active" onclick="selectAI(this,'claude')">Claude</button>
+        <div class="ai-tooltip">Natural writing style, no rhetorical padding. Copy stays concise and goal-oriented. CTA appears as a clear, isolated element at the end.</div>
       </div>
-      <div class="how-arrow"><i class="ti ti-arrow-right"></i></div>
-      <div class="how-step">
-        <div class="how-num">2</div>
-        <div class="how-text"><strong>Copy the prompt</strong>One click — the full prompt goes to your clipboard.</div>
+      <div class="ai-btn-wrap">
+        <button class="ai-btn" onclick="selectAI(this,'chatgpt')">ChatGPT</button>
+        <div class="ai-tooltip">Steered away from clichés like "unlock", "elevate" or emoji overuse. Follows your brand tone literally and cuts text to fit channel limits.</div>
       </div>
-      <div class="how-arrow"><i class="ti ti-arrow-right"></i></div>
-      <div class="how-step">
-        <div class="how-num">3</div>
-        <div class="how-text"><strong>Paste into Claude</strong>The prompt instructs Claude on format and limits.</div>
+      <div class="ai-btn-wrap">
+        <button class="ai-btn" onclick="selectAI(this,'gemini')">Gemini</button>
+        <div class="ai-tooltip">Uses only the information you provide — won't invent stats or features. Respects narrative format where needed. Reproduces your CTA exactly as written.</div>
       </div>
-      <div class="how-arrow"><i class="ti ti-arrow-right"></i></div>
-      <div class="how-step">
-        <div class="how-num">4</div>
-        <div class="how-text"><strong>Get your copy</strong>Claude returns conversion-ready, structured text.</div>
+    </div>
+    <input type="hidden" id="b-ai" value="claude">
+
+    <div class="field-divider"></div>
+
+    <div class="fields-grid">
+      <div class="field">
+        <label>Marketing task</label>
+        <select id="b-task">
+          <option value="email campaign">Email campaign</option>
+          <option value="LinkedIn post">LinkedIn post</option>
+          <option value="social media ad (Meta/X)">Social media ad (Meta/X)</option>
+          <option value="landing page copy">Landing page copy</option>
+          <option value="blog post outline and intro">Blog post outline &amp; intro</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Product or service</label>
+        <input type="text" id="b-product" placeholder="e.g. B2B expense management software, online yoga studio, freelance copywriting">
       </div>
     </div>
 
-    <div class="builder-wrap">
-      <p class="builder-title"><i class="ti ti-adjustments-horizontal" style="color:#1d9e75"></i> Customize your prompt</p>
-
-      <div class="form-grid-2">
-        <div>
-          <label class="f-label" for="product">Product or Service</label>
-          <input type="text" id="product" placeholder="e.g. B2B Expense Management Software">
-        </div>
-        <div>
-          <label class="f-label" for="channel">Marketing Channel</label>
-          <select id="channel">
-            <option value="">Select channel</option>
-            <option>Email Campaign</option>
-            <option>LinkedIn Post</option>
-            <option>Social Media Ad (Meta/X)</option>
-            <option>Landing Page Copy</option>
-            <option>Blog Post Outline & Intro</option>
-          </select>
-        </div>
+    <div class="fields-grid">
+      <div class="field">
+        <label>Target audience</label>
+        <input type="text" id="b-audience" placeholder="e.g. CFOs in tech startups, small business owners, busy parents">
       </div>
-
-      <div class="form-grid-2">
-        <div>
-          <label class="f-label" for="audience">Target Audience</label>
-          <input type="text" id="audience" placeholder="e.g. CFOs and Finance Directors in Tech">
-        </div>
-        <div>
-          <label class="f-label" for="goal">Campaign Goal</label>
-          <select id="goal">
-            <option value="">Select goal</option>
-            <option>Lead Generation</option>
-            <option>Direct Sales / Conversion</option>
-            <option>Brand Awareness</option>
-            <option>Event / Webinar Registration</option>
-            <option>Customer Retention</option>
-          </select>
-        </div>
+      <div class="field">
+        <label>Campaign goal</label>
+        <select id="b-goal">
+          <option value="lead generation">Lead generation</option>
+          <option value="direct sales / conversion">Direct sales / conversion</option>
+          <option value="brand awareness">Brand awareness</option>
+          <option value="event / webinar registration">Event / webinar registration</option>
+          <option value="customer retention">Customer retention</option>
+        </select>
       </div>
+    </div>
 
-      <div class="form-full">
-        <label class="f-label" for="tone">Brand Tone of Voice</label>
-        <select id="tone">
+    <div class="fields-grid">
+      <div class="field full">
+        <label>Brand tone of voice</label>
+        <select id="b-tone">
           <option>Professional, authoritative, and direct</option>
           <option>Conversational, helpful, and empathetic</option>
           <option>Bold, disruptive, and confident</option>
@@ -203,192 +194,170 @@ textarea{resize:vertical}
           <option>Urgent and action-oriented</option>
         </select>
       </div>
-
-      <div class="form-full">
-        <label class="f-label" for="valueprop">Key Message / Value Proposition</label>
-        <textarea id="valueprop" rows="2" placeholder="e.g. Automate receipt tracking and close the books 5 days faster without changing your ERP."></textarea>
-      </div>
-
-      <div class="form-full">
-        <label class="f-label" for="cta">Call to Action (CTA)</label>
-        <input type="text" id="cta" placeholder="e.g. Book a 15-min demo, Download the Free Guide">
-      </div>
-
-      <button class="gen-btn" onclick="generate()"><i class="ti ti-sparkles"></i> Generate prompt</button>
     </div>
 
-    <div class="output-block" id="outputBlock">
-      <p class="output-label">Your Claude prompt</p>
-      <div class="output-inner">
-        <div class="output-text" id="outputText"></div>
+    <div class="fields-grid">
+      <div class="field full">
+        <label>Key message / value proposition</label>
+        <textarea id="b-valueprop" placeholder="e.g. Automate receipt tracking and close the books 5 days faster — without changing your ERP. Be specific: include numbers, outcomes, or proof points where you have them."></textarea>
       </div>
-     <div class="output-actions">
-  <button class="btn-copy" id="btnCopy" onclick="copyPrompt()"><i class="ti ti-copy"></i> Copy prompt</button>
-  <a href="https://claude.ai" target="_blank" rel="noopener" class="btn-open"><i class="ti ti-external-link"></i> Open Claude</a>
-  <a href="https://gemini.google.com" target="_blank" rel="noopener" class="btn-open"><i class="ti ti-external-link"></i> Open Gemini</a>
-</div>
     </div>
 
-    <div class="info-section">
-      <h2>How Claude handles this prompt</h2>
-      <div class="info-grid">
-        <div class="info-card">
-          <div class="info-card-title"><i class="ti ti-shield-check" style="font-size:14px"></i> Zero Hallucinations</div>
-          <p>The prompt explicitly forbids Claude from inventing product features, discounts, or offers that you didn't provide in the inputs. You maintain total control over the claims.</p>
-        </div>
-        <div class="info-card">
-          <div class="info-card-title"><i class="ti ti-layout-board-split" style="font-size:14px"></i> Channel Optimized</div>
-          <p>Whether you choose LinkedIn, Email, or Landing Page, the prompt instructs Claude to format the output natively (e.g., using subject lines for emails, or scannable bullet points for web).</p>
-        </div>
-        <div class="info-card">
-          <div class="info-card-title"><i class="ti ti-message-2" style="font-size:14px"></i> No Marketing Clichés</div>
-          <p>Claude is instructed to avoid tired jargon like "game-changer," "revolutionary," or "synergy." The result is modern, punchy, and persuasive copy.</p>
-        </div>
-        <div class="info-card">
-          <div class="info-card-title"><i class="ti ti-target-arrow" style="font-size:14px"></i> Conversion Focused</div>
-          <p>By defining a strict Target Audience and Goal, Claude structures the narrative to lead naturally to your specified Call to Action, maximizing click-through rates.</p>
-        </div>
+    <div class="fields-grid" style="margin-bottom:0">
+      <div class="field full">
+        <label>Call to action (CTA)</label>
+        <input type="text" id="b-cta" placeholder="e.g. Book a 15-min demo, Download the free guide, Start your free trial">
       </div>
-      <div class="tip-box">
-        <p><strong>Tip:</strong> Be as specific as possible in the "Key Message / Value Proposition" field. Don't just say "It saves time." Say "It saves 10 hours a week by automating data entry." Claude relies entirely on this field to persuade the reader.</p>
+    </div>
+
+    <button class="btn-generate" onclick="generate()"><i class="ti ti-sparkles"></i> Generate My Marketing Prompt</button>
+
+    <div class="output-box" id="outputBox">
+      <div class="output-label" id="outputLabel">Your prompt — ready to copy into Claude</div>
+      <div class="output-text" id="outputText"></div>
+      <div class="output-actions">
+        <button class="btn-copy-output" onclick="copyPrompt()"><i class="ti ti-copy"></i> <span id="copyLabel">Copy Prompt</span></button>
+        <a href="https://claude.ai" target="_blank" rel="noopener" class="btn-open-ai"><i class="ti ti-external-link"></i> Open Claude</a>
+        <a href="https://chatgpt.com" target="_blank" rel="noopener" class="btn-open-ai"><i class="ti ti-external-link"></i> Open ChatGPT</a>
+        <a href="https://gemini.google.com" target="_blank" rel="noopener" class="btn-open-ai"><i class="ti ti-external-link"></i> Open Gemini</a>
       </div>
     </div>
   </div>
-</div></div>
 
-<footer style="background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0">
-<div style="max-width:1100px; margin:0 auto">
-<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
+  <div class="info-section">
+    <h2>How the prompt works</h2>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-card-title"><i class="ti ti-shield-check" style="font-size:14px"></i> No invented claims</div>
+        <p>The prompt explicitly forbids the AI from inventing product features, statistics, or offers you didn't provide. You stay in full control of every claim.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title"><i class="ti ti-layout-board-split" style="font-size:14px"></i> Channel-optimised format</div>
+        <p>Whether you choose LinkedIn, email, or landing page, the prompt instructs the AI to format the output natively — subject lines for emails, scannable structure for web.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title"><i class="ti ti-message-2" style="font-size:14px"></i> No marketing clichés</div>
+        <p>The AI is instructed to avoid overused phrases like "game-changer", "revolutionary", or "unlock your potential". The result is direct, modern copy.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title"><i class="ti ti-target-arrow" style="font-size:14px"></i> CTA-focused structure</div>
+        <p>The copy is structured to lead naturally toward your specified call to action — no filler paragraphs after the CTA, no weak closings.</p>
+      </div>
+    </div>
+    <div class="tip-box">
+      <p><strong>Tip:</strong> The more specific your value proposition, the better the output. Don't just say "it saves time" — say "it saves 10 hours a week by automating receipt tracking." The AI relies entirely on what you provide to write persuasive copy.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer style="background:#021a12;padding:2.5rem 1rem 1.5rem;margin-top:3rem">
+<div style="max-width:1100px;margin:0 auto">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:2.5rem;margin-bottom:2rem">
 <div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Guides by Role</strong>
-<a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Finance Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for HR Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Marketing Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Legal Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Operations Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Sales Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Customer Service</a>
-<a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Excel</a>
+<strong style="display:block;font-size:13.5px;font-weight:600;color:#ffffff;margin-bottom:1rem;letter-spacing:0.5px">Guides by Role</strong>
+<a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Finance Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for HR Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Marketing Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Legal Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Operations Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Sales Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Customer Service</a>
+<a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">AI for Excel</a>
 </div>
 <div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Prompt Tools</strong>
-<a href="https://www.pairworkflows.com/prompt-generator-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Excel Prompt Builder</a>
-<a href="https://www.pairworkflows.com/prompt-generator-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Finance Prompt Builder</a>
-<a href="https://www.pairworkflows.com/prompt-generator-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">HR Prompt Builder</a>
-<a href="https://www.pairworkflows.com/prompt-generator-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Marketing Prompt Builder</a>
-<a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">General Prompt Library</a>
+<strong style="display:block;font-size:13.5px;font-weight:600;color:#ffffff;margin-bottom:1rem;letter-spacing:0.5px">Prompt Tools</strong>
+<a href="https://www.pairworkflows.com/prompt-generator-excel.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Excel Prompt Generator</a>
+<a href="https://www.pairworkflows.com/prompt-generator-finance.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Finance Prompt Generator</a>
+<a href="https://www.pairworkflows.com/prompt-generator-hr.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">HR Prompt Generator</a>
+<a href="https://www.pairworkflows.com/prompt-generator-marketing.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Marketing Prompt Generator</a>
+<a href="https://www.pairworkflows.com/prompt-library.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Prompt Library</a>
 </div>
 <div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Resources</strong>
-<a href="https://www.pairworkflows.com/claude-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Claude Courses</a>
-<a href="https://www.pairworkflows.com/gemini-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Gemini Courses</a>
-<a href="https://www.pairworkflows.com/glossary.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI Glossary</a>
-<a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Claude vs Gemini</a>
-<a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
+<strong style="display:block;font-size:13.5px;font-weight:600;color:#ffffff;margin-bottom:1rem;letter-spacing:0.5px">Resources</strong>
+<a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Claude vs Gemini</a>
+<a href="https://www.pairworkflows.com/claude-vs-copilot-excel.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Claude vs Copilot Excel</a>
 </div>
 <div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company & Legal</strong>
-<a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
-<a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
-<a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
-<a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Privacy Policy</a>
-<a href="https://www.pairworkflows.com/legal.html#terms" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Terms of Use</a>
-<a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Cookie Policy</a>
+<strong style="display:block;font-size:13.5px;font-weight:600;color:#ffffff;margin-bottom:1rem;letter-spacing:0.5px">Company &amp; Legal</strong>
+<a href="https://www.pairworkflows.com/about.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">About</a>
+<a href="https://www.pairworkflows.com/contact.html" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Contact</a>
+<a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Privacy Policy</a>
+<a href="https://www.pairworkflows.com/legal.html#terms" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Terms of Use</a>
+<a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block;font-size:14px;color:#94a3b8;text-decoration:none;margin-bottom:0.55rem">Cookie Policy</a>
 </div>
 </div>
-<div style="text-align:center; margin-bottom:2rem">
-<p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:520px; margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p>
-</div>
-<div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem">
-<span style="font-size:13px; color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
-<div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
-<button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-  Copy link
-</button>
-<a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-  <span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span>
-</a>
-<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn">
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-</a>
-<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-</a>
-</div>
+<div style="border-top:1px solid #0a4a30;padding-top:1.25rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+<span style="font-size:13px;color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75;text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
 </div>
 </div>
 </footer>
 
 <script>
-function v(id){return document.getElementById(id).value.trim();}
-
-function generate(){
-  var product = v('product') || '[Product/Service not specified]';
-  var channel = v('channel') || 'General Marketing Copy';
-  var audience = v('audience') || '[Target audience not specified]';
-  var goal = v('goal') || '[Goal not specified]';
-  var tone = v('tone') || 'Professional, authoritative, and direct';
-  var valueprop = v('valueprop') || '[Value proposition not specified]';
-  var cta = v('cta') || '[No specific CTA provided]';
-
-  var prompt = 'You are an expert Marketing Copywriter and Strategist. Write high-converting, engaging copy based EXACTLY on the parameters below. Do not deviate from these constraints.\n\n' +
-  'CAMPAIGN CONTEXT\n' +
-  '- Product / Service: ' + product + '\n' +
-  '- Marketing Channel: ' + channel + '\n' +
-  '- Target Audience: ' + audience + '\n' +
-  '- Campaign Goal: ' + goal + '\n' +
-  '- Brand Tone of Voice: ' + tone + '\n\n' +
-  'CORE MESSAGING\n' +
-  '- Key Message / Value Prop: ' + valueprop + '\n' +
-  '- Call to Action (CTA): ' + cta + '\n\n' +
-  'OUTPUT STRUCTURE\n' +
-  'Please provide the following formatted output:\n' +
-  '1. Hooks / Variations: Provide 3 alternative hooks or subject lines (optimized for the chosen channel) to grab the audience\'s attention.\n' +
-  '2. Primary Copy: Write the main body copy. Structure it natively for the chosen channel (e.g., short paragraphs and emojis for social media; scannable bullet points and H2s for landing pages).\n' +
-  '3. The Ask: Integrate the specific CTA clearly and compellingly at the end.\n\n' +
-  'WRITING RULES (CRITICAL)\n' +
-  '- STRICT NO-HALLUCINATION RULE: Do not invent product features, pricing, discounts, or guarantees that are not explicitly stated in the Core Messaging section.\n' +
-  '- Tone adherence: Strictly follow the requested Brand Tone of Voice. Do not sound like a generic AI.\n' +
-  '- Avoid marketing clichés: Do not use words like "revolutionary", "game-changer", "synergy", "unlock", or "elevate". Use punchy, persuasive, and clear English.\n' +
-  '- If important context is missing to write an effective draft, provide a partial draft and explicitly ask me for the missing details.';
-
-  document.getElementById('outputText').textContent = prompt;
-  var block = document.getElementById('outputBlock');
-  block.style.display = 'block';
-  block.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+function selectAI(btn, ai) {
+  document.querySelectorAll('.ai-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('b-ai').value = ai;
+  var labels = {claude:'Claude', chatgpt:'ChatGPT', gemini:'Gemini'};
+  document.getElementById('outputLabel').textContent = 'Your prompt — ready to copy into ' + labels[ai];
 }
 
-function copyPrompt(){
+function generate() {
+  var ai = document.getElementById('b-ai').value;
+  var task = document.getElementById('b-task').value;
+  var product = document.getElementById('b-product').value.trim() || '[product or service not specified]';
+  var audience = document.getElementById('b-audience').value.trim() || '[target audience not specified]';
+  var goal = document.getElementById('b-goal').value;
+  var tone = document.getElementById('b-tone').value;
+  var valueprop = document.getElementById('b-valueprop').value.trim();
+  var cta = document.getElementById('b-cta').value.trim();
+
+  var valuepropLine = valueprop
+    ? '\nKey message / value proposition: ' + valueprop
+    : '\nKey message: [not specified — use the product and audience context to infer the most likely benefit, and flag that you have done so]';
+  var ctaLine = cta
+    ? '\nCall to action: ' + cta
+    : '\nCall to action: [not specified — suggest the most appropriate CTA for this goal and channel]';
+
+  var prompt = 'You are an experienced marketing copywriter. Produce a ' + task + ' for the following.\n\n'
+    + 'DETAILS\n'
+    + 'Product or service: ' + product + '\n'
+    + 'Target audience: ' + audience + '\n'
+    + 'Campaign goal: ' + goal + '\n'
+    + 'Brand tone of voice: ' + tone
+    + valuepropLine
+    + ctaLine + '\n\n'
+    + 'INSTRUCTIONS\n'
+    + '1. Use only the information provided — do not invent product features, statistics, discounts, or claims not specified above.\n'
+    + '2. Format the output natively for the channel: ' + task + '.\n'
+    + '3. Apply the brand tone throughout — do not drift toward a generic marketing voice.\n'
+    + '4. Avoid overused marketing phrases such as "game-changer", "revolutionary", "unlock", "elevate", or "synergy".\n'
+    + '5. End with the call to action as a clear, standalone element — no filler sentences after it.\n'
+    + '6. If key information is missing, flag it rather than filling in generic content.';
+
+  var aiLayer = '';
+  if (ai === 'claude') aiLayer = '\n\nInstruction for Claude: Use a natural writing style and avoid rhetorical padding or overly discursive paragraphs. Keep copy concise and goal-oriented, respecting the channel structure without unnecessary length. Make the CTA stand out at the end as a clear, unambiguous element.';
+  if (ai === 'chatgpt') aiLayer = '\n\nInstruction for ChatGPT: Cancel your default enthusiastic tone and strictly avoid marketing clichés such as "unlock", "elevate", "revolutionise" or emoji overuse. Follow the brand tone of voice literally and trim the text to respect the native length limits of the channel. Insert the CTA cleanly with no superfluous closing phrases after it.';
+  if (ai === 'gemini') aiLayer = '\n\nInstruction for Gemini: Base the copy exclusively on the information provided — do not invent statistics, benefits or features not present in the prompt. Avoid structuring the copy with bullet points or bold text if the specific channel format requires flowing narrative text. Insert the CTA rigidly and literally as written — do not paraphrase or reinterpret it.';
+
+  document.getElementById('outputText').textContent = prompt + aiLayer;
+  var box = document.getElementById('outputBox');
+  box.classList.add('visible');
+  box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function copyPrompt() {
   var text = document.getElementById('outputText').textContent;
-  navigator.clipboard.writeText(text).then(function(){
-    var btn = document.getElementById('btnCopy');
-    btn.innerHTML = '<i class="ti ti-check"></i> Copied!';
-    btn.classList.add('copied');
-    setTimeout(function(){
-      btn.innerHTML = '<i class="ti ti-copy"></i> Copy prompt';
-      btn.classList.remove('copied');
-    }, 2000);
-  });
+  navigator.clipboard.writeText(text);
+  var label = document.getElementById('copyLabel');
+  label.textContent = 'Copied!';
+  setTimeout(function() { label.textContent = 'Copy Prompt'; }, 2000);
 }
 
-function openInClaude(){
-  window.open('https://claude.ai','_blank','noopener');
-}
-
-function copyLink(){
-  var btn = document.getElementById('copyLinkBtn');
-  navigator.clipboard.writeText(window.location.href);
-  btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';
-  setTimeout(function(){
-    btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';
-  }, 2000);
-}
-
-function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
-function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+function openSearch() { document.getElementById('searchOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; setTimeout(function() { document.getElementById('searchOverlayInput').focus(); }, 50); }
+function closeSearch() { document.getElementById('searchOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeSearch(); });
+window.addEventListener('load', function() { window.scrollTo(0, 0); });
 </script>
 </body>
 </html>
