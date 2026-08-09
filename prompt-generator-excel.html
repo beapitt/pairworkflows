@@ -54,7 +54,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#f8f9fa;color:#1a1a2e;
 .page-wrap{width:100%;max-width:860px;margin:0 auto;padding:2.5rem 1.5rem;flex:1}
 
 /* HERO — clean, no banner */
-.hero{text-align:center;padding:3rem 1rem 2.5rem}
+.hero{text-align:center;padding:1.5rem 1rem 1.25rem}
 .hero h1{font-size:36px;font-weight:700;color:#111827;line-height:1.2;margin-bottom:.75rem;letter-spacing:-0.5px}
 .hero p{font-size:16px;color:#6b7280;max-width:560px;margin:0 auto;line-height:1.7}
 
@@ -65,9 +65,13 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#f8f9fa;color:#1a1a2e;
 /* AI SELECTOR */
 .ai-selector{display:flex;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap}
 .ai-selector label{font-size:12px;font-weight:600;color:#374151;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:.5rem;width:100%}
-.ai-btn{flex:1;min-width:100px;padding:10px 16px;border-radius:8px;border:1.5px solid #e5e7eb;background:#f9fafb;font-size:13px;font-weight:500;color:#374151;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;text-align:center}
+.ai-btn-wrap{flex:1;min-width:100px;position:relative}
+.ai-btn{width:100%;padding:10px 16px;border-radius:8px;border:1.5px solid #e5e7eb;background:#f9fafb;font-size:13px;font-weight:500;color:#374151;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;text-align:center;display:block}
 .ai-btn:hover{border-color:#1d9e75;color:#1d9e75}
 .ai-btn.active{background:#1d9e75;border-color:#1d9e75;color:#fff;font-weight:600}
+.ai-tooltip{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;font-size:11px;line-height:1.5;padding:8px 12px;border-radius:8px;width:200px;text-align:left;z-index:100;pointer-events:none;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.ai-tooltip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#1a1a2e}
+.ai-btn-wrap:hover .ai-tooltip{display:block}
 
 /* FORM FIELDS */
 .fields-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.25rem}
@@ -195,9 +199,18 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#f8f9fa;color:#1a1a2e;
     <div>
       <label style="font-size:11px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:.6rem">Which AI are you using?</label>
       <div class="ai-selector" style="margin-bottom:0">
-        <button class="ai-btn active" onclick="selectAI(this,'claude')">Claude</button>
-        <button class="ai-btn" onclick="selectAI(this,'chatgpt')">ChatGPT</button>
-        <button class="ai-btn" onclick="selectAI(this,'gemini')">Gemini</button>
+        <div class="ai-btn-wrap">
+          <button class="ai-btn active" onclick="selectAI(this,'claude')">Claude</button>
+          <div class="ai-tooltip">Preserves your workbook structure. Delivers formula immediately with IFERROR handling.</div>
+        </div>
+        <div class="ai-btn-wrap">
+          <button class="ai-btn" onclick="selectAI(this,'chatgpt')">ChatGPT</button>
+          <div class="ai-tooltip">Uses modern functions (XLOOKUP, LET). Checks assumptions before calculating.</div>
+        </div>
+        <div class="ai-btn-wrap">
+          <button class="ai-btn" onclick="selectAI(this,'gemini')">Gemini</button>
+          <div class="ai-tooltip">Optimised for Google Sheets native functions. Verifies syntax and parentheses.</div>
+        </div>
       </div>
       <input type="hidden" id="b-ai" value="claude">
     </div>
@@ -1000,7 +1013,6 @@ function selectAI(btn, ai) {
   document.querySelectorAll('.ai-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   document.getElementById('b-ai').value = ai;
-  // Update output label if visible
   var labels = {claude:'Claude', chatgpt:'ChatGPT', gemini:'Gemini'};
   document.getElementById('outputAILabel').textContent = 'Your prompt — ready to copy into ' + labels[ai];
 }
