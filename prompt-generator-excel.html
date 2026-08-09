@@ -1039,9 +1039,9 @@ function buildPrompt() {
 
   // AI-specific layer
   var aiLayer = '';
-  if (ai === 'claude') aiLayer = '\n\nPlease structure your response with clear reasoning, explicit assumptions, and step-by-step explanation where relevant.';
-  if (ai === 'chatgpt') aiLayer = '\n\nPlease provide a structured, concise response with clear sections and actionable output.';
-  if (ai === 'gemini') aiLayer = '\n\nPlease use a clear, structured format. If Google Sheets-specific syntax applies, prioritise that over Excel equivalents.';
+  if (ai === 'claude') aiLayer = '\n\nInstruction for Claude: Preserve the existing workbook structure, formulas and dependencies unless explicitly asked to change them. Provide the formula immediately, ready to paste. Explain the internal logic briefly — no preamble. Always handle edge cases with IFERROR or IFNA where relevant.';
+  if (ai === 'chatgpt') aiLayer = '\n\nInstruction for ChatGPT: Use modern, efficient functions (XLOOKUP, LET, dynamic arrays) over legacy alternatives. Respect the argument separators for the Excel version specified (comma or semicolon). Check data and assumptions before calculating. No introductory text — go straight to the formula.';
+  if (ai === 'gemini') aiLayer = '\n\nInstruction for Gemini: Work within native Google Sheets functions and features where applicable. Verify parenthesis balance and include all required arguments before showing the result. Keep changes targeted to the relevant cells or ranges specified. Avoid applying Excel-specific syntax to Google Sheets tasks and vice versa.';
 
   var prompt = intro + taskLine + descLine + outputLine + aiLayer;
   document.getElementById('builderOutputText').textContent = prompt;
