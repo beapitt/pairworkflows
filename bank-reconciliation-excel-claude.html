@@ -19,12 +19,13 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
 /* PAGE */
 .page{max-width:1300px;margin:0 auto;width:100%;padding:2rem 2.5rem 4rem;flex:1}
+section { margin-bottom: 2rem; }
 
 /* ── HERO ── */
 .hero{margin-bottom:2rem}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#0f6e56;background:#e1f5ee;border:1px solid #a7f3d0;border-radius:20px;padding:4px 12px;margin-bottom:.9rem}
-.hero h1{font-size:32px;font-weight:700;line-height:1.2;color:#111827;margin-bottom:.6rem;letter-spacing:-.5px}
-.hero h1 span{color:#1d9e75}
+.hero h1{font-size:32px;font-weight:700;line-height:1.2;color:#111827;margin-bottom:.2rem;letter-spacing:-.5px}
+.hero h2 {font-size: 24px; font-weight:600; color: #1d9e75; margin-bottom: .6rem; line-height: 1.2;}
 .hero-sub{font-size:15px;color:#6b7280;line-height:1.65;max-width:600px}
 
 /* ── PROMPT SELECTOR ── */
@@ -82,10 +83,12 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .diag-badge{font-size:10px;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;white-space:nowrap}
 .badge-red{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
 .badge-yellow{background:#fffbeb;color:#b45309;border:1px solid #fde68a}
+.diag-header h2 { font-size: inherit; font-weight: inherit; color: inherit; text-transform: inherit; letter-spacing: inherit; margin: 0; }
 
 /* ── STEPS ── */
 .steps-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .steps-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+.steps-title h2 { font-size: inherit; font-weight: inherit; color: inherit; margin: 0; }
 .step{display:flex;gap:16px;padding:.9rem 0;border-bottom:1px solid #f3f4f6}
 .step:last-child{border-bottom:none}
 .step-n{width:28px;height:28px;border-radius:8px;background:#e1f5ee;color:#0f6e56;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
@@ -101,6 +104,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 /* ── FAQ ── */
 .faq-section{margin-bottom:1.75rem}
 .faq-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1rem}
+.faq-title h2 { font-size: inherit; font-weight: inherit; color: inherit; margin: 0; }
 .faq-item{border-bottom:1px solid #f3f4f6;padding:.9rem 0}
 .faq-q{font-size:13px;font-weight:600;color:#1f2937;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .faq-q i{color:#9ca3af;transition:transform .2s;flex-shrink:0}
@@ -113,6 +117,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
 /* ── RELATED ── */
 .related-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af;margin-bottom:.75rem}
+.related-title h2 { font-size: inherit; font-weight: inherit; color: inherit; text-transform: inherit; letter-spacing: inherit; margin: 0; }
 .related-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .related-link{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:.9rem 1rem;text-decoration:none;transition:border-color .15s}
 .related-link:hover{border-color:#1d9e75}
@@ -131,6 +136,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
 @media(max-width:640px){
   .hero h1{font-size:24px}
+  .hero h2 {font-size: 20px;}
   .before-after{grid-template-columns:1fr;gap:8px}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
@@ -163,17 +169,18 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 </nav>
 </noscript>
 
-<div class="page">
+<main class="page">
 
   <!-- HERO -->
-  <div class="hero">
+  <section class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
-    <h1>Bank reconciliation taking hours?<br><span>Claude matches transactions in minutes.</span></h1>
+    <h1>How to Automate Bank Reconciliation in Excel with Claude AI</h1>
+    <h2>Bank reconciliation taking hours?<br>Claude matches transactions in minutes.</h2>
     <p class="hero-sub">Paste your bank statement and general ledger into Claude with the prompt below. It matches transactions by date and amount, flags partial matches, and lists every unmatched item — no forced matches, no invented entries.</p>
-  </div>
+  </section>
 
   <!-- PROMPT SELECTOR -->
-  <div class="prompt-card">
+  <section class="prompt-card">
     <div class="prompt-card-top">
       <span class="prompt-card-label">Choose your situation — copy the prompt:</span>
       <div class="tabs">
@@ -252,10 +259,10 @@ Apply the same matching rules: Matched / Partial / Unmatched. Flag every discrep
       </div>
       <p class="prompt-hint">Add a Currency column to both datasets if you have multiple currencies in one statement.</p>
     </div>
-  </div>
+  </section>
 
   <!-- BEFORE / AFTER VISUAL -->
-  <div class="before-after">
+  <section class="before-after">
     <div class="ba-col before">
       <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — raw data, no matching</div>
       <div class="ba-body">
@@ -291,11 +298,11 @@ Net difference: £50 partial + £1,980 unmatched</pre>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- DIAGNOSIS TABLE -->
-  <div class="diag-card">
-    <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Why reconciliations fail — the 4 most common causes</div>
+  <section class="diag-card">
+    <div class="diag-header"><h2><i class="ti ti-zoom-question" style="font-size:15px"></i> Why reconciliations fail — the 4 most common causes</h2></div>
     <div class="diag-row">
       <div class="diag-cause">Date format mismatch</div>
       <div class="diag-example">Bank: <span class="bad">01/06/2025</span> · Ledger: <span class="bad">2025-06-01</span> → all rows show Unmatched</div>
@@ -316,12 +323,11 @@ Net difference: £50 partial + £1,980 unmatched</pre>
       <div class="diag-example">Running balance or subtotal rows in bank export → false Unmatched</div>
       <div class="diag-badge badge-yellow">Invisible</div>
     </div>
-  </div>
+  </section>
 
   <!-- STEPS -->
-  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
-  <div class="steps-card">
-    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Run a bank reconciliation with Claude — 5 steps</div>
+  <section class="steps-card">
+    <div class="steps-title"><h2><i class="ti ti-list-check" style="color:#1d9e75"></i> Run a bank reconciliation with Claude — 5 steps</h2></div>
     <div class="step">
       <div class="step-n">1</div>
       <div class="step-body"><h3>Export both datasets to Excel or CSV</h3><p>Export your bank statement and general ledger cash account. Keep only individual transaction rows — delete summary rows, running balances, and any bank export headers that span multiple columns.</p></div>
@@ -343,12 +349,11 @@ Net difference: £50 partial + £1,980 unmatched</pre>
       <div class="step-body"><h3>Paste the reconciliation table into Excel</h3><p>Claude formats the output as a tab-separated table ready to paste into Excel. Apply <code>Ctrl+Shift+L</code> to add filters, then sort by Status to group all Partial and Unmatched items at the top.</p></div>
     </div>
     <div class="tip"><strong>Tip:</strong> If all your items show Unmatched, the most likely cause is a date format mismatch. Tell Claude "dates in my bank export are MM/DD/YYYY and in my ledger they are DD/MM/YYYY" — it will normalise before matching.</div>
-  </div>
+  </section>
 
   <!-- FAQ -->
-  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Frequently asked questions</h2>
-  <div class="faq-section">
-    <div class="faq-title" aria-hidden="true">Frequently asked questions</div>
+  <section class="faq-section">
+    <div class="faq-title"><h2>Frequently asked questions</h2></div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can Claude read my Excel bank statement directly? <i class="ti ti-chevron-down"></i></div>
       <div class="faq-a">Claude cannot open .xlsx files natively in the free chat. Copy the relevant columns from Excel and paste them as plain text into the prompt. Claude Pro supports file uploads if you prefer to attach the file directly.</div>
@@ -369,31 +374,32 @@ Net difference: £50 partial + £1,980 unmatched</pre>
       <div class="faq-q" onclick="toggleFaq(this)">How often should I run this reconciliation? <i class="ti ti-chevron-down"></i></div>
       <div class="faq-a">Most finance teams reconcile monthly at minimum. Weekly reconciliation catches errors faster and makes month-end close significantly smoother. If you're building a broader close process, see the <a href="/month-end-close-excel-claude.html">month-end close checklist workflow</a>.</div>
     </div>
-  </div>
+  </section>
 
   <!-- RELATED -->
-  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Related Excel workflows</h2>
-  <div class="related-title" aria-hidden="true">Related Excel workflows</div>
-  <div class="related-grid">
-    <a href="/month-end-close-excel-claude.html" class="related-link">
-      <strong>Automate Your Month-End Close Checklist</strong>
-      <span>Build a close checklist in Excel that tracks tasks, deadlines, and sign-offs automatically.</span>
-    </a>
-    <a href="/accounts-payable-aging-excel-claude.html" class="related-link">
-      <strong>Build an Accounts Payable Aging Dashboard</strong>
-      <span>Flag overdue invoices and build an AP aging summary with Claude in minutes.</span>
-    </a>
-    <a href="/accounts-receivable-excel-claude.html" class="related-link">
-      <strong>Automate Accounts Receivable Tracking</strong>
-      <span>Track outstanding invoices and calculate days outstanding without manual formulas.</span>
-    </a>
-    <a href="/automate-cash-flow-dashboard-excel-claude.html" class="related-link">
-      <strong>Build a Cash Flow Dashboard in Excel</strong>
-      <span>Feed reconciliation outputs into a live cash monitoring dashboard.</span>
-    </a>
-  </div>
+  <section class="related-section">
+    <div class="related-title"><h2>Related Excel workflows</h2></div>
+    <div class="related-grid">
+      <a href="/month-end-close-excel-claude.html" class="related-link">
+        <strong>Automate Your Month-End Close Checklist</strong>
+        <span>Build a close checklist in Excel that tracks tasks, deadlines, and sign-offs automatically.</span>
+      </a>
+      <a href="/accounts-payable-aging-excel-claude.html" class="related-link">
+        <strong>Build an Accounts Payable Aging Dashboard</strong>
+        <span>Flag overdue invoices and build an AP aging summary with Claude in minutes.</span>
+      </a>
+      <a href="/accounts-receivable-excel-claude.html" class="related-link">
+        <strong>Automate Accounts Receivable Tracking</strong>
+        <span>Track outstanding invoices and calculate days outstanding without manual formulas.</span>
+      </a>
+      <a href="/automate-cash-flow-dashboard-excel-claude.html" class="related-link">
+        <strong>Build a Cash Flow Dashboard in Excel</strong>
+        <span>Feed reconciliation outputs into a live cash monitoring dashboard.</span>
+      </a>
+    </div>
+  </section>
 
-</div>
+</main>
 
 <script>
 function switchTab(btn,id){
