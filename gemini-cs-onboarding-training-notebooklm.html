@@ -7,194 +7,420 @@
 <meta name="description" content="Learn how to use NotebookLM to transform static product documentation into interactive, source-grounded training materials for new customers. Free 5-minute guide.">
 <link rel="canonical" href="https://www.pairworkflows.com/gemini-cs-onboarding-training-notebooklm.html">
 <meta property="og:title" content="How to Use NotebookLM for Customer Onboarding Training — PairWorkflows">
-<meta property="og:description" content="Learn how to use NotebookLM to transform static product documentation into interactive, source-grounded training materials for new customers. Free 5-minute guide.">
+<meta property="og:description" content="Learn how to use NotebookLM to transform static product documentation into interactive, source-grounded training materials for new customers.">
 <meta property="og:url" content="https://www.pairworkflows.com/gemini-cs-onboarding-training-notebooklm.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PairWorkflows">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Use NotebookLM for Customer Onboarding Training — PairWorkflows">
+<meta name="twitter:description" content="Learn how to use NotebookLM to transform static product documentation into interactive, source-grounded training materials for new customers.">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"How to Use NotebookLM for Customer Onboarding Training","description":"Learn how to use NotebookLM to transform static product documentation into interactive, source-grounded training materials for new customers.","url":"https://www.pairworkflows.com/gemini-cs-onboarding-training-notebooklm.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-<link rel="stylesheet" href="/global-fix.css">
-<link rel="icon" type="image/png" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"><link rel="stylesheet" href="/global-fix.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:100vh;display:flex;flex-direction:column}
-.page{max-width:1300px;margin:0 auto;width:100%;padding:2rem 2.5rem 4rem;flex:1}
-.hero{margin-bottom:2rem}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#0f6e56;background:#e1f5ee;border:1px solid #a7f3d0;border-radius:20px;padding:4px 12px;margin-bottom:.9rem}
-.hero h1{font-size:32px;font-weight:700;line-height:1.2;color:#111827;margin-bottom:.6rem;letter-spacing:-.5px}
-.hero h1 span{color:#1d9e75}
-.hero-sub{font-size:15px;color:#6b7280;line-height:1.65;max-width:640px}
-.prompt-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.prompt-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.75rem}
-.prompt-card-label{font-size:13px;font-weight:600;color:#374151}
-.tabs{display:flex;gap:6px;flex-wrap:wrap}
-.tab{padding:6px 14px;border-radius:7px;border:1.5px solid #e5e7eb;background:#f9fafb;font-size:12px;font-weight:500;color:#6b7280;cursor:pointer;transition:all .15s;font-family:inherit}
-.tab:hover{border-color:#1d9e75;color:#0f6e56}
-.tab.on{background:#1d9e75;border-color:#1d9e75;color:#fff;font-weight:600}
-.panel{display:none}
-.panel.on{display:block}
-.prompt-box{background:#0f172a;border-radius:10px;padding:1.25rem 1.25rem 1rem;position:relative}
-.prompt-box pre{font-family:'JetBrains Mono',monospace;font-size:12px;color:#e2e8f0;line-height:1.75;white-space:pre-wrap;word-break:break-word;padding-right:70px}
-.copy-btn{position:absolute;top:.75rem;right:.75rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-weight:500;font-family:inherit;cursor:pointer;padding:5px 12px;transition:all .15s;display:flex;align-items:center;gap:5px}
-.copy-btn:hover{background:rgba(255,255,255,.15);color:#fff}
-.prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
-.prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
-.prompt-hint a:hover{text-decoration:underline}
-.ba-section{margin-bottom:1.75rem}
-.ba-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
-.ba-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
-.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
-.ba-col.before{border-color:#fca5a5}
-.ba-col.after{border-color:#6ee7b7}
-.ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
-.ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
-.ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
-.ba-body{padding:1rem 1.25rem;font-size:13px;color:#374151;line-height:1.7;font-style:italic}
-.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
-.dodont-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.75rem}
-.dodont-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
-.dodont-col.do{border-color:#6ee7b7}
-.dodont-col.dont{border-color:#fca5a5}
-.dodont-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
-.dodont-header.do{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
-.dodont-header.dont{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
-.dodont-item{display:flex;align-items:flex-start;gap:10px;padding:.7rem 1rem;border-bottom:1px solid #f9fafb;font-size:13px;color:#374151;line-height:1.55}
-.dodont-item:last-child{border-bottom:none}
-.dodont-item i{flex-shrink:0;margin-top:1px;font-size:14px}
-.dodont-item i.ok{color:#059669}
-.dodont-item i.no{color:#dc2626}
-.warning{background:#fef9c3;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin-bottom:1.75rem;font-size:13px;color:#78350f;line-height:1.65;display:flex;align-items:flex-start;gap:10px}
-.warning i{flex-shrink:0;margin-top:1px;font-size:16px;color:#f59e0b}
-.steps-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.steps-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
-.step{display:flex;gap:16px;padding:.9rem 0;border-bottom:1px solid #f3f4f6}
-.step:last-child{border-bottom:none}
-.step-n{width:28px;height:28px;border-radius:8px;background:#e1f5ee;color:#0f6e56;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.step-body h3{font-size:13px;font-weight:600;color:#1f2937;margin-bottom:.25rem}
-.step-body p{font-size:13px;color:#6b7280;line-height:1.65}
-.step-body code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
-.faq-section{margin-bottom:1.75rem}
-.faq-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1rem}
-.faq-item{border-bottom:1px solid #f3f4f6;padding:.9rem 0}
-.faq-q{font-size:13px;font-weight:600;color:#1f2937;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
-.faq-q i{color:#9ca3af;transition:transform .2s;flex-shrink:0}
-.faq-q.open i{transform:rotate(180deg)}
-.faq-a{font-size:13px;color:#6b7280;line-height:1.7;display:none;padding-top:.6rem}
-.faq-a.open{display:block}
-.faq-a code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
-.related-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af;margin-bottom:.75rem}
-.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.related-link{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:.9rem 1rem;text-decoration:none;transition:border-color .15s;display:block}
-.related-link:hover{border-color:#1d9e75}
-.related-link strong{display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem}
-.related-link span{display:block;font-size:12px;color:#9ca3af;line-height:1.4}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#f5f5f5;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
+.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
+.logo-workflows{font-size:16px;font-weight:400;color:#fff}
+.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
+.nav-back:hover{color:#1d9e75}
+.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
+.course-shell{background:#fff;border-radius:16px;border:1px solid #e8ecef;overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
+.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
+.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
+.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
+.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
+.prog-wrap{padding:1rem 1.25rem .75rem}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
+.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
+.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
+.nav-list{padding:.5rem 0;flex:1}
+.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
+.nav-item:hover{background:#eef1f4}
+.nav-item.active{border-left-color:#1d9e75;background:#fff}
+.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
+.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
+.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
+.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
+.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
+.content-area{display:flex;flex-direction:column}
+.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
+.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
+.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3}
+.content-body{padding:1.75rem 2rem;flex:1}
+.seo-section{display:none}
+.seo-section.active-section{display:block}
+.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem} .seo-section h1{font-size:24px;font-weight:600;color:#1a1a2e;margin-bottom:1.5rem;line-height:1.3}
+.task-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.5rem 0}
+.task-card{background:#f8fafb;border:1px solid #e8ecef;border-top:3px solid #1d9e75;padding:1.25rem;text-align:center}
+.task-icon{font-size:26px;color:#1d9e75;margin-bottom:.5rem}
+.task-name{font-size:13px;font-weight:700;color:#0f6e56;margin-bottom:.3rem}
+.task-desc{font-size:12px;color:#374151;line-height:1.5}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.5rem 0}
+.stat-item{background:#085041;padding:1.25rem 1rem;text-align:center}
+.stat-num{font-size:26px;font-weight:700;color:#fff;line-height:1;margin-bottom:.35rem}
+.stat-label{font-size:11px;color:#9fe1cb;line-height:1.4;text-transform:uppercase;letter-spacing:.04em}
+.asset-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:1.5rem 0}
+.asset-card{padding:1rem 1.1rem;display:flex;align-items:flex-start;gap:12px;border:1px solid #e8ecef}
+.asset-study{background:#f0fdf4;border-color:#6ee7b7}
+.asset-audio{background:#fdf4ff;border-color:#c4b5fd}
+.asset-faq{background:#fff8e1;border-color:#fcd34d}
+.asset-query{background:#eff6ff;border-color:#93c5fd}
+.asset-icon{font-size:22px;flex-shrink:0;margin-top:1px}
+.asset-study .asset-icon{color:#059669}
+.asset-audio .asset-icon{color:#7c3aed}
+.asset-faq .asset-icon{color:#d97706}
+.asset-query .asset-icon{color:#1d4ed8}
+.asset-name{font-size:13px;font-weight:600;color:#1a1a2e;margin-bottom:.2rem}
+.asset-desc{font-size:12px;color:#374151;line-height:1.45}
+.before-after{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.5rem 0}
+.ba-card{padding:1.25rem}
+.ba-before{background:#fef2f2;border:1px solid #fecaca}
+.ba-after{background:#e1f5ee;border:1px solid #6ee7b7}
+.ba-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem;display:flex;align-items:center;gap:6px}
+.ba-label-before{color:#dc2626}
+.ba-label-after{color:#059669}
+.ba-text{font-size:13px;line-height:1.6;color:#374151}
+.prompt-block{background:#1a1a2e;padding:1.25rem;margin:1.25rem 0}
+.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
+.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.prompt-block-copy{background:transparent;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px}
+.workflow-steps{display:flex;flex-direction:column;gap:10px;margin:1.5rem 0}
+.wf-step{display:flex;align-items:flex-start;gap:14px;background:#f8fafb;border:1px solid #e8ecef;padding:1rem 1.25rem}
+.wf-num{width:30px;height:30px;background:#0f6e56;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0}
+.wf-content{flex:1;min-width:0}
+.wf-title{font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.2rem}
+.wf-desc{font-size:13px;color:#374151;line-height:1.55}
+.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;padding:1.25rem;margin:1.5rem 0}
+.checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
+.checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
+.checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
+.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;padding:1rem 1.25rem;margin:1.25rem 0}
+.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
+.highlight-text{font-size:13px;color:#374151;line-height:1.65}
+.warning-box{background:#fef2f2;border-left:3px solid #dc2626;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
+.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
+.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
+.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;padding:1rem 1.25rem;margin:1.25rem 0}
+.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
+.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc;flex-shrink:0}
+.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;font-size:13px;font-family:inherit;cursor:pointer}
+.btn-back:disabled{opacity:.35;cursor:default}
+.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer}
+.quiz-q{margin-bottom:1.5rem}
+.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
+.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;line-height:1.45}
+.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
+.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}
+.opt.selected .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
+.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}
+.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
+.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
+.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem}
+.submit-global:disabled{opacity:.35;cursor:default}
+.result-box{background:#f8fafb;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
+.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
+.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
+.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer}
+.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:2rem}
+.page-footer a{color:#1d9e75;text-decoration:none}
+.page-footer a:hover{text-decoration:underline}
 #searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
 #searchOverlay.open{display:flex}
 .search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
-.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px}
-.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1}
+.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;padding:12px 16px;background:transparent}
 .search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
-.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:inherit}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
-@media(max-width:640px){
-  .hero h1{font-size:24px}
-  .ba-grid{grid-template-columns:1fr;gap:8px}
-  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
-  .dodont-grid{grid-template-columns:1fr}
-  .related-grid{grid-template-columns:1fr}
-  .page{padding:1.5rem 1rem 3rem}
-  .tabs{gap:6px}
-  .tab{font-size:11px;padding:5px 10px}
-  .prompt-card-top{flex-direction:column;align-items:flex-start}
+.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center;letter-spacing:.02em}
+@media(max-width:700px){
+  .navbar{padding:0 1rem}
+  .page-wrap{padding:0}
+  .course-shell{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .content-body{padding:1.25rem 1rem}
+  .section-hero{padding:1.25rem 1rem}
+  .content-footer{padding:1rem}
+  .task-grid,.before-after,.stat-row,.asset-grid{grid-template-columns:1fr}
 }
-</style>
+.page-wrap-fix{max-width:1100px;margin:2rem auto;padding:0 1rem}.course-wrap-outer{width:100%}</style>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
-  <div class="search-overlay-inner">
-    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
-    <form action="/search.html" method="get">
-      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search workflows, prompts, and guides..." autocomplete="off"></div>
-    </form>
-  </div>
+<div class="search-overlay-inner">
+<button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+<form action="/search.html" method="get">
+<div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
+</form>
+<p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
+</div>
 </div>
 <div id="navbar-placeholder"></div>
-<script src="/navbar.js"></script>
-<script src="/footer.js"></script>
+<script src="/navbar.js"></script><script src="/footer.js"></script><script src="/footer.js"></script>
 <noscript>
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
+<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a>
+<a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a>
+<a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a>
+<a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a>
+<a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a>
+<a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a>
+<a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
+<a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a>
+<a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a>
+<a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
 </nav>
 </noscript>
-<div class="page">
-
-<div class="page">
-
-  <div class="hero">
-    <div class="hero-eyebrow"><i class="ti-headset" style="font-size:12px"></i> Customer Service · Gemini AI</div>
-    <h1>How to Use NotebookLM for Customer Onboarding Training</h1>
-    <p class="hero-sub">Static PDFs slow down client onboarding. NotebookLM turns your product documentation into interactive training assets.</p>
-  </div>
-  <div class="ba-section">
-    <div class="ba-title"><i class="ti ti-arrows-exchange" style="color:#1d9e75"></i> Before vs after — what Claude changes</div>
-    <div class="ba-grid">
-      <div class="ba-col before">
-        <div class="ba-header err"><i class="ti ti-x" style="font-size:13px"></i> Without NotebookLM</div>
-        <div class="ba-body">Account teams overwhelm new clients with static, text-heavy PDFs, resulting in low engagement, stalled implementation timelines and frustrated users who demand live training for basic tasks.</div>
-      </div>
-      <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-      <div class="ba-col after">
-        <div class="ba-header fix"><i class="ti ti-check" style="font-size:13px"></i> With NotebookLM</div>
-        <div class="ba-body">Clients and account teams access dynamic, easily digestible training assets — including FAQs and audio overviews — derived directly from official documentation, accelerating time to value.</div>
-      </div>
-    </div>
-  </div><div class="warning"><i class="ti ti-alert-triangle"></i><span>Important: Never upload unredacted legal contracts, proprietary financial data or sensitive Personally Identifiable Information (PII) into a shared Notebook if you plan to invite external client users, as anyone with access to the Notebook can query and view the underlying source materials.</span></div>
-  <div class="related-title">Related workflows</div>
-  <div class="related-grid">
-    
-    <a href="/claude-cs-rca-drafting.html" class="related-link">
-      <strong>Root Cause Analysis</strong>
-      <span>Draft post-incident RCA reports with Claude.</span>
-    </a>
-    <a href="/claude-cs-qbr-narrative.html" class="related-link">
-      <strong>QBR Deck Narrative</strong>
-      <span>Write QBR commentary that tells a clear story.</span>
-    </a>
-    <a href="/claude-cs-churn-risk.html" class="related-link">
-      <strong>Churn Risk Detection</strong>
-      <span>Identify at-risk accounts using AI-assisted analysis.</span>
-    </a>
-    <a href="/prompt-generator-customer-service.html" class="related-link">
-      <strong>CS Prompt Generator</strong>
-      <span>Build a custom Claude prompt for customer service tasks.</span>
-    </a>
-  </div>
+<div class="page-wrap">
+<div class="page-wrap-fix"><div class="course-wrap-outer"><div class="course-shell">
+<div class="sidebar">
+<div class="sidebar-top">
+<div class="course-label">Gemini AI — Customer Service Course</div>
+<h1 class="course-title-side">How to Use NotebookLM for Customer Onboarding Training</h1>
+</div>
+<div class="prog-wrap">
+<div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
+<div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+</div>
+<div class="nav-list">
+<div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">Where NotebookLM fits in onboarding</div></div>
+<div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">A workflow for building training assets</div></div>
+<div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompts and a training review checklist</div></div>
+<div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quiz: test your knowledge</div></div>
+</div>
+</div>
+<div class="content-area">
+<div class="section-hero"><div class="section-tag" id="heroTag">Section 01</div><h2 id="heroTitle">Static PDFs slow down client onboarding. NotebookLM turns your product documentation into interactive training assets.</h2></div>
+<div class="content-body" id="cnt">
+<div id="seo-sec-0" class="seo-section active-section">
+<p>Successfully onboarding a new enterprise client requires them to quickly understand and adopt your software or service. Traditionally, account managers send massive PDF user manuals, slide decks and help center links. Clients rarely read these dense materials, leading to delayed implementations, low product adoption and a high volume of basic support tickets for the account team.</p>
+<p>NotebookLM acts as a personalized, AI-driven learning hub to solve this adoption bottleneck. By uploading your official product documentation, implementation guides and technical specs, you create a closed-loop knowledge base. You can then use NotebookLM to instantly generate study guides, frequently asked questions and even conversational audio overviews, transforming static text into engaging, interactive training assets for your buyers.</p>
+<div class="highlight-box"><div class="highlight-icon"><i class="ti ti-bulb"></i></div><div class="highlight-text"><strong>Key insight:</strong> NotebookLM grounds its answers and generated materials strictly in the source documents you manually upload — it will not hallucinate features from the broader internet, ensuring your training materials remain perfectly aligned with your actual product capabilities.</div></div>
+<div class="stat-row">
+<div class="stat-item"><div class="stat-num">4</div><div class="stat-label">Training asset types NotebookLM generates</div></div>
+<div class="stat-item"><div class="stat-num">1</div><div class="stat-label">Dedicated notebook per onboarding phase</div></div>
+<div class="stat-item"><div class="stat-num">0</div><div class="stat-label">Hallucinated features — source-grounded only</div></div>
+</div>
+<div class="asset-grid">
+<div class="asset-card asset-study"><div class="asset-icon"><i class="ti ti-book"></i></div><div><div class="asset-name">Study guides</div><div class="asset-desc">Structured, easy-to-read summaries of dense implementation manuals.</div></div></div>
+<div class="asset-card asset-audio"><div class="asset-icon"><i class="ti ti-headphones"></i></div><div><div class="asset-name">Audio overviews</div><div class="asset-desc">Podcast-style conversational discussions for busy executive stakeholders.</div></div></div>
+<div class="asset-card asset-faq"><div class="asset-icon"><i class="ti ti-help-circle"></i></div><div><div class="asset-name">FAQ lists</div><div class="asset-desc">Auto-generated Q&A pairs covering the most critical setup questions.</div></div></div>
+<div class="asset-card asset-query"><div class="asset-icon"><i class="ti ti-messages"></i></div><div><div class="asset-name">Interactive querying</div><div class="asset-desc">Cited answers to specific client setup questions, on demand.</div></div></div>
+</div>
+<div class="task-grid">
+<div class="task-card"><div class="task-icon"><i class="ti ti-book"></i></div><div class="task-name">Study guide generation</div><div class="task-desc">Convert dense technical implementation manuals into structured, easy-to-read study guides and briefing documents.</div></div>
+<div class="task-card"><div class="task-icon"><i class="ti ti-headphones"></i></div><div class="task-name">Audio overviews</div><div class="task-desc">Generate a conversational, podcast-style audio discussion of your documentation to help busy stakeholders learn on the go.</div></div>
+<div class="task-card"><div class="task-icon"><i class="ti ti-messages"></i></div><div class="task-name">Interactive querying</div><div class="task-desc">Allow account managers to quickly query the uploaded documents to extract precise, cited answers to complex client setup questions.</div></div>
+</div>
+<div class="before-after">
+<div class="ba-card ba-before"><div class="ba-label ba-label-before"><i class="ti ti-x"></i> Without NotebookLM</div><div class="ba-text">Account teams overwhelm new clients with static, text-heavy PDFs, resulting in low engagement, stalled implementation timelines and frustrated users who demand live training for basic tasks.</div></div>
+<div class="ba-card ba-after"><div class="ba-label ba-label-after"><i class="ti ti-check"></i> With NotebookLM</div><div class="ba-text">Clients and account teams access dynamic, easily digestible training assets — including FAQs and audio overviews — derived directly from official documentation, accelerating time to value.</div></div>
+</div>
 </div>
 
+<div id="seo-sec-1" class="seo-section">
+<p>A structured approach to building your Notebook ensures the resulting training materials are accurate, focused and immediately useful to the new client.</p>
+<div class="workflow-steps">
+<div class="wf-step"><div class="wf-num">1</div><div class="wf-content"><div class="wf-title">Curate the source documents</div><div class="wf-desc">Gather your most up-to-date user manuals, onboarding checklists and technical specifications, saving them as PDFs or Google Docs.</div></div></div>
+<div class="wf-step"><div class="wf-num">2</div><div class="wf-content"><div class="wf-title">Create the dedicated notebook</div><div class="wf-desc">Import these specific documents into a new NotebookLM project dedicated to either the specific client or the general onboarding phase.</div></div></div>
+<div class="wf-step"><div class="wf-num">3</div><div class="wf-content"><div class="wf-title">Generate training assets</div><div class="wf-desc">Use the Notebook guide features to automatically generate a study guide, a briefing document and a frequently asked questions list.</div></div></div>
+<div class="wf-step"><div class="wf-num">4</div><div class="wf-content"><div class="wf-title">Create an Audio Overview</div><div class="wf-desc">Generate an audio discussion based on the sources to provide an alternative, engaging learning format for executive stakeholders.</div></div></div>
+<div class="wf-step"><div class="wf-num">5</div><div class="wf-content"><div class="wf-title">Export and distribute</div><div class="wf-desc">Copy the generated text assets and download the audio file to share with the client via your standard onboarding portal or email sequence.</div></div></div>
+</div>
+<div class="info-box"><p><strong>Note:</strong> While NotebookLM generates highly engaging, conversational Audio Overviews, you cannot currently edit the script, direct the pacing or change the specific voices of the AI hosts.</p></div>
+</div>
+
+<div id="seo-sec-2" class="seo-section">
+<p>Using precise prompts within your Notebook ensures the AI extracts the exact setup instructions your client needs, rather than summarizing irrelevant technical background.</p>
+<div class="prompt-block">
+<div class="prompt-block-label">Prompt 1 — Role-specific onboarding guide</div>
+<div class="prompt-block-text">Act as an implementation specialist. Based exclusively on the uploaded documents, write a step-by-step onboarding guide specifically for a System Administrator. Focus only on the initial configuration, user permission settings, and security setup.
+
+Crucial instruction: Include inline citations for every step so I can verify the instructions against the source manual.</div>
+<button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+</div>
+<div class="prompt-block">
+<div class="prompt-block-label">Prompt 2 — Extracting common pitfalls</div>
+<div class="prompt-block-text">Review the uploaded implementation guides and troubleshooting manuals. Extract the top five most common setup mistakes new users make. For each mistake, provide a one-paragraph solution.
+
+Crucial instruction: Base the mistakes and solutions strictly on the text provided. Do not invent troubleshooting steps.</div>
+<button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+</div>
+<div class="checklist-box">
+<div class="checklist-title">Before distributing NotebookLM-generated training materials</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Citation verification: did you click the inline citations to ensure the AI accurately interpreted the original source document?</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Audience alignment: is the generated study guide appropriately tailored to the end-user's technical skill level?</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Audio accuracy: did you listen to the entire Audio Overview to ensure the AI hosts did not mispronounce critical proprietary product names?</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Formatting clarity: have you transferred the generated text into your company's branded templates to maintain a professional appearance?</div>
+<div class="checklist-item"><i class="ti ti-square-check"></i> Completeness check: did the generated FAQ cover all the mandatory setup steps required for a successful implementation?</div>
+</div>
+<div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>Important:</strong> Never upload unredacted legal contracts, proprietary financial data or sensitive Personally Identifiable Information (PII) into a shared Notebook if you plan to invite external client users, as anyone with access to the Notebook can query and view the underlying source materials.</div></div>
+</div>
+
+<div id="seo-sec-3" class="seo-section"><div id="quiz-interactive-container"></div></div>
+</div>
+<div class="content-footer"><button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button><button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button></div>
+</div>
+</div>
+</div></div>
+<footer style="background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0">
+<div style="max-width:1100px; margin:0 auto">
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
+<div>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Guides by Role</strong>
+<a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Finance Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for HR Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Marketing Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Legal Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Operations Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Sales Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Customer Service</a>
+<a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Excel</a>
+</div>
+<div>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Prompt Tools</strong>
+<a href="https://www.pairworkflows.com/claude-prompts-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Excel Prompt Builder</a>
+<a href="https://www.pairworkflows.com/claude-prompts-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Finance Prompt Builder</a>
+<a href="https://www.pairworkflows.com/claude-prompts-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">HR Prompt Builder</a>
+<a href="https://www.pairworkflows.com/claude-prompts-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Marketing Prompt Builder</a>
+<a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">General Prompt Library</a>
+</div>
+<div>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Resources</strong>
+<a href="https://www.pairworkflows.com/claude-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Claude Courses</a>
+<a href="https://www.pairworkflows.com/gemini-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Gemini Courses</a>
+<a href="https://www.pairworkflows.com/glossary.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI Glossary</a>
+<a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Claude vs Gemini</a>
+<a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
+</div>
+<div>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company & Legal</strong>
+<a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
+<a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
+<a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
+<a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Privacy Policy</a>
+<a href="https://www.pairworkflows.com/legal.html#terms" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Terms of Use</a>
+<a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Cookie Policy</a>
+</div>
+</div>
+<div style="text-align:center; margin-bottom:2rem">
+<p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:520px; margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p>
+</div>
+<div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem">
+<span style="font-size:13px; color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
+<div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
+<button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
+  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+  Copy link
+</button>
+<a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+  <span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span>
+</a>
+<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+</a>
+<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
 <script>
-function switchTab(btn,id){
-  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
-  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
-  btn.classList.add('on');
-  document.getElementById('p-'+id).classList.add('on');
+var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
+var heroes=[
+  {tag:'Section 01',title:'Static PDFs slow down client onboarding. NotebookLM turns your product documentation into interactive training assets.'},
+  {tag:'Section 02',title:'A workflow for building onboarding training assets with NotebookLM.'},
+  {tag:'Section 03',title:'Prompts and a training review checklist.'},
+  {tag:'Section 04 — Quiz',title:'Test your knowledge.'}
+];
+var quiz=[
+  {q:'What is a fundamental limitation of the Audio Overview feature in NotebookLM?',
+    opts:['It cannot generate audio longer than thirty seconds','You cannot manually edit the script, direct the pacing or change the AI voices','It requires you to record your own voice first to clone it'],
+    correct:1},
+  {q:'How does NotebookLM ensure the accuracy of the training materials it generates?',
+    opts:['It automatically cross-references your competitors\' websites for industry standards','It connects to a live technical support forum to crowdsource answers','It grounds its answers and generated assets strictly in the source documents you manually upload'],
+    correct:2},
+  {q:'What is a critical security rule when creating a Notebook for external client onboarding?',
+    opts:['Never upload sensitive internal financial data or unredacted legal contracts if external users will have access to query the Notebook','Always require the client to provide their credit card before they can listen to the audio','Ensure all documents are translated into at least three languages before uploading'],
+    correct:0},
+  {q:'How should you verify the accuracy of a step-by-step guide generated by NotebookLM?',
+    opts:['Call the engineering team and read the entire guide to them over the phone','Click the generated inline citations to check the instructions against your original source manual','Send the unedited guide directly to the client and wait for their feedback'],
+    correct:1}
+];
+function buildQuizHTML(){
+  if(quizDone){
+    var score=0;
+    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
+    var msgs=['Review Section 1 and 3 — understanding NotebookLM\'s source-grounding and security limits is the foundation.','Good effort — re-read the workflow steps and the training review checklist before trying again.','Almost there! One concept to sharpen — revisit why citation checking matters before distributing training materials.','Perfect mark! Try building a real onboarding study guide using the first prompt.'];
+    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
+  }
+  var html='';
+  for(var i=0;i<quiz.length;i++){
+    var q=quiz[i];
+    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
+    for(var j=0;j<q.opts.length;j++){
+      var cls='opt';
+      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
+      else if(sel[i]===j){cls+=' selected';}
+      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
+    }
+    html+='</div>';
+  }
+  var allSel=Object.keys(sel).length===quiz.length;
+  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
+  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
+  return html;
 }
-function copyPrompt(btn){
-  var text=btn.previousElementSibling.innerText;
-  navigator.clipboard.writeText(text);
-  btn.innerHTML='<i class="ti ti-check" style="font-size:12px"></i> Copied!';
-  setTimeout(function(){btn.innerHTML='<i class="ti ti-copy" style="font-size:12px"></i> Copy';},2000);
+function render(){
+  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
+  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
+  document.getElementById('heroTag').textContent=heroes[cur].tag;
+  document.getElementById('heroTitle').textContent=heroes[cur].title;
+  for(var i=0;i<4;i++){
+    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),sec=document.getElementById('seo-sec-'+i);
+    ni.className='nav-item'+(i===cur?' active':'');
+    if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');
+    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
+    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
+    else{nd.className='nav-dot';nd.textContent=(i+1);}
+  }
+  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
+  document.getElementById('btnBack').disabled=(cur===0);
+  var fwd=document.getElementById('btnFwd');
+  if(cur===3){fwd.style.display='none';}
+  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
 }
-function toggleFaq(q){
-  q.classList.toggle('open');
-  q.nextElementSibling.classList.toggle('open');
-}
+function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
+function goFwd(){if(cur<3)go(cur+1);}
+function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
+function showResult(){quizDone=true;render();}
+function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
+function copyPrompt(btn){var block=btn.closest('.prompt-block');var text=block.querySelector('.prompt-block-text').innerText;navigator.clipboard.writeText(text);btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);}
+function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
 function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
 function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+document.getElementById('cnt').addEventListener('click',function(e){
+  if(cur!==3||quizSubmitted||quizDone)return;
+  var opt=e.target.closest('.opt');
+  if(!opt)return;
+  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
+  render();
+});
+render();
 </script>
 </body>
 </html>
