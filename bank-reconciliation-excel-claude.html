@@ -3,430 +3,193 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Automated Bank Reconciliation in Excel — PairWorkflows</title>
-<meta name="description" content="Build an automated bank reconciliation template in Excel with Claude AI. Match transactions, flag discrepancies, and close your books faster.">
+<title>Bank Reconciliation in Excel with Claude AI — PairWorkflows</title>
+<meta name="description" content="Build an automated bank reconciliation in Excel with Claude AI. Match transactions, flag discrepancies, and close your books faster. Copyable prompts included.">
 <link rel="canonical" href="https://www.pairworkflows.com/bank-reconciliation-excel-claude.html">
-<meta property="og:title" content="Automated Bank Reconciliation in Excel — PairWorkflows">
-<meta property="og:description" content="Use Claude AI to build a bank reconciliation template in Excel that matches transactions and flags discrepancies automatically.">
-<meta property="og:url" content="https://www.pairworkflows.com/bank-reconciliation-excel-claude.html">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="PairWorkflows">
-<meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Automated Bank Reconciliation in Excel","description":"Build an automated bank reconciliation template in Excel with Claude AI. Match transactions, flag discrepancies, and close your books faster.","url":"https://www.pairworkflows.com/bank-reconciliation-excel-claude.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude read my Excel bank statement directly?","acceptedAnswer":{"@type":"Answer","text":"Claude cannot open .xlsx files natively in the free chat. You can paste your data as text, or upload the file in Claude Pro which supports file attachments. For best results, copy the relevant columns from Excel and paste them into the prompt."}},{"@type":"Question","name":"How does Claude match bank transactions to ledger entries?","acceptedAnswer":{"@type":"Answer","text":"Claude compares rows across two datasets using the matching criteria you specify — typically date, amount, and reference number. It flags exact matches, partial matches (e.g. same amount but different date), and completely unmatched items on both sides."}},{"@type":"Question","name":"Will Claude invent matches that don't exist?","acceptedAnswer":{"@type":"Answer","text":"Not if your prompt includes anti-hallucination guardrails. The prompt in this course explicitly instructs Claude to flag unmatched items rather than forcing a match. Always verify the output against your source data."}},{"@type":"Question","name":"Can I use this for multi-currency bank reconciliation?","acceptedAnswer":{"@type":"Answer","text":"Yes. Add a Currency column to both datasets and include the exchange rate in your prompt. Ask Claude to convert all amounts to your reporting currency before matching."}},{"@type":"Question","name":"How often should I run this reconciliation?","acceptedAnswer":{"@type":"Answer","text":"Most finance teams reconcile monthly at minimum. Weekly reconciliation catches errors faster and makes month-end close significantly smoother. The template Claude builds works for any frequency."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude read my Excel bank statement directly?","acceptedAnswer":{"@type":"Answer","text":"Claude cannot open .xlsx files natively in the free chat. You can paste your data as text, or upload the file in Claude Pro which supports file attachments. For best results, copy the relevant columns from Excel and paste them into the prompt."}},{"@type":"Question","name":"How does Claude match bank transactions to ledger entries?","acceptedAnswer":{"@type":"Answer","text":"Claude compares rows across two datasets using the matching criteria you specify — typically date, amount, and reference number. It flags exact matches, partial matches (e.g. same amount but different date), and completely unmatched items on both sides."}},{"@type":"Question","name":"Will Claude invent matches that don't exist?","acceptedAnswer":{"@type":"Answer","text":"Not if your prompt includes anti-hallucination guardrails. The prompt in this workflow explicitly instructs Claude to flag unmatched items rather than forcing a match. Always verify the output against your source data."}},{"@type":"Question","name":"Can I use this for multi-currency bank reconciliation?","acceptedAnswer":{"@type":"Answer","text":"Yes. Add a Currency column to both datasets and include the exchange rate in your prompt. Ask Claude to convert all amounts to your reporting currency before matching."}},{"@type":"Question","name":"How often should I run this reconciliation?","acceptedAnswer":{"@type":"Answer","text":"Most finance teams reconcile monthly at minimum. Weekly reconciliation catches errors faster and makes month-end close significantly smoother. The template Claude builds works for any frequency."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"><link rel="stylesheet" href="/global-fix.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="/global-fix.css">
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
-.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
-.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
-.logo-workflows{font-size:16px;font-weight:400;color:#fff}
-.nav-right{display:flex;align-items:center;gap:16px}
-.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
-.nav-back:hover{color:#1d9e75}
-.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
-.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
-.course-shell{background:#fff;border-radius:16px;border:1px solid #e8ecef;overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
-.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
-.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
-.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
-.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
-.prog-wrap{padding:1rem 1.25rem .75rem}
-.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
-.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
-.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
-.nav-list{padding:.5rem 0;flex:1}
-.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
-.nav-item:hover{background:#eef1f4}
-.nav-item.active{border-left-color:#1d9e75;background:#fff}
-.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
-.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
-.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
-.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
-.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
-.content-area{display:flex;flex-direction:column;min-width:0;overflow:hidden}
-.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
-.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
-.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
-.content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
-.seo-section{display:none}
-.seo-section.active-section{display:block}
-.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
-.seo-section h1{font-size:24px;font-weight:600;color:#1a1a2e;margin-bottom:1rem;line-height:1.3}
-.seo-section h2{font-size:18px;font-weight:600;color:#1a1a2e;margin-bottom:.75rem;line-height:1.35}
-.seo-section h3{font-size:15px;font-weight:600;color:#1a1a2e;margin-bottom:.5rem;line-height:1.4}
-.xl-grade-table{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.xl-gt-header-bar{background:#f3f3f3;border-bottom:1px solid #d0d0d0;padding:4px 0;display:grid}
-.xl-gt-col-h{font-size:11px;font-weight:600;color:#595959;text-align:center;padding:3px 0;border-right:1px solid #e0e0e0}
-.xl-gt-col-h:last-child{border-right:none}
-.xl-gt-rows{display:flex;flex-direction:column}
-.xl-gt-row{display:grid;border-bottom:1px solid #e8e8e8}
-.xl-gt-row:last-child{border-bottom:none}
-.xl-gt-row-num{font-size:11px;color:#595959;text-align:right;padding:7px 8px;background:#f3f3f3;border-right:1px solid #d0d0d0;font-weight:500}
-.xl-gt-cell{font-size:12px;font-family:'Inter',sans-serif;padding:7px 10px;border-right:1px solid #e8e8e8;display:flex;align-items:center}
-.xl-gt-cell:last-child{border-right:none}
-.xl-gt-cell.hdr{background:#f3f3f3;font-weight:600;color:#374151;font-size:11px}
-.xl-gt-cell.score{color:#374151;font-weight:500}
-.xl-gt-cell.matched{background:#c6efce;color:#276221;font-weight:600;justify-content:center}
-.xl-gt-cell.unmatched{background:#ffc7ce;color:#9c0006;font-weight:600;justify-content:center}
-.xl-gt-cell.partial{background:#ffeb9c;color:#9c6500;font-weight:600;justify-content:center}
-.xl-gt-caption{background:#f8fafc;border-top:1px solid #e2e8f0;padding:8px 14px;font-size:11px;color:#64748b;font-style:italic}
-.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
-.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
-.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
-.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
-.highlight-text{font-size:13px;color:#374151;line-height:1.65}
-.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
-.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
-.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
-.feature-list{list-style:none;padding:0;margin:0 0 1.25rem}
-.feature-list li{padding:.5rem 0 .5rem 1.25rem;position:relative;font-size:14px;color:#374151;border-bottom:1px solid #f0f2f5;line-height:1.6}
-.feature-list li:last-child{border-bottom:none}
-.feature-list li::before{content:'▸';position:absolute;left:0;color:#1d9e75;font-size:13px}
-.steps-list{display:flex;flex-direction:column;gap:0;margin:1rem 0}
-.step-row{display:flex;gap:16px;padding:1.1rem 0;border-bottom:1px solid #f0f2f5}
-.step-row:last-child{border-bottom:none}
-.step-num{font-size:26px;font-weight:700;color:#d1fae5;line-height:1;flex-shrink:0;width:36px;text-align:right;padding-top:2px}
-.step-body h3{font-size:14px;font-weight:600;color:#085041;margin-bottom:.3rem}
-.step-body p{font-size:13px;color:#374151;line-height:1.75;margin:0}
-.step-body code{background:#f0fdf4;color:#0f6e56;padding:1px 6px;border-radius:4px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;border:1px solid #d1fae5}
-.prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
-.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
-.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
-.prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}
-.prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#fff}
-.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;border-radius:12px;padding:1.25rem;margin:1.5rem 0}
-.checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
-.checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
-.checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
-.faq-section{margin:1.5rem 0}
-.faq-item{border-bottom:1px solid #f0f2f5;padding:.85rem 0}
-.faq-item:last-child{border-bottom:none}
-.faq-q{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:.35rem}
-.faq-a{font-size:13px;color:#374151;line-height:1.7}
-.related-courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:1rem 0}
-.related-card{border:1px solid #e8ecef;border-radius:10px;padding:1rem;transition:all .15s;text-decoration:none;color:#1a1a2e}
-.related-card:hover{border-color:#1d9e75;background:#f5fdf9}
-.related-card-title{font-size:13px;font-weight:500;line-height:1.4;margin-bottom:.25rem}
-.related-card-tag{font-size:11px;color:#6b7280}
-.quiz-q{margin-bottom:1.5rem}
-.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
-.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
-.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
-.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}
-.opt.selected .radio{border-color:#1d9e75;background:#1d9e75}
-.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}
-.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
-.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
-.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
-.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
-.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}
-.submit-global:hover{background:#0f6e56}
-.submit-global:disabled{opacity:.35;cursor:default}
-.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
-.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
-.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
-.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
-.retake-btn:hover{background:#e1f5ee}
-.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc;flex-shrink:0}
-.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}
-.btn-back:hover{background:#f0f2f5}
-.btn-back:disabled{opacity:.35;cursor:default}
-.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
-.btn-fwd:hover{background:#0f6e56}
+body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:100vh;display:flex;flex-direction:column}
+
+/* PAGE */
+.page{max-width:1300px;margin:0 auto;width:100%;padding:2rem 2.5rem 4rem;flex:1}
+section { margin-bottom: 2rem; }
+
+/* ── HERO ── */
+.hero{margin-bottom:2rem}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#0f6e56;background:#e1f5ee;border:1px solid #a7f3d0;border-radius:20px;padding:4px 12px;margin-bottom:.9rem}
+.hero h1{font-size:32px;font-weight:700;line-height:1.2;color:#111827;margin-bottom:.2rem;letter-spacing:-.5px}
+.hero h2 {font-size: 24px; font-weight:600; color: #1d9e75; margin-bottom: .6rem; line-height: 1.2;}
+.hero-sub{font-size:15px;color:#6b7280;line-height:1.65;max-width:600px}
+
+/* ── PROMPT SELECTOR ── */
+.prompt-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.prompt-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.75rem}
+.prompt-card-label{font-size:13px;font-weight:600;color:#374151}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{padding:6px 14px;border-radius:7px;border:1.5px solid #e5e7eb;background:#f9fafb;font-size:12px;font-weight:500;color:#6b7280;cursor:pointer;transition:all .15s;font-family:inherit}
+.tab:hover{border-color:#1d9e75;color:#0f6e56}
+.tab.on{background:#1d9e75;border-color:#1d9e75;color:#fff;font-weight:600}
+.panel{display:none}
+.panel.on{display:block}
+.prompt-box{background:#0f172a;border-radius:10px;padding:1.25rem 1.25rem 1rem;position:relative}
+.prompt-box pre{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#e2e8f0;line-height:1.7;white-space:pre-wrap;word-break:break-word;padding-right:70px}
+.copy-btn{position:absolute;top:.75rem;right:.75rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-weight:500;font-family:inherit;cursor:pointer;padding:5px 12px;transition:all .15s;display:flex;align-items:center;gap:5px}
+.copy-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+.prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
+.prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
+.prompt-hint a:hover{text-decoration:underline}
+
+/* ── BEFORE / AFTER VISUAL ── */
+.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
+.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.ba-col.before{border-color:#fca5a5}
+.ba-col.after{border-color:#6ee7b7}
+.ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
+.ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
+.ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
+.ba-body{padding:14px}
+.xl-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
+.xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
+.xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
+.xl-table .err-cell{color:#dc2626;font-weight:700;background:#fef2f2}
+.xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
+.xl-table .warn-cell{color:#b45309;font-weight:700;background:#fffbeb}
+.xl-table .hl{background:#fffbeb}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+.claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
+.claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
+.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
+
+/* ── DIAGNOSIS TABLE ── */
+.diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.diag-header{background:#fef2f2;border-bottom:1px solid #fecaca;padding:12px 18px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#dc2626}
+.diag-row{display:grid;grid-template-columns:180px 1fr 90px;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid #f9fafb}
+.diag-row:last-child{border-bottom:none}
+.diag-row:nth-child(even){background:#fafafa}
+.diag-cause{font-size:13px;font-weight:600;color:#1f2937}
+.diag-example{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#6b7280;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.diag-example .bad{color:#dc2626;font-weight:600;background:#fef2f2;padding:1px 5px;border-radius:3px}
+.diag-example .good{color:#059669;font-weight:600;background:#f0fdf4;padding:1px 5px;border-radius:3px}
+.diag-badge{font-size:10px;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;white-space:nowrap}
+.badge-red{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+.badge-yellow{background:#fffbeb;color:#b45309;border:1px solid #fde68a}
+.diag-header h2 { font-size: inherit; font-weight: inherit; color: inherit; text-transform: inherit; letter-spacing: inherit; margin: 0; }
+
+/* ── STEPS ── */
+.steps-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.steps-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+.steps-title h2 { font-size: inherit; font-weight: inherit; color: inherit; margin: 0; }
+.step{display:flex;gap:16px;padding:.9rem 0;border-bottom:1px solid #f3f4f6}
+.step:last-child{border-bottom:none}
+.step-n{width:28px;height:28px;border-radius:8px;background:#e1f5ee;color:#0f6e56;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body h3{font-size:13px;font-weight:600;color:#1f2937;margin-bottom:.25rem}
+.step-body p{font-size:13px;color:#6b7280;line-height:1.65}
+.step-body code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
+
+/* ── INFO BOXES ── */
+.tip{background:#fffbeb;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#92400e;line-height:1.65}
+.tip strong{color:#78350f}
+.note{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#065f46;line-height:1.65}
+
+/* ── FAQ ── */
+.faq-section{margin-bottom:1.75rem}
+.faq-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1rem}
+.faq-title h2 { font-size: inherit; font-weight: inherit; color: inherit; margin: 0; }
+.faq-item{border-bottom:1px solid #f3f4f6;padding:.9rem 0}
+.faq-q{font-size:13px;font-weight:600;color:#1f2937;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-q i{color:#9ca3af;transition:transform .2s;flex-shrink:0}
+.faq-q.open i{transform:rotate(180deg)}
+.faq-a{font-size:13px;color:#6b7280;line-height:1.7;display:none;padding-top:.6rem}
+.faq-a.open{display:block}
+.faq-a code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
+.faq-a a{color:#1d9e75;text-decoration:none;font-weight:500}
+.faq-a a:hover{text-decoration:underline}
+
+/* ── RELATED ── */
+.related-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af;margin-bottom:.75rem}
+.related-title h2 { font-size: inherit; font-weight: inherit; color: inherit; text-transform: inherit; letter-spacing: inherit; margin: 0; }
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.related-link{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:.9rem 1rem;text-decoration:none;transition:border-color .15s}
+.related-link:hover{border-color:#1d9e75}
+.related-link strong{display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem}
+.related-link span{display:block;font-size:12px;color:#9ca3af;line-height:1.4}
+
+/* ── SEARCH ── */
 #searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
 #searchOverlay.open{display:flex}
 .search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
-.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
-.search-close-btn:hover{color:#fff}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px}
 .search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
 .search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
-.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:inherit}
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
-.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
-.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:2rem}
-.page-footer a{color:#1d9e75;text-decoration:none}
-.page-footer a:hover{text-decoration:underline}
-@media(max-width:700px){
-  .navbar{padding:0 1rem}
-  .page-wrap{padding:1rem .5rem}
-  .course-shell{grid-template-columns:1fr}
-  .sidebar{display:none}
-  .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
-  .content-footer{padding:1rem}
-  .section-hero{padding:1.25rem 1rem}
-  .xl-gt-header-bar{grid-template-columns:36px repeat(6,1fr)}
-  .xl-gt-row{grid-template-columns:36px repeat(6,1fr)}
-  .xl-gt-cell{font-size:11px;padding:6px 6px}
-  .related-courses{grid-template-columns:1fr}
-  .seo-section p{word-break:break-word;overflow-wrap:break-word}
+
+@media(max-width:640px){
+  .hero h1{font-size:24px}
+  .hero h2 {font-size: 20px;}
+  .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
+  .diag-row{grid-template-columns:1fr 1fr;gap:8px}
+  .diag-example{display:none}
+  .related-grid{grid-template-columns:1fr}
+  .page{padding:1.5rem 1rem 3rem}
 }
-.page-wrap-fix{max-width:1100px;margin:2rem auto;padding:0 1rem}.course-wrap-outer{width:100%}</style>
-<script defer src="/_vercel/insights/script.js"></script>
+</style>
 </head>
 <body>
+
 <div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
-<div class="search-overlay-inner">
-<button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
-<form action="/search.html" method="get">
-<div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
-</form>
-<p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
+  <div class="search-overlay-inner">
+    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+    <form action="/search.html" method="get">
+      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search workflows, prompts, and guides..." autocomplete="off"></div>
+    </form>
+  </div>
 </div>
-</div>
+
 <div id="navbar-placeholder"></div>
-<script src="/navbar.js"></script><script src="/footer.js"></script><script src="/footer.js"></script>
+<script src="/navbar.js"></script>
+<script src="/footer.js"></script>
+
 <noscript>
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
-<a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a>
-<a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a>
-<a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a>
-<a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a>
-<a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a>
-<a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a>
-<a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a>
-<a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
+<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
-<div class="page-wrap">
-<div class="page-wrap-fix"><div class="course-wrap-outer"><div class="course-shell">
-  <div class="sidebar">
-    <div class="sidebar-top">
-      <div class="course-label">Claude AI — Excel / Finance</div>
-      <h1 class="course-title-side">Automated Bank Reconciliation in Excel</h1>
-    </div>
-    <div class="prog-wrap">
-      <div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
-      <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
-    </div>
-    <div class="nav-list">
-      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">The finished reconciliation</div></div>
-      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">Prepare your data</div></div>
-      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompt, FAQ &amp; related</div></div>
-      <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quick quiz</div></div>
-    </div>
-  </div>
 
-  <div class="content-area">
-    <div class="section-hero">
-      <div class="section-tag" id="heroTag">Section 01</div>
-      <h2 id="heroTitle">What the finished bank reconciliation looks like</h2>
-    </div>
-    <div class="content-body" id="cnt">
+<main class="page">
 
-      <!-- SECTION 0: Intro + Final Result -->
-      <div id="seo-sec-0" class="seo-section active-section">
-       <p>This course gives you a ready-to-use Claude prompt that turns two raw data exports — your bank statement and your general ledger — into a completed reconciliation in Excel. You'll get matched transactions, flagged discrepancies, and a clear summary of the outstanding balance. The whole process takes under five minutes once your data is prepared.</p>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
+    <h1>Bank Reconciliation in Excel with Claude AI</h1>
+    <h2>Bank reconciliation taking too long?<br>Let Claude match transactions in minutes.</h2>
+    <p class="hero-sub">Paste your bank statement and general ledger into Claude with the prompt below. It matches transactions by date and amount, flags partial matches, and lists every unmatched item — no forced matches, no invented entries.</p>
+  </section>
 
-        <h2>What Your Finished Bank Reconciliation Looks Like</h2>
-        <p>Below is the output Claude produces. Each row from the bank statement is matched against the ledger by date, amount, and reference. Unmatched and partially matched items are flagged automatically — no items are forced into a match.</p>
-
-        <div class="xl-grade-table">
-          <div class="xl-gt-header-bar" style="grid-template-columns:44px repeat(6,1fr)">
-            <div class="xl-gt-col-h"></div>
-            <div class="xl-gt-col-h">A</div>
-            <div class="xl-gt-col-h">B</div>
-            <div class="xl-gt-col-h">C</div>
-            <div class="xl-gt-col-h">D</div>
-            <div class="xl-gt-col-h">E</div>
-            <div class="xl-gt-col-h">F</div>
-          </div>
-          <div class="xl-gt-rows">
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">1</div>
-              <div class="xl-gt-cell hdr">Date</div>
-              <div class="xl-gt-cell hdr">Bank Ref</div>
-              <div class="xl-gt-cell hdr">Bank Amt</div>
-              <div class="xl-gt-cell hdr">Ledger Amt</div>
-              <div class="xl-gt-cell hdr">Difference</div>
-              <div class="xl-gt-cell hdr">Status</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell score">01/06/2025</div>
-              <div class="xl-gt-cell score">TXN-4401</div>
-              <div class="xl-gt-cell score">-12,500.00</div>
-              <div class="xl-gt-cell score">-12,500.00</div>
-              <div class="xl-gt-cell score">0.00</div>
-              <div class="xl-gt-cell matched">Matched</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell score">03/06/2025</div>
-              <div class="xl-gt-cell score">TXN-4402</div>
-              <div class="xl-gt-cell score">-3,200.00</div>
-              <div class="xl-gt-cell score">-3,200.00</div>
-              <div class="xl-gt-cell score">0.00</div>
-              <div class="xl-gt-cell matched">Matched</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell score">05/06/2025</div>
-              <div class="xl-gt-cell score">TXN-4410</div>
-              <div class="xl-gt-cell score">8,750.00</div>
-              <div class="xl-gt-cell score">8,700.00</div>
-              <div class="xl-gt-cell score">50.00</div>
-              <div class="xl-gt-cell partial">Partial</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">5</div>
-              <div class="xl-gt-cell score">07/06/2025</div>
-              <div class="xl-gt-cell score">TXN-4415</div>
-              <div class="xl-gt-cell score">-1,980.00</div>
-              <div class="xl-gt-cell score">—</div>
-              <div class="xl-gt-cell score">-1,980.00</div>
-              <div class="xl-gt-cell unmatched">Unmatched</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">6</div>
-              <div class="xl-gt-cell score">10/06/2025</div>
-              <div class="xl-gt-cell score">TXN-4418</div>
-              <div class="xl-gt-cell score">25,000.00</div>
-              <div class="xl-gt-cell score">25,000.00</div>
-              <div class="xl-gt-cell score">0.00</div>
-              <div class="xl-gt-cell matched">Matched</div>
-            </div>
-          </div>
-          <div class="xl-gt-caption">Claude flags partial matches (amount differs) and unmatched items (no ledger entry found) so you can investigate each one individually.</div>
-        </div>
-
-        <ul class="feature-list">
-          <li>Matches bank transactions to ledger entries by date, amount, and reference number</li>
-          <li>Flags partial matches where amounts differ — no silent rounding or forcing</li>
-          <li>Lists all unmatched items on both sides (bank-only and ledger-only)</li>
-          <li>Produces a reconciliation summary with opening balance, adjustments, and closing balance</li>
-        </ul>
-
-        <div class="info-box"><p><strong>Where this fits:</strong> Bank reconciliation is one of the core tasks covered in our <a href="/ai-for-excel.html" style="color:#085041;font-weight:600">AI for Excel</a> course hub. If your reconciliation feeds into a broader month-end process, see the <a href="/month-end-close-excel-claude.html" style="color:#085041;font-weight:600">month-end close checklist course</a> next.</p></div>
+  <!-- PROMPT SELECTOR -->
+  <section class="prompt-card">
+    <div class="prompt-card-top">
+      <span class="prompt-card-label">Choose your situation — copy the prompt:</span>
+      <div class="tabs">
+        <button class="tab on" onclick="switchTab(this,'recon')">🔀 Full reconciliation</button>
+        <button class="tab" onclick="switchTab(this,'debug')">🔴 Debug mismatches</button>
+        <button class="tab" onclick="switchTab(this,'multi')">💱 Multi-currency</button>
       </div>
+    </div>
 
-      <!-- SECTION 1: Data Preparation -->
-      <div id="seo-sec-1" class="seo-section">
-        <h2>Prepare Your Bank and Ledger Data for Reconciliation</h2>
-        <p>Claude needs two clearly separated datasets. Export your bank statement and general ledger cash account into Excel or CSV, then format each one with consistent column headers. Here is the minimum required layout:</p>
-
-        <h3>Bank Statement Layout</h3>
-        <div class="xl-grade-table">
-          <div class="xl-gt-header-bar" style="grid-template-columns:44px repeat(4,1fr)">
-            <div class="xl-gt-col-h"></div>
-            <div class="xl-gt-col-h">A</div>
-            <div class="xl-gt-col-h">B</div>
-            <div class="xl-gt-col-h">C</div>
-            <div class="xl-gt-col-h">D</div>
-          </div>
-          <div class="xl-gt-rows">
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
-              <div class="xl-gt-row-num">1</div>
-              <div class="xl-gt-cell hdr">Date</div>
-              <div class="xl-gt-cell hdr">Reference</div>
-              <div class="xl-gt-cell hdr">Description</div>
-              <div class="xl-gt-cell hdr">Amount</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
-              <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell score">01/06/2025</div>
-              <div class="xl-gt-cell score">TXN-4401</div>
-              <div class="xl-gt-cell score">Acme Ltd – inv 1022</div>
-              <div class="xl-gt-cell score">-12,500.00</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
-              <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell score">03/06/2025</div>
-              <div class="xl-gt-cell score">TXN-4402</div>
-              <div class="xl-gt-cell score">Globex Corp – Q2</div>
-              <div class="xl-gt-cell score">-3,200.00</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
-              <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell score">05/06/2025</div>
-              <div class="xl-gt-cell score">TXN-4410</div>
-              <div class="xl-gt-cell score">Client deposit – Initech</div>
-              <div class="xl-gt-cell score">8,750.00</div>
-            </div>
-          </div>
-        </div>
-
-        <h3>General Ledger (Cash Account) Layout</h3>
-        <div class="xl-grade-table">
-          <div class="xl-gt-header-bar" style="grid-template-columns:44px repeat(4,1fr)">
-            <div class="xl-gt-col-h"></div>
-            <div class="xl-gt-col-h">A</div>
-            <div class="xl-gt-col-h">B</div>
-            <div class="xl-gt-col-h">C</div>
-            <div class="xl-gt-col-h">D</div>
-          </div>
-          <div class="xl-gt-rows">
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
-              <div class="xl-gt-row-num">1</div>
-              <div class="xl-gt-cell hdr">Date</div>
-              <div class="xl-gt-cell hdr">GL Ref</div>
-              <div class="xl-gt-cell hdr">Description</div>
-              <div class="xl-gt-cell hdr">Amount</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
-              <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell score">01/06/2025</div>
-              <div class="xl-gt-cell score">JE-0871</div>
-              <div class="xl-gt-cell score">Acme Ltd payment</div>
-              <div class="xl-gt-cell score">-12,500.00</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
-              <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell score">03/06/2025</div>
-              <div class="xl-gt-cell score">JE-0872</div>
-              <div class="xl-gt-cell score">Globex Corp payment</div>
-              <div class="xl-gt-cell score">-3,200.00</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
-              <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell score">05/06/2025</div>
-              <div class="xl-gt-cell score">JE-0875</div>
-              <div class="xl-gt-cell score">Initech deposit</div>
-              <div class="xl-gt-cell score">8,700.00</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="steps-list">
-          <div class="step-row">
-            <div class="step-num">01</div>
-            <div class="step-body"><h3>Use consistent date formats</h3><p>Both datasets must use the same date format — DD/MM/YYYY or MM/DD/YYYY. Mixing formats causes false mismatches. Specify your format in the prompt.</p></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">02</div>
-            <div class="step-body"><h3>Keep amounts as plain numbers</h3><p>Remove currency symbols and thousands separators if they're inconsistent between bank and ledger. Negative for outflows, positive for inflows — same sign convention on both sides.</p></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">03</div>
-            <div class="step-body"><h3>Include a reference column on each side</h3><p>Bank reference (e.g. TXN-4401) and GL reference (e.g. JE-0871) don't need to match each other. Claude uses date + amount as the primary matching key and references for confirmation.</p></div>
-          </div>
-        </div>
-
-        <div class="highlight-box">
-          <div class="highlight-icon"><i class="ti ti-bulb"></i></div>
-          <div class="highlight-text"><strong>Tip:</strong> If your bank export includes running balances or summary rows, delete those before pasting into the prompt. Claude should only see individual transaction rows.</div>
-        </div>
-      </div>
-
-      <!-- SECTION 2: Prompt + Context + FAQ + Related -->
-      <div id="seo-sec-2" class="seo-section">
-        <h2>The Exact Claude Prompt for Bank Reconciliation</h2>
-        <p>Copy this prompt into Claude. Paste your bank statement data and ledger data where indicated. The prompt includes anti-hallucination guardrails — Claude will flag unmatched items rather than inventing matches.</p>
-
-        <div class="prompt-block">
-          <div class="prompt-block-label">Prompt — paste into Claude</div>
-          <div class="prompt-block-text">I need to reconcile a bank statement against a general ledger cash account in Excel. Below are both datasets.
+    <div id="p-recon" class="panel on">
+      <div class="prompt-box">
+        <pre>I need to reconcile a bank statement against a general ledger cash account in Excel.
 
 BANK STATEMENT (columns: Date, Reference, Description, Amount):
 [Paste your bank statement rows here]
@@ -445,259 +208,216 @@ Rules:
 - Do NOT assume timing differences resolve themselves — list every discrepancy.
 
 Output:
-1. A reconciliation table with columns: Date | Bank Ref | Bank Amt | Ledger Amt | Difference | Status
+1. A reconciliation table: Date | Bank Ref | Bank Amt | Ledger Amt | Difference | Status
 2. A separate list of all unmatched items (bank-only and ledger-only)
-3. A summary showing: Bank statement total, Ledger total, Total matched, Total unmatched, Net difference
+3. A summary: Bank total, Ledger total, Total matched, Total unmatched, Net difference
 
-Format the output as an Excel-ready table I can paste directly into a spreadsheet.</div>
-          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
-        </div>
-
-        <h2>Why Bank Reconciliation Still Needs Human Oversight</h2>
-        <p>Bank reconciliation is a controls process, not just a matching exercise. The point isn't to get every row to say "Matched" — it's to find the items that <em>don't</em> match and understand why. Common causes of discrepancies include timing differences (a cheque issued but not yet cleared), bank fees not yet recorded in the ledger, and data entry errors in either system.</p>
-        <p>Claude handles the repetitive matching work. Your job is to investigate every Partial and Unmatched item, determine the root cause, and post the appropriate adjusting entries. If you're tracking those adjustments as part of a broader close process, the <a href="/automate-cash-flow-dashboard-excel-claude.html" style="color:#1d9e75;font-weight:500">cash flow dashboard course</a> shows how to feed reconciliation outputs into ongoing cash monitoring.</p>
-
-        <h3>Common Reconciliation Errors</h3>
-        <div class="xl-grade-table">
-          <div class="xl-gt-header-bar" style="grid-template-columns:44px 1fr 1fr 1fr">
-            <div class="xl-gt-col-h"></div>
-            <div class="xl-gt-col-h">A</div>
-            <div class="xl-gt-col-h">B</div>
-            <div class="xl-gt-col-h">C</div>
-          </div>
-          <div class="xl-gt-rows">
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">1</div>
-              <div class="xl-gt-cell hdr">Error</div>
-              <div class="xl-gt-cell hdr">Likely Cause</div>
-              <div class="xl-gt-cell hdr">Fix</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell score">All items show "Unmatched"</div>
-              <div class="xl-gt-cell score">Date formats differ between datasets</div>
-              <div class="xl-gt-cell score">Specify date format in prompt; reformat in Excel first</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell score">Small differences on many rows</div>
-              <div class="xl-gt-cell score">Sign convention mismatch (debits vs credits)</div>
-              <div class="xl-gt-cell score">Ensure both sides use negative=outflow, positive=inflow</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell score">Duplicate matches</div>
-              <div class="xl-gt-cell score">Multiple transactions with same date &amp; amount</div>
-              <div class="xl-gt-cell score">Add reference as a secondary key; tell Claude to use it</div>
-            </div>
-          </div>
-        </div>
-
-        <h2>Frequently Asked Questions</h2>
-        <div class="faq-section">
-          <div class="faq-item">
-            <div class="faq-q">Can Claude read my Excel bank statement directly?</div>
-            <div class="faq-a">Claude cannot open .xlsx files natively in the free chat. You can paste your data as text, or upload the file in Claude Pro which supports file attachments. For best results, copy the relevant columns from Excel and paste them into the prompt.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">How does Claude match bank transactions to ledger entries?</div>
-            <div class="faq-a">Claude compares rows across your two datasets using the matching criteria you specify — typically date, amount, and reference. It flags exact matches, partial matches (same amount but different date, or vice versa), and completely unmatched items on both sides.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">Will Claude invent matches that don't exist?</div>
-            <div class="faq-a">Not if your prompt includes the guardrails from this course. The prompt explicitly instructs Claude to flag unmatched items rather than forcing a match. Always verify the output against your source data.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">Can I use this for multi-currency bank reconciliation?</div>
-            <div class="faq-a">Yes. Add a Currency column to both datasets and include the exchange rate in your prompt. Ask Claude to convert all amounts to your reporting currency before matching.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">How often should I run this reconciliation?</div>
-            <div class="faq-a">Most finance teams reconcile monthly at minimum. Weekly reconciliation catches errors faster and makes month-end close significantly smoother. The template Claude builds works for any frequency.</div>
-          </div>
-        </div>
-
-        <h2>Related Excel Finance Courses</h2>
-        <div class="related-courses">
-          <a href="/month-end-close-excel-claude.html" class="related-card">
-            <div class="related-card-title">Automate Your Month-End Close Checklist in Excel with Claude AI</div>
-            <div class="related-card-tag">Excel · Finance</div>
-          </a>
-          <a href="/accounts-payable-aging-excel-claude.html" class="related-card">
-            <div class="related-card-title">Build an Accounts Payable Aging Dashboard in Excel with Claude AI</div>
-            <div class="related-card-tag">Excel · Finance</div>
-          </a>
-          <a href="/accounts-receivable-excel-claude.html" class="related-card">
-            <div class="related-card-title">Automate Accounts Receivable Tracking in Excel with Claude AI</div>
-            <div class="related-card-tag">Excel · Finance</div>
-          </a>
-        </div>
-
-        <div class="info-box"><p>Explore all finance and Excel courses on the <a href="/claude-for-finance.html" style="color:#085041;font-weight:600">AI for Finance Teams</a> hub page.</p></div>
+Format the output as an Excel-ready table I can paste directly into a spreadsheet.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
+      <p class="prompt-hint">Replace the bracketed sections with your real data. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a> or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+    </div>
 
-      <!-- SECTION 3: Quiz -->
-      <div id="seo-sec-3" class="seo-section">
-        <div id="quiz-interactive-container"></div>
+    <div id="p-debug" class="panel">
+      <div class="prompt-box">
+        <pre>I ran a bank reconciliation and I'm getting unexpected results. Here's what I see:
+
+Issue: [e.g. "All items show Unmatched even though amounts are the same"]
+
+Here are 3 sample rows from my bank statement:
+[paste rows]
+
+Here are the corresponding rows from my general ledger:
+[paste rows]
+
+Please identify what's causing the mismatch and tell me exactly what to fix before I re-run the reconciliation.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-
+      <p class="prompt-hint">Common causes: date format mismatch, sign convention difference, or extra spaces. Claude spots these immediately.</p>
     </div>
-    <div class="content-footer">
-      <button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button>
-      <button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>
-    </div>
-  </div>
-</div>
-</div></div>
 
-<footer style="background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0">
-<div style="max-width:1100px; margin:0 auto">
-<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Guides by Role</strong>
-<a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Finance Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for HR Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Marketing Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Legal Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Operations Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Sales Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Customer Service</a>
-<a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Excel</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Prompt Tools</strong>
-<a href="https://www.pairworkflows.com/claude-prompts-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Excel Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Finance Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">HR Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Marketing Prompt Builder</a>
-<a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">General Prompt Library</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Resources</strong>
-<a href="https://www.pairworkflows.com/claude-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Claude Courses</a>
-<a href="https://www.pairworkflows.com/gemini-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Gemini Courses</a>
-<a href="https://www.pairworkflows.com/glossary.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI Glossary</a>
-<a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Claude vs Gemini</a>
-<a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company &amp; Legal</strong>
-<a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
-<a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
-<a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
-<a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Privacy Policy</a>
-<a href="https://www.pairworkflows.com/legal.html#terms" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Terms of Use</a>
-<a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Cookie Policy</a>
-</div>
-</div>
-<div style="text-align:center; margin-bottom:2rem">
-<p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:520px; margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p>
-</div>
-<div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem">
-<span style="font-size:13px; color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
-<div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
-<button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-  Copy link
-</button>
-<a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-  <span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span>
-</a>
-<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn">
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-</a>
-<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-</a>
-</div>
-</div>
-</div>
-</footer>
+    <div id="p-multi" class="panel">
+      <div class="prompt-box">
+        <pre>I need to reconcile a multi-currency bank statement against my general ledger.
+
+Bank statement currency: [e.g. USD]
+Reporting currency: [e.g. GBP]
+Exchange rate to use: [e.g. 1 USD = 0.79 GBP — or: use the rate in column E]
+
+BANK STATEMENT (Date, Reference, Description, Amount USD):
+[Paste bank statement rows]
+
+GENERAL LEDGER — CASH ACCOUNT (Date, GL Ref, Description, Amount GBP):
+[Paste ledger rows]
+
+Convert all bank amounts to GBP using the exchange rate above before matching.
+Apply the same matching rules: Matched / Partial / Unmatched. Flag every discrepancy.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
+      </div>
+      <p class="prompt-hint">Add a Currency column to both datasets if you have multiple currencies in one statement.</p>
+    </div>
+  </section>
+
+  <!-- BEFORE / AFTER VISUAL -->
+  <section class="before-after">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — raw data, no matching</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Date</th><th>Bank Ref</th><th>Amount</th><th>Status</th></tr>
+          <tr><td>01/06/2025</td><td>TXN-4401</td><td>-12,500.00</td><td class="err-cell">?</td></tr>
+          <tr><td>05/06/2025</td><td>TXN-4410</td><td class="hl">8,750.00</td><td class="err-cell">?</td></tr>
+          <tr><td>07/06/2025</td><td>TXN-4415</td><td>-1,980.00</td><td class="err-cell">?</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Ledger shows 8,700.00 for TXN-4410 — £50 difference hidden in the data
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ TXN-4415 has no ledger entry at all</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude reconciles it</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Date</th><th>Bank Ref</th><th>Bank Amt</th><th>Status</th></tr>
+          <tr><td>01/06/2025</td><td>TXN-4401</td><td>-12,500.00</td><td class="ok-cell">Matched</td></tr>
+          <tr><td>05/06/2025</td><td>TXN-4410</td><td class="hl">8,750.00</td><td class="warn-cell">Partial</td></tr>
+          <tr><td>07/06/2025</td><td>TXN-4415</td><td>-1,980.00</td><td class="err-cell">Unmatched</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's output</div>
+          <pre>TXN-4410: Partial — Bank £8,750 vs Ledger £8,700 (Δ £50)
+TXN-4415: Unmatched (Bank only) — no ledger entry found
+Net difference: £50 partial + £1,980 unmatched</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIAGNOSIS TABLE -->
+  <section class="diag-card">
+    <div class="diag-header"><h2><i class="ti ti-zoom-question" style="font-size:15px"></i> Why reconciliations fail — the 4 most common causes</h2></div>
+    <div class="diag-row">
+      <div class="diag-cause">Date format mismatch</div>
+      <div class="diag-example">Bank: <span class="bad">01/06/2025</span> · Ledger: <span class="bad">2025-06-01</span> → all rows show Unmatched</div>
+      <div class="diag-badge badge-red">Most common</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">Sign convention differs</div>
+      <div class="diag-example">Bank: <span class="bad">-12,500</span> · Ledger: <span class="bad">12,500</span> → amounts never match</div>
+      <div class="diag-badge badge-red">Most common</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">Duplicate date+amount pairs</div>
+      <div class="diag-example">Two rows with same date &amp; amount → Claude matches to wrong entry</div>
+      <div class="diag-badge badge-yellow">Easy fix</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">Summary rows in export</div>
+      <div class="diag-example">Running balance or subtotal rows in bank export → false Unmatched</div>
+      <div class="diag-badge badge-yellow">Invisible</div>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="steps-card">
+    <div class="steps-title"><h2><i class="ti ti-list-check" style="color:#1d9e75"></i> Run a bank reconciliation with Claude — 5 steps</h2></div>
+    <div class="step">
+      <div class="step-n">1</div>
+      <div class="step-body"><h3>Export both datasets to Excel or CSV</h3><p>Export your bank statement and general ledger cash account. Keep only individual transaction rows — delete summary rows, running balances, and any bank export headers that span multiple columns.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">2</div>
+      <div class="step-body"><h3>Align date formats and sign conventions</h3><p>Both datasets must use the same date format (e.g. DD/MM/YYYY). Amounts must follow the same sign convention: negative for outflows, positive for inflows. Fix this in Excel before pasting into Claude.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">3</div>
+      <div class="step-body"><h3>Paste both datasets into the prompt</h3><p>Use the Full Reconciliation prompt above. Paste your bank rows where indicated and your ledger rows below. Include column headers so Claude understands the structure.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">4</div>
+      <div class="step-body"><h3>Review every Partial and Unmatched item</h3><p>Claude's output is a starting point, not a final answer. Every Partial match needs a root-cause investigation — timing difference, bank fee, or data entry error. Every Unmatched item on the bank side needs a journal entry or explanation.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">5</div>
+      <div class="step-body"><h3>Paste the reconciliation table into Excel</h3><p>Claude formats the output as a tab-separated table ready to paste into Excel. Apply <code>Ctrl+Shift+L</code> to add filters, then sort by Status to group all Partial and Unmatched items at the top.</p></div>
+    </div>
+    <div class="tip"><strong>Tip:</strong> If all your items show Unmatched, the most likely cause is a date format mismatch. Tell Claude "dates in my bank export are MM/DD/YYYY and in my ledger they are DD/MM/YYYY" — it will normalise before matching.</div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="faq-title"><h2>Frequently asked questions</h2></div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Can Claude read my Excel bank statement directly? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Claude cannot open .xlsx files natively in the free chat. Copy the relevant columns from Excel and paste them as plain text into the prompt. Claude Pro supports file uploads if you prefer to attach the file directly.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How does Claude match bank transactions to ledger entries? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Claude uses date and amount as the primary matching key. Reference numbers and descriptions are used as secondary confirmation. The prompt instructs Claude not to force matches — if two rows don't meet the matching criteria, they're flagged separately.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Will Claude invent matches that don't exist? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Not with this prompt. The guardrail line "Do NOT invent or force matches" is critical — it tells Claude to flag discrepancies rather than resolve them. Always verify the output against your source data before posting any adjusting entries.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Can I use this for multi-currency bank reconciliation? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Yes — use the Multi-currency prompt tab above. Add a Currency column to both datasets and specify the exchange rate in the prompt. Claude converts all amounts to your reporting currency before matching.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How often should I run this reconciliation? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Most finance teams reconcile monthly at minimum. Weekly reconciliation catches errors faster and makes month-end close significantly smoother. If you're building a broader close process, see the <a href="/month-end-close-excel-claude.html">month-end close checklist workflow</a>.</div>
+    </div>
+  </section>
+
+  <!-- RELATED -->
+  <section class="related-section">
+    <div class="related-title"><h2>Related Excel workflows</h2></div>
+    <div class="related-grid">
+      <a href="/month-end-close-excel-claude.html" class="related-link">
+        <strong>Automate Your Month-End Close Checklist</strong>
+        <span>Build a close checklist in Excel that tracks tasks, deadlines, and sign-offs automatically.</span>
+      </a>
+      <a href="/accounts-payable-aging-excel-claude.html" class="related-link">
+        <strong>Build an Accounts Payable Aging Dashboard</strong>
+        <span>Flag overdue invoices and build an AP aging summary with Claude in minutes.</span>
+      </a>
+      <a href="/accounts-receivable-excel-claude.html" class="related-link">
+        <strong>Automate Accounts Receivable Tracking</strong>
+        <span>Track outstanding invoices and calculate days outstanding without manual formulas.</span>
+      </a>
+      <a href="/automate-cash-flow-dashboard-excel-claude.html" class="related-link">
+        <strong>Build a Cash Flow Dashboard in Excel</strong>
+        <span>Feed reconciliation outputs into a live cash monitoring dashboard.</span>
+      </a>
+    </div>
+  </section>
+
+</main>
 
 <script>
-var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
-var heroes=[
-  {tag:'Section 01',title:'What the finished bank reconciliation looks like'},
-  {tag:'Section 02',title:'Prepare your bank and ledger data'},
-  {tag:'Section 03',title:'The prompt, FAQ & related courses'},
-  {tag:'Section 04 — Quiz',title:'Test your understanding'}
-];
-var quiz=[
-  {q:'What is the primary matching key Claude uses to reconcile bank and ledger transactions?',
-   opts:['Reference number only','Date and amount','Description text'],
-   correct:1},
-  {q:'A bank transaction has the same date as a ledger entry but the amounts differ by £50. How should Claude classify this?',
-   opts:['Matched — the difference is immaterial','Unmatched — it must be a different transaction','Partial match — flag the £50 difference for investigation'],
-   correct:2},
-  {q:'What should you do before pasting data into the Claude prompt?',
-   opts:['Ensure both datasets use the same date format and sign convention','Convert everything to USD','Sort both datasets alphabetically by description'],
-   correct:0},
-  {q:'Why does the prompt tell Claude "Do NOT force matches"?',
-   opts:['To reduce the number of output rows','To prevent Claude from inventing ledger entries that don\'t exist in your data','To make the reconciliation run faster'],
-   correct:1}
-];
-function buildQuizHTML(){
-  if(quizDone){
-    var score=0;
-    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
-    var msgs=['Review sections 1 and 2 — understanding data prep and matching logic is essential.','Decent start — re-read the prompt guardrails section to sharpen your approach.','Nearly there — one concept to revisit before you run your first reconciliation.','Full marks — you\'re ready to reconcile with confidence.'];
-    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
-  }
-  var html='';
-  for(var i=0;i<quiz.length;i++){
-    var q=quiz[i];
-    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
-    for(var j=0;j<q.opts.length;j++){
-      var cls='opt';
-      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
-      else if(sel[i]===j)cls+=' selected';
-      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
-    }
-    html+='</div>';
-  }
-  var allSel=Object.keys(sel).length===quiz.length;
-  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
-  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
-  return html;
+function switchTab(btn,id){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  btn.classList.add('on');
+  document.getElementById('p-'+id).classList.add('on');
 }
-function render(){
-  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
-  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
-  document.getElementById('heroTag').textContent=heroes[cur].tag;
-  document.getElementById('heroTitle').textContent=heroes[cur].title;
-  for(var i=0;i<4;i++){
-    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),sec=document.getElementById('seo-sec-'+i);
-    ni.className='nav-item'+(i===cur?' active':'');
-    if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');
-    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
-    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
-    else{nd.className='nav-dot';nd.textContent=(i+1);}
-  }
-  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
-  document.getElementById('btnBack').disabled=(cur===0);
-  var fwd=document.getElementById('btnFwd');
-  if(cur===3){fwd.style.display='none';}
-  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
+function copyPrompt(btn){
+  var text=btn.previousElementSibling.innerText;
+  navigator.clipboard.writeText(text);
+  btn.innerHTML='<i class="ti ti-check" style="font-size:12px"></i> Copied!';
+  setTimeout(function(){btn.innerHTML='<i class="ti ti-copy" style="font-size:12px"></i> Copy';},2000);
 }
-function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
-function goFwd(){if(cur<3)go(cur+1);}
-function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
-function showResult(){quizDone=true;render();}
-function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
-function copyPrompt(btn){var block=btn.closest('.prompt-block');var text=block.querySelector('.prompt-block-text').innerText;navigator.clipboard.writeText(text);btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);}
-function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
+function toggleFaq(q){
+  q.classList.toggle('open');
+  q.nextElementSibling.classList.toggle('open');
+}
 function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
 function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
-document.getElementById('cnt').addEventListener('click',function(e){
-  if(cur!==3||quizSubmitted||quizDone)return;
-  var opt=e.target.closest('.opt');
-  if(!opt)return;
-  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
-  render();
-});
-render();
 </script>
 </body>
 </html>
