@@ -7,232 +7,224 @@
 <meta name="description" content="Learn how to use Claude AI to build cash flow forecasts, scenario narratives and 13-week cash projections from historical data. Free 5-minute guide for finance professionals.">
 <link rel="canonical" href="https://www.pairworkflows.com/claude-cash-flow-forecasting.html">
 <meta property="og:title" content="How to Use Claude AI for Cash Flow Forecasting — PairWorkflows">
-<meta property="og:description" content="Learn how to use Claude AI to build cash flow forecasts, scenario narratives and 13-week cash projections from historical data. Free 5-minute guide for finance professionals.">
+<meta property="og:description" content="Learn how to use Claude AI to build cash flow forecasts, scenario narratives and 13-week cash projections from historical data.">
 <meta property="og:url" content="https://www.pairworkflows.com/claude-cash-flow-forecasting.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PairWorkflows">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Use Claude AI for Cash Flow Forecasting — PairWorkflows">
+<meta name="twitter:description" content="Learn how to use Claude AI to build cash flow forecasts, scenario narratives and 13-week cash projections from historical data.">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"How to Use Claude AI for Cash Flow Forecasting","description":"Learn how to use Claude AI to build cash flow forecasts, scenario narratives and 13-week cash projections from historical data.","url":"https://www.pairworkflows.com/claude-cash-flow-forecasting.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-<link rel="stylesheet" href="/global-fix.css">
-<link rel="icon" type="image/png" href="/favicon.png">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:100vh;display:flex;flex-direction:column}
-.page{max-width:1300px;margin:0 auto;width:100%;padding:2rem 2.5rem 4rem;flex:1}
-.hero{margin-bottom:2rem}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#0f6e56;background:#e1f5ee;border:1px solid #a7f3d0;border-radius:20px;padding:4px 12px;margin-bottom:.9rem}
-.hero h1{font-size:32px;font-weight:700;line-height:1.2;color:#111827;margin-bottom:.6rem;letter-spacing:-.5px}
-.hero h1 span{color:#1d9e75}
-.hero-sub{font-size:15px;color:#6b7280;line-height:1.65;max-width:640px}
-.prompt-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.prompt-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.75rem}
-.prompt-card-label{font-size:13px;font-weight:600;color:#374151}
-.tabs{display:flex;gap:6px;flex-wrap:wrap}
-.tab{padding:6px 14px;border-radius:7px;border:1.5px solid #e5e7eb;background:#f9fafb;font-size:12px;font-weight:500;color:#6b7280;cursor:pointer;transition:all .15s;font-family:inherit}
-.tab:hover{border-color:#1d9e75;color:#0f6e56}
-.tab.on{background:#1d9e75;border-color:#1d9e75;color:#fff;font-weight:600}
-.panel{display:none}
-.panel.on{display:block}
-.prompt-box{background:#0f172a;border-radius:10px;padding:1.25rem 1.25rem 1rem;position:relative}
-.prompt-box pre{font-family:'JetBrains Mono',monospace;font-size:12px;color:#e2e8f0;line-height:1.75;white-space:pre-wrap;word-break:break-word;padding-right:70px}
-.copy-btn{position:absolute;top:.75rem;right:.75rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-weight:500;font-family:inherit;cursor:pointer;padding:5px 12px;transition:all .15s;display:flex;align-items:center;gap:5px}
-.copy-btn:hover{background:rgba(255,255,255,.15);color:#fff}
-.prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
-.prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
-.prompt-hint a:hover{text-decoration:underline}
-.ba-section{margin-bottom:1.75rem}
-.ba-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
-.ba-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
-.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
-.ba-col.before{border-color:#fca5a5}
-.ba-col.after{border-color:#6ee7b7}
-.ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
-.ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
-.ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
-.ba-body{padding:1rem 1.25rem;font-size:13px;color:#374151;line-height:1.7;font-style:italic}
-.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
-.dodont-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.75rem}
-.dodont-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
-.dodont-col.do{border-color:#6ee7b7}
-.dodont-col.dont{border-color:#fca5a5}
-.dodont-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
-.dodont-header.do{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
-.dodont-header.dont{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
-.dodont-item{display:flex;align-items:flex-start;gap:10px;padding:.7rem 1rem;border-bottom:1px solid #f9fafb;font-size:13px;color:#374151;line-height:1.55}
-.dodont-item:last-child{border-bottom:none}
-.dodont-item i{flex-shrink:0;margin-top:1px;font-size:14px}
-.dodont-item i.ok{color:#059669}
-.dodont-item i.no{color:#dc2626}
-.warning{background:#fef9c3;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin-bottom:1.75rem;font-size:13px;color:#78350f;line-height:1.65;display:flex;align-items:flex-start;gap:10px}
-.warning i{flex-shrink:0;margin-top:1px;font-size:16px;color:#f59e0b}
-.steps-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.steps-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
-.step{display:flex;gap:16px;padding:.9rem 0;border-bottom:1px solid #f3f4f6}
-.step:last-child{border-bottom:none}
-.step-n{width:28px;height:28px;border-radius:8px;background:#e1f5ee;color:#0f6e56;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.step-body h3{font-size:13px;font-weight:600;color:#1f2937;margin-bottom:.25rem}
-.step-body p{font-size:13px;color:#6b7280;line-height:1.65}
-.step-body code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
-.faq-section{margin-bottom:1.75rem}
-.faq-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1rem}
-.faq-item{border-bottom:1px solid #f3f4f6;padding:.9rem 0}
-.faq-q{font-size:13px;font-weight:600;color:#1f2937;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
-.faq-q i{color:#9ca3af;transition:transform .2s;flex-shrink:0}
-.faq-q.open i{transform:rotate(180deg)}
-.faq-a{font-size:13px;color:#6b7280;line-height:1.7;display:none;padding-top:.6rem}
-.faq-a.open{display:block}
-.faq-a code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
-.related-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af;margin-bottom:.75rem}
-.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.related-link{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:.9rem 1rem;text-decoration:none;transition:border-color .15s;display:block}
-.related-link:hover{border-color:#1d9e75}
-.related-link strong{display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem}
-.related-link span{display:block;font-size:12px;color:#9ca3af;line-height:1.4}
-#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
-#searchOverlay.open{display:flex}
-.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
-.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px}
-.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
-.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
-.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:inherit}
-.search-box input::placeholder{color:rgba(255,255,255,.35)}
-@media(max-width:640px){
-  .hero h1{font-size:24px}
-  .ba-grid{grid-template-columns:1fr;gap:8px}
-  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
-  .dodont-grid{grid-template-columns:1fr}
-  .related-grid{grid-template-columns:1fr}
-  .page{padding:1.5rem 1rem 3rem}
-  .tabs{gap:6px}
-  .tab{font-size:11px;padding:5px 10px}
-  .prompt-card-top{flex-direction:column;align-items:flex-start}
-}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"><link rel="stylesheet" href="/global-fix.css">
+<style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter','Segoe UI',Helvetica Neue,sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}.logo-workflows{font-size:16px;font-weight:400;color:#ffffff}.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}.nav-back:hover{color:#1d9e75}.page-wrap-fix{max-width:1100px;margin:2rem auto;padding:0 1rem}.course-shell{background:#ffffff;border-radius:16px;border:1px solid #e8ecef;overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}.prog-wrap{padding:1rem 1.25rem .75rem}.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}.nav-list{padding:.5rem 0;flex:1}.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}.nav-item:hover{background:#eef1f4}.nav-item.active{border-left-color:#1d9e75;background:#ffffff}.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#ffffff}.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}.nav-text{font-size:13px;color:#6b7280;line-height:1.35}.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}.content-area{display:flex;flex-direction:column}.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}.section-hero h2{font-size:22px;font-weight:500;color:#ffffff;line-height:1.3;max-width:560px}.content-body{padding:1.75rem 2rem;flex:1;max-width:100%}.seo-section{display:none}.seo-section.active-section{display:block}.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem} .seo-section h1{font-size:24px;font-weight:600;color:#1a1a2e;margin-bottom:1.5rem;line-height:1.3}.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.5rem 0}.stat-card{background:#f0fdf4;border:1px solid #6ee7b7;border-radius:12px;padding:1.25rem;text-align:center}.stat-num{font-size:32px;font-weight:800;color:#0f6e56;line-height:1;margin-bottom:.25rem}.stat-label{font-size:12px;color:#374151;line-height:1.4}.scenario-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.5rem 0}.scenario-card{border-radius:12px;padding:1.25rem;text-align:center}.scenario-best{background:#f0fdf4;border:1.5px solid #6ee7b7}.scenario-base{background:#f0f9ff;border:1.5px solid #93c5fd}.scenario-worst{background:#fef2f2;border:1.5px solid #fecaca}.scenario-icon{font-size:24px;margin-bottom:.5rem}.scenario-best .scenario-icon{color:#059669}.scenario-base .scenario-icon{color:#2563eb}.scenario-worst .scenario-icon{color:#dc2626}.scenario-title{font-size:13px;font-weight:700;margin-bottom:.35rem}.scenario-best .scenario-title{color:#065f46}.scenario-base .scenario-title{color:#1e40af}.scenario-worst .scenario-title{color:#991b1b}.scenario-desc{font-size:12px;color:#374151;line-height:1.5}.prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative}.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap}.prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}.prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#ffffff}.workflow-steps{display:flex;flex-direction:column;gap:12px;margin:1.5rem 0}.workflow-step{display:flex;align-items:flex-start;gap:14px;background:#f8fafb;border:1px solid #e8ecef;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem}.workflow-step-num{width:26px;height:26px;border-radius:50%;background:#1d9e75;color:#ffffff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}.workflow-step-content{flex:1}.workflow-step-title{font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.25rem}.workflow-step-desc{font-size:13px;color:#374151;line-height:1.55}.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}.highlight-text{font-size:13px;color:#374151;line-height:1.65}.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc}.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}.btn-back:hover{background:#f0f2f5}.btn-back:disabled{opacity:.35;cursor:default}.btn-fwd{background:#1d9e75;color:#ffffff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}.btn-fwd:hover{background:#0f6e56}.quiz-q{margin-bottom:1.5rem}.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}.opt.selected{border-color:#378add;background:#edf5fd;color:#0c447c}.opt.selected .radio{border-color:#378add;background:#378add}.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}.submit-global{background:#1a1a2e;color:#ffffff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}.submit-global:hover{background:#0f6e56}.submit-global:disabled{opacity:.35;cursor:default}.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}.retake-btn:hover{background:#e1f5ee}.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0}.page-footer a{color:#1d9e75;text-decoration:none}.page-footer a:hover{text-decoration:underline}@media(max-width:700px){.navbar{padding:0 1rem}.course-shell{grid-template-columns:1fr}.sidebar{display:none}.content-body{padding:1.25rem 1rem;max-width:100%}.section-hero{padding:1.25rem 1rem}.content-footer{padding:1rem}.stat-row{grid-template-columns:1fr}.scenario-grid{grid-template-columns:1fr}}#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}#searchOverlay.open{display:flex}.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}.search-close-btn:hover{color:#ffffff}.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}.search-box input{flex:1;border:none;outline:none;background:transparent;color:#ffffff;font-size:17px;font-family:'Inter',sans-serif}.search-box input::placeholder{color:rgba(255,255,255,.35)}.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center;letter-spacing:.02em}.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}.search-trigger:hover{background:rgba(255,255,255,.15);color:#ffffff}</style>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-<div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
-  <div class="search-overlay-inner">
-    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
-    <form action="/search.html" method="get">
-      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search workflows, prompts, and guides..." autocomplete="off"></div>
-    </form>
-  </div>
-</div>
+<div id="searchOverlay" onclick="if(event.target===this)closeSearch()"><div class="search-overlay-inner"><button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button><form action="/search.html" method="get"><div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div></form><p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p></div></div>
 <div id="navbar-placeholder"></div>
-<script src="/navbar.js"></script>
-<script src="/footer.js"></script>
+<script src="/navbar.js"></script><script src="/footer.js"></script>
 <noscript>
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
+<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a>
+<a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a>
+<a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a>
+<a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a>
+<a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a>
+<a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a>
+<a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
+<a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a>
+<a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a>
+<a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
 </nav>
 </noscript>
-<div class="page">
-
-<div class="page">
-
-  <div class="hero">
-    <div class="hero-eyebrow"><i class="ti-chart-bar" style="font-size:12px"></i> Finance · Claude AI</div>
-    <h1>Cash Flow Forecasting.<br><span>Done faster with Claude AI.</span></h1>
-    <p class="hero-sub">The numbers come from your model. The narrative around them is where Claude helps most.</p>
-  </div>
-  <div class="prompt-card">
-    <div class="prompt-card-top">
-      <span class="prompt-card-label">Choose your situation — copy the prompt:</span>
-      <div class="tabs">
-        <button class="tab on" onclick="switchTab(this,'p0')">13-week cash flow narrative</button>
-<button class="tab " onclick="switchTab(this,'p1')">Scenario narrative (best / base / worst case)</button>
-<button class="tab " onclick="switchTab(this,'p2')">Forecast assumptions documentation</button>
-
-      </div>
-    </div>
-    
-    <div id="p0" class="panel on">
-      <div class="prompt-box">
-        <pre>Act as a Finance Manager. Write a narrative summary of the following 13-week cash flow forecast for senior management.
+<div class="page-wrap-fix"><div class="course-wrap-outer"><div class="course-shell">
+<div class="sidebar">
+<div class="sidebar-top">
+<div class="course-label">Claude AI — Course 29 of 29</div>
+<h1 class="course-title-side">How to Use Claude AI for Cash Flow Forecasting</h1>
+</div>
+<div class="prog-wrap">
+<div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
+<div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+</div>
+<div class="nav-list">
+<div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">Why forecasting is a narrative problem</div></div>
+<div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">3 ready-to-use prompts</div></div>
+<div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Building the workflow safely</div></div>
+<div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quiz: test your knowledge</div></div>
+</div>
+</div>
+<div class="content-area">
+<div class="section-hero"><div class="section-tag" id="heroTag">Section 01</div><h2 id="heroTitle">The numbers come from your model. The narrative around them is where Claude helps most.</h2></div>
+<div class="content-body" id="cnt">
+<div id="seo-sec-0" class="seo-section active-section">
+<p>Cash flow forecasting itself — the calculations, the model, the formulas — belongs in your spreadsheet. That is not a job for Claude. But every forecast also needs a story: the assumptions behind it, the scenarios it covers, and the commentary that explains what the numbers mean to the people reading them.</p>
+<p>That narrative layer is where Claude adds real value. You build the model and run the numbers in your spreadsheet. Claude turns the output into a clear scenario narrative, a set of documented assumptions, and commentary that explains what is driving the forecast — ready for the people who need to understand it, not just see it.</p>
+<div class="highlight-box"><div class="highlight-icon"><i class="ti ti-bulb"></i></div><div class="highlight-text"><strong>Key insight:</strong> Claude does not calculate your forecast. It explains it. Keep the maths in your spreadsheet — use Claude for the assumptions documentation, scenario narrative and commentary that sits around the numbers.</div></div>
+<div class="scenario-grid">
+<div class="scenario-card scenario-best"><div class="scenario-icon"><i class="ti ti-trending-up"></i></div><div class="scenario-title">Best case</div><div class="scenario-desc">Claude documents the assumptions driving the upside scenario in plain language for stakeholders.</div></div>
+<div class="scenario-card scenario-base"><div class="scenario-icon"><i class="ti ti-arrows-horizontal"></i></div><div class="scenario-title">Base case</div><div class="scenario-desc">Claude writes the core narrative — what the forecast assumes and why it is the most likely outcome.</div></div>
+<div class="scenario-card scenario-worst"><div class="scenario-icon"><i class="ti ti-trending-down"></i></div><div class="scenario-title">Worst case</div><div class="scenario-desc">Claude explains the downside triggers and what would need to happen for this scenario to occur.</div></div>
+</div>
+<div class="stat-row">
+<div class="stat-card"><div class="stat-num"><i class="ti ti-file-text" style="font-size:28px"></i></div><div class="stat-label">Assumptions documentation — written once, reused every forecast cycle</div></div>
+<div class="stat-card"><div class="stat-num"><i class="ti ti-calendar-stats" style="font-size:28px"></i></div><div class="stat-label">13-week cash narratives — turned from raw weekly figures into a clear story</div></div>
+<div class="stat-card"><div class="stat-num"><i class="ti ti-presentation" style="font-size:28px"></i></div><div class="stat-label">Board-ready commentary — scenario summaries for non-finance stakeholders</div></div>
+</div>
+</div>
+<div id="seo-sec-1" class="seo-section">
+<p>These three prompts cover the narrative side of cash flow forecasting. Run your model first — then use these prompts on the output.</p>
+<div class="highlight-box"><div class="highlight-icon"><i class="ti ti-bulb"></i></div><div class="highlight-text"><strong>Key insight:</strong> Always give Claude the assumptions behind your numbers, not just the numbers themselves. A forecast figure without its assumption is just a number — Claude needs the "why" to write a useful narrative.</div></div>
+<div class="prompt-block">
+<div class="prompt-block-label">Prompt 1 — 13-week cash flow narrative</div>
+<div class="prompt-block-text">Act as a Finance Manager. Write a narrative summary of the following 13-week cash flow forecast for senior management.
 
 Opening cash position: [figure]
 Weekly cash in/out summary: [Paste your weekly figures — inflows and outflows]
 Lowest projected cash week: [Week number and figure]
 Key assumptions: [e.g. "Customer X payment assumed in week 6", "No new funding drawn"]
 
-Format: one paragraph overview of the 13-week trend, a flag for the lowest cash point with [WATCH] if it falls below [your minimum threshold], and a short list of the key assumptions underlying the forecast.</pre>
-        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
-      </div>
-      <p class="prompt-hint">Replace the bracketed parts with your real information. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a> or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
-    </div>
-    <div id="p1" class="panel ">
-      <div class="prompt-box">
-        <pre>Act as a Finance Business Partner. Write a scenario narrative comparing the following three cash flow scenarios.
+Format: one paragraph overview of the 13-week trend, a flag for the lowest cash point with [WATCH] if it falls below [your minimum threshold], and a short list of the key assumptions underlying the forecast.</div>
+<button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+</div>
+<div class="prompt-block">
+<div class="prompt-block-label">Prompt 2 — Scenario narrative (best / base / worst case)</div>
+<div class="prompt-block-text">Act as a Finance Business Partner. Write a scenario narrative comparing the following three cash flow scenarios.
 
 Base case — closing cash position and key assumptions: [figures and assumptions]
 Best case — closing cash position and what changes from base: [figures and assumptions]
 Worst case — closing cash position and what changes from base: [figures and assumptions]
 
-Format: one short paragraph per scenario explaining what drives the difference from the base case, followed by a summary sentence on the range of outcomes. Plain language — suitable for a non-finance board audience.</pre>
-        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
-      </div>
-      <p class="prompt-hint">Replace the bracketed parts with your real information. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a> or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
-    </div>
-    <div id="p2" class="panel ">
-      <div class="prompt-box">
-        <pre>Act as a Financial Controller. Turn the following list of forecast assumptions into a clear, structured assumptions document for the forecast model.
+Format: one short paragraph per scenario explaining what drives the difference from the base case, followed by a summary sentence on the range of outcomes. Plain language — suitable for a non-finance board audience.</div>
+<button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+</div>
+<div class="prompt-block">
+<div class="prompt-block-label">Prompt 3 — Forecast assumptions documentation</div>
+<div class="prompt-block-text">Act as a Financial Controller. Turn the following list of forecast assumptions into a clear, structured assumptions document for the forecast model.
 
 Assumptions (in any order): [List each assumption — e.g. "Revenue grows 3% month on month", "Payment terms remain 30 days", "No new hires before Q3"]
 Forecast period: [e.g. 13 weeks / FY2026]
 Owner of the forecast: [Role title]
 
-Format: group assumptions under headings (Revenue, Costs, Working Capital, Other). For each assumption, state it clearly in one sentence and note whether it is conservative, neutral or optimistic relative to recent actuals.</pre>
-        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
-      </div>
-      <p class="prompt-hint">Replace the bracketed parts with your real information. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a> or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
-    </div>
-  </div><div class="warning"><i class="ti ti-alert-triangle"></i><span>Important: Claude does not replace your forecasting model or your judgement on funding decisions. It produces narrative and documentation from figures you provide — every figure and assumption must be verified against your model before the forecast is shared or acted upon.</span></div>
-  <div class="related-title">Related workflows</div>
-  <div class="related-grid">
-    
-    <a href="/claude-cash-flow-forecasting.html" class="related-link">
-      <strong>Cash Flow Forecasting</strong>
-      <span>Use Claude to model and narrate cash flow scenarios.</span>
-    </a>
-    <a href="/claude-month-end-close.html" class="related-link">
-      <strong>Month-End Close</strong>
-      <span>Faster close with AI-assisted checklists and commentary.</span>
-    </a>
-    <a href="/claude-excel-sumifs.html" class="related-link">
-      <strong>SUMIFS Formulas with Claude</strong>
-      <span>Write and debug SUMIFS for multi-criteria reports.</span>
-    </a>
-    <a href="/prompt-generator-finance.html" class="related-link">
-      <strong>Finance Prompt Generator</strong>
-      <span>Build a custom Claude prompt for finance tasks in seconds.</span>
-    </a>
-  </div>
+Format: group assumptions under headings (Revenue, Costs, Working Capital, Other). For each assumption, state it clearly in one sentence and note whether it is conservative, neutral or optimistic relative to recent actuals.</div>
+<button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
 </div>
-
+</div>
+<div id="seo-sec-2" class="seo-section">
+<p>Cash flow forecasts directly inform decisions about funding, payment timing and supplier relationships — getting the workflow right matters.</p>
+<div class="highlight-box"><div class="highlight-icon"><i class="ti ti-bulb"></i></div><div class="highlight-text"><strong>Key insight:</strong> The model lives in your spreadsheet. Claude lives around it — assumptions, narrative, scenarios. Keeping this separation clear is what makes the workflow safe and repeatable.</div></div>
+<div class="workflow-steps">
+<div class="workflow-step"><div class="workflow-step-num">1</div><div class="workflow-step-content"><div class="workflow-step-title">Build and run your model first</div><div class="workflow-step-desc">Your cash flow model — formulas, links, scenario toggles — stays in Excel or Google Sheets. Claude does not build or verify the model itself.</div></div></div>
+<div class="workflow-step"><div class="workflow-step-num">2</div><div class="workflow-step-content"><div class="workflow-step-title">Export the output, not the formulas</div><div class="workflow-step-desc">Paste the resulting figures — opening position, weekly movements, scenario outcomes — into Claude. The formulas and underlying model stay in your spreadsheet.</div></div></div>
+<div class="workflow-step"><div class="workflow-step-num">3</div><div class="workflow-step-content"><div class="workflow-step-title">Always include the assumptions</div><div class="workflow-step-desc">Every figure should come with the assumption behind it. This is what lets Claude write a narrative that explains the "why", not just the "what".</div></div></div>
+<div class="workflow-step"><div class="workflow-step-num">4</div><div class="workflow-step-content"><div class="workflow-step-title">Verify the narrative against the model</div><div class="workflow-step-desc">Read the output back against your model before sharing. Claude should describe what your forecast shows — if it does not match, the input was incomplete or unclear.</div></div></div>
+</div>
+<div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>Important:</strong> Claude does not replace your forecasting model or your judgement on funding decisions. It produces narrative and documentation from figures you provide — every figure and assumption must be verified against your model before the forecast is shared or acted upon.</div></div>
+</div>
+<div id="seo-sec-3" class="seo-section"><div id="quiz-interactive-container"></div></div>
+</div>
+<div class="content-footer"><button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button><button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button></div>
+</div>
+</div></div>
 <script>
-function switchTab(btn,id){
-  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
-  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
-  btn.classList.add('on');
-  document.getElementById('p-'+id).classList.add('on');
+var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
+var heroes=[
+  {tag:'Section 01',title:'The numbers come from your model. The narrative around them is where Claude helps most.'},
+  {tag:'Section 02',title:'Three Claude prompts for cash flow narratives, scenario comparisons and assumptions documentation.'},
+  {tag:'Section 03',title:'How to build the cash flow forecasting workflow safely.'},
+  {tag:'Section 04 — Quiz',title:'Test your knowledge.'}
+];
+var quiz=[
+  {q:'What is Claude\'s role in cash flow forecasting?',
+   opts:['It writes the narrative and documentation around a forecast — it does not calculate the forecast itself','It builds and calculates the cash flow model in place of a spreadsheet','It replaces the need for a Financial Controller to review the forecast'],
+   correct:0},
+  {q:'What should you always include alongside the figures when prompting Claude?',
+   opts:['The full formula syntax used in your spreadsheet model','The assumptions behind each figure — the "why", not just the "what"','The names of everyone who contributed to the forecast'],
+   correct:1},
+  {q:'In the best/base/worst case scenario prompt, what does Claude explain for each scenario?',
+   opts:['The exact spreadsheet formulas used to calculate each scenario','Which scenario the company should choose to pursue','What drives the difference from the base case, in plain language'],
+   correct:2},
+  {q:'What must happen before a Claude-generated forecast narrative is shared?',
+   opts:['Nothing — Claude narratives can be shared directly once generated','It must be translated into a different AI tool for a second opinion','Every figure and assumption must be verified against the underlying model'],
+   correct:2}
+];
+function buildQuizHTML(){
+  if(quizDone){
+    var score=0;
+    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
+    var msgs=['Review Section 1 and 3 — the separation between model and narrative is the foundation of this workflow.','Good effort — re-read the three prompts and the workflow steps before trying again.','Almost there! One concept to sharpen — revisit how assumptions should accompany every figure.','Perfect mark! Use these prompts on your next forecast cycle to add a clear narrative layer.'];
+    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
+  }
+  var html='';
+  for(var i=0;i<quiz.length;i++){
+    var q=quiz[i];
+    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
+    for(var j=0;j<q.opts.length;j++){
+      var cls='opt';
+      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
+      else if(sel[i]===j){cls+=' selected';}
+      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
+    }
+    html+='</div>';
+  }
+  var allSel=Object.keys(sel).length===quiz.length;
+  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
+  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
+  return html;
 }
+function render(){
+  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
+  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
+  document.getElementById('heroTag').textContent=heroes[cur].tag;
+  document.getElementById('heroTitle').textContent=heroes[cur].title;
+  for(var i=0;i<4;i++){
+    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),secBlock=document.getElementById('seo-sec-'+i);
+    ni.className='nav-item'+(i===cur?' active':'');
+    if(i===cur)secBlock.classList.add('active-section');else secBlock.classList.remove('active-section');
+    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
+    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
+    else{nd.className='nav-dot';nd.textContent=(i+1);}
+  }
+  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
+  document.getElementById('btnBack').disabled=(cur===0);
+  var fwd=document.getElementById('btnFwd');
+  if(cur===3){fwd.style.display='none';}
+  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
+}
+function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
+function goFwd(){if(cur<3)go(cur+1);}
+function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
+function showResult(){quizDone=true;render();}
+function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
 function copyPrompt(btn){
-  var text=btn.previousElementSibling.innerText;
+  var block=btn.closest('.prompt-block');
+  var text=block.querySelector('.prompt-block-text').innerText;
   navigator.clipboard.writeText(text);
-  btn.innerHTML='<i class="ti ti-check" style="font-size:12px"></i> Copied!';
-  setTimeout(function(){btn.innerHTML='<i class="ti ti-copy" style="font-size:12px"></i> Copy';},2000);
+  btn.textContent='Copied!';
+  setTimeout(function(){btn.textContent='Copy';},2000);
 }
-function toggleFaq(q){
-  q.classList.toggle('open');
-  q.nextElementSibling.classList.toggle('open');
+function copyLink(){
+  var btn=document.getElementById('copyLinkBtn');
+  navigator.clipboard.writeText(window.location.href);
+  btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';
+  setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);
 }
 function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
 function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+document.getElementById('cnt').addEventListener('click',function(e){
+  if(cur!==3||quizSubmitted||quizDone)return;
+  var opt=e.target.closest('.opt');
+  if(!opt)return;
+  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
+  render();
+});
+render();
 </script>
 </body>
 </html>

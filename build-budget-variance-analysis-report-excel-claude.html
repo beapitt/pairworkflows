@@ -7,7 +7,7 @@
 <meta name="description" content="Use Claude AI to build a budget vs actual variance report in Excel. Automatic variance calculations, threshold flags, and commentary columns ready for leadership.">
 <link rel="canonical" href="https://www.pairworkflows.com/build-budget-variance-analysis-report-excel-claude.html">
 <meta property="og:title" content="Budget Variance Analysis Excel Template — PairWorkflows">
-<meta property="og:description" content="Use Claude AI to build a budget vs actual variance report in Excel. Automatic variance calculations, threshold flags, and commentary columns ready for leadership.">
+<meta property="og:description" content="Build a budget variance analysis report in Excel using Claude AI. Auto-calculated variances, threshold flags, and commentary for leadership reviews.">
 <meta property="og:url" content="https://www.pairworkflows.com/build-budget-variance-analysis-report-excel-claude.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PairWorkflows">
@@ -16,192 +16,448 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Should variance be calculated as Budget minus Actual or Actual minus Budget?","acceptedAnswer":{"@type":"Answer","text":"Convention varies. For revenue lines, Actual minus Budget is common so a positive number means favourable. For expense lines, Budget minus Actual is typical so under-spending shows as positive. The prompt asks you to specify your convention and Claude applies it consistently across all line items."}},{"@type":"Question","name":"What variance threshold should trigger a flag?","acceptedAnswer":{"@type":"Answer","text":"A common rule flags any line where the variance exceeds 5-10 percent or a fixed dollar amount like 5000. The right threshold depends on materiality for your business. The prompt lets you set both a percentage and an absolute amount, combined with AND or OR logic."}},{"@type":"Question","name":"Can Claude write the variance commentary for me?","acceptedAnswer":{"@type":"Answer","text":"Claude can draft commentary based on the numbers — for example noting that a line is 12 percent over budget. But meaningful explanations require business context only your team has. Use Claude's draft as a starting point, then add the real reasons."}},{"@type":"Question","name":"How do I handle budget variance for a partial period?","acceptedAnswer":{"@type":"Answer","text":"Compare year-to-date actuals against the YTD portion of the annual budget — not the full year. The prompt includes a reporting period field so Claude labels the report correctly and can prorate if needed."}},{"@type":"Question","name":"What is the difference between a favourable and unfavourable variance?","acceptedAnswer":{"@type":"Answer","text":"A favourable variance improves the bottom line — revenue above budget or expenses below budget. An unfavourable variance hurts the bottom line — revenue below budget or expenses above budget. The label depends on the line type, not just the sign of the number."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-<link rel="stylesheet" href="/global-fix.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"><link rel="stylesheet" href="/global-fix.css">
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:100vh;display:flex;flex-direction:column}
-.page{max-width:1300px;margin:0 auto;width:100%;padding:2rem 2.5rem 4rem;flex:1}
-.hero{margin-bottom:2rem}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#0f6e56;background:#e1f5ee;border:1px solid #a7f3d0;border-radius:20px;padding:4px 12px;margin-bottom:.9rem}
-.hero h1{font-size:32px;font-weight:700;line-height:1.2;color:#111827;margin-bottom:.6rem;letter-spacing:-.5px}
-.hero h1 span{color:#1d9e75}
-.hero-sub{font-size:15px;color:#6b7280;line-height:1.65;max-width:640px}
-.prompt-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.prompt-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.75rem}
-.prompt-card-label{font-size:13px;font-weight:600;color:#374151}
-.tabs{display:flex;gap:6px;flex-wrap:wrap}
-.tab{padding:6px 14px;border-radius:7px;border:1.5px solid #e5e7eb;background:#f9fafb;font-size:12px;font-weight:500;color:#6b7280;cursor:pointer;transition:all .15s;font-family:inherit}
-.tab:hover{border-color:#1d9e75;color:#0f6e56}
-.tab.on{background:#1d9e75;border-color:#1d9e75;color:#fff;font-weight:600}
-.panel{display:none}
-.panel.on{display:block}
-.prompt-box{background:#0f172a;border-radius:10px;padding:1.25rem 1.25rem 1rem;position:relative}
-.prompt-box pre{font-family:'JetBrains Mono',monospace;font-size:12px;color:#e2e8f0;line-height:1.75;white-space:pre-wrap;word-break:break-word;padding-right:70px}
-.copy-btn{position:absolute;top:.75rem;right:.75rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-weight:500;font-family:inherit;cursor:pointer;padding:5px 12px;transition:all .15s;display:flex;align-items:center;gap:5px}
-.copy-btn:hover{background:rgba(255,255,255,.15);color:#fff}
-.prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
-.prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
-.prompt-hint a:hover{text-decoration:underline}
-.ba-section{margin-bottom:1.75rem}
-.ba-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
-.ba-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
-.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
-.ba-col.before{border-color:#fca5a5}
-.ba-col.after{border-color:#6ee7b7}
-.ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
-.ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
-.ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
-.ba-body{padding:1rem 1.25rem;font-size:13px;color:#374151;line-height:1.7;font-style:italic}
-.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
-.dodont-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.75rem}
-.dodont-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
-.dodont-col.do{border-color:#6ee7b7}
-.dodont-col.dont{border-color:#fca5a5}
-.dodont-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
-.dodont-header.do{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
-.dodont-header.dont{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
-.dodont-item{display:flex;align-items:flex-start;gap:10px;padding:.7rem 1rem;border-bottom:1px solid #f9fafb;font-size:13px;color:#374151;line-height:1.55}
-.dodont-item:last-child{border-bottom:none}
-.dodont-item i{flex-shrink:0;margin-top:1px;font-size:14px}
-.dodont-item i.ok{color:#059669}
-.dodont-item i.no{color:#dc2626}
-.warning{background:#fef9c3;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin-bottom:1.75rem;font-size:13px;color:#78350f;line-height:1.65;display:flex;align-items:flex-start;gap:10px}
-.warning i{flex-shrink:0;margin-top:1px;font-size:16px;color:#f59e0b}
-.steps-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.steps-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
-.step{display:flex;gap:16px;padding:.9rem 0;border-bottom:1px solid #f3f4f6}
-.step:last-child{border-bottom:none}
-.step-n{width:28px;height:28px;border-radius:8px;background:#e1f5ee;color:#0f6e56;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.step-body h3{font-size:13px;font-weight:600;color:#1f2937;margin-bottom:.25rem}
-.step-body p{font-size:13px;color:#6b7280;line-height:1.65}
-.step-body code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
-.faq-section{margin-bottom:1.75rem}
-.faq-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1rem}
-.faq-item{border-bottom:1px solid #f3f4f6;padding:.9rem 0}
-.faq-q{font-size:13px;font-weight:600;color:#1f2937;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
-.faq-q i{color:#9ca3af;transition:transform .2s;flex-shrink:0}
-.faq-q.open i{transform:rotate(180deg)}
-.faq-a{font-size:13px;color:#6b7280;line-height:1.7;display:none;padding-top:.6rem}
-.faq-a.open{display:block}
-.faq-a code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
-.related-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af;margin-bottom:.75rem}
-.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.related-link{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:.9rem 1rem;text-decoration:none;transition:border-color .15s;display:block}
-.related-link:hover{border-color:#1d9e75}
-.related-link strong{display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem}
-.related-link span{display:block;font-size:12px;color:#9ca3af;line-height:1.4}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
+.course-shell{background:#fff;border-radius:16px;border:1px solid #e8ecef;overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
+.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
+.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
+.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
+.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
+.prog-wrap{padding:1rem 1.25rem .75rem}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
+.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
+.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
+.nav-list{padding:.5rem 0;flex:1}
+.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
+.nav-item:hover{background:#eef1f4}
+.nav-item.active{border-left-color:#1d9e75;background:#fff}
+.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
+.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
+.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
+.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
+.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
+.content-area{display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
+.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
+.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
+.content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
+.seo-section{display:none}
+.seo-section.active-section{display:block}
+.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
+.seo-section h1{font-size:24px;font-weight:600;color:#1a1a2e;margin-bottom:1rem;line-height:1.3}
+.seo-section h2{font-size:18px;font-weight:600;color:#1a1a2e;margin-bottom:.75rem;line-height:1.35}
+.seo-section h3{font-size:15px;font-weight:600;color:#1a1a2e;margin-bottom:.5rem;line-height:1.4}
+.xl-grade-table{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.xl-gt-header-bar{background:#f3f3f3;border-bottom:1px solid #d0d0d0;padding:4px 0;display:grid}
+.xl-gt-col-h{font-size:11px;font-weight:600;color:#595959;text-align:center;padding:3px 0;border-right:1px solid #e0e0e0}
+.xl-gt-col-h:last-child{border-right:none}
+.xl-gt-rows{display:flex;flex-direction:column}
+.xl-gt-row{display:grid;border-bottom:1px solid #e8e8e8}
+.xl-gt-row:last-child{border-bottom:none}
+.xl-gt-row-num{font-size:11px;color:#595959;text-align:right;padding:7px 8px;background:#f3f3f3;border-right:1px solid #d0d0d0;font-weight:500}
+.xl-gt-cell{font-size:12px;font-family:'Inter',sans-serif;padding:7px 10px;border-right:1px solid #e8e8e8;display:flex;align-items:center}
+.xl-gt-cell:last-child{border-right:none}
+.xl-gt-cell.hdr{background:#f3f3f3;font-weight:600;color:#374151;font-size:11px}
+.xl-gt-cell.score{color:#374151;font-weight:500}
+.xl-gt-cell.fav{background:#c6efce;color:#276221;font-weight:600;justify-content:center}
+.xl-gt-cell.unfav{background:#ffc7ce;color:#9c0006;font-weight:600;justify-content:center}
+.xl-gt-cell.neutral{color:#595959;font-weight:500;justify-content:center}
+.xl-gt-cell.flag{background:#ffeb9c;color:#9c6500;font-weight:700;justify-content:center}
+.xl-gt-cell.section-hdr{background:#eef1f4;color:#1a1a2e;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.03em}
+.xl-gt-cell.total-row{background:#e8f0fe;color:#1f4e79;font-weight:700}
+.xl-gt-caption{background:#f8fafc;border-top:1px solid #e2e8f0;padding:8px 14px;font-size:11px;color:#64748b;font-style:italic}
+.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
+.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
+.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
+.highlight-text{font-size:13px;color:#374151;line-height:1.65}
+.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
+.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
+.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
+.steps-list{display:flex;flex-direction:column;gap:0;margin:1rem 0}
+.step-row{display:flex;gap:16px;padding:1.1rem 0;border-bottom:1px solid #f0f2f5}
+.step-row:last-child{border-bottom:none}
+.step-num{font-size:26px;font-weight:700;color:#d1fae5;line-height:1;flex-shrink:0;width:36px;text-align:right;padding-top:2px}
+.step-body h3{font-size:14px;font-weight:600;color:#085041;margin-bottom:.3rem}
+.step-body p{font-size:13px;color:#374151;line-height:1.75;margin:0}
+.step-body code{background:#f0fdf4;color:#0f6e56;padding:1px 6px;border-radius:4px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;border:1px solid #d1fae5}
+.prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
+.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
+.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}
+.prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#fff}
+.arch-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:1.5rem 0}
+.arch-card{border:1px solid #e2e8f0;border-radius:10px;padding:1rem;background:#fff;text-align:center}
+.arch-card-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6rem;padding-bottom:.5rem;border-bottom:2px solid}
+.arch-card-title.rev-title{color:#0f6e56;border-color:#1d9e75}
+.arch-card-title.exp-title{color:#9c0006;border-color:#fca5a5}
+.arch-card-title.mar-title{color:#1f4e79;border-color:#3b82f6}
+.arch-card-item{font-size:12px;color:#374151;padding:3px 0;line-height:1.5}
+.arch-card-item.bold{font-weight:600;color:#1a1a2e}
+.flow-horizontal{display:flex;align-items:center;justify-content:center;gap:0;margin:1.5rem 0;flex-wrap:wrap}
+.flow-h-node{padding:10px 14px;border-radius:8px;text-align:center;font-size:12px;font-weight:600;border:1px solid;white-space:nowrap}
+.flow-h-node.src{background:#f8fafb;border-color:#d1d5db;color:#374151}
+.flow-h-node.calc{background:#f0fdf4;border-color:#6ee7b7;color:#085041}
+.flow-h-node.thresh{background:#fff8e1;border-color:#fde68a;color:#9c6500}
+.flow-h-node.out{background:#e8f0fe;border-color:#93c5fd;color:#1f4e79}
+.flow-h-arrow{width:28px;height:2px;background:#d1d5db;position:relative;flex-shrink:0}
+.flow-h-arrow::after{content:'';position:absolute;right:-3px;top:-3px;width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:5px solid #d1d5db}
+.faq-section{margin:1.5rem 0}
+.faq-item{border-bottom:1px solid #f0f2f5;padding:.85rem 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:.35rem}
+.faq-a{font-size:13px;color:#374151;line-height:1.7}
+.related-courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:1rem 0}
+.related-card{border:1px solid #e8ecef;border-radius:10px;padding:1rem;transition:all .15s;text-decoration:none;color:#1a1a2e}
+.related-card:hover{border-color:#1d9e75;background:#f5fdf9}
+.related-card-title{font-size:13px;font-weight:500;line-height:1.4;margin-bottom:.25rem}
+.related-card-tag{font-size:11px;color:#6b7280}
+.quiz-q{margin-bottom:1.5rem}
+.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
+.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
+.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
+.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}
+.opt.selected .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}
+.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
+.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
+.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
+.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
+.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}
+.submit-global:hover{background:#0f6e56}
+.submit-global:disabled{opacity:.35;cursor:default}
+.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
+.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
+.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
+.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.retake-btn:hover{background:#e1f5ee}
+.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc;flex-shrink:0}
+.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-back:hover{background:#f0f2f5}
+.btn-back:disabled{opacity:.35;cursor:default}
+.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
+.btn-fwd:hover{background:#0f6e56}
 #searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
 #searchOverlay.open{display:flex}
 .search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
-.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
+.search-close-btn:hover{color:#fff}
 .search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
 .search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
-.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:inherit}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
-@media(max-width:640px){
-  .hero h1{font-size:24px}
-  .ba-grid{grid-template-columns:1fr;gap:8px}
-  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
-  .dodont-grid{grid-template-columns:1fr}
-  .related-grid{grid-template-columns:1fr}
-  .page{padding:1.5rem 1rem 3rem}
-  .tabs{gap:6px}
-  .tab{font-size:11px;padding:5px 10px}
-  .prompt-card-top{flex-direction:column;align-items:flex-start}
-}
-</style>
+.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
+@media(max-width:700px){.navbar{padding:0 1rem}.page-wrap{padding:1rem .5rem}.course-shell{grid-template-columns:1fr}.sidebar{display:none}.content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}.content-footer{padding:1rem}.section-hero{padding:1.25rem 1rem}.xl-gt-cell{font-size:11px;padding:6px 5px}.arch-cards{grid-template-columns:1fr;gap:8px}.flow-horizontal{flex-direction:column;gap:6px}.flow-h-arrow{width:2px;height:20px;transform:rotate(90deg)}.related-courses{grid-template-columns:1fr}.seo-section p{word-break:break-word;overflow-wrap:break-word}}
+.page-wrap-fix{max-width:1100px;margin:2rem auto;padding:0 1rem}.course-wrap-outer{width:100%}</style>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-<div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
-  <div class="search-overlay-inner">
-    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
-    <form action="/search.html" method="get">
-      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search workflows, prompts, and guides..." autocomplete="off"></div>
-    </form>
-  </div>
-</div>
+<div id="searchOverlay" onclick="if(event.target===this)closeSearch()"><div class="search-overlay-inner"><button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button><form action="/search.html" method="get"><div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div></form><p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p></div></div>
 <div id="navbar-placeholder"></div>
-<script src="/navbar.js"></script>
-<script src="/footer.js"></script>
-<noscript>
-<nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
-<a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
-</nav>
-</noscript>
-<div class="page">
-
-<div class="page">
-
-  <div class="hero">
-    <div class="hero-eyebrow"><i class="ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
-    <h1>Budget Variance Analysis Excel Template</h1>
-    <p class="hero-sub">A budget without variance analysis is a wish list. This report turns it into accountability.</p>
-  </div><div class="warning"><i class="ti ti-alert-triangle"></i><span>Period mismatch trap: Comparing six months of actuals against an annual budget will show every expense line as "favourable" and every revenue line as "unfavourable" — because you're only halfway through. Always compare like-for-like periods.</span></div>
-  <div class="steps-card">
-    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> How to get the best results</div>
-    
-    <div class="step">
-      <div class="step-n">1</div>
-      <div class="step-body"><h3>Label each line as Revenue or Expense</h3><p>This is what makes the variance direction work. Revenue: Actual − Budget (positive = good). Expense: Budget − Actual (positive = good). Without the Type column, Claude has to guess — and guessing means your COGS variance might show the wrong sign.</p></div>
+<script src="/navbar.js"></script><script src="/footer.js"></script><script src="/footer.js"></script>
+<noscript><nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px"><a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a><a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a><a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a><a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a><a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a><a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a><a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a><a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a><a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a><a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a><a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a><a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a></nav></noscript>
+<div class="page-wrap">
+<div class="page-wrap-fix"><div class="course-wrap-outer"><div class="course-shell">
+  <div class="sidebar">
+    <div class="sidebar-top">
+      <div class="course-label">Claude AI — Excel / Finance</div>
+      <h1 class="course-title-side">Budget Variance Analysis Excel Template</h1>
     </div>
-    <div class="step">
-      <div class="step-n">2</div>
-      <div class="step-body"><h3>Match the reporting period exactly</h3><p>Comparing six months of actuals against a full-year budget is the most common mistake in variance analysis. If you're reporting Q2 YTD, provide the Q2 YTD budget — not the annual figure. Tell Claude the period: <code>January–June 2025</code>.</p></div>
+    <div class="prog-wrap">
+      <div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
+      <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
     </div>
-    <div class="step">
-      <div class="step-n">3</div>
-      <div class="step-body"><h3>Define your flag threshold</h3><p>Pick one: percentage-only (flag if &gt;10%), dollar-only (flag if &gt;$50k), or combined. Most mid-size companies use combined with OR logic: flag if &gt;5% <em>or</em> &gt;$5,000. This catches both large absolute swings and proportionally big moves on small line items.</p></div>
-    </div>
-    <div class="step">
-      <div class="step-n">4</div>
-      <div class="step-body"><h3>Use consistent line-item names</h3><p>"Marketing" in budget and "Marketing Costs" in actuals creates a mismatch. Claude matches rows by exact text. Standardise before pasting.</p></div>
+    <div class="nav-list">
+      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">How the report works</div></div>
+      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">What Claude needs from you</div></div>
+      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompt, FAQ &amp; related</div></div>
+      <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quick quiz</div></div>
     </div>
   </div>
-  <div class="related-title">Related workflows</div>
-  <div class="related-grid">
-    
-    <a href="/claude-excel-xlookup.html" class="related-link">
-      <strong>Fix XLOOKUP Errors with Claude</strong>
-      <span>Debug #N/A errors and write XLOOKUP from plain English.</span>
-    </a>
-    <a href="/claude-excel-if-ifs.html" class="related-link">
-      <strong>Write IF and IFS Formulas</strong>
-      <span>Build clean conditional formulas without the syntax headache.</span>
-    </a>
-    <a href="/claude-excel-clean-data.html" class="related-link">
-      <strong>Clean Data in Excel with Claude</strong>
-      <span>Fix text dates, remove spaces and standardise values.</span>
-    </a>
-    <a href="/prompt-generator-excel.html" class="related-link">
-      <strong>Excel Prompt Generator</strong>
-      <span>Build a custom Claude prompt for any Excel task in seconds.</span>
-    </a>
+
+  <div class="content-area">
+    <div class="section-hero">
+      <div class="section-tag" id="heroTag">Section 01</div>
+      <h2 id="heroTitle">A budget without variance analysis is a wish list. This report turns it into accountability.</h2>
+    </div>
+    <div class="content-body" id="cnt">
+
+      <!-- ═══════ SECTION 0 ═══════ -->
+      <div id="seo-sec-0" class="seo-section active-section">
+      <p>Every finance team has a budget. Most also have actuals. The question leadership keeps asking is simple: <em>where are we off plan, by how much, and does it matter?</em> Answering that question manually — calculating variances, applying the right direction for revenue vs expenses, flagging material items, adding commentary — takes hours of spreadsheet work every month.</p>
+        <p>Claude does the mechanical part in minutes. You paste budget and actuals, tell it your threshold rules, and get back a variance report with dollar and percentage variances, favourable/unfavourable labels, conditional flags, and a commentary column ready for your team to fill in.</p>
+
+        <h2>The Pipeline: Budget + Actuals → Flagged Variance Report</h2>
+        <div class="flow-horizontal">
+          <div class="flow-h-node src">Budget &amp; Actuals</div>
+          <div class="flow-h-arrow"></div>
+          <div class="flow-h-node calc">Variance formulas</div>
+          <div class="flow-h-arrow"></div>
+          <div class="flow-h-node thresh">Threshold check</div>
+          <div class="flow-h-arrow"></div>
+          <div class="flow-h-node out">Flagged report</div>
+        </div>
+
+        <h2>Three Types of Variance — Three Different Questions</h2>
+        <div class="arch-cards">
+          <div class="arch-card">
+            <div class="arch-card-title rev-title">Revenue Variance</div>
+            <div class="arch-card-item">Actual − Budget</div>
+            <div class="arch-card-item">Positive = Favourable</div>
+            <div class="arch-card-item bold">Did we earn more than planned?</div>
+          </div>
+          <div class="arch-card">
+            <div class="arch-card-title exp-title">Expense Variance</div>
+            <div class="arch-card-item">Budget − Actual</div>
+            <div class="arch-card-item">Positive = Favourable</div>
+            <div class="arch-card-item bold">Did we spend less than planned?</div>
+          </div>
+          <div class="arch-card">
+            <div class="arch-card-title mar-title">Margin Variance</div>
+            <div class="arch-card-item">Actual margin − Budget margin</div>
+            <div class="arch-card-item">Shows efficiency, not just volume</div>
+            <div class="arch-card-item bold">Is our profitability improving?</div>
+          </div>
+        </div>
+
+        <h2>The Output: What Claude Produces</h2>
+        <div class="xl-grade-table">
+          <div class="xl-gt-header-bar" style="grid-template-columns:44px 110px repeat(5,1fr)">
+            <div class="xl-gt-col-h"></div><div class="xl-gt-col-h">A</div><div class="xl-gt-col-h">B</div><div class="xl-gt-col-h">C</div><div class="xl-gt-col-h">D</div><div class="xl-gt-col-h">E</div><div class="xl-gt-col-h">F</div>
+          </div>
+          <div class="xl-gt-rows">
+            <div class="xl-gt-row" style="grid-template-columns:44px 110px repeat(5,1fr)">
+              <div class="xl-gt-row-num">1</div><div class="xl-gt-cell hdr">Line Item</div><div class="xl-gt-cell hdr">Budget</div><div class="xl-gt-cell hdr">Actual</div><div class="xl-gt-cell hdr">Var $</div><div class="xl-gt-cell hdr">Var %</div><div class="xl-gt-cell hdr">Flag</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 110px repeat(5,1fr)">
+              <div class="xl-gt-row-num">2</div><div class="xl-gt-cell score">Revenue</div><div class="xl-gt-cell score">500,000</div><div class="xl-gt-cell score">525,000</div><div class="xl-gt-cell fav">25,000</div><div class="xl-gt-cell fav">5.0%</div><div class="xl-gt-cell neutral">—</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 110px repeat(5,1fr)">
+              <div class="xl-gt-row-num">3</div><div class="xl-gt-cell score">COGS</div><div class="xl-gt-cell score">200,000</div><div class="xl-gt-cell score">215,000</div><div class="xl-gt-cell unfav">-15,000</div><div class="xl-gt-cell unfav">-7.5%</div><div class="xl-gt-cell flag">⚠ Review</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 110px repeat(5,1fr)">
+              <div class="xl-gt-row-num">4</div><div class="xl-gt-cell hdr">Gross Profit</div><div class="xl-gt-cell score">300,000</div><div class="xl-gt-cell score">310,000</div><div class="xl-gt-cell fav">10,000</div><div class="xl-gt-cell fav">3.3%</div><div class="xl-gt-cell neutral">—</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 110px repeat(5,1fr)">
+              <div class="xl-gt-row-num">5</div><div class="xl-gt-cell score">Payroll</div><div class="xl-gt-cell score">180,000</div><div class="xl-gt-cell score">178,500</div><div class="xl-gt-cell fav">1,500</div><div class="xl-gt-cell neutral">0.8%</div><div class="xl-gt-cell neutral">—</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 110px repeat(5,1fr)">
+              <div class="xl-gt-row-num">6</div><div class="xl-gt-cell score">Marketing</div><div class="xl-gt-cell score">40,000</div><div class="xl-gt-cell score">52,000</div><div class="xl-gt-cell unfav">-12,000</div><div class="xl-gt-cell unfav">-30.0%</div><div class="xl-gt-cell flag">⚠ Review</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 110px repeat(5,1fr)">
+              <div class="xl-gt-row-num">7</div><div class="xl-gt-cell score">Rent &amp; Utilities</div><div class="xl-gt-cell score">30,000</div><div class="xl-gt-cell score">30,200</div><div class="xl-gt-cell unfav">-200</div><div class="xl-gt-cell neutral">-0.7%</div><div class="xl-gt-cell neutral">—</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 110px repeat(5,1fr)">
+              <div class="xl-gt-row-num">8</div><div class="xl-gt-cell hdr">Net Income</div><div class="xl-gt-cell total-row">50,000</div><div class="xl-gt-cell total-row">49,300</div><div class="xl-gt-cell unfav">-700</div><div class="xl-gt-cell neutral">-1.4%</div><div class="xl-gt-cell neutral">—</div>
+            </div>
+          </div>
+          <div class="xl-gt-caption">COGS and Marketing are flagged (exceed 5% OR $5,000 threshold). Revenue variance is favourable but below flag threshold. Rent is unfavourable but immaterial. The flag column is formula-driven — not manually coloured.</div>
+        </div>
+
+        <div class="info-box"><p><strong>Key insight:</strong> The report doesn't just calculate gaps — it tells you which gaps <em>matter</em>. Rent is $200 over budget. Marketing is $12,000 over. Both are unfavourable. Only one needs a conversation with leadership. The threshold flag makes that distinction automatic.</p></div>
+      </div>
+
+      <!-- ═══════ SECTION 1 ═══════ -->
+      <div id="seo-sec-1" class="seo-section">
+        <h2>What Claude Needs From You</h2>
+        <p>Claude needs three things: your budget numbers, your actual numbers, and the rules for what counts as material. Without the first two, there's nothing to compare. Without the third, every variance gets flagged — and a report where everything is flagged is the same as a report where nothing is.</p>
+
+        <h3>Input Data Layout</h3>
+        <div class="xl-grade-table">
+          <div class="xl-gt-header-bar" style="grid-template-columns:44px repeat(4,1fr)">
+            <div class="xl-gt-col-h"></div><div class="xl-gt-col-h">A</div><div class="xl-gt-col-h">B</div><div class="xl-gt-col-h">C</div><div class="xl-gt-col-h">D</div>
+          </div>
+          <div class="xl-gt-rows">
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
+              <div class="xl-gt-row-num">1</div><div class="xl-gt-cell hdr">Line Item</div><div class="xl-gt-cell hdr">Type</div><div class="xl-gt-cell hdr">Budget</div><div class="xl-gt-cell hdr">Actual</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
+              <div class="xl-gt-row-num">2</div><div class="xl-gt-cell score">Revenue</div><div class="xl-gt-cell score">Revenue</div><div class="xl-gt-cell score">500,000</div><div class="xl-gt-cell score">525,000</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
+              <div class="xl-gt-row-num">3</div><div class="xl-gt-cell score">COGS</div><div class="xl-gt-cell score">Expense</div><div class="xl-gt-cell score">200,000</div><div class="xl-gt-cell score">215,000</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
+              <div class="xl-gt-row-num">4</div><div class="xl-gt-cell score">Payroll</div><div class="xl-gt-cell score">Expense</div><div class="xl-gt-cell score">180,000</div><div class="xl-gt-cell score">178,500</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
+              <div class="xl-gt-row-num">5</div><div class="xl-gt-cell score">Marketing</div><div class="xl-gt-cell score">Expense</div><div class="xl-gt-cell score">40,000</div><div class="xl-gt-cell score">52,000</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="steps-list">
+          <div class="step-row"><div class="step-num">01</div><div class="step-body"><h3>Label each line as Revenue or Expense</h3><p>This is what makes the variance direction work. Revenue: Actual − Budget (positive = good). Expense: Budget − Actual (positive = good). Without the Type column, Claude has to guess — and guessing means your COGS variance might show the wrong sign.</p></div></div>
+          <div class="step-row"><div class="step-num">02</div><div class="step-body"><h3>Match the reporting period exactly</h3><p>Comparing six months of actuals against a full-year budget is the most common mistake in variance analysis. If you're reporting Q2 YTD, provide the Q2 YTD budget — not the annual figure. Tell Claude the period: <code>January–June 2025</code>.</p></div></div>
+          <div class="step-row"><div class="step-num">03</div><div class="step-body"><h3>Define your flag threshold</h3><p>Pick one: percentage-only (flag if &gt;10%), dollar-only (flag if &gt;$50k), or combined. Most mid-size companies use combined with OR logic: flag if &gt;5% <em>or</em> &gt;$5,000. This catches both large absolute swings and proportionally big moves on small line items.</p></div></div>
+          <div class="step-row"><div class="step-num">04</div><div class="step-body"><h3>Use consistent line-item names</h3><p>"Marketing" in budget and "Marketing Costs" in actuals creates a mismatch. Claude matches rows by exact text. Standardise before pasting.</p></div></div>
+        </div>
+
+        <div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>Period mismatch trap:</strong> Comparing six months of actuals against an annual budget will show every expense line as "favourable" and every revenue line as "unfavourable" — because you're only halfway through. Always compare like-for-like periods.</div></div>
+
+        <div class="highlight-box"><div class="highlight-icon"><i class="ti ti-bulb"></i></div><div class="highlight-text"><strong>Pro tip:</strong> Leave the Commentary column blank in Claude's output. The numbers come from formulas. The explanations come from your team — the people who know that Marketing went 30% over because leadership approved an unbudgeted campaign in May. Claude can draft placeholder commentary, but your team replaces it with the real story. This is part of the <a href="/month-end-close-excel-claude.html" style="color:#374151;font-weight:500">month-end close process</a>.</div></div>
+      </div>
+
+      <!-- ═══════ SECTION 2 ═══════ -->
+      <div id="seo-sec-2" class="seo-section">
+        <h2>The Claude Prompt for Variance Analysis</h2>
+
+        <div class="prompt-block">
+          <div class="prompt-block-label">Prompt — paste into Claude</div>
+          <div class="prompt-block-text">ROLE
+You are a senior financial analyst preparing a monthly budget variance report in Excel.
+
+OBJECTIVE
+Take my budget and actual figures and produce a variance analysis report with dollar and percentage variances, favourable/unfavourable labels, threshold-based flags, and a blank commentary column.
+
+DATA
+Reporting period: [e.g. January–June 2025 / Q2 2025 / Full Year 2025]
+
+Budget vs Actual (columns: Line Item, Type [Revenue or Expense], Budget, Actual):
+[Paste your data here]
+
+VARIANCE RULES
+- Revenue lines: Variance $ = Actual − Budget. Positive = Favourable.
+- Expense lines: Variance $ = Budget − Actual. Positive = Favourable.
+- Variance % = Variance $ ÷ Budget, formatted as percentage.
+
+THRESHOLD RULES
+Flag any line where: |Variance %| > [5]% OR |Variance $| > [$5,000]
+Use "⚠ Review" for flagged items, "—" for others.
+
+CONSTRAINTS
+- Add subtotal rows for: Gross Profit (Revenue − COGS), Operating Income, Net Income. Calculate variances on subtotals too.
+- Apply conditional formatting: green fill for favourable, red fill for unfavourable.
+- Include a blank Commentary column after the Flag column — do NOT fill it in.
+- Do NOT invent budget or actual figures.
+- Do NOT fabricate explanations for variances.
+- Do NOT change my line-item names or reorder them.
+
+OUTPUT FORMAT
+- Tab-separated table ready to paste into Excel.
+- Formulas written explicitly (e.g. =C2-B2) so I can verify the logic.</div>
+          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+        </div>
+
+        <h2>The Report Surfaces the Question. Your Team Answers It.</h2>
+        <p>Claude can tell you that Marketing is $12,000 over budget. It cannot tell you <em>why</em>. Was it a strategic decision to accelerate a campaign? A vendor billing error? An uncontrolled cost overrun? The variance report exists to focus the conversation on the items that matter — the ones above threshold — and skip the ones that don't.</p>
+        <p>If you're comparing against a rolling forecast instead of a static annual budget, the <a href="/rolling-forecast-excel-claude.html" style="color:#1d9e75;font-weight:500">rolling forecast course</a> shows how to build the comparison base. If the variances need to feed into a broader performance view, the <a href="/build-financial-kpi-dashboard-excel-claude.html" style="color:#1d9e75;font-weight:500">financial KPI dashboard</a> turns the key variance metrics into a trackable, monthly dashboard with RAG status flags.</p>
+
+        <h3>Threshold Logic: Which Rule Fits Your Business</h3>
+        <div class="xl-grade-table">
+          <div class="xl-gt-header-bar" style="grid-template-columns:44px 1fr 1fr 1fr">
+            <div class="xl-gt-col-h"></div><div class="xl-gt-col-h">A</div><div class="xl-gt-col-h">B</div><div class="xl-gt-col-h">C</div>
+          </div>
+          <div class="xl-gt-rows">
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">1</div><div class="xl-gt-cell hdr">Rule</div><div class="xl-gt-cell hdr">Best For</div><div class="xl-gt-cell hdr">Risk</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">2</div><div class="xl-gt-cell score">% only (&gt;10%)</div><div class="xl-gt-cell score">Small companies — every line matters</div><div class="xl-gt-cell score">Tiny lines swing wildly on % (e.g. $50 on $200 = 25%)</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">3</div><div class="xl-gt-cell score">$ only (&gt;$50k)</div><div class="xl-gt-cell score">Large companies with big line items</div><div class="xl-gt-cell score">Misses proportionally large swings on mid-size lines</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">4</div><div class="xl-gt-cell score">% AND $ (both must breach)</div><div class="xl-gt-cell score">Conservative — surfaces only very material items</div><div class="xl-gt-cell score">May miss important but smaller variances</div>
+            </div>
+            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
+              <div class="xl-gt-row-num">5</div><div class="xl-gt-cell score">% OR $ (either breaches)</div><div class="xl-gt-cell score">Most mid-size companies — good balance</div><div class="xl-gt-cell score">More items flagged, but covers both large and proportional swings</div>
+            </div>
+          </div>
+          <div class="xl-gt-caption">The prompt defaults to OR logic. Change to AND if your report is flagging too many lines. The goal is 3–6 flagged items per report — enough to focus the meeting, few enough to discuss each one.</div>
+        </div>
+
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-section">
+          <div class="faq-item"><div class="faq-q">Should variance be Budget minus Actual or Actual minus Budget?</div><div class="faq-a">It depends on the line type. Revenue: Actual − Budget (positive = favourable). Expenses: Budget − Actual (positive = favourable). The Type column in your input tells Claude which direction to use.</div></div>
+          <div class="faq-item"><div class="faq-q">What threshold should trigger a flag?</div><div class="faq-a">A common rule: flag anything exceeding 5% or $5,000. The right threshold depends on materiality for your business. The prompt lets you set both.</div></div>
+          <div class="faq-item"><div class="faq-q">Can Claude write the variance commentary?</div><div class="faq-a">Claude can draft placeholder commentary based on the numbers. But meaningful explanations require business context — was the overspend approved? Was it an error? Your team fills that in.</div></div>
+          <div class="faq-item"><div class="faq-q">How do I handle a partial-year report?</div><div class="faq-a">Compare YTD actuals against the YTD budget — not the annual budget. Tell Claude the period so it labels correctly and can prorate if needed.</div></div>
+          <div class="faq-item"><div class="faq-q">What's the difference between favourable and unfavourable?</div><div class="faq-a">Favourable improves the bottom line (more revenue or less spending). Unfavourable hurts it (less revenue or more spending). The label depends on the line type, not just the sign.</div></div>
+        </div>
+
+        <h2>Related Excel Finance Courses</h2>
+        <div class="related-courses">
+          <a href="/build-financial-kpi-dashboard-excel-claude.html" class="related-card"><div class="related-card-title">Build a Financial KPI Dashboard in Excel Using Claude AI</div><div class="related-card-tag">Excel · Finance</div></a>
+          <a href="/rolling-forecast-excel-claude.html" class="related-card"><div class="related-card-title">Create a Rolling Forecast Model in Excel with Claude AI</div><div class="related-card-tag">Excel · Finance</div></a>
+          <a href="/build-3-statement-financial-model-excel-claude.html" class="related-card"><div class="related-card-title">Build a 3-Statement Financial Model in Excel with Claude AI</div><div class="related-card-tag">Excel · Finance</div></a>
+        </div>
+        <div class="info-box"><p>Browse all courses on the <a href="/ai-for-excel.html" style="color:#085041;font-weight:600">AI for Excel</a> hub page, or explore the full <a href="/claude-for-finance.html" style="color:#085041;font-weight:600">AI for Finance Teams</a> collection.</p></div>
+      </div>
+
+      <!-- ═══════ SECTION 3: QUIZ ═══════ -->
+      <div id="seo-sec-3" class="seo-section"><div id="quiz-interactive-container"></div></div>
+    </div>
+    <div class="content-footer">
+      <button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button>
+      <button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>
+    </div>
   </div>
 </div>
+</div></div>
+
+<footer style="background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0">
+<div style="max-width:1100px; margin:0 auto">
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
+<div><strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Guides by Role</strong><a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Finance Teams</a><a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for HR Teams</a><a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Marketing Teams</a><a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Legal Teams</a><a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Operations Teams</a><a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Sales Teams</a><a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Customer Service</a><a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Excel</a></div>
+<div><strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Prompt Tools</strong><a href="https://www.pairworkflows.com/claude-prompts-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Excel Prompt Builder</a><a href="https://www.pairworkflows.com/claude-prompts-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Finance Prompt Builder</a><a href="https://www.pairworkflows.com/claude-prompts-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">HR Prompt Builder</a><a href="https://www.pairworkflows.com/claude-prompts-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Marketing Prompt Builder</a><a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">General Prompt Library</a></div>
+<div><strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Resources</strong><a href="https://www.pairworkflows.com/claude-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Claude Courses</a><a href="https://www.pairworkflows.com/gemini-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Gemini Courses</a><a href="https://www.pairworkflows.com/glossary.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI Glossary</a><a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Claude vs Gemini</a><a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a></div>
+<div><strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company &amp; Legal</strong><a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a><a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a><a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a><a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Privacy Policy</a><a href="https://www.pairworkflows.com/legal.html#terms" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Terms of Use</a><a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Cookie Policy</a></div>
+</div>
+<div style="text-align:center; margin-bottom:2rem"><p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:520px; margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p></div>
+<div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem">
+<span style="font-size:13px; color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
+<div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
+<button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link</button>
+<a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'"><svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg><span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span></a>
+<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>
+<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+</div></div></div></footer>
 
 <script>
-function switchTab(btn,id){
-  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
-  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
-  btn.classList.add('on');
-  document.getElementById('p-'+id).classList.add('on');
-}
-function copyPrompt(btn){
-  var text=btn.previousElementSibling.innerText;
-  navigator.clipboard.writeText(text);
-  btn.innerHTML='<i class="ti ti-check" style="font-size:12px"></i> Copied!';
-  setTimeout(function(){btn.innerHTML='<i class="ti ti-copy" style="font-size:12px"></i> Copy';},2000);
-}
-function toggleFaq(q){
-  q.classList.toggle('open');
-  q.nextElementSibling.classList.toggle('open');
-}
+var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
+var heroes=[
+  {tag:'Section 01',title:'A budget without variance analysis is a wish list. This report turns it into accountability.'},
+  {tag:'Section 02',title:'What Claude needs from you to build the report'},
+  {tag:'Section 03',title:'The prompt, FAQ & related courses'},
+  {tag:'Section 04 — Quiz',title:'Do you understand which variances matter?'}
+];
+var quiz=[
+  {q:'Marketing was budgeted at $40,000 and actual spend was $52,000. Using the expense convention (Budget − Actual), what is the variance?',
+   opts:['$12,000 favourable — we spent more so we invested more','−$12,000 unfavourable — we overspent by $12,000','$52,000 — that\'s the actual spend, which is the variance'],
+   correct:1},
+  {q:'Revenue was budgeted at $500,000 and actual was $525,000. Is this favourable or unfavourable?',
+   opts:['Unfavourable — actual exceeded the plan, which is a problem','Favourable — the company earned $25,000 more than expected','Neither — the difference is exactly 5%, which is the threshold'],
+   correct:1},
+  {q:'Your threshold is "flag if >5% OR >$5,000." Rent variance is −$200 (−0.7%). Should it be flagged?',
+   opts:['Yes — any unfavourable variance should be reviewed','No — it fails both tests: $200 < $5,000 and 0.7% < 5%','Only if the CFO specifically asks about rent'],
+   correct:1},
+  {q:'You compare six months of actuals against the full-year budget. Every expense line shows a "favourable" variance. Why is this misleading?',
+   opts:['Expense variances should always be calculated differently','You\'re comparing half a year of spending against a full year of budget — of course it looks under-spent','The formula direction is wrong — expenses should use Actual minus Budget'],
+   correct:1}
+];
+function buildQuizHTML(){if(quizDone){var score=0;for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}var msgs=['Review the variance direction and threshold logic — these are the foundation of every variance report.','Good instincts — revisit the period-matching concept and the threshold OR/AND distinction.','One concept away from perfect — trace the period-mismatch scenario once more.','You understand what matters. Go build the report.'];return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';}var html='';for(var i=0;i<quiz.length;i++){var q=quiz[i];html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';for(var j=0;j<q.opts.length;j++){var cls='opt';if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}else if(sel[i]===j)cls+=' selected';html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';}html+='</div>';}var allSel=Object.keys(sel).length===quiz.length;if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';return html;}
+function render(){document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';document.getElementById('progTxt').textContent=(cur+1)+' of 4';document.getElementById('heroTag').textContent=heroes[cur].tag;document.getElementById('heroTitle').textContent=heroes[cur].title;for(var i=0;i<4;i++){var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),sec=document.getElementById('seo-sec-'+i);ni.className='nav-item'+(i===cur?' active':'');if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}else{nd.className='nav-dot';nd.textContent=(i+1);}}if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();document.getElementById('btnBack').disabled=(cur===0);var fwd=document.getElementById('btnFwd');if(cur===3){fwd.style.display='none';}else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}}
+function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
+function goFwd(){if(cur<3)go(cur+1);}
+function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
+function showResult(){quizDone=true;render();}
+function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
+function copyPrompt(btn){var block=btn.closest('.prompt-block');var text=block.querySelector('.prompt-block-text').innerText;navigator.clipboard.writeText(text);btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);}
+function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
 function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
 function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+document.getElementById('cnt').addEventListener('click',function(e){if(cur!==3||quizSubmitted||quizDone)return;var opt=e.target.closest('.opt');if(!opt)return;sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);render();});
+render();
 </script>
 </body>
 </html>
