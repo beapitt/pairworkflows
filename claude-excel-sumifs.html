@@ -162,21 +162,21 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
     <h1>SUMIFS returning 0?<br><span>Fix it with Claude in 60 seconds.</span></h1>
-    <p class="hero-sub">Copy the prompt below, paste it into Claude with your formula or a description of what you need — and get a working SUMIFS back immediately.</p>
+    <p class="hero-sub">Paste your broken SUMIFS into Claude with the prompt below. It will identify the problem and give you a corrected formula.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
   <div class="prompt-card">
     <div class="prompt-card-top">
-      <span class="prompt-card-label">Copy your prompt — pick your situation:</span>
+      <span class="prompt-card-label">Choose your situation — copy the prompt:</span>
       <div class="tabs">
-        <button class="tab on" onclick="switchTab(this,'build')">✍️ Build from scratch</button>
-        <button class="tab" onclick="switchTab(this,'debug')">🔴 Debug — returns 0</button>
+        <button class="tab" onclick="switchTab(this,'build')">✍️ Build from scratch</button>
+        <button class="tab on" onclick="switchTab(this,'debug')">🔴 Debug — returns 0</button>
         <button class="tab" onclick="switchTab(this,'or')">🔀 OR logic</button>
       </div>
     </div>
 
-    <div id="p-build" class="panel on">
+    <div id="p-build" class="panel">
       <div class="prompt-box">
         <pre>I need a SUMIFS formula. Here's what I want:
 [describe in plain English, e.g. "Sum Revenue where Region is 'North',
@@ -195,7 +195,7 @@ Please write the SUMIFS with absolute references so I can copy it safely.</pre>
       <p class="prompt-hint">Replace the bracketed parts with your real columns. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a> or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
     </div>
 
-    <div id="p-debug" class="panel">
+    <div id="p-debug" class="panel on">
       <div class="prompt-box">
         <pre>My SUMIFS is returning 0 even though there should be matches.
 
@@ -297,7 +297,7 @@ Added $ signs so you can copy it safely.</pre>
     </div>
     <div class="step">
       <div class="step-n">2</div>
-      <div class="step-body"><h3>Paste 3–4 sample rows</h3><p>Tell Claude your column structure and paste a few real rows. Claude can see the date format, text casing, and number format — which prevents most errors before they happen.</p></div>
+      <div class="step-body"><h3>Paste 3–4 sample rows</h3><p>Tell Claude your column structure and paste a few real rows. Claude can see the date format, text casing, and number format — which can help catch common problems before you build the formula.</p></div>
     </div>
     <div class="step">
       <div class="step-n">3</div>
