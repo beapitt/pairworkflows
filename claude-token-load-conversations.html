@@ -11,176 +11,202 @@
 <meta property="og:url" content="https://www.pairworkflows.com/claude-token-load-conversations.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PairWorkflows">
+<meta property="og:image" content="https://www.pairworkflows.com/og/claude-token-load-conversations.png">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Claude Token Limits: How to Avoid Overruns in Long Conversations — PairWorkflows">
+<meta name="twitter:description" content="Why Claude gets slower and heavier as you chat — and what to do about it. Master token habits and file type costs for all-day efficiency.">
+<meta name="twitter:image" content="https://www.pairworkflows.com/og/claude-token-load-conversations.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Claude Token Limits: How to Avoid Overruns in Long Conversations","description":"Why Claude gets slower and heavier as you chat — and what to do about it. Master token habits, file type costs, and reset strategies to stay efficient all day.","url":"https://www.pairworkflows.com/claude-token-load-conversations.html","timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","provider":{"@type":"Organization","name":"PairWorkflows","url":"https://www.pairworkflows.com"},"offers":{"@type":"Offer","price":"0","priceCurrency":"USD","availability":"https://schema.org/InStock"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"online","courseWorkload":"PT5M"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-<link rel="stylesheet" href="/global-fix.css">
-<link rel="icon" type="image/png" href="/favicon.png">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:100vh;display:flex;flex-direction:column}
-.page{max-width:1300px;margin:0 auto;width:100%;padding:2rem 2.5rem 4rem;flex:1}
-.hero{margin-bottom:2rem}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#0f6e56;background:#e1f5ee;border:1px solid #a7f3d0;border-radius:20px;padding:4px 12px;margin-bottom:.9rem}
-.hero h1{font-size:32px;font-weight:700;line-height:1.2;color:#111827;margin-bottom:.6rem;letter-spacing:-.5px}
-.hero h1 span{color:#1d9e75}
-.hero-sub{font-size:15px;color:#6b7280;line-height:1.65;max-width:640px}
-.prompt-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.prompt-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.75rem}
-.prompt-card-label{font-size:13px;font-weight:600;color:#374151}
-.tabs{display:flex;gap:6px;flex-wrap:wrap}
-.tab{padding:6px 14px;border-radius:7px;border:1.5px solid #e5e7eb;background:#f9fafb;font-size:12px;font-weight:500;color:#6b7280;cursor:pointer;transition:all .15s;font-family:inherit}
-.tab:hover{border-color:#1d9e75;color:#0f6e56}
-.tab.on{background:#1d9e75;border-color:#1d9e75;color:#fff;font-weight:600}
-.panel{display:none}
-.panel.on{display:block}
-.prompt-box{background:#0f172a;border-radius:10px;padding:1.25rem 1.25rem 1rem;position:relative}
-.prompt-box pre{font-family:'JetBrains Mono',monospace;font-size:12px;color:#e2e8f0;line-height:1.75;white-space:pre-wrap;word-break:break-word;padding-right:70px}
-.copy-btn{position:absolute;top:.75rem;right:.75rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-weight:500;font-family:inherit;cursor:pointer;padding:5px 12px;transition:all .15s;display:flex;align-items:center;gap:5px}
-.copy-btn:hover{background:rgba(255,255,255,.15);color:#fff}
-.prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
-.prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
-.prompt-hint a:hover{text-decoration:underline}
-.ba-section{margin-bottom:1.75rem}
-.ba-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
-.ba-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
-.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
-.ba-col.before{border-color:#fca5a5}
-.ba-col.after{border-color:#6ee7b7}
-.ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
-.ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
-.ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
-.ba-body{padding:1rem 1.25rem;font-size:13px;color:#374151;line-height:1.7;font-style:italic}
-.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
-.dodont-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.75rem}
-.dodont-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
-.dodont-col.do{border-color:#6ee7b7}
-.dodont-col.dont{border-color:#fca5a5}
-.dodont-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
-.dodont-header.do{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
-.dodont-header.dont{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
-.dodont-item{display:flex;align-items:flex-start;gap:10px;padding:.7rem 1rem;border-bottom:1px solid #f9fafb;font-size:13px;color:#374151;line-height:1.55}
-.dodont-item:last-child{border-bottom:none}
-.dodont-item i{flex-shrink:0;margin-top:1px;font-size:14px}
-.dodont-item i.ok{color:#059669}
-.dodont-item i.no{color:#dc2626}
-.warning{background:#fef9c3;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin-bottom:1.75rem;font-size:13px;color:#78350f;line-height:1.65;display:flex;align-items:flex-start;gap:10px}
-.warning i{flex-shrink:0;margin-top:1px;font-size:16px;color:#f59e0b}
-.steps-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.steps-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
-.step{display:flex;gap:16px;padding:.9rem 0;border-bottom:1px solid #f3f4f6}
-.step:last-child{border-bottom:none}
-.step-n{width:28px;height:28px;border-radius:8px;background:#e1f5ee;color:#0f6e56;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.step-body h3{font-size:13px;font-weight:600;color:#1f2937;margin-bottom:.25rem}
-.step-body p{font-size:13px;color:#6b7280;line-height:1.65}
-.step-body code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
-.faq-section{margin-bottom:1.75rem}
-.faq-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1rem}
-.faq-item{border-bottom:1px solid #f3f4f6;padding:.9rem 0}
-.faq-q{font-size:13px;font-weight:600;color:#1f2937;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
-.faq-q i{color:#9ca3af;transition:transform .2s;flex-shrink:0}
-.faq-q.open i{transform:rotate(180deg)}
-.faq-a{font-size:13px;color:#6b7280;line-height:1.7;display:none;padding-top:.6rem}
-.faq-a.open{display:block}
-.faq-a code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
-.related-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af;margin-bottom:.75rem}
-.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.related-link{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:.9rem 1rem;text-decoration:none;transition:border-color .15s;display:block}
-.related-link:hover{border-color:#1d9e75}
-.related-link strong{display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem}
-.related-link span{display:block;font-size:12px;color:#9ca3af;line-height:1.4}
-#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
-#searchOverlay.open{display:flex}
-.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
-.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px}
-.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
-.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
-.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:inherit}
-.search-box input::placeholder{color:rgba(255,255,255,.35)}
-@media(max-width:640px){
-  .hero h1{font-size:24px}
-  .ba-grid{grid-template-columns:1fr;gap:8px}
-  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
-  .dodont-grid{grid-template-columns:1fr}
-  .related-grid{grid-template-columns:1fr}
-  .page{padding:1.5rem 1rem 3rem}
-  .tabs{gap:6px}
-  .tab{font-size:11px;padding:5px 10px}
-  .prompt-card-top{flex-direction:column;align-items:flex-start}
-}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"><link rel="stylesheet" href="/global-fix.css">
+<style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter','Segoe UI',Helvetica Neue,sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 3rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}.nav-logo{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px;text-decoration:none}.nav-logo span{color:#ffffff}.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}.nav-back:hover{color:#1d9e75}.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}.course-shell{background:#ffffff;display:grid;grid-template-columns:260px 1fr;min-height:600px;flex:1;max-width:1100px;margin:1.5rem auto 0}.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}.prog-wrap{padding:1rem 1.25rem .75rem}.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}.nav-list{padding:.5rem 0;flex:1}.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}.nav-item:hover{background:#eef1f4}.nav-item.active{border-left-color:#1d9e75;background:#ffffff}.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#ffffff}.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}.nav-text{font-size:13px;color:#6b7280;line-height:1.35}.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}.content-area{display:flex;flex-direction:column}.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:2rem 2.5rem}.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}.section-hero h2{font-size:24px;font-weight:600;color:#ffffff;line-height:1.3;max-width:100%}.content-body{padding:2rem 2.5rem;flex:1;width:100%;max-width:100%;overflow-x:hidden}.seo-section{display:none}.seo-section.active-section{display:block}.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem} .seo-section h1{font-size:24px;font-weight:600;color:#1a1a2e;margin-bottom:1.5rem;line-height:1.3}.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}.warn-box{background:#fff8e6;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}.warn-box p{color:#7c5c10;margin:0;font-size:13px;line-height:1.65}.body-heading{font-size:15px;font-weight:600;color:#1a1a2e;margin:1.5rem 0 .5rem}.chart-wrap{background:#0f1e17;border-radius:14px;padding:1.4rem 1.5rem 1rem;margin:1.25rem 0}.chart-title{font-size:13px;font-weight:500;color:#9fe1cb;text-align:center;margin-bottom:1.5rem;line-height:1.4}.chart-inner{display:flex;align-items:flex-end;justify-content:center;gap:2.5rem;height:170px;border-bottom:1px solid #1d4a30;position:relative;overflow:hidden}.chart-inner::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(to top,transparent 0px,transparent calc(25% - 1px),#1a3a25 calc(25% - 1px),#1a3a25 25%);pointer-events:none}.bar-col{display:flex;flex-direction:column;align-items:center;position:relative;z-index:1}.bar{width:56px;border-radius:4px 4px 0 0;background:linear-gradient(180deg,#22c98a 0%,#1d9e75 100%);position:relative;display:flex;align-items:flex-start;justify-content:center}.bar-val{font-size:11px;font-weight:700;color:#ffffff;padding-top:5px;text-align:center;line-height:1;overflow:hidden;white-space:nowrap}.bar.bar-1{height:22px}.bar.bar-15{height:90px}.bar.bar-30{height:160px}.bar.bar-1 .bar-val{display:none}.bar-label{font-size:11px;color:#6b9e8a;margin-top:6px;white-space:nowrap;text-align:center}.bar-sub{font-size:10px;color:#3a6a50;margin-top:2px;white-space:nowrap;text-align:center}.bar-val-below{font-size:11px;font-weight:700;color:#9fe1cb;margin-top:4px;text-align:center}.chart-note{font-size:11px;color:#4a7a60;text-align:center;margin-top:.75rem;font-style:italic}.timeline{margin:1.25rem 0;position:relative;padding-left:1.5rem}.timeline::before{content:'';position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:#e8ecef;border-radius:2px}.tl-item{position:relative;margin-bottom:1rem;padding-left:.75rem}.tl-item::before{content:'';position:absolute;left:-1.1rem;top:5px;width:10px;height:10px;border-radius:50%;background:#1d9e75;border:2px solid #ffffff;box-shadow:0 0 0 2px #1d9e75}.tl-prompt{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#1d9e75;margin-bottom:.15rem}.tl-text{font-size:13px;color:#374151;line-height:1.6}.tl-cost{display:inline-block;margin-top:.2rem;font-size:11px;font-weight:500;padding:2px 8px;border-radius:20px}.cost-low{background:#dcfce7;color:#166534}.cost-mid{background:#fef9c3;color:#713f12}.cost-high{background:#fee2e2;color:#7f1d1d}.stat-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.25rem 0}.ss{background:#f8fafb;border:1px solid #e8ecef;border-radius:12px;padding:.9rem 1rem;text-align:center}.ss-num{font-size:24px;font-weight:700;color:#1d9e75;line-height:1;margin-bottom:.25rem}.ss-label{font-size:12px;color:#6b7280;line-height:1.4}.filetype-widget{display:grid;grid-template-columns:160px 1fr;gap:0;border:1px solid #e8ecef;border-radius:12px;overflow:hidden;margin:1.25rem 0;min-height:210px}.ft-list{background:#0f1e17;display:flex;flex-direction:column;padding:.5rem 0}.ft-list-head{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#3a6a50;padding:.35rem .85rem .2rem}.ft-btn{display:flex;align-items:center;gap:10px;padding:.55rem .85rem;cursor:pointer;border:none;background:transparent;font-family:inherit;text-align:left;transition:background .12s;border-left:3px solid transparent;width:100%}.ft-btn:hover{background:#1a3a25}.ft-btn.active{background:#1a3a25;border-left-color:#1d9e75}.ft-swatch{width:26px;height:18px;border-radius:3px;flex-shrink:0}.sw-md{background:#22c98a}.sw-pdf{background:#5aab6e}.sw-docx{background:#c87a30}.sw-ppt{background:#c84040}.sw-img{background:#a83232}.ft-name{font-size:12px;font-weight:500;color:#c8e8d8}.ft-list-foot{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#3a6a50;padding:.2rem .85rem .35rem;margin-top:auto}.ft-detail{background:#ffffff;padding:1.1rem 1.25rem;display:flex;flex-direction:column;justify-content:space-between}.ft-detail-top{margin-bottom:.5rem}.ft-detail-name{font-size:16px;font-weight:600;color:#1a1a2e;margin-bottom:.15rem}.ft-detail-badge{display:inline-block;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;padding:2px 9px;border-radius:20px;margin-bottom:.6rem}.badge-lightest{background:#dcfce7;color:#166534}.badge-light{background:#d1fae5;color:#065f46}.badge-medium{background:#fef9c3;color:#713f12}.badge-heavy{background:#ffedd5;color:#7c2d12}.badge-heaviest{background:#fee2e2;color:#7f1d1d}.ft-detail-body{font-size:13px;color:#374151;line-height:1.65;margin-bottom:.6rem}.ft-practice{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:.6rem .85rem}.ft-practice-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#166634;margin-bottom:.2rem}.ft-practice-text{font-size:12px;color:#374151;line-height:1.55}.tips-list{list-style:none;margin:1rem 0}.tips-list li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#374151;line-height:1.65;padding:.55rem 0;border-bottom:1px solid #f0f2f5}.tips-list li:last-child{border-bottom:none}.tip-icon{color:#1d9e75;font-size:15px;flex-shrink:0;margin-top:2px}.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc}.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}.btn-back:hover{background:#f0f2f5}.btn-back:disabled{opacity:.35;cursor:default}.btn-fwd{background:#1d9e75;color:#ffffff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}.btn-fwd:hover{background:#0f6e56}.quiz-q{margin-bottom:1.5rem}.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}.opt.selected{border-color:#378add;background:#edf5fd;color:#0c447c}.opt.selected .radio{border-color:#378add;background:#378add}.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}.submit-global{background:#1a1a2e;color:#ffffff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}.submit-global:hover{background:#0f6e56}.submit-global:disabled{opacity:.35;cursor:default}.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}.retake-btn:hover{background:#e1f5ee}.share-section{max-width:1100px;margin:2.5rem auto 0;padding:0 1rem}.share-inner{display:flex;align-items:center;justify-content:center;gap:16px;padding:1.75rem 1.5rem;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap}.share-copy{display:flex;align-items:center;gap:10px;height:48px;padding:0 20px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;color:#e5e7eb;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .2s}.share-copy:hover{background:#374151;transform:scale(1.04)}.share-copy:active{transform:scale(.95)}.share-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;text-decoration:none;transition:all .2s;cursor:pointer}.share-icon:hover{transform:scale(1.08)}.share-icon:active{transform:scale(.95)}.share-li:hover{background:#0a66c2;border-color:#0a66c2}.share-x:hover{background:#000000;border-color:#000000}.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:auto}.page-footer a{color:#1d9e75;text-decoration:none}.page-footer a:hover{text-decoration:underline}@media(max-width:700px){.navbar{padding:0 1rem}.page-wrap{padding:0}.course-shell{grid-template-columns:1fr}.sidebar{display:none}.content-body{padding:1.25rem 1rem;max-width:100%}.section-hero{padding:1.25rem 1rem}.content-footer{padding:1rem}.filetype-widget{grid-template-columns:1fr}}#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}#searchOverlay.open{display:flex}.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}.search-close-btn:hover{color:#ffffff}.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}.search-box input{flex:1;border:none;outline:none;background:transparent;color:#ffffff;font-size:17px;font-family:'Inter',sans-serif}.search-box input::placeholder{color:rgba(255,255,255,.35)}.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center;letter-spacing:.02em}.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}.search-trigger:hover{background:rgba(255,255,255,.15);color:#ffffff}.page-wrap-fix{max-width:1100px;margin:2rem auto;padding:0 1rem}.course-wrap-outer{width:100%}</style>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
-  <div class="search-overlay-inner">
-    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
-    <form action="/search.html" method="get">
-      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search workflows, prompts, and guides..." autocomplete="off"></div>
-    </form>
-  </div>
+<div class="search-overlay-inner">
+<button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+<form action="/search.html" method="get">
+<div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
+</form>
+<p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
+</div>
 </div>
 <div id="navbar-placeholder"></div>
-<script src="/navbar.js"></script>
-<script src="/footer.js"></script>
+<script src="/navbar.js"></script><script src="/footer.js"></script><script src="/footer.js"></script>
 <noscript>
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
+<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a>
+<a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a>
+<a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a>
+<a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a>
+<a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a>
+<a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a>
+<a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
+<a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a>
+<a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a>
+<a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
 </nav>
 </noscript>
-<div class="page">
-
-<div class="page">
-
-  <div class="hero">
-    <div class="hero-eyebrow"><i class="ti-sparkles" style="font-size:12px"></i> Claude AI</div>
-    <h1>Claude Token Limits.<br><span>How to Avoid Overruns in Long Conversations</span></h1>
-    <p class="hero-sub">The compounding memory: why conversations get heavy.</p>
-  </div>
-  <div class="related-title">Related workflows</div>
-  <div class="related-grid">
-    
-    <a href="/claude-model-choice-haiku-sonnet-opus.html" class="related-link">
-      <strong>Choose the Right Claude Model</strong>
-      <span>Haiku vs Sonnet vs Opus — which to use and when.</span>
-    </a>
-    <a href="/claude-conversation-structure.html" class="related-link">
-      <strong>Structure Better Conversations</strong>
-      <span>Get more from Claude by structuring your sessions correctly.</span>
-    </a>
-    <a href="/claude-data-privacy-what-not-to-share.html" class="related-link">
-      <strong>Data Privacy with Claude</strong>
-      <span>What to share and what to keep out of Claude at work.</span>
-    </a>
-    <a href="/prompt-library.html" class="related-link">
-      <strong>Prompt Library</strong>
-      <span>Browse 80+ ready-to-use prompts for every department.</span>
-    </a>
-  </div>
+<div class="page-wrap">
+<div class="page-wrap-fix"><div class="course-wrap-outer"><div class="course-shell">
+<div class="sidebar">
+<div class="sidebar-top">
+<div class="course-label">Claude AI — Course 3 of 26</div>
+<h1 class="course-title-side">Claude Token Limits: How to Avoid Overruns in Long Conversations</h1>
 </div>
-
-<script>
-function switchTab(btn,id){
-  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
-  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
-  btn.classList.add('on');
-  document.getElementById('p-'+id).classList.add('on');
-}
-function copyPrompt(btn){
-  var text=btn.previousElementSibling.innerText;
-  navigator.clipboard.writeText(text);
-  btn.innerHTML='<i class="ti ti-check" style="font-size:12px"></i> Copied!';
-  setTimeout(function(){btn.innerHTML='<i class="ti ti-copy" style="font-size:12px"></i> Copy';},2000);
-}
-function toggleFaq(q){
-  q.classList.toggle('open');
-  q.nextElementSibling.classList.toggle('open');
-}
-function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
-function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
-</script>
+<div class="prog-wrap">
+<div class="prog-label"><span>Progress</span><span id="progTxt">1 of 5</span></div>
+<div class="prog-track"><div class="prog-fill" id="pf" style="width:20%"></div></div>
+</div>
+<div class="nav-list">
+<div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">The compounding memory</div></div>
+<div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">The anatomy of a thread</div></div>
+<div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">File types & hidden costs</div></div>
+<div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">The tactical hard reset</div></div>
+<div class="nav-item" id="ni4" onclick="go(4)"><div class="nav-dot" id="nd4">5</div><div class="nav-text">Quiz: test your knowledge</div></div>
+</div>
+</div>
+<div class="content-area">
+<div class="section-hero"><div class="section-tag" id="heroTag">Section 01</div><h2 id="heroTitle">The compounding memory: why conversations get heavy.</h2></div>
+<div class="content-body" id="cnt">
+<div id="seo-sec-0" class="seo-section active-section">
+<p>When you start a new chat with Claude, the system is empty. The token cost is virtually zero. However, as the conversation continues, every message you send and every response Claude generates piles up, creating an accumulation of token context.</p>
+<p>This happens because Claude does not look at your latest prompt in isolation. To understand what you mean by "make it shorter" or "fix that typo," Claude must re-read every single line of the conversation from the very beginning. As a thread lengthens, the volume of data processed with each turn increases significantly.</p>
+<div class="chart-wrap">
+<div class="chart-title">Token Cost per Message as a Chat Progresses</div>
+<div class="chart-inner">
+<div class="bar-col"><div class="bar bar-1"><div class="bar-val">500</div></div><div class="bar-val-below">500</div><div class="bar-label">Turn 1</div><div class="bar-sub">Fresh chat</div></div>
+<div class="bar-col"><div class="bar bar-15"><div class="bar-val">7,500</div></div><div class="bar-val-below">7.5k</div><div class="bar-label">Turn 15</div><div class="bar-sub">Growing thread</div></div>
+<div class="bar-col"><div class="bar bar-30"><div class="bar-val">22,000</div></div><div class="bar-val-below">22k</div><div class="bar-label">Turn 30</div><div class="bar-sub">Heavy load</div></div>
+</div>
+<div class="chart-note">*Assumes a standard interaction of 250 input words and 500 output words per turn.</div>
+</div>
+<p>By Turn 30, a single quick question like "can you fix the formatting?" doesn't just process your four words. It forces the system to process the preceding 22,000 tokens of history over again, consuming a sizable chunk of your daily usage limit in seconds.</p>
+<div class="info-box"><p><strong>Key Takeaway:</strong> Long conversations are exponentially more demanding than short ones. Breaking tasks down into fresh threads keeps your sessions fast, responsive, and token-efficient.</p></div>
+</div>
+<div id="seo-sec-1" class="seo-section">
+<p>To visualise exactly how this accumulation occurs, let us look at the internal sequence of a typical research session. Notice how the token load builds with every interaction.</p>
+<div class="timeline">
+<div class="tl-item"><div class="tl-prompt">Prompt 1 — Fresh Session</div><div class="tl-text">"Analyze this 800-word case study on market growth."</div><div class="tl-cost cost-low">Cost: ~1,200 tokens processed</div></div>
+<div class="tl-item"><div class="tl-prompt">Prompt 2 — First Follow-Up</div><div class="tl-text">"Extract the top 3 financial metrics from that analysis."<br><em>(Claude re-reads: Prompt 1 + Response 1 + Prompt 2)</em></div><div class="tl-cost cost-mid">Cost: ~2,100 tokens processed</div></div>
+<div class="tl-item"><div class="tl-prompt">Prompt 3 — Second Follow-Up</div><div class="tl-text">"Draft a summary email for the executive team based on those metrics."<br><em>(Claude re-reads: Prompt 1 + Response 1 + Prompt 2 + Response 2 + Prompt 3)</em></div><div class="tl-cost cost-high">Cost: ~3,200 tokens processed</div></div>
+</div>
+<p>This continuous re-reading loop explains why you might receive a warning about usage limits near the end of a long, interactive session, even if your latest question was only one sentence long.</p>
+<div class="warn-box"><p><strong>Team Pitfall:</strong> Sharing a single massive thread across a team workspace compounds this issue rapidly, as every team member's messages add to the global historical context that everyone must re-process.</p></div>
+</div>
+<div id="seo-sec-2" class="seo-section">
+<p>Not all inputs are created equal. While text files are lean and lightweight, uploading rich materials like presentation decks, structured spreadsheets, or images can dramatically increase token consumption.</p>
+<div class="filetype-widget">
+<div class="ft-list">
+<div class="ft-list-head">File Types</div>
+<button id="ft-0" class="ft-btn active" onclick="switchFile(0)"><div class="ft-swatch sw-md"></div><span class="ft-name">Markdown / Plain Text</span></button>
+<button id="ft-1" class="ft-btn" onclick="switchFile(1)"><div class="ft-swatch sw-pdf"></div><span class="ft-name">Clean PDF</span></button>
+<button id="ft-2" class="ft-btn" onclick="switchFile(2)"><div class="ft-swatch sw-docx"></div><span class="ft-name">Word (.docx)</span></button>
+<button id="ft-3" class="ft-btn" onclick="switchFile(3)"><div class="ft-swatch sw-ppt"></div><span class="ft-name">PowerPoint</span></button>
+<button id="ft-4" class="ft-btn" onclick="switchFile(4)"><div class="ft-swatch sw-img"></div><span class="ft-name">Images / Assets</span></button>
+<div class="ft-list-foot">Select file type</div>
+</div>
+<div class="ft-detail">
+<div class="ft-detail-top">
+<div id="ft-detail-name" class="ft-detail-name">Markdown / Plain Text</div>
+<div id="ft-detail-badge" class="ft-detail-badge badge-lightest">Token Weight: Ultra Light</div>
+<div id="ft-detail-body" class="ft-detail-body">Pure character streams map directly to tokens with zero overhead. 1,000 words equals roughly 1,300 tokens. This is the cleanest, most efficient format for AI interaction.</div>
+</div>
+<div class="ft-practice"><div class="ft-practice-label">Best Practice</div><div id="ft-practice-text" class="ft-practice-text">Copy and paste text directly into the chat window, or use lightweight .txt files instead of heavy document layouts whenever possible.</div></div>
+</div>
+</div>
+<div class="stat-strip">
+<div class="ss"><div class="ss-num">1.3k</div><div class="ss-label">Tokens per 1,000 words in plain text</div></div>
+<div class="ss"><div class="ss-num">Up to 8k</div><div class="ss-label">Tokens for a single visual presentation slide</div></div>
+<div class="ss"><div class="ss-num">1.5k+</div><div class="ss-label">Base tokens consumed per image upload</div></div>
+</div>
+</div>
+<div id="seo-sec-3" class="seo-section">
+<p>The most effective strategy for managing token load and preserving your daily allowance is a simple workflow shift: <strong>the tactical hard reset</strong>.</p>
+<p>Instead of executing an entire cross-functional project within a single running chat window, you should deliberately break the assignment apart into clean, modular phases.</p>
+<div class="body-heading">The Three Steps to a Perfect Reset</div>
+<ul class="tips-list">
+<li><span class="tip-icon"><i class="ti ti-check"></i></span><strong>Consolidate the Core:</strong> When a current phase wraps up successfully, ask Claude to isolate and export the key summary or current state of your asset (e.g., "Summarize our finalized outline into a clean standalone reference block").</li>
+<li><span class="tip-icon"><i class="ti ti-refresh"></i></span><strong>Start Fresh:</strong> Open a completely empty conversation window. This drops your background load back to absolute zero.</li>
+<li><span class="tip-icon"><i class="ti ti-arrow-right"></i></span><strong>Seed the New Thread:</strong> Paste the distilled summary block into the new thread as your primary background context, then begin the next task immediately.</li>
+</ul>
+<div class="info-box"><p><strong>Pro-Tip:</strong> Using Claude Projects allows you to keep core documents (like style guides, background datasets, or product specifications) globally available across all threads without needing to re-upload them manually every time you open a fresh chat.</p></div>
+</div>
+<div id="seo-sec-4" class="seo-section"><div id="quiz-interactive-container"></div></div>
+</div>
+<div class="content-footer"><button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button><button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button></div>
+</div>
+</div>
+</div></div>
+<footer style="background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0">
+<div style="max-width:1100px; margin:0 auto">
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
+<div>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Guides by Role</strong>
+<a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Finance Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for HR Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Marketing Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Legal Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Operations Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Sales Teams</a>
+<a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Customer Service</a>
+<a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Excel</a>
+</div>
+<div>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Prompt Tools</strong>
+<a href="https://www.pairworkflows.com/claude-prompts-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Excel Prompt Builder</a>
+<a href="https://www.pairworkflows.com/claude-prompts-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Finance Prompt Builder</a>
+<a href="https://www.pairworkflows.com/claude-prompts-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">HR Prompt Builder</a>
+<a href="https://www.pairworkflows.com/claude-prompts-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Marketing Prompt Builder</a>
+<a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">General Prompt Library</a>
+</div>
+<div>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Resources</strong>
+<a href="https://www.pairworkflows.com/claude-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Claude Courses</a>
+<a href="https://www.pairworkflows.com/gemini-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Gemini Courses</a>
+<a href="https://www.pairworkflows.com/glossary.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI Glossary</a>
+<a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Claude vs Gemini</a>
+<a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
+</div>
+<div>
+<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company & Legal</strong>
+<a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
+<a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
+<a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
+<a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Privacy Policy</a>
+<a href="https://www.pairworkflows.com/legal.html#terms" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Terms of Use</a>
+<a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Cookie Policy</a>
+</div>
+</div>
+<div style="text-align:center; margin-bottom:2rem">
+<p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:520px; margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p>
+</div>
+<div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem">
+<span style="font-size:13px; color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
+<div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
+<button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
+  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+  Copy link
+</button>
+<a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+  <span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span>
+</a>
+<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+</a>
+<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+<script>var cur=0,TOTAL=5,visited=[true,false,false,false,false],sel={},quizSubmitted=false,quizDone=false,activeFile=0;var heroes=[{tag:'Section 01',title:'The compounding memory: why conversations get heavy.'},{tag:'Section 02',title:'The anatomy of a thread: tracking the building blocks.'},{tag:'Section 03',title:'File types & hidden costs: choosing formats wisely.'},{tag:'Section 04',title:'The tactical hard reset: keeping your environment lean.'},{tag:'Section 05 — Quiz',title:'Test your knowledge.'}];var files=[{name:'Markdown / Plain Text',badge:'Token Weight: Ultra Light',cls:'badge-lightest',body:'Pure character streams map directly to tokens with zero layout overhead. 1,000 words equals roughly 1,300 tokens. This is the cleanest, most efficient format for AI interaction.',practice:'Copy and paste text directly into the chat window, or use lightweight .txt files instead of heavy document layouts whenever possible.'},{name:'Clean PDF Documents',badge:'Token Weight: Light to Medium',cls:'badge-light',body:'Standard textual PDFs are highly readable, but contain embedded styling parameters. If the PDF contains dense tables or multicolumn charts, token extraction overhead increases slightly.',practice:'If you only need a segment, copy the text out of the PDF and paste it as markdown instead of uploading the whole document.'},{name:'Microsoft Word (.docx)',badge:'Token Weight: Medium',cls:'badge-medium',body:'Word XML data structures contain hidden metadata (author tracking, layout indices, fonts) that inflate the foundational file structure before content processing even begins.',practice:'Save final text drafts out as plain txt format or markdown snippets before sending them across for content analysis.'},{name:'PowerPoint Decks (.pptx)',badge:'Token Weight: Heavy',cls:'badge-heavy',body:'Slide layouts are exceptionally heavy. Slide boundaries, geometric box coordinates, shape attributes, and embedded visual items create massive structural parsing load.',practice:'Export your slide outlines as bulleted text documents before asking Claude to review, refine, or structuralize content.'},{name:'Images / Visual Assets',badge:'Token Weight: Heaviest',cls:'badge-heaviest',body:'Vision models require a substantial fixed base cost just to initialize and tile an image canvas into processing chunks, consuming thousands of tokens regardless of how much text is on it.',practice:'Never upload screenshots of text data blocks if you can use an OCR tool or standard copy-paste mechanics instead.'}];var quiz=[{q:'Why do long Claude conversations feel progressively slower and hit token usage thresholds faster over time?',opts:['The server environment caps performance based on chronological session age','Claude must re-read and re-process the entire historical log of a chat thread with every fresh message you send','The output length automatically doubles at every turn'],correct:1},{q:'You want Claude to analyze data from a slide presentation. Which method uses the fewest tokens?',opts:['Uploading the full native .pptx slide deck file','Taking screenshots of the key slides and uploading them as images','Exporting or copying the text content out as a bulleted outline and pasting it directly'],correct:2},{q:'What is the primary operational objective of executing a "tactical hard reset"?',opts:['Clearing your system cache to accelerate browser execution speeds','Isolating a finalized asset summary and dropping context processing load back to zero by starting an empty thread','Forcing the system to cycle to a completely different server node'],correct:1},{q:'If you paste a 4-word question into a thread containing 20,000 tokens of preceding history, how much context load is processed?',opts:['Exactly 4 words are processed','Only the most recent response is re-analyzed','The entire 20,000-token conversational history is re-read and processed alongside your new question'],correct:2}];function switchFile(n){activeFile=n;var d=files[n];for(var i=0;i<5;i++){var btn=document.getElementById('ft-'+i);if(btn){if(i===n)btn.classList.add('active');else btn.classList.remove('active');}}var nameEl=document.getElementById('ft-detail-name'),badgeEl=document.getElementById('ft-detail-badge'),bodyEl=document.getElementById('ft-detail-body'),pracEl=document.getElementById('ft-practice-text');if(nameEl)nameEl.textContent=d.name;if(badgeEl){badgeEl.textContent=d.badge;badgeEl.className='ft-detail-badge '+d.cls;}if(bodyEl)bodyEl.textContent=d.body;if(pracEl)pracEl.textContent=d.practice;}function buildQuizHTML(){if(quizDone){var score=0;for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}var msgs=['Review the workflow steps and file type weights carefully before retrying.','Decent progress — spend an extra minute looking over the compounding memory charts.','Almost a clean sheet! One slight misunderstanding remains.','Perfect score! You have successfully mastered token load mechanics and thread efficiency.'];return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';}var html='';for(var i=0;i<quiz.length;i++){var q=quiz[i];html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';for(var j=0;j<q.opts.length;j++){var cls='opt';if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}else if(sel[i]===j){cls+=' selected';}html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';}html+='</div>';}var allSel=Object.keys(sel).length===quiz.length;if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';return html;}function render(){document.getElementById('pf').style.width=Math.round(((cur+1)/TOTAL)*100)+'%';document.getElementById('progTxt').textContent=(cur+1)+' of '+TOTAL;document.getElementById('heroTag').textContent=heroes[cur].tag;document.getElementById('heroTitle').textContent=heroes[cur].title;for(var i=0;i<TOTAL;i++){var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),secBlock=document.getElementById('seo-sec-'+i);if(ni)ni.className='nav-item'+(i===cur?' active':'');if(secBlock){if(i===cur)secBlock.classList.add('active-section');else secBlock.classList.remove('active-section');}if(nd){if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}else{nd.className='nav-dot';nd.textContent=(i+1);}}}if(cur===TOTAL-1){var quizContainer=document.getElementById('quiz-interactive-container');if(quizContainer)quizContainer.innerHTML=buildQuizHTML();}document.getElementById('btnBack').disabled=(cur===0);var fwd=document.getElementById('btnFwd');if(cur===TOTAL-1){fwd.style.display='none';}else{fwd.style.display='';fwd.innerHTML=(cur===TOTAL-2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}}function go(n){if(n<0||n>=TOTAL)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}function goFwd(){if(cur<TOTAL-1)go(cur+1);}function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}function showResult(){quizDone=true;render();}function retake(){sel={};quizSubmitted=false;quizDone=false;render();}document.getElementById('cnt').addEventListener('click',function(e){if(cur!==(TOTAL-1)||quizSubmitted||quizDone)return;var opt=e.target.closest('.opt');if(!opt)return;sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);render();});function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);} function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});render();</script>
 </body>
 </html>
