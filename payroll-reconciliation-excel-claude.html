@@ -7,7 +7,7 @@
 <meta name="description" content="Automate payroll reconciliation in Excel using Claude AI. Match payroll runs to your general ledger and flag every discrepancy before month-end close.">
 <link rel="canonical" href="https://www.pairworkflows.com/payroll-reconciliation-excel-claude.html">
 <meta property="og:title" content="Payroll Reconciliation Template Excel Free — PairWorkflows">
-<meta property="og:description" content="Use Claude AI to build a payroll reconciliation template in Excel that matches payroll totals to the GL and flags discrepancies automatically.">
+<meta property="og:description" content="Automate payroll reconciliation in Excel using Claude AI. Match payroll runs to your general ledger and flag every discrepancy before month-end close.">
 <meta property="og:url" content="https://www.pairworkflows.com/payroll-reconciliation-excel-claude.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PairWorkflows">
@@ -16,713 +16,188 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is payroll reconciliation and why does it matter for month-end close?","acceptedAnswer":{"@type":"Answer","text":"Payroll reconciliation is the process of verifying that total payroll costs recorded in your general ledger match what was actually paid out through your payroll system, including gross pay, employer taxes, and benefits. Without it, the salary line on your P&L can carry errors for weeks before anyone notices."}},{"@type":"Question","name":"Can Claude reconcile payroll across multiple pay frequencies in one pass?","acceptedAnswer":{"@type":"Answer","text":"Yes. If you run weekly payroll for hourly workers and monthly payroll for salaried staff, include both datasets and specify which cost centre or GL account each feed into. Claude will reconcile them separately and then produce a combined total for comparison against your GL."}},{"@type":"Question","name":"What causes most payroll-to-GL variances?","acceptedAnswer":{"@type":"Answer","text":"The three most common causes are: a payroll run posted to the wrong accounting period (timing difference); employer tax or benefit costs coded to the wrong GL account; and a manual journal that adjusted gross pay without a matching payroll entry. The reconciliation template surfaces all three."}},{"@type":"Question","name":"Does Claude work with data exported from ADP, Workday, or SAP?","acceptedAnswer":{"@type":"Answer","text":"Claude works with whatever data you paste into the prompt or upload as a file. Most payroll and ERP systems export to CSV or Excel. Clean the export to match the column layout shown in this course, and the prompt will handle the rest."}},{"@type":"Question","name":"How do I handle mid-month pay adjustments or off-cycle runs?","acceptedAnswer":{"@type":"Answer","text":"Include them as separate rows in your payroll extract with a Type column marked 'Off-cycle'. The prompt instructs Claude to include them in the gross pay total and flag them in a separate section so reviewers can see them without searching."}},{"@type":"Question","name":"Can I use this reconciliation to check individual employee records?","acceptedAnswer":{"@type":"Answer","text":"The prompt is designed for cost-centre or department-level reconciliation, not individual employee records. For employee-level checking, adjust the grouping instructions in the prompt to 'by Employee ID' rather than 'by Cost Centre'."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"><link rel="stylesheet" href="/global-fix.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="/global-fix.css">
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
-.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
-.course-shell{background:#fff;border-radius:16px;border:1px solid #e8ecef;overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
-.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
-.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
-.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
-.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
-.prog-wrap{padding:1rem 1.25rem .75rem}
-.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
-.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
-.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
-.nav-list{padding:.5rem 0;flex:1}
-.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
-.nav-item:hover{background:#eef1f4}
-.nav-item.active{border-left-color:#1d9e75;background:#fff}
-.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
-.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
-.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
-.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
-.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
-.content-area{display:flex;flex-direction:column;min-width:0;overflow:hidden}
-.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
-.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
-.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
-.content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
-.seo-section{display:none}
-.seo-section.active-section{display:block}
-.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
-.seo-section h1{font-size:24px;font-weight:600;color:#1a1a2e;margin-bottom:1rem;line-height:1.3}
-.seo-section h2{font-size:18px;font-weight:600;color:#1a1a2e;margin-bottom:.75rem;line-height:1.35}
-.seo-section h3{font-size:15px;font-weight:600;color:#1a1a2e;margin-bottom:.5rem;line-height:1.4}
-.xl-grade-table{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.xl-gt-header-bar{background:#f3f3f3;border-bottom:1px solid #d0d0d0;padding:4px 0;display:grid}
-.xl-gt-col-h{font-size:11px;font-weight:600;color:#595959;text-align:center;padding:3px 0;border-right:1px solid #e0e0e0}
-.xl-gt-col-h:last-child{border-right:none}
-.xl-gt-rows{display:flex;flex-direction:column}
-.xl-gt-row{display:grid;border-bottom:1px solid #e8e8e8}
-.xl-gt-row:last-child{border-bottom:none}
-.xl-gt-row-num{font-size:11px;color:#595959;text-align:right;padding:7px 8px;background:#f3f3f3;border-right:1px solid #d0d0d0;font-weight:500}
-.xl-gt-cell{font-size:12px;font-family:'Inter',sans-serif;padding:7px 10px;border-right:1px solid #e8e8e8;display:flex;align-items:center}
-.xl-gt-cell:last-child{border-right:none}
-.xl-gt-cell.hdr{background:#f3f3f3;font-weight:600;color:#374151;font-size:11px}
-.xl-gt-cell.score{color:#374151;font-weight:500}
-.xl-gt-cell.matched{background:#c6efce;color:#276221;font-weight:600;justify-content:center}
-.xl-gt-cell.unmatched{background:#ffc7ce;color:#9c0006;font-weight:600;justify-content:center}
-.xl-gt-cell.partial{background:#ffeb9c;color:#9c6500;font-weight:600;justify-content:center}
-.xl-gt-caption{background:#f8fafc;border-top:1px solid #e2e8f0;padding:8px 14px;font-size:11px;color:#64748b;font-style:italic}
-.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
-.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
-.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
-.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
-.highlight-text{font-size:13px;color:#374151;line-height:1.65}
-.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
-.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
-.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
-.feature-list{list-style:none;padding:0;margin:0 0 1.25rem}
-.feature-list li{padding:.5rem 0 .5rem 1.25rem;position:relative;font-size:14px;color:#374151;border-bottom:1px solid #f0f2f5;line-height:1.6}
-.feature-list li:last-child{border-bottom:none}
-.feature-list li::before{content:'▸';position:absolute;left:0;color:#1d9e75;font-size:13px}
-.steps-list{display:flex;flex-direction:column;gap:0;margin:1rem 0}
-.step-row{display:flex;gap:16px;padding:1.1rem 0;border-bottom:1px solid #f0f2f5}
-.step-row:last-child{border-bottom:none}
-.step-num{font-size:26px;font-weight:700;color:#d1fae5;line-height:1;flex-shrink:0;width:36px;text-align:right;padding-top:2px}
-.step-body h3{font-size:14px;font-weight:600;color:#085041;margin-bottom:.3rem}
-.step-body p{font-size:13px;color:#374151;line-height:1.75;margin:0}
-.step-body code{background:#f0fdf4;color:#0f6e56;padding:1px 6px;border-radius:4px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;border:1px solid #d1fae5}
-.prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
-.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
-.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
-.prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}
-.prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#fff}
-.faq-section{margin:1.5rem 0}
-.faq-item{border-bottom:1px solid #f0f2f5;padding:.85rem 0}
-.faq-item:last-child{border-bottom:none}
-.faq-q{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:.35rem}
-.faq-a{font-size:13px;color:#374151;line-height:1.7}
-.related-courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:1rem 0}
-.related-card{border:1px solid #e8ecef;border-radius:10px;padding:1rem;transition:all .15s;text-decoration:none;color:#1a1a2e}
-.related-card:hover{border-color:#1d9e75;background:#f5fdf9}
-.related-card-title{font-size:13px;font-weight:500;line-height:1.4;margin-bottom:.25rem}
-.related-card-tag{font-size:11px;color:#6b7280}
-.quiz-q{margin-bottom:1.5rem}
-.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
-.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
-.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
-.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}
-.opt.selected .radio{border-color:#1d9e75;background:#1d9e75}
-.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}
-.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
-.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
-.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
-.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
-.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}
-.submit-global:hover{background:#0f6e56}
-.submit-global:disabled{opacity:.35;cursor:default}
-.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
-.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
-.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
-.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
-.retake-btn:hover{background:#e1f5ee}
-.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc;flex-shrink:0}
-.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}
-.btn-back:hover{background:#f0f2f5}
-.btn-back:disabled{opacity:.35;cursor:default}
-.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
-.btn-fwd:hover{background:#0f6e56}
+body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:100vh;display:flex;flex-direction:column}
+.page{max-width:1300px;margin:0 auto;width:100%;padding:2rem 2.5rem 4rem;flex:1}
+.hero{margin-bottom:2rem}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#0f6e56;background:#e1f5ee;border:1px solid #a7f3d0;border-radius:20px;padding:4px 12px;margin-bottom:.9rem}
+.hero h1{font-size:32px;font-weight:700;line-height:1.2;color:#111827;margin-bottom:.6rem;letter-spacing:-.5px}
+.hero h1 span{color:#1d9e75}
+.hero-sub{font-size:15px;color:#6b7280;line-height:1.65;max-width:640px}
+.prompt-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.prompt-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.75rem}
+.prompt-card-label{font-size:13px;font-weight:600;color:#374151}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{padding:6px 14px;border-radius:7px;border:1.5px solid #e5e7eb;background:#f9fafb;font-size:12px;font-weight:500;color:#6b7280;cursor:pointer;transition:all .15s;font-family:inherit}
+.tab:hover{border-color:#1d9e75;color:#0f6e56}
+.tab.on{background:#1d9e75;border-color:#1d9e75;color:#fff;font-weight:600}
+.panel{display:none}
+.panel.on{display:block}
+.prompt-box{background:#0f172a;border-radius:10px;padding:1.25rem 1.25rem 1rem;position:relative}
+.prompt-box pre{font-family:'JetBrains Mono',monospace;font-size:12px;color:#e2e8f0;line-height:1.75;white-space:pre-wrap;word-break:break-word;padding-right:70px}
+.copy-btn{position:absolute;top:.75rem;right:.75rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-weight:500;font-family:inherit;cursor:pointer;padding:5px 12px;transition:all .15s;display:flex;align-items:center;gap:5px}
+.copy-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+.prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
+.prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
+.prompt-hint a:hover{text-decoration:underline}
+.ba-section{margin-bottom:1.75rem}
+.ba-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.ba-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
+.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.ba-col.before{border-color:#fca5a5}
+.ba-col.after{border-color:#6ee7b7}
+.ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
+.ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
+.ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
+.ba-body{padding:1rem 1.25rem;font-size:13px;color:#374151;line-height:1.7;font-style:italic}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+.dodont-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.75rem}
+.dodont-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.dodont-col.do{border-color:#6ee7b7}
+.dodont-col.dont{border-color:#fca5a5}
+.dodont-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
+.dodont-header.do{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
+.dodont-header.dont{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
+.dodont-item{display:flex;align-items:flex-start;gap:10px;padding:.7rem 1rem;border-bottom:1px solid #f9fafb;font-size:13px;color:#374151;line-height:1.55}
+.dodont-item:last-child{border-bottom:none}
+.dodont-item i{flex-shrink:0;margin-top:1px;font-size:14px}
+.dodont-item i.ok{color:#059669}
+.dodont-item i.no{color:#dc2626}
+.warning{background:#fef9c3;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin-bottom:1.75rem;font-size:13px;color:#78350f;line-height:1.65;display:flex;align-items:flex-start;gap:10px}
+.warning i{flex-shrink:0;margin-top:1px;font-size:16px;color:#f59e0b}
+.steps-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.steps-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+.step{display:flex;gap:16px;padding:.9rem 0;border-bottom:1px solid #f3f4f6}
+.step:last-child{border-bottom:none}
+.step-n{width:28px;height:28px;border-radius:8px;background:#e1f5ee;color:#0f6e56;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body h3{font-size:13px;font-weight:600;color:#1f2937;margin-bottom:.25rem}
+.step-body p{font-size:13px;color:#6b7280;line-height:1.65}
+.step-body code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
+.faq-section{margin-bottom:1.75rem}
+.faq-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1rem}
+.faq-item{border-bottom:1px solid #f3f4f6;padding:.9rem 0}
+.faq-q{font-size:13px;font-weight:600;color:#1f2937;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-q i{color:#9ca3af;transition:transform .2s;flex-shrink:0}
+.faq-q.open i{transform:rotate(180deg)}
+.faq-a{font-size:13px;color:#6b7280;line-height:1.7;display:none;padding-top:.6rem}
+.faq-a.open{display:block}
+.faq-a code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
+.related-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af;margin-bottom:.75rem}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.related-link{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:.9rem 1rem;text-decoration:none;transition:border-color .15s;display:block}
+.related-link:hover{border-color:#1d9e75}
+.related-link strong{display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem}
+.related-link span{display:block;font-size:12px;color:#9ca3af;line-height:1.4}
 #searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
 #searchOverlay.open{display:flex}
 .search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
-.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
-.search-close-btn:hover{color:#fff}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px}
 .search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
 .search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
-.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:inherit}
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
-.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
-@media(max-width:700px){
-  .page-wrap{padding:1rem .5rem}
-  .course-shell{grid-template-columns:1fr}
-  .sidebar{display:none}
-  .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
-  .content-footer{padding:1rem}
-  .section-hero{padding:1.25rem 1rem}
-  .xl-gt-cell{font-size:11px;padding:6px 6px}
-  .related-courses{grid-template-columns:1fr}
-  .seo-section p{word-break:break-word;overflow-wrap:break-word}
+@media(max-width:640px){
+  .hero h1{font-size:24px}
+  .ba-grid{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
+  .dodont-grid{grid-template-columns:1fr}
+  .related-grid{grid-template-columns:1fr}
+  .page{padding:1.5rem 1rem 3rem}
+  .tabs{gap:6px}
+  .tab{font-size:11px;padding:5px 10px}
+  .prompt-card-top{flex-direction:column;align-items:flex-start}
 }
-.page-wrap-fix{max-width:1100px;margin:2rem auto;padding:0 1rem}.course-wrap-outer{width:100%}</style>
-<script defer src="/_vercel/insights/script.js"></script>
+</style>
 </head>
 <body>
 <div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
-<div class="search-overlay-inner">
-<button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
-<form action="/search.html" method="get">
-<div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
-</form>
-<p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
-</div>
+  <div class="search-overlay-inner">
+    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+    <form action="/search.html" method="get">
+      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search workflows, prompts, and guides..." autocomplete="off"></div>
+    </form>
+  </div>
 </div>
 <div id="navbar-placeholder"></div>
-<script src="/navbar.js"></script><script src="/footer.js"></script><script src="/footer.js"></script>
+<script src="/navbar.js"></script>
+<script src="/footer.js"></script>
 <noscript>
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
-<a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a>
-<a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a>
-<a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a>
-<a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a>
-<a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a>
-<a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a>
-<a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a>
-<a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a>
-<a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
 </nav>
 </noscript>
+<div class="page">
 
-<div class="page-wrap">
-<div class="page-wrap-fix"><div class="course-wrap-outer"><div class="course-shell">
-  <div class="sidebar">
-    <div class="sidebar-top">
-      <div class="course-label">Claude AI — Excel / Finance</div>
-     <h1 class="course-title-side">Payroll Reconciliation Template Excel Free</h1>
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-eyebrow"><i class="ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
+    <h1>Payroll Reconciliation Template Excel Free</h1>
+    <p class="hero-sub">What the finished payroll reconciliation looks like</p>
+  </div>
+  <div class="steps-card">
+    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> How to get the best results</div>
+    
+    <div class="step">
+      <div class="step-n">1</div>
+      <div class="step-body"><h3>Aggregate payroll to cost-centre level before pasting</h3><p>The payroll export has one row per employee per pay type. Sum these to cost-centre level yourself before running the prompt — for example, sum all 6100 entries for Operations across every employee. Claude will reconcile at that aggregated level. If you want employee-level detail, adjust the grouping instruction in the prompt accordingly.</p></div>
     </div>
-    <div class="prog-wrap">
-      <div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
-      <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+    <div class="step">
+      <div class="step-n">2</div>
+      <div class="step-body"><h3>Make sure GL account codes match between datasets</h3><p>If your payroll system calls the account "6100-WAGES" and your GL calls it "6100", the reconciliation will fail on that row. Standardise to the GL code format before pasting. Alternatively, include a mapping table in the prompt — see the mapping section of the prompt below.</p></div>
     </div>
-    <div class="nav-list">
-      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">The finished reconciliation</div></div>
-      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">Prepare your data</div></div>
-      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompt, FAQ &amp; related</div></div>
-      <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quick quiz</div></div>
+    <div class="step">
+      <div class="step-n">3</div>
+      <div class="step-body"><h3>Flag off-cycle runs with a Pay Type of "Off-cycle"</h3><p>Bonus payments, termination payouts, and correction runs processed outside the normal pay schedule are easy to miss. Tag them in the Pay Type column as "Off-cycle" — the prompt tells Claude to list them separately so they're visible at review without needing a separate reconciliation. This is especially useful when preparing for a <a href="/bank-reconciliation-excel-claude.html" style="color:#374151;font-weight:500">bank reconciliation</a>, where off-cycle runs can cause the net pay transfer to look out of sequence.</p></div>
     </div>
   </div>
-
-  <div class="content-area">
-    <div class="section-hero">
-      <div class="section-tag" id="heroTag">Section 01</div>
-      <h2 id="heroTitle">What the finished payroll reconciliation looks like</h2>
-    </div>
-    <div class="content-body" id="cnt">
-
-      <!-- SECTION 0 -->
-      <div id="seo-sec-0" class="seo-section active-section">
-      <p>This course gives you a Claude prompt that takes your payroll export and your general ledger extract and produces a line-by-line reconciliation — matched items confirmed, variances flagged with a root cause, and a summary ready for the month-end close pack. No VLOOKUP nesting required.</p>
-
-        <h2>The Finished Payroll Reconciliation Output</h2>
-        <p>Below is the reconciliation table Claude produces, grouped by cost centre. Each row compares what the payroll system reported against what the GL recorded. Green means the two match within tolerance. Red means a variance needs investigating before you can close the period.</p>
-
-        <div class="xl-grade-table">
-          <div class="xl-gt-header-bar" style="grid-template-columns:44px repeat(6,1fr)">
-            <div class="xl-gt-col-h"></div>
-            <div class="xl-gt-col-h">A</div>
-            <div class="xl-gt-col-h">B</div>
-            <div class="xl-gt-col-h">C</div>
-            <div class="xl-gt-col-h">D</div>
-            <div class="xl-gt-col-h">E</div>
-            <div class="xl-gt-col-h">F</div>
-          </div>
-          <div class="xl-gt-rows">
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">1</div>
-              <div class="xl-gt-cell hdr">Cost Centre</div>
-              <div class="xl-gt-cell hdr">GL Account</div>
-              <div class="xl-gt-cell hdr">Payroll Total</div>
-              <div class="xl-gt-cell hdr">GL Posted</div>
-              <div class="xl-gt-cell hdr">Variance</div>
-              <div class="xl-gt-cell hdr">Status</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell score">Sales – UK</div>
-              <div class="xl-gt-cell score">6100</div>
-              <div class="xl-gt-cell score">84,200.00</div>
-              <div class="xl-gt-cell score">84,200.00</div>
-              <div class="xl-gt-cell score">0.00</div>
-              <div class="xl-gt-cell matched">MATCH</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell score">Finance</div>
-              <div class="xl-gt-cell score">6100</div>
-              <div class="xl-gt-cell score">31,450.00</div>
-              <div class="xl-gt-cell score">31,450.00</div>
-              <div class="xl-gt-cell score">0.00</div>
-              <div class="xl-gt-cell matched">MATCH</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell score">Operations</div>
-              <div class="xl-gt-cell score">6100</div>
-              <div class="xl-gt-cell score">57,800.00</div>
-              <div class="xl-gt-cell score">55,300.00</div>
-              <div class="xl-gt-cell unmatched">-2,500.00</div>
-              <div class="xl-gt-cell unmatched">VARIANCE</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">5</div>
-              <div class="xl-gt-cell score">Marketing</div>
-              <div class="xl-gt-cell score">6100</div>
-              <div class="xl-gt-cell score">22,100.00</div>
-              <div class="xl-gt-cell score">22,100.00</div>
-              <div class="xl-gt-cell score">0.00</div>
-              <div class="xl-gt-cell matched">MATCH</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">6</div>
-              <div class="xl-gt-cell score">Employer NIC</div>
-              <div class="xl-gt-cell score">6200</div>
-              <div class="xl-gt-cell score">19,460.00</div>
-              <div class="xl-gt-cell score">21,960.00</div>
-              <div class="xl-gt-cell unmatched">+2,500.00</div>
-              <div class="xl-gt-cell unmatched">VARIANCE</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">7</div>
-              <div class="xl-gt-cell score">Pension</div>
-              <div class="xl-gt-cell score">6300</div>
-              <div class="xl-gt-cell score">8,750.00</div>
-              <div class="xl-gt-cell score">8,750.00</div>
-              <div class="xl-gt-cell score">0.00</div>
-              <div class="xl-gt-cell matched">MATCH</div>
-            </div>
-          </div>
-          <div class="xl-gt-caption">Operations gross pay is £2,500 below the GL posting — the equal and opposite variance in Employer NIC (6200) suggests a miscoding between accounts, not a missing payment.</div>
-        </div>
-
-        <ul class="feature-list">
-          <li>Cost-centre-level comparison of payroll system totals against GL postings</li>
-          <li>Automatic variance calculation with equal-and-opposite pattern detection (likely GL miscoding)</li>
-          <li>Separate rows for gross pay, employer taxes, and pension so each component reconciles independently</li>
-          <li>A summary section showing total payroll cost, total GL postings, and net variance for sign-off</li>
-        </ul>
-
-        <div class="info-box"><p><strong>Fits naturally with:</strong> Payroll reconciliation is a core step in any month-end close process. Once your numbers are clean, the <a href="/bank-reconciliation-excel-claude.html" style="color:#085041;font-weight:600">bank reconciliation course</a> shows how to confirm the net pay transfer cleared your account — completing the payroll audit trail.</p></div>
-      </div>
-
-      <!-- SECTION 1 -->
-      <div id="seo-sec-1" class="seo-section">
-        <h2>Prepare Your Payroll and GL Data</h2>
-        <p>Claude needs two exports: one from your payroll system and one from your accounting system. The columns don't need to be identical — Claude will match on cost centre and GL account code — but both files need those two identifiers present.</p>
-
-        <h3>Payroll System Export</h3>
-        <div class="xl-grade-table">
-          <div class="xl-gt-header-bar" style="grid-template-columns:44px repeat(5,1fr)">
-            <div class="xl-gt-col-h"></div>
-            <div class="xl-gt-col-h">A</div>
-            <div class="xl-gt-col-h">B</div>
-            <div class="xl-gt-col-h">C</div>
-            <div class="xl-gt-col-h">D</div>
-            <div class="xl-gt-col-h">E</div>
-          </div>
-          <div class="xl-gt-rows">
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(5,1fr)">
-              <div class="xl-gt-row-num">1</div>
-              <div class="xl-gt-cell hdr">Employee ID</div>
-              <div class="xl-gt-cell hdr">Cost Centre</div>
-              <div class="xl-gt-cell hdr">GL Account</div>
-              <div class="xl-gt-cell hdr">Pay Type</div>
-              <div class="xl-gt-cell hdr">Amount</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(5,1fr)">
-              <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell score">EMP-0041</div>
-              <div class="xl-gt-cell score">Operations</div>
-              <div class="xl-gt-cell score">6100</div>
-              <div class="xl-gt-cell score">Gross Pay</div>
-              <div class="xl-gt-cell score">4,800.00</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(5,1fr)">
-              <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell score">EMP-0041</div>
-              <div class="xl-gt-cell score">Operations</div>
-              <div class="xl-gt-cell score">6200</div>
-              <div class="xl-gt-cell score">Employer NIC</div>
-              <div class="xl-gt-cell score">531.20</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(5,1fr)">
-              <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell score">EMP-0041</div>
-              <div class="xl-gt-cell score">Operations</div>
-              <div class="xl-gt-cell score">6300</div>
-              <div class="xl-gt-cell score">Pension</div>
-              <div class="xl-gt-cell score">240.00</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(5,1fr)">
-              <div class="xl-gt-row-num">5</div>
-              <div class="xl-gt-cell score">EMP-0057</div>
-              <div class="xl-gt-cell score">Finance</div>
-              <div class="xl-gt-cell score">6100</div>
-              <div class="xl-gt-cell score">Gross Pay</div>
-              <div class="xl-gt-cell score">5,600.00</div>
-            </div>
-          </div>
-        </div>
-
-        <h3>General Ledger Extract</h3>
-        <div class="xl-grade-table">
-          <div class="xl-gt-header-bar" style="grid-template-columns:44px repeat(5,1fr)">
-            <div class="xl-gt-col-h"></div>
-            <div class="xl-gt-col-h">A</div>
-            <div class="xl-gt-col-h">B</div>
-            <div class="xl-gt-col-h">C</div>
-            <div class="xl-gt-col-h">D</div>
-            <div class="xl-gt-col-h">E</div>
-          </div>
-          <div class="xl-gt-rows">
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(5,1fr)">
-              <div class="xl-gt-row-num">1</div>
-              <div class="xl-gt-cell hdr">Journal Ref</div>
-              <div class="xl-gt-cell hdr">Cost Centre</div>
-              <div class="xl-gt-cell hdr">GL Account</div>
-              <div class="xl-gt-cell hdr">Description</div>
-              <div class="xl-gt-cell hdr">Amount</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(5,1fr)">
-              <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell score">JNL-2025-06-44</div>
-              <div class="xl-gt-cell score">Operations</div>
-              <div class="xl-gt-cell score">6100</div>
-              <div class="xl-gt-cell score">June payroll</div>
-              <div class="xl-gt-cell score">55,300.00</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(5,1fr)">
-              <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell score">JNL-2025-06-44</div>
-              <div class="xl-gt-cell score">Operations</div>
-              <div class="xl-gt-cell score">6200</div>
-              <div class="xl-gt-cell score">June payroll – NIC</div>
-              <div class="xl-gt-cell score">21,960.00</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(5,1fr)">
-              <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell score">JNL-2025-06-44</div>
-              <div class="xl-gt-cell score">Finance</div>
-              <div class="xl-gt-cell score">6100</div>
-              <div class="xl-gt-cell score">June payroll</div>
-              <div class="xl-gt-cell score">31,450.00</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="steps-list">
-          <div class="step-row">
-            <div class="step-num">01</div>
-            <div class="step-body"><h3>Aggregate payroll to cost-centre level before pasting</h3><p>The payroll export has one row per employee per pay type. Sum these to cost-centre level yourself before running the prompt — for example, sum all 6100 entries for Operations across every employee. Claude will reconcile at that aggregated level. If you want employee-level detail, adjust the grouping instruction in the prompt accordingly.</p></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">02</div>
-            <div class="step-body"><h3>Make sure GL account codes match between datasets</h3><p>If your payroll system calls the account "6100-WAGES" and your GL calls it "6100", the reconciliation will fail on that row. Standardise to the GL code format before pasting. Alternatively, include a mapping table in the prompt — see the mapping section of the prompt below.</p></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">03</div>
-            <div class="step-body"><h3>Flag off-cycle runs with a Pay Type of "Off-cycle"</h3><p>Bonus payments, termination payouts, and correction runs processed outside the normal pay schedule are easy to miss. Tag them in the Pay Type column as "Off-cycle" — the prompt tells Claude to list them separately so they're visible at review without needing a separate reconciliation. This is especially useful when preparing for a <a href="/bank-reconciliation-excel-claude.html" style="color:#374151;font-weight:500">bank reconciliation</a>, where off-cycle runs can cause the net pay transfer to look out of sequence.</p></div>
-          </div>
-        </div>
-
-        <div class="highlight-box">
-          <div class="highlight-icon"><i class="ti ti-bulb"></i></div>
-          <div class="highlight-text"><strong>Tip:</strong> If you use tiered payroll structures — different NIC thresholds or pension contribution rates by salary band — the <a href="/claude-excel-if-ifs.html" style="color:#374151;font-weight:500">IF and IFS formulas course</a> shows how to model those conditions in Excel so you can cross-check Claude's groupings against your own calculated totals before running the reconciliation.</div>
-        </div>
-      </div>
-
-      <!-- SECTION 2 -->
-      <div id="seo-sec-2" class="seo-section">
-        <h2>The Exact Claude Prompt for Payroll Reconciliation</h2>
-        <p>Copy this prompt into Claude. Replace the bracketed sections with your payroll and GL data. The tolerance setting lets you define what counts as a genuine variance versus a rounding difference — set it to £0.50 for most payroll runs.</p>
-
-        <div class="prompt-block">
-          <div class="prompt-block-label">Prompt — paste into Claude</div>
-          <div class="prompt-block-text">I need to reconcile my payroll run against the general ledger for [Month / Period]. Below are my two datasets.
-
-PAYROLL SYSTEM TOTALS (aggregated by Cost Centre and GL Account):
-[Paste your payroll data here — columns: Cost Centre | GL Account | Pay Type | Amount]
-
-GENERAL LEDGER POSTINGS (for the same period):
-[Paste your GL extract here — columns: Journal Ref | Cost Centre | GL Account | Description | Amount]
-
-GL ACCOUNT CODE MAPPING (include only if your payroll system uses different codes from your GL):
-[e.g. "6100-WAGES" in payroll = "6100" in GL; leave blank if codes match]
-
-RECONCILIATION SETTINGS:
-- Tolerance: £[e.g. 0.50] — differences within this amount should be marked MATCH, not VARIANCE
-- Group by: Cost Centre and GL Account
-- Period: [e.g. June 2025]
-
-Rules:
-- Match payroll totals to GL postings by Cost Centre AND GL Account. Do not match across accounts.
-- Calculate Variance as: GL Posted minus Payroll Total. A negative number means the GL is understated.
-- If a payroll line has no matching GL entry, mark it as MISSING FROM GL.
-- If a GL entry has no matching payroll line, mark it as UNMATCHED GL ENTRY.
-- Flag equal-and-opposite variances (e.g. GL account 6100 is -£2,500 and GL account 6200 is +£2,500) as a probable GL miscoding, not two separate issues.
-- List all off-cycle pay items in a separate section at the bottom.
-- Do NOT invent figures or infer what a correct amount should be. Flag variances exactly as the data shows them.
-
-Output:
-1. Reconciliation table: Cost Centre | GL Account | Pay Type | Payroll Total | GL Posted | Variance | Status
-2. Equal-and-opposite variance summary (if any)
-3. Off-cycle items list
-4. Sign-off summary: Total payroll cost | Total GL postings | Net variance | Number of unreconciled items</div>
-          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
-        </div>
-
-        <h2>Why Payroll Reconciliation Catches What Audit Trails Miss</h2>
-        <p>Most payroll systems produce a detailed audit trail — who was paid, how much, when. Most GL systems record the journal entries. What neither system does automatically is compare the two. A payroll run for £57,800 in Operations can sit in the GL as £55,300 for an entire quarter if nobody runs the reconciliation. The £2,500 didn't disappear — it got coded to Employer NIC (account 6200) instead of Gross Pay (account 6100). Financially neutral at the total level, but wrong at the line level, and a problem during any statutory reporting or audit.</p>
-        <p>The equal-and-opposite check in the prompt above is the fastest way to find miscoding. When one account is short by exactly the same amount another is over, the total wages bill is correct — but the expense analysis by type is not. That distinction matters when you're reporting on headcount costs versus on-costs to the board.</p>
-
-        <h3>Common Variance Causes</h3>
-        <div class="xl-grade-table">
-          <div class="xl-gt-header-bar" style="grid-template-columns:44px 1fr 1fr 1fr">
-            <div class="xl-gt-col-h"></div>
-            <div class="xl-gt-col-h">A</div>
-            <div class="xl-gt-col-h">B</div>
-            <div class="xl-gt-col-h">C</div>
-          </div>
-          <div class="xl-gt-rows">
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">1</div>
-              <div class="xl-gt-cell hdr">Variance Type</div>
-              <div class="xl-gt-cell hdr">Typical Cause</div>
-              <div class="xl-gt-cell hdr">How Claude Flags It</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell score">GL understated vs payroll</div>
-              <div class="xl-gt-cell score">Journal posted in wrong period</div>
-              <div class="xl-gt-cell score">VARIANCE with negative amount</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell score">Equal-and-opposite across accounts</div>
-              <div class="xl-gt-cell score">Employer cost coded to wrong GL account</div>
-              <div class="xl-gt-cell score">Flagged as PROBABLE MISCODING</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell score">Payroll line with no GL match</div>
-              <div class="xl-gt-cell score">Off-cycle run not journalised</div>
-              <div class="xl-gt-cell score">MISSING FROM GL</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">5</div>
-              <div class="xl-gt-cell score">GL entry with no payroll match</div>
-              <div class="xl-gt-cell score">Manual adjustment not in payroll system</div>
-              <div class="xl-gt-cell score">UNMATCHED GL ENTRY</div>
-            </div>
-          </div>
-        </div>
-
-        <h2>Frequently Asked Questions</h2>
-        <div class="faq-section">
-          <div class="faq-item">
-            <div class="faq-q">What is payroll reconciliation and why does it matter for month-end close?</div>
-            <div class="faq-a">Payroll reconciliation is the process of verifying that total payroll costs recorded in your general ledger match what was actually paid through your payroll system — including gross pay, employer taxes, and benefits. Without it, the salary line on your P&amp;L can carry errors for weeks before anyone notices.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">Can Claude reconcile payroll across multiple pay frequencies in one pass?</div>
-            <div class="faq-a">Yes. If you run weekly payroll for hourly workers and monthly payroll for salaried staff, include both datasets and specify which cost centre or GL account each feeds into. Claude will reconcile them separately and then produce a combined total for comparison against your GL.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">What causes most payroll-to-GL variances?</div>
-            <div class="faq-a">The three most common causes are: a payroll run posted to the wrong accounting period (timing difference); employer tax or benefit costs coded to the wrong GL account; and a manual journal that adjusted gross pay without a matching payroll entry. The reconciliation template surfaces all three.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">Does Claude work with exports from ADP, Workday, or SAP?</div>
-            <div class="faq-a">Claude works with whatever data you paste into the prompt or upload as a file. Most payroll and ERP systems export to CSV or Excel. Clean the export to match the column layout shown in this course and the prompt handles the rest.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">How do I handle mid-month pay adjustments or off-cycle runs?</div>
-            <div class="faq-a">Include them as separate rows in your payroll extract with a Pay Type of "Off-cycle". The prompt instructs Claude to list them in a dedicated section at the bottom of the output so reviewers can see them without searching through the main table.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">Can I use this reconciliation to check individual employee records?</div>
-            <div class="faq-a">The prompt is designed for cost-centre or department-level reconciliation. For employee-level checking, change the grouping instruction in the prompt from "by Cost Centre and GL Account" to "by Employee ID and GL Account". Everything else remains the same.</div>
-          </div>
-        </div>
-
-        <h2>Related Excel Courses</h2>
-        <div class="related-courses">
-          <a href="/claude-excel-if-ifs.html" class="related-card">
-            <div class="related-card-title">Write Clean IF and IFS Formulas for HR and Payroll in Excel</div>
-            <div class="related-card-tag">Excel · HR / Finance</div>
-          </a>
-          <a href="/bank-reconciliation-excel-claude.html" class="related-card">
-            <div class="related-card-title">Automated Bank Reconciliation in Excel Using Claude AI</div>
-            <div class="related-card-tag">Excel · Finance</div>
-          </a>
-          <a href="/month-end-close-excel-claude.html" class="related-card">
-            <div class="related-card-title">Build a Month-End Close Checklist in Excel with Claude AI</div>
-            <div class="related-card-tag">Excel · Finance</div>
-          </a>
-        </div>
-
-        <div class="info-box"><p>Explore all finance and Excel courses on the <a href="/claude-for-finance.html" style="color:#085041;font-weight:600">AI for Finance Teams</a> hub page, or browse the full <a href="/ai-for-excel.html" style="color:#085041;font-weight:600">AI for Excel</a> course library.</p></div>
-      </div>
-
-      <!-- SECTION 3: QUIZ -->
-      <div id="seo-sec-3" class="seo-section">
-        <div id="quiz-interactive-container"></div>
-      </div>
-
-    </div>
-    <div class="content-footer">
-      <button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button>
-      <button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>
-    </div>
+  <div class="related-title">Related workflows</div>
+  <div class="related-grid">
+    
+    <a href="/claude-excel-xlookup.html" class="related-link">
+      <strong>Fix XLOOKUP Errors with Claude</strong>
+      <span>Debug #N/A errors and write XLOOKUP from plain English.</span>
+    </a>
+    <a href="/claude-excel-if-ifs.html" class="related-link">
+      <strong>Write IF and IFS Formulas</strong>
+      <span>Build clean conditional formulas without the syntax headache.</span>
+    </a>
+    <a href="/claude-excel-clean-data.html" class="related-link">
+      <strong>Clean Data in Excel with Claude</strong>
+      <span>Fix text dates, remove spaces and standardise values.</span>
+    </a>
+    <a href="/prompt-generator-excel.html" class="related-link">
+      <strong>Excel Prompt Generator</strong>
+      <span>Build a custom Claude prompt for any Excel task in seconds.</span>
+    </a>
   </div>
 </div>
-</div></div>
-
-<footer style="background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0">
-<div style="max-width:1100px; margin:0 auto">
-<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Guides by Role</strong>
-<a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Finance Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for HR Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Marketing Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Legal Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Operations Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Sales Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Customer Service</a>
-<a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Excel</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Prompt Tools</strong>
-<a href="https://www.pairworkflows.com/claude-prompts-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Excel Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Finance Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">HR Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Marketing Prompt Builder</a>
-<a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">General Prompt Library</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Resources</strong>
-<a href="https://www.pairworkflows.com/claude-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Claude Courses</a>
-<a href="https://www.pairworkflows.com/gemini-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Gemini Courses</a>
-<a href="https://www.pairworkflows.com/glossary.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI Glossary</a>
-<a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Claude vs Gemini</a>
-<a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company &amp; Legal</strong>
-<a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
-<a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
-<a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
-<a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Privacy Policy</a>
-<a href="https://www.pairworkflows.com/legal.html#terms" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Terms of Use</a>
-<a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Cookie Policy</a>
-</div>
-</div>
-<div style="text-align:center; margin-bottom:2rem">
-<p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:520px; margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p>
-</div>
-<div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem">
-<span style="font-size:13px; color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
-<div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
-<button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-  Copy link
-</button>
-<a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-  <span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span>
-</a>
-<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn">
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-</a>
-<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-</a>
-</div>
-</div>
-</div>
-</footer>
 
 <script>
-var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
-var heroes=[
-  {tag:'Section 01',title:'What the finished payroll reconciliation looks like'},
-  {tag:'Section 02',title:'Prepare your payroll and GL data'},
-  {tag:'Section 03',title:'The prompt, FAQ & related courses'},
-  {tag:'Section 04 — Quiz',title:'Test your understanding'}
-];
-var quiz=[
-  {q:'The Operations cost centre shows a payroll total of £57,800 but a GL posting of £55,300, while Employer NIC shows a GL posting £2,500 higher than the payroll figure. What does Claude flag this as?',
-   opts:['A probable GL miscoding — equal-and-opposite pattern detected','Two separate variances requiring separate journals','A timing difference — the payroll run posted in the wrong period'],
-   correct:0},
-  {q:'Before pasting your payroll export into the prompt, what aggregation step is recommended?',
-   opts:['Sort by Employee ID ascending','Remove all off-cycle runs from the dataset','Sum payroll totals to cost-centre and GL account level'],
-   correct:2},
-  {q:'A payroll line appears in your payroll extract but has no matching entry in the GL. How does Claude label it?',
-   opts:['UNMATCHED GL ENTRY','VARIANCE','MISSING FROM GL'],
-   correct:2},
-  {q:'You set the reconciliation tolerance to £0.50. A cost centre shows a £0.38 difference between payroll and GL. What status does Claude assign?',
-   opts:['VARIANCE — any difference should be investigated','PROBABLE ROUNDING — flagged for review but not escalated','MATCH — the difference falls within tolerance'],
-   correct:2}
-];
-function buildQuizHTML(){
-  if(quizDone){
-    var score=0;
-    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
-    var msgs=['Go back through sections 1 and 2 — the data preparation steps and variance types are worth a closer read.','Getting there — the equal-and-opposite logic and tolerance settings are the concepts to revisit.','Nearly there — one distinction to nail down before running your first payroll reconciliation.','Full marks — your reconciliation output will be clean and audit-ready.'];
-    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
-  }
-  var html='';
-  for(var i=0;i<quiz.length;i++){
-    var q=quiz[i];
-    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
-    for(var j=0;j<q.opts.length;j++){
-      var cls='opt';
-      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
-      else if(sel[i]===j)cls+=' selected';
-      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
-    }
-    html+='</div>';
-  }
-  var allSel=Object.keys(sel).length===quiz.length;
-  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
-  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
-  return html;
+function switchTab(btn,id){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  btn.classList.add('on');
+  document.getElementById('p-'+id).classList.add('on');
 }
-function render(){
-  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
-  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
-  document.getElementById('heroTag').textContent=heroes[cur].tag;
-  document.getElementById('heroTitle').textContent=heroes[cur].title;
-  for(var i=0;i<4;i++){
-    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),sec=document.getElementById('seo-sec-'+i);
-    ni.className='nav-item'+(i===cur?' active':'');
-    if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');
-    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
-    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
-    else{nd.className='nav-dot';nd.textContent=(i+1);}
-  }
-  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
-  document.getElementById('btnBack').disabled=(cur===0);
-  var fwd=document.getElementById('btnFwd');
-  if(cur===3){fwd.style.display='none';}
-  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
+function copyPrompt(btn){
+  var text=btn.previousElementSibling.innerText;
+  navigator.clipboard.writeText(text);
+  btn.innerHTML='<i class="ti ti-check" style="font-size:12px"></i> Copied!';
+  setTimeout(function(){btn.innerHTML='<i class="ti ti-copy" style="font-size:12px"></i> Copy';},2000);
 }
-function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
-function goFwd(){if(cur<3)go(cur+1);}
-function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
-function showResult(){quizDone=true;render();}
-function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
-function copyPrompt(btn){var block=btn.closest('.prompt-block');var text=block.querySelector('.prompt-block-text').innerText;navigator.clipboard.writeText(text);btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);}
-function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
+function toggleFaq(q){
+  q.classList.toggle('open');
+  q.nextElementSibling.classList.toggle('open');
+}
 function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
 function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
-document.getElementById('cnt').addEventListener('click',function(e){
-  if(cur!==3||quizSubmitted||quizDone)return;
-  var opt=e.target.closest('.opt');
-  if(!opt)return;
-  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
-  render();
-});
-render();
 </script>
 </body>
 </html>

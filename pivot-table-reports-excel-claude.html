@@ -7,7 +7,7 @@
 <meta name="description" content="Automate pivot table reports in Excel using Claude AI. Turn raw data into structured summaries with the right fields, filters, and calculated items.">
 <link rel="canonical" href="https://www.pairworkflows.com/pivot-table-reports-excel-claude.html">
 <meta property="og:title" content="Pivot Table Excel Tutorial For Beginners — PairWorkflows">
-<meta property="og:description" content="Use Claude AI to design and build pivot table reports in Excel — the right layout, calculated fields, and grouping logic for your data.">
+<meta property="og:description" content="Automate pivot table reports in Excel using Claude AI. Turn raw data into structured summaries with the right fields, filters, and calculated items.">
 <meta property="og:url" content="https://www.pairworkflows.com/pivot-table-reports-excel-claude.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PairWorkflows">
@@ -16,660 +16,188 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude build the actual pivot table inside Excel for me?","acceptedAnswer":{"@type":"Answer","text":"Claude cannot interact with Excel directly — it works with the data you provide in the prompt. What it produces is a complete pivot table specification: which fields go in rows, columns, values, and filters; what calculated fields to add; and how to group dates. You then build the table in Excel from those instructions, which takes about two minutes."}},{"@type":"Question","name":"What data format does Claude need for pivot table design?","acceptedAnswer":{"@type":"Answer","text":"Claude needs a flat table — one row per transaction or record, with consistent column headers. Merged cells, subtotal rows, and blank header columns will cause problems. If your source data has any of these, clean it first or describe the structure in the prompt and ask Claude to suggest a fix."}},{"@type":"Question","name":"How do I add a calculated field like gross margin % to a pivot table?","acceptedAnswer":{"@type":"Answer","text":"Ask Claude to include it in the prompt. A calculated field in a pivot table is defined as a formula using other value fields — for example, Gross Margin % = (Revenue − COGS) / Revenue. Claude will write the exact formula to enter in the Insert Calculated Field dialog."}},{"@type":"Question","name":"My pivot table shows (blank) rows — how do I fix this?","acceptedAnswer":{"@type":"Answer","text":"Blank rows in a pivot table usually mean the source data has empty cells in the row or column field. Ask Claude to identify which column is causing the blanks and suggest a cleaning step — typically a find-and-replace or a helper column that fills missing values before the pivot is built."}},{"@type":"Question","name":"Can I use Claude to redesign an existing pivot table report?","acceptedAnswer":{"@type":"Answer","text":"Yes. Describe the current layout and what's wrong with it — too many rows, wrong grouping, missing metric — and Claude will specify a revised structure. Paste in a sample of the underlying data so Claude can reference the actual column names rather than working from a description."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"><link rel="stylesheet" href="/global-fix.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="/global-fix.css">
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
-.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
-.course-shell{background:#fff;border-radius:16px;border:1px solid #e8ecef;overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
-.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
-.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
-.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
-.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
-.prog-wrap{padding:1rem 1.25rem .75rem}
-.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
-.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
-.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
-.nav-list{padding:.5rem 0;flex:1}
-.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
-.nav-item:hover{background:#eef1f4}
-.nav-item.active{border-left-color:#1d9e75;background:#fff}
-.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
-.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
-.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
-.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
-.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
-.content-area{display:flex;flex-direction:column;min-width:0;overflow:hidden}
-.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
-.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
-.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
-.content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
-.seo-section{display:none}
-.seo-section.active-section{display:block}
-.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
-.seo-section h1{font-size:24px;font-weight:600;color:#1a1a2e;margin-bottom:1rem;line-height:1.3;display:none;}
-.seo-section h2{font-size:18px;font-weight:600;color:#1a1a2e;margin-bottom:.75rem;line-height:1.35}
-.seo-section h3{font-size:15px;font-weight:600;color:#1a1a2e;margin-bottom:.5rem;line-height:1.4}
-.xl-grade-table{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.xl-gt-header-bar{background:#f3f3f3;border-bottom:1px solid #d0d0d0;padding:4px 0;display:grid}
-.xl-gt-col-h{font-size:11px;font-weight:600;color:#595959;text-align:center;padding:3px 0;border-right:1px solid #e0e0e0}
-.xl-gt-col-h:last-child{border-right:none}
-.xl-gt-rows{display:flex;flex-direction:column}
-.xl-gt-row{display:grid;border-bottom:1px solid #e8e8e8}
-.xl-gt-row:last-child{border-bottom:none}
-.xl-gt-row-num{font-size:11px;color:#595959;text-align:right;padding:7px 8px;background:#f3f3f3;border-right:1px solid #d0d0d0;font-weight:500}
-.xl-gt-cell{font-size:12px;font-family:'Inter',sans-serif;padding:7px 10px;border-right:1px solid #e8e8e8;display:flex;align-items:center}
-.xl-gt-cell:last-child{border-right:none}
-.xl-gt-cell.hdr{background:#f3f3f3;font-weight:600;color:#374151;font-size:11px}
-.xl-gt-cell.hdr-blue{background:#dce6f1;font-weight:600;color:#1f4e79;font-size:11px}
-.xl-gt-cell.score{color:#374151;font-weight:500}
-.xl-gt-cell.subtotal{background:#e2efda;font-weight:700;color:#375623}
-.xl-gt-cell.matched{background:#c6efce;color:#276221;font-weight:600;justify-content:center}
-.xl-gt-cell.unmatched{background:#ffc7ce;color:#9c0006;font-weight:600;justify-content:center}
-.xl-gt-cell.partial{background:#ffeb9c;color:#9c6500;font-weight:600;justify-content:center}
-.xl-gt-caption{background:#f8fafc;border-top:1px solid #e2e8f0;padding:8px 14px;font-size:11px;color:#64748b;font-style:italic}
-.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
-.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
-.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
-.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
-.highlight-text{font-size:13px;color:#374151;line-height:1.65}
-.feature-list{list-style:none;padding:0;margin:0 0 1.25rem}
-.feature-list li{padding:.5rem 0 .5rem 1.25rem;position:relative;font-size:14px;color:#374151;border-bottom:1px solid #f0f2f5;line-height:1.6}
-.feature-list li:last-child{border-bottom:none}
-.feature-list li::before{content:'▸';position:absolute;left:0;color:#1d9e75;font-size:13px}
-.steps-list{display:flex;flex-direction:column;gap:0;margin:1rem 0}
-.step-row{display:flex;gap:16px;padding:1.1rem 0;border-bottom:1px solid #f0f2f5}
-.step-row:last-child{border-bottom:none}
-.step-num{font-size:26px;font-weight:700;color:#d1fae5;line-height:1;flex-shrink:0;width:36px;text-align:right;padding-top:2px}
-.step-body h3{font-size:14px;font-weight:600;color:#085041;margin-bottom:.3rem}
-.step-body p{font-size:13px;color:#374151;line-height:1.75;margin:0}
-.prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
-.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
-.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
-.prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}
-.prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#fff}
-.faq-section{margin:1.5rem 0}
-.faq-item{border-bottom:1px solid #f0f2f5;padding:.85rem 0}
-.faq-item:last-child{border-bottom:none}
-.faq-q{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:.35rem}
-.faq-a{font-size:13px;color:#374151;line-height:1.7}
-.related-courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:1rem 0}
-.related-card{border:1px solid #e8ecef;border-radius:10px;padding:1rem;transition:all .15s;text-decoration:none;color:#1a1a2e}
-.related-card:hover{border-color:#1d9e75;background:#f5fdf9}
-.related-card-title{font-size:13px;font-weight:500;line-height:1.4;margin-bottom:.25rem}
-.related-card-tag{font-size:11px;color:#6b7280}
-.quiz-q{margin-bottom:1.5rem}
-.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
-.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
-.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
-.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}
-.opt.selected .radio{border-color:#1d9e75;background:#1d9e75}
-.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}
-.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
-.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
-.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
-.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
-.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}
-.submit-global:hover{background:#0f6e56}
-.submit-global:disabled{opacity:.35;cursor:default}
-.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
-.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
-.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
-.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
-.retake-btn:hover{background:#e1f5ee}
-.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc;flex-shrink:0}
-.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}
-.btn-back:hover{background:#f0f2f5}
-.btn-back:disabled{opacity:.35;cursor:default}
-.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
-.btn-fwd:hover{background:#0f6e56}
+body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:100vh;display:flex;flex-direction:column}
+.page{max-width:1300px;margin:0 auto;width:100%;padding:2rem 2.5rem 4rem;flex:1}
+.hero{margin-bottom:2rem}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#0f6e56;background:#e1f5ee;border:1px solid #a7f3d0;border-radius:20px;padding:4px 12px;margin-bottom:.9rem}
+.hero h1{font-size:32px;font-weight:700;line-height:1.2;color:#111827;margin-bottom:.6rem;letter-spacing:-.5px}
+.hero h1 span{color:#1d9e75}
+.hero-sub{font-size:15px;color:#6b7280;line-height:1.65;max-width:640px}
+.prompt-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.prompt-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.75rem}
+.prompt-card-label{font-size:13px;font-weight:600;color:#374151}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{padding:6px 14px;border-radius:7px;border:1.5px solid #e5e7eb;background:#f9fafb;font-size:12px;font-weight:500;color:#6b7280;cursor:pointer;transition:all .15s;font-family:inherit}
+.tab:hover{border-color:#1d9e75;color:#0f6e56}
+.tab.on{background:#1d9e75;border-color:#1d9e75;color:#fff;font-weight:600}
+.panel{display:none}
+.panel.on{display:block}
+.prompt-box{background:#0f172a;border-radius:10px;padding:1.25rem 1.25rem 1rem;position:relative}
+.prompt-box pre{font-family:'JetBrains Mono',monospace;font-size:12px;color:#e2e8f0;line-height:1.75;white-space:pre-wrap;word-break:break-word;padding-right:70px}
+.copy-btn{position:absolute;top:.75rem;right:.75rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-weight:500;font-family:inherit;cursor:pointer;padding:5px 12px;transition:all .15s;display:flex;align-items:center;gap:5px}
+.copy-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+.prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
+.prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
+.prompt-hint a:hover{text-decoration:underline}
+.ba-section{margin-bottom:1.75rem}
+.ba-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.ba-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
+.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.ba-col.before{border-color:#fca5a5}
+.ba-col.after{border-color:#6ee7b7}
+.ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
+.ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
+.ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
+.ba-body{padding:1rem 1.25rem;font-size:13px;color:#374151;line-height:1.7;font-style:italic}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+.dodont-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.75rem}
+.dodont-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.dodont-col.do{border-color:#6ee7b7}
+.dodont-col.dont{border-color:#fca5a5}
+.dodont-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
+.dodont-header.do{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
+.dodont-header.dont{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
+.dodont-item{display:flex;align-items:flex-start;gap:10px;padding:.7rem 1rem;border-bottom:1px solid #f9fafb;font-size:13px;color:#374151;line-height:1.55}
+.dodont-item:last-child{border-bottom:none}
+.dodont-item i{flex-shrink:0;margin-top:1px;font-size:14px}
+.dodont-item i.ok{color:#059669}
+.dodont-item i.no{color:#dc2626}
+.warning{background:#fef9c3;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin-bottom:1.75rem;font-size:13px;color:#78350f;line-height:1.65;display:flex;align-items:flex-start;gap:10px}
+.warning i{flex-shrink:0;margin-top:1px;font-size:16px;color:#f59e0b}
+.steps-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.steps-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+.step{display:flex;gap:16px;padding:.9rem 0;border-bottom:1px solid #f3f4f6}
+.step:last-child{border-bottom:none}
+.step-n{width:28px;height:28px;border-radius:8px;background:#e1f5ee;color:#0f6e56;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body h3{font-size:13px;font-weight:600;color:#1f2937;margin-bottom:.25rem}
+.step-body p{font-size:13px;color:#6b7280;line-height:1.65}
+.step-body code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
+.faq-section{margin-bottom:1.75rem}
+.faq-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1rem}
+.faq-item{border-bottom:1px solid #f3f4f6;padding:.9rem 0}
+.faq-q{font-size:13px;font-weight:600;color:#1f2937;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-q i{color:#9ca3af;transition:transform .2s;flex-shrink:0}
+.faq-q.open i{transform:rotate(180deg)}
+.faq-a{font-size:13px;color:#6b7280;line-height:1.7;display:none;padding-top:.6rem}
+.faq-a.open{display:block}
+.faq-a code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
+.related-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af;margin-bottom:.75rem}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.related-link{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:.9rem 1rem;text-decoration:none;transition:border-color .15s;display:block}
+.related-link:hover{border-color:#1d9e75}
+.related-link strong{display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem}
+.related-link span{display:block;font-size:12px;color:#9ca3af;line-height:1.4}
 #searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
 #searchOverlay.open{display:flex}
 .search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
-.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
-.search-close-btn:hover{color:#fff}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px}
 .search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
 .search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
-.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:inherit}
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
-.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
-@media(max-width:700px){
-  .page-wrap{padding:1rem .5rem}
-  .course-shell{grid-template-columns:1fr}
-  .sidebar{display:none}
-  .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
-  .content-footer{padding:1rem}
-  .section-hero{padding:1.25rem 1rem}
-  .xl-gt-cell{font-size:11px;padding:6px 6px}
-  .related-courses{grid-template-columns:1fr}
-  .seo-section p{word-break:break-word;overflow-wrap:break-word}
+@media(max-width:640px){
+  .hero h1{font-size:24px}
+  .ba-grid{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
+  .dodont-grid{grid-template-columns:1fr}
+  .related-grid{grid-template-columns:1fr}
+  .page{padding:1.5rem 1rem 3rem}
+  .tabs{gap:6px}
+  .tab{font-size:11px;padding:5px 10px}
+  .prompt-card-top{flex-direction:column;align-items:flex-start}
 }
-.page-wrap-fix{max-width:1100px;margin:2rem auto;padding:0 1rem}.course-wrap-outer{width:100%}</style>
-<script defer src="/_vercel/insights/script.js"></script>
+</style>
 </head>
 <body>
 <div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
-<div class="search-overlay-inner">
-<button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
-<form action="/search.html" method="get">
-<div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
-</form>
-<p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
-</div>
+  <div class="search-overlay-inner">
+    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+    <form action="/search.html" method="get">
+      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search workflows, prompts, and guides..." autocomplete="off"></div>
+    </form>
+  </div>
 </div>
 <div id="navbar-placeholder"></div>
-<script src="/navbar.js"></script><script src="/footer.js"></script><script src="/footer.js"></script>
+<script src="/navbar.js"></script>
+<script src="/footer.js"></script>
 <noscript>
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
-<a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a>
-<a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a>
-<a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a>
-<a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a>
-<a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a>
-<a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a>
-<a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a>
-<a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a>
-<a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
 </nav>
 </noscript>
+<div class="page">
 
-<div class="page-wrap">
-<div class="page-wrap-fix"><div class="course-wrap-outer"><div class="course-shell">
-  <div class="sidebar">
-    <div class="sidebar-top">
-      <div class="course-label">Claude AI — Excel / Reporting</div>
-      <h1 class="course-title-side">Pivot Table Excel Tutorial For Beginners</h1>
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-eyebrow"><i class="ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
+    <h1>Pivot Table Excel Tutorial For Beginners</h1>
+    <p class="hero-sub">What the finished pivot table report looks like</p>
+  </div>
+  <div class="steps-card">
+    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> How to get the best results</div>
+    
+    <div class="step">
+      <div class="step-n">1</div>
+      <div class="step-body"><h3>Remove any subtotal or total rows from the source data</h3><p>If your export from your ERP or CRM includes summary rows at the bottom of each group, delete them. Pivot tables calculate their own totals — leaving pre-calculated rows in the source data causes double-counting that is notoriously difficult to spot.</p></div>
     </div>
-    <div class="prog-wrap">
-      <div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
-      <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+    <div class="step">
+      <div class="step-n">2</div>
+      <div class="step-body"><h3>Make sure date columns are formatted as dates, not text</h3><p>A column that looks like a date but is stored as text — common in CSV exports — will not group by month or quarter in a pivot table. In Excel, select the column and check the format dropdown in the Home ribbon. If it shows "General" or "Text", convert it using the DATEVALUE function or Text to Columns.</p></div>
     </div>
-    <div class="nav-list">
-      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">The finished pivot report</div></div>
-      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">Prepare your source data</div></div>
-      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompt, FAQ &amp; related</div></div>
-      <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quick quiz</div></div>
+    <div class="step">
+      <div class="step-n">3</div>
+      <div class="step-body"><h3>Standardise category labels before pivoting</h3><p>"North", "NORTH", and "North Region" will appear as three separate rows in a pivot. A quick find-and-replace or a helper column with a TRIM+PROPER formula fixes this in minutes. This is exactly the kind of preparation the <a href="/claude-excel-clean-data.html" style="color:#374151;font-weight:500">data cleaning course</a> covers systematically.</p></div>
     </div>
   </div>
-
-  <div class="content-area">
-    <div class="section-hero">
-      <div class="section-tag" id="heroTag">Section 01</div>
-      <h2 id="heroTitle">What the finished pivot table report looks like</h2>
-    </div>
-    <div class="content-body" id="cnt">
-
-      <!-- SECTION 0 -->
-      <div id="seo-sec-0" class="seo-section active-section">
-      <p>This course gives you a Claude prompt that takes a description of your raw data and your reporting goal, then specifies the exact pivot table layout to build — rows, columns, values, filters, groupings, and any calculated fields — so you can set it up in Excel in under five minutes rather than rebuilding the structure from scratch each month.</p>
-
-        <h2>The Finished Pivot Table Report</h2>
-        <p>Below is the pivot table Claude designs for a sales dataset: revenue by region in the rows, product category across the columns, with a calculated Gross Margin % field added to each cell. This is the kind of layout that takes most analysts 20 minutes to get right through trial and error. Claude specifies it in one pass.</p>
-
-        <div class="xl-grade-table">
-          <div class="xl-gt-header-bar" style="grid-template-columns:44px 1fr 1fr 1fr 1fr 1fr">
-            <div class="xl-gt-col-h"></div>
-            <div class="xl-gt-col-h">A</div>
-            <div class="xl-gt-col-h">B</div>
-            <div class="xl-gt-col-h">C</div>
-            <div class="xl-gt-col-h">D</div>
-            <div class="xl-gt-col-h">E</div>
-          </div>
-          <div class="xl-gt-rows">
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">1</div>
-              <div class="xl-gt-cell hdr">Region ↓ / Category →</div>
-              <div class="xl-gt-cell hdr-blue">Hardware</div>
-              <div class="xl-gt-cell hdr-blue">Software</div>
-              <div class="xl-gt-cell hdr-blue">Services</div>
-              <div class="xl-gt-cell hdr">Grand Total</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell hdr">North</div>
-              <div class="xl-gt-cell score">£312,400</div>
-              <div class="xl-gt-cell score">£198,750</div>
-              <div class="xl-gt-cell score">£87,200</div>
-              <div class="xl-gt-cell subtotal">£598,350</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell score" style="font-size:11px;color:#6b7280;padding-left:20px">GM %</div>
-              <div class="xl-gt-cell score" style="font-size:11px;color:#6b7280">38.2%</div>
-              <div class="xl-gt-cell score" style="font-size:11px;color:#6b7280">71.4%</div>
-              <div class="xl-gt-cell score" style="font-size:11px;color:#6b7280">62.1%</div>
-              <div class="xl-gt-cell score" style="font-size:11px;color:#6b7280">55.3%</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell hdr">South</div>
-              <div class="xl-gt-cell score">£274,100</div>
-              <div class="xl-gt-cell score">£143,600</div>
-              <div class="xl-gt-cell score">£112,900</div>
-              <div class="xl-gt-cell subtotal">£530,600</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">5</div>
-              <div class="xl-gt-cell score" style="font-size:11px;color:#6b7280;padding-left:20px">GM %</div>
-              <div class="xl-gt-cell score" style="font-size:11px;color:#6b7280">35.8%</div>
-              <div class="xl-gt-cell score" style="font-size:11px;color:#6b7280">69.2%</div>
-              <div class="xl-gt-cell score" style="font-size:11px;color:#6b7280">65.4%</div>
-              <div class="xl-gt-cell score" style="font-size:11px;color:#6b7280">54.0%</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">6</div>
-              <div class="xl-gt-cell hdr">West</div>
-              <div class="xl-gt-cell score">£189,300</div>
-              <div class="xl-gt-cell score">£221,050</div>
-              <div class="xl-gt-cell score">£94,600</div>
-              <div class="xl-gt-cell subtotal">£504,950</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">7</div>
-              <div class="xl-gt-cell score" style="font-size:11px;color:#6b7280;padding-left:20px">GM %</div>
-              <div class="xl-gt-cell score" style="font-size:11px;color:#6b7280">34.1%</div>
-              <div class="xl-gt-cell score" style="font-size:11px;color:#6b7280">73.6%</div>
-              <div class="xl-gt-cell score" style="font-size:11px;color:#6b7280">60.8%</div>
-              <div class="xl-gt-cell score" style="font-size:11px;color:#6b7280">57.1%</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">8</div>
-              <div class="xl-gt-cell subtotal">Grand Total</div>
-              <div class="xl-gt-cell subtotal">£775,800</div>
-              <div class="xl-gt-cell subtotal">£563,400</div>
-              <div class="xl-gt-cell subtotal">£294,700</div>
-              <div class="xl-gt-cell subtotal">£1,633,900</div>
-            </div>
-          </div>
-          <div class="xl-gt-caption">Rows: Region. Columns: Product Category. Values: Sum of Revenue + calculated Gross Margin %. Filter: Current year. Grand Total shown for rows and columns.</div>
-        </div>
-
-        <ul class="feature-list">
-          <li>Exact field placement: which columns go to Rows, Columns, Values, and Filters in the PivotTable Fields pane</li>
-          <li>Calculated field formula written out for the Insert Calculated Field dialog — no guesswork</li>
-          <li>Date grouping instructions (by month, quarter, or year) if a date column is present</li>
-          <li>Recommended number formats and sort order for each value field</li>
-        </ul>
-
-        <div class="info-box"><p><strong>Where this fits:</strong> Pivot tables are the fastest route from raw data to a summary report. If the data behind yours needs cleaning first, the <a href="/claude-excel-clean-data.html" style="color:#085041;font-weight:600">clean and standardise imported data course</a> shows how to prepare it with Claude before building the pivot. For larger reporting models, the <a href="/claude-excel-dynamic-reports.html" style="color:#085041;font-weight:600">dynamic reports course</a> covers turning static outputs into models that update automatically. Both are part of the broader <a href="/ai-for-excel.html" style="color:#085041;font-weight:600">AI for Excel</a> library.</p></div>
-      </div>
-
-      <!-- SECTION 1 -->
-      <div id="seo-sec-1" class="seo-section">
-        <h2>Prepare Your Source Data</h2>
-        <p>A pivot table is only as good as the data it reads. Claude can design the ideal pivot layout, but if the underlying table has structural problems, the pivot will produce wrong totals or refuse to group correctly. Fix these before you run the prompt.</p>
-
-        <h3>Ideal Source Data Structure</h3>
-        <div class="xl-grade-table">
-          <div class="xl-gt-header-bar" style="grid-template-columns:44px repeat(6,1fr)">
-            <div class="xl-gt-col-h"></div>
-            <div class="xl-gt-col-h">A</div>
-            <div class="xl-gt-col-h">B</div>
-            <div class="xl-gt-col-h">C</div>
-            <div class="xl-gt-col-h">D</div>
-            <div class="xl-gt-col-h">E</div>
-            <div class="xl-gt-col-h">F</div>
-          </div>
-          <div class="xl-gt-rows">
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">1</div>
-              <div class="xl-gt-cell hdr">Order ID</div>
-              <div class="xl-gt-cell hdr">Date</div>
-              <div class="xl-gt-cell hdr">Region</div>
-              <div class="xl-gt-cell hdr">Category</div>
-              <div class="xl-gt-cell hdr">Revenue</div>
-              <div class="xl-gt-cell hdr">COGS</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell score">ORD-10041</div>
-              <div class="xl-gt-cell score">03/01/2025</div>
-              <div class="xl-gt-cell score">North</div>
-              <div class="xl-gt-cell score">Hardware</div>
-              <div class="xl-gt-cell score">8,400</div>
-              <div class="xl-gt-cell score">5,190</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell score">ORD-10042</div>
-              <div class="xl-gt-cell score">03/01/2025</div>
-              <div class="xl-gt-cell score">South</div>
-              <div class="xl-gt-cell score">Software</div>
-              <div class="xl-gt-cell score">12,200</div>
-              <div class="xl-gt-cell score">3,480</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell score">ORD-10043</div>
-              <div class="xl-gt-cell score">07/01/2025</div>
-              <div class="xl-gt-cell score">West</div>
-              <div class="xl-gt-cell score">Services</div>
-              <div class="xl-gt-cell score">6,750</div>
-              <div class="xl-gt-cell score">2,550</div>
-            </div>
-          </div>
-          <div class="xl-gt-caption">One row per transaction. No merged cells. No blank header columns. No subtotal rows inside the data. This is what Claude expects.</div>
-        </div>
-
-        <div class="steps-list">
-          <div class="step-row">
-            <div class="step-num">01</div>
-            <div class="step-body"><h3>Remove any subtotal or total rows from the source data</h3><p>If your export from your ERP or CRM includes summary rows at the bottom of each group, delete them. Pivot tables calculate their own totals — leaving pre-calculated rows in the source data causes double-counting that is notoriously difficult to spot.</p></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">02</div>
-            <div class="step-body"><h3>Make sure date columns are formatted as dates, not text</h3><p>A column that looks like a date but is stored as text — common in CSV exports — will not group by month or quarter in a pivot table. In Excel, select the column and check the format dropdown in the Home ribbon. If it shows "General" or "Text", convert it using the DATEVALUE function or Text to Columns.</p></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">03</div>
-            <div class="step-body"><h3>Standardise category labels before pivoting</h3><p>"North", "NORTH", and "North Region" will appear as three separate rows in a pivot. A quick find-and-replace or a helper column with a TRIM+PROPER formula fixes this in minutes. This is exactly the kind of preparation the <a href="/claude-excel-clean-data.html" style="color:#374151;font-weight:500">data cleaning course</a> covers systematically.</p></div>
-          </div>
-        </div>
-
-        <h3>Common Source Data Problems and Fixes</h3>
-        <div class="xl-grade-table">
-          <div class="xl-gt-header-bar" style="grid-template-columns:44px 1fr 1fr 1fr">
-            <div class="xl-gt-col-h"></div>
-            <div class="xl-gt-col-h">A</div>
-            <div class="xl-gt-col-h">B</div>
-            <div class="xl-gt-col-h">C</div>
-          </div>
-          <div class="xl-gt-rows">
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">1</div>
-              <div class="xl-gt-cell hdr">Problem</div>
-              <div class="xl-gt-cell hdr">Symptom in Pivot</div>
-              <div class="xl-gt-cell hdr">Fix</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell score">Dates stored as text</div>
-              <div class="xl-gt-cell score">No Group by Month option; all dates appear individually</div>
-              <div class="xl-gt-cell score">Convert with DATEVALUE or Text to Columns</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell score">Inconsistent category labels</div>
-              <div class="xl-gt-cell score">Same category appears in multiple rows with different names</div>
-              <div class="xl-gt-cell score">TRIM + PROPER helper column, then find-and-replace</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell score">Subtotal rows in source data</div>
-              <div class="xl-gt-cell score">Grand Total double-counts the subtotals</div>
-              <div class="xl-gt-cell score">Delete all rows where Order ID is blank or says "Total"</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">5</div>
-              <div class="xl-gt-cell score">Merged cells in header row</div>
-              <div class="xl-gt-cell score">PivotTable Fields pane shows blank column names</div>
-              <div class="xl-gt-cell score">Unmerge and give each column a unique header</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="highlight-box">
-          <div class="highlight-icon"><i class="ti ti-bulb"></i></div>
-          <div class="highlight-text"><strong>Tip:</strong> Paste 5–10 rows of your actual source data into the prompt alongside your column headers. Claude will reference your real column names in the layout instructions — "put <strong>Region</strong> in Rows, <strong>Category</strong> in Columns" — which is far easier to follow than generic instructions that don't match what you see on screen.</div>
-        </div>
-      </div>
-
-      <!-- SECTION 2 -->
-      <div id="seo-sec-2" class="seo-section">
-        <h2>The Exact Claude Prompt for Pivot Table Design</h2>
-        <p>Copy this prompt into Claude. The more clearly you describe what question the pivot should answer, the more precise the layout specification will be. "I want to see revenue by region and category with gross margin" is enough to get a complete, usable result.</p>
-
-        <div class="prompt-block">
-          <div class="prompt-block-label">Prompt — paste into Claude</div>
-          <div class="prompt-block-text">I need to build a pivot table report in Excel. Here is my source data structure and reporting goal.
-
-MY DATA (paste a sample of 5–10 rows including headers):
-[Paste your header row and sample rows here]
-
-REPORTING GOAL:
-[Describe what you want to see — e.g. "Revenue by Region and Product Category, with gross margin percentage, filtered to the current year"]
-
-CALCULATED FIELDS NEEDED (if any):
-[e.g. "Gross Margin % = (Revenue − COGS) / Revenue" — or leave blank if none]
-
-DATE GROUPING (if your data has a date column):
-[e.g. "Group dates by Month and Quarter" — or "No date grouping needed"]
-
-FILTER REQUIREMENTS:
-[e.g. "Filter by Year (current year selected by default)" — or "No filters needed"]
-
-Rules:
-- Use only the column names from my actual data. Do not invent columns that are not present.
-- If a calculated field requires a column that does not exist in my data, say so explicitly rather than assuming the data is there.
-- Specify field placement exactly: which fields go in the Rows area, Columns area, Values area, and Filters area of the PivotTable Fields pane.
-- For each Values field, specify the summarisation type (Sum, Count, Average) and the number format (e.g. Currency £, Percentage 1dp).
-- If date grouping is requested, give the exact steps to set it up (right-click the date field → Group → select grouping level).
-- Write out the exact formula for any calculated field to enter in PivotTable Analyze → Fields, Items & Sets → Calculated Field.
-
-Output:
-1. Pivot table layout specification (Rows / Columns / Values / Filters)
-2. Step-by-step setup instructions for Excel
-3. Calculated field formulas (if applicable)
-4. Recommended sort order and number formatting for each Values field
-5. One suggested slicer to add for interactive filtering (based on my data)</div>
-          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
-        </div>
-
-        <h2>The Real Value Is in the Calculated Fields</h2>
-        <p>Anyone can drag fields into a pivot table. The part that slows people down is calculated fields — pivot-native formulas that compute a new metric from the values already in the table. Gross margin percentage is the classic example. Average order value is another. Neither exists as a column in your raw data, but both are derivable from columns that do exist.</p>
-        <p>The problem is that Excel's calculated field dialog is unintuitive, and the formula syntax is different from regular cell formulas. You can't reference a specific cell. You reference field names in quotes or by clicking them in the list. Getting this wrong produces a result that looks plausible but is mathematically incorrect — usually because Excel is applying the formula to individual rows before summing, rather than to the summed totals. Claude's prompt output specifies which approach to use and flags when a metric cannot be safely implemented as a calculated field (in which case a helper column in the source data is the better route).</p>
-
-        <h2>Frequently Asked Questions</h2>
-        <div class="faq-section">
-          <div class="faq-item">
-            <div class="faq-q">Can Claude build the actual pivot table inside Excel for me?</div>
-            <div class="faq-a">Claude cannot interact with Excel directly — it works with the data and description you provide in the prompt. What it produces is a complete layout specification: which fields go where, what calculated fields to add, and how to group dates. You then build the table from those instructions, which takes about two minutes.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">What data format does Claude need for pivot table design?</div>
-            <div class="faq-a">Claude needs a flat table — one row per transaction or record, with consistent column headers. Merged cells, subtotal rows, and blank header columns will cause problems. If your source data has any of these, describe them in the prompt and Claude will suggest a cleaning step first.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">How do I add a calculated field like gross margin % to a pivot table?</div>
-            <div class="faq-a">Ask Claude to include it in the prompt. A calculated field is defined as a formula using other value fields. Claude writes the exact formula to enter in the PivotTable Analyze tab → Fields, Items &amp; Sets → Calculated Field dialog, so you're not guessing at the syntax.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">My pivot table shows (blank) rows — how do I fix this?</div>
-            <div class="faq-a">Blank rows usually mean the source data has empty cells in the field you've put in Rows. Ask Claude to identify which column is causing the blanks and suggest a fix — typically a find-and-replace or a helper column that fills missing values before the pivot is built.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">Can I use Claude to redesign an existing pivot table report?</div>
-            <div class="faq-a">Yes. Describe the current layout and what's wrong with it — too many rows, wrong grouping, a missing metric — and Claude will specify a revised structure. Paste in a sample of the underlying data so Claude can reference the actual column names rather than working from a description alone.</div>
-          </div>
-        </div>
-
-        <h2>Related Excel Courses</h2>
-        <div class="related-courses">
-          <a href="/claude-excel-dynamic-reports.html" class="related-card">
-            <div class="related-card-title">Convert Manual Reports into Dynamic Models in Excel with Claude AI</div>
-            <div class="related-card-tag">Excel · Reporting</div>
-          </a>
-          <a href="/claude-excel-clean-data.html" class="related-card">
-            <div class="related-card-title">Clean and Standardise Imported Data in Excel with Claude AI</div>
-            <div class="related-card-tag">Excel · Data Prep</div>
-          </a>
-          <a href="/build-financial-kpi-dashboard-excel-claude.html" class="related-card">
-            <div class="related-card-title">Build a Financial KPI Dashboard in Excel with Claude AI</div>
-            <div class="related-card-tag">Excel · Finance</div>
-          </a>
-        </div>
-
-        <div class="info-box"><p>Browse the full <a href="/ai-for-excel.html" style="color:#085041;font-weight:600">AI for Excel</a> course library for more data analysis and reporting workflows.</p></div>
-      </div>
-
-      <!-- SECTION 3: QUIZ -->
-      <div id="seo-sec-3" class="seo-section">
-        <div id="quiz-interactive-container"></div>
-      </div>
-
-    </div>
-    <div class="content-footer">
-      <button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button>
-      <button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>
-    </div>
+  <div class="related-title">Related workflows</div>
+  <div class="related-grid">
+    
+    <a href="/claude-excel-xlookup.html" class="related-link">
+      <strong>Fix XLOOKUP Errors with Claude</strong>
+      <span>Debug #N/A errors and write XLOOKUP from plain English.</span>
+    </a>
+    <a href="/claude-excel-if-ifs.html" class="related-link">
+      <strong>Write IF and IFS Formulas</strong>
+      <span>Build clean conditional formulas without the syntax headache.</span>
+    </a>
+    <a href="/claude-excel-clean-data.html" class="related-link">
+      <strong>Clean Data in Excel with Claude</strong>
+      <span>Fix text dates, remove spaces and standardise values.</span>
+    </a>
+    <a href="/prompt-generator-excel.html" class="related-link">
+      <strong>Excel Prompt Generator</strong>
+      <span>Build a custom Claude prompt for any Excel task in seconds.</span>
+    </a>
   </div>
 </div>
-</div></div>
-
-<footer style="background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0">
-<div style="max-width:1100px; margin:0 auto">
-<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Guides by Role</strong>
-<a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Finance Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for HR Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Marketing Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Legal Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Operations Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Sales Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Customer Service</a>
-<a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Excel</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Prompt Tools</strong>
-<a href="https://www.pairworkflows.com/claude-prompts-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Excel Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Finance Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">HR Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Marketing Prompt Builder</a>
-<a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">General Prompt Library</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Resources</strong>
-<a href="https://www.pairworkflows.com/claude-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Claude Courses</a>
-<a href="https://www.pairworkflows.com/gemini-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Gemini Courses</a>
-<a href="https://www.pairworkflows.com/glossary.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI Glossary</a>
-<a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Claude vs Gemini</a>
-<a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company &amp; Legal</strong>
-<a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
-<a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
-<a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
-<a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Privacy Policy</a>
-<a href="https://www.pairworkflows.com/legal.html#terms" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Terms of Use</a>
-<a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Cookie Policy</a>
-</div>
-</div>
-<div style="text-align:center; margin-bottom:2rem">
-<p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:520px; margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p>
-</div>
-<div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem">
-<span style="font-size:13px; color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
-<div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
-<button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-  Copy link
-</button>
-<a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-  <span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span>
-</a>
-<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn">
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-</a>
-<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-</a>
-</div>
-</div>
-</div>
-</footer>
 
 <script>
-var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
-var heroes=[
-  {tag:'Section 01',title:'What the finished pivot table report looks like'},
-  {tag:'Section 02',title:'Prepare your source data'},
-  {tag:'Section 03',title:'The prompt, FAQ & related courses'},
-  {tag:'Section 04 — Quiz',title:'Test your understanding'}
-];
-var quiz=[
-  {q:'Your date column is stored as text in the source data. What symptom will you see in the pivot table?',
-   opts:['The pivot table refuses to include the column in the Rows area','The Group by Month option is unavailable — all dates appear individually','Dates appear as numbers like 45291 instead of formatted dates'],
-   correct:1},
-  {q:'You want to show Gross Margin % in a pivot table. Revenue and COGS are columns in your source data. What is the correct approach?',
-   opts:['Use a GETPIVOTDATA formula in a cell beside the pivot table','Add a Gross Margin % column to the source data before building the pivot','Create a calculated field in the pivot using the formula (Revenue − COGS) / Revenue'],
-   correct:2},
-  {q:'Your source data export from the CRM includes subtotal rows at the bottom of each sales rep\'s section. What should you do before building the pivot?',
-   opts:['Delete them — they will cause double-counting in the pivot Grand Total','Move them to a separate sheet so they\'re available for reference','Leave them in — pivot tables ignore rows without an Order ID'],
-   correct:0},
-  {q:'The prompt instructs Claude to flag when a metric "cannot be safely implemented as a calculated field." What is the likely alternative it suggests?',
-   opts:['Switch to Power Query to compute the metric before loading into the pivot','Add a helper column to the source data, then use that column as a Values field','Use a SUMPRODUCT formula outside the pivot instead'],
-   correct:1}
-];
-function buildQuizHTML(){
-  if(quizDone){
-    var score=0;
-    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
-    var msgs=['Review the data preparation section — source data quality is what makes or breaks a pivot table.','Good progress — revisit the calculated fields section and the data problem table to sharpen the details.','Almost perfect — one concept to revisit before your pivot tables start looking this clean.','Full marks — you\'re ready to design pivot reports that don\'t need rebuilding every month.'];
-    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
-  }
-  var html='';
-  for(var i=0;i<quiz.length;i++){
-    var q=quiz[i];
-    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
-    for(var j=0;j<q.opts.length;j++){
-      var cls='opt';
-      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
-      else if(sel[i]===j)cls+=' selected';
-      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
-    }
-    html+='</div>';
-  }
-  var allSel=Object.keys(sel).length===quiz.length;
-  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
-  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
-  return html;
+function switchTab(btn,id){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  btn.classList.add('on');
+  document.getElementById('p-'+id).classList.add('on');
 }
-function render(){
-  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
-  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
-  document.getElementById('heroTag').textContent=heroes[cur].tag;
-  document.getElementById('heroTitle').textContent=heroes[cur].title;
-  for(var i=0;i<4;i++){
-    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),sec=document.getElementById('seo-sec-'+i);
-    ni.className='nav-item'+(i===cur?' active':'');
-    if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');
-    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
-    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
-    else{nd.className='nav-dot';nd.textContent=(i+1);}
-  }
-  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
-  document.getElementById('btnBack').disabled=(cur===0);
-  var fwd=document.getElementById('btnFwd');
-  if(cur===3){fwd.style.display='none';}
-  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
+function copyPrompt(btn){
+  var text=btn.previousElementSibling.innerText;
+  navigator.clipboard.writeText(text);
+  btn.innerHTML='<i class="ti ti-check" style="font-size:12px"></i> Copied!';
+  setTimeout(function(){btn.innerHTML='<i class="ti ti-copy" style="font-size:12px"></i> Copy';},2000);
 }
-function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
-function goFwd(){if(cur<3)go(cur+1);}
-function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
-function showResult(){quizDone=true;render();}
-function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
-function copyPrompt(btn){var block=btn.closest('.prompt-block');var text=block.querySelector('.prompt-block-text').innerText;navigator.clipboard.writeText(text);btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);}
-function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
+function toggleFaq(q){
+  q.classList.toggle('open');
+  q.nextElementSibling.classList.toggle('open');
+}
 function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
 function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
-document.getElementById('cnt').addEventListener('click',function(e){
-  if(cur!==3||quizSubmitted||quizDone)return;
-  var opt=e.target.closest('.opt');
-  if(!opt)return;
-  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
-  render();
-});
-render();
 </script>
 </body>
 </html>
