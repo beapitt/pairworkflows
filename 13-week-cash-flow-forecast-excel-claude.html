@@ -3,451 +3,197 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>13 Week Cash Flow Forecast Excel Template — PairWorkflows</title>
-<meta name="description" content="Build a 13-week cash flow forecast in Excel using Claude AI. Get a week-by-week projection of receipts, payments, and closing balances.">
+<title>13-Week Cash Flow Forecast in Excel with Claude AI — PairWorkflows</title>
+<meta name="description" content="Build a 13-week cash flow forecast in Excel with Claude AI — weekly receipts, payments, and closing balances with an at-risk scenario.">
 <link rel="canonical" href="https://www.pairworkflows.com/13-week-cash-flow-forecast-excel-claude.html">
-<meta property="og:title" content="13 Week Cash Flow Forecast Excel Template — PairWorkflows">
-<meta property="og:description" content="Use Claude AI to build a rolling 13-week cash flow forecast in Excel with receipts, disbursements, and closing cash balances.">
-<meta property="og:url" content="https://www.pairworkflows.com/13-week-cash-flow-forecast-excel-claude.html">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="PairWorkflows">
-<meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Build a 13 Week Cash Flow Forecast Excel Template","description":"Build a 13-week cash flow forecast in Excel using Claude AI. Get a week-by-week projection of receipts, payments, and closing balances.","url":"https://www.pairworkflows.com/13-week-cash-flow-forecast-excel-claude.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why 13 weeks and not 12 or 26?","acceptedAnswer":{"@type":"Answer","text":"Thirteen weeks equals one fiscal quarter. It's short enough to forecast with reasonable accuracy but long enough to flag upcoming liquidity gaps before they become emergencies. Most lenders and boards expect this exact horizon."}},{"@type":"Question","name":"Can I extend this forecast beyond 13 weeks?","acceptedAnswer":{"@type":"Answer","text":"Yes. Add columns for weeks 14–26 and feed in your projected figures. Accuracy declines the further out you go, so many teams keep weeks 1–4 at line-item detail and use broader categories for weeks 5–13+."}},{"@type":"Question","name":"How do I handle uncertain receipts like overdue invoices?","acceptedAnswer":{"@type":"Answer","text":"Include them in a separate row labelled 'At-risk receipts' with a probability weighting. For example, a £20,000 invoice at 50% probability enters the forecast as £10,000. Flag these rows so reviewers can see the assumption."}},{"@type":"Question","name":"Will Claude pull live bank data for the forecast?","acceptedAnswer":{"@type":"Answer","text":"No. Claude works with the data you provide. Export your current bank balance and upcoming commitments from your accounting system, then paste them into the prompt. Claude structures the forecast — it does not connect to external systems."}},{"@type":"Question","name":"How often should I update a 13-week cash flow forecast?","acceptedAnswer":{"@type":"Answer","text":"Weekly. Each Monday, replace the actuals for the week just ended, extend the forecast by one week, and adjust any projected figures that have changed. This keeps the model rolling and accurate."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"><link rel="stylesheet" href="/global-fix.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="/global-fix.css">
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
-.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
-.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
-.logo-workflows{font-size:16px;font-weight:400;color:#fff}
-.nav-right{display:flex;align-items:center;gap:16px}
-.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
-.nav-back:hover{color:#1d9e75}
-.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
-.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
-.course-shell{background:#fff;border-radius:16px;border:1px solid #e8ecef;overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
-.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
-.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
-.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
-.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
-.prog-wrap{padding:1rem 1.25rem .75rem}
-.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
-.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
-.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
-.nav-list{padding:.5rem 0;flex:1}
-.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
-.nav-item:hover{background:#eef1f4}
-.nav-item.active{border-left-color:#1d9e75;background:#fff}
-.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
-.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
-.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
-.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
-.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
-.content-area{display:flex;flex-direction:column;min-width:0;overflow:hidden}
-.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
-.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
-.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
-.content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
-.seo-section{display:none}
-.seo-section.active-section{display:block}
-.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
-.seo-section h1{font-size:24px;font-weight:600;color:#1a1a2e;margin-bottom:1rem;line-height:1.3;display:none;}
-.seo-section h2{font-size:18px;font-weight:600;color:#1a1a2e;margin-bottom:.75rem;line-height:1.35}
-.seo-section h3{font-size:15px;font-weight:600;color:#1a1a2e;margin-bottom:.5rem;line-height:1.4}
-.xl-grade-table{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.xl-gt-header-bar{background:#f3f3f3;border-bottom:1px solid #d0d0d0;padding:4px 0;display:grid}
-.xl-gt-col-h{font-size:11px;font-weight:600;color:#595959;text-align:center;padding:3px 0;border-right:1px solid #e0e0e0}
-.xl-gt-col-h:last-child{border-right:none}
-.xl-gt-rows{display:flex;flex-direction:column}
-.xl-gt-row{display:grid;border-bottom:1px solid #e8e8e8}
-.xl-gt-row:last-child{border-bottom:none}
-.xl-gt-row-num{font-size:11px;color:#595959;text-align:right;padding:7px 8px;background:#f3f3f3;border-right:1px solid #d0d0d0;font-weight:500}
-.xl-gt-cell{font-size:12px;font-family:'Inter',sans-serif;padding:7px 10px;border-right:1px solid #e8e8e8;display:flex;align-items:center}
-.xl-gt-cell:last-child{border-right:none}
-.xl-gt-cell.hdr{background:#f3f3f3;font-weight:600;color:#374151;font-size:11px}
-.xl-gt-cell.score{color:#374151;font-weight:500}
-.xl-gt-cell.matched{background:#c6efce;color:#276221;font-weight:600;justify-content:center}
-.xl-gt-cell.unmatched{background:#ffc7ce;color:#9c0006;font-weight:600;justify-content:center}
-.xl-gt-cell.partial{background:#ffeb9c;color:#9c6500;font-weight:600;justify-content:center}
-.xl-gt-caption{background:#f8fafc;border-top:1px solid #e2e8f0;padding:8px 14px;font-size:11px;color:#64748b;font-style:italic}
-.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
-.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
-.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
-.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
-.highlight-text{font-size:13px;color:#374151;line-height:1.65}
-.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
-.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
-.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
-.feature-list{list-style:none;padding:0;margin:0 0 1.25rem}
-.feature-list li{padding:.5rem 0 .5rem 1.25rem;position:relative;font-size:14px;color:#374151;border-bottom:1px solid #f0f2f5;line-height:1.6}
-.feature-list li:last-child{border-bottom:none}
-.feature-list li::before{content:'▸';position:absolute;left:0;color:#1d9e75;font-size:13px}
-.steps-list{display:flex;flex-direction:column;gap:0;margin:1rem 0}
-.step-row{display:flex;gap:16px;padding:1.1rem 0;border-bottom:1px solid #f0f2f5}
-.step-row:last-child{border-bottom:none}
-.step-num{font-size:26px;font-weight:700;color:#d1fae5;line-height:1;flex-shrink:0;width:36px;text-align:right;padding-top:2px}
-.step-body h3{font-size:14px;font-weight:600;color:#085041;margin-bottom:.3rem}
-.step-body p{font-size:13px;color:#374151;line-height:1.75;margin:0}
-.step-body code{background:#f0fdf4;color:#0f6e56;padding:1px 6px;border-radius:4px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;border:1px solid #d1fae5}
-.prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
-.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
-.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
-.prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}
-.prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#fff}
-.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;border-radius:12px;padding:1.25rem;margin:1.5rem 0}
-.checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
-.checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
-.checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
-.faq-section{margin:1.5rem 0}
-.faq-item{border-bottom:1px solid #f0f2f5;padding:.85rem 0}
-.faq-item:last-child{border-bottom:none}
-.faq-q{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:.35rem}
-.faq-a{font-size:13px;color:#374151;line-height:1.7}
-.related-courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:1rem 0}
-.related-card{border:1px solid #e8ecef;border-radius:10px;padding:1rem;transition:all .15s;text-decoration:none;color:#1a1a2e}
-.related-card:hover{border-color:#1d9e75;background:#f5fdf9}
-.related-card-title{font-size:13px;font-weight:500;line-height:1.4;margin-bottom:.25rem}
-.related-card-tag{font-size:11px;color:#6b7280}
-.quiz-q{margin-bottom:1.5rem}
-.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
-.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
-.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
-.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}
-.opt.selected .radio{border-color:#1d9e75;background:#1d9e75}
-.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}
-.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
-.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
-.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
-.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
-.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}
-.submit-global:hover{background:#0f6e56}
-.submit-global:disabled{opacity:.35;cursor:default}
-.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
-.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
-.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
-.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
-.retake-btn:hover{background:#e1f5ee}
-.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc;flex-shrink:0}
-.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}
-.btn-back:hover{background:#f0f2f5}
-.btn-back:disabled{opacity:.35;cursor:default}
-.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
-.btn-fwd:hover{background:#0f6e56}
+body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:100vh;display:flex;flex-direction:column}
+
+/* PAGE */
+.page{max-width:1300px;margin:0 auto;width:100%;padding:2rem 2.5rem 4rem;flex:1}
+
+/* ── HERO ── */
+.hero{margin-bottom:2rem}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#0f6e56;background:#e1f5ee;border:1px solid #a7f3d0;border-radius:20px;padding:4px 12px;margin-bottom:.9rem}
+.hero h1{font-size:32px;font-weight:700;line-height:1.2;color:#111827;margin-bottom:.6rem;letter-spacing:-.5px}
+.hero h1 span{color:#1d9e75}
+.hero-sub{font-size:15px;color:#6b7280;line-height:1.65;max-width:600px}
+
+/* ── PROMPT SELECTOR ── */
+.prompt-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.prompt-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.75rem}
+.prompt-card-label{font-size:13px;font-weight:600;color:#374151}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{padding:6px 14px;border-radius:7px;border:1.5px solid #e5e7eb;background:#f9fafb;font-size:12px;font-weight:500;color:#6b7280;cursor:pointer;transition:all .15s;font-family:inherit}
+.tab:hover{border-color:#1d9e75;color:#0f6e56}
+.tab.on{background:#1d9e75;border-color:#1d9e75;color:#fff;font-weight:600}
+.panel{display:none}
+.panel.on{display:block}
+.prompt-box{background:#0f172a;border-radius:10px;padding:1.25rem 1.25rem 1rem;position:relative}
+.prompt-box pre{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#e2e8f0;line-height:1.7;white-space:pre-wrap;word-break:break-word;padding-right:70px;max-height:220px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent}
+.prompt-box pre::-webkit-scrollbar{width:6px}
+.prompt-box pre::-webkit-scrollbar-track{background:transparent}
+.prompt-box pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:3px}
+.copy-btn{position:absolute;top:.75rem;right:.75rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-weight:500;font-family:inherit;cursor:pointer;padding:5px 12px;transition:all .15s;display:flex;align-items:center;gap:5px}
+.copy-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+.prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
+.prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
+.prompt-hint a:hover{text-decoration:underline}
+
+/* ── BEFORE / AFTER VISUAL ── */
+.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
+.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.ba-col.before{border-color:#fca5a5}
+.ba-col.after{border-color:#6ee7b7}
+.ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
+.ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
+.ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
+.ba-body{padding:14px}
+.xl-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
+.xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
+.xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
+.xl-table .err-cell{color:#dc2626;font-weight:700;background:#fef2f2}
+.xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
+.xl-table .hl{background:#fffbeb}
+.xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
+.xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+.claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
+.claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
+.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
+
+/* ── DIAGNOSIS TABLE ── */
+.diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.diag-header{background:#fef2f2;border-bottom:1px solid #fecaca;padding:12px 18px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#dc2626}
+.diag-row{display:grid;grid-template-columns:180px 1fr 90px;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid #f9fafb}
+.diag-row:last-child{border-bottom:none}
+.diag-row:nth-child(even){background:#fafafa}
+.diag-cause{font-size:13px;font-weight:600;color:#1f2937}
+.diag-example{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#6b7280;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.diag-example .bad{color:#dc2626;font-weight:600;background:#fef2f2;padding:1px 5px;border-radius:3px}
+.diag-example .good{color:#059669;font-weight:600;background:#f0fdf4;padding:1px 5px;border-radius:3px}
+.diag-badge{font-size:10px;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;white-space:nowrap}
+.badge-red{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+.badge-yellow{background:#fffbeb;color:#b45309;border:1px solid #fde68a}
+
+/* ── STEPS ── */
+.steps-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.steps-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+.step{display:flex;gap:16px;padding:.9rem 0;border-bottom:1px solid #f3f4f6}
+.step:last-child{border-bottom:none}
+.step-n{width:28px;height:28px;border-radius:8px;background:#e1f5ee;color:#0f6e56;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body h3{font-size:13px;font-weight:600;color:#1f2937;margin-bottom:.25rem}
+.step-body p{font-size:13px;color:#6b7280;line-height:1.65}
+.step-body code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
+
+/* ── INFO BOXES ── */
+.tip{background:#fffbeb;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#92400e;line-height:1.65}
+.tip strong{color:#78350f}
+.note{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#065f46;line-height:1.65}
+.warn{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#7f1d1d;line-height:1.65}
+.warn strong{color:#991b1b}
+
+/* ── FAQ ── */
+.faq-section{margin-bottom:1.75rem}
+.faq-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1rem}
+.faq-item{border-bottom:1px solid #f3f4f6;padding:.9rem 0}
+.faq-q{font-size:13px;font-weight:600;color:#1f2937;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-q i{color:#9ca3af;transition:transform .2s;flex-shrink:0}
+.faq-q.open i{transform:rotate(180deg)}
+.faq-a{font-size:13px;color:#6b7280;line-height:1.7;display:none;padding-top:.6rem}
+.faq-a.open{display:block}
+.faq-a code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
+
+/* ── RELATED ── */
+.related-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af;margin-bottom:.75rem}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.related-link{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:.9rem 1rem;text-decoration:none;transition:border-color .15s}
+.related-link:hover{border-color:#1d9e75}
+.related-link strong{display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem}
+.related-link span{display:block;font-size:12px;color:#9ca3af;line-height:1.4}
+
+/* ── SEARCH ── */
 #searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
 #searchOverlay.open{display:flex}
 .search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
-.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
-.search-close-btn:hover{color:#fff}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px}
 .search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
 .search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
-.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:inherit}
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
-.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
-.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:2rem}
-.page-footer a{color:#1d9e75;text-decoration:none}
-.page-footer a:hover{text-decoration:underline}
-@media(max-width:700px){
-  .navbar{padding:0 1rem}
-  .page-wrap{padding:1rem .5rem}
-  .course-shell{grid-template-columns:1fr}
-  .sidebar{display:none}
-  .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
-  .content-footer{padding:1rem}
-  .section-hero{padding:1.25rem 1rem}
-  .xl-gt-header-bar{grid-template-columns:36px repeat(6,1fr)}
-  .xl-gt-row{grid-template-columns:36px repeat(6,1fr)}
-  .xl-gt-cell{font-size:11px;padding:6px 6px}
-  .related-courses{grid-template-columns:1fr}
-  .seo-section p{word-break:break-word;overflow-wrap:break-word}
+
+@media(max-width:640px){
+  .hero h1{font-size:24px}
+  .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
+  .diag-row{grid-template-columns:1fr 1fr;gap:8px}
+  .diag-example{display:none}
+  .related-grid{grid-template-columns:1fr}
+  .page{padding:1.5rem 1rem 3rem}
 }
-.page-wrap-fix{max-width:1100px;margin:2rem auto;padding:0 1rem}.course-wrap-outer{width:100%}</style>
-<script defer src="/_vercel/insights/script.js"></script>
+</style>
 </head>
 <body>
+
 <div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
-<div class="search-overlay-inner">
-<button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
-<form action="/search.html" method="get">
-<div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
-</form>
-<p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
+  <div class="search-overlay-inner">
+    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+    <form action="/search.html" method="get">
+      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search workflows, prompts, and guides..." autocomplete="off"></div>
+    </form>
+  </div>
 </div>
-</div>
+
 <div id="navbar-placeholder"></div>
-<script src="/navbar.js"></script><script src="/footer.js"></script><script src="/footer.js"></script>
+<script src="/navbar.js"></script>
+<script src="/footer.js"></script>
+
 <noscript>
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
-<a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a>
-<a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a>
-<a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a>
-<a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a>
-<a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a>
-<a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a>
-<a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a>
-<a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
+<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
-<div class="page-wrap">
-<div class="page-wrap-fix"><div class="course-wrap-outer"><div class="course-shell">
-  <div class="sidebar">
-    <div class="sidebar-top">
-      <div class="course-label">Claude AI — Excel / Finance</div>
-      <h1 class="course-title-side">13 Week Cash Flow Forecast Excel Template</h1>
-    </div>
-    <div class="prog-wrap">
-      <div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
-      <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
-    </div>
-    <div class="nav-list">
-      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">The finished forecast</div></div>
-      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">Prepare your data</div></div>
-      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompt, FAQ &amp; related</div></div>
-      <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quick quiz</div></div>
-    </div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow"><i class="ti ti-calendar-stats" style="font-size:12px"></i> Excel · Claude AI</div>
+    <h1>Build a 13-Week Cash Flow Forecast in Excel with Claude AI</h1>
+    <p class="hero-sub">Paste your bank balance, expected receipts, and planned payments into Claude. It builds a week-by-week forecast for a full quarter — with a worst-case scenario that strips out at-risk receipts, so you see exactly which week cash runs tight.</p>
   </div>
 
-  <div class="content-area">
-    <div class="section-hero">
-      <div class="section-tag" id="heroTag">Section 01</div>
-      <h2 id="heroTitle">What the finished 13-week forecast looks like</h2>
+  <!-- PROMPT SELECTOR -->
+  <div class="prompt-card">
+    <div class="prompt-card-top">
+      <span class="prompt-card-label">Choose your situation — copy the prompt:</span>
+      <div class="tabs">
+        <button class="tab on" onclick="switchTab(this,'build')">🏗️ Build the forecast</button>
+        <button class="tab" onclick="switchTab(this,'risk')">⚠️ Model at-risk receipts</button>
+        <button class="tab" onclick="switchTab(this,'extend')">📅 Extend to 26 weeks</button>
+      </div>
     </div>
-    <div class="content-body" id="cnt">
 
-      <div id="seo-sec-0" class="seo-section active-section">
-      <p>This course gives you a Claude prompt that turns your current bank balance, expected receipts, and planned disbursements into a week-by-week cash flow forecast spanning one full quarter. You'll get a finished Excel layout with opening balances, net movement, and closing cash for each of the 13 weeks — ready to share with your CFO or lender.</p>
+    <div id="p-build" class="panel on">
+      <div class="prompt-box">
+        <pre>ROLE
+You are a treasury analyst building a 13-week cash flow forecast in Excel.
 
-        <h2>What Your Finished 13-Week Cash Flow Forecast Looks Like</h2>
-        <p>Below is the output Claude produces. Each week shows cash in, cash out, and the resulting closing balance. The model rolls forward automatically — week 2's opening balance is week 1's closing balance.</p>
+OBJECTIVE
+Turn my current bank balance, expected receipts, and planned payments into a
+week-by-week cash flow forecast spanning one full quarter (13 weeks).
 
-        <div class="xl-grade-table">
-          <div class="xl-gt-header-bar" style="grid-template-columns:44px repeat(6,1fr)">
-            <div class="xl-gt-col-h"></div>
-            <div class="xl-gt-col-h">A</div>
-            <div class="xl-gt-col-h">B</div>
-            <div class="xl-gt-col-h">C</div>
-            <div class="xl-gt-col-h">D</div>
-            <div class="xl-gt-col-h">E</div>
-            <div class="xl-gt-col-h">F</div>
-          </div>
-          <div class="xl-gt-rows">
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">1</div>
-              <div class="xl-gt-cell hdr">Week</div>
-              <div class="xl-gt-cell hdr">Week Starting</div>
-              <div class="xl-gt-cell hdr">Opening Bal</div>
-              <div class="xl-gt-cell hdr">Total In</div>
-              <div class="xl-gt-cell hdr">Total Out</div>
-              <div class="xl-gt-cell hdr">Closing Bal</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell score">1</div>
-              <div class="xl-gt-cell score">07/07/2025</div>
-              <div class="xl-gt-cell score">85,000</div>
-              <div class="xl-gt-cell score">42,000</div>
-              <div class="xl-gt-cell score">-31,500</div>
-              <div class="xl-gt-cell matched">95,500</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell score">2</div>
-              <div class="xl-gt-cell score">14/07/2025</div>
-              <div class="xl-gt-cell score">95,500</div>
-              <div class="xl-gt-cell score">18,000</div>
-              <div class="xl-gt-cell score">-54,200</div>
-              <div class="xl-gt-cell partial">59,300</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell score">3</div>
-              <div class="xl-gt-cell score">21/07/2025</div>
-              <div class="xl-gt-cell score">59,300</div>
-              <div class="xl-gt-cell score">36,500</div>
-              <div class="xl-gt-cell score">-28,000</div>
-              <div class="xl-gt-cell matched">67,800</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">5</div>
-              <div class="xl-gt-cell score">4</div>
-              <div class="xl-gt-cell score">28/07/2025</div>
-              <div class="xl-gt-cell score">67,800</div>
-              <div class="xl-gt-cell score">8,500</div>
-              <div class="xl-gt-cell score">-62,000</div>
-              <div class="xl-gt-cell unmatched">14,300</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">6</div>
-              <div class="xl-gt-cell score">…</div>
-              <div class="xl-gt-cell score">…</div>
-              <div class="xl-gt-cell score">…</div>
-              <div class="xl-gt-cell score">…</div>
-              <div class="xl-gt-cell score">…</div>
-              <div class="xl-gt-cell score">…</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(6,1fr)">
-              <div class="xl-gt-row-num">14</div>
-              <div class="xl-gt-cell score">13</div>
-              <div class="xl-gt-cell score">29/09/2025</div>
-              <div class="xl-gt-cell score">41,200</div>
-              <div class="xl-gt-cell score">55,000</div>
-              <div class="xl-gt-cell score">-38,750</div>
-              <div class="xl-gt-cell matched">57,450</div>
-            </div>
-          </div>
-          <div class="xl-gt-caption">Green = closing balance above minimum threshold. Amber = within 30% of minimum. Red = below minimum cash buffer. Thresholds are set in the prompt.</div>
-        </div>
-
-        <ul class="feature-list">
-          <li>Week-by-week view of receipts, disbursements, and net cash position for a full quarter</li>
-          <li>Automatic roll-forward — each week's opening balance equals the prior week's close</li>
-          <li>Colour-coded closing balances that flag weeks where cash drops below your minimum threshold</li>
-          <li>A summary row showing cumulative net cash movement across all 13 weeks</li>
-        </ul>
-
-        <div class="info-box"><p><strong>Where this fits:</strong> The 13-week forecast is one of the core planning tools in our <a href="/ai-for-excel.html" style="color:#085041;font-weight:600">AI for Excel</a> course library. If you already track actuals week-to-week, the <a href="/automate-cash-flow-dashboard-excel-claude.html" style="color:#085041;font-weight:600">cash flow dashboard course</a> shows how to monitor real-time performance against this forecast.</p></div>
-      </div>
-
-      <div id="seo-sec-1" class="seo-section">
-        <h2>Prepare Your Data for a 13-Week Cash Forecast</h2>
-        <p>Claude needs three inputs: your current bank balance, a list of expected cash inflows, and a list of planned outflows. Pull these from your accounting system, AR aging report, and AP schedule. The more specific the timing, the better — "£20,000 expected week of 21 July" is far more useful than "£20,000 sometime in Q3".</p>
-
-        <h3>Expected Cash Inflows</h3>
-        <div class="xl-grade-table">
-          <div class="xl-gt-header-bar" style="grid-template-columns:44px repeat(4,1fr)">
-            <div class="xl-gt-col-h"></div>
-            <div class="xl-gt-col-h">A</div>
-            <div class="xl-gt-col-h">B</div>
-            <div class="xl-gt-col-h">C</div>
-            <div class="xl-gt-col-h">D</div>
-          </div>
-          <div class="xl-gt-rows">
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
-              <div class="xl-gt-row-num">1</div>
-              <div class="xl-gt-cell hdr">Source</div>
-              <div class="xl-gt-cell hdr">Amount</div>
-              <div class="xl-gt-cell hdr">Expected Week</div>
-              <div class="xl-gt-cell hdr">Confidence</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
-              <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell score">Acme Ltd – Inv 1045</div>
-              <div class="xl-gt-cell score">42,000</div>
-              <div class="xl-gt-cell score">Wk 1</div>
-              <div class="xl-gt-cell score">Confirmed</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
-              <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell score">Globex Corp – retainer</div>
-              <div class="xl-gt-cell score">18,000</div>
-              <div class="xl-gt-cell score">Wk 2</div>
-              <div class="xl-gt-cell score">Confirmed</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
-              <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell score">Initech – project milestone</div>
-              <div class="xl-gt-cell score">36,500</div>
-              <div class="xl-gt-cell score">Wk 3</div>
-              <div class="xl-gt-cell score">Probable</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
-              <div class="xl-gt-row-num">5</div>
-              <div class="xl-gt-cell score">Soylent Inc – overdue inv</div>
-              <div class="xl-gt-cell score">8,500</div>
-              <div class="xl-gt-cell score">Wk 4</div>
-              <div class="xl-gt-cell score">At risk</div>
-            </div>
-          </div>
-        </div>
-
-        <h3>Planned Cash Outflows</h3>
-        <div class="xl-grade-table">
-          <div class="xl-gt-header-bar" style="grid-template-columns:44px repeat(4,1fr)">
-            <div class="xl-gt-col-h"></div>
-            <div class="xl-gt-col-h">A</div>
-            <div class="xl-gt-col-h">B</div>
-            <div class="xl-gt-col-h">C</div>
-            <div class="xl-gt-col-h">D</div>
-          </div>
-          <div class="xl-gt-rows">
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
-              <div class="xl-gt-row-num">1</div>
-              <div class="xl-gt-cell hdr">Category</div>
-              <div class="xl-gt-cell hdr">Amount</div>
-              <div class="xl-gt-cell hdr">Payment Week</div>
-              <div class="xl-gt-cell hdr">Frequency</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
-              <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell score">Payroll</div>
-              <div class="xl-gt-cell score">24,000</div>
-              <div class="xl-gt-cell score">Wk 2, 6, 10</div>
-              <div class="xl-gt-cell score">Monthly</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
-              <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell score">Rent</div>
-              <div class="xl-gt-cell score">7,500</div>
-              <div class="xl-gt-cell score">Wk 1</div>
-              <div class="xl-gt-cell score">Monthly</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
-              <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell score">Supplier – raw materials</div>
-              <div class="xl-gt-cell score">15,000</div>
-              <div class="xl-gt-cell score">Wk 2</div>
-              <div class="xl-gt-cell score">One-off</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px repeat(4,1fr)">
-              <div class="xl-gt-row-num">5</div>
-              <div class="xl-gt-cell score">VAT / sales tax</div>
-              <div class="xl-gt-cell score">38,000</div>
-              <div class="xl-gt-cell score">Wk 4</div>
-              <div class="xl-gt-cell score">Quarterly</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="steps-list">
-          <div class="step-row">
-            <div class="step-num">01</div>
-            <div class="step-body"><h3>Start with your actual bank balance</h3><p>Use today's cleared balance, not the ledger balance. The difference between the two often includes uncleared cheques and deposits in transit — those belong as separate line items in week 1.</p></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">02</div>
-            <div class="step-body"><h3>Assign every item to a specific week</h3><p>Vague timing kills forecast accuracy. If you know payroll runs on the 15th, put it in the week that contains the 15th. For uncertain receipts, use your best estimate and mark confidence as "At risk".</p></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">03</div>
-            <div class="step-body"><h3>Separate recurring from one-off items</h3><p>Recurring items (payroll, rent, subscriptions) repeat across multiple weeks. List them once with their frequency — the prompt instructs Claude to replicate them across the right weeks automatically.</p></div>
-          </div>
-        </div>
-
-        <div class="highlight-box">
-          <div class="highlight-icon"><i class="ti ti-bulb"></i></div>
-          <div class="highlight-text"><strong>Tip:</strong> If you maintain a <a href="/rolling-forecast-excel-claude.html" style="color:#374151;font-weight:500">rolling forecast model</a>, use its monthly projections as a cross-check. The 13-week forecast should reconcile to month 1 of the rolling forecast within a reasonable margin.</div>
-        </div>
-      </div>
-
-      <div id="seo-sec-2" class="seo-section">
-        <h2>The Exact Claude Prompt for a 13-Week Cash Flow Forecast</h2>
-        <p>Copy this prompt into Claude. Replace the bracketed sections with your own data. The prompt tells Claude to use only the figures you provide and to flag any week where the closing balance drops below your stated minimum.</p>
-
-        <div class="prompt-block">
-          <div class="prompt-block-label">Prompt — paste into Claude</div>
-          <div class="prompt-block-text">I need to build a 13-week cash flow forecast in Excel. Below are my inputs.
-
+DATA
 CURRENT BANK BALANCE (as of [date]):
 [Enter your cleared bank balance here, e.g. £85,000]
 
@@ -460,268 +206,241 @@ EXPECTED CASH INFLOWS (columns: Source, Amount, Expected Week, Confidence):
 PLANNED CASH OUTFLOWS (columns: Category, Amount, Payment Week, Frequency):
 [Paste your outflows data here — mark Frequency as Weekly / Monthly / Quarterly / One-off]
 
-Rules:
-- Week 1 starts on [enter date, e.g. 07/07/2025]. Each subsequent week starts 7 days later.
-- Opening balance for Week 1 = the bank balance above. Every other week's opening balance = prior week's closing balance.
-- Closing balance = Opening balance + Total inflows − Total outflows for that week.
-- For recurring items: replicate the amount into every applicable week based on the stated frequency.
-- If an inflow is marked "At risk", include it in the forecast but add a separate row showing the forecast WITHOUT at-risk items.
+CONSTRAINTS
+- Week 1 starts on [enter date]. Each subsequent week starts 7 days later.
+- Opening balance for Week 1 = the bank balance above. Every other week's
+  opening balance = prior week's closing balance.
+- Closing balance = Opening balance + Total inflows − Total outflows.
+- For recurring items: replicate the amount into every applicable week based
+  on the stated frequency.
 - Do NOT invent receipts or payments. Use ONLY the data I have provided.
-- Flag any week where the closing balance falls below the minimum cash buffer.
+- Flag any week where the closing balance falls below the minimum buffer.
 
-Output:
-1. A 13-week forecast table with columns: Week | Week Starting | Opening Bal | Total In | Total Out | Closing Bal
-2. A second version of the same table excluding all "At risk" inflows (worst-case scenario)
-3. A summary showing: Total inflows, Total outflows, Net cash movement, Lowest closing balance (and which week), Number of weeks below minimum buffer
-
-Format as an Excel-ready table I can paste directly into a spreadsheet.</div>
-          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
-        </div>
-
-        <h2>Why the 13-Week Horizon Matters</h2>
-        <p>Monthly cash flow statements tell you what happened. Annual budgets tell you what you hope will happen. Neither helps when a £38,000 VAT payment lands in the same week as a delayed client payment. The 13-week forecast sits between the two — granular enough to catch the week-four crunch you can see in the sample output above, but long enough to give you time to arrange a credit line or accelerate collections.</p>
-        <p>Most lenders require a 13-week forecast during covenant discussions or restructuring. Even outside those scenarios, a treasurer who can show the board exactly which week cash dips below the safety buffer — and what drives the recovery — commands far more credibility than one reporting "cash looks tight next quarter".</p>
-
-        <h3>Common Forecast Mistakes</h3>
-        <div class="xl-grade-table">
-          <div class="xl-gt-header-bar" style="grid-template-columns:44px 1fr 1fr 1fr">
-            <div class="xl-gt-col-h"></div>
-            <div class="xl-gt-col-h">A</div>
-            <div class="xl-gt-col-h">B</div>
-            <div class="xl-gt-col-h">C</div>
-          </div>
-          <div class="xl-gt-rows">
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">1</div>
-              <div class="xl-gt-cell hdr">Mistake</div>
-              <div class="xl-gt-cell hdr">Why It Hurts</div>
-              <div class="xl-gt-cell hdr">How to Avoid</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell score">Using ledger balance instead of bank balance</div>
-              <div class="xl-gt-cell score">Overstates available cash by the amount of uncleared items</div>
-              <div class="xl-gt-cell score">Always start with cleared bank balance; list uncleared items separately</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell score">Treating "At risk" receipts as confirmed</div>
-              <div class="xl-gt-cell score">Creates a false sense of liquidity in critical weeks</div>
-              <div class="xl-gt-cell score">Run two scenarios: base case and worst case (the prompt does this)</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:44px 1fr 1fr 1fr">
-              <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell score">Spreading monthly items evenly across weeks</div>
-              <div class="xl-gt-cell score">Masks the actual payment date, hiding intra-month shortfalls</div>
-              <div class="xl-gt-cell score">Pin each disbursement to the specific week it settles</div>
-            </div>
-          </div>
-        </div>
-
-        <h2>Frequently Asked Questions</h2>
-        <div class="faq-section">
-          <div class="faq-item">
-            <div class="faq-q">Why 13 weeks and not 12 or 26?</div>
-            <div class="faq-a">Thirteen weeks equals one fiscal quarter. It's short enough to forecast with reasonable accuracy but long enough to flag upcoming liquidity gaps before they become emergencies. Most lenders and boards expect this exact horizon.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">Can I extend this forecast beyond 13 weeks?</div>
-            <div class="faq-a">Yes. Add columns for weeks 14–26 and feed in your projected figures. Accuracy declines the further out you go, so many teams keep weeks 1–4 at line-item detail and use broader categories for weeks 5–13+.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">How do I handle uncertain receipts like overdue invoices?</div>
-            <div class="faq-a">Include them in a separate row labelled "At-risk receipts" with a probability weighting. For example, a £20,000 invoice at 50% probability enters the forecast as £10,000. Flag these rows so reviewers can see the assumption.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">Will Claude pull live bank data for the forecast?</div>
-            <div class="faq-a">No. Claude works with the data you provide. Export your current bank balance and upcoming commitments from your accounting system, then paste them into the prompt. Claude structures the forecast — it does not connect to external systems.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">How often should I update a 13-week cash flow forecast?</div>
-            <div class="faq-a">Weekly. Each Monday, replace the actuals for the week just ended, extend the forecast by one week, and adjust any projected figures that have changed. This keeps the model rolling and accurate.</div>
-          </div>
-        </div>
-
-        <h2>Related Excel Finance Courses</h2>
-        <div class="related-courses">
-          <a href="/automate-cash-flow-dashboard-excel-claude.html" class="related-card">
-            <div class="related-card-title">Automate a Cash Flow Dashboard in Excel with Claude AI</div>
-            <div class="related-card-tag">Excel · Finance</div>
-          </a>
-          <a href="/rolling-forecast-excel-claude.html" class="related-card">
-            <div class="related-card-title">Build a Rolling Forecast Model in Excel with Claude AI</div>
-            <div class="related-card-tag">Excel · Finance</div>
-          </a>
-          <a href="/bank-reconciliation-excel-claude.html" class="related-card">
-            <div class="related-card-title">Automated Bank Reconciliation in Excel Using Claude AI</div>
-            <div class="related-card-tag">Excel · Finance</div>
-          </a>
-        </div>
-
-        <div class="info-box"><p>Explore all finance and Excel courses on the <a href="/claude-for-finance.html" style="color:#085041;font-weight:600">AI for Finance Teams</a> hub page.</p></div>
+OUTPUT FORMAT
+1. A 13-week forecast table: Week | Week Starting | Opening Bal | Total In |
+   Total Out | Closing Bal
+2. A summary: Total inflows, Total outflows, Net cash movement, Lowest
+   closing balance (and which week), Number of weeks below minimum buffer
+Format as an Excel-ready table I can paste directly into a spreadsheet.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-
-      <div id="seo-sec-3" class="seo-section">
-        <div id="quiz-interactive-container"></div>
-      </div>
-
+      <p class="prompt-hint">Replace all bracketed sections with your real data. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
     </div>
-    <div class="content-footer">
-      <button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button>
-      <button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>
+
+    <div id="p-risk" class="panel">
+      <div class="prompt-box">
+        <pre>My 13-week cash flow forecast includes some uncertain receipts — overdue
+invoices or unconfirmed contracts — currently treated as confirmed cash.
+
+Here is my current inflows list with a Confidence column:
+[Paste: Source, Amount, Expected Week, Confidence (Confirmed / Probable / At risk)]
+
+Please:
+1. Keep the base-case forecast exactly as-is, using all inflows at face value.
+2. Add a second "worst-case" version of the same 13-week table that EXCLUDES
+   all inflows marked "At risk" entirely.
+3. Add a third row showing each at-risk inflow weighted by an assumed
+   probability I provide (e.g. a £20,000 invoice at 50% probability enters
+   the forecast as £10,000).
+4. Flag any week where the worst-case closing balance drops below my minimum
+   cash buffer of £[amount], even if the base case does not.
+
+Do NOT invent probabilities — use only the percentages I specify per line.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
+      </div>
+      <p class="prompt-hint">Run this after the base build — it turns one optimistic forecast into two honest ones.</p>
+    </div>
+
+    <div id="p-extend" class="panel">
+      <div class="prompt-box">
+        <pre>I have a 13-week cash flow forecast and need to extend it to 26 weeks
+(6 months) for a lender or board review.
+
+Here is my existing 13-week forecast:
+[Paste the full Week | Opening | In | Out | Closing table]
+
+New projected inflows and outflows for weeks 14–26:
+[Paste at whatever level of detail you have — weekly for weeks 14–17,
+broader monthly totals divided evenly across weeks 18–26 is acceptable]
+
+Rules:
+- Week 14's opening balance = Week 13's closing balance from my existing table.
+- Keep weeks 1–13 exactly as provided — do not recalculate them.
+- For weeks 18–26 where I've only given monthly totals, divide evenly across
+  the weeks in that month and say so clearly in a note.
+- Flag any week in the extended range where the closing balance drops below
+  my minimum buffer of £[amount].
+
+Output the full 26-week table in the same column format as my original.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
+      </div>
+      <p class="prompt-hint">Treat weeks beyond 13 as directional — accuracy declines the further out you project.</p>
     </div>
   </div>
-</div>
-</div></div>
 
-<footer style="background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0">
-<div style="max-width:1100px; margin:0 auto">
-<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Guides by Role</strong>
-<a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Finance Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for HR Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Marketing Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Legal Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Operations Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Sales Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Customer Service</a>
-<a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Excel</a>
+  <!-- BEFORE / AFTER VISUAL -->
+  <div class="before-after">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — at-risk cash treated as certain</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th></th><th>Wk 3</th><th>Wk 4</th></tr>
+          <tr class="section-row"><td colspan="3">13-Week Forecast</td></tr>
+          <tr><td>Total In</td><td>36,500</td><td class="hl">8,500</td></tr>
+          <tr><td>Total Out</td><td>-28,000</td><td>-62,000</td></tr>
+          <tr><td>Closing Bal</td><td>67,800</td><td class="err-cell">14,300</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          £8,500 "at risk" overdue invoice counted at full value in Week 4
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ No worst-case check — the buffer breach only shows up if that invoice actually pays</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — worst case flags the real risk</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th></th><th>Wk 3</th><th>Wk 4</th></tr>
+          <tr class="section-row"><td colspan="3">Worst-Case Forecast</td></tr>
+          <tr><td>Total In (ex at-risk)</td><td>36,500</td><td class="link-cell">0</td></tr>
+          <tr><td>Total Out</td><td>-28,000</td><td>-62,000</td></tr>
+          <tr><td>Closing Bal</td><td>67,800</td><td class="err-cell">5,800</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's fix</div>
+          <pre>Worst-case Week 4 closing = 14,300 − 8,500
+  = 5,800 — below the £20,000 minimum buffer
+Base case looked fine. Worst case flags the real gap. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIAGNOSIS TABLE -->
+  <div class="diag-card">
+    <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Why the 13-week forecast misses a cash crunch — the 4 most common causes</div>
+    <div class="diag-row">
+      <div class="diag-cause">Ledger balance, not bank</div>
+      <div class="diag-example">Week 1 opening uses <span class="bad">accounting ledger balance</span> instead of <span class="good">cleared bank balance</span></div>
+      <div class="diag-badge badge-red">Most common</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">At-risk receipts counted as confirmed</div>
+      <div class="diag-example">Overdue invoice enters the forecast at <span class="bad">100% value</span> with no worst-case check</div>
+      <div class="diag-badge badge-red">Most common</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">Monthly items spread evenly</div>
+      <div class="diag-example">VAT payment divided across 4 weeks instead of <span class="good">pinned to its actual due week</span></div>
+      <div class="diag-badge badge-yellow">Easy fix</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">Vague timing on inflows</div>
+      <div class="diag-example">"£20,000 sometime in Q3" instead of <span class="good">"£20,000 expected week of 21 July"</span></div>
+      <div class="diag-badge badge-yellow">Invisible</div>
+    </div>
+  </div>
+
+  <!-- STEPS -->
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+  <div class="steps-card">
+    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a 13-week cash flow forecast with Claude — 5 steps</div>
+    <div class="step">
+      <div class="step-n">1</div>
+      <div class="step-body"><h3>Start with your actual cleared bank balance</h3><p>Use today's cleared balance, not the ledger balance. The difference — uncleared cheques and deposits in transit — belongs as separate line items in week 1, not folded into the opening figure.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">2</div>
+      <div class="step-body"><h3>Assign every item to a specific week</h3><p>Vague timing kills forecast accuracy. If payroll runs on the 15th, put it in the week that contains the 15th. For uncertain receipts, use your best estimate and mark confidence as "At risk".</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">3</div>
+      <div class="step-body"><h3>Separate recurring from one-off items</h3><p>Recurring items — payroll, rent, subscriptions — repeat across multiple weeks. List them once with their frequency; the prompt replicates them across the right weeks automatically.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">4</div>
+      <div class="step-body"><h3>Run the prompt and check the worst-case table first</h3><p>Before trusting the base case, look at the worst-case version with at-risk receipts stripped out. If that version still holds above your minimum buffer, you have real headroom — not just optimistic headroom.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">5</div>
+      <div class="step-body"><h3>Update weekly, not monthly</h3><p>Each Monday, replace the actuals for the week just ended, extend the forecast by one week, and adjust any projected figures that have changed. A stale 13-week forecast is barely better than no forecast.</p></div>
+    </div>
+    <div class="warn"><strong>Claude does not connect to your bank:</strong> it works only with the figures you paste in. Export your current balance and upcoming commitments from your accounting system before running the prompt — there is no live data feed.</div>
+  </div>
+
+  <!-- FAQ -->
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Frequently asked questions</h2>
+  <div class="faq-section">
+    <div class="faq-title" aria-hidden="true">Frequently asked questions</div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Why 13 weeks and not 12 or 26? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Thirteen weeks equals one fiscal quarter. It's short enough to forecast with reasonable accuracy but long enough to flag upcoming liquidity gaps before they become emergencies. Most lenders and boards expect this exact horizon.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Can I extend this forecast beyond 13 weeks? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Yes — use the Extend tab above. Add columns for weeks 14–26 and feed in your projected figures. Accuracy declines the further out you go, so many teams keep weeks 1–4 at line-item detail and use broader categories for weeks 5–13+.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How do I handle uncertain receipts like overdue invoices? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Include them in a separate row labelled "At-risk receipts" with a probability weighting. For example, a £20,000 invoice at 50% probability enters the forecast as £10,000. Flag these rows so reviewers can see the assumption.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Will Claude pull live bank data for the forecast? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">No. Claude works with the data you provide. Export your current bank balance and upcoming commitments from your accounting system, then paste them into the prompt. Claude structures the forecast — it does not connect to external systems.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How often should I update a 13-week cash flow forecast? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Weekly. Each Monday, replace the actuals for the week just ended, extend the forecast by one week, and adjust any projected figures that have changed. This keeps the model rolling and accurate.</div>
+    </div>
+  </div>
+
+  <!-- RELATED -->
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Related Excel workflows</h2>
+  <div class="related-title" aria-hidden="true">Related Excel workflows</div>
+  <div class="related-grid">
+    <a href="/automate-cash-flow-dashboard-excel-claude.html" class="related-link">
+      <strong>Automate a Cash Flow Dashboard</strong>
+      <span>Turn bank transactions into a live weekly cash monitoring dashboard in Excel.</span>
+    </a>
+    <a href="/rolling-forecast-excel-claude.html" class="related-link">
+      <strong>Create a Rolling Forecast Model</strong>
+      <span>Build a rolling 12-month forecast that updates automatically as actuals come in.</span>
+    </a>
+    <a href="/bank-reconciliation-excel-claude.html" class="related-link">
+      <strong>Automated Bank Reconciliation</strong>
+      <span>Match bank transactions to your ledger and clear discrepancies fast in Excel.</span>
+    </a>
+    <a href="/build-budget-variance-analysis-report-excel-claude.html" class="related-link">
+      <strong>Budget Variance Analysis Report</strong>
+      <span>Compare actuals against budget and flag material variances automatically.</span>
+    </a>
+  </div>
+
 </div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Prompt Tools</strong>
-<a href="https://www.pairworkflows.com/claude-prompts-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Excel Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Finance Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">HR Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Marketing Prompt Builder</a>
-<a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">General Prompt Library</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Resources</strong>
-<a href="https://www.pairworkflows.com/claude-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Claude Courses</a>
-<a href="https://www.pairworkflows.com/gemini-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Gemini Courses</a>
-<a href="https://www.pairworkflows.com/glossary.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI Glossary</a>
-<a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Claude vs Gemini</a>
-<a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company &amp; Legal</strong>
-<a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
-<a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
-<a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
-<a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Privacy Policy</a>
-<a href="https://www.pairworkflows.com/legal.html#terms" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Terms of Use</a>
-<a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Cookie Policy</a>
-</div>
-</div>
-<div style="text-align:center; margin-bottom:2rem">
-<p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:520px; margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p>
-</div>
-<div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem">
-<span style="font-size:13px; color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
-<div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
-<button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-  Copy link
-</button>
-<a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-  <span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span>
-</a>
-<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn">
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-</a>
-<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-</a>
-</div>
-</div>
-</div>
-</footer>
 
 <script>
-var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
-var heroes=[
-  {tag:'Section 01',title:'What the finished 13-week forecast looks like'},
-  {tag:'Section 02',title:'Prepare your receipts and disbursements data'},
-  {tag:'Section 03',title:'The prompt, FAQ & related courses'},
-  {tag:'Section 04 — Quiz',title:'Test your understanding'}
-];
-var quiz=[
-  {q:'What figure should you use as the opening balance for Week 1 of a 13-week cash flow forecast?',
-   opts:['The general ledger cash balance','The cleared bank balance','Last month\'s average daily balance'],
-   correct:1},
-  {q:'In Week 4, the closing balance drops to £14,300 against a £20,000 minimum buffer. What does the prompt instruct Claude to do?',
-   opts:['Automatically move receipts forward to cover the gap','Flag the week as below the minimum cash buffer','Remove the at-risk inflows to fix the shortfall'],
-   correct:1},
-  {q:'Why does the prompt ask Claude to produce a second forecast table excluding "At risk" inflows?',
-   opts:['To show the worst-case liquidity scenario if uncertain receipts don\'t arrive','To reduce the total number of rows in the output','To make the forecast look more conservative for auditors'],
-   correct:0},
-  {q:'How should recurring monthly outflows like payroll be entered in the data?',
-   opts:['Spread evenly across all 13 weeks','Listed once with a Frequency of "Monthly" — Claude replicates them into the correct weeks','Entered manually into every applicable week before pasting'],
-   correct:1}
-];
-function buildQuizHTML(){
-  if(quizDone){
-    var score=0;
-    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
-    var msgs=['Review sections 1 and 2 — the data preparation and forecast logic need another pass.','Good start — revisit the prompt guardrails and scenario logic to tighten your understanding.','Nearly there — one concept to revisit before building your first forecast.','Full marks — you\'re ready to build a 13-week cash flow forecast with confidence.'];
-    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
-  }
-  var html='';
-  for(var i=0;i<quiz.length;i++){
-    var q=quiz[i];
-    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
-    for(var j=0;j<q.opts.length;j++){
-      var cls='opt';
-      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
-      else if(sel[i]===j)cls+=' selected';
-      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
-    }
-    html+='</div>';
-  }
-  var allSel=Object.keys(sel).length===quiz.length;
-  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
-  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
-  return html;
+function switchTab(btn,id){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  btn.classList.add('on');
+  document.getElementById('p-'+id).classList.add('on');
 }
-function render(){
-  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
-  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
-  document.getElementById('heroTag').textContent=heroes[cur].tag;
-  document.getElementById('heroTitle').textContent=heroes[cur].title;
-  for(var i=0;i<4;i++){
-    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),sec=document.getElementById('seo-sec-'+i);
-    ni.className='nav-item'+(i===cur?' active':'');
-    if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');
-    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
-    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
-    else{nd.className='nav-dot';nd.textContent=(i+1);}
-  }
-  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
-  document.getElementById('btnBack').disabled=(cur===0);
-  var fwd=document.getElementById('btnFwd');
-  if(cur===3){fwd.style.display='none';}
-  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
+function copyPrompt(btn){
+  var text=btn.previousElementSibling.innerText;
+  navigator.clipboard.writeText(text);
+  btn.innerHTML='<i class="ti ti-check" style="font-size:12px"></i> Copied!';
+  setTimeout(function(){btn.innerHTML='<i class="ti ti-copy" style="font-size:12px"></i> Copy';},2000);
 }
-function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
-function goFwd(){if(cur<3)go(cur+1);}
-function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
-function showResult(){quizDone=true;render();}
-function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
-function copyPrompt(btn){var block=btn.closest('.prompt-block');var text=block.querySelector('.prompt-block-text').innerText;navigator.clipboard.writeText(text);btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);}
-function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
+function toggleFaq(q){
+  q.classList.toggle('open');
+  q.nextElementSibling.classList.toggle('open');
+}
 function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
 function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
-document.getElementById('cnt').addEventListener('click',function(e){
-  if(cur!==3||quizSubmitted||quizDone)return;
-  var opt=e.target.closest('.opt');
-  if(!opt)return;
-  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
-  render();
-});
-render();
 </script>
 </body>
 </html>

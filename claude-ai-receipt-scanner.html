@@ -3,328 +3,190 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>AI Receipt Scanner with Claude: Prompts &amp; Expense Tracker</title>
-<meta name="description" content="Use Claude as an AI receipt scanner and expense tracker. Paste your receipts, get categorized expenses, and stay on top of deductibles — no app required.">
+<title>AI Receipt Scanner and Expense Tracker With Claude AI — PairWorkflows</title>
+<meta name="description" content="Use Claude AI as a receipt scanner and expense tracker — categorize expenses, flag deductibles, and build a running expense log. Prompts included.">
 <link rel="canonical" href="https://www.pairworkflows.com/claude-ai-receipt-scanner.html">
-<meta property="og:title" content="AI Receipt Scanner with Claude: Prompts &amp; Expense Tracker">
-<meta property="og:description" content="Turn Claude into a receipt scanner and expense tracker. Ready-to-use prompts for freelancers and solopreneurs to categorize expenses and track deductibles.">
-<meta property="og:url" content="https://www.pairworkflows.com/claude-ai-receipt-scanner.html">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="PairWorkflows">
-<meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"AI Receipt Scanner with Claude","description":"Use Claude as an AI receipt scanner and expense tracker. Paste your receipts, get categorized expenses, and stay on top of deductibles — no app required.","url":"https://www.pairworkflows.com/claude-ai-receipt-scanner.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude read photos of receipts?","acceptedAnswer":{"@type":"Answer","text":"If you're using Claude.ai Pro or the web app, you can upload a photo of a receipt directly. Claude will extract the vendor, date, amount, and category. On the free plan, type or paste the receipt details as text instead."}},{"@type":"Question","name":"How accurate is Claude at reading handwritten receipts?","acceptedAnswer":{"@type":"Answer","text":"Claude handles printed receipts well. Handwritten receipts are hit-or-miss depending on legibility. For handwritten receipts, it's faster to type the key details — vendor, date, and amount — and let Claude handle the categorization."}},{"@type":"Question","name":"What expense categories should I use?","acceptedAnswer":{"@type":"Answer","text":"Use the categories that match your tax return or accounting software. Common freelancer categories include Software & Subscriptions, Travel, Client Entertainment, Professional Development, Office & Equipment, and Marketing. Tell Claude your category list in the prompt and it will stick to it."}},{"@type":"Question","name":"Can I use this to track expenses across the whole year?","acceptedAnswer":{"@type":"Answer","text":"Yes — run the prompt in batches. Process a month at a time, paste the output into a running spreadsheet, and you'll have a full-year log by December. Claude doesn't store anything between sessions, so the spreadsheet is your record."}},{"@type":"Question","name":"Will Claude flag potential tax deductibles?","acceptedAnswer":{"@type":"Answer","text":"Yes, if you include that instruction in the prompt. Add a line asking Claude to flag items that are commonly deductible for freelancers in your country. Always verify with your accountant — Claude is not a tax advisor."}},{"@type":"Question","name":"What's the best way to handle receipts in foreign currencies?","acceptedAnswer":{"@type":"Answer","text":"Include the exchange rate in your prompt, or ask Claude to flag foreign-currency items separately so you can apply the correct rate yourself. Specify your home currency and the date of the transaction so the conversion is accurate."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude read photos of receipts?","acceptedAnswer":{"@type":"Answer","text":"If you're using Claude.ai Pro or the web app, you can upload a photo of a receipt directly. Claude will extract the vendor, date, amount, and category. On the free plan, type or paste the receipt details as text instead."}},{"@type":"Question","name":"How accurate is Claude at reading handwritten receipts?","acceptedAnswer":{"@type":"Answer","text":"Claude handles printed receipts well. Handwritten receipts are hit-or-miss depending on legibility. For handwritten receipts, it's faster to type the key details — vendor, date, and amount — and let Claude handle the categorization."}},{"@type":"Question","name":"What expense categories should I use?","acceptedAnswer":{"@type":"Answer","text":"Use the categories that match your tax return or accounting software. Common freelancer categories include Software & Subscriptions, Travel, Client Entertainment, Professional Development, Office & Equipment, and Marketing. Tell Claude your category list in the prompt and it will stick to it."}},{"@type":"Question","name":"Can I use this to track expenses across the whole year?","acceptedAnswer":{"@type":"Answer","text":"Yes — run the prompt in batches. Process a month at a time, paste the output into a running spreadsheet, and you'll have a full-year log by December. Claude doesn't store anything between sessions, so the spreadsheet is your record."}},{"@type":"Question","name":"Will Claude flag potential tax deductibles?","acceptedAnswer":{"@type":"Answer","text":"Yes, if you include that instruction in the prompt. Add a line asking Claude to flag items that are commonly deductible for freelancers in your country. Always verify with your accountant — Claude is not a tax advisor."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"><link rel="stylesheet" href="/global-fix.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="/global-fix.css">
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
-.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
-.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
-.logo-workflows{font-size:16px;font-weight:400;color:#fff}
-.nav-right{display:flex;align-items:center;gap:16px}
-.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
-.nav-back:hover{color:#1d9e75}
-.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
-.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
-.course-shell{background:#fff;border-radius:16px;border:1px solid #e8ecef;overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
-.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
-.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
-.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
-.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
-.prog-wrap{padding:1rem 1.25rem .75rem}
-.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
-.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
-.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
-.nav-list{padding:.5rem 0;flex:1}
-.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
-.nav-item:hover{background:#eef1f4}
-.nav-item.active{border-left-color:#1d9e75;background:#fff}
-.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
-.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
-.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
-.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
-.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
-.content-area{display:flex;flex-direction:column;min-width:0;overflow:hidden}
-.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
-.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
-.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
-.content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
-.seo-section{display:none}
-.seo-section.active-section{display:block}
-.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
-.seo-section h1{font-size:24px;font-weight:600;color:#1a1a2e;margin-bottom:1rem;line-height:1.3}
-.seo-section h2{font-size:18px;font-weight:600;color:#1a1a2e;margin-bottom:.75rem;line-height:1.35}
-.seo-section h3{font-size:15px;font-weight:600;color:#1a1a2e;margin-bottom:.5rem;line-height:1.4}
-.xl-grade-table{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.xl-gt-header-bar{background:#f3f3f3;border-bottom:1px solid #d0d0d0;padding:4px 0;display:grid}
-.xl-gt-col-h{font-size:11px;font-weight:600;color:#595959;text-align:center;padding:3px 0;border-right:1px solid #e0e0e0}
-.xl-gt-col-h:last-child{border-right:none}
-.xl-gt-rows{display:flex;flex-direction:column}
-.xl-gt-row{display:grid;border-bottom:1px solid #e8e8e8}
-.xl-gt-row:last-child{border-bottom:none}
-.xl-gt-row-num{font-size:11px;color:#595959;text-align:right;padding:7px 8px;background:#f3f3f3;border-right:1px solid #d0d0d0;font-weight:500}
-.xl-gt-cell{font-size:12px;font-family:'Inter',sans-serif;padding:7px 10px;border-right:1px solid #e8e8e8;display:flex;align-items:center}
-.xl-gt-cell:last-child{border-right:none}
-.xl-gt-cell.hdr{background:#f3f3f3;font-weight:600;color:#374151;font-size:11px}
-.xl-gt-cell.score{color:#374151;font-weight:500}
-.xl-gt-cell.matched{background:#c6efce;color:#276221;font-weight:600;justify-content:center}
-.xl-gt-cell.unmatched{background:#ffc7ce;color:#9c0006;font-weight:600;justify-content:center}
-.xl-gt-cell.partial{background:#ffeb9c;color:#9c6500;font-weight:600;justify-content:center}
-.xl-gt-caption{background:#f8fafc;border-top:1px solid #e2e8f0;padding:8px 14px;font-size:11px;color:#64748b;font-style:italic}
-.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
-.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
-.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
-.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
-.highlight-text{font-size:13px;color:#374151;line-height:1.65}
-.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
-.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
-.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
-.feature-list{list-style:none;padding:0;margin:0 0 1.25rem}
-.feature-list li{padding:.5rem 0 .5rem 1.25rem;position:relative;font-size:14px;color:#374151;border-bottom:1px solid #f0f2f5;line-height:1.6}
-.feature-list li:last-child{border-bottom:none}
-.feature-list li::before{content:'▸';position:absolute;left:0;color:#1d9e75;font-size:13px}
-.steps-list{display:flex;flex-direction:column;gap:0;margin:1rem 0}
-.step-row{display:flex;gap:16px;padding:1.1rem 0;border-bottom:1px solid #f0f2f5}
-.step-row:last-child{border-bottom:none}
-.step-num{font-size:26px;font-weight:700;color:#d1fae5;line-height:1;flex-shrink:0;width:36px;text-align:right;padding-top:2px}
-.step-body h3{font-size:14px;font-weight:600;color:#085041;margin-bottom:.3rem}
-.step-body p{font-size:13px;color:#374151;line-height:1.75;margin:0}
-.step-body code{background:#f0fdf4;color:#0f6e56;padding:1px 6px;border-radius:4px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;border:1px solid #d1fae5}
-.prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
-.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
-.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
-.prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}
-.prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#fff}
-.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;border-radius:12px;padding:1.25rem;margin:1.5rem 0}
-.checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
-.checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
-.checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
-.faq-section{margin:1.5rem 0}
-.faq-item{border-bottom:1px solid #f0f2f5;padding:.85rem 0}
-.faq-item:last-child{border-bottom:none}
-.faq-q{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:.35rem}
-.faq-a{font-size:13px;color:#374151;line-height:1.7}
-.related-courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:1rem 0}
-.related-card{border:1px solid #e8ecef;border-radius:10px;padding:1rem;transition:all .15s;text-decoration:none;color:#1a1a2e}
-.related-card:hover{border-color:#1d9e75;background:#f5fdf9}
-.related-card-title{font-size:13px;font-weight:500;line-height:1.4;margin-bottom:.25rem}
-.related-card-tag{font-size:11px;color:#6b7280}
-.quiz-q{margin-bottom:1.5rem}
-.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
-.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
-.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
-.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}
-.opt.selected .radio{border-color:#1d9e75;background:#1d9e75}
-.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}
-.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
-.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
-.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
-.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
-.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}
-.submit-global:hover{background:#0f6e56}
-.submit-global:disabled{opacity:.35;cursor:default}
-.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
-.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
-.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
-.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
-.retake-btn:hover{background:#e1f5ee}
-.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc;flex-shrink:0}
-.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}
-.btn-back:hover{background:#f0f2f5}
-.btn-back:disabled{opacity:.35;cursor:default}
-.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
-.btn-fwd:hover{background:#0f6e56}
+body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:100vh;display:flex;flex-direction:column}
+
+/* PAGE */
+.page{max-width:1300px;margin:0 auto;width:100%;padding:2rem 2.5rem 4rem;flex:1}
+
+/* ── HERO ── */
+.hero{margin-bottom:2rem}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#0f6e56;background:#e1f5ee;border:1px solid #a7f3d0;border-radius:20px;padding:4px 12px;margin-bottom:.9rem}
+.hero h1{font-size:32px;font-weight:700;line-height:1.2;color:#111827;margin-bottom:.6rem;letter-spacing:-.5px}
+.hero h1 span{color:#1d9e75}
+.hero-sub{font-size:15px;color:#6b7280;line-height:1.65;max-width:600px}
+
+/* ── PROMPT SELECTOR ── */
+.prompt-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.prompt-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.75rem}
+.prompt-card-label{font-size:13px;font-weight:600;color:#374151}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{padding:6px 14px;border-radius:7px;border:1.5px solid #e5e7eb;background:#f9fafb;font-size:12px;font-weight:500;color:#6b7280;cursor:pointer;transition:all .15s;font-family:inherit}
+.tab:hover{border-color:#1d9e75;color:#0f6e56}
+.tab.on{background:#1d9e75;border-color:#1d9e75;color:#fff;font-weight:600}
+.panel{display:none}
+.panel.on{display:block}
+.prompt-box{background:#0f172a;border-radius:10px;padding:1.25rem 1.25rem 1rem;position:relative}
+.prompt-box pre{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#e2e8f0;line-height:1.7;white-space:pre-wrap;word-break:break-word;padding-right:70px;max-height:220px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent}
+.prompt-box pre::-webkit-scrollbar{width:6px}
+.prompt-box pre::-webkit-scrollbar-track{background:transparent}
+.prompt-box pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:3px}
+.copy-btn{position:absolute;top:.75rem;right:.75rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-weight:500;font-family:inherit;cursor:pointer;padding:5px 12px;transition:all .15s;display:flex;align-items:center;gap:5px}
+.copy-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+.prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
+.prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
+.prompt-hint a:hover{text-decoration:underline}
+
+/* ── BEFORE / AFTER VISUAL ── */
+.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
+.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.ba-col.before{border-color:#fca5a5}
+.ba-col.after{border-color:#6ee7b7}
+.ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
+.ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
+.ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
+.ba-body{padding:14px}
+.xl-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
+.xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
+.xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
+.xl-table .err-cell{color:#dc2626;font-weight:700;background:#fef2f2}
+.xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
+.xl-table .hl{background:#fffbeb}
+.xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
+.xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+.claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
+.claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
+.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
+
+/* ── DIAGNOSIS TABLE ── */
+.diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.diag-header{background:#fef2f2;border-bottom:1px solid #fecaca;padding:12px 18px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#dc2626}
+.diag-row{display:grid;grid-template-columns:180px 1fr 90px;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid #f9fafb}
+.diag-row:last-child{border-bottom:none}
+.diag-row:nth-child(even){background:#fafafa}
+.diag-cause{font-size:13px;font-weight:600;color:#1f2937}
+.diag-example{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#6b7280;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.diag-example .bad{color:#dc2626;font-weight:600;background:#fef2f2;padding:1px 5px;border-radius:3px}
+.diag-example .good{color:#059669;font-weight:600;background:#f0fdf4;padding:1px 5px;border-radius:3px}
+.diag-badge{font-size:10px;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;white-space:nowrap}
+.badge-red{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+.badge-yellow{background:#fffbeb;color:#b45309;border:1px solid #fde68a}
+
+/* ── STEPS ── */
+.steps-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.steps-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+.step{display:flex;gap:16px;padding:.9rem 0;border-bottom:1px solid #f3f4f6}
+.step:last-child{border-bottom:none}
+.step-n{width:28px;height:28px;border-radius:8px;background:#e1f5ee;color:#0f6e56;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body h3{font-size:13px;font-weight:600;color:#1f2937;margin-bottom:.25rem}
+.step-body p{font-size:13px;color:#6b7280;line-height:1.65}
+.step-body code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
+
+/* ── INFO BOXES ── */
+.tip{background:#fffbeb;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#92400e;line-height:1.65}
+.tip strong{color:#78350f}
+.note{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#065f46;line-height:1.65}
+.warn{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#7f1d1d;line-height:1.65}
+.warn strong{color:#991b1b}
+
+/* ── FAQ ── */
+.faq-section{margin-bottom:1.75rem}
+.faq-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1rem}
+.faq-item{border-bottom:1px solid #f3f4f6;padding:.9rem 0}
+.faq-q{font-size:13px;font-weight:600;color:#1f2937;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-q i{color:#9ca3af;transition:transform .2s;flex-shrink:0}
+.faq-q.open i{transform:rotate(180deg)}
+.faq-a{font-size:13px;color:#6b7280;line-height:1.7;display:none;padding-top:.6rem}
+.faq-a.open{display:block}
+.faq-a code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
+
+/* ── RELATED ── */
+.related-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af;margin-bottom:.75rem}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.related-link{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:.9rem 1rem;text-decoration:none;transition:border-color .15s}
+.related-link:hover{border-color:#1d9e75}
+.related-link strong{display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem}
+.related-link span{display:block;font-size:12px;color:#9ca3af;line-height:1.4}
+
+/* ── SEARCH ── */
 #searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
 #searchOverlay.open{display:flex}
 .search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
-.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
-.search-close-btn:hover{color:#fff}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px}
 .search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
 .search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
-.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:inherit}
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
-.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
-.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:2rem}
-.page-footer a{color:#1d9e75;text-decoration:none}
-.page-footer a:hover{text-decoration:underline}
-@media(max-width:700px){
-  .navbar{padding:0 1rem}
-  .page-wrap{padding:1rem .5rem}
-  .course-shell{grid-template-columns:1fr}
-  .sidebar{display:none}
-  .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
-  .content-footer{padding:1rem}
-  .section-hero{padding:1.25rem 1rem}
-  .xl-gt-header-bar{grid-template-columns:36px repeat(5,1fr)}
-  .xl-gt-row{grid-template-columns:36px repeat(5,1fr)}
-  .xl-gt-cell{font-size:11px;padding:6px 6px}
-  .related-courses{grid-template-columns:1fr}
-  .seo-section p{word-break:break-word;overflow-wrap:break-word}
+
+@media(max-width:640px){
+  .hero h1{font-size:24px}
+  .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
+  .diag-row{grid-template-columns:1fr 1fr;gap:8px}
+  .diag-example{display:none}
+  .related-grid{grid-template-columns:1fr}
+  .page{padding:1.5rem 1rem 3rem}
 }
-.page-wrap-fix{max-width:1100px;margin:0 auto;padding:0 1rem}.course-wrap-outer{width:100%}</style>
-<script defer src="/_vercel/insights/script.js"></script>
+</style>
 </head>
 <body>
+
 <div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
-<div class="search-overlay-inner">
-<button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
-<form action="/search.html" method="get">
-<div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
-</form>
-<p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
+  <div class="search-overlay-inner">
+    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+    <form action="/search.html" method="get">
+      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search workflows, prompts, and guides..." autocomplete="off"></div>
+    </form>
+  </div>
 </div>
-</div>
+
 <div id="navbar-placeholder"></div>
-<script src="/navbar.js"></script><script src="/footer.js"></script>
+<script src="/navbar.js"></script>
+<script src="/footer.js"></script>
+
 <noscript>
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
-<a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a>
-<a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a>
-<a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a>
-<a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a>
-<a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a>
-<a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a>
-<a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a>
-<a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
+<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
 
-<div class="page-wrap">
-<div class="page-wrap-fix"><div class="course-wrap-outer"><div class="course-shell">
-  <div class="sidebar">
-    <div class="sidebar-top">
-      <div class="course-label">Claude AI — Finance</div>
-      <div class="course-title-side">AI Receipt Scanner &amp; Expense Tracker</div>
-    </div>
-    <div class="prog-wrap">
-      <div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
-      <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
-    </div>
-    <div class="nav-list">
-      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">The problem &amp; the fix</div></div>
-      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">Ready-to-use prompts</div></div>
-      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Adapt the prompts</div></div>
-      <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quick quiz</div></div>
-    </div>
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow"><i class="ti ti-receipt" style="font-size:12px"></i> Claude AI · Finance &amp; Expenses</div>
+    <h1>AI Receipt Scanner and Expense Tracker Using Claude</h1>
+    <p class="hero-sub">Paste or upload a receipt and Claude extracts the vendor, date, amount, category, and deductible status in one pass. No app, no subscription — just a clean expense table ready to paste into your books.</p>
   </div>
 
-  <div class="content-area">
-    <div class="section-hero">
-      <div class="section-tag" id="heroTag">Section 01</div>
-      <h2 id="heroTitle">The problem with receipts — and why Claude fixes it fast</h2>
-    </div>
-    <div class="content-body" id="cnt">
-
-      <!-- SECTION 0: Problem + Why Claude -->
-      <div id="seo-sec-0" class="seo-section active-section">
-        <h1>Turn Claude into an AI Receipt Scanner &amp; Expense Tracker</h1>
-        <p>Receipts pile up. A coffee here, a software subscription there, a client dinner you half-remember. By the time you sit down to do your expenses — or hand things off to your accountant — you've got a pile of paper, a folder of screenshots, and no idea which ones are actually deductible.</p>
-
-        <p>Most receipt-scanning apps solve one piece of the puzzle. They extract the data, but they don't categorize it sensibly, flag the deductibles, or output something you can paste straight into a spreadsheet. You end up doing the thinking anyway.</p>
-
-        <h2>Why Claude Works Better Than a Dedicated App</h2>
-        <p>Claude doesn't need an app. You describe the receipt — or paste the text, or upload a photo if you're on Claude Pro — and it extracts vendor, date, amount, and category in one shot. You can also hand it a whole batch of receipts and ask it to produce a clean expense table ready to paste into your books.</p>
-
-        <p>What makes this genuinely useful is that you can customize the logic. Tell Claude your exact category list — the one that matches your accounting software or your tax return — and it'll stick to it. Ask it to flag anything that looks deductible. Ask it to separate personal from business. None of that requires switching between apps or learning a new tool.</p>
-
-        <ul class="feature-list">
-          <li>Extracts vendor, date, amount, and category from pasted receipt text or uploaded images (Claude Pro)</li>
-          <li>Outputs a clean table you can paste directly into Excel or Google Sheets</li>
-          <li>Flags likely tax-deductible items based on your country and business type</li>
-          <li>Handles batch processing — paste 20 receipts at once and get one clean table back</li>
-          <li>Works with your own category list, not a fixed set of app-defined buckets</li>
-        </ul>
-
-        <h2>What the Output Looks Like</h2>
-        <p>Here's a sample of what Claude produces when you paste in a batch of freelance expenses. Every row is categorized, the deductible flag is included, and the table is ready to copy into a spreadsheet.</p>
-
-        <div class="xl-grade-table">
-          <div class="xl-gt-header-bar" style="grid-template-columns:36px repeat(5,1fr)">
-            <div class="xl-gt-col-h"></div>
-            <div class="xl-gt-col-h">A</div>
-            <div class="xl-gt-col-h">B</div>
-            <div class="xl-gt-col-h">C</div>
-            <div class="xl-gt-col-h">D</div>
-            <div class="xl-gt-col-h">E</div>
-          </div>
-          <div class="xl-gt-rows">
-            <div class="xl-gt-row" style="grid-template-columns:36px repeat(5,1fr)">
-              <div class="xl-gt-row-num">1</div>
-              <div class="xl-gt-cell hdr">Date</div>
-              <div class="xl-gt-cell hdr">Vendor</div>
-              <div class="xl-gt-cell hdr">Amount</div>
-              <div class="xl-gt-cell hdr">Category</div>
-              <div class="xl-gt-cell hdr">Deductible?</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:36px repeat(5,1fr)">
-              <div class="xl-gt-row-num">2</div>
-              <div class="xl-gt-cell score">03/07/2025</div>
-              <div class="xl-gt-cell score">Adobe Creative Cloud</div>
-              <div class="xl-gt-cell score">$54.99</div>
-              <div class="xl-gt-cell score">Software &amp; Subscriptions</div>
-              <div class="xl-gt-cell matched">Yes</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:36px repeat(5,1fr)">
-              <div class="xl-gt-row-num">3</div>
-              <div class="xl-gt-cell score">05/07/2025</div>
-              <div class="xl-gt-cell score">Starbucks</div>
-              <div class="xl-gt-cell score">$8.40</div>
-              <div class="xl-gt-cell score">Client Entertainment</div>
-              <div class="xl-gt-cell partial">Check w/ accountant</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:36px repeat(5,1fr)">
-              <div class="xl-gt-row-num">4</div>
-              <div class="xl-gt-cell score">09/07/2025</div>
-              <div class="xl-gt-cell score">Notion</div>
-              <div class="xl-gt-cell score">$16.00</div>
-              <div class="xl-gt-cell score">Software &amp; Subscriptions</div>
-              <div class="xl-gt-cell matched">Yes</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:36px repeat(5,1fr)">
-              <div class="xl-gt-row-num">5</div>
-              <div class="xl-gt-cell score">12/07/2025</div>
-              <div class="xl-gt-cell score">IKEA</div>
-              <div class="xl-gt-cell score">$210.00</div>
-              <div class="xl-gt-cell score">Office &amp; Equipment</div>
-              <div class="xl-gt-cell partial">Check w/ accountant</div>
-            </div>
-            <div class="xl-gt-row" style="grid-template-columns:36px repeat(5,1fr)">
-              <div class="xl-gt-row-num">6</div>
-              <div class="xl-gt-cell score">18/07/2025</div>
-              <div class="xl-gt-cell score">LinkedIn Learning</div>
-              <div class="xl-gt-cell score">$39.99</div>
-              <div class="xl-gt-cell score">Professional Development</div>
-              <div class="xl-gt-cell matched">Yes</div>
-            </div>
-          </div>
-          <div class="xl-gt-caption">Claude categorizes each expense, flags likely deductibles, and marks ambiguous items for review — all in one pass.</div>
-        </div>
-
-        <div class="info-box"><p><strong>No app required:</strong> This workflow runs entirely in Claude chat. Free plan users paste receipt text; Claude Pro users can upload photos directly. Either way, you get a clean expense table in under a minute.</p></div>
+  <!-- PROMPT SELECTOR -->
+  <div class="prompt-card">
+    <div class="prompt-card-top">
+      <span class="prompt-card-label">Choose your situation — copy the prompt:</span>
+      <div class="tabs">
+        <button class="tab on" onclick="switchTab(this,'single')">🧾 Single receipt</button>
+        <button class="tab" onclick="switchTab(this,'batch')">📚 Batch of receipts</button>
+        <button class="tab" onclick="switchTab(this,'monthly')">📅 Monthly expense log</button>
       </div>
+    </div>
 
-      <!-- SECTION 1: Prompts -->
-      <div id="seo-sec-1" class="seo-section">
-        <h2>Ready-to-Use Claude Prompts for Receipt Scanning</h2>
-        <p>Each prompt below handles a different scenario. Copy the one that fits your situation, fill in the placeholders, and paste into Claude. The placeholders are in [square brackets] — replace them with your own details before sending.</p>
-
-        <h3>Prompt 1 — Single receipt, full extraction</h3>
-        <p>Use this when you have one receipt and want Claude to extract everything neatly and flag whether it's deductible.</p>
-
-        <div class="prompt-block">
-          <div class="prompt-block-label">Prompt — paste into Claude</div>
-          <div class="prompt-block-text">I'm a [freelance designer / solopreneur / small business owner] based in [country]. I need to log this receipt for my business expenses.
+    <div id="p-single" class="panel on">
+      <div class="prompt-box">
+        <pre>I'm a [freelance designer / solopreneur / small business owner] based in [country]. I need to log this receipt for my business expenses.
 
 Receipt details:
 [Paste the receipt text here, or describe it: vendor name, date, items purchased, total amount, payment method]
@@ -333,22 +195,21 @@ Please extract and return the following in a single table row, formatted so I ca
 - Date (DD/MM/YYYY)
 - Vendor
 - Amount ([currency])
-- Category (use one of: Software &amp; Subscriptions, Travel, Client Entertainment, Professional Development, Office &amp; Equipment, Marketing, Meals, Other)
+- Category (use one of: Software & Subscriptions, Travel, Client Entertainment, Professional Development, Office & Equipment, Marketing, Meals, Other)
 - Deductible? (Yes / No / Check with accountant)
 - Notes (any detail worth keeping, e.g. "client name", "50% deductibility rule applies")
 
-Do not guess amounts. If any detail is unclear, say so in the Notes column rather than making it up.</div>
-          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
-        </div>
+Do not guess amounts. If any detail is unclear, say so in the Notes column rather than making it up.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
+      </div>
+      <p class="prompt-hint">On Claude Pro, attach a photo of the receipt instead of typing it out. Paste into <a href="https://claude.ai" target="_blank">Claude</a>.</p>
+    </div>
 
-        <h3>Prompt 2 — Batch of receipts, one clean table</h3>
-        <p>Use this at the end of the week or month when you've got a stack of receipts to process at once. Paste them all in, separated by dashes.</p>
+    <div id="p-batch" class="panel">
+      <div class="prompt-box">
+        <pre>I'm a [freelance / solopreneur / small business owner] in [country]. Below are [number] receipts from [month]. I need to categorize them for my business expense records.
 
-        <div class="prompt-block">
-          <div class="prompt-block-label">Prompt — paste into Claude</div>
-          <div class="prompt-block-text">I'm a [freelance / solopreneur / small business owner] in [country]. Below are [number] receipts from [month]. I need to categorize them for my business expense records.
-
-Use these categories only: Software &amp; Subscriptions, Travel, Client Entertainment, Professional Development, Office &amp; Equipment, Marketing, Meals, Other.
+Use these categories only: Software & Subscriptions, Travel, Client Entertainment, Professional Development, Office & Equipment, Marketing, Meals, Other.
 
 For each receipt, produce one row in a table with these columns:
 Date | Vendor | Amount ([currency]) | Category | Deductible? | Notes
@@ -362,20 +223,17 @@ RECEIPTS:
 ---
 [Receipt 2: paste text or describe]
 ---
-[Receipt 3: paste text or describe]
----
 [Add more as needed]
 
-After the table, add a one-line summary: total receipts processed, total amount, and total amount flagged as deductible.</div>
-          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
-        </div>
+After the table, add a one-line summary: total receipts processed, total amount, and total amount flagged as deductible.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
+      </div>
+      <p class="prompt-hint">Use this at the end of the week or month when you have a stack of receipts to process at once.</p>
+    </div>
 
-        <h3>Prompt 3 — Monthly expense log with deductible summary</h3>
-        <p>Use this at month-end when you want a formatted expense log and a summary you can hand to your accountant.</p>
-
-        <div class="prompt-block">
-          <div class="prompt-block-label">Prompt — paste into Claude</div>
-          <div class="prompt-block-text">I need to create a monthly expense log for [month, year]. I'm a [freelance / solopreneur] in [country or state], and I want to track deductible business expenses.
+    <div id="p-monthly" class="panel">
+      <div class="prompt-box">
+        <pre>I need to create a monthly expense log for [month, year]. I'm a [freelance / solopreneur] in [country or state], and I want to track deductible business expenses.
 
 Here are all my expenses for the month:
 [Paste each expense on a new line: Date, Vendor, Amount, brief description]
@@ -389,264 +247,178 @@ Please:
    - Total to check with accountant
    - Total personal / non-deductible
 
-Use these categories: Software &amp; Subscriptions, Travel, Client Entertainment, Professional Development, Office &amp; Equipment, Marketing, Meals, Other.
+Use these categories: Software & Subscriptions, Travel, Client Entertainment, Professional Development, Office & Equipment, Marketing, Meals, Other.
 
-Format the output so I can paste it directly into Excel.</div>
-          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
-        </div>
-
-        <div class="highlight-box">
-          <div class="highlight-icon"><i class="ti ti-bulb"></i></div>
-          <div class="highlight-text"><strong>Tip:</strong> On Claude Pro, you can upload a photo of a receipt directly. Just attach the image and use one of the prompts above. Claude will read the text from the photo and produce the same structured output.</div>
-        </div>
+Format the output so I can paste it directly into Excel.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-
-      <!-- SECTION 2: 4-Step Guide to Adapting Prompts -->
-      <div id="seo-sec-2" class="seo-section">
-        <h2>4-Step Guide to Adapting These Prompts</h2>
-        <p>The prompts above work out of the box, but your situation will have specifics that make them even more accurate. Here's how to tune them.</p>
-
-        <div class="steps-list">
-          <div class="step-row">
-            <div class="step-num">01</div>
-            <div class="step-body">
-              <h3>Replace the category list with your own</h3>
-              <p>The default categories in these prompts are generic. Replace them with the exact categories your accounting software uses — QuickBooks, FreeAgent, Wave, or whatever you're on. Claude will stick to the list you give it. If you use codes (e.g. <code>6200 – Travel</code>), include the codes. Your accountant will thank you.</p>
-            </div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">02</div>
-            <div class="step-body">
-              <h3>Specify your country's deductibility rules</h3>
-              <p>Deductibility varies by location. A US freelancer has different rules from a UK sole trader. Add a line to your prompt: <code>I'm a sole trader in the UK — apply HMRC expense rules when flagging deductible items.</code> Claude isn't a tax advisor, but being specific gets you more relevant flags. Always confirm edge cases with your accountant.</p>
-            </div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">03</div>
-            <div class="step-body">
-              <h3>Add a client or project column if you bill back expenses</h3>
-              <p>If some expenses are billable to clients, add a column to the prompt: <code>Also include a "Client / Project" column. Mark billable expenses with the client name; leave it blank for non-billable.</code> Then list which expenses are associated with which client when you paste them in. This makes invoice reconciliation much faster.</p>
-            </div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">04</div>
-            <div class="step-body">
-              <h3>Build a running log by pasting output into one spreadsheet</h3>
-              <p>Claude doesn't store anything between sessions. Your running expense log lives in a spreadsheet. Each time you process a batch, paste Claude's output table into the next empty row of your sheet. By month 3, you'll have a full-year record building itself one batch at a time — no app subscription needed.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="warning-box">
-          <div class="warning-icon"><i class="ti ti-alert-triangle"></i></div>
-          <div class="warning-text"><strong>Important:</strong> Claude is not a tax advisor. Use its deductibility flags as a starting point, not a final answer. Anything flagged "Check with accountant" should go to your accountant before you file.</div>
-        </div>
-
-        <h2>Frequently Asked Questions</h2>
-        <div class="faq-section">
-          <div class="faq-item">
-            <div class="faq-q">Can Claude read photos of receipts?</div>
-            <div class="faq-a">If you're using Claude.ai Pro or the web app, you can upload a photo of a receipt directly. Claude will extract the vendor, date, amount, and category. On the free plan, type or paste the receipt details as text instead.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">How accurate is Claude at reading handwritten receipts?</div>
-            <div class="faq-a">Claude handles printed receipts well. Handwritten receipts are hit-or-miss depending on legibility. For handwritten receipts, it's faster to type the key details — vendor, date, and amount — and let Claude handle the categorization.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">What expense categories should I use?</div>
-            <div class="faq-a">Use the categories that match your tax return or accounting software. Common freelancer categories include Software &amp; Subscriptions, Travel, Client Entertainment, Professional Development, Office &amp; Equipment, and Marketing. Tell Claude your category list in the prompt and it will stick to it.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">Can I use this to track expenses across the whole year?</div>
-            <div class="faq-a">Yes — run the prompt in batches. Process a month at a time, paste the output into a running spreadsheet, and you'll have a full-year log by December. Claude doesn't store anything between sessions, so the spreadsheet is your record.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q">What's the best way to handle receipts in foreign currencies?</div>
-            <div class="faq-a">Include the exchange rate in your prompt, or ask Claude to flag foreign-currency items separately so you can apply the correct rate yourself. Specify your home currency and the date of the transaction so the conversion is accurate.</div>
-          </div>
-        </div>
-
-        <h2>Related Finance Courses</h2>
-        <div class="related-courses">
-          <a href="/claude-small-business-bookkeeping.html" class="related-card">
-            <div class="related-card-title">AI Bookkeeping &amp; Accounting Prompts for Small Business</div>
-            <div class="related-card-tag">Claude AI · Finance</div>
-          </a>
-          <a href="/claude-freelance-rate-calculator.html" class="related-card">
-            <div class="related-card-title">Calculate Your Freelance Rate with Claude AI</div>
-            <div class="related-card-tag">Claude AI · Finance</div>
-          </a>
-          <a href="/claude-personal-finance-prompts.html" class="related-card">
-            <div class="related-card-title">Master Personal Finance &amp; Budgeting with Claude AI</div>
-            <div class="related-card-tag">Claude AI · Finance</div>
-          </a>
-        </div>
-
-        <div class="info-box"><p>Explore all finance courses on the <a href="/claude-for-finance.html" style="color:#085041;font-weight:600">AI for Finance Teams</a> hub page.</p></div>
-      </div>
-
-      <!-- SECTION 3: Quiz -->
-      <div id="seo-sec-3" class="seo-section">
-        <div id="quiz-interactive-container"></div>
-      </div>
-
-    </div>
-    <div class="content-footer">
-      <button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button>
-      <button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>
+      <p class="prompt-hint">Run this at month-end to produce a formatted log and summary you can hand to your accountant.</p>
     </div>
   </div>
-</div>
-</div></div></div>
 
-<footer style="background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0">
-<div style="max-width:1100px; margin:0 auto">
-<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Guides by Role</strong>
-<a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Finance Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for HR Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Marketing Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Legal Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Operations Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Sales Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Customer Service</a>
-<a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Excel</a>
+  <!-- BEFORE / AFTER VISUAL -->
+  <div class="before-after">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — raw receipt pile</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th></th><th>Vendor</th><th>Category</th></tr>
+          <tr class="section-row"><td colspan="3">This week's receipts</td></tr>
+          <tr><td>1</td><td>Adobe Creative Cloud</td><td class="err-cell">Uncategorized</td></tr>
+          <tr><td>2</td><td>Starbucks</td><td class="err-cell">Uncategorized</td></tr>
+          <tr><td>3</td><td>IKEA</td><td class="err-cell">Uncategorized</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          No category list, no deductible flag — every receipt needs manual sorting later
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ This is the pile most people leave until tax season</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude categorizes it</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th></th><th>Vendor</th><th>Category</th></tr>
+          <tr class="section-row"><td colspan="3">This week's receipts</td></tr>
+          <tr><td>1</td><td>Adobe Creative Cloud</td><td class="link-cell">Software &amp; Subscriptions</td></tr>
+          <tr><td>2</td><td>Starbucks</td><td class="ok-cell">Client Entertainment</td></tr>
+          <tr><td>3</td><td>IKEA</td><td class="hl">Office &amp; Equipment</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's output</div>
+          <pre>Every row categorized against your own list, plus a
+Deductible? flag: Yes / No / Check with accountant.
+Ready to paste into a spreadsheet. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIAGNOSIS TABLE -->
+  <div class="diag-card">
+    <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Why your expense tracking falls apart — the 4 most common causes</div>
+    <div class="diag-row">
+      <div class="diag-cause">No category list given</div>
+      <div class="diag-example">Prompt says <span class="bad">"categorize this"</span> instead of listing your <span class="good">exact categories</span></div>
+      <div class="diag-badge badge-red">Most common</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">Personal and business mixed</div>
+      <div class="diag-example">Receipts pasted <span class="bad">without context</span> on who the expense is for</div>
+      <div class="diag-badge badge-red">Most common</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">No deductible flag requested</div>
+      <div class="diag-example">Table has amounts but <span class="bad">no Deductible? column</span> to sort at tax time</div>
+      <div class="diag-badge badge-yellow">Easy fix</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">No running log</div>
+      <div class="diag-example">Each batch processed but <span class="bad">never pasted</span> into a <span class="good">single spreadsheet</span></div>
+      <div class="diag-badge badge-yellow">Invisible</div>
+    </div>
+  </div>
+
+  <!-- STEPS -->
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+  <div class="steps-card">
+    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Turn Claude into a receipt scanner — 5 steps</div>
+    <div class="step">
+      <div class="step-n">1</div>
+      <div class="step-body"><h3>Replace the category list with your own</h3><p>The default categories in these prompts are generic. Swap them for the exact categories your accounting software uses — QuickBooks, FreeAgent, Wave, or whatever you're on. Include codes like <code>6200 – Travel</code> if you use them.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">2</div>
+      <div class="step-body"><h3>State your country's deductibility rules</h3><p>Add a line like <code>I'm a sole trader in the UK — apply HMRC expense rules when flagging deductible items.</code> Claude isn't a tax advisor, but specificity gets you more relevant flags. Always confirm edge cases with your accountant.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">3</div>
+      <div class="step-body"><h3>Add a client column if you bill back expenses</h3><p>Instruct Claude to include a "Client / Project" column and mark billable expenses with the client name. This makes invoice reconciliation much faster.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">4</div>
+      <div class="step-body"><h3>Run the batch prompt weekly or monthly</h3><p>Paste a stack of receipts at once rather than one at a time. Claude produces one clean table with a summary line — total processed, total amount, total flagged deductible.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">5</div>
+      <div class="step-body"><h3>Paste every output into one running spreadsheet</h3><p>Claude doesn't store anything between sessions. Your running expense log lives in a spreadsheet — paste each batch's output into the next empty row and you'll have a full-year record by December.</p></div>
+    </div>
+    <div class="warn"><strong>Not a tax advisor:</strong> Claude is not a tax advisor. Use its deductibility flags as a starting point, not a final answer. Anything flagged "Check with accountant" should go to your accountant before you file.</div>
+  </div>
+
+  <!-- FAQ -->
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Frequently asked questions</h2>
+  <div class="faq-section">
+    <div class="faq-title" aria-hidden="true">Frequently asked questions</div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Can Claude read photos of receipts? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">If you're using Claude.ai Pro or the web app, you can upload a photo of a receipt directly. Claude will extract the vendor, date, amount, and category. On the free plan, type or paste the receipt details as text instead.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How accurate is Claude at reading handwritten receipts? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Claude handles printed receipts well. Handwritten receipts are hit-or-miss depending on legibility. For handwritten receipts, it's faster to type the key details — vendor, date, and amount — and let Claude handle the categorization.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What expense categories should I use? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Use the categories that match your tax return or accounting software. Common freelancer categories include Software &amp; Subscriptions, Travel, Client Entertainment, Professional Development, Office &amp; Equipment, and Marketing. Tell Claude your category list in the prompt and it will stick to it.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Can I use this to track expenses across the whole year? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Yes — run the prompt in batches. Process a month at a time, paste the output into a running spreadsheet, and you'll have a full-year log by December. Claude doesn't store anything between sessions, so the spreadsheet is your record.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Will Claude flag potential tax deductibles? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Yes, if you include that instruction in the prompt. Add a line asking Claude to flag items that are commonly deductible for freelancers in your country. Always verify with your accountant — Claude is not a tax advisor.</div>
+    </div>
+  </div>
+
+  <!-- RELATED -->
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Related Claude workflows</h2>
+  <div class="related-title" aria-hidden="true">Related Claude workflows</div>
+  <div class="related-grid">
+    <a href="/claude-personal-finance-prompts.html" class="related-link">
+      <strong>Personal Finance &amp; Budgeting Prompts</strong>
+      <span>Build a monthly budget, compare debt payoff strategies, and run spending reviews with Claude.</span>
+    </a>
+    <a href="/claude-small-business-bookkeeping.html" class="related-link">
+      <strong>AI Bookkeeping for Small Business</strong>
+      <span>Extend receipt tracking into full bookkeeping prompts for small business owners.</span>
+    </a>
+    <a href="/claude-finance-data-analysis.html" class="related-link">
+      <strong>Financial Data Analysis With Claude AI</strong>
+      <span>Turn raw financial data into calculated ratios, trends, and flagged anomalies.</span>
+    </a>
+    <a href="/claude-data-privacy-what-not-to-share.html" class="related-link">
+      <strong>What Not to Share With Claude AI</strong>
+      <span>Know what to mask before pasting receipts or expense data into any AI tool.</span>
+    </a>
+  </div>
+
 </div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Prompt Tools</strong>
-<a href="https://www.pairworkflows.com/claude-prompts-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Excel Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Finance Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">HR Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Marketing Prompt Builder</a>
-<a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">General Prompt Library</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Resources</strong>
-<a href="https://www.pairworkflows.com/claude-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Claude Courses</a>
-<a href="https://www.pairworkflows.com/gemini-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Gemini Courses</a>
-<a href="https://www.pairworkflows.com/glossary.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI Glossary</a>
-<a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Claude vs Gemini</a>
-<a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company &amp; Legal</strong>
-<a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
-<a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
-<a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
-<a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Privacy Policy</a>
-<a href="https://www.pairworkflows.com/legal.html#terms" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Terms of Use</a>
-<a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Cookie Policy</a>
-</div>
-</div>
-<div style="text-align:center; margin-bottom:2rem">
-<p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:520px; margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p>
-</div>
-<div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem">
-<span style="font-size:13px; color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
-<div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
-<button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-  Copy link
-</button>
-<a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-  <span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span>
-</a>
-<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn">
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-</a>
-<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-</a>
-</div>
-</div>
-</div>
-</footer>
 
 <script>
-var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
-var heroes=[
-  {tag:'Section 01',title:'The problem with receipts — and why Claude fixes it fast'},
-  {tag:'Section 02',title:'3 ready-to-use prompts for scanning receipts'},
-  {tag:'Section 03',title:'How to adapt the prompts for your situation'},
-  {tag:'Section 04 — Quiz',title:'Test your understanding'}
-];
-var quiz=[
-  {q:'You tell Claude to use specific expense categories in your prompt. What happens if an expense doesn\'t fit any of them?',
-   opts:['Claude invents a new category automatically','Claude refuses to process that expense','Claude puts the expense in "Other" or flags it in the Notes column'],
-   correct:2},
-  {q:'You\'re on the free Claude plan. What\'s the best way to process a paper receipt?',
-   opts:['Type or paste the key details: vendor, date, and amount','Upload a photo — this works on all plans','Use a dedicated app instead — Claude can\'t handle receipts on the free plan'],
-   correct:0},
-  {q:'Claude flags an IKEA purchase as "Check with accountant" for deductibility. What should you do?',
-   opts:['Ignore it — Claude is usually wrong about this','Follow up with your accountant before filing','Mark it as deductible anyway to save time'],
-   correct:1},
-  {q:'You want to build a full-year expense log using Claude. What\'s the right approach?',
-   opts:['Process receipts in batches (e.g. monthly) and paste each output into a running spreadsheet','Ask Claude to store your expense data between sessions','Run one giant prompt in December with all 12 months of receipts at once'],
-   correct:0}
-];
-function buildQuizHTML(){
-  if(quizDone){
-    var score=0;
-    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
-    var msgs=['Go back through sections 1 and 2 — the core prompting logic is worth revisiting.','Good start — re-read the section on adapting prompts to sharpen your setup.','Almost there — one concept worth reviewing before you process your first batch.','Perfect score — you\'re ready to turn Claude into your expense tracker.'];
-    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
-  }
-  var html='';
-  for(var i=0;i<quiz.length;i++){
-    var q=quiz[i];
-    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
-    for(var j=0;j<q.opts.length;j++){
-      var cls='opt';
-      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
-      else if(sel[i]===j)cls+=' selected';
-      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
-    }
-    html+='</div>';
-  }
-  var allSel=Object.keys(sel).length===quiz.length;
-  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
-  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
-  return html;
+function switchTab(btn,id){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  btn.classList.add('on');
+  document.getElementById('p-'+id).classList.add('on');
 }
-function render(){
-  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
-  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
-  document.getElementById('heroTag').textContent=heroes[cur].tag;
-  document.getElementById('heroTitle').textContent=heroes[cur].title;
-  for(var i=0;i<4;i++){
-    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),sec=document.getElementById('seo-sec-'+i);
-    ni.className='nav-item'+(i===cur?' active':'');
-    if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');
-    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
-    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
-    else{nd.className='nav-dot';nd.textContent=(i+1);}
-  }
-  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
-  document.getElementById('btnBack').disabled=(cur===0);
-  var fwd=document.getElementById('btnFwd');
-  if(cur===3){fwd.style.display='none';}
-  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
+function copyPrompt(btn){
+  var text=btn.previousElementSibling.innerText;
+  navigator.clipboard.writeText(text);
+  btn.innerHTML='<i class="ti ti-check" style="font-size:12px"></i> Copied!';
+  setTimeout(function(){btn.innerHTML='<i class="ti ti-copy" style="font-size:12px"></i> Copy';},2000);
 }
-function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
-function goFwd(){if(cur<3)go(cur+1);}
-function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
-function showResult(){quizDone=true;render();}
-function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
-function copyPrompt(btn){var block=btn.closest('.prompt-block');var text=block.querySelector('.prompt-block-text').innerText;navigator.clipboard.writeText(text);btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);}
-function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
+function toggleFaq(q){
+  q.classList.toggle('open');
+  q.nextElementSibling.classList.toggle('open');
+}
 function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
 function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
-document.getElementById('cnt').addEventListener('click',function(e){
-  if(cur!==3||quizSubmitted||quizDone)return;
-  var opt=e.target.closest('.opt');
-  if(!opt)return;
-  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
-  render();
-});
-render();
 </script>
 </body>
 </html>

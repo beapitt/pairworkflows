@@ -3,423 +3,394 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>How to Use Gemini AI for Summarizing Bug Reports and Feature Requests — PairWorkflows</title>
-<meta name="description" content="Learn how to use Gemini AI to translate messy client feedback into structured, actionable bug reports and feature requests for your product team. Free 5-minute guide.">
+<title>Summarize Bug Reports and Feature Requests with Gemini AI — PairWorkflows</title>
+<meta name="description" content="Use Gemini AI to turn messy client emails into structured bug reports and feature requests engineering can actually act on.">
 <link rel="canonical" href="https://www.pairworkflows.com/gemini-cs-bug-report-summaries.html">
-<meta property="og:title" content="How to Use Gemini AI for Summarizing Bug Reports and Feature Requests — PairWorkflows">
-<meta property="og:description" content="Learn how to use Gemini AI to translate messy client feedback into structured, actionable bug reports and feature requests for your product team.">
-<meta property="og:url" content="https://www.pairworkflows.com/gemini-cs-bug-report-summaries.html">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="PairWorkflows">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="How to Use Gemini AI for Summarizing Bug Reports and Feature Requests — PairWorkflows">
-<meta name="twitter:description" content="Learn how to use Gemini AI to translate messy client feedback into structured, actionable bug reports and feature requests for your product team.">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"How to Use Gemini AI for Summarizing Bug Reports and Feature Requests","description":"Learn how to use Gemini AI to translate messy client feedback into structured, actionable bug reports and feature requests for your product team.","url":"https://www.pairworkflows.com/gemini-cs-bug-report-summaries.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a fundamental limitation of Gemini when processing a bug report?","acceptedAnswer":{"@type":"Answer","text":"Gemini strictly summarizes the text you provide — it cannot autonomously test the reported bug in your environment or verify whether a requested feature already exists on the internal product roadmap."}},{"@type":"Question","name":"Why should I carefully review an AI-generated bug report before escalating it?","acceptedAnswer":{"@type":"Answer","text":"Gemini may misinterpret a complex client configuration error as an actual software defect. A human review step catches this before an invalid bug gets escalated to engineering."}},{"@type":"Question","name":"What security step should I take before pasting client feedback into Gemini?","acceptedAnswer":{"@type":"Answer","text":"Scrub the text of any passwords, API keys, or personally identifiable information that a frustrated client may have inadvertently pasted into their support email before it ever reaches the prompt."}},{"@type":"Question","name":"How should I format a feature request for a product team?","acceptedAnswer":{"@type":"Answer","text":"As a structured user story — 'As a [user type], I want to [action], so that [outcome]' — followed by a short note on the commercial rationale, rather than a raw emotional transcript of the client's complaint."}},{"@type":"Question","name":"Should I use the same structure for a bug report and a feature request?","acceptedAnswer":{"@type":"Answer","text":"No. Bug reports need Observed Behavior, Expected Behavior, Steps to Reproduce, and Business Impact. Feature requests are better served by a user story format plus commercial rationale — mixing the two formats confuses the receiving team."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"><link rel="stylesheet" href="/global-fix.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="/global-fix.css">
+<link rel="icon" type="image/png" href="/favicon.png">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter','Segoe UI',sans-serif;background:#f5f5f5;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
-.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
-.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
-.logo-workflows{font-size:16px;font-weight:400;color:#fff}
-.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
-.nav-back:hover{color:#1d9e75}
-.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
-.course-shell{background:#fff;border-radius:16px;border:1px solid #e8ecef;overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
-.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
-.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
-.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
-.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
-.prog-wrap{padding:1rem 1.25rem .75rem}
-.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
-.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
-.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
-.nav-list{padding:.5rem 0;flex:1}
-.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
-.nav-item:hover{background:#eef1f4}
-.nav-item.active{border-left-color:#1d9e75;background:#fff}
-.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
-.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
-.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
-.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
-.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
-.content-area{display:flex;flex-direction:column}
-.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
-.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
-.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3}
-.content-body{padding:1.75rem 2rem;flex:1}
-.seo-section{display:none}
-.seo-section.active-section{display:block}
-.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem} .seo-section h1{font-size:24px;font-weight:600;color:#1a1a2e;margin-bottom:1.5rem;line-height:1.3}
-.task-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.5rem 0}
-.task-card{background:#f8fafb;border:1px solid #e8ecef;border-top:3px solid #1d9e75;padding:1.25rem;text-align:center}
-.task-icon{font-size:26px;color:#1d9e75;margin-bottom:.5rem}
-.task-name{font-size:13px;font-weight:700;color:#0f6e56;margin-bottom:.3rem}
-.task-desc{font-size:12px;color:#374151;line-height:1.5}
-.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.5rem 0}
-.stat-item{background:#085041;padding:1.25rem 1rem;text-align:center}
-.stat-num{font-size:26px;font-weight:700;color:#fff;line-height:1;margin-bottom:.35rem}
-.stat-label{font-size:11px;color:#9fe1cb;line-height:1.4;text-transform:uppercase;letter-spacing:.04em}
-.before-after{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.5rem 0}
-.ba-card{padding:1.25rem}
-.ba-before{background:#fef2f2;border:1px solid #fecaca}
-.ba-after{background:#e1f5ee;border:1px solid #6ee7b7}
-.ba-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem;display:flex;align-items:center;gap:6px}
-.ba-label-before{color:#dc2626}
-.ba-label-after{color:#059669}
-.ba-text{font-size:13px;line-height:1.6;color:#374151}
-.report-types{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:1.5rem 0}
-.report-card{padding:1.1rem 1.25rem}
-.report-bug{background:linear-gradient(135deg,#fef2f2,#fee2e2);border:1px solid #fecaca}
-.report-feature{background:linear-gradient(135deg,#f0fdf4,#e1f5ee);border:1px solid #6ee7b7}
-.report-icon{font-size:22px;margin-bottom:.35rem}
-.report-bug .report-icon{color:#dc2626}
-.report-feature .report-icon{color:#059669}
-.report-title{font-size:13px;font-weight:700;margin-bottom:.25rem}
-.report-bug .report-title{color:#7f1d1d}
-.report-feature .report-title{color:#065f46}
-.report-fields{font-size:11px;line-height:1.7;color:#374151}
-.report-field{display:flex;align-items:baseline;gap:5px}
-.report-field-dot{width:5px;height:5px;flex-shrink:0;margin-top:4px}
-.report-bug .report-field-dot{background:#dc2626}
-.report-feature .report-field-dot{background:#059669}
-.prompt-block{background:#1a1a2e;padding:1.25rem;margin:1.25rem 0}
-.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
-.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
-.prompt-block-copy{background:transparent;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px}
-.workflow-steps{display:flex;flex-direction:column;gap:10px;margin:1.5rem 0}
-.wf-step{display:flex;align-items:flex-start;gap:14px;background:#f8fafb;border:1px solid #e8ecef;padding:1rem 1.25rem}
-.wf-num{width:30px;height:30px;background:#0f6e56;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0}
-.wf-content{flex:1;min-width:0}
-.wf-title{font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.2rem}
-.wf-desc{font-size:13px;color:#374151;line-height:1.55}
-.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;padding:1.25rem;margin:1.5rem 0}
-.checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
-.checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
-.checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
-.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;padding:1rem 1.25rem;margin:1.25rem 0}
-.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
-.highlight-text{font-size:13px;color:#374151;line-height:1.65}
-.warning-box{background:#fef2f2;border-left:3px solid #dc2626;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
-.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
-.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
-.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;padding:1rem 1.25rem;margin:1.25rem 0}
-.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
-.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc;flex-shrink:0}
-.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;font-size:13px;font-family:inherit;cursor:pointer}
-.btn-back:disabled{opacity:.35;cursor:default}
-.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer}
-.quiz-q{margin-bottom:1.5rem}
-.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
-.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;line-height:1.45}
-.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
-.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}
-.opt.selected .radio{border-color:#1d9e75;background:#1d9e75}
-.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
-.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}
-.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
-.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
-.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
-.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem}
-.submit-global:disabled{opacity:.35;cursor:default}
-.result-box{background:#f8fafb;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
-.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
-.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
-.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer}
-.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:2rem}
-.page-footer a{color:#1d9e75;text-decoration:none}
-.page-footer a:hover{text-decoration:underline}
+body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:100vh;display:flex;flex-direction:column}
+
+/* PAGE */
+.page{max-width:1300px;margin:0 auto;width:100%;padding:2rem 2.5rem 4rem;flex:1}
+
+/* ── HERO ── */
+.hero{margin-bottom:2rem}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#0f6e56;background:#e1f5ee;border:1px solid #a7f3d0;border-radius:20px;padding:4px 12px;margin-bottom:.9rem}
+.hero h1{font-size:32px;font-weight:700;line-height:1.2;color:#111827;margin-bottom:.6rem;letter-spacing:-.5px}
+.hero h1 span{color:#1d9e75}
+.hero-sub{font-size:15px;color:#6b7280;line-height:1.65;max-width:600px}
+
+/* ── PROMPT SELECTOR ── */
+.prompt-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.prompt-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.75rem}
+.prompt-card-label{font-size:13px;font-weight:600;color:#374151}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{padding:6px 14px;border-radius:7px;border:1.5px solid #e5e7eb;background:#f9fafb;font-size:12px;font-weight:500;color:#6b7280;cursor:pointer;transition:all .15s;font-family:inherit}
+.tab:hover{border-color:#1d9e75;color:#0f6e56}
+.tab.on{background:#1d9e75;border-color:#1d9e75;color:#fff;font-weight:600}
+.panel{display:none}
+.panel.on{display:block}
+.prompt-box{background:#0f172a;border-radius:10px;padding:1.25rem 1.25rem 1rem;position:relative}
+.prompt-box pre{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#e2e8f0;line-height:1.7;white-space:pre-wrap;word-break:break-word;padding-right:70px;max-height:220px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent}
+.prompt-box pre::-webkit-scrollbar{width:6px}
+.prompt-box pre::-webkit-scrollbar-track{background:transparent}
+.prompt-box pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:3px}
+.copy-btn{position:absolute;top:.75rem;right:.75rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-weight:500;font-family:inherit;cursor:pointer;padding:5px 12px;transition:all .15s;display:flex;align-items:center;gap:5px}
+.copy-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+.prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
+.prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
+.prompt-hint a:hover{text-decoration:underline}
+
+/* ── BEFORE / AFTER VISUAL ── */
+.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
+.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.ba-col.before{border-color:#fca5a5}
+.ba-col.after{border-color:#6ee7b7}
+.ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
+.ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
+.ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
+.ba-body{padding:14px}
+.xl-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
+.xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
+.xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
+.xl-table .err-cell{color:#dc2626;font-weight:700;background:#fef2f2}
+.xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
+.xl-table .hl{background:#fffbeb}
+.xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
+.xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+.claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
+.claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
+.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
+
+/* ── DIAGNOSIS TABLE ── */
+.diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.diag-header{background:#fef2f2;border-bottom:1px solid #fecaca;padding:12px 18px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#dc2626}
+.diag-row{display:grid;grid-template-columns:180px 1fr 90px;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid #f9fafb}
+.diag-row:last-child{border-bottom:none}
+.diag-row:nth-child(even){background:#fafafa}
+.diag-cause{font-size:13px;font-weight:600;color:#1f2937}
+.diag-example{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#6b7280;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.diag-example .bad{color:#dc2626;font-weight:600;background:#fef2f2;padding:1px 5px;border-radius:3px}
+.diag-example .good{color:#059669;font-weight:600;background:#f0fdf4;padding:1px 5px;border-radius:3px}
+.diag-badge{font-size:10px;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;white-space:nowrap}
+.badge-red{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+.badge-yellow{background:#fffbeb;color:#b45309;border:1px solid #fde68a}
+
+/* ── STEPS ── */
+.steps-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.steps-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+.step{display:flex;gap:16px;padding:.9rem 0;border-bottom:1px solid #f3f4f6}
+.step:last-child{border-bottom:none}
+.step-n{width:28px;height:28px;border-radius:8px;background:#e1f5ee;color:#0f6e56;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body h3{font-size:13px;font-weight:600;color:#1f2937;margin-bottom:.25rem}
+.step-body p{font-size:13px;color:#6b7280;line-height:1.65}
+.step-body code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
+
+/* ── INFO BOXES ── */
+.tip{background:#fffbeb;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#92400e;line-height:1.65}
+.tip strong{color:#78350f}
+.note{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#065f46;line-height:1.65}
+.warn{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#7f1d1d;line-height:1.65}
+.warn strong{color:#991b1b}
+
+/* ── FAQ ── */
+.faq-section{margin-bottom:1.75rem}
+.faq-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1rem}
+.faq-item{border-bottom:1px solid #f3f4f6;padding:.9rem 0}
+.faq-q{font-size:13px;font-weight:600;color:#1f2937;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-q i{color:#9ca3af;transition:transform .2s;flex-shrink:0}
+.faq-q.open i{transform:rotate(180deg)}
+.faq-a{font-size:13px;color:#6b7280;line-height:1.7;display:none;padding-top:.6rem}
+.faq-a.open{display:block}
+.faq-a code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
+
+/* ── RELATED ── */
+.related-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af;margin-bottom:.75rem}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.related-link{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:.9rem 1rem;text-decoration:none;transition:border-color .15s}
+.related-link:hover{border-color:#1d9e75}
+.related-link strong{display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem}
+.related-link span{display:block;font-size:12px;color:#9ca3af;line-height:1.4}
+
+/* ── SEARCH ── */
 #searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
 #searchOverlay.open{display:flex}
 .search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
-.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1}
-.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;padding:12px 16px;background:transparent}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px}
+.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
 .search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
-.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:inherit}
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
-.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center;letter-spacing:.02em}
-@media(max-width:700px){
-  .navbar{padding:0 1rem}
-  .page-wrap{padding:0}
-  .course-shell{grid-template-columns:1fr}
-  .sidebar{display:none}
-  .content-body{padding:1.25rem 1rem}
-  .section-hero{padding:1.25rem 1rem}
-  .content-footer{padding:1rem}
-  .task-grid,.before-after,.stat-row,.report-types{grid-template-columns:1fr}
+
+@media(max-width:640px){
+  .hero h1{font-size:24px}
+  .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
+  .diag-row{grid-template-columns:1fr 1fr;gap:8px}
+  .diag-example{display:none}
+  .related-grid{grid-template-columns:1fr}
+  .page{padding:1.5rem 1rem 3rem}
 }
-.page-wrap-fix{max-width:1100px;margin:2rem auto;padding:0 1rem}.course-wrap-outer{width:100%}</style>
-<script defer src="/_vercel/insights/script.js"></script>
+</style>
 </head>
 <body>
+
 <div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
-<div class="search-overlay-inner">
-<button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
-<form action="/search.html" method="get">
-<div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
-</form>
-<p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
+  <div class="search-overlay-inner">
+    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+    <form action="/search.html" method="get">
+      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search workflows, prompts, and guides..." autocomplete="off"></div>
+    </form>
+  </div>
 </div>
-</div>
+
 <div id="navbar-placeholder"></div>
-<script src="/navbar.js"></script><script src="/footer.js"></script><script src="/footer.js"></script>
+<script src="/navbar.js"></script>
+<script src="/footer.js"></script>
+
 <noscript>
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
-<a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a>
-<a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a>
-<a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a>
-<a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a>
-<a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a>
-<a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a>
-<a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a>
-<a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
+<a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a>
 </nav>
 </noscript>
-<div class="page-wrap">
-<div class="page-wrap-fix"><div class="course-wrap-outer"><div class="course-shell">
-<div class="sidebar">
-<div class="sidebar-top">
-<div class="course-label">Gemini AI — Customer Service Course</div>
-<h1 class="course-title-side">How to Use Gemini AI for Summarizing Bug Reports and Feature Requests</h1>
-</div>
-<div class="prog-wrap">
-<div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
-<div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
-</div>
-<div class="nav-list">
-<div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">Where Gemini fits in bug report summaries</div></div>
-<div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">A workflow for summarizing feedback</div></div>
-<div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompts and a feedback review checklist</div></div>
-<div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quiz: test your knowledge</div></div>
-</div>
-</div>
-<div class="content-area">
-<div class="section-hero"><div class="section-tag" id="heroTag">Section 01</div><h2 id="heroTitle">Emotional client feedback is hard to act on. Gemini strips out the noise and structures it into engineering-ready briefs.</h2></div>
-<div class="content-body" id="cnt">
-<div id="seo-sec-0" class="seo-section active-section">
-<p>Sales and account management professionals frequently receive unstructured, highly emotional feedback from clients regarding software defects or missing product capabilities. Manually translating these frustrated emails and rambling call transcripts into clean, structured tickets that product and engineering teams can actually use is a tedious administrative task that pulls representatives away from revenue-generating activities.</p>
-<p>Gemini accelerates this technical handoff by acting as your feedback translator. By feeding the raw client communications into the AI and requesting specific formatting, you can instantly strip away the emotion and isolate the core technical issue. This ensures your engineering team receives clear, objective briefs containing the observed behavior, expected outcomes and business impact, drastically reducing back-and-forth clarification emails.</p>
-<div class="highlight-box"><div class="highlight-icon"><i class="ti ti-bulb"></i></div><div class="highlight-text"><strong>Key insight:</strong> Gemini strictly summarizes the text provided — it cannot autonomously test the reported software bug in your environment or verify if a requested feature already exists on the internal product roadmap.</div></div>
-<div class="stat-row">
-<div class="stat-item"><div class="stat-num">4</div><div class="stat-label">Headings in a standard bug report</div></div>
-<div class="stat-item"><div class="stat-num">2</div><div class="stat-label">Output formats: bug report or user story</div></div>
-<div class="stat-item"><div class="stat-num">0</div><div class="stat-label">Emotional language in the final brief</div></div>
-</div>
-<div class="task-grid">
-<div class="task-card"><div class="task-icon"><i class="ti ti-bug"></i></div><div class="task-name">Defect isolation</div><div class="task-desc">Extract the exact steps to reproduce an issue from a long, frustrated client email.</div></div>
-<div class="task-card"><div class="task-icon"><i class="ti ti-bulb"></i></div><div class="task-name">Feature request structuring</div><div class="task-desc">Translate vague client wishes into standard user stories formatted for a product manager's backlog.</div></div>
-<div class="task-card"><div class="task-icon"><i class="ti ti-file-text"></i></div><div class="task-name">Impact summarization</div><div class="task-desc">Quantify and clearly articulate the commercial impact of a bug to help engineering prioritize the fix.</div></div>
-</div>
-<div class="report-types">
-<div class="report-card report-bug"><div class="report-icon"><i class="ti ti-bug"></i></div><div class="report-title">Bug report structure</div><div class="report-fields"><div class="report-field"><div class="report-field-dot"></div>Observed behavior</div><div class="report-field"><div class="report-field-dot"></div>Expected behavior</div><div class="report-field"><div class="report-field-dot"></div>Steps to reproduce</div><div class="report-field"><div class="report-field-dot"></div>Business impact</div></div></div>
-<div class="report-card report-feature"><div class="report-icon"><i class="ti ti-bulb"></i></div><div class="report-title">Feature request structure</div><div class="report-fields"><div class="report-field"><div class="report-field-dot"></div>As a [user type]…</div><div class="report-field"><div class="report-field-dot"></div>I want to [action]…</div><div class="report-field"><div class="report-field-dot"></div>So that [outcome]…</div><div class="report-field"><div class="report-field-dot"></div>Commercial rationale</div></div></div>
-</div>
-<div class="before-after">
-<div class="ba-card ba-before"><div class="ba-label ba-label-before"><i class="ti ti-x"></i> Without Gemini</div><div class="ba-text">Sales representatives forward massive, emotionally charged client email chains directly to developers, resulting in confusion, ignored requests and frustrated engineering teams.</div></div>
-<div class="ba-card ba-after"><div class="ba-label ba-label-after"><i class="ti ti-check"></i> With Gemini</div><div class="ba-text">Representatives instantly convert messy feedback into sterile, highly structured technical briefs that product managers can immediately evaluate and prioritize.</div></div>
-</div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow"><i class="ti ti-bug" style="font-size:12px"></i> Customer Service · Gemini AI</div>
+    <h1>Summarize Bug Reports and Feature Requests with Gemini AI</h1>
+    <p class="hero-sub">Paste a frustrated client's raw email or call transcript into Gemini and get back a clean, engineering-ready brief — Observed Behavior, Expected Behavior, Steps to Reproduce, and Business Impact, with the emotion stripped out.</p>
+  </div>
+
+  <!-- PROMPT SELECTOR -->
+  <div class="prompt-card">
+    <div class="prompt-card-top">
+      <span class="prompt-card-label">Choose your situation — copy the prompt:</span>
+      <div class="tabs">
+        <button class="tab on" onclick="switchTab(this,'bug')">🐛 Structure a bug report</button>
+        <button class="tab" onclick="switchTab(this,'feature')">💡 Format a feature request</button>
+        <button class="tab" onclick="switchTab(this,'impact')">📊 Quantify business impact</button>
+      </div>
+    </div>
+
+    <div id="p-bug" class="panel on">
+      <div class="prompt-box">
+        <pre>Review this client email regarding a platform issue: [Insert Email]. Create a
+structured bug report using these exact headings: Observed Behavior, Expected
+Behavior, Steps to Reproduce, and Business Impact.
+
+Crucial instruction: Base the details strictly on the provided text. Strip
+out all emotional language and do not guess the root technical cause of the
+issue.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
+      </div>
+      <p class="prompt-hint">Paste into <a href="https://gemini.google.com" target="_blank">Gemini</a>, <a href="https://claude.ai" target="_blank">Claude</a>, or <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
+    </div>
+
+    <div id="p-feature" class="panel">
+      <div class="prompt-box">
+        <pre>Analyze this transcript of a client feature request: [Insert Transcript].
+Format this into a standard product management User Story (As a... I want
+to... So that...). Follow it with a brief summary of why this feature would
+help them commercially.
+
+Crucial instruction: Do not invent product capabilities or assume how the
+engineering team should design the user interface.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
+      </div>
+      <p class="prompt-hint">Use this when the client is asking for something new rather than reporting something broken.</p>
+    </div>
+
+    <div id="p-impact" class="panel">
+      <div class="prompt-box">
+        <pre>Here is a structured bug report I drafted: [Insert Bug Report]. Review only
+the Business Impact section and strengthen it using details from this
+original client context: [Insert Original Email/Transcript].
+
+Crucial instruction: Only use figures, timelines, or commercial stakes that
+are explicitly stated in the source text. Do not estimate revenue at risk or
+invent a client tier if it was not mentioned.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
+      </div>
+      <p class="prompt-hint">A clear business impact line is what gets a bug prioritized over the dozens of other tickets in the backlog.</p>
+    </div>
+  </div>
+
+  <!-- BEFORE / AFTER VISUAL -->
+  <div class="before-after">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — forwarded as-is</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th></th><th>Status</th></tr>
+          <tr class="section-row"><td colspan="2">Raw client email</td></tr>
+          <tr><td>Format</td><td class="err-cell">Unstructured, 400+ words</td></tr>
+          <tr><td>Emotional language</td><td class="err-cell">Present throughout</td></tr>
+          <tr><td>Business impact stated</td><td class="err-cell">Buried, unclear</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Engineering skims it, can't find repro steps, sends it back for clarification
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Ticket sits idle waiting on a reply</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Gemini structures it</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th></th><th>Status</th></tr>
+          <tr class="section-row"><td colspan="2">Structured bug report</td></tr>
+          <tr><td>Format</td><td class="link-cell">4 fixed headings</td></tr>
+          <tr><td>Emotional language</td><td class="ok-cell">Removed</td></tr>
+          <tr><td>Business impact stated</td><td class="ok-cell">Clear, one line</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Gemini's output</div>
+          <pre>Observed Behavior: Export button fails silently on Safari
+Expected Behavior: CSV downloads within 5 seconds
+Steps to Reproduce: 3 steps listed
+Business Impact: Client cannot run weekly reporting ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIAGNOSIS TABLE -->
+  <div class="diag-card">
+    <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Why bug reports get ignored by engineering — the 4 most common causes</div>
+    <div class="diag-row">
+      <div class="diag-cause">No repro steps</div>
+      <div class="diag-example">Email describes the problem but never says <span class="bad">how to trigger it</span> again</div>
+      <div class="diag-badge badge-red">Most common</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">Emotion buries the facts</div>
+      <div class="diag-example">Frustration and complaints drown out the <span class="good">actual technical detail</span></div>
+      <div class="diag-badge badge-red">Most common</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">Missing business impact</div>
+      <div class="diag-example">Ticket reads as low priority because <span class="bad">no commercial stakes are stated</span></div>
+      <div class="diag-badge badge-yellow">Easy fix</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">Bug and feature mixed together</div>
+      <div class="diag-example">One email covers a defect and a wishlist item — <span class="good">split them</span> into two tickets</div>
+      <div class="diag-badge badge-yellow">Invisible</div>
+    </div>
+  </div>
+
+  <!-- STEPS -->
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+  <div class="steps-card">
+    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Turn client feedback into an engineering-ready ticket — 5 steps</div>
+    <div class="step">
+      <div class="step-n">1</div>
+      <div class="step-body"><h3>Capture the raw input</h3><p>Collect the client's original email, support ticket text, or discovery call transcript detailing the problem or request, exactly as they wrote it.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">2</div>
+      <div class="step-body"><h3>Define the output format</h3><p>Decide whether this is a <code>Bug report</code> or a <code>Feature request</code> before you prompt — the two use different structures and mixing them confuses the receiving team.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">3</div>
+      <div class="step-body"><h3>Prompt for synthesis</h3><p>Feed the raw text into Gemini and apply the matching prompt above to format the details into your engineering team's preferred layout.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">4</div>
+      <div class="step-body"><h3>Validate the business impact</h3><p>Confirm the AI clearly articulated why this issue matters to the client commercially — adjust the text manually if the stakes are not clear from the source material.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">5</div>
+      <div class="step-body"><h3>Submit to the product team</h3><p>Copy the finalized, objective brief into Jira, Asana, or your internal ticketing system for engineering review.</p></div>
+    </div>
+    <div class="warn"><strong>Scrub before you paste:</strong> Frustrated clients often inadvertently paste passwords, API keys, or sensitive personal information into their support emails — remove this manually before it ever reaches an AI prompt.</div>
+  </div>
+
+  <!-- FAQ -->
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Frequently asked questions</h2>
+  <div class="faq-section">
+    <div class="faq-title" aria-hidden="true">Frequently asked questions</div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What is a fundamental limitation of Gemini when processing a bug report? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Gemini strictly summarizes the text you provide — it cannot autonomously test the reported bug in your environment or verify whether a requested feature already exists on the internal product roadmap.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Why should I carefully review an AI-generated bug report before escalating it? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Gemini may misinterpret a complex client configuration error as an actual software defect. A human review step catches this before an invalid bug gets escalated to engineering and wastes their time.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What security step should I take before pasting client feedback into Gemini? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Scrub the text of any passwords, API keys, or personally identifiable information a frustrated client may have inadvertently pasted into their support email before it ever reaches the prompt.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How should I format a feature request for a product team? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">As a structured user story — <code>As a [user type], I want to [action], so that [outcome]</code> — followed by a short note on the commercial rationale, rather than a raw emotional transcript of the client's complaint.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Should I use the same structure for a bug report and a feature request? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">No. Bug reports need Observed Behavior, Expected Behavior, Steps to Reproduce, and Business Impact. Feature requests are better served by a user story format plus commercial rationale — mixing the two formats confuses the receiving team.</div>
+    </div>
+  </div>
+
+  <!-- RELATED -->
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Related Customer Service workflows</h2>
+  <div class="related-title" aria-hidden="true">Related Customer Service workflows</div>
+  <div class="related-grid">
+    <a href="/gemini-cs-ticket-response-drafting.html" class="related-link">
+      <strong>Draft Support Ticket Responses</strong>
+      <span>Turn internal documentation into clear, empathetic replies for client support inquiries.</span>
+    </a>
+    <a href="/gemini-cs-escalation-summaries-meet.html" class="related-link">
+      <strong>Escalation Call Summaries from Meet</strong>
+      <span>Generate structured executive briefs from difficult client escalation calls.</span>
+    </a>
+    <a href="/gemini-cs-feedback-analysis-sheets.html" class="related-link">
+      <strong>Customer Feedback Analysis in Sheets</strong>
+      <span>Categorize and summarize hundreds of survey responses automatically.</span>
+    </a>
+    <a href="/gemini-customer-service-workflows.html" class="related-link">
+      <strong>All Customer Service Workflows</strong>
+      <span>Browse every Gemini workflow built for customer service and account teams.</span>
+    </a>
+  </div>
+
 </div>
 
-<div id="seo-sec-1" class="seo-section">
-<p>A structured escalation workflow ensures that the feedback you submit is respected and quickly actioned by your technical teams.</p>
-<div class="workflow-steps">
-<div class="wf-step"><div class="wf-num">1</div><div class="wf-content"><div class="wf-title">Capture the raw input</div><div class="wf-desc">Collect the client's original email, support ticket text or discovery call transcript detailing the problem or request.</div></div></div>
-<div class="wf-step"><div class="wf-num">2</div><div class="wf-content"><div class="wf-title">Define the output format</div><div class="wf-desc">Determine whether the feedback requires a standard bug report structure or a feature request user story.</div></div></div>
-<div class="wf-step"><div class="wf-num">3</div><div class="wf-content"><div class="wf-title">Prompt for synthesis</div><div class="wf-desc">Feed the raw text into Gemini and apply a prompt to format the details into your engineering team's preferred layout.</div></div></div>
-<div class="wf-step"><div class="wf-num">4</div><div class="wf-content"><div class="wf-title">Validate the business impact</div><div class="wf-desc">Ensure the AI clearly articulated why this issue matters to the client commercially, adjusting the text manually if the stakes are not clear.</div></div></div>
-<div class="wf-step"><div class="wf-num">5</div><div class="wf-content"><div class="wf-title">Submit to the product team</div><div class="wf-desc">Copy the finalized, objective brief into Jira, Asana or your internal ticketing system for engineering review.</div></div></div>
-</div>
-<div class="info-box"><p><strong>Note:</strong> Gemini may misinterpret a complex client configuration error as an actual software defect — you must carefully review the output to ensure simple user errors are not escalated as critical engineering bugs.</p></div>
-</div>
-
-<div id="seo-sec-2" class="seo-section">
-<p>Using precise formatting instructions in your prompts forces the AI to filter out client frustration and deliver only the operational facts.</p>
-<div class="prompt-block">
-<div class="prompt-block-label">Prompt 1 — Structuring a bug report</div>
-<div class="prompt-block-text">Review this client email regarding a platform issue: [Insert Email]. Create a structured bug report using these exact headings: Observed Behavior, Expected Behavior, Steps to Reproduce, and Business Impact.
-
-Crucial instruction: Base the details strictly on the provided text. Strip out all emotional language and do not guess the root technical cause of the issue.</div>
-<button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
-</div>
-<div class="prompt-block">
-<div class="prompt-block-label">Prompt 2 — Formatting a feature request</div>
-<div class="prompt-block-text">Analyze this transcript of a client feature request: [Insert Transcript]. Format this into a standard product management User Story (As a... I want to... So that...). Follow it with a brief summary of why this feature would help them commercially.
-
-Crucial instruction: Do not invent product capabilities or assume how the engineering team should design the user interface.</div>
-<button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
-</div>
-<div class="checklist-box">
-<div class="checklist-title">Before submitting a Gemini-generated report to engineering</div>
-<div class="checklist-item"><i class="ti ti-square-check"></i> Emotion removal: is the brief completely sterile, objective and free of the client's aggressive or frustrated phrasing?</div>
-<div class="checklist-item"><i class="ti ti-square-check"></i> Factual boundaries: did the AI avoid guessing the underlying code issue or proposing unverified technical fixes?</div>
-<div class="checklist-item"><i class="ti ti-square-check"></i> Value clarity: is the commercial impact of the bug or feature clearly stated so the product team can prioritize it?</div>
-<div class="checklist-item"><i class="ti ti-square-check"></i> Format adherence: does the output perfectly match the specific ticket structure your engineering team requires?</div>
-<div class="checklist-item"><i class="ti ti-square-check"></i> Placeholder removal: have all bracketed fields and generic AI introductions been deleted before pasting into your ticketing system?</div>
-</div>
-<div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>Important:</strong> Frustrated clients often inadvertently paste passwords, API keys or sensitive personally identifiable information into their support emails — you must manually scrub this data from the text before feeding it into any AI prompt.</div></div>
-</div>
-
-<div id="seo-sec-3" class="seo-section"><div id="quiz-interactive-container"></div></div>
-</div>
-<div class="content-footer"><button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button><button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button></div>
-</div>
-</div>
-</div></div>
-<footer style="background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0">
-<div style="max-width:1100px; margin:0 auto">
-<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Guides by Role</strong>
-<a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Finance Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for HR Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Marketing Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Legal Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Operations Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Sales Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Customer Service</a>
-<a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Excel</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Prompt Tools</strong>
-<a href="https://www.pairworkflows.com/claude-prompts-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Excel Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Finance Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">HR Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Marketing Prompt Builder</a>
-<a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">General Prompt Library</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Resources</strong>
-<a href="https://www.pairworkflows.com/claude-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Claude Courses</a>
-<a href="https://www.pairworkflows.com/gemini-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Gemini Courses</a>
-<a href="https://www.pairworkflows.com/glossary.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI Glossary</a>
-<a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Claude vs Gemini</a>
-<a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company & Legal</strong>
-<a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
-<a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
-<a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
-<a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Privacy Policy</a>
-<a href="https://www.pairworkflows.com/legal.html#terms" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Terms of Use</a>
-<a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Cookie Policy</a>
-</div>
-</div>
-<div style="text-align:center; margin-bottom:2rem">
-<p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:520px; margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p>
-</div>
-<div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem">
-<span style="font-size:13px; color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
-<div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
-<button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-  Copy link
-</button>
-<a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-  <span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span>
-</a>
-<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn">
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-</a>
-<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-</a>
-</div>
-</div>
-</div>
-</footer>
 <script>
-var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
-var heroes=[
-  {tag:'Section 01',title:'Emotional client feedback is hard to act on. Gemini strips out the noise and structures it into engineering-ready briefs.'},
-  {tag:'Section 02',title:'A workflow for summarizing bug reports and feature requests with Gemini.'},
-  {tag:'Section 03',title:'Prompts and a feedback review checklist.'},
-  {tag:'Section 04 — Quiz',title:'Test your knowledge.'}
-];
-var quiz=[
-  {q:'What is a fundamental limitation of Gemini when processing a bug report?',
-    opts:['It requires an engineering license to process technical terms','It cannot autonomously test the software bug or check your internal product roadmap','It automatically deletes emails containing the word defect'],
-    correct:1},
-  {q:'Why must you carefully review an AI-generated bug report before escalating it to developers?',
-    opts:['The AI automatically routes the ticket to the CEO','Gemini translates all technical terms into a different language by default','Gemini may misinterpret a complex client configuration error as an actual software defect'],
-    correct:2},
-  {q:'What critical security step must you take before using AI to summarize client feedback?',
-    opts:['Scrub the text of inadvertently shared passwords, API keys or sensitive personal data','Ask the client to sign a new non-disclosure agreement','Encrypt the Google Doc with a password'],
-    correct:0},
-  {q:'What is the best way to instruct Gemini to format a feature request for a product team?',
-    opts:['As a raw, emotional transcript of the client\'s complaint to convey urgency','As a structured User Story that clearly highlights the business impact','As a legal demand letter to the engineering department'],
-    correct:1}
-];
-function buildQuizHTML(){
-  if(quizDone){
-    var score=0;
-    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
-    var msgs=['Review Section 1 and 3 — understanding Gemini\'s testing limits and the PII scrub requirement is the foundation.','Good effort — re-read the workflow steps and the feedback review checklist before trying again.','Almost there! One concept to sharpen — revisit why configuration errors must not be escalated as bugs.','Perfect mark! Try structuring a real bug report using the first prompt.'];
-    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
-  }
-  var html='';
-  for(var i=0;i<quiz.length;i++){
-    var q=quiz[i];
-    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
-    for(var j=0;j<q.opts.length;j++){
-      var cls='opt';
-      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
-      else if(sel[i]===j){cls+=' selected';}
-      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
-    }
-    html+='</div>';
-  }
-  var allSel=Object.keys(sel).length===quiz.length;
-  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
-  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
-  return html;
+function switchTab(btn,id){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  btn.classList.add('on');
+  document.getElementById('p-'+id).classList.add('on');
 }
-function render(){
-  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
-  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
-  document.getElementById('heroTag').textContent=heroes[cur].tag;
-  document.getElementById('heroTitle').textContent=heroes[cur].title;
-  for(var i=0;i<4;i++){
-    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),sec=document.getElementById('seo-sec-'+i);
-    ni.className='nav-item'+(i===cur?' active':'');
-    if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');
-    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
-    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
-    else{nd.className='nav-dot';nd.textContent=(i+1);}
-  }
-  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
-  document.getElementById('btnBack').disabled=(cur===0);
-  var fwd=document.getElementById('btnFwd');
-  if(cur===3){fwd.style.display='none';}
-  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
+function copyPrompt(btn){
+  var text=btn.previousElementSibling.innerText;
+  navigator.clipboard.writeText(text);
+  btn.innerHTML='<i class="ti ti-check" style="font-size:12px"></i> Copied!';
+  setTimeout(function(){btn.innerHTML='<i class="ti ti-copy" style="font-size:12px"></i> Copy';},2000);
 }
-function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
-function goFwd(){if(cur<3)go(cur+1);}
-function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
-function showResult(){quizDone=true;render();}
-function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
-function copyPrompt(btn){var block=btn.closest('.prompt-block');var text=block.querySelector('.prompt-block-text').innerText;navigator.clipboard.writeText(text);btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);}
+function toggleFaq(q){
+  q.classList.toggle('open');
+  q.nextElementSibling.classList.toggle('open');
+}
 function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
 function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
-document.getElementById('cnt').addEventListener('click',function(e){
-  if(cur!==3||quizSubmitted||quizDone)return;
-  var opt=e.target.closest('.opt');
-  if(!opt)return;
-  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
-  render();
-});
-render();
 </script>
 </body>
 </html>
