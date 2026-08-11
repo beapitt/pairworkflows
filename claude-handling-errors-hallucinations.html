@@ -3,291 +3,395 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>When Claude Gets It Wrong: How to Spot Errors and Handle Hallucinations — PairWorkflows</title>
-<meta name="description" content="Learn how to spot Claude AI errors and hallucinations before they cause problems at work. Practical verification techniques for corporate professionals — in 5 minutes.">
+<title>Spot Claude AI Errors and Handle Hallucinations — PairWorkflows</title>
+<meta name="description" content="Learn how to spot Claude AI errors and hallucinations before they cause problems at work — verification techniques in 5 minutes.">
 <link rel="canonical" href="https://www.pairworkflows.com/claude-handling-errors-hallucinations.html">
-<meta property="og:title" content="When Claude Gets It Wrong: How to Spot Errors and Handle Hallucinations — PairWorkflows">
-<meta property="og:description" content="Learn how to spot Claude AI errors and hallucinations before they cause problems at work.">
-<meta property="og:url" content="https://www.pairworkflows.com/claude-handling-errors-hallucinations.html">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="PairWorkflows">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="When Claude Gets It Wrong: How to Spot Errors and Handle Hallucinations — PairWorkflows">
-<meta name="twitter:description" content="Learn how to spot Claude AI errors and hallucinations before they cause problems at work.">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"When Claude Gets It Wrong: How to Spot Errors and Handle Hallucinations","description":"Learn how to spot Claude AI errors and hallucinations before they cause problems at work. Practical verification techniques for corporate professionals.","url":"https://www.pairworkflows.com/claude-handling-errors-hallucinations.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why does Claude sound confident even when it's wrong?","acceptedAnswer":{"@type":"Answer","text":"Claude does not know when it doesn't know something. It generates a plausible-sounding answer even when working beyond what it actually knows — the output reads clearly and confidently whether or not it is correct. This is a fundamental characteristic of how large language models work, not a bug."}},{"@type":"Question","name":"What are the three types of errors Claude can make?","acceptedAnswer":{"@type":"Answer","text":"Hallucination — inventing a fact, statistic, name, or source that doesn't exist. Outdated information — Claude's training data has a cutoff, so laws, prices, and personnel may have changed. Misinterpretation — Claude understood the question differently from how you meant it, so the answer is technically correct but misses the point."}},{"@type":"Question","name":"Which Claude outputs carry the highest risk of being wrong?","acceptedAnswer":{"@type":"Answer","text":"Specific statistics or percentages, named citations and references, and legal or regulatory detail carry the highest risk. Named individuals and quotes carry medium risk. General concepts, explanations, and formatting carry low risk."}},{"@type":"Question","name":"What's the fastest way to verify a high-stakes Claude output?","acceptedAnswer":{"@type":"Answer","text":"Ask Claude to flag what it's uncertain about. Send a follow-up like: 'In your previous response, flag any claims you are not certain about and tell me what I should verify.' It won't catch everything, but it eliminates the most obvious risks in seconds and tells you exactly where to focus your manual check."}},{"@type":"Question","name":"When should I run a full verification pass before using Claude's output?","acceptedAnswer":{"@type":"Answer","text":"If the output will be shared with a client, presented to leadership, submitted to a regulator, or published externally, run the verification prompt first and check every flagged item before you send it."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"><link rel="stylesheet" href="/global-fix.css">
-<style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter','Segoe UI',Helvetica Neue,sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}.logo-workflows{font-size:16px;font-weight:400;color:#ffffff}.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}.nav-back:hover{color:#1d9e75}.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}.course-shell{background:#ffffff;display:grid;grid-template-columns:240px 1fr;min-height:580px;flex:1;max-width:1100px;margin:1.5rem auto 0}.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}.prog-wrap{padding:1rem 1.25rem .75rem}.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}.nav-list{padding:.5rem 0;flex:1}.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}.nav-item:hover{background:#eef1f4}.nav-item.active{border-left-color:#1d9e75;background:#ffffff}.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#ffffff}.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}.nav-text{font-size:13px;color:#6b7280;line-height:1.35}.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}.content-area{display:flex;flex-direction:column}.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}.section-hero h2{font-size:22px;font-weight:500;color:#ffffff;line-height:1.3;max-width:100%}.content-body{padding:1.75rem 2rem;flex:1;width:100%;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}.seo-section{display:none}.seo-section.active-section{display:block}.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem;max-width:100%}.error-type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.5rem 0}.error-card{border-radius:12px;padding:1.25rem;text-align:center}.error-card-red{background:#fef2f2;border:1.5px solid #fecaca}.error-card-amber{background:#fff7ed;border:1.5px solid #fed7aa}.error-card-yellow{background:#fefce8;border:1.5px solid #fef08a}.error-icon{font-size:26px;margin-bottom:.5rem}.error-card-red .error-icon{color:#dc2626}.error-card-amber .error-icon{color:#ea580c}.error-card-yellow .error-icon{color:#ca8a04}.error-name{font-size:13px;font-weight:700;margin-bottom:.3rem}.error-card-red .error-name{color:#991b1b}.error-card-amber .error-name{color:#9a3412}.error-card-yellow .error-name{color:#854d0e}.error-desc{font-size:12px;color:#374151;line-height:1.5}.signal-list{display:flex;flex-direction:column;gap:10px;margin:1.5rem 0}.signal-item{display:flex;align-items:flex-start;gap:14px;background:#fef2f2;border:1px solid #fecaca;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem}.signal-icon{width:32px;height:32px;border-radius:8px;background:#fee2e2;display:flex;align-items:center;justify-content:center;color:#dc2626;font-size:16px;flex-shrink:0}.signal-content{flex:1}.signal-title{font-size:13px;font-weight:600;color:#991b1b;margin-bottom:.2rem}.signal-desc{font-size:13px;color:#374151;line-height:1.55}.verify-steps{display:flex;flex-direction:column;gap:12px;margin:1.5rem 0}.verify-step{display:flex;align-items:flex-start;gap:14px;background:#f8fafb;border:1px solid #e8ecef;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem}.verify-num{width:26px;height:26px;border-radius:50%;background:#1d9e75;color:#ffffff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}.verify-content{flex:1}.verify-title{font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.25rem}.verify-desc{font-size:13px;color:#374151;line-height:1.55}.prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1rem 0;position:relative}.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap}.prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}.prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#ffffff}.risk-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:13px}.risk-table th{background:#f0fdf4;color:#065f46;font-weight:600;padding:.75rem 1rem;text-align:left;border-bottom:2px solid #6ee7b7}.risk-table td{padding:.75rem 1rem;border-bottom:1px solid #e8ecef;color:#374151;vertical-align:top}.risk-table tr:last-child td{border-bottom:none}.risk-table .risk-high{color:#dc2626;font-weight:600}.risk-table .risk-med{color:#d97706;font-weight:600}.risk-table .risk-low{color:#059669;font-weight:600}.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}.highlight-text{font-size:13px;color:#374151;line-height:1.65}.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc}.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}.btn-back:hover{background:#f0f2f5}.btn-back:disabled{opacity:.35;cursor:default}.btn-fwd{background:#1d9e75;color:#ffffff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}.btn-fwd:hover{background:#0f6e56}.quiz-q{margin-bottom:1.5rem}.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}.opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}.opt.selected .radio{border-color:#1d9e75;background:#1d9e75}.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}.submit-global{background:#1a1a2e;color:#ffffff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}.submit-global:hover{background:#0f6e56}.submit-global:disabled{opacity:.35;cursor:default}.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}.retake-btn:hover{background:#e1f5ee}.share-section{max-width:1100px;margin:2.5rem auto 0;padding:0 1rem}.share-inner{display:flex;align-items:center;justify-content:center;gap:16px;padding:1.75rem 1.5rem;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap}.share-copy{display:flex;align-items:center;gap:10px;height:48px;padding:0 20px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;color:#e5e7eb;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .2s}.share-copy:hover{background:#374151;transform:scale(1.04)}.share-copy:active{transform:scale(.95)}.share-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;text-decoration:none;transition:all .2s}.share-icon:hover{transform:scale(1.08)}.share-icon:active{transform:scale(.95)}.share-li:hover{background:#0a66c2;border-color:#0a66c2}.share-x:hover{background:#000000;border-color:#000000}.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:2rem}.page-footer a{color:#1d9e75;text-decoration:none}.page-footer a:hover{text-decoration:underline}@media(max-width:700px){.navbar{padding:0 1rem}.page-wrap{padding:0}.course-shell{grid-template-columns:1fr}.sidebar{display:none}.content-body{padding:1.25rem 1rem;max-width:100%}.section-hero{padding:1.25rem 1rem}.content-footer{padding:1rem}.error-type-grid{grid-template-columns:1fr}.risk-table{font-size:12px}}#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}#searchOverlay.open{display:flex}.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}.search-close-btn:hover{color:#ffffff}.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}.search-box input{flex:1;border:none;outline:none;background:transparent;color:#ffffff;font-size:17px;font-family:'Inter',sans-serif}.search-box input::placeholder{color:rgba(255,255,255,.35)}.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center;letter-spacing:.02em}.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}.search-trigger:hover{background:rgba(255,255,255,.15);color:#ffffff}.page-wrap-fix{max-width:1100px;margin:2rem auto;padding:0 1rem}.course-wrap-outer{width:100%}</style>
-<script defer src="/_vercel/insights/script.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="/global-fix.css">
+<link rel="icon" type="image/png" href="/favicon.png">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:100vh;display:flex;flex-direction:column}
+
+/* PAGE */
+.page{max-width:1300px;margin:0 auto;width:100%;padding:2rem 2.5rem 4rem;flex:1}
+
+/* ── HERO ── */
+.hero{margin-bottom:2rem}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#0f6e56;background:#e1f5ee;border:1px solid #a7f3d0;border-radius:20px;padding:4px 12px;margin-bottom:.9rem}
+.hero h1{font-size:32px;font-weight:700;line-height:1.2;color:#111827;margin-bottom:.6rem;letter-spacing:-.5px}
+.hero h1 span{color:#1d9e75}
+.hero-sub{font-size:15px;color:#6b7280;line-height:1.65;max-width:600px}
+
+/* ── PROMPT SELECTOR ── */
+.prompt-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.prompt-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.75rem}
+.prompt-card-label{font-size:13px;font-weight:600;color:#374151}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{padding:6px 14px;border-radius:7px;border:1.5px solid #e5e7eb;background:#f9fafb;font-size:12px;font-weight:500;color:#6b7280;cursor:pointer;transition:all .15s;font-family:inherit}
+.tab:hover{border-color:#1d9e75;color:#0f6e56}
+.tab.on{background:#1d9e75;border-color:#1d9e75;color:#fff;font-weight:600}
+.panel{display:none}
+.panel.on{display:block}
+.prompt-box{background:#0f172a;border-radius:10px;padding:1.25rem 1.25rem 1rem;position:relative}
+.prompt-box pre{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#e2e8f0;line-height:1.7;white-space:pre-wrap;word-break:break-word;padding-right:70px;max-height:220px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent}
+.prompt-box pre::-webkit-scrollbar{width:6px}
+.prompt-box pre::-webkit-scrollbar-track{background:transparent}
+.prompt-box pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:3px}
+.copy-btn{position:absolute;top:.75rem;right:.75rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-weight:500;font-family:inherit;cursor:pointer;padding:5px 12px;transition:all .15s;display:flex;align-items:center;gap:5px}
+.copy-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+.prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
+.prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
+.prompt-hint a:hover{text-decoration:underline}
+
+/* ── BEFORE / AFTER VISUAL ── */
+.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
+.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.ba-col.before{border-color:#fca5a5}
+.ba-col.after{border-color:#6ee7b7}
+.ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
+.ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
+.ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
+.ba-body{padding:14px}
+.xl-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
+.xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
+.xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
+.xl-table .err-cell{color:#dc2626;font-weight:700;background:#fef2f2}
+.xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
+.xl-table .hl{background:#fffbeb}
+.xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
+.xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+.claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
+.claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
+.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
+
+/* ── DIAGNOSIS TABLE ── */
+.diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.diag-header{background:#fef2f2;border-bottom:1px solid #fecaca;padding:12px 18px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#dc2626}
+.diag-row{display:grid;grid-template-columns:180px 1fr 90px;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid #f9fafb}
+.diag-row:last-child{border-bottom:none}
+.diag-row:nth-child(even){background:#fafafa}
+.diag-cause{font-size:13px;font-weight:600;color:#1f2937}
+.diag-example{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#6b7280;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.diag-example .bad{color:#dc2626;font-weight:600;background:#fef2f2;padding:1px 5px;border-radius:3px}
+.diag-example .good{color:#059669;font-weight:600;background:#f0fdf4;padding:1px 5px;border-radius:3px}
+.diag-badge{font-size:10px;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;white-space:nowrap}
+.badge-red{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+.badge-yellow{background:#fffbeb;color:#b45309;border:1px solid #fde68a}
+
+/* ── STEPS ── */
+.steps-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.steps-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+.step{display:flex;gap:16px;padding:.9rem 0;border-bottom:1px solid #f3f4f6}
+.step:last-child{border-bottom:none}
+.step-n{width:28px;height:28px;border-radius:8px;background:#e1f5ee;color:#0f6e56;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body h3{font-size:13px;font-weight:600;color:#1f2937;margin-bottom:.25rem}
+.step-body p{font-size:13px;color:#6b7280;line-height:1.65}
+.step-body code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
+
+/* ── INFO BOXES ── */
+.tip{background:#fffbeb;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#92400e;line-height:1.65}
+.tip strong{color:#78350f}
+.note{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#065f46;line-height:1.65}
+.warn{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#7f1d1d;line-height:1.65}
+.warn strong{color:#991b1b}
+
+/* ── FAQ ── */
+.faq-section{margin-bottom:1.75rem}
+.faq-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1rem}
+.faq-item{border-bottom:1px solid #f3f4f6;padding:.9rem 0}
+.faq-q{font-size:13px;font-weight:600;color:#1f2937;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-q i{color:#9ca3af;transition:transform .2s;flex-shrink:0}
+.faq-q.open i{transform:rotate(180deg)}
+.faq-a{font-size:13px;color:#6b7280;line-height:1.7;display:none;padding-top:.6rem}
+.faq-a.open{display:block}
+.faq-a code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
+
+/* ── RELATED ── */
+.related-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af;margin-bottom:.75rem}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.related-link{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:.9rem 1rem;text-decoration:none;transition:border-color .15s}
+.related-link:hover{border-color:#1d9e75}
+.related-link strong{display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem}
+.related-link span{display:block;font-size:12px;color:#9ca3af;line-height:1.4}
+
+/* ── SEARCH ── */
+#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
+#searchOverlay.open{display:flex}
+.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px}
+.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
+.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:inherit}
+.search-box input::placeholder{color:rgba(255,255,255,.35)}
+
+@media(max-width:640px){
+  .hero h1{font-size:24px}
+  .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
+  .diag-row{grid-template-columns:1fr 1fr;gap:8px}
+  .diag-example{display:none}
+  .related-grid{grid-template-columns:1fr}
+  .page{padding:1.5rem 1rem 3rem}
+}
+</style>
 </head>
 <body>
+
 <div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
-<div class="search-overlay-inner">
-<button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
-<form action="/search.html" method="get">
-<div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
-</form>
-<p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
+  <div class="search-overlay-inner">
+    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+    <form action="/search.html" method="get">
+      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search workflows, prompts, and guides..." autocomplete="off"></div>
+    </form>
+  </div>
 </div>
-</div>
+
 <div id="navbar-placeholder"></div>
-<script src="/navbar.js"></script><script src="/footer.js"></script><script src="/footer.js"></script>
+<script src="/navbar.js"></script>
+<script src="/footer.js"></script>
+
 <noscript>
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
-<a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a>
-<a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a>
-<a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a>
-<a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a>
-<a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a>
-<a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a>
-<a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a>
-<a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
+<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
-</noscript><div class="page-wrap">
-<div class="page-wrap-fix"><div class="course-wrap-outer"><div class="course-shell">
-<div class="sidebar">
-<div class="sidebar-top">
-<div class="course-label">Claude AI — Course 22 of 22</div>
-<h1 class="course-title-side">When Claude Gets It Wrong: How to Spot Errors and Handle Hallucinations</h1>
-</div>
-<div class="prog-wrap">
-<div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
-<div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
-</div>
-<div class="nav-list">
-<div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">Why Claude gets things wrong</div></div>
-<div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">Warning signals to watch for</div></div>
-<div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">How to verify and fix outputs</div></div>
-<div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quiz: test your knowledge</div></div>
-</div>
-</div>
-<div class="content-area">
-<div class="section-hero"><div class="section-tag" id="heroTag">Section 01</div><h2 id="heroTitle">Claude sounds confident even when it is wrong. That is the most important thing to understand.</h2></div>
-<div class="content-body" id="cnt">
-<div id="seo-sec-0" class="seo-section active-section">
-<p>Claude does not know when it does not know something. Unlike a human colleague who might say "I am not sure about that — let me check", Claude will generate a plausible-sounding answer even when it is working beyond what it actually knows. The output reads clearly, the tone is confident, and the answer is wrong.</p>
-<p>This is not a bug or a failure — it is a fundamental characteristic of how large language models work. Understanding it is the single most important thing a professional can know about working with AI. Once you understand it, you can build habits that catch errors before they cause problems.</p>
-<div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>The core risk:</strong> A hallucination does not look different from a correct answer. Both are written in the same clear, confident tone. You cannot tell them apart by how they read — only by verifying against a source.</div></div>
-<div class="error-type-grid">
-<div class="error-card error-card-red"><div class="error-icon"><i class="ti ti-ghost"></i></div><div class="error-name">Hallucination</div><div class="error-desc">Claude invents a fact, statistic, name or source that does not exist — presented with full confidence.</div></div>
-<div class="error-card error-card-amber"><div class="error-icon"><i class="ti ti-clock-off"></i></div><div class="error-name">Outdated information</div><div class="error-desc">Claude's training data has a cutoff. Laws, regulations, prices and personnel change — Claude may not know.</div></div>
-<div class="error-card error-card-yellow"><div class="error-icon"><i class="ti ti-arrows-left-right"></i></div><div class="error-name">Misinterpretation</div><div class="error-desc">Claude understood the question differently from how you meant it — the answer is technically correct but misses the point.</div></div>
-</div>
-<div class="highlight-box"><div class="highlight-icon"><i class="ti ti-bulb"></i></div><div class="highlight-text"><strong>Key insight:</strong> The three error types require different responses. Hallucinations need source verification. Outdated information needs a current check. Misinterpretations need a clearer prompt. Knowing which type you are dealing with saves time.</div></div>
-</div>
-<div id="seo-sec-1" class="seo-section">
-<p>Some outputs are more likely to contain errors than others. Knowing which signals to watch for lets you focus your verification time where it matters most.</p>
-<div class="highlight-box"><div class="highlight-icon"><i class="ti ti-bulb"></i></div><div class="highlight-text"><strong>Key insight:</strong> The highest-risk outputs are not the ones that look wrong — they are the ones that look completely right. A confident, detailed, well-structured answer about a specific fact or figure is exactly where hallucinations hide.</div></div>
-<div class="signal-list">
-<div class="signal-item"><div class="signal-icon"><i class="ti ti-number"></i></div><div class="signal-content"><div class="signal-title">Specific numbers and statistics</div><div class="signal-desc">Any precise figure — a percentage, a market size, a research finding — is high risk. Claude can generate plausible-sounding numbers that have no basis in reality.</div></div></div>
-<div class="signal-item"><div class="signal-icon"><i class="ti ti-link"></i></div><div class="signal-content"><div class="signal-title">Named sources and citations</div><div class="signal-desc">If Claude cites a report, a study, a book or a URL — check it exists. Claude regularly invents titles, authors and publication dates that sound credible but are fabricated.</div></div></div>
-<div class="signal-item"><div class="signal-icon"><i class="ti ti-user"></i></div><div class="signal-content"><div class="signal-title">Named individuals and their roles</div><div class="signal-desc">Claude may incorrectly attribute statements to real people, or confuse roles and titles. Always verify before including a named person in any external document.</div></div></div>
-<div class="signal-item"><div class="signal-icon"><i class="ti ti-scale"></i></div><div class="signal-content"><div class="signal-title">Legal and regulatory specifics</div><div class="signal-desc">Specific clauses, article numbers, deadlines and compliance thresholds change. Never rely on Claude alone for regulatory detail without checking the current source.</div></div></div>
-<div class="signal-item"><div class="signal-icon"><i class="ti ti-calendar"></i></div><div class="signal-content"><div class="signal-title">Recent events and current data</div><div class="signal-desc">Claude's training has a knowledge cutoff. Anything that may have changed in the last 12–18 months — personnel, prices, policies, results — needs an independent check.</div></div></div>
-</div>
-<table class="risk-table">
-<thead><tr><th>Output type</th><th>Risk level</th><th>Verify with</th></tr></thead>
-<tbody>
-<tr><td>Specific statistics or percentages</td><td class="risk-high">High</td><td>Primary source or published report</td></tr>
-<tr><td>Named citations and references</td><td class="risk-high">High</td><td>Search for the actual document</td></tr>
-<tr><td>Legal or regulatory detail</td><td class="risk-high">High</td><td>Official government or regulatory body</td></tr>
-<tr><td>Named individuals and quotes</td><td class="risk-med">Medium</td><td>Company website, LinkedIn, news source</td></tr>
-<tr><td>General concepts and explanations</td><td class="risk-low">Low</td><td>Spot-check against a trusted source</td></tr>
-<tr><td>Formatting and structure</td><td class="risk-low">Low</td><td>Review for fit — no external check needed</td></tr>
-</tbody>
-</table>
-</div>
-<div id="seo-sec-2" class="seo-section">
-<p>Verification does not have to take long. The goal is not to fact-check every word — it is to apply targeted checks to the parts of an output most likely to be wrong. Here is the practical workflow.</p>
-<div class="highlight-box"><div class="highlight-icon"><i class="ti ti-bulb"></i></div><div class="highlight-text"><strong>Key insight:</strong> The fastest verification technique is to ask Claude to flag its own uncertainty. It will not catch everything — but it eliminates the most obvious risks in seconds and tells you exactly where to focus your manual check.</div></div>
-<div class="verify-steps">
-<div class="verify-step"><div class="verify-num">1</div><div class="verify-content"><div class="verify-title">Ask Claude to flag what it is uncertain about</div><div class="verify-desc">Before you read the output, send this follow-up: "In your previous response, flag any claims you are not certain about and tell me what I should verify." Claude will identify its own weak points.</div></div></div>
-<div class="verify-step"><div class="verify-num">2</div><div class="verify-content"><div class="verify-title">Check every specific number against a source</div><div class="verify-desc">Any percentage, figure or statistic in the output needs a primary source. A quick search takes 30 seconds and prevents a credibility problem in a board presentation or client document.</div></div></div>
-<div class="verify-step"><div class="verify-num">3</div><div class="verify-content"><div class="verify-title">Search for every citation before you use it</div><div class="verify-desc">If Claude mentions a report, study or article — search for it before including it. If it does not exist, remove it. A fabricated citation in an external document is a serious professional risk.</div></div></div>
-<div class="verify-step"><div class="verify-num">4</div><div class="verify-content"><div class="verify-title">Read the output as the recipient, not the author</div><div class="verify-desc">After you have verified the facts, read the output as if you are the person who will receive it — a manager, a client, a regulator. Does anything read as surprising, overconfident or unusually specific? That is your final signal to check.</div></div></div>
-</div>
-<div class="prompt-block">
-<div class="prompt-block-label">Verification prompt — use after any high-stakes output</div>
-<div class="prompt-block-text">Review your previous response and identify:
-1. Any specific facts, statistics or figures you are not certain about
-2. Any citations, sources or named references I should independently verify
-3. Anything in your response that may have changed since your training cutoff
+</noscript>
 
-Flag each item clearly so I know exactly what to check before using this output.</div>
-<button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow"><i class="ti ti-ghost" style="font-size:12px"></i> Claude AI · Trust &amp; Accuracy</div>
+    <h1>Spot Claude AI Errors and Handle Hallucinations</h1>
+    <p class="hero-sub">Claude sounds confident even when it's wrong — a hallucination reads exactly like a correct answer, same tone, same clarity. You can't tell them apart by how they read, only by verifying against a source. Here's what to check, and how to do it fast.</p>
+  </div>
+
+  <!-- PROMPT SELECTOR -->
+  <div class="prompt-card">
+    <div class="prompt-card-top">
+      <span class="prompt-card-label">Choose your situation — copy the prompt:</span>
+      <div class="tabs">
+        <button class="tab on" onclick="switchTab(this,'flag')">🔍 Flag uncertain claims</button>
+        <button class="tab" onclick="switchTab(this,'citation')">📚 Verify a citation or stat</button>
+        <button class="tab" onclick="switchTab(this,'outdated')">📅 Check for outdated info</button>
+      </div>
+    </div>
+
+    <div id="p-flag" class="panel on">
+      <div class="prompt-box">
+        <pre>Review your previous response and identify:
+1. Any specific facts, statistics or figures you are not certain about
+2. Any citations, sources or named references I should independently
+verify
+3. Anything in your response that may have changed since your training
+cutoff
+
+Flag each item clearly so I know exactly what to check before using this
+output.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
+      </div>
+      <p class="prompt-hint">Run this after any high-stakes output, before you read it as finished work. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+    </div>
+
+    <div id="p-citation" class="panel">
+      <div class="prompt-box">
+        <pre>You cited the following in your previous response:
+[paste the statistic, study, report, or named source Claude mentioned]
+
+Before I use this, tell me: is this something you are recalling with high
+confidence from training data, or could this be a plausible-sounding
+detail you generated? Be direct — I would rather you say "I'm not
+certain" than have me discover it's wrong later.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
+      </div>
+      <p class="prompt-hint">Use this for any named citation, study, or precise figure before it goes into an external document — then search for the source independently.</p>
+    </div>
+
+    <div id="p-outdated" class="panel">
+      <div class="prompt-box">
+        <pre>My question involves information that may have changed recently: [describe
+the topic — e.g. "current tax thresholds," "a company's leadership team,"
+"a specific regulation"].
+
+Before answering, tell me: what is your training cutoff, and is this the
+kind of detail likely to have changed since then? If so, tell me clearly
+that I need to verify this against a current source rather than relying
+on your answer alone.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
+      </div>
+      <p class="prompt-hint">Use this before asking about anything that may have changed in the last 12-18 months — personnel, prices, policies, results.</p>
+    </div>
+  </div>
+
+  <!-- BEFORE / AFTER VISUAL -->
+  <div class="before-after">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — unverified output</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th></th><th>Claim type</th><th>Status</th></tr>
+          <tr class="section-row"><td colspan="3">Draft report</td></tr>
+          <tr><td>1</td><td>Specific statistic</td><td class="err-cell">Not checked</td></tr>
+          <tr><td>2</td><td>Named citation</td><td class="err-cell">Not checked</td></tr>
+          <tr><td>3</td><td>Legal/regulatory detail</td><td class="err-cell">Not checked</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Reads confidently, indistinguishable from a fully verified answer
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Tone and clarity are not signals of accuracy</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude flags what to check</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th></th><th>Claim type</th><th>Verify with</th></tr>
+          <tr class="section-row"><td colspan="3">Draft report</td></tr>
+          <tr><td>1</td><td>Specific statistic</td><td class="link-cell">Primary source / report</td></tr>
+          <tr><td>2</td><td>Named citation</td><td class="ok-cell">Search for the document</td></tr>
+          <tr><td>3</td><td>Legal/regulatory detail</td><td class="ok-cell">Official regulatory body</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's fix</div>
+          <pre>Verification prompt run — 3 high-risk claims flagged with
+exactly what to check before this goes to a client. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIAGNOSIS TABLE -->
+  <div class="diag-card">
+    <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Why Claude's answers go unverified — the 4 highest-risk output types</div>
+    <div class="diag-row">
+      <div class="diag-cause">Specific statistics</div>
+      <div class="diag-example">A precise <span class="bad">percentage or market size</span> can be entirely invented but sound plausible</div>
+      <div class="diag-badge badge-red">High risk</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">Named citations</div>
+      <div class="diag-example">Claude regularly invents <span class="bad">titles, authors, and dates</span> that sound credible</div>
+      <div class="diag-badge badge-red">High risk</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">Legal or regulatory detail</div>
+      <div class="diag-example">Specific clauses, thresholds and deadlines <span class="bad">change</span> — never rely on Claude alone</div>
+      <div class="diag-badge badge-red">High risk</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">Recent events</div>
+      <div class="diag-example">Anything from the last <span class="bad">12-18 months</span> may postdate the training cutoff</div>
+      <div class="diag-badge badge-yellow">Medium risk</div>
+    </div>
+  </div>
+
+  <!-- STEPS -->
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+  <div class="steps-card">
+    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Verify a Claude output before you trust it — 5 steps</div>
+    <div class="step">
+      <div class="step-n">1</div>
+      <div class="step-body"><h3>Ask Claude to flag what it's uncertain about</h3><p>Before you read the output as finished, send a follow-up asking Claude to flag any claims it isn't certain about. It won't catch everything — but it eliminates the most obvious risks in seconds.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">2</div>
+      <div class="step-body"><h3>Check every specific number against a source</h3><p>Any percentage, figure, or statistic needs a primary source. A quick search takes 30 seconds and prevents a credibility problem in a board presentation or client document.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">3</div>
+      <div class="step-body"><h3>Search for every citation before you use it</h3><p>If Claude mentions a report, study, or article — search for it before including it. If it doesn't exist, remove it. A fabricated citation in an external document is a serious professional risk.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">4</div>
+      <div class="step-body"><h3>Read the output as the recipient, not the author</h3><p>After verifying the facts, read the output as if you're the manager, client, or regulator receiving it. Does anything read as surprising, overconfident, or unusually specific? That's your final signal to check.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">5</div>
+      <div class="step-body"><h3>Apply the high-stakes rule</h3><p>If the output will be shared with a client, presented to leadership, submitted to a regulator, or published externally — run the verification prompt first, then check every flagged item before you send it.</p></div>
+    </div>
+    <div class="warn"><strong>The core risk:</strong> A hallucination doesn't look different from a correct answer. Both are written in the same clear, confident tone. You cannot tell them apart by how they read — only by verifying against a source.</div>
+  </div>
+
+  <!-- FAQ -->
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Frequently asked questions</h2>
+  <div class="faq-section">
+    <div class="faq-title" aria-hidden="true">Frequently asked questions</div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Why does Claude sound confident even when it's wrong? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Claude does not know when it doesn't know something. It generates a plausible-sounding answer even when working beyond what it actually knows — the output reads clearly and confidently whether or not it is correct. This is a fundamental characteristic of how large language models work, not a bug.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What are the three types of errors Claude can make? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Hallucination — inventing a fact, statistic, name, or source that doesn't exist. Outdated information — Claude's training data has a cutoff, so laws, prices, and personnel may have changed. Misinterpretation — Claude understood the question differently from how you meant it, so the answer is technically correct but misses the point.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Which Claude outputs carry the highest risk of being wrong? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Specific statistics or percentages, named citations and references, and legal or regulatory detail carry the highest risk. Named individuals and quotes carry medium risk. General concepts, explanations, and formatting carry low risk.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What's the fastest way to verify a high-stakes Claude output? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Ask Claude to flag what it's uncertain about. Send a follow-up like: "In your previous response, flag any claims you are not certain about and tell me what I should verify." It won't catch everything, but it eliminates the most obvious risks in seconds and tells you exactly where to focus your manual check.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">When should I run a full verification pass before using Claude's output? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">If the output will be shared with a client, presented to leadership, submitted to a regulator, or published externally, run the verification prompt first and check every flagged item before you send it.</div>
+    </div>
+  </div>
+
+  <!-- RELATED -->
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Related Claude workflows</h2>
+  <div class="related-title" aria-hidden="true">Related Claude workflows</div>
+  <div class="related-grid">
+    <a href="/claude-ai-tokens-explained.html" class="related-link">
+      <strong>Claude AI Tokens Explained</strong>
+      <span>How the usage limit works and how to make your quota last.</span>
+    </a>
+    <a href="/claude-common-patterns-professional-habits.html" class="related-link">
+      <strong>Professional Habits for Claude at Work</strong>
+      <span>The recurring patterns that make Claude reliable for daily work.</span>
+    </a>
+    <a href="/claude-data-privacy-what-not-to-share.html" class="related-link">
+      <strong>What Not to Share with Claude</strong>
+      <span>Know what to paste and what to leave out before you upload a document.</span>
+    </a>
+    <a href="/claude-power-user-habits.html" class="related-link">
+      <strong>Claude Power User Habits</strong>
+      <span>Practical habits that make Claude faster and more reliable to work with.</span>
+    </a>
+  </div>
+
 </div>
-<div class="info-box"><p><strong>The rule for high-stakes outputs:</strong> if the output will be shared with a client, presented to leadership, submitted to a regulator or published externally — run the verification prompt first, then check every flagged item before you send it.</p></div>
-</div>
-<div id="seo-sec-3" class="seo-section"><div id="quiz-interactive-container"></div></div>
-</div>
-<div class="content-footer"><button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button><button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button></div>
-</div>
-</div>
-</div></div>
-<footer style="background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0">
-<div style="max-width:1100px; margin:0 auto">
-<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Guides by Role</strong>
-<a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Finance Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for HR Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Marketing Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Legal Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Operations Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Sales Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Customer Service</a>
-<a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Excel</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Prompt Tools</strong>
-<a href="https://www.pairworkflows.com/claude-prompts-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Excel Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Finance Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">HR Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Marketing Prompt Builder</a>
-<a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">General Prompt Library</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Resources</strong>
-<a href="https://www.pairworkflows.com/claude-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Claude Courses</a>
-<a href="https://www.pairworkflows.com/gemini-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Gemini Courses</a>
-<a href="https://www.pairworkflows.com/glossary.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI Glossary</a>
-<a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Claude vs Gemini</a>
-<a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company & Legal</strong>
-<a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
-<a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
-<a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
-<a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Privacy Policy</a>
-<a href="https://www.pairworkflows.com/legal.html#terms" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Terms of Use</a>
-<a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Cookie Policy</a>
-</div>
-</div>
-<div style="text-align:center; margin-bottom:2rem">
-<p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:520px; margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p>
-</div>
-<div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem">
-<span style="font-size:13px; color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
-<div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
-<button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-  Copy link
-</button>
-<a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-  <span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span>
-</a>
-<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn">
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-</a>
-<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-</a>
-</div>
-</div>
-</div>
-</footer>
+
 <script>
-var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
-var heroes=[
-  {tag:'Section 01',title:'Claude sounds confident even when it is wrong. That is the most important thing to understand.'},
-  {tag:'Section 02',title:'Five warning signals that tell you an output needs verification.'},
-  {tag:'Section 03',title:'How to verify Claude outputs quickly and catch errors before they matter.'},
-  {tag:'Section 04 — Quiz',title:'Test your knowledge.'}
-];
-var quiz=[
-  {q:'What makes hallucinations particularly dangerous in a professional context?',
-   opts:['They always contain spelling errors that make them easy to spot','They look identical to correct answers — same tone, same confidence, same clarity','They only appear in very long outputs'],
-   correct:1},
-  {q:'Which type of Claude output carries the highest risk of hallucination?',
-   opts:['Specific statistics, named citations and regulatory detail','General explanations of well-known concepts','Formatting and structural suggestions'],
-   correct:0},
-  {q:'What is the fastest first step in verifying a high-stakes Claude output?',
- opts:['Re-read the output three times carefully','Send the output to a colleague for review','Ask Claude to flag the claims it is uncertain about in its own response'],
- correct:2},
-  {q:'Why does Claude generate confident-sounding incorrect answers?',
-   opts:['Claude deliberately simplifies complex topics to make them easier to read','It is a fundamental characteristic of how language models work — they predict plausible text, not verified facts','Claude only does this when the prompt is poorly written'],
-   correct:2}
-];
-function buildQuizHTML(){
-  if(quizDone){
-    var score=0;
-    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
-    var msgs=['Review Section 1 carefully — understanding why hallucinations happen is the foundation of everything else.','Good effort — re-read the warning signals and verification workflow before trying again.','Almost there! One concept to sharpen — revisit why confident tone is not a signal of accuracy.','Perfect mark! Apply the verification prompt to your next high-stakes Claude output.'];
-    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
-  }
-  var html='';
-  for(var i=0;i<quiz.length;i++){
-    var q=quiz[i];
-    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
-    for(var j=0;j<q.opts.length;j++){
-      var cls='opt';
-      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
-      else if(sel[i]===j){cls+=' selected';}
-      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
-    }
-    html+='</div>';
-  }
-  var allSel=Object.keys(sel).length===quiz.length;
-  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
-  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
-  return html;
+function switchTab(btn,id){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  btn.classList.add('on');
+  document.getElementById('p-'+id).classList.add('on');
 }
-function render(){
-  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
-  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
-  document.getElementById('heroTag').textContent=heroes[cur].tag;
-  document.getElementById('heroTitle').textContent=heroes[cur].title;
-  for(var i=0;i<4;i++){
-    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),secBlock=document.getElementById('seo-sec-'+i);
-    ni.className='nav-item'+(i===cur?' active':'');
-    if(i===cur)secBlock.classList.add('active-section');else secBlock.classList.remove('active-section');
-    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
-    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
-    else{nd.className='nav-dot';nd.textContent=(i+1);}
-  }
-  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
-  document.getElementById('btnBack').disabled=(cur===0);
-  var fwd=document.getElementById('btnFwd');
-  if(cur===3){fwd.style.display='none';}
-  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
-}
-function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
-function goFwd(){if(cur<3)go(cur+1);}
-function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
-function showResult(){quizDone=true;render();}
-function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
 function copyPrompt(btn){
-  var block=btn.closest('.prompt-block');
-  var text=block.querySelector('.prompt-block-text').innerText;
+  var text=btn.previousElementSibling.innerText;
   navigator.clipboard.writeText(text);
-  btn.textContent='Copied!';
-  setTimeout(function(){btn.textContent='Copy';},2000);
+  btn.innerHTML='<i class="ti ti-check" style="font-size:12px"></i> Copied!';
+  setTimeout(function(){btn.innerHTML='<i class="ti ti-copy" style="font-size:12px"></i> Copy';},2000);
 }
-function copyLink(){
-  var btn=document.getElementById('copyLinkBtn');
-  navigator.clipboard.writeText(window.location.href);
-  btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';
-  setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);
+function toggleFaq(q){
+  q.classList.toggle('open');
+  q.nextElementSibling.classList.toggle('open');
 }
 function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
 function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
-document.getElementById('cnt').addEventListener('click',function(e){
-  if(cur!==3||quizSubmitted||quizDone)return;
-  var opt=e.target.closest('.opt');
-  if(!opt)return;
-  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
-  render();
-});
-render();
 </script>
 </body>
 </html>

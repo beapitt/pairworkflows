@@ -3,655 +3,386 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>XLOOKUP formula in Excel with example — PairWorkflows</title>
-<meta name="description" content="Need an XLOOKUP formula in Excel? Learn how to use Claude AI to write it from scratch, debug #N/A errors, and convert old VLOOKUPs to XLOOKUP fast.">
+<title>XLOOKUP Formula in Excel with Claude AI — PairWorkflows</title>
+<meta name="description" content="Need an XLOOKUP formula in Excel? Use Claude AI to write it from scratch, fix #N/A errors, and convert old VLOOKUPs fast.">
 <link rel="canonical" href="https://www.pairworkflows.com/claude-excel-xlookup.html">
-<meta property="og:title" content="XLOOKUP formula in Excel with example — PairWorkflows">
-<meta property="og:description" content="Use Claude AI to write XLOOKUP formulas, fix #N/A errors, and convert VLOOKUPs in Excel.">
-<meta property="og:url" content="https://www.pairworkflows.com/claude-excel-xlookup.html">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="PairWorkflows">
-<meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"XLOOKUP formula in Excel with example","description":"Need an XLOOKUP formula in Excel? Learn how to use Claude AI to write it from scratch, debug #N/A errors, and convert old VLOOKUPs to XLOOKUP fast.","url":"https://www.pairworkflows.com/claude-excel-xlookup.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is XLOOKUP better than VLOOKUP?","acceptedAnswer":{"@type":"Answer","text":"Yes. XLOOKUP improves on VLOOKUP in several important ways: it uses a direct range reference instead of a fragile column index number, it can look left, it has a built-in argument for handling missing values, and its match modes are clearer. XLOOKUP is the recommended replacement wherever Excel 365 or Excel 2019+ is available."}},{"@type":"Question","name":"Why is my XLOOKUP returning #N/A?","acceptedAnswer":{"@type":"Answer","text":"The most common cause is a data type mismatch between the lookup value and the lookup column — for example, one is stored as text and the other as a number. Trailing spaces or invisible characters in either value are the second most frequent cause. Paste the formula and a few sample rows into Claude and it will identify the exact issue."}},{"@type":"Question","name":"What Excel versions support XLOOKUP?","acceptedAnswer":{"@type":"Answer","text":"XLOOKUP is available in Microsoft 365 (formerly Office 365) and Excel 2021. It is not available in Excel 2019, 2016, or earlier. If you are on an older version, use INDEX/MATCH instead — it offers the same flexibility and works in every Excel version."}},{"@type":"Question","name":"Does XLOOKUP replace INDEX MATCH?","acceptedAnswer":{"@type":"Answer","text":"XLOOKUP and INDEX/MATCH solve the same problems, but XLOOKUP has simpler syntax and built-in error handling. If everyone on your team uses Excel 365 or 2021, XLOOKUP is the cleaner choice. If any colleagues use older versions, INDEX/MATCH is safer because it works everywhere."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is XLOOKUP better than VLOOKUP?","acceptedAnswer":{"@type":"Answer","text":"Yes. XLOOKUP improves on VLOOKUP in several important ways: it uses a direct range reference instead of a fragile column index number, it can look left, it has a built-in argument for handling missing values, and its match modes are clearer. XLOOKUP is the recommended replacement wherever Excel 365 or Excel 2019+ is available."}},{"@type":"Question","name":"Why is my XLOOKUP returning #N/A?","acceptedAnswer":{"@type":"Answer","text":"The most common cause is a data type mismatch between the lookup value and the lookup column — for example, one is stored as text and the other as a number. Trailing spaces or invisible characters in either value are the second most frequent cause. Paste the formula and a few sample rows into Claude and it will identify the exact issue."}},{"@type":"Question","name":"What Excel versions support XLOOKUP?","acceptedAnswer":{"@type":"Answer","text":"XLOOKUP is available in Microsoft 365 (formerly Office 365) and Excel 2021. It is not available in Excel 2019, 2016, or earlier. If you are on an older version, use INDEX/MATCH instead — it offers the same flexibility and works in every Excel version."}},{"@type":"Question","name":"Does XLOOKUP replace INDEX MATCH?","acceptedAnswer":{"@type":"Answer","text":"XLOOKUP and INDEX/MATCH solve the same problems, but XLOOKUP has simpler syntax and built-in error handling. If everyone on your team uses Excel 365 or 2021, XLOOKUP is the cleaner choice. If any colleagues use older versions, INDEX/MATCH is safer because it works everywhere."}},{"@type":"Question","name":"Can XLOOKUP return more than one column at once?","acceptedAnswer":{"@type":"Answer","text":"Yes. If you need multiple fields from the same lookup — for example both name and salary — describe that to Claude and it will write a single XLOOKUP that spills both results, instead of writing two separate formulas."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"><link rel="stylesheet" href="/global-fix.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="/global-fix.css">
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
-.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
-.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
-.logo-workflows{font-size:16px;font-weight:400;color:#fff}
-.nav-right{display:flex;align-items:center;gap:16px}
-.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
-.nav-back:hover{color:#1d9e75}
-.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
-.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
-.course-shell{background:#fff;border-radius:16px;border:1px solid #e8ecef;overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
-.sidebar{width:240px;background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
-.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
-.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
-.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
-.prog-wrap{padding:1rem 1.25rem .75rem}
-.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
-.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
-.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
-.nav-list{padding:.5rem 0;flex:1}
-.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
-.nav-item:hover{background:#eef1f4}
-.nav-item.active{border-left-color:#1d9e75;background:#fff}
-.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
-.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
-.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
-.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
-.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
-.content-area{display:flex;flex-direction:column;flex:1;min-width:0;overflow:hidden}
-.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
-.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
-.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
-.content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
-.seo-section{display:none}
-.seo-section.active-section{display:block}
-.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
+body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:100vh;display:flex;flex-direction:column}
 
-/* ── VISUAL 1: XLOOKUP anatomy in Excel formula bar ── */
-.xl-formulabar{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.xl-ribbon{background:#217346;padding:5px 14px;display:flex;align-items:center;gap:2px}
-.xl-ribbon-tab{font-size:11px;color:rgba(255,255,255,.65);padding:4px 10px;border-radius:4px 4px 0 0;font-weight:500}
-.xl-ribbon-tab.active{background:rgba(255,255,255,.18);color:#fff;font-weight:600}
-.xl-fb-bar{background:#fff;border-bottom:1px solid #d0d0d0;display:flex;align-items:center}
-.xl-fb-cellref{background:#f3f3f3;color:#1a1a2e;font-family:'SFMono-Regular',Consolas,monospace;font-size:12px;font-weight:700;padding:8px 12px;border-right:1px solid #d0d0d0;min-width:54px;text-align:center;flex-shrink:0}
-.xl-fb-fx{color:#595959;font-size:13px;padding:8px 10px;border-right:1px solid #e8e8e8;font-style:italic;flex-shrink:0;font-family:monospace}
-.xl-fb-formula{font-family:'SFMono-Regular',Consolas,monospace;font-size:12px;padding:8px 12px;flex:1;overflow-x:auto;white-space:nowrap}
-.f-fn{color:#217346;font-weight:700}
-.f-lookup{color:#7c3aed;font-weight:600}
-.f-larray{color:#2563eb}
-.f-rarray{color:#d97706}
-.f-notfound{color:#059669}
-.f-matchmode{color:#dc2626}
+/* PAGE */
+.page{max-width:1300px;margin:0 auto;width:100%;padding:2rem 2.5rem 4rem;flex:1}
 
-/* ── VISUAL 2: XLOOKUP vs VLOOKUP argument comparison ── */
-.xl-compare-args{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.xl-ca-header{background:#f3f3f3;border-bottom:1px solid #d0d0d0;display:grid;grid-template-columns:140px 1fr 1fr;padding:0}
-.xl-ca-hcell{padding:8px 12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#595959;border-right:1px solid #d0d0d0}
-.xl-ca-hcell:last-child{border-right:none}
-.xl-ca-rows{display:flex;flex-direction:column}
-.xl-ca-row{display:grid;grid-template-columns:140px 1fr 1fr;border-bottom:1px solid #e8e8e8;align-items:start}
-.xl-ca-row:last-child{border-bottom:none}
-.xl-ca-label{padding:8px 12px;font-size:12px;font-weight:600;color:#374151;border-right:1px solid #e8e8e8;background:#f8fafc}
-.xl-ca-vlookup{padding:8px 12px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;color:#d97706;background:#fffbeb;border-right:1px solid #e8e8e8;line-height:1.5}
-.xl-ca-xlookup{padding:8px 12px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;color:#059669;background:#f0fdf4;border-right:1px solid #e8e8e8;line-height:1.5}
-.xl-ca-xlookup.advantage{font-weight:600}
-.xl-ca-footer{background:#f0fdf4;border-top:1px solid #bbf7d0;padding:8px 14px;font-size:11px;color:#065f46;display:flex;align-items:center;gap:6px}
+/* ── HERO ── */
+.hero{margin-bottom:2rem}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#0f6e56;background:#e1f5ee;border:1px solid #a7f3d0;border-radius:20px;padding:4px 12px;margin-bottom:.9rem}
+.hero h1{font-size:32px;font-weight:700;line-height:1.2;color:#111827;margin-bottom:.6rem;letter-spacing:-.5px}
+.hero h1 span{color:#1d9e75}
+.hero-sub{font-size:15px;color:#6b7280;line-height:1.65;max-width:600px}
 
-/* ── VISUAL 3: XLOOKUP data table with result (Section 2) ── */
-.xl-lookup-demo{margin:1.25rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.xl-ld-ribbon{background:#217346;padding:5px 14px;display:flex;gap:6px}
-.xl-ld-tab{font-size:10px;background:rgba(255,255,255,.15);color:#fff;padding:3px 10px;border-radius:3px 3px 0 0;font-weight:600}
-.xl-ld-tab.inactive{background:rgba(255,255,255,.07);color:rgba(255,255,255,.6);font-weight:400}
-.xl-ld-bar{background:#fff;border-bottom:1px solid #d0d0d0;display:flex;align-items:center}
-.xl-ld-ref{background:#f3f3f3;font-family:monospace;font-size:11px;font-weight:700;padding:6px 10px;border-right:1px solid #d0d0d0;min-width:44px;text-align:center;flex-shrink:0;color:#1a1a2e}
-.xl-ld-fx{color:#595959;font-size:12px;padding:6px 8px;border-right:1px solid #e8e8e8;font-style:italic;flex-shrink:0}
-.xl-ld-formula{font-family:'SFMono-Regular',Consolas,monospace;font-size:11px;padding:6px 10px;flex:1;overflow-x:auto;white-space:nowrap;color:#1a1a2e}
-.xl-ld-fn{color:#217346;font-weight:700}
-.xl-ld-arg1{color:#7c3aed}
-.xl-ld-arg2{color:#2563eb}
-.xl-ld-arg3{color:#d97706}
-.xl-ld-arg4{color:#059669}
-.xl-ld-grid{display:grid;grid-template-columns:36px repeat(4,1fr)}
-.xl-ld-row{display:contents}
-.xl-ld-rnum{font-size:10px;color:#595959;text-align:right;padding:5px 6px;background:#f3f3f3;border-right:1px solid #d0d0d0;border-bottom:1px solid #e8e8e8;font-weight:500}
-.xl-ld-cell{font-size:11px;padding:5px 8px;border-right:1px solid #e8e8e8;border-bottom:1px solid #e8e8e8;font-family:'SFMono-Regular',Consolas,monospace}
-.xl-ld-cell:last-child{border-right:none}
-.xl-ld-cell.hdr{background:#f3f3f3;font-family:'Inter',sans-serif;font-weight:700;color:#374151;font-size:10px}
-.xl-ld-cell.lookup-col{background:#faf5ff;color:#7c3aed}
-.xl-ld-cell.return-col{background:#fffbeb;color:#d97706}
-.xl-ld-cell.result{background:#f0fdf4;color:#059669;font-weight:700}
-.xl-ld-cell.active-row{background:#eff6ff}
+/* ── PROMPT SELECTOR ── */
+.prompt-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.prompt-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.75rem}
+.prompt-card-label{font-size:13px;font-weight:600;color:#374151}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{padding:6px 14px;border-radius:7px;border:1.5px solid #e5e7eb;background:#f9fafb;font-size:12px;font-weight:500;color:#6b7280;cursor:pointer;transition:all .15s;font-family:inherit}
+.tab:hover{border-color:#1d9e75;color:#0f6e56}
+.tab.on{background:#1d9e75;border-color:#1d9e75;color:#fff;font-weight:600}
+.panel{display:none}
+.panel.on{display:block}
+.prompt-box{background:#0f172a;border-radius:10px;padding:1.25rem 1.25rem 1rem;position:relative}
+.prompt-box pre{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#e2e8f0;line-height:1.7;white-space:pre-wrap;word-break:break-word;padding-right:70px;max-height:220px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent}
+.prompt-box pre::-webkit-scrollbar{width:6px}
+.prompt-box pre::-webkit-scrollbar-track{background:transparent}
+.prompt-box pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:3px}
+.copy-btn{position:absolute;top:.75rem;right:.75rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-weight:500;font-family:inherit;cursor:pointer;padding:5px 12px;transition:all .15s;display:flex;align-items:center;gap:5px}
+.copy-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+.prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
+.prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
+.prompt-hint a:hover{text-decoration:underline}
 
-/* Common */
-.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
-.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
-.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
-.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
-.highlight-text{font-size:13px;color:#374151;line-height:1.65}
-.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
-.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
-.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
-.feature-list{list-style:none;padding:0;margin:0 0 1.25rem}
-.feature-list li{padding:.5rem 0 .5rem 1.25rem;position:relative;font-size:14px;color:#374151;border-bottom:1px solid #f0f2f5;line-height:1.6}
-.feature-list li:last-child{border-bottom:none}
-.feature-list li::before{content:'▸';position:absolute;left:0;color:#1d9e75;font-size:13px}
-.steps-list{display:flex;flex-direction:column;gap:0;margin:1rem 0}
-.step-row{display:flex;gap:16px;padding:1.1rem 0;border-bottom:1px solid #f0f2f5}
-.step-row:last-child{border-bottom:none}
-.step-body h3{font-size:14px;font-weight:600;color:#085041;margin-bottom:.3rem}
-.step-body p{font-size:13px;color:#374151;line-height:1.75;margin:0}
-.step-body code{background:#f0fdf4;color:#0f6e56;padding:1px 6px;border-radius:4px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;border:1px solid #d1fae5}
-.step-num{font-size:26px;font-weight:700;color:#d1fae5;line-height:1;flex-shrink:0;width:36px;text-align:right;padding-top:2px}
-.prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
-.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
-.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
-.prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}
-.prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#fff}
-.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;border-radius:12px;padding:1.25rem;margin:1.5rem 0}
-.checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
-.checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
-.checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
-.quiz-q{margin-bottom:1.5rem}
-.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
-.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
-.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
-.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}
-.opt.selected .radio{border-color:#1d9e75;background:#1d9e75}
-.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}
-.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
-.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
-.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
-.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
-.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}
-.submit-global:hover{background:#0f6e56}
-.submit-global:disabled{opacity:.35;cursor:default}
-.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
-.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
-.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
-.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
-.retake-btn:hover{background:#e1f5ee}
-.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc;flex-shrink:0}
-.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}
-.btn-back:hover{background:#f0f2f5}
-.btn-back:disabled{opacity:.35;cursor:default}
-.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
-.btn-fwd:hover{background:#0f6e56}
-.share-section{max-width:1100px;margin:2.5rem auto 0;padding:0 1rem}
-.share-inner{display:flex;align-items:center;justify-content:center;gap:16px;padding:1.75rem 1.5rem;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap}
-.share-copy{display:flex;align-items:center;gap:10px;height:48px;padding:0 20px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;color:#e5e7eb;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .2s}
-.share-copy:hover{background:#374151;transform:scale(1.04)}
-.share-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;text-decoration:none;transition:all .2s}
-.share-icon:hover{transform:scale(1.08)}
-.share-li:hover{background:#0a66c2;border-color:#0a66c2}
-.share-x:hover{background:#000;border-color:#000}
+/* ── BEFORE / AFTER VISUAL ── */
+.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
+.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.ba-col.before{border-color:#fca5a5}
+.ba-col.after{border-color:#6ee7b7}
+.ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
+.ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
+.ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
+.ba-body{padding:14px}
+.xl-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
+.xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
+.xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
+.xl-table .err-cell{color:#dc2626;font-weight:700;background:#fef2f2}
+.xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
+.xl-table .hl{background:#fffbeb}
+.xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
+.xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+.claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
+.claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
+.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
+
+/* ── DIAGNOSIS TABLE ── */
+.diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.diag-header{background:#fef2f2;border-bottom:1px solid #fecaca;padding:12px 18px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#dc2626}
+.diag-row{display:grid;grid-template-columns:180px 1fr 90px;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid #f9fafb}
+.diag-row:last-child{border-bottom:none}
+.diag-row:nth-child(even){background:#fafafa}
+.diag-cause{font-size:13px;font-weight:600;color:#1f2937}
+.diag-example{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#6b7280;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.diag-example .bad{color:#dc2626;font-weight:600;background:#fef2f2;padding:1px 5px;border-radius:3px}
+.diag-example .good{color:#059669;font-weight:600;background:#f0fdf4;padding:1px 5px;border-radius:3px}
+.diag-badge{font-size:10px;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;white-space:nowrap}
+.badge-red{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+.badge-yellow{background:#fffbeb;color:#b45309;border:1px solid #fde68a}
+
+/* ── STEPS ── */
+.steps-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.steps-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+.step{display:flex;gap:16px;padding:.9rem 0;border-bottom:1px solid #f3f4f6}
+.step:last-child{border-bottom:none}
+.step-n{width:28px;height:28px;border-radius:8px;background:#e1f5ee;color:#0f6e56;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body h3{font-size:13px;font-weight:600;color:#1f2937;margin-bottom:.25rem}
+.step-body p{font-size:13px;color:#6b7280;line-height:1.65}
+.step-body code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
+
+/* ── INFO BOXES ── */
+.tip{background:#fffbeb;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#92400e;line-height:1.65}
+.tip strong{color:#78350f}
+.note{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#065f46;line-height:1.65}
+.warn{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#7f1d1d;line-height:1.65}
+.warn strong{color:#991b1b}
+
+/* ── FAQ ── */
+.faq-section{margin-bottom:1.75rem}
+.faq-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1rem}
+.faq-item{border-bottom:1px solid #f3f4f6;padding:.9rem 0}
+.faq-q{font-size:13px;font-weight:600;color:#1f2937;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-q i{color:#9ca3af;transition:transform .2s;flex-shrink:0}
+.faq-q.open i{transform:rotate(180deg)}
+.faq-a{font-size:13px;color:#6b7280;line-height:1.7;display:none;padding-top:.6rem}
+.faq-a.open{display:block}
+.faq-a code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
+
+/* ── RELATED ── */
+.related-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af;margin-bottom:.75rem}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.related-link{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:.9rem 1rem;text-decoration:none;transition:border-color .15s}
+.related-link:hover{border-color:#1d9e75}
+.related-link strong{display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem}
+.related-link span{display:block;font-size:12px;color:#9ca3af;line-height:1.4}
+
+/* ── SEARCH ── */
 #searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
 #searchOverlay.open{display:flex}
 .search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
-.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
-.search-close-btn:hover{color:#fff}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px}
 .search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
 .search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
-.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:inherit}
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
-.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
-.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:2rem}
-.page-footer a{color:#1d9e75;text-decoration:none}
-.page-footer a:hover{text-decoration:underline}
-@media(max-width:700px){
-  .navbar{padding:0 1rem}
- .page-wrap{padding:1rem .5rem}
-  .course-shell{grid-template-columns:1fr}
-  .sidebar{display:none}
-  .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
-  .content-footer{padding:1rem}
-  .section-hero{padding:1.25rem 1rem}
-  .xl-compare-args{overflow-x:auto}
-  .xl-ca-header{min-width:480px}
-  .xl-ca-row{min-width:480px}
-  .xl-fb-formula{font-size:10px}
-  .xl-ld-formula{font-size:10px}
-  .seo-section p{word-break:break-word;overflow-wrap:break-word}
+
+@media(max-width:640px){
+  .hero h1{font-size:24px}
+  .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
+  .diag-row{grid-template-columns:1fr 1fr;gap:8px}
+  .diag-example{display:none}
+  .related-grid{grid-template-columns:1fr}
+  .page{padding:1.5rem 1rem 3rem}
 }
-.page-wrap-fix{max-width:1100px;margin:2rem auto;padding:0 1rem}.course-wrap-outer{width:100%}</style>
-<script defer src="/_vercel/insights/script.js"></script>
+</style>
 </head>
 <body>
+
 <div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
-<div class="search-overlay-inner">
-<button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
-<form action="/search.html" method="get">
-<div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
-</form>
-<p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
+  <div class="search-overlay-inner">
+    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+    <form action="/search.html" method="get">
+      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search workflows, prompts, and guides..." autocomplete="off"></div>
+    </form>
+  </div>
 </div>
-</div>
+
 <div id="navbar-placeholder"></div>
-<script src="/navbar.js"></script><script src="/footer.js"></script><script src="/footer.js"></script>
+<script src="/navbar.js"></script>
+<script src="/footer.js"></script>
+
 <noscript>
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
-<a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a>
-<a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a>
-<a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a>
-<a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a>
-<a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a>
-<a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a>
-<a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a>
-<a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
+<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
 
-<div class="page-wrap">
-<div class="page-wrap-fix"><div class="course-wrap-outer"><div class="course-shell">
-  <div class="sidebar">
-    <div class="sidebar-top">
-      <div class="course-label">Claude AI — Excel Course</div>
-      <h1 class="course-title-side">XLOOKUP formula in Excel with example</h1>
-    </div>
-    <div class="prog-wrap">
-      <div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
-      <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
-    </div>
-    <div class="nav-list">
-      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">The problem Claude solves</div></div>
-      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">The workflow</div></div>
-      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompts and checklist</div></div>
-      <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quick quiz</div></div>
-    </div>
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
+    <h1>XLOOKUP Formula in Excel with Claude AI</h1>
+    <p class="hero-sub">XLOOKUP is the modern replacement for VLOOKUP — more flexible, easier to read, and available in Excel 365 and Excel 2019+. Describe what you want to look up and Claude writes the correct formula with the right match mode, or diagnoses a broken one in seconds.</p>
   </div>
 
-  <div class="content-area">
-    <div class="section-hero">
-      <div class="section-tag" id="heroTag">Section 01</div>
-      <h2 id="heroTitle">XLOOKUP is better than VLOOKUP — here's how to write it with Claude.</h2>
+  <!-- PROMPT SELECTOR -->
+  <div class="prompt-card">
+    <div class="prompt-card-top">
+      <span class="prompt-card-label">Choose your situation — copy the prompt:</span>
+      <div class="tabs">
+        <button class="tab on" onclick="switchTab(this,'build')">🏗️ Build from scratch</button>
+        <button class="tab" onclick="switchTab(this,'debug')">🔴 Debug #N/A error</button>
+        <button class="tab" onclick="switchTab(this,'convert')">🔁 Convert VLOOKUP to XLOOKUP</button>
+      </div>
     </div>
-    <div class="content-body" id="cnt">
 
-      <!-- SECTION 0 -->
-      <div id="seo-sec-0" class="seo-section active-section">
-        <p>XLOOKUP is the modern, better replacement for VLOOKUP. It's more flexible, easier to read, and available in Excel 365 and Excel 2019+. Yet many users still struggle with it — the argument order is different, the match modes are confusing, and #N/A errors appear without clear explanation.</p>
-        <p>Claude handles XLOOKUP very well. Describe what you want to look up and what you need to return, and it writes the correct formula with the right match mode and error handling. If your existing XLOOKUP is broken, paste it in and Claude will diagnose and fix it quickly.</p>
-
-        <!-- VISUAL 1: XLOOKUP anatomy in formula bar -->
-        <div class="xl-formulabar">
-          <div class="xl-ribbon">
-            <div class="xl-ribbon-tab">Home</div>
-            <div class="xl-ribbon-tab">Insert</div>
-            <div class="xl-ribbon-tab active">Formulas</div>
-            <div class="xl-ribbon-tab">Data</div>
-          </div>
-          <div class="xl-fb-bar">
-            <div class="xl-fb-cellref">E2</div>
-            <div class="xl-fb-fx">fx</div>
-            <div class="xl-fb-formula"><span class="f-fn">=IFERROR(XLOOKUP(</span><span class="f-lookup">B2</span>, <span class="f-larray">Staff!$A$2:$A$500</span>, <span class="f-rarray">Staff!$D$2:$D$500</span>, <span class="f-notfound">""</span>, <span class="f-matchmode">0</span><span class="f-fn">), "")</span></div>
-          </div>
-        </div>
-
-        <!-- VISUAL 2: XLOOKUP vs VLOOKUP argument comparison -->
-        <p><strong>XLOOKUP vs VLOOKUP — why XLOOKUP wins:</strong></p>
-        <div class="xl-compare-args">
-          <div class="xl-ca-header">
-            <div class="xl-ca-hcell">Feature</div>
-            <div class="xl-ca-hcell" style="color:#d97706">VLOOKUP</div>
-            <div class="xl-ca-hcell" style="color:#059669">XLOOKUP</div>
-          </div>
-          <div class="xl-ca-rows">
-            <div class="xl-ca-row">
-              <div class="xl-ca-label">Return column</div>
-              <div class="xl-ca-vlookup">Column index number — breaks if columns are inserted</div>
-              <div class="xl-ca-xlookup advantage">Direct range reference — never breaks</div>
-            </div>
-            <div class="xl-ca-row">
-              <div class="xl-ca-label">Look left</div>
-              <div class="xl-ca-vlookup">Not possible — lookup must be leftmost column</div>
-              <div class="xl-ca-xlookup advantage">Yes — lookup and return can be any columns</div>
-            </div>
-            <div class="xl-ca-row">
-              <div class="xl-ca-label">Missing values</div>
-              <div class="xl-ca-vlookup">Needs IFERROR wrapper to avoid #N/A</div>
-              <div class="xl-ca-xlookup advantage">Built-in 4th argument handles missing values</div>
-            </div>
-            <div class="xl-ca-row">
-              <div class="xl-ca-label">Match mode</div>
-              <div class="xl-ca-vlookup">TRUE/FALSE — confusing, defaults to approximate</div>
-              <div class="xl-ca-xlookup advantage">0=exact, -1=next smaller, 1=next larger, 2=wildcard</div>
-            </div>
-          </div>
-          <div class="xl-ca-footer"><i class="ti ti-check" style="color:#059669;flex-shrink:0"></i> XLOOKUP is available in Excel 365 and Excel 2019+. On older versions, use INDEX/MATCH instead — <a href="/ai-for-excel.html" style="color:#065f46;font-weight:500">Claude handles both</a>.</div>
-        </div>
-
-        <ul class="feature-list">
-          <li>You describe what you need to find and Claude writes the XLOOKUP formula with all arguments correct</li>
-          <li>Claude chooses the right match mode — exact, approximate, or wildcard</li>
-          <li>Claude handles complex cases — looking left, returning multiple columns, nested XLOOKUPs</li>
-          <li>Claude converts old VLOOKUPs to XLOOKUP cleanly, including column index fixes</li>
-        </ul>
-
-        <div class="info-box"><p><strong>Not on Excel 365 or 2019?</strong> Tell Claude your Excel version and it will write INDEX/MATCH instead — which works in all versions and has the same advantages over VLOOKUP. Claude handles the conversion automatically.</p></div>
+    <div id="p-build" class="panel on">
+      <div class="prompt-box">
+        <pre>I need an XLOOKUP formula. I want to look up [lookup value / cell
+reference] in [lookup column/range] and return the value from [return
+column/range]. Data is on sheet [name], rows 2 to [last row]. Please
+write the XLOOKUP and add an IFERROR wrapper for missing values.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
+      <p class="prompt-hint">One sentence is enough — Claude fills in the exact syntax and match mode. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+    </div>
 
-      <!-- SECTION 1 -->
-      <div id="seo-sec-1" class="seo-section">
-        <p>Six steps — from describing your lookup to a tested, production-ready formula.</p>
-
-        <!-- VISUAL 3: Live lookup demo table -->
-        <div class="xl-lookup-demo">
-          <div class="xl-ld-ribbon">
-            <div class="xl-ld-tab">Summary</div>
-            <div class="xl-ld-tab inactive">Staff</div>
-            <div class="xl-ld-tab inactive">Raw_Data</div>
-          </div>
-          <div class="xl-ld-bar">
-            <div class="xl-ld-ref">E2</div>
-            <div class="xl-ld-fx">fx</div>
-            <div class="xl-ld-formula"><span class="xl-ld-fn">=XLOOKUP(</span><span class="xl-ld-arg1">B2</span>, <span class="xl-ld-arg2">Staff!$A:$A</span>, <span class="xl-ld-arg3">Staff!$D:$D</span>, <span class="xl-ld-arg4">""</span>, 0<span class="xl-ld-fn">)</span></div>
-          </div>
-          <div class="xl-ld-grid">
-            <div class="xl-ld-row">
-              <div class="xl-ld-rnum">1</div>
-              <div class="xl-ld-cell hdr">Name</div>
-              <div class="xl-ld-cell hdr" style="background:#f3f3f3;color:#7c3aed">Emp ID ← lookup</div>
-              <div class="xl-ld-cell hdr">Dept</div>
-              <div class="xl-ld-cell hdr" style="background:#f3f3f3;color:#d97706">Salary ← return</div>
-            </div>
-            <div class="xl-ld-row">
-              <div class="xl-ld-rnum">2</div>
-              <div class="xl-ld-cell">Sarah M.</div>
-              <div class="xl-ld-cell lookup-col">EMP-042</div>
-              <div class="xl-ld-cell">Finance</div>
-              <div class="xl-ld-cell result">£52,000</div>
-            </div>
-            <div class="xl-ld-row">
-              <div class="xl-ld-rnum">3</div>
-              <div class="xl-ld-cell">James T.</div>
-              <div class="xl-ld-cell lookup-col">EMP-017</div>
-              <div class="xl-ld-cell">HR</div>
-              <div class="xl-ld-cell result">£44,500</div>
-            </div>
-            <div class="xl-ld-row">
-              <div class="xl-ld-rnum">4</div>
-              <div class="xl-ld-cell">Priya K.</div>
-              <div class="xl-ld-cell lookup-col">EMP-099</div>
-              <div class="xl-ld-cell">Ops</div>
-              <div class="xl-ld-cell result">£48,200</div>
-            </div>
-            <div class="xl-ld-row">
-              <div class="xl-ld-rnum">5</div>
-              <div class="xl-ld-cell">David R.</div>
-              <div class="xl-ld-cell lookup-col">EMP-???</div>
-              <div class="xl-ld-cell">Sales</div>
-              <div class="xl-ld-cell" style="background:#f8fafc;color:#94a3b8;font-style:italic">""  (not found)</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="steps-list">
-          <div class="step-row">
-            <div class="step-num">01</div>
-            <div class="step-body"><h3>Clearly define what you need</h3><p>Tell Claude the lookup value, the column where it's located, and the column you want to return. One sentence is enough: "Look up employee ID in column A of the Staff sheet and return their salary from column D."</p></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">02</div>
-            <div class="step-body"><h3>Provide the data location</h3><p>Specify the sheet name, the range, and whether the data has a fixed size or grows. Claude uses this to write references that won't break when rows are added.</p></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">03</div>
-            <div class="step-body"><h3>Get the formula</h3><p>Claude writes the full XLOOKUP, explains the key arguments, and chooses the right match mode — exact match for IDs and codes, approximate for tiered pricing or grades, wildcard for partial text searches.</p></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">04</div>
-            <div class="step-body"><h3>Test immediately</h3><p>Always test with a value you know should work. If it returns <a href="/claude-excel-na-errors.html" style="color:#0f6e56;font-weight:500"><code>#N/A</code></a>, send Claude the formula and 3 sample rows. The cause is almost always a data type mismatch or trailing space — Claude finds it instantly.</p></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">05</div>
-            <div class="step-body"><h3>Add error handling</h3><p>Once the formula works, wrap it with <code>IFERROR</code> to return a blank, dash, or "Not Found" instead of <code>#N/A</code> for genuinely missing values. Or use the built-in 4th argument of XLOOKUP — Claude will show you both options.</p></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">06</div>
-            <div class="step-body"><h3>Convert old VLOOKUPs</h3><p>Paste any existing VLOOKUP formulas into Claude and ask it to rewrite them as XLOOKUP. Claude handles the conversion cleanly — including fixing the hardcoded column index numbers that break when columns are inserted.</p></div>
-          </div>
-        </div>
-
-        <div class="highlight-box">
-          <div class="highlight-icon"><i class="ti ti-bulb"></i></div>
-          <div class="highlight-text"><strong>Tip:</strong> XLOOKUP can return multiple columns at once. If you need both name and salary from a lookup, tell Claude and it will write <a href="/claude-excel-lambda.html" style="color:#0f6e56;font-weight:500">a single formula that spills both results</a> automatically — no need to write two separate formulas.</div>
-        </div>
-      </div>
-
-      <!-- SECTION 2 -->
-      <div id="seo-sec-2" class="seo-section">
-        <p>Copy these prompts into Claude. Replace the bracketed placeholders with your actual data and column references.</p>
-
-        <p><strong>Build from scratch</strong></p>
-        <div class="prompt-block">
-          <div class="prompt-block-label">Prompt — paste into Claude</div>
-          <div class="prompt-block-text">I need an XLOOKUP formula. I want to look up [lookup value / cell reference] in [lookup column/range] and return the value from [return column/range]. Data is on sheet [name], rows 2 to [last row]. Please write the XLOOKUP and add an IFERROR wrapper for missing values.</div>
-          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
-        </div>
-
-        <p><strong>Debug a broken XLOOKUP</strong></p>
-        <div class="prompt-block">
-          <div class="prompt-block-label">Prompt — paste into Claude</div>
-          <div class="prompt-block-text">My XLOOKUP is returning #N/A. Here is the formula:
+    <div id="p-debug" class="panel">
+      <div class="prompt-box">
+        <pre>My XLOOKUP is returning #N/A. Here is the formula:
 [paste formula]
 
-The lookup value is [value] and it exists in the table. Here are 3 sample rows from the lookup column:
+The lookup value is [value] and it exists in the table. Here are 3 sample
+rows from the lookup column:
 [paste rows]
 
-Please identify why it's failing and give me the corrected formula.</div>
-          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
-        </div>
+Please identify why it's failing and give me the corrected formula.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
+      </div>
+      <p class="prompt-hint">The cause is almost always a data type mismatch or trailing space — Claude spots it from a few sample rows.</p>
+    </div>
 
-        <p><strong>Convert VLOOKUP to XLOOKUP</strong></p>
-        <div class="prompt-block">
-          <div class="prompt-block-label">Prompt — paste into Claude</div>
-          <div class="prompt-block-text">Please convert this VLOOKUP to XLOOKUP:
+    <div id="p-convert" class="panel">
+      <div class="prompt-box">
+        <pre>Please convert this VLOOKUP to XLOOKUP:
 [paste VLOOKUP formula]
 
-Data is on sheet [name]. Keep any existing IFERROR wrapper.</div>
-          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
-        </div>
-
-        <div class="checklist-box">
-          <div class="checklist-title">Checklist</div>
-          <div class="checklist-item"><i class="ti ti-square-check"></i>Lookup value, lookup column, and return column described clearly to Claude</div>
-          <div class="checklist-item"><i class="ti ti-square-check"></i>Sheet name and data range specified</div>
-          <div class="checklist-item"><i class="ti ti-square-check"></i>Formula tested with at least one known value</div>
-          <div class="checklist-item"><i class="ti ti-square-check"></i>#N/A investigated if it appears — data type or trailing spaces likely</div>
-          <div class="checklist-item"><i class="ti ti-square-check"></i>IFERROR wrapper added for production use</div>
-          <div class="checklist-item"><i class="ti ti-square-check"></i>Old VLOOKUPs converted to XLOOKUP where relevant</div>
-        </div>
-
-        <div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>XLOOKUP availability:</strong> XLOOKUP requires Excel 365 or Excel 2019+. If you or your colleagues are on Excel 2016 or older, use INDEX/MATCH instead — tell Claude your version and it will write the right formula automatically.</div></div>
-
-        <p><strong>Frequently asked questions</strong></p>
-
-        <p><strong>Is XLOOKUP better than VLOOKUP?</strong></p>
-        <p>Yes. XLOOKUP improves on VLOOKUP in several important ways: it uses a direct range reference instead of a fragile column index number, it can look left, and it has a built-in argument for handling missing values. Wherever Excel 365 or Excel 2021 is available, XLOOKUP is the recommended choice.</p>
-
-        <p><strong>Why is my XLOOKUP returning #N/A?</strong></p>
-        <p>The most common cause is a data type mismatch — for example, the lookup value is stored as text while the lookup column contains numbers, or vice versa. Trailing spaces and invisible characters are the second most frequent culprit. Paste the formula and a few sample rows into Claude and it will pinpoint the issue immediately.</p>
-
-        <p><strong>What Excel versions support XLOOKUP?</strong></p>
-        <p>XLOOKUP is available in Microsoft 365 and Excel 2021. It is not supported in Excel 2019, 2016, or earlier. If you need a formula that works across all versions, use INDEX/MATCH instead — Claude can write either one and convert between them.</p>
-
-        <p><strong>Does XLOOKUP replace INDEX MATCH?</strong></p>
-        <p>XLOOKUP and INDEX/MATCH solve the same problems, but XLOOKUP has simpler syntax and built-in error handling. If everyone on your team uses Excel 365 or 2021, XLOOKUP is the cleaner option. If any colleagues use older versions, INDEX/MATCH is safer because it works everywhere.</p>
-
-        <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin:1.5rem 0 .6rem">Related courses</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem">
-        <a href="/claude-excel-na-errors.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
-        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Fix #N/A Errors in Excel with Claude</span>
-        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Diagnose and fix every type of #N/A error in your lookup formulas.</span>
-        </a>
-        <a href="/claude-excel-index-match.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
-        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Use Claude to Write INDEX MATCH in Excel</span>
-        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">The universal lookup method that works in every Excel version.</span>
-        </a>
-        <a href="/claude-excel-lambda.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
-        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Use Claude to Write LAMBDA Functions in Excel</span>
-        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Build reusable custom functions without VBA.</span>
-        </a>
-        </div>
+Data is on sheet [name]. Keep any existing IFERROR wrapper.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-
-      <!-- SECTION 3 QUIZ -->
-      <div id="seo-sec-3" class="seo-section">
-        <div id="quiz-interactive-container"></div>
-      </div>
-
-    </div>
-    <div class="content-footer">
-      <button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button>
-      <button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>
+      <p class="prompt-hint">Claude fixes the hardcoded column index numbers that break when columns are inserted or deleted.</p>
     </div>
   </div>
-</div>
-</div></div>
 
-<footer style="background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0">
-<div style="max-width:1100px; margin:0 auto">
-<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Guides by Role</strong>
-<a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Finance Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for HR Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Marketing Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Legal Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Operations Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Sales Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Customer Service</a>
-<a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Excel</a>
+  <!-- BEFORE / AFTER VISUAL -->
+  <div class="before-after">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — VLOOKUP, fragile index</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th></th><th>Feature</th><th>VLOOKUP</th></tr>
+          <tr class="section-row"><td colspan="3">Return column</td></tr>
+          <tr><td>Reference type</td><td>Column index</td><td class="err-cell">Breaks if columns inserted</td></tr>
+          <tr><td>Missing values</td><td>Error handling</td><td class="err-cell">Needs IFERROR wrapper</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          =VLOOKUP(A2,Sheet2!A:C,3,FALSE)
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Hardcoded "3" breaks the moment a column is inserted in Sheet2</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — XLOOKUP, direct reference</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th></th><th>Feature</th><th>XLOOKUP</th></tr>
+          <tr class="section-row"><td colspan="3">Return column</td></tr>
+          <tr><td>Reference type</td><td>Direct range</td><td class="link-cell">Never breaks</td></tr>
+          <tr><td>Missing values</td><td>Error handling</td><td class="ok-cell">Built-in 4th argument</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's fix</div>
+          <pre>=XLOOKUP(A2,Sheet2!A:A,Sheet2!C:C,"Not found")
+
+Direct range reference — inserting a column no longer breaks it. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIAGNOSIS TABLE -->
+  <div class="diag-card">
+    <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Why XLOOKUP returns #N/A — the 4 most common causes</div>
+    <div class="diag-row">
+      <div class="diag-cause">Data type mismatch</div>
+      <div class="diag-example">Lookup value is <span class="bad">text</span> but the lookup column stores <span class="good">numbers</span> (or vice versa)</div>
+      <div class="diag-badge badge-red">Most common</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">Trailing spaces</div>
+      <div class="diag-example">Invisible characters in either value — <span class="bad">"EMP-042 "</span> ≠ <span class="good">"EMP-042"</span></div>
+      <div class="diag-badge badge-red">Most common</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">Wrong match mode</div>
+      <div class="diag-example">Exact match needed but <span class="bad">approximate mode</span> left in the 5th argument</div>
+      <div class="diag-badge badge-yellow">Easy fix</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">Old VLOOKUP column index</div>
+      <div class="diag-example">A column was inserted and the <span class="bad">hardcoded index number</span> now points to the wrong column</div>
+      <div class="diag-badge badge-yellow">Invisible</div>
+    </div>
+  </div>
+
+  <!-- STEPS -->
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+  <div class="steps-card">
+    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Write and test an XLOOKUP with Claude — 5 steps</div>
+    <div class="step">
+      <div class="step-n">1</div>
+      <div class="step-body"><h3>Clearly define what you need</h3><p>Tell Claude the lookup value, the column where it's located, and the column you want to return. One sentence is enough: "Look up employee ID in column A of the Staff sheet and return their salary from column D."</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">2</div>
+      <div class="step-body"><h3>Provide the data location</h3><p>Specify the sheet name, the range, and whether the data has a fixed size or grows. Claude uses this to write references that won't break when rows are added.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">3</div>
+      <div class="step-body"><h3>Get the formula with the right match mode</h3><p>Claude writes the full XLOOKUP and chooses the right match mode — exact match for IDs and codes, approximate for tiered pricing or grades, wildcard for partial text searches.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">4</div>
+      <div class="step-body"><h3>Test with a known value</h3><p>Always test with a value you know should work. If it returns <code>#N/A</code>, send Claude the formula and 3 sample rows — the cause is almost always a data type mismatch or trailing space.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">5</div>
+      <div class="step-body"><h3>Add error handling and convert old VLOOKUPs</h3><p>Wrap the formula with <code>IFERROR</code> or use the built-in 4th argument for missing values. Then paste any existing VLOOKUPs into Claude to convert them cleanly — including fixing hardcoded column index numbers.</p></div>
+    </div>
+    <div class="warn"><strong>Version check:</strong> XLOOKUP requires Excel 365 or Excel 2021. It is not available in Excel 2019, 2016, or earlier. If you or your colleagues are on an older version, tell Claude and it will write INDEX/MATCH instead — same flexibility, works everywhere.</div>
+  </div>
+
+  <!-- FAQ -->
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Frequently asked questions</h2>
+  <div class="faq-section">
+    <div class="faq-title" aria-hidden="true">Frequently asked questions</div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Is XLOOKUP better than VLOOKUP? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Yes. XLOOKUP improves on VLOOKUP in several important ways: it uses a direct range reference instead of a fragile column index number, it can look left, it has a built-in argument for handling missing values, and its match modes are clearer. XLOOKUP is the recommended replacement wherever Excel 365 or Excel 2019+ is available.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Why is my XLOOKUP returning #N/A? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">The most common cause is a data type mismatch between the lookup value and the lookup column — for example, one is stored as text and the other as a number. Trailing spaces or invisible characters in either value are the second most frequent cause. Paste the formula and a few sample rows into Claude and it will identify the exact issue.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What Excel versions support XLOOKUP? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">XLOOKUP is available in Microsoft 365 (formerly Office 365) and Excel 2021. It is not available in Excel 2019, 2016, or earlier. If you are on an older version, use INDEX/MATCH instead — it offers the same flexibility and works in every Excel version.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Does XLOOKUP replace INDEX MATCH? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">XLOOKUP and INDEX/MATCH solve the same problems, but XLOOKUP has simpler syntax and built-in error handling. If everyone on your team uses Excel 365 or 2021, XLOOKUP is the cleaner choice. If any colleagues use older versions, INDEX/MATCH is safer because it works everywhere.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Can XLOOKUP return more than one column at once? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Yes. If you need multiple fields from the same lookup — for example both name and salary — describe that to Claude and it will write a single XLOOKUP that spills both results, instead of writing two separate formulas.</div>
+    </div>
+  </div>
+
+  <!-- RELATED -->
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Related Excel workflows</h2>
+  <div class="related-title" aria-hidden="true">Related Excel workflows</div>
+  <div class="related-grid">
+    <a href="/claude-excel-na-errors.html" class="related-link">
+      <strong>Fix #N/A Errors in Excel with Claude</strong>
+      <span>Diagnose and fix every type of #N/A error in your lookup formulas.</span>
+    </a>
+    <a href="/claude-excel-lambda.html" class="related-link">
+      <strong>Write LAMBDA Functions in Excel with Claude</strong>
+      <span>Build reusable custom functions without VBA.</span>
+    </a>
+    <a href="/claude-excel-sumifs.html" class="related-link">
+      <strong>Build Multi-Criteria SUMIFS Formulas</strong>
+      <span>Aggregate data accurately based on multiple conditions.</span>
+    </a>
+    <a href="/claude-excel-sheets-finance-formulas.html" class="related-link">
+      <strong>Excel and Google Sheets Formulas for Finance</strong>
+      <span>Write, debug, and convert finance formulas between Excel and Sheets.</span>
+    </a>
+  </div>
+
 </div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Prompt Tools</strong>
-<a href="https://www.pairworkflows.com/claude-prompts-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Excel Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Finance Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">HR Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Marketing Prompt Builder</a>
-<a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">General Prompt Library</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Resources</strong>
-<a href="https://www.pairworkflows.com/claude-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Claude Courses</a>
-<a href="https://www.pairworkflows.com/gemini-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Gemini Courses</a>
-<a href="https://www.pairworkflows.com/glossary.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI Glossary</a>
-<a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Claude vs Gemini</a>
-<a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company & Legal</strong>
-<a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
-<a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
-<a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
-<a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Privacy Policy</a>
-<a href="https://www.pairworkflows.com/legal.html#terms" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Terms of Use</a>
-<a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Cookie Policy</a>
-</div>
-</div>
-<div style="text-align:center; margin-bottom:2rem">
-<p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:520px; margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p>
-</div>
-<div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem">
-<span style="font-size:13px; color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
-<div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
-<button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-  Copy link
-</button>
-<a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-  <span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span>
-</a>
-<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn">
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-</a>
-<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-</a>
-</div>
-</div>
-</div>
-</footer>
+
 <script>
-var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
-var heroes=[
-  {tag:'Section 01',title:'XLOOKUP is better than VLOOKUP — here\'s how to write it with Claude.'},
-  {tag:'Section 02',title:'Six steps to a tested, production-ready XLOOKUP formula'},
-  {tag:'Section 03',title:'Prompts and checklist'},
-  {tag:'Section 04 — Quiz',title:'Quick quiz'}
-];
-var quiz=[
-  {q:'What is the main advantage of XLOOKUP over VLOOKUP?',
-   opts:['XLOOKUP is faster on large datasets','XLOOKUP can look left, does not need a column index number, and handles missing values more cleanly','XLOOKUP works in all Excel versions including 2010'],
-   correct:1},
-  {q:'Your XLOOKUP returns #N/A but the value exists in the lookup column. What should you check first?',
-   opts:['Whether the return column is wide enough to display the result','Whether there is a data type mismatch or trailing space between the lookup value and the table','Whether XLOOKUP is available in your Excel version'],
-   correct:1},
-  {q:'What does the fourth argument of XLOOKUP control?',
-   opts:['The column to return','What to return when no match is found','Whether to search left or right'],
-   correct:1},
-  {q:'What is the best way to migrate old VLOOKUP formulas to XLOOKUP?',
-   opts:['Delete all VLOOKUPs and rewrite from scratch','Paste the VLOOKUP into Claude and ask it to convert — it handles column index numbers automatically','VLOOKUP and XLOOKUP are interchangeable so no conversion is needed'],
-   correct:1}
-];
-function buildQuizHTML(){
-  if(quizDone){
-    var score=0;
-    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
-    var msgs=['Worth re-reading section 1 — understanding why XLOOKUP beats VLOOKUP is the foundation.','Good effort — review the workflow steps before diving in.','Almost there! One concept to sharpen — revisit what the fourth XLOOKUP argument controls.','Perfect score — you are ready to write and debug any XLOOKUP with Claude.'];
-    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
-  }
-  var html='';
-  for(var i=0;i<quiz.length;i++){
-    var q=quiz[i];
-    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
-    for(var j=0;j<q.opts.length;j++){
-      var cls='opt';
-      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
-      else if(sel[i]===j)cls+=' selected';
-      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
-    }
-    html+='</div>';
-  }
-  var allSel=Object.keys(sel).length===quiz.length;
-  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
-  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
-  return html;
+function switchTab(btn,id){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  btn.classList.add('on');
+  document.getElementById('p-'+id).classList.add('on');
 }
-function render(){
-  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
-  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
-  document.getElementById('heroTag').textContent=heroes[cur].tag;
-  document.getElementById('heroTitle').textContent=heroes[cur].title;
-  for(var i=0;i<4;i++){
-    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),sec=document.getElementById('seo-sec-'+i);
-    ni.className='nav-item'+(i===cur?' active':'');
-    if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');
-    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
-    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
-    else{nd.className='nav-dot';nd.textContent=(i+1);}
-  }
-  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
-  document.getElementById('btnBack').disabled=(cur===0);
-  var fwd=document.getElementById('btnFwd');
-  if(cur===3){fwd.style.display='none';}
-  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
+function copyPrompt(btn){
+  var text=btn.previousElementSibling.innerText;
+  navigator.clipboard.writeText(text);
+  btn.innerHTML='<i class="ti ti-check" style="font-size:12px"></i> Copied!';
+  setTimeout(function(){btn.innerHTML='<i class="ti ti-copy" style="font-size:12px"></i> Copy';},2000);
 }
-function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
-function goFwd(){if(cur<3)go(cur+1);}
-function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
-function showResult(){quizDone=true;render();}
-function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
-function copyPrompt(btn){var block=btn.closest('.prompt-block');var text=block.querySelector('.prompt-block-text').innerText;navigator.clipboard.writeText(text);btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);}
-function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
+function toggleFaq(q){
+  q.classList.toggle('open');
+  q.nextElementSibling.classList.toggle('open');
+}
 function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
 function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
-document.getElementById('cnt').addEventListener('click',function(e){
-  if(cur!==3||quizSubmitted||quizDone)return;
-  var opt=e.target.closest('.opt');
-  if(!opt)return;
-  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
-  render();
-});
-render();
 </script>
 </body>
 </html>

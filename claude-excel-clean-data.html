@@ -3,670 +3,369 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Automated data cleaning Excel — PairWorkflows</title>
-<meta name="description" content="Imported data breaking your Excel formulas? Learn how to use Claude AI to diagnose invisible data problems and get the exact cleaning formulas — TRIM, VALUE, PROPER, DATEVALUE.">
+<title>Claude AI for Cleaning Imported Excel Data — PairWorkflows</title>
+<meta name="description" content="Use Claude AI to diagnose invisible Excel data problems and get the exact cleaning formulas — TRIM, VALUE, PROPER, DATEVALUE.">
 <link rel="canonical" href="https://www.pairworkflows.com/claude-excel-clean-data.html">
-<meta property="og:title" content="Automated data cleaning Excel — PairWorkflows">
-<meta property="og:description" content="Use Claude AI to diagnose imported data problems and get the exact Excel cleaning formulas fast.">
-<meta property="og:url" content="https://www.pairworkflows.com/claude-excel-clean-data.html">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="PairWorkflows">
-<meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Automated data cleaning Excel","description":"Imported data breaking your Excel formulas? Learn how to use Claude AI to diagnose invisible data problems and get the exact cleaning formulas fast.","url":"https://www.pairworkflows.com/claude-excel-clean-data.html","provider":{"@type":"Organization","name":"PairWorkflows","sameAs":"https://www.pairworkflows.com"},"timeRequired":"PT5M","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","category":"Free"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT5M"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I remove trailing spaces in Excel?","acceptedAnswer":{"@type":"Answer","text":"Use the TRIM function (e.g., =TRIM(A2)). It automatically removes all leading, trailing, and double spaces between words. If you still have invisible spaces after using TRIM, they might be non-printable characters — use =CLEAN(TRIM(A2)) to remove them."}},{"@type":"Question","name":"Why are my numbers stored as text in Excel?","acceptedAnswer":{"@type":"Answer","text":"When data is imported from external systems like CRMs or accounting software, numbers are often formatted with text characters or invisible apostrophes. Excel treats them as text, meaning math formulas and SUMIFS will ignore them or return 0. Use the =VALUE() function to convert them back to real numbers."}},{"@type":"Question","name":"How do I fix dates that won't sort in Excel?","acceptedAnswer":{"@type":"Answer","text":"If dates sort alphabetically instead of chronologically, Excel is treating them as text rather than serial date numbers. You can fix this by applying the =DATEVALUE() function to the text dates, and then formatting the result as a Date."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I remove trailing spaces in Excel?","acceptedAnswer":{"@type":"Answer","text":"Use the TRIM function, e.g. =TRIM(A2). It automatically removes all leading, trailing, and double spaces between words. If you still have invisible spaces after using TRIM, they might be non-printable characters — use =CLEAN(TRIM(A2)) to remove them."}},{"@type":"Question","name":"Why are my numbers stored as text in Excel?","acceptedAnswer":{"@type":"Answer","text":"When data is imported from external systems like CRMs or accounting software, numbers are often formatted with text characters or invisible apostrophes. Excel treats them as text, so math formulas and SUMIFS will ignore them or return 0. Use =VALUE() to convert them back to real numbers."}},{"@type":"Question","name":"How do I fix dates that won't sort in Excel?","acceptedAnswer":{"@type":"Answer","text":"If dates sort alphabetically instead of chronologically, Excel is treating them as text rather than serial date numbers. Fix this by applying =DATEVALUE() to the text dates, then formatting the result as a Date."}},{"@type":"Question","name":"What's the difference between TRIM and CLEAN in Excel?","acceptedAnswer":{"@type":"Answer","text":"TRIM removes leading, trailing, and double spaces. CLEAN removes non-printable characters — the hidden characters that appear when you import from legacy systems or mainframes. If TRIM alone doesn't fix a stubborn cell, try =CLEAN(TRIM(A2))."}},{"@type":"Question","name":"Can Claude clean my Excel data for me automatically?","acceptedAnswer":{"@type":"Answer","text":"No. Claude can't touch your spreadsheet directly — it diagnoses the problem from a sample you paste in and gives you the exact formula to apply yourself in a helper column."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"><link rel="stylesheet" href="/global-fix.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="/global-fix.css">
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter','Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
-.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
-.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
-.logo-workflows{font-size:16px;font-weight:400;color:#fff}
-.nav-right{display:flex;align-items:center;gap:16px}
-.nav-back{font-size:13px;color:#6b9e8a;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
-.nav-back:hover{color:#1d9e75}
-.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.search-trigger:hover{background:rgba(255,255,255,.15);color:#fff}
-.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
-.course-shell{background:#fff;border-radius:16px;border:1px solid #e8ecef;overflow:hidden;display:grid;grid-template-columns:240px 1fr;min-height:580px}
-.sidebar{background:#f8fafb;border-right:1px solid #e8ecef;display:flex;flex-direction:column}
-.sidebar-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid #e8ecef}
-.course-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0f6e56;margin-bottom:.5rem}
-.course-title-side{font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.45}
-.prog-wrap{padding:1rem 1.25rem .75rem}
-.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:.4rem}
-.prog-track{height:5px;background:#e8ecef;border-radius:3px;overflow:hidden}
-.prog-fill{height:5px;background:linear-gradient(90deg,#1d9e75,#0f6e56);border-radius:3px;transition:width .35s ease}
-.nav-list{padding:.5rem 0;flex:1}
-.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
-.nav-item:hover{background:#eef1f4}
-.nav-item.active{border-left-color:#1d9e75;background:#fff}
-.nav-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;flex-shrink:0;transition:all .15s}
-.nav-dot.done{background:#1d9e75;border-color:#1d9e75;color:#fff}
-.nav-dot.active{border-color:#1d9e75;color:#0f6e56;font-weight:600}
-.nav-text{font-size:13px;color:#6b7280;line-height:1.35}
-.nav-item.active .nav-text{color:#1a1a2e;font-weight:500}
-.content-area{display:flex;flex-direction:column;min-width:0;overflow:hidden}
-.section-hero{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);padding:1.75rem 2rem}
-.section-tag{font-size:11px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:.5rem}
-.section-hero h2{font-size:22px;font-weight:500;color:#fff;line-height:1.3;max-width:560px}
-.content-body{padding:1.75rem 2rem;flex:1;max-width:100%;overflow-x:hidden;box-sizing:border-box;word-break:break-word;overflow-wrap:break-word}
-.seo-section{display:none}
-.seo-section.active-section{display:block}
-.seo-section p{font-size:14px;color:#374151;line-height:1.8;margin-bottom:1rem}
-
-/* ── VISUAL 1: Dirty vs Clean data table ── */
-.xl-dirty-clean{margin:1.5rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.xl-dc-ribbon{background:#217346;padding:5px 14px;display:flex;align-items:center;gap:2px}
-.xl-dc-tab{font-size:11px;color:rgba(255,255,255,.65);padding:4px 10px;border-radius:4px 4px 0 0;font-weight:500}
-.xl-dc-tab.active{background:rgba(255,255,255,.18);color:#fff;font-weight:600}
-.xl-dc-grid{display:grid;grid-template-columns:44px 1fr 1fr;background:#fff}
-.xl-dc-col-hdr{background:#f3f3f3;border-bottom:2px solid #d0d0d0;display:contents}
-.xl-dc-ch{font-size:11px;font-weight:700;color:#595959;padding:6px 10px;border-right:1px solid #d0d0d0;text-align:center}
-.xl-dc-ch.problem{background:#fef2f2;color:#dc2626}
-.xl-dc-ch.clean{background:#f0fdf4;color:#059669}
-.xl-dc-row{display:contents}
-.xl-dc-num{font-size:11px;color:#595959;text-align:right;padding:6px 8px;background:#f3f3f3;border-right:1px solid #d0d0d0;border-bottom:1px solid #e8e8e8;font-weight:500}
-.xl-dc-cell{font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;padding:6px 10px;border-right:1px solid #e8e8e8;border-bottom:1px solid #e8e8e8}
-.xl-dc-cell.dirty{background:#fef2f2;color:#7f1d1d;position:relative}
-.xl-dc-cell.ok{background:#f0fdf4;color:#065f46}
-.xl-dc-cell.dirty::after{content:'⚠';position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:10px;color:#dc2626}
-.xl-dc-caption{background:#f8fafc;border-top:1px solid #e2e8f0;padding:8px 14px;font-size:11px;color:#64748b;font-style:italic;display:grid;grid-template-columns:44px 1fr 1fr}
-.xl-dc-cap-cell{padding:0 4px}
-.xl-dc-cap-cell.red{color:#dc2626;font-weight:600}
-.xl-dc-cap-cell.green{color:#059669;font-weight:600}
-
-/* ── VISUAL 2: Cleaning formula cards ── */
-.xl-clean-formulas{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:1.5rem 0}
-.xl-cf-card{border-radius:10px;overflow:hidden;border:1px solid #e2e8f0}
-.xl-cf-header{padding:7px 12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;gap:8px}
-.xl-cf-card.trim .xl-cf-header{background:#eff6ff;color:#1d4ed8}
-.xl-cf-card.value .xl-cf-header{background:#faf5ff;color:#7c3aed}
-.xl-cf-card.proper .xl-cf-header{background:#f0fdf4;color:#059669}
-.xl-cf-card.datevalue .xl-cf-header{background:#fff8e1;color:#d97706}
-.xl-cf-body{padding:10px 12px;background:#f8fafc}
-.xl-cf-formula{font-family:'SFMono-Regular',Consolas,monospace;font-size:12px;background:#fff;border:1px solid #e2e8f0;border-radius:5px;padding:6px 10px;margin-bottom:6px}
-.xl-cf-card.trim .xl-cf-formula{color:#1d4ed8}
-.xl-cf-card.value .xl-cf-formula{color:#7c3aed}
-.xl-cf-card.proper .xl-cf-formula{color:#059669}
-.xl-cf-card.datevalue .xl-cf-formula{color:#d97706}
-.xl-cf-desc{font-size:11px;color:#64748b;line-height:1.5}
-.xl-cf-example{display:flex;align-items:center;gap:6px;margin-top:6px;font-size:11px}
-.xl-cf-before{background:#fef2f2;color:#dc2626;font-family:monospace;padding:2px 6px;border-radius:4px;border:1px solid #fecaca}
-.xl-cf-arrow{color:#94a3b8}
-.xl-cf-after{background:#f0fdf4;color:#059669;font-family:monospace;padding:2px 6px;border-radius:4px;border:1px solid #bbf7d0;font-weight:600}
-
-/* ── VISUAL 3: Workflow steps with Excel-style formula bar ── */
-.xl-step-visual{margin:1.25rem 0;border-radius:10px;overflow:hidden;border:1px solid #d0d0d0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.xl-sv-bar{background:#f3f3f3;border-bottom:1px solid #d0d0d0;display:flex;align-items:center;gap:0}
-.xl-sv-cellref{background:#e8e8e8;color:#1a1a2e;font-family:'SFMono-Regular',Consolas,monospace;font-size:11px;font-weight:700;padding:7px 10px;border-right:1px solid #d0d0d0;min-width:48px;text-align:center;flex-shrink:0}
-.xl-sv-fx{color:#595959;font-size:12px;padding:7px 8px;border-right:1px solid #d0d0d0;font-style:italic;flex-shrink:0}
-.xl-sv-formula{font-family:'SFMono-Regular',Consolas,monospace;font-size:12px;padding:7px 10px;flex:1;overflow-x:auto;white-space:nowrap}
-.xl-sv-fn{color:#217346;font-weight:700}
-.xl-sv-arg{color:#7c3aed}
-.xl-sv-rows{display:flex;flex-direction:column}
-.xl-sv-row{display:grid;grid-template-columns:44px repeat(3,1fr);border-bottom:1px solid #e8e8e8}
-.xl-sv-row:last-child{border-bottom:none}
-.xl-sv-rnum{font-size:11px;color:#595959;text-align:right;padding:6px 8px;background:#f3f3f3;border-right:1px solid #d0d0d0;font-weight:500}
-.xl-sv-cell{font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;padding:6px 10px;border-right:1px solid #e8e8e8}
-.xl-sv-cell.hdr{background:#f3f3f3;font-weight:700;font-size:11px;color:#374151;font-family:'Inter',sans-serif}
-.xl-sv-cell.original{color:#7f1d1d;background:#fef2f2}
-.xl-sv-cell.helper{color:#1d4ed8;background:#eff6ff}
-.xl-sv-cell.result{color:#065f46;background:#f0fdf4;font-weight:600}
-
-/* Common */
-.info-box{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
-.info-box p{color:#085041;margin:0;font-size:13px;line-height:1.65}
-.highlight-box{display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0}
-.highlight-icon{font-size:20px;color:#f59e0b;flex-shrink:0}
-.highlight-text{font-size:13px;color:#374151;line-height:1.65}
-.warning-box{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;display:flex;align-items:flex-start;gap:10px}
-.warning-icon{font-size:18px;color:#dc2626;flex-shrink:0}
-.warning-text{font-size:13px;color:#7f1d1d;line-height:1.65}
-.feature-list{list-style:none;padding:0;margin:0 0 1.25rem}
-.feature-list li{padding:.5rem 0 .5rem 1.25rem;position:relative;font-size:14px;color:#374151;border-bottom:1px solid #f0f2f5;line-height:1.6}
-.feature-list li:last-child{border-bottom:none}
-.feature-list li::before{content:'▸';position:absolute;left:0;color:#1d9e75;font-size:13px}
-.steps-list{display:flex;flex-direction:column;gap:0;margin:1rem 0}
-.step-row{display:flex;gap:16px;padding:1.1rem 0;border-bottom:1px solid #f0f2f5}
-.step-row:last-child{border-bottom:none}
-.step-num{font-size:26px;font-weight:700;color:#d1fae5;line-height:1;flex-shrink:0;width:36px;text-align:right;padding-top:2px}
-.step-body h3{font-size:14px;font-weight:600;color:#085041;margin-bottom:.3rem}
-.step-body p{font-size:13px;color:#374151;line-height:1.75;margin:0}
-.step-body code{background:#f0fdf4;color:#0f6e56;padding:1px 6px;border-radius:4px;font-size:12px;font-family:'SFMono-Regular',Consolas,monospace;border:1px solid #d1fae5}
-.prompt-block{background:#1a1a2e;border-radius:10px;padding:1.25rem;margin:1.25rem 0;position:relative;overflow-x:auto}
-.prompt-block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#9fe1cb;margin-bottom:.6rem}
-.prompt-block-text{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;word-break:break-word}
-.prompt-block-copy{position:absolute;top:.75rem;right:.75rem;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-family:inherit;cursor:pointer;padding:3px 8px;transition:all .15s}
-.prompt-block-copy:hover{background:rgba(255,255,255,.1);color:#fff}
-.checklist-box{background:#e1f5ee;border:1px solid #6ee7b7;border-radius:12px;padding:1.25rem;margin:1.5rem 0}
-.checklist-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin-bottom:.75rem}
-.checklist-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#085041;line-height:1.6;margin-bottom:.5rem}
-.checklist-item i{color:#1d9e75;font-size:15px;margin-top:1px;flex-shrink:0}
-.quiz-q{margin-bottom:1.5rem}
-.quiz-q h3{font-size:14px;font-weight:500;color:#1a1a2e;margin-bottom:.75rem;line-height:1.55}
-.opt{display:flex;align-items:center;gap:12px;padding:.7rem 1rem;border:1px solid #e8ecef;border-radius:10px;margin-bottom:.5rem;cursor:pointer;font-size:13px;color:#374151;transition:all .15s;line-height:1.45}
-.opt:hover:not(.locked){background:#f5fdf9;border-color:#9fe1cb}
-.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.opt.selected{border-color:#1d9e75;background:#edf5f1;color:#0c4434}
-.opt.selected .radio{border-color:#1d9e75;background:#1d9e75}
-.opt.correct{border-color:#1d9e75;background:#e1f5ee;color:#085041}
-.opt.correct .radio{border-color:#1d9e75;background:#1d9e75}
-.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}
-.opt.wrong .radio{border-color:#e24b4a;background:#e24b4a}
-.opt.selected .radio::after,.opt.correct .radio::after,.opt.wrong .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block}
-.submit-global{background:#1a1a2e;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-top:1rem;transition:all .15s}
-.submit-global:hover{background:#0f6e56}
-.submit-global:disabled{opacity:.35;cursor:default}
-.result-box{background:#f8fafb;border-radius:14px;padding:2rem;text-align:center;border:1px solid #e8ecef;margin-top:1rem}
-.result-score{font-size:48px;font-weight:600;color:#1d9e75;margin-bottom:.5rem;line-height:1}
-.result-msg{font-size:15px;color:#374151;margin-bottom:1.25rem;line-height:1.6}
-.retake-btn{background:transparent;border:1.5px solid #1d9e75;color:#0f6e56;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
-.retake-btn:hover{background:#e1f5ee}
-.content-footer{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-top:1px solid #f0f2f5;background:#fafbfc;flex-shrink:0}
-.btn-back{background:transparent;border:1px solid #d1d5db;color:#6b7280;padding:8px 18px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s}
-.btn-back:hover{background:#f0f2f5}
-.btn-back:disabled{opacity:.35;cursor:default}
-.btn-fwd{background:#1d9e75;color:#fff;border:none;padding:8px 22px;border-radius:8px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s}
-.btn-fwd:hover{background:#0f6e56}
-.share-section{max-width:1100px;margin:2.5rem auto 0;padding:0 1rem}
-.share-inner{display:flex;align-items:center;justify-content:center;gap:16px;padding:1.75rem 1.5rem;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap}
-.share-copy{display:flex;align-items:center;gap:10px;height:48px;padding:0 20px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;color:#e5e7eb;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .2s}
-.share-copy:hover{background:#374151;transform:scale(1.04)}
-.share-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:14px;text-decoration:none;transition:all .2s}
-.share-icon:hover{transform:scale(1.08)}
-.share-li:hover{background:#0a66c2;border-color:#0a66c2}
-.share-x:hover{background:#000;border-color:#000}
+body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:100vh;display:flex;flex-direction:column}
+.page{max-width:1300px;margin:0 auto;width:100%;padding:2rem 2.5rem 4rem;flex:1}
+.hero{margin-bottom:2rem}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#0f6e56;background:#e1f5ee;border:1px solid #a7f3d0;border-radius:20px;padding:4px 12px;margin-bottom:.9rem}
+.hero h1{font-size:32px;font-weight:700;line-height:1.2;color:#111827;margin-bottom:.6rem;letter-spacing:-.5px}
+.hero h1 span{color:#1d9e75}
+.hero-sub{font-size:15px;color:#6b7280;line-height:1.65;max-width:600px}
+.prompt-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.prompt-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.75rem}
+.prompt-card-label{font-size:13px;font-weight:600;color:#374151}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{padding:6px 14px;border-radius:7px;border:1.5px solid #e5e7eb;background:#f9fafb;font-size:12px;font-weight:500;color:#6b7280;cursor:pointer;transition:all .15s;font-family:inherit}
+.tab:hover{border-color:#1d9e75;color:#0f6e56}
+.tab.on{background:#1d9e75;border-color:#1d9e75;color:#fff;font-weight:600}
+.panel{display:none}
+.panel.on{display:block}
+.prompt-box{background:#0f172a;border-radius:10px;padding:1.25rem 1.25rem 1rem;position:relative}
+.prompt-box pre{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#e2e8f0;line-height:1.7;white-space:pre-wrap;word-break:break-word;padding-right:70px;max-height:220px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent}
+.prompt-box pre::-webkit-scrollbar{width:6px}
+.prompt-box pre::-webkit-scrollbar-track{background:transparent}
+.prompt-box pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:3px}
+.copy-btn{position:absolute;top:.75rem;right:.75rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-weight:500;font-family:inherit;cursor:pointer;padding:5px 12px;transition:all .15s;display:flex;align-items:center;gap:5px}
+.copy-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+.prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
+.prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
+.prompt-hint a:hover{text-decoration:underline}
+.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
+.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.ba-col.before{border-color:#fca5a5}
+.ba-col.after{border-color:#6ee7b7}
+.ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
+.ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
+.ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
+.ba-body{padding:14px}
+.xl-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
+.xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
+.xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
+.xl-table .err-cell{color:#dc2626;font-weight:700;background:#fef2f2}
+.xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
+.xl-table .hl{background:#fffbeb}
+.xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
+.xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+.claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
+.claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
+.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
+.diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.diag-header{background:#fef2f2;border-bottom:1px solid #fecaca;padding:12px 18px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#dc2626}
+.diag-row{display:grid;grid-template-columns:180px 1fr 90px;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid #f9fafb}
+.diag-row:last-child{border-bottom:none}
+.diag-row:nth-child(even){background:#fafafa}
+.diag-cause{font-size:13px;font-weight:600;color:#1f2937}
+.diag-example{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#6b7280;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.diag-example .bad{color:#dc2626;font-weight:600;background:#fef2f2;padding:1px 5px;border-radius:3px}
+.diag-example .good{color:#059669;font-weight:600;background:#f0fdf4;padding:1px 5px;border-radius:3px}
+.diag-badge{font-size:10px;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;white-space:nowrap}
+.badge-red{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+.badge-yellow{background:#fffbeb;color:#b45309;border:1px solid #fde68a}
+.steps-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.steps-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+.step{display:flex;gap:16px;padding:.9rem 0;border-bottom:1px solid #f3f4f6}
+.step:last-child{border-bottom:none}
+.step-n{width:28px;height:28px;border-radius:8px;background:#e1f5ee;color:#0f6e56;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body h3{font-size:13px;font-weight:600;color:#1f2937;margin-bottom:.25rem}
+.step-body p{font-size:13px;color:#6b7280;line-height:1.65}
+.step-body code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
+.tip{background:#fffbeb;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#92400e;line-height:1.65}
+.tip strong{color:#78350f}
+.note{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#065f46;line-height:1.65}
+.warn{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#7f1d1d;line-height:1.65}
+.warn strong{color:#991b1b}
+.faq-section{margin-bottom:1.75rem}
+.faq-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1rem}
+.faq-item{border-bottom:1px solid #f3f4f6;padding:.9rem 0}
+.faq-q{font-size:13px;font-weight:600;color:#1f2937;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-q i{color:#9ca3af;transition:transform .2s;flex-shrink:0}
+.faq-q.open i{transform:rotate(180deg)}
+.faq-a{font-size:13px;color:#6b7280;line-height:1.7;display:none;padding-top:.6rem}
+.faq-a.open{display:block}
+.faq-a code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
+.related-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af;margin-bottom:.75rem}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.related-link{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:.9rem 1rem;text-decoration:none;transition:border-color .15s}
+.related-link:hover{border-color:#1d9e75}
+.related-link strong{display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem}
+.related-link span{display:block;font-size:12px;color:#9ca3af;line-height:1.4}
 #searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
 #searchOverlay.open{display:flex}
 .search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
-.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1;transition:color .15s}
-.search-close-btn:hover{color:#fff}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px}
 .search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
 .search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
-.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:'Inter',sans-serif}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:inherit}
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
-.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
-.page-footer{background:#021a12;border-top:1px solid #0a4a30;padding:1rem 2rem;text-align:center;font-size:12px;color:#4a7a60;flex-shrink:0;margin-top:2rem}
-.page-footer a{color:#1d9e75;text-decoration:none}
-.page-footer a:hover{text-decoration:underline}
-@media(max-width:700px){
-  .navbar{padding:0 1rem}
-  .page-wrap{padding:1rem .5rem}
-  .course-shell{grid-template-columns:1fr}
-  .sidebar{display:none}
-  .content-body{padding:1.25rem 1rem;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
-  .content-footer{padding:1rem}
-  .section-hero{padding:1.25rem 1rem}
-  .xl-clean-formulas{grid-template-columns:1fr}
-  .xl-dirty-clean{overflow-x:auto}
-  .xl-dc-grid{min-width:320px}
-  .xl-sv-rows{overflow-x:auto}
-  .seo-section p{word-break:break-word;overflow-wrap:break-word}
+@media(max-width:640px){
+  .hero h1{font-size:24px}
+  .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
+  .diag-row{grid-template-columns:1fr 1fr;gap:8px}
+  .diag-example{display:none}
+  .related-grid{grid-template-columns:1fr}
+  .page{padding:1.5rem 1rem 3rem}
 }
-.page-wrap-fix{max-width:1100px;margin:2rem auto;padding:0 1rem}.course-wrap-outer{width:100%}</style>
-<script defer src="/_vercel/insights/script.js"></script>
+</style>
 </head>
 <body>
+
 <div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
-<div class="search-overlay-inner">
-<button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
-<form action="/search.html" method="get">
-<div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." autocomplete="off"></div>
-</form>
-<p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
+  <div class="search-overlay-inner">
+    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+    <form action="/search.html" method="get">
+      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search workflows, prompts, and guides..." autocomplete="off"></div>
+    </form>
+  </div>
 </div>
-</div>
+
 <div id="navbar-placeholder"></div>
-<script src="/navbar.js"></script><script src="/footer.js"></script><script src="/footer.js"></script>
+<script src="/navbar.js"></script>
+<script src="/footer.js"></script>
+
 <noscript>
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
-<a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a>
-<a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a>
-<a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a>
-<a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a>
-<a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a>
-<a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a>
-<a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a>
-<a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
+<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
-<div class="page-wrap">
-<div class="page-wrap-fix"><div class="course-wrap-outer"><div class="course-shell">
-  <div class="sidebar">
-    <div class="sidebar-top">
-      <div class="course-label">Claude AI — Excel Course</div>
-      <h1 class="course-title-side">Automated data cleaning Excel</h1>
-    </div>
-    <div class="prog-wrap">
-      <div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
-      <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
-    </div>
-    <div class="nav-list">
-      <div class="nav-item active" id="ni0" onclick="go(0)"><div class="nav-dot active" id="nd0">1</div><div class="nav-text">The problem Claude solves</div></div>
-      <div class="nav-item" id="ni1" onclick="go(1)"><div class="nav-dot" id="nd1">2</div><div class="nav-text">The workflow</div></div>
-      <div class="nav-item" id="ni2" onclick="go(2)"><div class="nav-dot" id="nd2">3</div><div class="nav-text">Prompts and checklist</div></div>
-      <div class="nav-item" id="ni3" onclick="go(3)"><div class="nav-dot" id="nd3">4</div><div class="nav-text">Quick quiz</div></div>
-    </div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow"><i class="ti ti-droplet-half-2" style="font-size:12px"></i> Excel · Claude AI</div>
+    <h1>Claude AI for Cleaning Imported Excel Data</h1>
+    <p class="hero-sub">Every CRM, accounting, or HR export brings the same invisible problems — dates that won't sort, numbers stored as text, trailing spaces. Claude can't touch your spreadsheet directly, but paste a sample and it diagnoses exactly what's wrong and hands you the precise cleaning formula to fix it.</p>
   </div>
 
-  <div class="content-area">
-    <div class="section-hero">
-      <div class="section-tag" id="heroTag">Section 01</div>
-      <h2 id="heroTitle">Imported data breaking your formulas? Here's the fix.</h2>
+  <!-- PROMPT SELECTOR -->
+  <div class="prompt-card">
+    <div class="prompt-card-top">
+      <span class="prompt-card-label">Choose your situation — copy the prompt:</span>
+      <div class="tabs">
+        <button class="tab on" onclick="switchTab(this,'diagnose')">🩺 Diagnostic prompt</button>
+        <button class="tab" onclick="switchTab(this,'formula')">🧪 Cleaning formula</button>
+        <button class="tab" onclick="switchTab(this,'template')">🔁 Reusable template</button>
+      </div>
     </div>
-    <div class="content-body" id="cnt">
 
-      <!-- SECTION 0 -->
-      <div id="seo-sec-0" class="seo-section active-section">
-        <p>Every import from a CRM, accounting system (especially when you <a href="/automate-accounts-receivable-tracking-excel-claude.html" style="color:#0f6e56;font-weight:500">track accounts receivable</a>), HR platform or supplier CSV brings the same issues: dates that won't sort, numbers stored as text, trailing spaces, inconsistent capitalisation, and duplicates that aren't detected. These problems are often invisible — yet they break your formulas and waste hours.</p>
-        <p>Claude can't clean the data for you, but it excels at two things: diagnosing exactly what's wrong from a small sample, and giving you the precise <a href="/ai-for-excel.html" style="color:#0f6e56;font-weight:500">Excel cleaning formulas</a> to fix it fast.</p>
-
-        <!-- VISUAL 1: Dirty vs Clean data comparison -->
-        <div class="xl-dirty-clean">
-          <div class="xl-dc-ribbon">
-            <div class="xl-dc-tab active">Import_Data</div>
-            <div class="xl-dc-tab">Cleaned</div>
-            <div class="xl-dc-tab">Summary</div>
-          </div>
-          <div class="xl-dc-grid">
-            <!-- Headers -->
-            <div class="xl-dc-ch" style="background:#f3f3f3;border-bottom:2px solid #d0d0d0;border-right:1px solid #d0d0d0;padding:6px 10px;font-size:11px;font-weight:700;color:#595959"></div>
-            <div class="xl-dc-ch problem" style="border-bottom:2px solid #d0d0d0;border-right:1px solid #d0d0d0;padding:6px 10px;font-size:11px;font-weight:700">⚠ Raw import (broken)</div>
-            <div class="xl-dc-ch clean" style="border-bottom:2px solid #d0d0d0;padding:6px 10px;font-size:11px;font-weight:700">✓ After cleaning</div>
-            <!-- Row 1 -->
-            <div class="xl-dc-num">2</div>
-            <div class="xl-dc-cell dirty">"smith, john " &nbsp;</div>
-            <div class="xl-dc-cell ok">Smith, John</div>
-            <!-- Row 2 -->
-            <div class="xl-dc-num">3</div>
-            <div class="xl-dc-cell dirty">'01/15/2026</div>
-            <div class="xl-dc-cell ok">15/01/2026</div>
-            <!-- Row 3 -->
-            <div class="xl-dc-num">4</div>
-            <div class="xl-dc-cell dirty">"£ 4,250.00"</div>
-            <div class="xl-dc-cell ok">4250</div>
-            <!-- Row 4 -->
-            <div class="xl-dc-num">5</div>
-            <div class="xl-dc-cell dirty">LONDON &nbsp;&nbsp;</div>
-            <div class="xl-dc-cell ok">London</div>
-            <!-- Row 5 -->
-            <div class="xl-dc-num">6</div>
-            <div class="xl-dc-cell dirty">"1042 " (text)</div>
-            <div class="xl-dc-cell ok">1042 (number)</div>
-          </div>
-          <div class="xl-dc-caption">
-            <div></div>
-            <div class="xl-dc-cap-cell red">Spaces · wrong case · text numbers · apostrophe dates</div>
-            <div class="xl-dc-cap-cell green">TRIM + PROPER + VALUE + DATEVALUE applied</div>
-          </div>
-        </div>
-
-        <p>Paste a few rows, explain the issue, and Claude returns the right combination of cleaning formulas — plus clear instructions on how to apply them safely.</p>
-
-        <!-- VISUAL 2: Cleaning formula cards -->
-        <p><strong>The four most-used cleaning formulas — and when to use each:</strong></p>
-        <div class="xl-clean-formulas">
-          <div class="xl-cf-card trim">
-            <div class="xl-cf-header"><i class="ti ti-scissors"></i> TRIM</div>
-            <div class="xl-cf-body">
-              <div class="xl-cf-formula">=TRIM(A2)</div>
-              <div class="xl-cf-desc">Removes leading, trailing, and double spaces. Use on any text column from an external system.</div>
-              <div class="xl-cf-example"><span class="xl-cf-before">"London &nbsp;"</span><span class="xl-cf-arrow">→</span><span class="xl-cf-after">"London"</span></div>
-            </div>
-          </div>
-          <div class="xl-cf-card value">
-            <div class="xl-cf-header"><i class="ti ti-hash"></i> VALUE</div>
-            <div class="xl-cf-body">
-              <div class="xl-cf-formula">=VALUE(A2)</div>
-              <div class="xl-cf-desc">Converts text that looks like a number into a real number. Fixes SUMIFS returning 0.</div>
-              <div class="xl-cf-example"><span class="xl-cf-before">"4250" (text)</span><span class="xl-cf-arrow">→</span><span class="xl-cf-after">4250 (number)</span></div>
-            </div>
-          </div>
-          <div class="xl-cf-card proper">
-            <div class="xl-cf-header"><i class="ti ti-text-size"></i> PROPER</div>
-            <div class="xl-cf-body">
-              <div class="xl-cf-formula">=PROPER(A2)</div>
-              <div class="xl-cf-desc">Capitalises the first letter of each word. Use on name columns with inconsistent case.</div>
-              <div class="xl-cf-example"><span class="xl-cf-before">"SMITH, JOHN"</span><span class="xl-cf-arrow">→</span><span class="xl-cf-after">"Smith, John"</span></div>
-            </div>
-          </div>
-          <div class="xl-cf-card datevalue">
-            <div class="xl-cf-header"><i class="ti ti-calendar"></i> DATEVALUE</div>
-            <div class="xl-cf-body">
-              <div class="xl-cf-formula">=DATEVALUE(A2)</div>
-              <div class="xl-cf-desc">Converts a date stored as text into a real Excel date. Fixes dates that sort alphabetically.</div>
-              <div class="xl-cf-example"><span class="xl-cf-before">"01/15/2026" (text)</span><span class="xl-cf-arrow">→</span><span class="xl-cf-after">real date</span></div>
-            </div>
-          </div>
-        </div>
-
-        <ul class="feature-list">
-          <li>Paste sample rows and Claude identifies invisible problems — spaces, type mismatches, inconsistent formats that often cause <a href="/claude-excel-na-errors.html" style="color:#0f6e56;font-weight:500">#N/A errors</a></li>
-          <li>Claude writes the cleaning formula for each column — TRIM, VALUE, PROPER, DATEVALUE or a combination</li>
-          <li>Claude tells you whether to fix in place or use a helper column</li>
-          <li>Claude writes a reusable cleaning template for every future import from the same source</li>
-        </ul>
-
-        <div class="warning-box"><div class="warning-icon"><i class="ti ti-alert-circle"></i></div><div class="warning-text"><strong>Never overwrite original imported data.</strong> Always apply cleaning formulas in a helper column first. If the formula is wrong, you still have the original to fall back on.</div></div>
-      </div>
-
-      <!-- SECTION 1 -->
-      <div id="seo-sec-1" class="seo-section">
-        <p>Six steps — from raw imported data to a clean, formula-ready column.</p>
-
-        <!-- VISUAL: Helper column approach in Excel -->
-        <div class="xl-step-visual">
-          <div class="xl-sv-bar">
-            <div class="xl-sv-cellref">B2</div>
-            <div class="xl-sv-fx">fx</div>
-            <div class="xl-sv-formula"><span class="xl-sv-fn">=TRIM(</span><span class="xl-sv-arg">PROPER(</span>A2<span class="xl-sv-arg">)</span><span class="xl-sv-fn">)</span></div>
-          </div>
-          <div class="xl-sv-rows">
-            <div class="xl-sv-row">
-              <div class="xl-sv-rnum">1</div>
-              <div class="xl-sv-cell hdr">A — Raw import</div>
-              <div class="xl-sv-cell hdr">B — Helper column</div>
-              <div class="xl-sv-cell hdr">C — Final (values)</div>
-            </div>
-            <div class="xl-sv-row">
-              <div class="xl-sv-rnum">2</div>
-              <div class="xl-sv-cell original">"SMITH, JOHN &nbsp;"</div>
-              <div class="xl-sv-cell helper">=TRIM(PROPER(A2))</div>
-              <div class="xl-sv-cell result">Smith, John</div>
-            </div>
-            <div class="xl-sv-row">
-              <div class="xl-sv-rnum">3</div>
-              <div class="xl-sv-cell original">"JONES, SARAH &nbsp;&nbsp;"</div>
-              <div class="xl-sv-cell helper">=TRIM(PROPER(A3))</div>
-              <div class="xl-sv-cell result">Jones, Sarah</div>
-            </div>
-            <div class="xl-sv-row">
-              <div class="xl-sv-rnum">4</div>
-              <div class="xl-sv-cell original">"TAYLOR, MIKE"</div>
-              <div class="xl-sv-cell helper">=TRIM(PROPER(A4))</div>
-              <div class="xl-sv-cell result">Taylor, Mike</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="steps-list">
-          <div class="step-row">
-            <div class="step-num">01</div>
-            <div class="step-body"><h3>Diagnose the issue quickly</h3><p>Run a SUMIFS or COUNTIF on the imported data. If it returns 0 when matches exist, you have a formatting problem. Sort a date column — if it sorts alphabetically instead of chronologically, the dates are stored as text.</p></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">02</div>
-            <div class="step-body"><h3>Send a sample to Claude</h3><p>Copy 5–10 rows from the problematic column. Tell Claude what the column should contain and exactly what's going wrong. The more specific, the faster the diagnosis.</p></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">03</div>
-            <div class="step-body"><h3>Get the fix</h3><p>Claude identifies the problem and gives you the exact cleaning formula for that column — whether that's <code>TRIM</code>, <code>VALUE</code>, <code>PROPER</code>, <code>DATEVALUE</code>, <code>CLEAN</code>, or a combination like <code>=TRIM(PROPER(A2))</code>.</p></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">04</div>
-            <div class="step-body"><h3>Use helper columns only</h3><p>Never overwrite the original imported data. Apply the cleaning formula in a new column next to the original. Verify the results on a sample of rows before copying the formula down the full column.</p></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">05</div>
-            <div class="step-body"><h3>Paste as values and replace</h3><p>Once the helper column looks correct, copy it, then <code>Paste Special → Values only</code> into a new column. Delete the original imported column and the formula column. You now have clean data.</p></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">06</div>
-            <div class="step-body"><h3>Build a reusable template</h3><p>Ask Claude to create a permanent cleaning checklist for that specific data source. Next time you import from the same system, you have the fixes ready — the whole process takes minutes instead of hours.</p></div>
-          </div>
-        </div>
-
-        <div class="highlight-box">
-          <div class="highlight-icon"><i class="ti ti-bulb"></i></div>
-          <div class="highlight-text"><strong>Tip:</strong> You can combine cleaning functions. <code>=TRIM(PROPER(A2))</code> removes spaces AND fixes capitalisation in one formula. Ask Claude to combine the functions you need — it handles nested combinations cleanly.</div>
-        </div>
-      </div>
-
-      <!-- SECTION 2 -->
-      <div id="seo-sec-2" class="seo-section">
-        <p>Copy these prompts into Claude. Replace the bracketed placeholders with your actual data and problem description.</p>
-
-        <p><strong>Diagnostic prompt</strong></p>
-        <div class="prompt-block">
-          <div class="prompt-block-label">Prompt — paste into Claude</div>
-          <div class="prompt-block-text">I have imported data with issues. Here are 5 sample rows:
+    <div id="p-diagnose" class="panel on">
+      <div class="prompt-box">
+        <pre>I have imported data with issues. Here are 5 sample rows:
 [paste rows]
 
-This column should contain [dates / numbers / names / IDs]. The problem is [SUMIFS returns 0 / dates won't sort / duplicates not detected / COUNTIF gives wrong count].
+This column should contain [dates / numbers / names / IDs]. The
+problem is [SUMIFS returns 0 / dates won't sort / duplicates not
+detected / COUNTIF gives wrong count].
 
-Diagnose the issue and give me the exact formula to fix it.</div>
-          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
-        </div>
-
-        <p><strong>Cleaning formula prompt</strong></p>
-        <div class="prompt-block">
-          <div class="prompt-block-label">Prompt — paste into Claude</div>
-          <div class="prompt-block-text">I have a column of [employee names / invoice amounts / dates] from [system name]. Common issues: trailing spaces and text formatting.
-
-Give me the best cleaning formula to use in a helper column next to the original data.</div>
-          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
-        </div>
-
-        <p><strong>Reusable template prompt</strong></p>
-        <div class="prompt-block">
-          <div class="prompt-block-label">Prompt — paste into Claude</div>
-          <div class="prompt-block-text">I import data monthly from [system name] with recurring issues: [list the problems].
-
-Create a complete reusable cleaning checklist and formula set I can apply every time I import this data.</div>
-          <button class="prompt-block-copy" onclick="copyPrompt(this)">Copy</button>
-        </div>
-
-        <div class="checklist-box">
-          <div class="checklist-title">Checklist</div>
-          <div class="checklist-item"><i class="ti ti-square-check"></i>Diagnostic test run — SUMIFS/COUNTIF or sort confirmed the problem</div>
-          <div class="checklist-item"><i class="ti ti-square-check"></i>Sample rows and problem description pasted into Claude</div>
-          <div class="checklist-item"><i class="ti ti-square-check"></i>Cleaning formula applied in helper column only — original data untouched</div>
-          <div class="checklist-item"><i class="ti ti-square-check"></i>Results verified on multiple rows before copying formula down</div>
-          <div class="checklist-item"><i class="ti ti-square-check"></i>Helper column pasted as values into final column</div>
-          <div class="checklist-item"><i class="ti ti-square-check"></i>Original imported column and helper column deleted</div>
-          <div class="checklist-item"><i class="ti ti-square-check"></i>Reusable template saved for next import</div>
-        </div>
-
-        <div class="info-box"><p><strong>CLEAN vs TRIM:</strong> TRIM removes spaces. CLEAN removes non-printable characters — the hidden characters that appear when you import from legacy systems or mainframes. If TRIM doesn't fix the problem, try <code>=CLEAN(TRIM(A2))</code>.</p></div>
-        
-        <p><strong>Frequently asked questions</strong></p>
-        
-        <p><strong>How do I remove trailing spaces in Excel?</strong></p>
-        <p>Use the TRIM function (e.g., <code>=TRIM(A2)</code>). It automatically removes all leading, trailing, and double spaces between words. If you still have invisible spaces after using TRIM, they might be non-printable characters — use <code>=CLEAN(TRIM(A2))</code> to remove them.</p>
-
-        <p><strong>Why are my numbers stored as text in Excel?</strong></p>
-        <p>When data is imported from external systems like CRMs or accounting software, numbers are often formatted with text characters or invisible apostrophes. Excel treats them as text, meaning math formulas and SUMIFS will ignore them or return 0. Use the <code>=VALUE()</code> function to convert them back to real numbers.</p>
-
-        <p><strong>How do I fix dates that won't sort in Excel?</strong></p>
-        <p>If dates sort alphabetically instead of chronologically, Excel is treating them as text rather than serial date numbers. You can fix this by applying the <code>=DATEVALUE()</code> function to the text dates, and then formatting the result as a Date.</p>
-
-        <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0f6e56;margin:1.5rem 0 .6rem">Related courses</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem">
-        <a href="/claude-excel-na-errors.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
-        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Fix #N/A Errors in VLOOKUP and XLOOKUP</span>
-        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Diagnose and fix #N/A errors caused by data mismatches, trailing spaces, and missing values.</span>
-        </a>
-        <a href="/claude-excel-dynamic-reports.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
-        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Convert Manual Reports into Dynamic Models</span>
-        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Learn how to replace static data with formulas that update automatically.</span>
-        </a>
-        <a href="/bank-reconciliation-excel-claude.html" style="background:#f8fafb;border:1px solid #e8ecef;border-radius:10px;padding:.85rem 1rem;text-decoration:none;display:block">
-        <span style="display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem">Automated Bank Reconciliation in Excel</span>
-        <span style="display:block;font-size:12px;color:#6b7280;line-height:1.4">Use Claude to match transactions and find discrepancies instantly.</span>
-        </a>
-        </div>
+Diagnose the issue and give me the exact formula to fix it.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-
-      <!-- SECTION 3 QUIZ -->
-      <div id="seo-sec-3" class="seo-section">
-        <div id="quiz-interactive-container"></div>
-      </div>
-
+      <p class="prompt-hint">Paste 5-10 real rows, not a description — Claude diagnoses from the actual text. Use with <a href="https://claude.ai" target="_blank">Claude</a>.</p>
     </div>
-    <div class="content-footer">
-      <button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button>
-      <button class="btn-fwd" id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>
+
+    <div id="p-formula" class="panel">
+      <div class="prompt-box">
+        <pre>I have a column of [employee names / invoice amounts / dates] from
+[system name]. Common issues: trailing spaces and text formatting.
+
+Give me the best cleaning formula to use in a helper column next to
+the original data.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
+      </div>
+      <p class="prompt-hint">Use once you already know roughly what's wrong and just need the right formula.</p>
+    </div>
+
+    <div id="p-template" class="panel">
+      <div class="prompt-box">
+        <pre>I import data monthly from [system name] with recurring issues:
+[list the problems].
+
+Create a complete reusable cleaning checklist and formula set I can
+apply every time I import this data.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
+      </div>
+      <p class="prompt-hint">Build this once per data source — future imports take minutes instead of hours.</p>
     </div>
   </div>
-</div>
-</div></div>
 
-<footer style="background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0">
-<div style="max-width:1100px; margin:0 auto">
-<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Guides by Role</strong>
-<a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Finance Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for HR Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Marketing Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Legal Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Operations Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Sales Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Customer Service</a>
-<a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Excel</a>
+  <!-- BEFORE / AFTER VISUAL -->
+  <div class="before-after">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — raw import (broken)</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th></th><th>Raw value</th></tr>
+          <tr class="section-row"><td colspan="2">Import_Data tab</td></tr>
+          <tr><td>Name</td><td class="err-cell">"smith, john "</td></tr>
+          <tr><td>Date</td><td class="err-cell">'01/15/2026</td></tr>
+          <tr><td>Amount</td><td class="err-cell">"£ 4,250.00" (text)</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          SUMIFS returns 0, date column sorts alphabetically
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Spaces, wrong case, text numbers, apostrophe dates</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude's cleaning formulas</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th></th><th>Cleaned value</th></tr>
+          <tr class="section-row"><td colspan="2">Helper column applied</td></tr>
+          <tr><td>Name</td><td class="ok-cell">Smith, John</td></tr>
+          <tr><td>Date</td><td class="ok-cell">15/01/2026</td></tr>
+          <tr><td>Amount</td><td class="link-cell">4250 (number)</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's fix</div>
+          <pre>=TRIM(PROPER(A2))   → clean name
+=DATEVALUE(B2)      → real date
+=VALUE(C2)          → real number ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIAGNOSIS TABLE -->
+  <div class="diag-card">
+    <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Why imported data breaks your formulas — the 4 most common causes</div>
+    <div class="diag-row">
+      <div class="diag-cause">Trailing/leading spaces</div>
+      <div class="diag-example">"London <span class="bad">&nbsp;&nbsp;</span>" doesn't match <span class="good">"London"</span> in a lookup</div>
+      <div class="diag-badge badge-red">Most common</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">Numbers stored as text</div>
+      <div class="diag-example">SUMIFS returns <span class="bad">0</span> even though matching rows exist</div>
+      <div class="diag-badge badge-red">Most common</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">Dates stored as text</div>
+      <div class="diag-example">Date column sorts <span class="bad">alphabetically</span> instead of chronologically</div>
+      <div class="diag-badge badge-yellow">Easy fix</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">Non-printable characters</div>
+      <div class="diag-example"><span class="bad">TRIM alone</span> doesn't fix it — need <span class="good">CLEAN(TRIM())</span></div>
+      <div class="diag-badge badge-yellow">Invisible</div>
+    </div>
+  </div>
+
+  <!-- STEPS -->
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+  <div class="steps-card">
+    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Clean imported Excel data with Claude — 5 steps</div>
+    <div class="step">
+      <div class="step-n">1</div>
+      <div class="step-body"><h3>Diagnose the issue quickly</h3><p>Run a SUMIFS or COUNTIF on the imported data. If it returns 0 when matches exist, you have a formatting problem. Sort a date column — if it sorts alphabetically, the dates are text.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">2</div>
+      <div class="step-body"><h3>Send a sample to Claude</h3><p>Copy 5-10 rows from the problematic column. Tell Claude what the column should contain and exactly what's going wrong.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">3</div>
+      <div class="step-body"><h3>Get the exact fix</h3><p>Claude identifies the problem and gives you the cleaning formula for that column — <code>TRIM</code>, <code>VALUE</code>, <code>PROPER</code>, <code>DATEVALUE</code>, <code>CLEAN</code>, or a combination like <code>=TRIM(PROPER(A2))</code>.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">4</div>
+      <div class="step-body"><h3>Apply in a helper column only</h3><p>Never overwrite the original imported data. Put the formula in a new column next to it and verify results on a sample of rows before copying down.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">5</div>
+      <div class="step-body"><h3>Paste as values and save a template</h3><p>Copy the helper column, use <code>Paste Special → Values only</code> into a final column, delete the working columns, then ask Claude to turn the fix into a reusable checklist for next time.</p></div>
+    </div>
+    <div class="warn"><strong>Never overwrite original imported data:</strong> Always apply cleaning formulas in a helper column first. If the formula is wrong, you still have the original to fall back on.</div>
+  </div>
+
+  <!-- FAQ -->
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Frequently asked questions</h2>
+  <div class="faq-section">
+    <div class="faq-title" aria-hidden="true">Frequently asked questions</div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How do I remove trailing spaces in Excel? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Use the TRIM function, e.g. <code>=TRIM(A2)</code>. It automatically removes all leading, trailing, and double spaces between words. If you still have invisible spaces after using TRIM, they might be non-printable characters — use <code>=CLEAN(TRIM(A2))</code> to remove them.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Why are my numbers stored as text in Excel? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">When data is imported from external systems like CRMs or accounting software, numbers are often formatted with text characters or invisible apostrophes. Excel treats them as text, so math formulas and SUMIFS will ignore them or return 0. Use <code>=VALUE()</code> to convert them back to real numbers.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How do I fix dates that won't sort in Excel? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">If dates sort alphabetically instead of chronologically, Excel is treating them as text rather than serial date numbers. Fix this by applying <code>=DATEVALUE()</code> to the text dates, then formatting the result as a Date.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What's the difference between TRIM and CLEAN in Excel? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">TRIM removes leading, trailing, and double spaces. CLEAN removes non-printable characters — the hidden characters that appear when you import from legacy systems or mainframes. If TRIM alone doesn't fix a stubborn cell, try <code>=CLEAN(TRIM(A2))</code>.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Can Claude clean my Excel data for me automatically? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">No. Claude can't touch your spreadsheet directly — it diagnoses the problem from a sample you paste in and gives you the exact formula to apply yourself in a helper column.</div>
+    </div>
+  </div>
+
+  <!-- RELATED -->
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Related Excel workflows</h2>
+  <div class="related-title" aria-hidden="true">Related Excel workflows</div>
+  <div class="related-grid">
+    <a href="/claude-excel-na-errors.html" class="related-link">
+      <strong>Fix #N/A Errors in VLOOKUP and XLOOKUP</strong>
+      <span>Diagnose and fix #N/A errors caused by data mismatches and trailing spaces.</span>
+    </a>
+    <a href="/claude-excel-dynamic-reports.html" class="related-link">
+      <strong>Convert Manual Reports into Dynamic Models</strong>
+      <span>Replace static data with formulas that update automatically.</span>
+    </a>
+    <a href="/bank-reconciliation-excel-claude.html" class="related-link">
+      <strong>Automated Bank Reconciliation in Excel</strong>
+      <span>Use Claude to match transactions and find discrepancies instantly.</span>
+    </a>
+    <a href="/automate-accounts-receivable-tracking-excel-claude.html" class="related-link">
+      <strong>Automate Accounts Receivable Tracking</strong>
+      <span>Build a live AR aging view that flags overdue invoices automatically.</span>
+    </a>
+  </div>
+
 </div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Prompt Tools</strong>
-<a href="https://www.pairworkflows.com/claude-prompts-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Excel Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Finance Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">HR Prompt Builder</a>
-<a href="https://www.pairworkflows.com/claude-prompts-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Marketing Prompt Builder</a>
-<a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">General Prompt Library</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Resources</strong>
-<a href="https://www.pairworkflows.com/claude-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Claude Courses</a>
-<a href="https://www.pairworkflows.com/gemini-courses.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Gemini Courses</a>
-<a href="https://www.pairworkflows.com/glossary.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI Glossary</a>
-<a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Claude vs Gemini</a>
-<a href="https://www.pairworkflows.com/index.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Mini-Courses</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company & Legal</strong>
-<a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
-<a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
-<a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
-<a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Privacy Policy</a>
-<a href="https://www.pairworkflows.com/legal.html#terms" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Terms of Use</a>
-<a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Cookie Policy</a>
-</div>
-</div>
-<div style="text-align:center; margin-bottom:2rem">
-<p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:520px; margin:0 auto">Free practical mini-courses for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p>
-</div>
-<div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem">
-<span style="font-size:13px; color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
-<div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
-<button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-  Copy link
-</button>
-<a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-  <span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span>
-</a>
-<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn">
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-</a>
-<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-</a>
-</div>
-</div>
-</div>
-</footer>
+
 <script>
-var cur=0,visited=[true,false,false,false],sel={},quizSubmitted=false,quizDone=false;
-var heroes=[
-  {tag:'Section 01',title:'Imported data breaking your formulas? Here\'s the fix.'},
-  {tag:'Section 02',title:'Six steps from raw import to clean, formula-ready data'},
-  {tag:'Section 03',title:'Prompts and checklist'},
-  {tag:'Section 04 — Quiz',title:'Quick quiz'}
-];
-var quiz=[
-  {q:'Why should you never overwrite original imported data with your cleaning formula?',
-   opts:['Excel does not allow formulas to overwrite imported data','If the cleaning formula is wrong, you lose the source data with no way to recover','The original data is needed for TRIM to work'],
-   correct:1},
-  {q:'SUMIFS returns 0 even though matching data exists. What is the most likely cause?',
-   opts:['The SUMIFS formula has a syntax error','Numbers or dates stored as text, or values with trailing spaces','SUMIFS does not work with imported data'],
-   correct:1},
-  {q:'Which Excel function removes leading and trailing spaces from a cell?',
-   opts:['CLEAN','PROPER','TRIM'],
-   correct:2},
-  {q:'What is the correct final step after your helper column cleaning formula looks correct?',
-   opts:['Leave the helper column in place permanently','Copy the helper column, paste as values only, then delete the original and helper columns','Use Find and Replace to remove the original column'],
-   correct:1}
-];
-function buildQuizHTML(){
-  if(quizDone){
-    var score=0;
-    for(var i=0;i<quiz.length;i++){if(sel[i]===quiz[i].correct)score++;}
-    var msgs=['Worth re-reading section 1 — understanding why helper columns matter is the key.','Good effort — review the workflow steps before diving in.','Almost there! One concept to sharpen — revisit which function removes spaces.','Perfect score — you are ready to clean any imported dataset with Claude.'];
-    return '<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';
-  }
-  var html='';
-  for(var i=0;i<quiz.length;i++){
-    var q=quiz[i];
-    html+='<div class="quiz-q"><h3>'+(i+1)+'. '+q.q+'</h3>';
-    for(var j=0;j<q.opts.length;j++){
-      var cls='opt';
-      if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}
-      else if(sel[i]===j)cls+=' selected';
-      html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+q.opts[j]+'</div>';
-    }
-    html+='</div>';
-  }
-  var allSel=Object.keys(sel).length===quiz.length;
-  if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';
-  else html+='<button class="btn-fwd" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';
-  return html;
+function switchTab(btn,id){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  btn.classList.add('on');
+  document.getElementById('p-'+id).classList.add('on');
 }
-function render(){
-  document.getElementById('pf').style.width=Math.round(((cur+1)/4)*100)+'%';
-  document.getElementById('progTxt').textContent=(cur+1)+' of 4';
-  document.getElementById('heroTag').textContent=heroes[cur].tag;
-  document.getElementById('heroTitle').textContent=heroes[cur].title;
-  for(var i=0;i<4;i++){
-    var ni=document.getElementById('ni'+i),nd=document.getElementById('nd'+i),sec=document.getElementById('seo-sec-'+i);
-    ni.className='nav-item'+(i===cur?' active':'');
-    if(i===cur)sec.classList.add('active-section');else sec.classList.remove('active-section');
-    if(visited[i]&&i!==cur){nd.className='nav-dot done';nd.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>';}
-    else if(i===cur){nd.className='nav-dot active';nd.textContent=(i+1);}
-    else{nd.className='nav-dot';nd.textContent=(i+1);}
-  }
-  if(cur===3)document.getElementById('quiz-interactive-container').innerHTML=buildQuizHTML();
-  document.getElementById('btnBack').disabled=(cur===0);
-  var fwd=document.getElementById('btnFwd');
-  if(cur===3){fwd.style.display='none';}
-  else{fwd.style.display='';fwd.innerHTML=(cur===2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';}
+function copyPrompt(btn){
+  var text=btn.previousElementSibling.innerText;
+  navigator.clipboard.writeText(text);
+  btn.innerHTML='<i class="ti ti-check" style="font-size:12px"></i> Copied!';
+  setTimeout(function(){btn.innerHTML='<i class="ti ti-copy" style="font-size:12px"></i> Copy';},2000);
 }
-function go(n){if(n<0||n>3)return;visited[n]=true;cur=n;render();window.scrollTo(0,0);}
-function goFwd(){if(cur<3)go(cur+1);}
-function submitAll(){if(Object.keys(sel).length<quiz.length)return;quizSubmitted=true;render();}
-function showResult(){quizDone=true;render();}
-function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
-function copyPrompt(btn){var block=btn.closest('.prompt-block');var text=block.querySelector('.prompt-block-text').innerText;navigator.clipboard.writeText(text);btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);}
-function copyLink(){var btn=document.getElementById('copyLinkBtn');navigator.clipboard.writeText(window.location.href);btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);}
+function toggleFaq(q){
+  q.classList.toggle('open');
+  q.nextElementSibling.classList.toggle('open');
+}
 function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
 function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
-document.getElementById('cnt').addEventListener('click',function(e){
-  if(cur!==3||quizSubmitted||quizDone)return;
-  var opt=e.target.closest('.opt');
-  if(!opt)return;
-  sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);
-  render();
-});
-render();
 </script>
 </body>
 </html>
