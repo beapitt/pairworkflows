@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>How to Create Pivot Table in Excel with Claude AI — PairWorkflows</title>
+<title>How to Create Pivot Table Reports in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Use Claude AI to design pivot table reports in Excel. Get exact field placement, calculated fields, date grouping, and slicer setup in one prompt.">
 <link rel="canonical" href="https://www.pairworkflows.com/pivot-table-reports-excel-claude.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude build the actual pivot table inside Excel for me?","acceptedAnswer":{"@type":"Answer","text":"Claude cannot interact with Excel directly. What it produces is a complete layout specification: which fields go in Rows, Columns, Values, and Filters; what calculated fields to add; and how to group dates. You then build the table from those instructions, which takes about two minutes."}},{"@type":"Question","name":"What data format does Claude need for pivot table design?","acceptedAnswer":{"@type":"Answer","text":"Claude needs a flat table — one row per transaction or record, with consistent column headers. Merged cells, subtotal rows, and blank header columns will cause problems. Describe any structural issues in the prompt and Claude will suggest a cleaning step first."}},{"@type":"Question","name":"How do I add a calculated field like gross margin % to a pivot table?","acceptedAnswer":{"@type":"Answer","text":"Ask Claude to include it in the prompt. Claude writes the exact formula to enter in the PivotTable Analyze tab → Fields, Items & Sets → Calculated Field dialog, so you are not guessing at the syntax."}},{"@type":"Question","name":"My pivot table shows (blank) rows — how do I fix this?","acceptedAnswer":{"@type":"Answer","text":"Blank rows usually mean the source data has empty cells in the field you put in Rows. Ask Claude to identify which column is causing the blanks and suggest a fix — typically a find-and-replace or a helper column that fills missing values before the pivot is built."}},{"@type":"Question","name":"Can I use Claude to redesign an existing pivot table report?","acceptedAnswer":{"@type":"Answer","text":"Yes. Describe the current layout and what is wrong with it — too many rows, wrong grouping, a missing metric — and Claude will specify a revised structure. Paste a sample of the underlying data so Claude can reference the actual column names."}}]}</script>
@@ -142,7 +142,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
-    <h1>How to Create Pivot Table in Excel with Claude AI</h1>
+    <h1>How to Create Pivot Table Reports in Excel with Claude AI</h1>
     <p class="hero-sub">Describe your data and reporting goal — Claude specifies the exact pivot table layout: which fields go in Rows, Columns, Values, and Filters; calculated field formulas; date grouping steps; and a suggested slicer. Build it in Excel in under 5 minutes.</p>
   </div>
 
@@ -403,5 +403,6 @@ function openSearch(){document.getElementById('searchOverlay').classList.add('op
 function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
 </script>
+<footer></footer>
 </body>
 </html>
