@@ -49,7 +49,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint a:hover{text-decoration:underline}
 
 /* ── BEFORE / AFTER VISUAL ── */
-.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
+.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
 .ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
@@ -65,6 +65,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .xl-table .hl{background:#fffbeb}
 .xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
 .xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.ba-panel{display:none;margin-bottom:1.75rem}
+.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
 .ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
 .claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
@@ -132,7 +134,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
 @media(max-width:640px){
   .hero h1{font-size:24px}
-  .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-panel.on{grid-template-columns:1fr;gap:8px}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
@@ -235,10 +237,82 @@ recreate the sheet?</pre>
     </div>
   </div>
 
-  <!-- BEFORE / AFTER VISUAL -->
-  <div class="before-after">
+  <!-- BEFORE / AFTER VISUAL — dynamic per tab -->
+
+  <!-- Tab: diagnose -->
+  <div class="before-after ba-panel on" id="ba-diagnose">
     <div class="ba-col before">
       <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — reference broken</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th></th><th>Cell</th><th>Formula</th></tr>
+          <tr class="section-row"><td colspan="3">E5 formula bar</td></tr>
+          <tr><td>Column deleted</td><td>E5</td><td class="err-cell">=SUM(D2:#REF!)</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Column C was deleted — the range endpoint is now gone
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Excel replaces the broken reference with #REF!</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude reconstructs it</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th></th><th>Cell</th><th>Formula</th></tr>
+          <tr class="section-row"><td colspan="3">E5 formula bar</td></tr>
+          <tr><td>Reference restored</td><td>E5</td><td class="ok-cell">=SUM(D2:D20)</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's fix</div>
+          <pre>=SUM(D2:D20)
+
+Returns: 14,320 — formula recalculates correctly. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: cascade -->
+  <div class="before-after ba-panel" id="ba-cascade">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — multiple formulas broken</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Cell</th><th>Formula</th><th>Status</th></tr>
+          <tr><td>E5</td><td class="err-cell">=SUM(D2:#REF!)</td><td class="err-cell">#REF!</td></tr>
+          <tr><td>F5</td><td class="err-cell">=AVERAGE(#REF!:D20)</td><td class="err-cell">#REF!</td></tr>
+          <tr><td>G5</td><td class="err-cell">=MAX(#REF!)</td><td class="err-cell">#REF!</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          One deletion broke 3 formulas at once
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Paste all broken formulas to Claude in one go</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — all fixed in one response</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Cell</th><th>Formula</th><th>Status</th></tr>
+          <tr><td>E5</td><td class="ok-cell">=SUM(D2:D20)</td><td class="ok-cell">✓</td></tr>
+          <tr><td>F5</td><td class="ok-cell">=AVERAGE(C2:D20)</td><td class="ok-cell">✓</td></tr>
+          <tr><td>G5</td><td class="ok-cell">=MAX(D2:D20)</td><td class="ok-cell">✓</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's fix</div>
+          <pre>All 3 formulas corrected — column C reference removed from each. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: crosssheet -->
+  <div class="before-after ba-panel" id="ba-crosssheet">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — sheet reference broken</div>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th></th><th>Cell</th><th>Formula</th></tr>
@@ -252,9 +326,7 @@ recreate the sheet?</pre>
         </div>
       </div>
     </div>
-
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-
     <div class="ba-col after">
       <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude reconstructs it</div>
       <div class="ba-body">
@@ -329,7 +401,6 @@ Returns: £1,825 — formula recalculates correctly. ✓</pre>
   <!-- FAQ -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Frequently asked questions</h2>
   <div class="faq-section">
-    <div class="faq-title" aria-hidden="true">Frequently asked questions</div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What causes a #REF! error in Excel? <i class="ti ti-chevron-down"></i></div>
       <div class="faq-a">A #REF! error appears when a formula references a cell, range, or sheet that no longer exists. The three most common causes are deleting a row or column that a formula pointed to, removing a sheet that contained data used by cross-sheet formulas, and pasting data over a range that another formula depended on.</div>
@@ -380,8 +451,10 @@ Returns: £1,825 — formula recalculates correctly. ✓</pre>
 function switchTab(btn,id){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.ba-panel').forEach(function(p){p.classList.remove('on')});
   btn.classList.add('on');
   document.getElementById('p-'+id).classList.add('on');
+  document.getElementById('ba-'+id).classList.add('on');
 }
 function copyPrompt(btn){
   var text=btn.previousElementSibling.innerText;
