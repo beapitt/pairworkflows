@@ -65,6 +65,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .xl-table .hl{background:#fffbeb}
 .xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
 .xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.ba-panel{display:none;margin-bottom:1.75rem}
+.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
 .ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
 .claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
@@ -225,27 +227,26 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
     </div>
   </div>
 
-  <!-- BEFORE / AFTER VISUAL -->
-  <div class="before-after">
+  <!-- BEFORE / AFTER VISUAL — dynamic per tab -->
+
+  <!-- Tab: explain -->
+  <div class="before-after ba-panel on" id="ba-explain">
     <div class="ba-col before">
       <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — undocumented and confusing</div>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th>Cell</th><th>Formula</th></tr>
-          <tr class="section-row"><td colspan="2">Sheet: Summary</td></tr>
           <tr><td>C2</td><td class="err-cell">=IFERROR(INDEX(Sales!$C$2:$C$500,MATCH(1,(Sales!$A$2:$A$500=A2)*(Sales!$B$2:$B$500=B2),0)),"")</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          No comments, no documentation — nobody knows what it does or if it's safe to touch
+          No comments — nobody knows what it does or if it's safe to touch
           <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Array-style multi-criteria lookup, hardcoded to row 500</div>
         </div>
       </div>
     </div>
-
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude documents it</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude explains it layer by layer</div>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th>Layer</th><th>What it does</th></tr>
@@ -253,10 +254,79 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
           <tr><td class="link-cell">INDEX + MATCH</td><td>Multi-criteria lookup on A2 and B2</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's fix</div>
-          <pre>"Looks up column C where col A = A2 AND col B = B2.
+          <div class="claude-fix-label">Claude's explanation</div>
+          <pre>"Looks up col C where col A = A2 AND col B = B2.
 Returns blank if no match. Risk: ranges hardcoded
 to row 500 — extend if Sales sheet grows." ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: followup -->
+  <div class="before-after ba-panel" id="ba-followup">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — hidden risks not obvious</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Question</th><th>Status</th></tr>
+          <tr><td>What if A2 doesn't exist in Sales?</td><td class="err-cell">Unknown</td></tr>
+          <tr><td>Safe to extend to row 1000?</td><td class="err-cell">Unknown</td></tr>
+          <tr><td>What breaks if Sales sheet renamed?</td><td class="err-cell">Unknown</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Formula works but risks are invisible until something breaks
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Ask follow-up questions to surface hidden fragility</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude surfaces the risks</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Question</th><th>Claude's answer</th></tr>
+          <tr><td>A2 not found?</td><td class="ok-cell">Returns "" — safe ✓</td></tr>
+          <tr><td>Extend to row 1000?</td><td class="ok-cell">Yes, update 3 ranges ✓</td></tr>
+          <tr><td>Rename Sales sheet?</td><td class="err-cell">Breaks — update ref ⚠</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's answer</div>
+          <pre>Renaming "Sales" breaks all 3 references.
+Find/Replace Sheet name to fix safely. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: doc -->
+  <div class="before-after ba-panel" id="ba-doc">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — formula with no written context</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Cell</th><th>Comment</th></tr>
+          <tr><td>C2</td><td class="err-cell">— (none)</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          No documentation — the next person starts from scratch
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ One comment prevents hours of reverse-engineering</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude writes the documentation</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Cell</th><th>Comment added</th></tr>
+          <tr><td>C2</td><td class="ok-cell">✓ Documented</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's documentation</div>
+          <pre>"Multi-criteria lookup: returns Sales[Revenue]
+where Region = A2 AND Rep = B2. Returns blank
+if no match. Do not rename the Sales sheet." ✓</pre>
         </div>
       </div>
     </div>
@@ -368,8 +438,10 @@ to row 500 — extend if Sales sheet grows." ✓</pre>
 function switchTab(btn,id){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.ba-panel').forEach(function(p){p.classList.remove('on')});
   btn.classList.add('on');
   document.getElementById('p-'+id).classList.add('on');
+  document.getElementById('ba-'+id).classList.add('on');
 }
 function copyPrompt(btn){
   var text=btn.previousElementSibling.innerText;
