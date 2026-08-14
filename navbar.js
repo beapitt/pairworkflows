@@ -135,30 +135,6 @@
       color: #1d9e75;
       padding: 6px 12px 2px;
     }
-    .nav-dropdown-menu.workflows-menu {
-      min-width: 380px;
-      left: 0;
-    }
-    .search-trigger {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.15);
-      cursor: pointer;
-      color: rgba(255,255,255,0.7);
-      font-size: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all .15s;
-      flex-shrink: 0;
-      margin-left: 4px;
-    }
-    .search-trigger:hover {
-      background: rgba(255,255,255,0.15);
-      color: #ffffff;
-    }
     .nav-hamburger {
       display: none;
       width: 32px;
@@ -172,7 +148,6 @@
       justify-content: center;
       transition: all .15s;
       flex-shrink: 0;
-      margin-left: 4px;
     }
     .nav-hamburger:hover {
       background: rgba(255,255,255,0.15);
@@ -257,97 +232,63 @@
           </a>
           <div class="nav-desktop-links">
 
-            <!-- WORKFLOWS -->
+            <!-- EXCEL WORKFLOWS -->
             <div class="nav-dropdown">
               <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('workflows')" id="navDropdownToggle-workflows">
-                Workflows
+                Excel Workflows
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
               </button>
-              <div class="nav-dropdown-menu" id="navDropdownMenu-workflows" style="min-width:420px;">
-                <div class="nav-dropdown-label">📘 Claude Workflows</div>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;padding:2px;">
-                  <a href="https://www.pairworkflows.com/claude-finance-workflows.html">Finance</a>
-                  <a href="https://www.pairworkflows.com/claude-hr-workflows.html">HR</a>
-                  <a href="https://www.pairworkflows.com/claude-marketing-workflows.html">Marketing</a>
-                  <a href="https://www.pairworkflows.com/claude-legal-workflows.html">Legal</a>
-                  <a href="https://www.pairworkflows.com/claude-operations-workflows.html">Operations</a>
-                  <a href="https://www.pairworkflows.com/claude-sales-workflows.html">Sales</a>
-                  <a href="https://www.pairworkflows.com/claude-customer-service-workflows.html">Customer Service</a>
-                  <a href="https://www.pairworkflows.com/claude-excel-workflows.html">Excel</a>
-                </div>
+              <div class="nav-dropdown-menu" id="navDropdownMenu-workflows" style="min-width:220px;">
+                <a href="https://www.pairworkflows.com/ai-for-excel.html">All Excel Workflows</a>
                 <div class="nav-dropdown-divider"></div>
-                <div class="nav-dropdown-label">✨ Gemini Workflows</div>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;padding:2px;">
-                  <a href="https://www.pairworkflows.com/gemini-finance-workflows.html">Finance</a>
-                  <a href="https://www.pairworkflows.com/gemini-hr-workflows.html">HR</a>
-                  <a href="https://www.pairworkflows.com/gemini-marketing-workflows.html">Marketing</a>
-                  <a href="https://www.pairworkflows.com/gemini-legal-workflows.html">Legal</a>
-                  <a href="https://www.pairworkflows.com/gemini-operations-workflows.html">Operations</a>
-                  <a href="https://www.pairworkflows.com/gemini-sales-workflows.html">Sales</a>
-                  <a href="https://www.pairworkflows.com/gemini-customer-service-workflows.html">Customer Service</a>
-                </div>
+                <div class="nav-dropdown-label">By topic</div>
+                <a href="https://www.pairworkflows.com/claude-excel-ref-errors.html">Fix Excel Errors</a>
+                <a href="https://www.pairworkflows.com/claude-excel-xlookup.html">Formulas &amp; Functions</a>
+                <a href="https://www.pairworkflows.com/claude-excel-clean-data.html">Data Cleaning</a>
+                <a href="https://www.pairworkflows.com/bank-reconciliation-excel-claude.html">Finance Models</a>
+                <a href="https://www.pairworkflows.com/claude-excel-dynamic-reports.html">Dynamic Reports</a>
               </div>
             </div>
 
-            <!-- PROMPT TOOLS (ex Prompt Builder + Prompt Library) -->
+            <!-- PROMPT TOOLS -->
             <div class="nav-dropdown">
               <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('prompts')" id="navDropdownToggle-prompts">
                 Prompt Tools
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
               </button>
               <div class="nav-dropdown-menu" id="navDropdownMenu-prompts">
-                <div class="nav-dropdown-label">⚡ Prompt Builder</div>
-                <a href="https://www.pairworkflows.com/claude-prompts-excel.html">Excel &amp; Google Sheets</a>
-                <a href="https://www.pairworkflows.com/claude-prompts-finance.html">Finance</a>
-                <a href="https://www.pairworkflows.com/claude-prompts-hr.html">HR</a>
-                <a href="https://www.pairworkflows.com/claude-prompts-marketing.html">Marketing</a>
-                <a href="https://www.pairworkflows.com/claude-prompts-sales.html">Sales</a>
-                <a href="https://www.pairworkflows.com/claude-prompts-customer-service.html">Customer Service</a>
-                <a href="https://www.pairworkflows.com/claude-prompts-operations.html">Operations</a>
-                <a href="https://www.pairworkflows.com/claude-prompts-legal.html">Legal</a>
-                <div class="nav-dropdown-divider"></div>
-                <div class="nav-dropdown-label">📚 Prompt Library</div>
-                <a href="https://www.pairworkflows.com/prompt-library.html">Browse all prompts</a>
+                <div class="nav-dropdown-label">Prompt Builder</div>
+                <a href="https://www.pairworkflows.com/prompt-generator-excel.html">Excel &amp; Google Sheets</a>
+                <a href="https://www.pairworkflows.com/prompt-generator-finance.html">Finance</a>
+                <a href="https://www.pairworkflows.com/prompt-generator-hr.html">HR</a>
+                <a href="https://www.pairworkflows.com/prompt-generator-marketing.html">Marketing</a>
+                <a href="https://www.pairworkflows.com/prompt-generator-sales.html">Sales</a>
+                <a href="https://www.pairworkflows.com/prompt-generator-customer-service.html">Customer Service</a>
+                <a href="https://www.pairworkflows.com/prompt-generator-operations.html">Operations</a>
+                <a href="https://www.pairworkflows.com/prompt-generator-legal.html">Legal</a>
               </div>
             </div>
 
-            <!-- WEBSITE BUILDERS (ex Website Prompts) -->
+            <!-- WEBSITE PROMPTS -->
             <div class="nav-dropdown">
               <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('builder')" id="navDropdownToggle-builder">
                 Website Prompts
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
               </button>
               <div class="nav-dropdown-menu" id="navDropdownMenu-builder">
-                <div class="nav-dropdown-label">🌐 Build a site with AI</div>
-                <a href="https://www.pairworkflows.com/ai-portfolio-website-builder.html">🏗️ Portfolio Website</a>
-                <a href="https://www.pairworkflows.com/ai-restaurant-website-builder.html">🍽️ Restaurant Website</a>
+                <div class="nav-dropdown-label">Build a site with AI</div>
+                <a href="https://www.pairworkflows.com/ai-restaurant-website-builder.html">Restaurant Website</a>
                 <a class="sub-item" href="https://www.pairworkflows.com/ai-pizza-website-builder.html">Pizza &amp; Takeaway</a>
                 <a class="sub-item" href="https://www.pairworkflows.com/ai-fine-dining-website-builder.html">Fine Dining</a>
                 <a class="sub-item" href="https://www.pairworkflows.com/ai-cafe-bakery-website-builder.html">Café &amp; Bakery</a>
               </div>
             </div>
 
-            <!-- COMPARE AI -->
-            <div class="nav-dropdown">
-              <button class="nav-dropdown-toggle" onclick="toggleNavDropdown('compare')" id="navDropdownToggle-compare">
-                Compare AI
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </button>
-              <div class="nav-dropdown-menu" id="navDropdownMenu-compare">
-                <a href="https://www.pairworkflows.com/claude-vs-gemini.html">Claude vs Gemini</a>
-                <a href="https://www.pairworkflows.com/claude-vs-gemini-finance.html">Claude vs Gemini Finance</a>
-                <a href="https://www.pairworkflows.com/claude-vs-copilot-excel.html">Claude vs Copilot Excel</a>
-              </div>
-            </div>
-
           </div>
         </div>
 
-        <!-- RIGHT: search + hamburger only -->
+        <!-- RIGHT: hamburger only -->
         <div class="nav-right">
-          <a href="/search.html" class="search-trigger" style="text-decoration:none;display:flex;">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          </a>
           <button class="nav-hamburger" onclick="toggleMobileMenu()" id="navHamburger">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
           </button>
@@ -359,53 +300,33 @@
     <!-- MOBILE MENU -->
     <div class="nav-mobile-menu" id="navMobileMenu">
       <div class="nav-mobile-section">
+        <div class="nav-mobile-label">Excel Workflows</div>
+        <a href="https://www.pairworkflows.com/ai-for-excel.html">All Excel Workflows</a>
+        <a href="https://www.pairworkflows.com/claude-excel-ref-errors.html">Fix Excel Errors</a>
+        <a href="https://www.pairworkflows.com/claude-excel-xlookup.html">Formulas &amp; Functions</a>
+        <a href="https://www.pairworkflows.com/claude-excel-clean-data.html">Data Cleaning</a>
+        <a href="https://www.pairworkflows.com/bank-reconciliation-excel-claude.html">Finance Models</a>
+        <a href="https://www.pairworkflows.com/claude-excel-dynamic-reports.html">Dynamic Reports</a>
+      </div>
+      <div class="nav-mobile-divider"></div>
+      <div class="nav-mobile-section">
         <div class="nav-mobile-label">Prompt Tools</div>
-        <a href="https://www.pairworkflows.com/claude-prompts-excel.html">Excel &amp; Google Sheets</a>
-        <a href="https://www.pairworkflows.com/claude-prompts-finance.html">Finance</a>
-        <a href="https://www.pairworkflows.com/claude-prompts-hr.html">HR</a>
-        <a href="https://www.pairworkflows.com/claude-prompts-marketing.html">Marketing</a>
-        <a href="https://www.pairworkflows.com/claude-prompts-sales.html">Sales</a>
-        <a href="https://www.pairworkflows.com/claude-prompts-customer-service.html">Customer Service</a>
-        <a href="https://www.pairworkflows.com/claude-prompts-operations.html">Operations</a>
-        <a href="https://www.pairworkflows.com/claude-prompts-legal.html">Legal</a>
-        <a href="https://www.pairworkflows.com/prompt-library.html">Prompt Library</a>
+        <a href="https://www.pairworkflows.com/prompt-generator-excel.html">Excel &amp; Google Sheets</a>
+        <a href="https://www.pairworkflows.com/prompt-generator-finance.html">Finance</a>
+        <a href="https://www.pairworkflows.com/prompt-generator-hr.html">HR</a>
+        <a href="https://www.pairworkflows.com/prompt-generator-marketing.html">Marketing</a>
+        <a href="https://www.pairworkflows.com/prompt-generator-sales.html">Sales</a>
+        <a href="https://www.pairworkflows.com/prompt-generator-customer-service.html">Customer Service</a>
+        <a href="https://www.pairworkflows.com/prompt-generator-operations.html">Operations</a>
+        <a href="https://www.pairworkflows.com/prompt-generator-legal.html">Legal</a>
       </div>
       <div class="nav-mobile-divider"></div>
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Website Prompts</div>
-        <a href="https://www.pairworkflows.com/ai-portfolio-website-builder.html">🏗️ Portfolio Website</a>
-        <a href="https://www.pairworkflows.com/ai-restaurant-website-builder.html">🍽️ Restaurant Website</a>
+        <a href="https://www.pairworkflows.com/ai-restaurant-website-builder.html">Restaurant Website</a>
         <a class="sub-item" href="https://www.pairworkflows.com/ai-pizza-website-builder.html">Pizza &amp; Takeaway</a>
         <a class="sub-item" href="https://www.pairworkflows.com/ai-fine-dining-website-builder.html">Fine Dining</a>
         <a class="sub-item" href="https://www.pairworkflows.com/ai-cafe-bakery-website-builder.html">Café &amp; Bakery</a>
-      </div>
-      <div class="nav-mobile-divider"></div>
-      <div class="nav-mobile-section">
-        <div class="nav-mobile-label">Claude Workflows</div>
-        <a href="https://www.pairworkflows.com/claude-finance-workflows.html">Finance</a>
-        <a href="https://www.pairworkflows.com/claude-hr-workflows.html">HR</a>
-        <a href="https://www.pairworkflows.com/claude-marketing-workflows.html">Marketing</a>
-        <a href="https://www.pairworkflows.com/claude-legal-workflows.html">Legal</a>
-        <a href="https://www.pairworkflows.com/claude-operations-workflows.html">Operations</a>
-        <a href="https://www.pairworkflows.com/claude-sales-workflows.html">Sales</a>
-        <a href="https://www.pairworkflows.com/claude-customer-service-workflows.html">Customer Service</a>
-        <a href="https://www.pairworkflows.com/claude-excel-workflows.html">Excel</a>
-        <div class="nav-mobile-divider"></div>
-        <div class="nav-mobile-label">Gemini Workflows</div>
-        <a href="https://www.pairworkflows.com/gemini-finance-workflows.html">Finance</a>
-        <a href="https://www.pairworkflows.com/gemini-hr-workflows.html">HR</a>
-        <a href="https://www.pairworkflows.com/gemini-marketing-workflows.html">Marketing</a>
-        <a href="https://www.pairworkflows.com/gemini-legal-workflows.html">Legal</a>
-        <a href="https://www.pairworkflows.com/gemini-operations-workflows.html">Operations</a>
-        <a href="https://www.pairworkflows.com/gemini-sales-workflows.html">Sales</a>
-        <a href="https://www.pairworkflows.com/gemini-customer-service-workflows.html">Customer Service</a>
-      </div>
-      <div class="nav-mobile-divider"></div>
-      <div class="nav-mobile-section">
-        <div class="nav-mobile-label">Compare AI</div>
-        <a href="https://www.pairworkflows.com/claude-vs-gemini.html">Claude vs Gemini</a>
-        <a href="https://www.pairworkflows.com/claude-vs-gemini-finance.html">Claude vs Gemini Finance</a>
-        <a href="https://www.pairworkflows.com/claude-vs-copilot-excel.html">Claude vs Copilot Excel</a>
       </div>
     </div>
   `;
