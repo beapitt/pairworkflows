@@ -49,7 +49,9 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint a:hover{text-decoration:underline}
 
 /* ── BEFORE / AFTER VISUAL ── */
-.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
+.ba-panel { display: none; margin-bottom: 1.75rem; }
+.ba-panel.on { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: stretch; }
+
 .ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
@@ -85,6 +87,9 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .badge-yellow{background:#fffbeb;color:#b45309;border:1px solid #fde68a}
 
 /* ── STEPS ── */
+.steps-panel { display: none; }
+.steps-panel.on { display: block; }
+
 .steps-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .steps-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
 .step{display:flex;gap:16px;padding:.9rem 0;border-bottom:1px solid #f3f4f6}
@@ -132,7 +137,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
 @media(max-width:640px){
   .hero h1{font-size:24px}
-  .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-panel.on{grid-template-columns:1fr;gap:8px}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
@@ -184,6 +189,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
       </div>
     </div>
 
+    <!-- Panel: Build from scratch -->
     <div id="p-build" class="panel on">
       <div class="prompt-box">
         <pre>ROLE
@@ -237,6 +243,7 @@ OUTPUT FORMAT
       <p class="prompt-hint">Replace all bracketed sections with your real data. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
     </div>
 
+    <!-- Panel: Balance check != 0 -->
     <div id="p-debug" class="panel">
       <div class="prompt-box">
         <pre>My 3-statement financial model has a Balance Check that is not zero.
@@ -251,9 +258,10 @@ Please identify which linkage is broken and give me the corrected formula.
 Do not rebuild the entire model — only fix the specific broken connection.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">A non-zero Balance Check almost always means one of the 6 linkages listed below has a broken formula reference.</p>
+      <p class="prompt-hint">A non-zero Balance Check almost always means one of the linkages has a broken formula reference.</p>
     </div>
 
+    <!-- Panel: Extend to 5 years -->
     <div id="p-extend" class="panel">
       <div class="prompt-box">
         <pre>I have a 3-statement model with [3] years of projections. I need to extend it
@@ -277,8 +285,48 @@ I can paste into Excel.</pre>
     </div>
   </div>
 
-  <!-- BEFORE / AFTER VISUAL -->
-  <div class="before-after">
+  <!-- BEFORE / AFTER VISUAL DYNAMIC -->
+  
+  <!-- Tab: Build -->
+  <div class="before-after ba-panel on" id="ba-build">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — unlinked statements</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th></th><th>FY24</th><th>FY25</th></tr>
+          <tr class="section-row"><td colspan="3">Income Statement</td></tr>
+          <tr><td>Net Income</td><td>120,000</td><td class="hl">135,000</td></tr>
+          <tr class="section-row"><td colspan="3">Balance Sheet</td></tr>
+          <tr><td>Retained Earnings</td><td>500,000</td><td class="err-cell">500,000</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Values are hardcoded — changes to IS don't affect BS
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Creating scenarios is impossible</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — fully linked by Claude</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th></th><th>FY24</th><th>FY25</th></tr>
+          <tr class="section-row"><td colspan="3">Income Statement</td></tr>
+          <tr><td>Net Income</td><td>120,000</td><td>135,000</td></tr>
+          <tr class="section-row"><td colspan="3">Balance Sheet</td></tr>
+          <tr><td>Retained Earnings</td><td>500,000</td><td class="link-cell">=B12+C4</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's output</div>
+          <pre>All 3 statements linked via formulas.
+Balance check equals 0 across all years. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: Debug -->
+  <div class="before-after ba-panel" id="ba-debug">
     <div class="ba-col before">
       <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — linkage broken</div>
       <div class="ba-body">
@@ -295,9 +343,7 @@ I can paste into Excel.</pre>
         </div>
       </div>
     </div>
-
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-
     <div class="ba-col after">
       <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude fixes it</div>
       <div class="ba-body">
@@ -315,6 +361,44 @@ I can paste into Excel.</pre>
 
 Formula: =C12 + C4
 Both years now balance. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: Extend -->
+  <div class="before-after ba-panel" id="ba-extend">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — ending at FY26</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th></th><th>FY24</th><th>FY25</th><th>FY26</th></tr>
+          <tr class="section-row"><td colspan="4">Assumptions</td></tr>
+          <tr><td>Revenue Growth</td><td>-</td><td>10%</td><td>10%</td></tr>
+          <tr class="section-row"><td colspan="4">Income Statement</td></tr>
+          <tr><td>Revenue</td><td>1.0M</td><td>1.1M</td><td>1.21M</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Model stops abruptly
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Dragging formulas manually often breaks CapEx schedules</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — safely extended</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th></th><th>FY26</th><th>FY27 (New)</th><th>FY28 (New)</th></tr>
+          <tr class="section-row"><td colspan="4">Assumptions</td></tr>
+          <tr><td>Revenue Growth</td><td>10%</td><td class="hl">8%</td><td class="hl">8%</td></tr>
+          <tr class="section-row"><td colspan="4">Income Statement</td></tr>
+          <tr><td>Revenue</td><td>1.21M</td><td class="link-cell">1.30M</td><td class="link-cell">1.41M</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's extension</div>
+          <pre>Added FY27/FY28 columns.
+New 8% growth rate applied safely. ✓</pre>
         </div>
       </div>
     </div>
@@ -345,31 +429,75 @@ Both years now balance. ✓</pre>
     </div>
   </div>
 
-  <!-- STEPS -->
-  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
-  <div class="steps-card">
-    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a 3-statement model with Claude — 5 steps</div>
-    <div class="step">
-      <div class="step-n">1</div>
-      <div class="step-body"><h3>Separate D&amp;A from other OpEx</h3><p>Non-negotiable. Depreciation &amp; Amortisation must be its own line item because it flows three ways: expense on the income statement, non-cash add-back on the cash flow statement, and accumulated depreciation on the balance sheet. Lumping it into OpEx breaks two linkages simultaneously.</p></div>
+  <!-- STEPS DYNAMIC -->
+  
+  <!-- Steps: Build -->
+  <div class="steps-panel on" id="steps-build">
+    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+    <div class="steps-card">
+      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a 3-statement model with Claude — 5 steps</div>
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body"><h3>Separate D&amp;A from other OpEx</h3><p>Non-negotiable. Depreciation &amp; Amortisation must be its own line item because it flows three ways: expense on the income statement, non-cash add-back on the cash flow statement, and accumulated depreciation on the balance sheet. Lumping it into OpEx breaks two linkages simultaneously.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body"><h3>Prepare a complete historical balance sheet</h3><p>At minimum: Cash, AR, Inventory, PP&amp;E (net), AP, Accrued Liabilities, Debt (current + long-term), and Retained Earnings. Every working capital line becomes a cash flow adjustment — a missing line means a missing link and a balance sheet that won't balance.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body"><h3>State assumptions as specific numbers</h3><p><code>Revenue grows 10% per year</code> is usable. "Revenue will increase" is not. Claude needs specific percentages, dollar amounts, and ratios to build formulas. Vague inputs produce vague models.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">4</div>
+        <div class="step-body"><h3>Run the prompt and check the Balance Check row first</h3><p>Before reading any other output, look at the Balance Check row for every projection year. It must show 0. Any non-zero value means a linkage is broken — use the Debug prompt above to isolate it before reviewing the rest of the model.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">5</div>
+        <div class="step-body"><h3>Put all assumptions on a separate tab</h3><p>Every forecast cell should reference an Assumptions tab, not a hard-coded number. Change one growth rate and the entire three-statement model recalculates. This is the difference between a model built once and a model used every month.</p></div>
+      </div>
+      <div class="warn"><strong>Circular reference trap:</strong> If interest expense depends on average debt, and debt depends on cash, and cash depends on interest expense — the model loops. The prompt instructs Claude to use beginning-of-period debt for interest calculations, which breaks the circle cleanly.</div>
     </div>
-    <div class="step">
-      <div class="step-n">2</div>
-      <div class="step-body"><h3>Prepare a complete historical balance sheet</h3><p>At minimum: Cash, AR, Inventory, PP&amp;E (net), AP, Accrued Liabilities, Debt (current + long-term), and Retained Earnings. Every working capital line becomes a cash flow adjustment — a missing line means a missing link and a balance sheet that won't balance.</p></div>
+  </div>
+
+  <!-- Steps: Debug -->
+  <div class="steps-panel" id="steps-debug">
+    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+    <div class="steps-card">
+      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Debug model balances — 3 steps</div>
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body"><h3>Identify the variance amount</h3><p>Look at the Balance Check row to see exactly how much you are off by. A variance that exactly matches Net Income usually means Retained Earnings isn't linked correctly.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body"><h3>Check the 4 common culprits</h3><p>Review the Diagnosis Table above. Ensure Cash is driven by the CFS, CapEx increases PP&E, and D&A is properly added back.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body"><h3>Paste specific rows to Claude</h3><p>Use the debug prompt and paste ONLY the rows involved in the break (Assets, L+E, Net Income, Retained Earnings, Ending Cash). Giving Claude the entire model context for one broken formula leads to confusion.</p></div>
+      </div>
     </div>
-    <div class="step">
-      <div class="step-n">3</div>
-      <div class="step-body"><h3>State assumptions as specific numbers</h3><p><code>Revenue grows 10% per year</code> is usable. "Revenue will increase" is not. Claude needs specific percentages, dollar amounts, and ratios to build formulas. Vague inputs produce vague models.</p></div>
+  </div>
+
+  <!-- Steps: Extend -->
+  <div class="steps-panel" id="steps-extend">
+    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+    <div class="steps-card">
+      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Extend projection timeline — 3 steps</div>
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body"><h3>Define the new timeframe</h3><p>Decide if you are adding 2 or 5 more years. Expanding too far out makes assumptions highly speculative.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body"><h3>Set explicit forward assumptions</h3><p>Growth rates tend to flatten in outer years. Specify exactly what happens to margins, CapEx, and debt schedules for the new years.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body"><h3>Apply the new columns</h3><p>Paste Claude's new formula columns next to your existing ones. Verify the Balance Check row for the new years still equals 0 before saving.</p></div>
+      </div>
     </div>
-    <div class="step">
-      <div class="step-n">4</div>
-      <div class="step-body"><h3>Run the prompt and check the Balance Check row first</h3><p>Before reading any other output, look at the Balance Check row for every projection year. It must show 0. Any non-zero value means a linkage is broken — use the Debug prompt above to isolate it before reviewing the rest of the model.</p></div>
-    </div>
-    <div class="step">
-      <div class="step-n">5</div>
-      <div class="step-body"><h3>Put all assumptions on a separate tab</h3><p>Every forecast cell should reference an Assumptions tab, not a hard-coded number. Change one growth rate and the entire three-statement model recalculates. This is the difference between a model built once and a model used every month.</p></div>
-    </div>
-    <div class="warn"><strong>Circular reference trap:</strong> If interest expense depends on average debt, and debt depends on cash, and cash depends on interest expense — the model loops. The prompt instructs Claude to use beginning-of-period debt for interest calculations, which breaks the circle cleanly.</div>
   </div>
 
   <!-- FAQ -->
@@ -424,8 +552,17 @@ Both years now balance. ✓</pre>
 function switchTab(btn,id){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.ba-panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.steps-panel').forEach(function(p){p.classList.remove('on')});
+
   btn.classList.add('on');
   document.getElementById('p-'+id).classList.add('on');
+
+  var ba = document.getElementById('ba-'+id);
+  if(ba) ba.classList.add('on');
+
+  var steps = document.getElementById('steps-'+id);
+  if(steps) steps.classList.add('on');
 }
 function copyPrompt(btn){
   var text=btn.previousElementSibling.innerText;
