@@ -50,7 +50,9 @@ section { margin-bottom: 2rem; }
 .prompt-hint a:hover{text-decoration:underline}
 
 /* ── BEFORE / AFTER VISUAL ── */
-.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
+.ba-panel { display: none; margin-bottom: 1.75rem; }
+.ba-panel.on { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: stretch; }
+
 .ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
@@ -86,6 +88,9 @@ section { margin-bottom: 2rem; }
 .diag-header h2 { font-size: inherit; font-weight: inherit; color: inherit; text-transform: inherit; letter-spacing: inherit; margin: 0; }
 
 /* ── STEPS ── */
+.steps-panel { display: none; }
+.steps-panel.on { display: block; }
+
 .steps-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .steps-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
 .steps-title h2 { font-size: inherit; font-weight: inherit; color: inherit; margin: 0; }
@@ -137,7 +142,7 @@ section { margin-bottom: 2rem; }
 @media(max-width:640px){
   .hero h1{font-size:24px}
   .hero h2 {font-size: 20px;}
-  .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-panel.on{grid-template-columns:1fr;gap:8px}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
@@ -190,6 +195,7 @@ section { margin-bottom: 2rem; }
       </div>
     </div>
 
+    <!-- Panel: Full Reconciliation -->
     <div id="p-recon" class="panel on">
       <div class="prompt-box">
         <pre>I need to reconcile a bank statement against a general ledger cash account in Excel.
@@ -221,6 +227,7 @@ Format the output as an Excel-ready table I can paste directly into a spreadshee
       <p class="prompt-hint">Replace the bracketed sections with your real data. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a> or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
     </div>
 
+    <!-- Panel: Debug -->
     <div id="p-debug" class="panel">
       <div class="prompt-box">
         <pre>I ran a bank reconciliation and I'm getting unexpected results. Here's what I see:
@@ -239,6 +246,7 @@ Please identify what's causing the mismatch and tell me exactly what to fix befo
       <p class="prompt-hint">Common causes: date format mismatch, sign convention difference, or extra spaces. Claude spots these immediately.</p>
     </div>
 
+    <!-- Panel: Multi-currency -->
     <div id="p-multi" class="panel">
       <div class="prompt-box">
         <pre>I need to reconcile a multi-currency bank statement against my general ledger.
@@ -261,8 +269,10 @@ Apply the same matching rules: Matched / Partial / Unmatched. Flag every discrep
     </div>
   </section>
 
-  <!-- BEFORE / AFTER VISUAL -->
-  <section class="before-after">
+  <!-- BEFORE / AFTER VISUAL DYNAMIC -->
+  
+  <!-- BA: Recon -->
+  <section class="before-after ba-panel on" id="ba-recon">
     <div class="ba-col before">
       <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — raw data, no matching</div>
       <div class="ba-body">
@@ -278,9 +288,7 @@ Apply the same matching rules: Matched / Partial / Unmatched. Flag every discrep
         </div>
       </div>
     </div>
-
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-
     <div class="ba-col after">
       <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude reconciles it</div>
       <div class="ba-body">
@@ -295,6 +303,76 @@ Apply the same matching rules: Matched / Partial / Unmatched. Flag every discrep
           <pre>TXN-4410: Partial — Bank £8,750 vs Ledger £8,700 (Δ £50)
 TXN-4415: Unmatched (Bank only) — no ledger entry found
 Net difference: £50 partial + £1,980 unmatched</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BA: Debug -->
+  <section class="before-after ba-panel" id="ba-debug">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — hidden data mismatch</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Source</th><th>Date</th><th>Amount</th><th>Status</th></tr>
+          <tr><td>Bank</td><td class="hl">01/06/2025</td><td>500.00</td><td class="err-cell">Unmatched</td></tr>
+          <tr><td>Ledger</td><td class="hl">2025-06-01</td><td>500.00</td><td class="err-cell">Unmatched</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Amounts match perfectly, but dates format splits the entry
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ VLOOKUP or automated matching fails completely</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude diagnosis</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Source</th><th>Date</th><th>Amount</th><th>Status</th></tr>
+          <tr><td>Bank</td><td>01/06/2025</td><td>500.00</td><td class="ok-cell">Matched</td></tr>
+          <tr><td>Ledger</td><td>01/06/2025</td><td>500.00</td><td class="ok-cell">Matched</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's fix</div>
+          <pre>1. Select Ledger dates -> Format Cells
+2. Custom -> DD/MM/YYYY
+Dates aligned. Rerun prompt -> Matched. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BA: Multi-currency -->
+  <section class="before-after ba-panel" id="ba-multi">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — different currencies</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Source</th><th>Currency</th><th>Amount</th><th>Status</th></tr>
+          <tr><td>Bank</td><td>USD</td><td class="hl">1,000.00</td><td class="err-cell">Unmatched</td></tr>
+          <tr><td>Ledger</td><td>GBP</td><td class="hl">790.00</td><td class="err-cell">Unmatched</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Values don't match without an applied exchange rate
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Manual conversion takes hours across hundreds of rows</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude applies rate</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Source</th><th>Conversion</th><th>Amount</th><th>Status</th></tr>
+          <tr><td>Bank</td><td>1000 * 0.79</td><td>£ 790.00</td><td class="ok-cell">Matched</td></tr>
+          <tr><td>Ledger</td><td>Base Rate</td><td>£ 790.00</td><td class="ok-cell">Matched</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's output</div>
+          <pre>Rate applied: 1 USD = 0.79 GBP
+Bank USD 1,000 converted to GBP 790
+Matched exactly to Ledger entry. ✓</pre>
         </div>
       </div>
     </div>
@@ -325,31 +403,81 @@ Net difference: £50 partial + £1,980 unmatched</pre>
     </div>
   </section>
 
-  <!-- STEPS -->
-  <section class="steps-card">
-    <div class="steps-title"><h2><i class="ti ti-list-check" style="color:#1d9e75"></i> Run a bank reconciliation with Claude — 5 steps</h2></div>
-    <div class="step">
-      <div class="step-n">1</div>
-      <div class="step-body"><h3>Export both datasets to Excel or CSV</h3><p>Export your bank statement and general ledger cash account. Keep only individual transaction rows — delete summary rows, running balances, and any bank export headers that span multiple columns.</p></div>
-    </div>
-    <div class="step">
-      <div class="step-n">2</div>
-      <div class="step-body"><h3>Align date formats and sign conventions</h3><p>Both datasets must use the same date format (e.g. DD/MM/YYYY). Amounts must follow the same sign convention: negative for outflows, positive for inflows. Fix this in Excel before pasting into Claude.</p></div>
-    </div>
-    <div class="step">
-      <div class="step-n">3</div>
-      <div class="step-body"><h3>Paste both datasets into the prompt</h3><p>Use the Full Reconciliation prompt above. Paste your bank rows where indicated and your ledger rows below. Include column headers so Claude understands the structure.</p></div>
-    </div>
-    <div class="step">
-      <div class="step-n">4</div>
-      <div class="step-body"><h3>Review every Partial and Unmatched item</h3><p>Claude's output is a starting point, not a final answer. Every Partial match needs a root-cause investigation — timing difference, bank fee, or data entry error. Every Unmatched item on the bank side needs a journal entry or explanation.</p></div>
-    </div>
-    <div class="step">
-      <div class="step-n">5</div>
-      <div class="step-body"><h3>Paste the reconciliation table into Excel</h3><p>Claude formats the output as a tab-separated table ready to paste into Excel. Apply <code>Ctrl+Shift+L</code> to add filters, then sort by Status to group all Partial and Unmatched items at the top.</p></div>
-    </div>
-    <div class="tip"><strong>Tip:</strong> If all your items show Unmatched, the most likely cause is a date format mismatch. Tell Claude "dates in my bank export are MM/DD/YYYY and in my ledger they are DD/MM/YYYY" — it will normalise before matching.</div>
-  </section>
+  <!-- STEPS DYNAMIC -->
+  
+  <!-- Steps: Recon -->
+  <div class="steps-panel on" id="steps-recon">
+    <section class="steps-card">
+      <div class="steps-title"><h2><i class="ti ti-list-check" style="color:#1d9e75"></i> Run a bank reconciliation with Claude — 5 steps</h2></div>
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body"><h3>Export both datasets to Excel or CSV</h3><p>Export your bank statement and general ledger cash account. Keep only individual transaction rows — delete summary rows, running balances, and any bank export headers that span multiple columns.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body"><h3>Align date formats and sign conventions</h3><p>Both datasets must use the same date format (e.g. DD/MM/YYYY). Amounts must follow the same sign convention: negative for outflows, positive for inflows. Fix this in Excel before pasting into Claude.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body"><h3>Paste both datasets into the prompt</h3><p>Use the Full Reconciliation prompt above. Paste your bank rows where indicated and your ledger rows below. Include column headers so Claude understands the structure.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">4</div>
+        <div class="step-body"><h3>Review every Partial and Unmatched item</h3><p>Claude's output is a starting point, not a final answer. Every Partial match needs a root-cause investigation — timing difference, bank fee, or data entry error. Every Unmatched item on the bank side needs a journal entry or explanation.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">5</div>
+        <div class="step-body"><h3>Paste the reconciliation table into Excel</h3><p>Claude formats the output as a tab-separated table ready to paste into Excel. Apply <code>Ctrl+Shift+L</code> to add filters, then sort by Status to group all Partial and Unmatched items at the top.</p></div>
+      </div>
+      <div class="tip"><strong>Tip:</strong> If all your items show Unmatched, the most likely cause is a date format mismatch. Tell Claude "dates in my bank export are MM/DD/YYYY and in my ledger they are DD/MM/YYYY" — it will normalise before matching.</div>
+    </section>
+  </div>
+
+  <!-- Steps: Debug -->
+  <div class="steps-panel" id="steps-debug">
+    <section class="steps-card">
+      <div class="steps-title"><h2><i class="ti ti-list-check" style="color:#1d9e75"></i> Debug mismatching rows — 4 steps</h2></div>
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body"><h3>Identify the failing pattern</h3><p>Notice if the mismatch affects all rows, only specific dates, or specific transaction types. This narrows down formatting or export issues.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body"><h3>Extract 3-5 example rows</h3><p>Don't paste the entire ledger again. Grab 3 rows from the bank export and their exact corresponding rows from the ledger that <i>should</i> be matching.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body"><h3>Query Claude for hidden formatting</h3><p>Paste the samples into Claude using the prompt above. Claude spots invisible characters, trailing spaces, differing sign conventions, or text-stored dates instantly.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">4</div>
+        <div class="step-body"><h3>Apply the fix in Excel before re-running</h3><p>Apply Claude's recommended formula (like <code>TRIM()</code> or <code>DATEVALUE()</code>) to clean the raw column in Excel, then re-paste the clean dataset for the full reconciliation.</p></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Steps: Multi-currency -->
+  <div class="steps-panel" id="steps-multi">
+    <section class="steps-card">
+      <div class="steps-title"><h2><i class="ti ti-list-check" style="color:#1d9e75"></i> Reconcile multi-currency statements — 4 steps</h2></div>
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body"><h3>Ensure currency identification</h3><p>Check that your bank statement specifies the original currency for each transaction, especially if multiple foreign currencies are mixed in one export.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body"><h3>Define your exchange rates</h3><p>Determine the exchange rate for the period. You can either provide a fixed static rate in the prompt, or point Claude to an FX column in your pasted data.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body"><h3>Run the multi-currency prompt</h3><p>Paste your data using the prompt above. Claude will multiply or divide the bank amounts by the given rate to standardize them to your ledger's base reporting currency.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">4</div>
+        <div class="step-body"><h3>Account for FX variance (Partial Matches)</h3><p>Because bank FX rates fluctuate daily, converted amounts rarely match to the penny. Claude will flag these as "Partial" matches; standard procedure is to post the minor variance to a dedicated FX Gain/Loss account.</p></div>
+      </div>
+    </section>
+  </div>
 
   <!-- FAQ -->
   <section class="faq-section">
@@ -405,8 +533,17 @@ Net difference: £50 partial + £1,980 unmatched</pre>
 function switchTab(btn,id){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.ba-panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.steps-panel').forEach(function(p){p.classList.remove('on')});
+
   btn.classList.add('on');
   document.getElementById('p-'+id).classList.add('on');
+
+  var ba = document.getElementById('ba-'+id);
+  if(ba) ba.classList.add('on');
+
+  var steps = document.getElementById('steps-'+id);
+  if(steps) steps.classList.add('on');
 }
 function copyPrompt(btn){
   var text=btn.previousElementSibling.innerText;
