@@ -1,5 +1,5 @@
-## PairWorkflows provides interactive, scenario-based workflows and prompt tools designed 
-## to solve real-world Excel tasks with Claude AI.
+PairWorkflows provides interactive, scenario-based workflows and prompt tools designed 
+to solve real-world Excel tasks with Claude AI.
 
 
 ## Key Features
