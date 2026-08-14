@@ -48,8 +48,13 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
 .prompt-hint a:hover{text-decoration:underline}
 
+/* DYNAMIC PANELS */
+.ba-panel { display: none; margin-bottom: 1.75rem; }
+.ba-panel.on { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: stretch; }
+.steps-panel { display: none; }
+.steps-panel.on { display: block; }
+
 /* ── BEFORE / AFTER VISUAL ── */
-.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
 .ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
@@ -131,7 +136,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
 @media(max-width:640px){
   .hero h1{font-size:24px}
-  .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-panel.on{grid-template-columns:1fr;gap:8px}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
@@ -183,6 +188,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
       </div>
     </div>
 
+    <!-- Panel: Build -->
     <div id="p-build" class="panel on">
       <div class="prompt-box">
         <pre>I need a capital expenditure (CapEx) planning template in Excel.
@@ -213,6 +219,7 @@ Requirements:
       <p class="prompt-hint">Paste your project list where indicated. Works in <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
     </div>
 
+    <!-- Panel: Phase -->
     <div id="p-phase" class="panel">
       <div class="prompt-box">
         <pre>I need a spend-phasing section added to my CapEx plan. Each project
@@ -237,6 +244,7 @@ Requirements:
       <p class="prompt-hint">Specify timing as percentages by quarter or month — Claude distributes exactly as instructed, no smoothing.</p>
     </div>
 
+    <!-- Panel: Summary -->
     <div id="p-summary" class="panel">
       <div class="prompt-box">
         <pre>I need a summary table for my CapEx plan, broken down by category
@@ -262,8 +270,10 @@ Format as tab-separated, ready to paste into Excel.</pre>
     </div>
   </div>
 
-  <!-- BEFORE / AFTER VISUAL -->
-  <div class="before-after">
+  <!-- BEFORE / AFTER VISUAL DYNAMIC -->
+  
+  <!-- Tab: Build -->
+  <div class="before-after ba-panel on" id="ba-build">
     <div class="ba-col before">
       <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — unstructured project list</div>
       <div class="ba-body">
@@ -275,16 +285,14 @@ Format as tab-separated, ready to paste into Excel.</pre>
           <tr><td><strong>Total</strong></td><td class="hl">955,000</td><td>—</td><td class="err-cell">?</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          No approval workflow, no depreciation, no spend phasing
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Total includes all projects regardless of status</div>
+          No approval workflow, no depreciation calculated
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Total blindly sums unapproved pipeline items</div>
         </div>
       </div>
     </div>
-
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude builds the template</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude builds the structured register</div>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th>Project</th><th>Cost</th><th>Status</th><th>Ann. Depr.</th></tr>
@@ -294,11 +302,76 @@ Format as tab-separated, ready to paste into Excel.</pre>
           <tr><td><strong>Approved total</strong></td><td class="ok-cell">505,000</td><td>—</td><td class="ok-cell">33,000</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's output</div>
+          <div class="claude-fix-label">Claude's formula logic</div>
           <pre>Total Approved: =SUMIFS(C:C,G:G,"Approved")
-Total Pipeline: =SUMIFS(C:C,G:G,"Submitted")
-               +SUMIFS(C:C,G:G,"Proposed")
 Ann. Depr: =(Cost−Salvage)/Useful Life</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: Phase -->
+  <div class="before-after ba-panel" id="ba-phase">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — lumped timing</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Project</th><th>Cost</th><th>Timing</th></tr>
+          <tr><td>Warehouse roof</td><td>320,000</td><td class="hl">50% Q2, 50% Q3</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Cash flow impact is invisible in text format
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — exact monthly cash flow</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Project</th><th>Apr</th><th>May</th><th>Jun</th><th>...</th></tr>
+          <tr><td>Warehouse roof</td><td>0</td><td class="ok-cell">160,000</td><td>0</td><td>...</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's output</div>
+          <pre>Claude interprets "50% Q2" and splits the cost 
+cleanly into specific monthly buckets based on
+your exact phase instructions. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: Summary -->
+  <div class="before-after ba-panel" id="ba-summary">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — flat massive list</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Category</th><th>Project</th><th>Cost</th></tr>
+          <tr><td>IT</td><td>Server A</td><td>5,000</td></tr>
+          <tr><td>Facilities</td><td>Desk</td><td>2,000</td></tr>
+          <tr><td>IT</td><td>Laptops</td><td>10,000</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          No high-level visibility for department heads
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — clean executive view</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Category</th><th>Approved</th><th>Proposed</th><th>Total</th></tr>
+          <tr><td>IT</td><td class="ok-cell">15,000</td><td>0</td><td>15,000</td></tr>
+          <tr><td>Facilities</td><td class="ok-cell">2,000</td><td>0</td><td>2,000</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's output</div>
+          <pre>Claude writes the exact SUMIFS formula mapping 
+your categories and statuses to aggregate 
+the raw project list dynamically. ✓</pre>
         </div>
       </div>
     </div>
@@ -329,33 +402,85 @@ Ann. Depr: =(Cost−Salvage)/Useful Life</pre>
     </div>
   </div>
 
-  <!-- STEPS -->
-  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">How to Build a CapEx Budget Template in Excel</h2>
-  <div class="steps-card">
-    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a CapEx planning template with Claude — 4 steps</div>
-    <div class="step">
-      <div class="step-n">1</div>
-      <div class="step-body"><h3>Assign a category to each project</h3><p>Common categories: Facilities, Equipment, Vehicles, IT/Software, Leasehold Improvements. Categories allow Claude to build SUMIFS-based subtotals per category — useful for board reporting and budget allocation by department.</p></div>
+  <!-- STEPS DYNAMIC -->
+  
+  <!-- Steps: Build -->
+  <div class="steps-panel on" id="steps-build">
+    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">How to Build a CapEx Budget Template in Excel</h2>
+    <div class="steps-card">
+      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a CapEx register with Claude — 4 steps</div>
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body"><h3>List projects and assign categories</h3><p>Provide a raw list of projects with common categories (Facilities, Equipment, Vehicles, IT/Software, Leasehold Improvements). Categories allow Claude to build SUMIFS-based subtotals later.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body"><h3>Include salvage values and useful lives</h3><p>Even rough estimates matter. Claude calculates indicative annual depreciation for each project so leadership can see the ongoing P&amp;L impact alongside the cash outlay. Use <code>0</code> for salvage value if the asset will be fully written off.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body"><h3>Set the approval status for each project</h3><p>Use four stages: Proposed, Submitted, Approved, Rejected. Claude handles the initial data structure so you can easily track state changes.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">4</div>
+        <div class="step-body"><h3>Implement SUMIFS for filtered totals</h3><p>Paste Claude's formula output. It filters totals by status automatically, showing both committed spend (Approved) and the full pipeline (Submitted + Proposed) in one view.</p></div>
+      </div>
+      <div class="tip"><strong>Tip:</strong> If you manage CapEx across multiple entities, build each entity's plan separately using this prompt, then consolidate using the <a href="/multi-entity-financials-excel-claude.html" style="color:#92400e;font-weight:600">multi-entity consolidation workflow</a>.</div>
     </div>
-    <div class="step">
-      <div class="step-n">2</div>
-      <div class="step-body"><h3>Specify spend timing, not just total cost</h3><p>Capital projects rarely pay out in a single lump sum. Break each project into the months or quarters when cash will actually leave the business — e.g. "50% Q2, 50% Q3". This feeds the spend-phasing section and connects directly to your cash flow forecast.</p></div>
+  </div>
+
+  <!-- Steps: Phase -->
+  <div class="steps-panel" id="steps-phase">
+    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">How to Phase Your Spend</h2>
+    <div class="steps-card">
+      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Distribute project costs accurately — 4 steps</div>
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body"><h3>Export your base project list</h3><p>Copy only the Project Name and Estimated Cost from your main register. Do not clutter the prompt with depreciation or category data.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body"><h3>Define the phasing logic</h3><p>Capital projects rarely pay out in a single lump sum. State exactly when cash will leave the business using percentages (e.g., "50% Q2, 50% Q3" or "25% Jan, 75% Feb").</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body"><h3>Prompt Claude to build the 12-month grid</h3><p>Run the Phase prompt. Claude will translate your text-based timing into a rigid 12-month matrix, performing the percentage math perfectly.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">4</div>
+        <div class="step-body"><h3>Sum columns for cash flow reporting</h3><p>Paste the matrix back into your workbook. Add a Total row at the bottom summing each month to feed your Treasury or Cash Flow Dashboard directly.</p></div>
+      </div>
     </div>
-    <div class="step">
-      <div class="step-n">3</div>
-      <div class="step-body"><h3>Include salvage values and useful lives</h3><p>Even rough estimates matter. Claude calculates indicative annual depreciation for each project so leadership can see the ongoing P&amp;L impact alongside the cash outlay. Use <code>0</code> for salvage value if the asset will be fully written off.</p></div>
+  </div>
+
+  <!-- Steps: Summary -->
+  <div class="steps-panel" id="steps-summary">
+    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">How to Build an Executive Summary</h2>
+    <div class="steps-card">
+      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Aggregate CapEx for leadership — 4 steps</div>
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body"><h3>Ensure uniform categories</h3><p>Verify that your main project register doesn't have duplicate/misspelled categories (e.g., "IT" vs "Information Tech").</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body"><h3>Feed the layout to Claude</h3><p>Provide Claude with your column headers and a snippet of the data. Tell it you want a Category vs. Status matrix.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body"><h3>Copy the SUMIFS matrix</h3><p>Claude will output a clean table with pre-written `SUMIFS` formulas that cross-reference Category and Status.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">4</div>
+        <div class="step-body"><h3>Paste into a presentation tab</h3><p>Place this summary on a new tab designed for printing or PDF export. As you update project statuses in the main register, this executive view will update instantly.</p></div>
+      </div>
     </div>
-    <div class="step">
-      <div class="step-n">4</div>
-      <div class="step-body"><h3>Set the approval status for each project</h3><p>Use four stages: Proposed, Submitted, Approved, Rejected. Claude creates a data-validation dropdown and filters totals by status — so the template shows both committed spend (Approved) and the full pipeline (Submitted + Proposed) in one view.</p></div>
-    </div>
-    <div class="tip"><strong>Tip:</strong> If you manage CapEx across multiple entities, build each entity's plan separately using this prompt, then consolidate using the <a href="/multi-entity-financials-excel-claude.html" style="color:#92400e;font-weight:600">multi-entity consolidation workflow</a>.</div>
   </div>
 
   <!-- FAQ -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Frequently asked questions</h2>
   <div class="faq-section">
-  <div class="faq-item">
+    <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What is the difference between CapEx and OpEx in Excel planning? <i class="ti ti-chevron-down"></i></div>
       <div class="faq-a">CapEx (capital expenditure) is spending on long-term assets — equipment, vehicles, property — that gets capitalised on the balance sheet and depreciated over time. OpEx (operating expenditure) hits the income statement immediately. This template handles CapEx only: each project is tracked as an asset with a useful life and a depreciation schedule.</div>
     </div>
@@ -400,8 +525,17 @@ Ann. Depr: =(Cost−Salvage)/Useful Life</pre>
 function switchTab(btn,id){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.ba-panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.steps-panel').forEach(function(p){p.classList.remove('on')});
+
   btn.classList.add('on');
   document.getElementById('p-'+id).classList.add('on');
+
+  var ba = document.getElementById('ba-'+id);
+  if(ba) ba.classList.add('on');
+
+  var steps = document.getElementById('steps-'+id);
+  if(steps) steps.classList.add('on');
 }
 function copyPrompt(btn){
   var text=btn.previousElementSibling.innerText;
