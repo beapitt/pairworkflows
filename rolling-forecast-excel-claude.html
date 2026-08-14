@@ -40,7 +40,13 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
 .prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
 .prompt-hint a:hover{text-decoration:underline}
-.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
+
+/* DYNAMIC PANELS */
+.ba-panel { display: none; margin-bottom: 1.75rem; }
+.ba-panel.on { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: stretch; }
+.steps-panel { display: none; }
+.steps-panel.on { display: block; }
+
 .ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
@@ -106,7 +112,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
 @media(max-width:640px){
   .hero h1{font-size:24px}
-  .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-panel.on{grid-template-columns:1fr;gap:8px}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
@@ -158,6 +164,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
       </div>
     </div>
 
+    <!-- Panel: Build -->
     <div id="p-build" class="panel on">
       <div class="prompt-box">
         <pre>I need a rolling 12-month forecast model in Excel.
@@ -194,6 +201,7 @@ Requirements:
       <p class="prompt-hint">Paste your real actuals and assumptions. Works in <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
     </div>
 
+    <!-- Panel: Seasonal -->
     <div id="p-seasonal" class="panel">
       <div class="prompt-box">
         <pre>I need to add a seasonality index to my rolling forecast model.
@@ -216,6 +224,7 @@ Requirements:
       <p class="prompt-hint">Use this after building the base model — add it as a separate tab so your assumptions stay organised.</p>
     </div>
 
+    <!-- Panel: Update -->
     <div id="p-update" class="panel">
       <div class="prompt-box">
         <pre>I need to update my rolling 12-month forecast for the new month.
@@ -240,8 +249,10 @@ Instructions:
     </div>
   </div>
 
-  <!-- BEFORE / AFTER VISUAL -->
-  <div class="before-after">
+  <!-- BEFORE / AFTER VISUAL DYNAMIC -->
+
+  <!-- BA: Build -->
+  <div class="before-after ba-panel on" id="ba-build">
     <div class="ba-col before">
       <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — static annual budget</div>
       <div class="ba-body">
@@ -256,9 +267,7 @@ Instructions:
         </div>
       </div>
     </div>
-
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-
     <div class="ba-col after">
       <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude builds the rolling model</div>
       <div class="ba-body">
@@ -272,6 +281,70 @@ Instructions:
           <pre>Jul Revenue =E3*1.02*SeasonIndex_Jul
 Always 12 months ahead. Actuals replace
 forecasts as each month closes. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BA: Seasonal -->
+  <div class="before-after ba-panel" id="ba-seasonal">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — flat monthly averages</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Revenue</th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th></tr>
+          <tr><td>Base</td><td class="hl">50k</td><td class="hl">50k</td><td class="hl">50k</td><td class="hl">50k</td><td class="hl">50k</td><td class="hl">50k</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Q4 peak completely ignored, throwing off cash flow planning
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — adjusted with seasonality index</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Revenue</th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th></tr>
+          <tr><td>Seasonal</td><td class="actual-cell">42k</td><td class="actual-cell">38k</td><td class="actual-cell">45k</td><td class="forecast-cell">55k</td><td class="forecast-cell">65k</td><td class="forecast-cell">75k</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's output</div>
+          <pre>Index applied to base formula: =Base * Index
+(e.g., Dec = 50k * 1.50)
+Now accounts for historical year-end spikes. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BA: Update -->
+  <div class="before-after ba-panel" id="ba-update">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — outdated period structure</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Line Item</th><th>May (Act)</th><th>Jun (Fcst)</th><th>Jul (Fcst)</th></tr>
+          <tr><td>Revenue</td><td>40k</td><td class="hl">42k</td><td>45k</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          June is already closed, but model still shows old forecast values
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — rolled forward perfectly</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Line Item</th><th>May (Act)</th><th>Jun (Act)</th><th>Jul (Fcst)</th><th>Jun+1 (Fcst)</th></tr>
+          <tr><td>Revenue</td><td>40k</td><td class="actual-cell">44k</td><td>45k</td><td class="forecast-cell">50k</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's update</div>
+          <pre>June converted to Actuals column.
+New June (+1 Year) forecast appended.
+Rolling total dynamically adjusted. ✓</pre>
         </div>
       </div>
     </div>
@@ -302,27 +375,79 @@ forecasts as each month closes. ✓</pre>
     </div>
   </div>
 
-  <!-- STEPS -->
-  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
-  <div class="steps-card">
-    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a 12-month rolling forecast with Claude — 4 steps</div>
-    <div class="step">
-      <div class="step-n">1</div>
-      <div class="step-body"><h3>Provide at least 3 months of closed actuals</h3><p>Six to twelve months is ideal — it lets Claude see trends and seasonality in your data. The more history you provide, the better Claude can structure the actual-to-forecast transition and calibrate growth rates against real performance.</p></div>
+  <!-- STEPS DYNAMIC -->
+
+  <!-- Steps: Build -->
+  <div class="steps-panel on" id="steps-build">
+    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+    <div class="steps-card">
+      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a 12-month rolling forecast with Claude — 4 steps</div>
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body"><h3>Provide at least 3 months of closed actuals</h3><p>Six to twelve months is ideal — it lets Claude see trends and seasonality in your data. The more history you provide, the better Claude can structure the actual-to-forecast transition and calibrate growth rates against real performance.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body"><h3>State specific growth and cost assumptions</h3><p>"Revenue grows 2% per month" is actionable. "Revenue will increase" is not. Claude builds formulas from numbers — vague inputs produce vague models. Include COGS as a % of revenue, OpEx escalation rate, and any planned headcount changes with their hire months.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body"><h3>Put all assumptions on a separate tab</h3><p>The prompt instructs Claude to reference an Assumptions tab for every forecast driver. Change one growth rate and every future month recalculates. Without this, you'd need to edit 36+ cells to update a single assumption across 12 months.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">4</div>
+        <div class="step-body"><h3>Update monthly using the Update with actuals prompt</h3><p>At the end of each month, use the third tab prompt above. Paste the closed actuals, Claude gives you the replacement values and the new far-end forecast month. The whole update takes about 2 minutes and keeps the model rolling forward automatically.</p></div>
+      </div>
+      <div class="tip"><strong>Tip:</strong> Keep the rolling forecast alongside your static annual budget — not instead of it. Use the annual budget for board reporting and compensation benchmarks, the rolling forecast for operational decisions. Run the <a href="/build-budget-variance-analysis-report-excel-claude.html" style="color:#92400e;font-weight:600">budget variance report</a> against both to see which is tracking reality more closely.</div>
     </div>
-    <div class="step">
-      <div class="step-n">2</div>
-      <div class="step-body"><h3>State specific growth and cost assumptions</h3><p>"Revenue grows 2% per month" is actionable. "Revenue will increase" is not. Claude builds formulas from numbers — vague inputs produce vague models. Include COGS as a % of revenue, OpEx escalation rate, and any planned headcount changes with their hire months.</p></div>
+  </div>
+
+  <!-- Steps: Seasonal -->
+  <div class="steps-panel" id="steps-seasonal">
+    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+    <div class="steps-card">
+      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Add a seasonality index to your forecast — 4 steps</div>
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body"><h3>Extract historical monthly data</h3><p>Gather 2-3 years of historical revenue data to find a reliable pattern of monthly fluctuations.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body"><h3>Calculate the monthly weighting</h3><p>Feed the data into Claude to convert the monthly splits into a base 1.0 index (e.g., if August is slow, it might be 0.8; if December is busy, it might be 1.5).</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body"><h3>Isolate seasonality on an assumptions tab</h3><p>Keep these modifiers separate from your main calculation sheet. This allows you to tweak seasonal expectations without breaking cell formulas.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">4</div>
+        <div class="step-body"><h3>Apply the index to rolling formulas</h3><p>Multiply your base growth projections by the specific month's seasonality index to reflect realistic cash flow peaks and valleys.</p></div>
+      </div>
     </div>
-    <div class="step">
-      <div class="step-n">3</div>
-      <div class="step-body"><h3>Put all assumptions on a separate tab</h3><p>The prompt instructs Claude to reference an Assumptions tab for every forecast driver. Change one growth rate and every future month recalculates. Without this, you'd need to edit 36+ cells to update a single assumption across 12 months.</p></div>
+  </div>
+
+  <!-- Steps: Update -->
+  <div class="steps-panel" id="steps-update">
+    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+    <div class="steps-card">
+      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Update model with closed actuals — 4 steps</div>
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body"><h3>Finalise month-end close</h3><p>Ensure that all general ledger numbers are final and locked before importing them to overwrite your forecast data.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body"><h3>Run the Update prompt</h3><p>Provide Claude with the finalized actuals to ensure formulas update precisely without manual column-dragging errors.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body"><h3>Paste actuals over old forecast</h3><p>Replace the oldest forecast column (which represents the just-closed month) with the newly generated actuals values.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">4</div>
+        <div class="step-body"><h3>Append the new far-end month</h3><p>Add Claude's new formula column at the end of the sheet to immediately extend the rolling horizon to a full 12 months again.</p></div>
+      </div>
     </div>
-    <div class="step">
-      <div class="step-n">4</div>
-      <div class="step-body"><h3>Update monthly using the Update with actuals prompt</h3><p>At the end of each month, use the third tab prompt above. Paste the closed actuals, Claude gives you the replacement values and the new far-end forecast month. The whole update takes about 2 minutes and keeps the model rolling forward automatically.</p></div>
-    </div>
-    <div class="tip"><strong>Tip:</strong> Keep the rolling forecast alongside your static annual budget — not instead of it. Use the annual budget for board reporting and compensation benchmarks, the rolling forecast for operational decisions. Run the <a href="/build-budget-variance-analysis-report-excel-claude.html" style="color:#92400e;font-weight:600">budget variance report</a> against both to see which is tracking reality more closely.</div>
   </div>
 
   <!-- FAQ -->
@@ -377,8 +502,17 @@ forecasts as each month closes. ✓</pre>
 function switchTab(btn,id){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.ba-panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.steps-panel').forEach(function(p){p.classList.remove('on')});
+
   btn.classList.add('on');
   document.getElementById('p-'+id).classList.add('on');
+
+  var ba = document.getElementById('ba-'+id);
+  if(ba) ba.classList.add('on');
+
+  var steps = document.getElementById('steps-'+id);
+  if(steps) steps.classList.add('on');
 }
 function copyPrompt(btn){
   var text=btn.previousElementSibling.innerText;
