@@ -3,224 +3,206 @@
 <head>
 <meta charset="UTF-8"><link rel="icon" type="image/png" href="/favicon.png">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>About PairWorkflows — Practical AI Workflows for Real Work</title>
-<meta name="description" content="PairWorkflows is a free collection of practical AI workflows, prompt tools, and website prompts. Built for professionals, freelancers, consultants, and small businesses.">
+<title>About PairWorkflows — Claude AI Workflows for Excel</title>
+<meta name="description" content="PairWorkflows is a free collection of Claude AI workflows for Excel. Free prompts, step-by-step guides, and interactive tools for solving real spreadsheet problems.">
 <link rel="canonical" href="https://www.pairworkflows.com/about.html">
-<meta property="og:title" content="About PairWorkflows — Practical AI Workflows for Real Work">
-<meta property="og:description" content="PairWorkflows is a free collection of practical AI workflows, prompt tools, and website prompts designed to help people use AI for real work.">
+<meta property="og:title" content="About PairWorkflows — Claude AI Workflows for Excel">
+<meta property="og:description" content="PairWorkflows is a free collection of Claude AI workflows for Excel — formulas, errors, finance models, data cleaning.">
 <meta property="og:url" content="https://www.pairworkflows.com/about.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PairWorkflows">
-<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/global-fix.css">
+<script defer src="/_vercel/insights/script.js"></script>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter','Segoe UI',Helvetica Neue,sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+* { box-sizing: border-box; }
+body { background: #fafafa !important; color: #1a1a2e !important; margin: 0; font-family: 'Inter', sans-serif; }
 
-/* ── Navbar (matches site navbar.js) ── */
-.navbar{background:#021a12;border-bottom:1px solid #0a4a30;padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.nav-logo{display:flex;align-items:baseline;gap:1px;text-decoration:none}
-.logo-pair{font-size:16px;font-weight:600;color:#1d9e75;letter-spacing:-0.3px}
-.logo-workflows{font-size:16px;font-weight:400;color:#ffffff}
-.search-trigger{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.search-trigger:hover{background:rgba(255,255,255,.15);color:#ffffff}
+.page-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+}
 
-/* ── Page wrap ── */
-.page-wrap{max-width:1100px;margin:0 auto;width:100%;padding:2rem 1rem;flex:1}
+.page-eyebrow {
+  font-size: 12px; font-weight: 600; color: #6b7280;
+  text-transform: uppercase; letter-spacing: 1px;
+  margin-bottom: 1rem; display: block;
+}
 
-/* ── Hero ── */
-.hero-about{background:linear-gradient(135deg,#085041 0%,#0f6e56 45%,#185fa5 100%);border-radius:16px;padding:3.5rem 2rem;text-align:center;margin-bottom:1.5rem}
-.hero-about h1{font-size:36px;font-weight:700;color:#ffffff;margin-bottom:.9rem;line-height:1.2;letter-spacing:-0.5px}
-.hero-about p{font-size:16px;color:rgba(255,255,255,.85);max-width:640px;margin:0 auto;line-height:1.7}
+.page-wrap h1 {
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 700; color: #111827;
+  line-height: 1.25; letter-spacing: -0.4px;
+  margin: 0 0 1.5rem;
+}
 
-/* ── Section card ── */
-.about-section{background:#ffffff;border-radius:16px;padding:2rem;margin-bottom:1.25rem;border:1px solid #e8ecef}
-.about-section h2{font-size:20px;font-weight:600;color:#0f6e56;margin-bottom:1rem}
-.about-section p{font-size:14.5px;color:#374151;line-height:1.8;margin-bottom:1rem}
-.about-section p:last-child{margin-bottom:0}
+.page-wrap h2 {
+  font-size: 16px; font-weight: 600; color: #111827;
+  margin: 2.5rem 0 0.75rem;
+}
 
-/* ── 3-column card grid (matches homepage "What can you do") ── */
-.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:1.5rem}
-.feature-card{background:#f8fafb;border:1px solid #e8ecef;border-radius:14px;padding:1.5rem;transition:box-shadow .2s,transform .2s}
-.feature-card:hover{box-shadow:0 4px 18px rgba(0,0,0,.08);transform:translateY(-2px)}
-.feature-card-icon{font-size:26px;color:#1d9e75;margin-bottom:.6rem}
-.feature-card-title{font-size:15px;font-weight:600;color:#0f6e56;margin-bottom:.4rem}
-.feature-card-desc{font-size:13.5px;color:#374151;line-height:1.6}
-.feature-card-note{font-size:12.5px;color:#64748b;margin-top:.6rem;font-style:italic;line-height:1.55}
+.page-wrap p {
+  font-size: 15px; color: #4b5563;
+  line-height: 1.75; margin: 0 0 1rem;
+}
 
-/* ── Who is it for — pill tags ── */
-.audience-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:1.25rem}
-.audience-pill{background:#f0fdf4;border:1px solid #6ee7b7;border-radius:100px;padding:.45rem 1rem;font-size:13.5px;font-weight:500;color:#0f6e56}
+.page-wrap p:last-child { margin-bottom: 0; }
 
-/* ── Approach cards ── */
-.approach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:1.5rem}
-.approach-card{background:#f8fafb;border:1px solid #e8ecef;border-top:3px solid #1d9e75;border-radius:4px 4px 12px 12px;padding:1.4rem}
-.approach-title{font-size:14px;font-weight:700;color:#0f6e56;margin-bottom:.4rem}
-.approach-desc{font-size:13.5px;color:#374151;line-height:1.6}
+.divider {
+  border: none; border-top: 1px solid #f0f0f0;
+  margin: 2.5rem 0;
+}
 
-/* ── CTA section ── */
-.cta-section{background:linear-gradient(135deg,#085041 0%,#0f6e56 50%,#185fa5 100%);border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:1.5rem}
-.cta-section h2{font-size:26px;font-weight:700;color:#ffffff;margin-bottom:.75rem;letter-spacing:-0.3px}
-.cta-section p{font-size:15px;color:rgba(255,255,255,.85);max-width:520px;margin:0 auto 1.75rem;line-height:1.65}
-.cta-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn-primary{display:inline-flex;align-items:center;gap:8px;background:#1d9e75;color:#ffffff;font-weight:600;font-size:14px;padding:13px 28px;border-radius:8px;text-decoration:none;transition:all .15s;border:none;cursor:pointer}
-.btn-primary:hover{background:#17876a;transform:translateY(-1px)}
-.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);color:#ffffff;font-weight:600;font-size:14px;padding:13px 28px;border-radius:8px;text-decoration:none;border:1px solid rgba(255,255,255,.25);transition:all .15s}
-.btn-secondary:hover{background:rgba(255,255,255,.2);transform:translateY(-1px)}
+.highlight {
+  background: #f0faf5;
+  border-left: 3px solid #1d9e75;
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  font-size: 15px; color: #374151; line-height: 1.7;
+}
 
-/* ── Search overlay ── */
-#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
-#searchOverlay.open{display:flex}
-.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
-.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px;line-height:1}
-.search-close-btn:hover{color:#ffffff}
-.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
-.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
-.search-box input{flex:1;border:none;outline:none;background:transparent;color:#ffffff;font-size:17px;font-family:'Inter',sans-serif}
-.search-box input::placeholder{color:rgba(255,255,255,.35)}
-.search-hint{color:rgba(255,255,255,.3);font-size:12px;margin-top:1rem;text-align:center}
+.what-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 1.25rem;
+}
 
-/* ── Responsive ── */
-@media(max-width:700px){
-  .navbar{padding:0 1rem}
-  .page-wrap{padding:1rem .5rem}
-  .hero-about{padding:2.5rem 1.25rem}
-  .hero-about h1{font-size:26px}
-  .hero-about p{font-size:14.5px}
-  .about-section{padding:1.5rem 1.25rem}
-  .card-grid{grid-template-columns:1fr}
-  .approach-grid{grid-template-columns:1fr}
-  .cta-section{padding:2rem 1.25rem}
-  .cta-section h2{font-size:22px}
-  .cta-buttons{flex-direction:column;align-items:stretch}
-  .btn-primary,.btn-secondary{justify-content:center}
+.what-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+.what-card h3 {
+  font-size: 14px; font-weight: 600; color: #111827;
+  margin: 0 0 0.4rem;
+}
+.what-card p {
+  font-size: 13px; color: #6b7280;
+  line-height: 1.55; margin: 0;
+}
+
+.cta-row {
+  margin-top: 2.5rem;
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #111827; color: #ffffff;
+  font-size: 14px; font-weight: 600;
+  padding: 11px 22px; border-radius: 8px;
+  text-decoration: none; transition: background .15s;
+}
+.btn-primary:hover { background: #1d9e75; }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: transparent; color: #374151;
+  font-size: 14px; font-weight: 500;
+  padding: 11px 22px; border-radius: 8px;
+  text-decoration: none; border: 1px solid #e5e7eb;
+  transition: border-color .15s;
+}
+.btn-secondary:hover { border-color: #9ca3af; color: #111827; }
+
+@media(max-width:600px) {
+  .what-grid { grid-template-columns: 1fr; }
+  .page-wrap { padding: 2rem 1.25rem 3rem; }
+  .cta-row { flex-direction: column; }
 }
 </style>
 </head>
 <body>
-
-<!-- Search overlay -->
-<div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
-  <div class="search-overlay-inner">
-    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
-    <form action="/search.html" method="get">
-      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search across workflows, prompts, and resources..." autocomplete="off"></div>
-    </form>
-    <p class="search-hint">Press Enter to search &nbsp;·&nbsp; Esc to close</p>
-  </div>
-</div>
-
-<!-- Navbar (injected by navbar.js) -->
 <div id="navbar-placeholder"></div>
 <script src="/navbar.js"></script>
-<script src="/footer.js"></script>
-
-<noscript>
-<nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
-<a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
-<a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a>
-<a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a>
-<a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a>
-<a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a>
-<a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a>
-<a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a>
-<a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a>
-</nav>
-</noscript>
 
 <div class="page-wrap">
 
-  <!-- 1. HERO -->
-  <section class="hero-about">
-    <h1>Practical AI workflows for real work.</h1>
-    <p>PairWorkflows helps professionals, freelancers, consultants, and small businesses use AI to solve real tasks, create useful prompts, and get work done faster.</p>
-  </section>
+  <span class="page-eyebrow">About</span>
 
-  <!-- 2. WHAT IS PAIRWORKFLOWS -->
-  <section class="about-section">
-    <h2>What is PairWorkflows?</h2>
-    <p>PairWorkflows is a free collection of practical AI workflows, prompt tools, and website prompts designed to help people use AI for real work.</p>
-    <p>Instead of long AI tutorials or generic advice, PairWorkflows focuses on specific tasks that people actually need to complete.</p>
-  </section>
+  <h1>AI should do the work.<br>You should stay in control.</h1>
 
-  <!-- 3. WHAT YOU CAN DO HERE -->
-  <section class="about-section">
-    <h2>What can you do with PairWorkflows?</h2>
-    <div class="card-grid">
-      <div class="feature-card">
-        <div class="feature-card-icon"><i class="ti ti-bolt"></i></div>
-        <div class="feature-card-title">Workflows</div>
-        <div class="feature-card-desc">Short, practical step-by-step workflows for solving specific work tasks with AI.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-card-icon"><i class="ti ti-pencil"></i></div>
-        <div class="feature-card-title">Prompt Tools</div>
-        <div class="feature-card-desc">Ready-to-use prompts and interactive tools that help you create better prompts for specific tasks.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-card-icon"><i class="ti ti-world"></i></div>
-        <div class="feature-card-title">Website Prompts</div>
-        <div class="feature-card-desc">Interactive multi-step tools that help you create detailed prompts for building websites with AI.</div>
-        <div class="feature-card-note">PairWorkflows creates the prompt — you then use it with tools such as Claude or ChatGPT to build the website.</div>
-      </div>
+  <p>That's the idea behind PairWorkflows. The name comes from the word <em>pair</em> — not because the AI does everything, but because the best results come from working together: you bring the judgment, the context, and the final call. Claude brings the speed, the formula logic, and the heavy lifting.</p>
+
+  <p>Passive delegation — "AI, do it all" — produces generic output nobody trusts. Active collaboration — where you guide, review, and correct — produces work you can actually use.</p>
+
+  <div class="highlight">
+    PairWorkflows exists to make that collaboration concrete: here's the exact prompt, here's what it does, here's what Claude gives back. Copy it, use it, adjust it.
+  </div>
+
+  <hr class="divider">
+
+  <h2>What's on the site</h2>
+  <p>Right now PairWorkflows focuses on one territory: <strong>Excel with Claude AI</strong>. It's a narrow focus by design — the SERP for generic AI advice is crowded with big names. The gap is specific, practical, written content for Excel users who want to use Claude without watching a 20-minute YouTube tutorial.</p>
+
+  <div class="what-grid">
+    <div class="what-card">
+      <h3>Excel Workflows</h3>
+      <p>Step-by-step guides for formulas, errors, finance models and data cleaning — with the exact prompt to paste into Claude.</p>
     </div>
-  </section>
-
-  <!-- 4. WHO IS IT FOR -->
-  <section class="about-section">
-    <h2>Who is it for?</h2>
-    <p>PairWorkflows is for anyone who wants to use AI to get practical work done faster.</p>
-    <div class="audience-grid">
-      <span class="audience-pill">Professionals</span>
-      <span class="audience-pill">Freelancers</span>
-      <span class="audience-pill">Consultants</span>
-      <span class="audience-pill">Solopreneurs</span>
-      <span class="audience-pill">Small business owners</span>
-      <span class="audience-pill">Corporate teams</span>
+    <div class="what-card">
+      <h3>Prompt Builders</h3>
+      <p>Interactive tools that generate a ready-to-use Claude prompt from your inputs. Fill in the details, copy, paste, done.</p>
     </div>
-  </section>
-
-  <!-- 5. OUR APPROACH -->
-  <section class="about-section">
-    <h2>Our approach</h2>
-    <div class="approach-grid">
-      <div class="approach-card">
-        <div class="approach-title">Practical</div>
-        <div class="approach-desc">Focused on real tasks, not generic AI theory.</div>
-      </div>
-      <div class="approach-card">
-        <div class="approach-title">Fast</div>
-        <div class="approach-desc">Short workflows designed to help you get to the useful part quickly.</div>
-      </div>
-      <div class="approach-card">
-        <div class="approach-title">Actionable</div>
-        <div class="approach-desc">Clear steps and prompts you can actually use.</div>
-      </div>
+    <div class="what-card">
+      <h3>Website Prompts</h3>
+      <p>Multi-step prompt builders for creating restaurant and small business websites with Claude or ChatGPT.</p>
     </div>
-  </section>
-
-  <!-- 6. CTA -->
-  <section class="cta-section">
-    <h2>Ready to get something done?</h2>
-    <p>Explore practical AI workflows, build a prompt, or create a detailed website prompt.</p>
-    <div class="cta-buttons">
-      <a href="https://www.pairworkflows.com/claude-workflows.html" class="btn-primary"><i class="ti ti-bolt"></i> Explore Workflows</a>
-      <a href="https://www.pairworkflows.com/prompt-library.html" class="btn-secondary"><i class="ti ti-pencil"></i> Explore Prompt Tools</a>
+    <div class="what-card">
+      <h3>Always free</h3>
+      <p>No paywalls, no signup required. Every workflow and tool on this site is free to use.</p>
     </div>
-  </section>
+  </div>
+
+  <hr class="divider">
+
+  <h2>Who it's for</h2>
+  <p>Anyone who opens Excel regularly and wants to spend less time wrestling with formulas and errors. Finance analysts, accountants, operations managers, HR teams, small business owners — anyone who uses spreadsheets as part of their actual job, not as a hobby.</p>
+  <p>The workflows assume you know roughly what you want to achieve but aren't sure how to get Excel and Claude to work together to get there.</p>
+
+  <hr class="divider">
+
+  <h2>How it's built</h2>
+  <p>PairWorkflows is a static site — HTML, CSS, and JavaScript hosted on Vercel. No database, no backend, no tracking beyond basic analytics. It loads fast and works on any device.</p>
+  <p>Every workflow is written and tested by a human. Claude helps with drafting and iteration, but the prompts are verified against real Excel problems before they go live.</p>
+
+  <div class="cta-row">
+    <a href="/claude-excel-workflows.html" class="btn-primary">Browse Excel Workflows</a>
+    <a href="/contact.html" class="btn-secondary">Get in touch</a>
+  </div>
 
 </div>
 
-<script>
-function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
-function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
-</script>
+<footer style="background:#fafafa;border-top:1px solid #f0f0f0;padding:2rem 1.5rem 1.25rem;margin-top:0">
+  <div style="max-width:900px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;margin-bottom:1.5rem">
+    <div>
+      <strong style="display:block;font-size:12px;font-weight:600;color:#374151;margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.6px">Excel Workflows</strong>
+      <a href="/claude-excel-workflows.html" style="display:block;font-size:13px;color:#6b7280;text-decoration:none;margin-bottom:0.4rem">All Excel Workflows</a>
+      <a href="/excel-errors-claude.html" style="display:block;font-size:13px;color:#6b7280;text-decoration:none;margin-bottom:0.4rem">Fix Excel Errors</a>
+      <a href="/excel-finance-models-claude.html" style="display:block;font-size:13px;color:#6b7280;text-decoration:none;margin-bottom:0.4rem">Finance Models</a>
+      <a href="/excel-data-cleaning-claude.html" style="display:block;font-size:13px;color:#6b7280;text-decoration:none;margin-bottom:0.4rem">Data Cleaning</a>
+    </div>
+    <div>
+      <strong style="display:block;font-size:12px;font-weight:600;color:#374151;margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.6px">Prompt Tools</strong>
+      <a href="/prompt-generator-excel.html" style="display:block;font-size:13px;color:#6b7280;text-decoration:none;margin-bottom:0.4rem">Excel Prompt Builder</a>
+      <a href="/prompt-generator-finance.html" style="display:block;font-size:13px;color:#6b7280;text-decoration:none;margin-bottom:0.4rem">Finance Prompt Builder</a>
+    </div>
+    <div>
+      <strong style="display:block;font-size:12px;font-weight:600;color:#374151;margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.6px">Company</strong>
+      <a href="/about.html" style="display:block;font-size:13px;color:#6b7280;text-decoration:none;margin-bottom:0.4rem">About</a>
+      <a href="/contact.html" style="display:block;font-size:13px;color:#6b7280;text-decoration:none;margin-bottom:0.4rem">Contact</a>
+      <a href="/legal.html#privacy" style="display:block;font-size:13px;color:#6b7280;text-decoration:none;margin-bottom:0.4rem">Privacy Policy</a>
+      <a href="/legal.html#terms" style="display:block;font-size:13px;color:#6b7280;text-decoration:none;margin-bottom:0.4rem">Terms of Use</a>
+    </div>
+  </div>
+  <div style="max-width:900px;margin:0 auto;border-top:1px solid #f0f0f0;padding-top:1rem">
+    <span style="font-size:13px;color:#9ca3af">&copy; 2026 PairWorkflows. All rights reserved.</span>
+  </div>
+</footer>
+
 </body>
 </html>
