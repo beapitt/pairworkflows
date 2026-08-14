@@ -1,829 +1,436 @@
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
 <head>
 <meta charset="UTF-8"><link rel="icon" type="image/png" href="/favicon.png">
 <meta name="google-site-verification" content="OLto-xu1abkMRgCR99Tnb_sQKhrr13pcbLPiXAo-5zI" />
 <meta name="trustpilot-one-time-domain-verification-id" content="fb708f17-a42e-472f-8a6b-2ecfb2c6eddc"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>PairWorkflows — Free 5-Minute Claude & Gemini Courses</title>
-<meta name="description" content="Short, practical AI mini-courses for anyone learning Claude or Gemini on their own terms. Freelancers, consultants, small business owners. Free, no fluff.">
+<title>PairWorkflows — Claude AI Workflows for Excel</title>
+<meta name="description" content="Free practical workflows for solving Excel problems with Claude AI. Formulas, errors, finance models, data cleaning — copy the prompt, paste in Claude, done.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.pairworkflows.com/">
-<meta property="og:title" content="PairWorkflows — Free AI Mini-Courses for Everyone">
-<meta property="og:description" content="5-minute practical courses on Claude and Gemini. For freelancers, consultants, and anyone learning AI on their own. Free.">
+<meta property="og:title" content="PairWorkflows — Claude AI Workflows for Excel">
+<meta property="og:description" content="Free practical workflows for solving Excel problems with Claude AI.">
 <meta property="og:image" content="https://www.pairworkflows.com/og-image.jpg">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.pairworkflows.com/">
 <meta property="og:site_name" content="PairWorkflows">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://www.pairworkflows.com/og-image.jpg">
-<meta name="twitter:title" content="PairWorkflows — Free AI Mini-Courses for Everyone">
-<meta name="twitter:description" content="5-minute practical courses on Claude and Gemini. Real workflows, zero fluff. Free.">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"EducationalOrganization","name":"PairWorkflows","url":"https://www.pairworkflows.com","description":"Free practical AI mini-courses for anyone using Claude and Gemini at work.","isAccessibleForFree":true,"sameAs":["https://github.com/beapitt/pairworkflows"],"audience":{"@type":"Audience","audienceType":"Professionals, freelancers, consultants, small business owners"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Are all guides really free?","acceptedAnswer":{"@type":"Answer","text":"Most guides on PairWorkflows are completely free. A small number of advanced courses are marked as Premium — these will be available for a one-time fee. Free guides will always remain free."}},{"@type":"Question","name":"Do I need a Claude or Gemini subscription to follow the guides?","acceptedAnswer":{"@type":"Answer","text":"No subscription is required to follow the guides. However, to practise what you learn, a free or paid Claude or Gemini account is recommended."}},{"@type":"Question","name":"How long does each guide take?","acceptedAnswer":{"@type":"Answer","text":"Each mini-guide is designed to take 5 minutes or less. They are built for busy professionals who need practical answers fast — not hour-long lectures."}},{"@type":"Question","name":"Which AI tools do the courses cover?","acceptedAnswer":{"@type":"Answer","text":"PairWorkflows covers Claude AI by Anthropic and Gemini AI by Google, including its integration with Google Workspace."}},{"@type":"Question","name":"Are the courses suitable for non-technical professionals?","acceptedAnswer":{"@type":"Answer","text":"Yes. PairWorkflows is designed for managers, analysts, marketers, HR professionals, and anyone who uses AI tools at work — no coding or technical background required."}}]}</script>
+<meta name="twitter:title" content="PairWorkflows — Claude AI Workflows for Excel">
+<meta name="twitter:description" content="Free practical workflows for solving Excel problems with Claude AI.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"PairWorkflows","url":"https://www.pairworkflows.com","description":"Free practical Claude AI workflows for Excel.","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.pairworkflows.com/search.html?q={search_term_string}"},"query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do I need a paid Claude subscription?","acceptedAnswer":{"@type":"Answer","text":"No. The free Claude plan works for most workflows on this site."}},{"@type":"Question","name":"How do the workflows work?","acceptedAnswer":{"@type":"Answer","text":"Each workflow gives you a ready-to-use prompt. Copy it, open Claude, paste it in — then follow the steps. No coding required."}},{"@type":"Question","name":"Are all workflows really free?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every workflow on PairWorkflows is free. No paywall, no signup required."}},{"@type":"Question","name":"Do the workflows work with ChatGPT too?","acceptedAnswer":{"@type":"Answer","text":"Yes. The prompts are written for Claude but work well with ChatGPT too."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"><link rel="stylesheet" href="/global-fix.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/global-fix.css">
 <link rel="stylesheet" href="styles.css">
 <script defer src="/_vercel/insights/script.js"></script>
 <style>
-/* ══════════════════════════════════════════════
-   GLOBAL: white background everywhere except footer
-   ══════════════════════════════════════════════ */
+* { box-sizing: border-box; }
 body {
-  background: #ffffff !important;
+  background: #fafafa !important;
   color: #1a1a2e !important;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
 }
 
-/* ── Hero ────────────────────────────────────── */
+/* ── Hero ── */
 .hero-wrap {
-  background: #f8f9fb !important;
-  background-image:
-    radial-gradient(ellipse 70% 60% at 65% 45%, #e6f4ed 0%, transparent 65%),
-    radial-gradient(ellipse 45% 55% at 15% 80%, #edf1fb 0%, transparent 60%) !important;
-  padding: 4rem 3rem 3.5rem;
-}
-.hero-badge {
-  background: #e6f7f0;
-  color: #0e7a50;
-  border: 1px solid #b6e8d3;
-}
-.hero h1 { color: #0d1b14 !important; }
-.hero h1 span { color: #1d9e75 !important; }
-.hero-sub { color: #4b5563 !important; }
-.hero-stat {
-  background: #ffffff !important;
-  border: 1px solid #e5e7eb !important;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06) !important;
-}
-.hero-stat-num { color: #0d1b14 !important; }
-.hero-stat-label { color: #6b7280 !important; }
-/* ── Hero compact layout ─────────────────────── */
-.hero-inner--compact {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background: #fafafa;
+  padding: 5rem 1.5rem 4rem;
   text-align: center;
-  max-width: 680px;
+}
+.hero-wrap h1 {
+  font-size: clamp(26px, 3.5vw, 38px);
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.25;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.5px;
+}
+.hero-wrap h1 span { color: #1d9e75; }
+.hero-eyebrow {
+  font-size: 13px;
+  font-weight: 500;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+  display: block;
+}
+.hero-tagline {
+  font-size: 15px;
+  color: #6b7280;
+  margin: 0 auto 2.5rem;
+  max-width: 420px;
+  line-height: 1.6;
+}
+
+/* ── Search box ── */
+.search-hero {
+  max-width: 540px;
   margin: 0 auto;
-  gap: 0;
+  position: relative;
 }
-.hero-inner--compact h1 {
-  margin: 0.5rem 0 0.6rem;
+.search-hero input {
+  width: 100%;
+  padding: 15px 52px 15px 18px;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #111827;
+  outline: none;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+  transition: border-color .15s, box-shadow .15s;
 }
-.hero-inner--compact .hero-sub {
-  margin: 0 0 1.25rem;
-  max-width: 520px;
+.search-hero input:focus {
+  border-color: #1d9e75;
+  box-shadow: 0 0 0 3px rgba(29,158,117,0.1);
 }
-.hero-stats-row {
+.search-hero input::placeholder { color: #9ca3af; }
+.search-hero button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #111827;
+  border: none;
+  border-radius: 8px;
+  width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background .15s;
+}
+.search-hero button:hover { background: #1d9e75; }
+.search-hero button svg {
+  width: 15px; height: 15px;
+  stroke: #fff; fill: none;
+  stroke-width: 2.5; stroke-linecap: round;
+}
+
+/* ── Suggestions ── */
+.search-suggestions {
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0;
+  gap: 8px;
+  margin-top: 1.25rem;
 }
-.hero-stat-pill {
-  display: flex;
-  align-items: baseline;
-  gap: 5px;
-  padding: 4px 0;
-  white-space: nowrap;
-}
-.hero-stat-pill .hero-stat-num {
-  font-size: 14px;
-  font-weight: 700;
-  color: #0d1b14 !important;
-  line-height: 1;
-}
-.hero-stat-pill .hero-stat-label {
+.sugg-pill {
   font-size: 13px;
-  color: #6b7280 !important;
-  font-weight: 400;
-  line-height: 1;
+  color: #374151;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 5px 14px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all .15s;
+  display: inline-block;
 }
-.hero-stat-sep {
-  width: 1px;
-  height: 14px;
-  background: #d1d5db;
-  margin: 0 14px;
-  align-self: center;
+.sugg-pill:hover {
+  border-color: #1d9e75;
+  color: #1d9e75;
+  background: #f0faf5;
 }
 
-/* ── Hero-wrap più compatto ──────────────────── */
-.hero-wrap {
-  padding: 1.2rem 3rem 2rem !important;
-}
-
-@media (max-width: 600px) {
-  .hero-stat-sep { display: none; }
-  .hero-stats-row { gap: 8px 16px; }
-  .hero-stat-pill { padding: 2px 0; }
-  .hero-wrap { padding: 1.2rem 1.25rem 1.25rem !important; }
-  .tabs-wrap {
-    flex-direction: column !important;
-    gap: 8px !important;
-  }
-  .tab-btn {
-    width: 100% !important;
-    justify-content: center !important;
-    font-size: 14px !important;
-    padding: 10px 16px !important;
-    min-height: unset !important;
-    white-space: nowrap;
-  }
-  .tab-icon {
-    width: 20px !important;
-    height: 20px !important;
-    font-size: 11px !important;
-  }
-}
-/* ── Dark area → white ───────────────────────── */
-.dark-area {
-  background: #ffffff !important;
-  padding: 3.5rem 3rem 0 !important; /* CORREZIONE 1: Spazio bilanciato uguale alla what-section */
-  margin-bottom: 0 !important; /* CORREZIONE 3: Rimosso margine inferiore */
-}
-.dark-area-inner { background: #ffffff !important; }
-
-/* ── Tabs ────────────────────────────────────── */
-.tab-btn {
-  border-color: #d1d5db !important;
-  color: #6b7280 !important;
-}
-.tab-btn:hover { border-color: #9ca3af !important; color: #1a1a2e !important; }
-.tab-btn.active-claude { border-color: #d97756 !important; background: #d97756 !important; color: #ffffff !important; }
-.tab-btn.active-gemini { border-color: #378add !important; background: #378add !important; color: #ffffff !important; }
-.ti-claude { background: #fdf0ec !important; color: #b05030 !important; }
-.ti-gemini { background: #e6f1fb !important; color: #185fa5 !important; }
-.tab-btn.active-claude .ti-claude,
-.tab-btn.active-gemini .ti-gemini { background: rgba(255,255,255,.25) !important; color: #ffffff !important; }
-
-/* ── Filters ─────────────────────────────────── */
-.filter-btn {
-  border-color: #d1d5db !important;
-  color: #6b7280 !important;
-}
-.filter-btn:hover { border-color: #9ca3af !important; color: #1a1a2e !important; }
-.filter-btn.active { border-color: #1d9e75 !important; background: #1d9e75 !important; color: #ffffff !important; }
-
-/* ── BY TOOL section ─────────────────────────── */
-.filters-section-label { color: #374151 !important; }
-.tool-pill {
-  background: rgba(29,158,117,.08) !important;
-  border-color: rgba(29,158,117,.3) !important;
-  color: #0d5c3a !important;
-}
-.tool-pill:hover { background: rgba(29,158,117,.15) !important; }
-.tool-pill.active { background: #1d9e75 !important; border-color: #1d9e75 !important; color: #ffffff !important; }
-.claude-only-badge { background: #e6f7f0 !important; color: #0e7a50 !important; }
-
-/* ── Empty state ─────────────────────────────── */
-.empty-state { color: #9ca3af !important; }
-
-/* ── Resources section ───────────────────────── */
-.resources-title { color: #0d1b14 !important; }
-.resource-card {
-  background: #f8f9fb !important;
-  border: 1px solid #e5e7eb !important;
-}
-.resource-card:hover { background: #f0f4f8 !important; }
-.resource-card-title { color: #0d1b14 !important; }
-.resource-card-desc { color: #6b7280 !important; }
-.resource-card-link { color: #1d9e75 !important; }
-
-/* ── FAQ ─────────────────────────────────────── */
-.faq-section { 
-  margin-bottom: 0 !important; /* CORREZIONE 3: Eliminato lo spazio vuoto in eccesso verso il footer */
-  padding-bottom: 1.5rem !important;
-}
-.faq-section h2 { color: #0d1b14 !important; }
-.faq-item { border-bottom-color: #e5e7eb !important; }
-.faq-q { color: #1a1a2e !important; }
-.faq-a { color: #4b5563 !important; }
-.page-wrap-fix{max-width:1100px;margin:2rem auto;padding:0 1rem}.course-wrap-outer{width:100%}
-
-/* ── What can you do section ─────────────────── */
+/* ── What section ── */
 .what-section {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 3.5rem 1rem 0; /* CORREZIONE 1: Aumentato da 1rem a 3.5rem per maggiore respiro e allineamento */
+  max-width: 900px;
+  margin: 4rem auto 0;
+  padding: 0 1rem;
 }
 .what-section h2 {
-  font-size: 22px;
-  font-weight: 700;
-  color: #0d1b14;
+  font-size: 18px;
+  font-weight: 600;
+  color: #374151;
   margin-bottom: 1.25rem;
   text-align: center;
+  letter-spacing: -0.2px;
 }
 .what-cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-bottom: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
 }
 .what-card {
-  background: #f8f9fb;
+  background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 1.5rem;
   text-decoration: none;
   color: inherit;
   transition: all .15s;
-  display: block;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
 }
 .what-card:hover {
   border-color: #1d9e75;
-  background: #f0faf5;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(29,158,117,0.08);
 }
-.what-card-icon {
-  font-size: 28px;
-  margin-bottom: 10px;
-  display: block;
-}
-.what-card h3 {
-  font-size: 15px;
-  font-weight: 700;
-  color: #0d1b14;
-  margin-bottom: 6px;
-}
-.what-card p {
-  font-size: 13px;
-  color: #6b7280;
-  line-height: 1.55;
-}
-
-/* ── Find a workflow section ─────────────────── */
-.workflow-intro {
-  font-size: 20px;
-  font-weight: 700;
-  color: #0d1b14;
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-/* ── Excel featured section ──────────────────── */
-.excel-feature {
-  max-width: 1100px;
-  margin: 3rem auto 2.5rem; /* CORREZIONE 2: Cambiato da 0 a 3rem per non sovrapporsi alle card Gemini */
-  padding: 0 1rem;
-}
-.excel-feature-inner {
-  background: #f0faf5;
-  border: 1px solid #b6e8d3;
-  border-radius: 12px;
-  padding: 1.5rem 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-.excel-feature-text h3 {
-  font-size: 15px;
-  font-weight: 700;
-  color: #0d1b14;
-  margin-bottom: 4px;
-}
-.excel-feature-text p {
-  font-size: 13px;
-  color: #4b5563;
-}
-.excel-feature-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: #1d9e75;
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 10px 20px;
+.what-card-ico {
+  width: 36px; height: 36px;
   border-radius: 8px;
-  white-space: nowrap;
-  transition: background .15s;
+  background: #f3f4f6;
+  display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.excel-feature-btn:hover { background: #0e7a50; }
+.what-card-ico svg { width: 18px; height: 18px; stroke: #374151; fill: none; stroke-width: 2; stroke-linecap: round; }
+.what-card h3 { font-size: 14px; font-weight: 600; color: #111827; margin: 0 0 4px; }
+.what-card p { font-size: 13px; color: #6b7280; line-height: 1.5; margin: 0; }
 
-@media(max-width:600px) {
+/* ── Divider ── */
+.section-divider {
+  max-width: 900px;
+  margin: 3.5rem auto 0;
+  padding: 0 1rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* ── FAQ ── */
+.faq-section {
+  max-width: 680px;
+  margin: 3rem auto 0;
+  padding: 0 1rem 3rem;
+}
+.faq-section h2 {
+  font-size: 18px; font-weight: 600; color: #111827;
+  margin-bottom: 1.25rem; text-align: center;
+}
+.faq-item { border-bottom: 1px solid #f0f0f0; }
+.faq-q {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 0; font-size: 14px; font-weight: 500; color: #111827;
+  cursor: pointer; gap: 1rem;
+}
+.faq-q svg { width: 16px; height: 16px; stroke: #9ca3af; fill: none; stroke-width: 2; flex-shrink: 0; transition: transform .2s; }
+.faq-q.open svg { transform: rotate(180deg); }
+.faq-a { font-size: 14px; color: #6b7280; line-height: 1.65; padding-bottom: 1rem; display: none; }
+.faq-a.open { display: block; }
+
+/* ── Footer ── */
+footer {
+  background: #fafafa;
+  border-top: 1px solid #f0f0f0;
+  padding: 2.5rem 1.5rem 1.5rem;
+  margin-top: 2rem;
+}
+.footer-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.footer-col strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.footer-col a {
+  display: block;
+  font-size: 13px;
+  color: #6b7280;
+  text-decoration: none;
+  margin-bottom: 0.4rem;
+  transition: color .15s;
+}
+.footer-col a:hover { color: #111827; }
+.footer-bottom {
+  max-width: 900px;
+  margin: 0 auto;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-bottom span { font-size: 13px; color: #9ca3af; }
+.footer-bottom a { color: #6b7280; text-decoration: none; }
+.footer-bottom a:hover { color: #111827; }
+
+@media(max-width:640px) {
   .what-cards { grid-template-columns: 1fr; }
-  .excel-feature-inner { flex-direction: column; align-items: flex-start; }
+  .footer-inner { flex-direction: column; gap: 1.5rem; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+  .hero-wrap { padding: 3.5rem 1.25rem 3rem; }
 }
 </style>
 </head>
 <body>
 <div id="navbar-placeholder"></div>
-<script src="/navbar.js"></script><script src="/footer.js"></script>
-  <noscript>
-<nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
-<a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
-<a href="/index.html" style="color:#6b9e8a;text-decoration:none">All Guides</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
-<a href="/claude-for-hr.html" style="color:#6b9e8a;text-decoration:none">HR</a>
-<a href="/claude-for-marketing.html" style="color:#6b9e8a;text-decoration:none">Marketing</a>
-<a href="/claude-for-legal.html" style="color:#6b9e8a;text-decoration:none">Legal</a>
-<a href="/claude-for-operations.html" style="color:#6b9e8a;text-decoration:none">Operations</a>
-<a href="/claude-for-sales.html" style="color:#6b9e8a;text-decoration:none">Sales</a>
-<a href="/claude-for-customer-service.html" style="color:#6b9e8a;text-decoration:none">Customer Service</a>
-<a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/prompt-library.html" style="color:#6b9e8a;text-decoration:none">Prompt Library</a>
-<a href="/glossary.html" style="color:#6b9e8a;text-decoration:none">Glossary</a>
-<a href="/claude-vs-gemini.html" style="color:#6b9e8a;text-decoration:none">Claude vs Gemini</a>
-<a href="/claude-vs-copilot-excel.html" style="color:#6b9e8a;text-decoration:none">Claude vs Copilot Excel</a>
+<script src="/navbar.js"></script>
+
+<noscript>
+<nav style="background:#fafafa;border-bottom:1px solid #e5e7eb;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
+<a href="/" style="color:#111827;text-decoration:none;font-weight:600">PairWorkflows</a>
+<a href="/ai-for-excel.html" style="color:#6b7280;text-decoration:none">Excel Workflows</a>
+<a href="/prompt-generator-excel.html" style="color:#6b7280;text-decoration:none">Prompt Tools</a>
 </nav>
 </noscript>
-<div id="homeView">
+
+<!-- HERO -->
 <div class="hero-wrap">
-  <div class="hero-inner hero-inner--compact">
-    <h1>Get real work done<br>with Claude &amp; <span>Gemini.</span></h1>
-    <p class="hero-sub">5-minute AI workflows, ready-to-use prompts, and practical tools for professionals, freelancers, and small businesses.</p>
-    <div class="hero-stats-row">
-      <div class="hero-stat-pill"><span class="hero-stat-num">148</span><span class="hero-stat-label">Mini-guides</span></div>
-      <div class="hero-stat-sep"></div>
-      <div class="hero-stat-pill"><span class="hero-stat-num">5 min</span><span class="hero-stat-label">Average length</span></div>
-      <div class="hero-stat-sep"></div>
-      <div class="hero-stat-pill"><span class="hero-stat-num">Free</span><span class="hero-stat-label">Always</span></div>
-      <div class="hero-stat-sep"></div>
-      <div class="hero-stat-pill"><span class="hero-stat-num">Human-verified</span><span class="hero-stat-label">Every workflow</span></div>
-    </div>
+  <span class="hero-eyebrow">Claude AI · Excel</span>
+  <h1>What Excel problem<br>can we <span>solve today</span>?</h1>
+  <p class="hero-tagline">Search for a formula, an error, or a task — get the exact prompt to use in Claude.</p>
+
+  <div class="search-hero">
+    <input type="text" id="heroSearch"
+      placeholder="e.g. XLOOKUP, fix #REF! error, pivot table…"
+      autocomplete="off"
+      onkeydown="if(event.key==='Enter')heroSearchGo()">
+    <button onclick="heroSearchGo()" aria-label="Search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+  </div>
+
+  <div class="search-suggestions">
+    <a class="sugg-pill" href="/claude-excel-xlookup.html">XLOOKUP</a>
+    <a class="sugg-pill" href="/claude-excel-ref-errors.html">#REF! error</a>
+    <a class="sugg-pill" href="/claude-excel-sumifs.html">SUMIFS</a>
+    <a class="sugg-pill" href="/pivot-table-reports-excel-claude.html">Pivot table</a>
+    <a class="sugg-pill" href="/claude-excel-clean-data.html">Clean data</a>
+    <a class="sugg-pill" href="/bank-reconciliation-excel-claude.html">Bank reconciliation</a>
   </div>
 </div>
+
+<!-- WHAT -->
 <div class="what-section">
-  <h2>What can you do with PairWorkflows?</h2>
+  <h2>Where do you want to start?</h2>
   <div class="what-cards">
-    <a href="/claude-excel-workflows.html" class="what-card">
-      <span class="what-card-icon">⚡</span>
-      <h3>Solve a task</h3>
-      <p>5-minute workflows for specific work problems — Finance, HR, Marketing, Legal, Operations, Sales and Excel.</p>
-    </a>
-    <a href="/prompt-library.html" class="what-card">
-      <span class="what-card-icon">✍️</span>
-      <h3>Create a prompt</h3>
-      <p>Ready-to-use prompts and interactive prompt builders — copy, customise and paste into Claude or ChatGPT.</p>
-    </a>
-    <a href="/ai-restaurant-website-builder.html" class="what-card">
-      <span class="what-card-icon">🌐</span>
-      <h3>Build a website</h3>
-      <p>Interactive prompt generators that create a ready-to-use prompt for Claude, ChatGPT or Gemini to build your site.</p>
-    </a>
-  </div>
-</div>
-
-<div class="dark-area"><div class="dark-area-inner">
-<div class="directory-wrap" style="margin-bottom: 2rem;">
-  <p class="workflow-intro">Find a workflow for your task</p>
-  <h2 style="text-align: center; margin-bottom: 1.5rem; color: #0d1b14;">Explore Claude Guides</h2>
-  <div class="resources-grid" style="margin-bottom: 3rem;">
-    <a href="/claude-finance-courses.html" class="resource-card"><div class="resource-card-title" style="text-align:center;">Finance</div></a>
-    <a href="/claude-hr-courses.html" class="resource-card"><div class="resource-card-title" style="text-align:center;">HR</div></a>
-    <a href="/claude-marketing-courses.html" class="resource-card"><div class="resource-card-title" style="text-align:center;">Marketing</div></a>
-    <a href="/claude-legal-courses.html" class="resource-card"><div class="resource-card-title" style="text-align:center;">Legal</div></a>
-    <a href="/claude-operations-courses.html" class="resource-card"><div class="resource-card-title" style="text-align:center;">Operations</div></a>
-    <a href="/claude-sales-courses.html" class="resource-card"><div class="resource-card-title" style="text-align:center;">Sales</div></a>
-    <a href="/claude-customer-service-courses.html" class="resource-card"><div class="resource-card-title" style="text-align:center;">Customer Service</div></a>
-    <a href="/claude-excel-courses.html" class="resource-card"><div class="resource-card-title" style="text-align:center;">Excel</div></a>
-  </div>
-
-  <h2 style="text-align: center; margin-bottom: 1.5rem; color: #0d1b14;">Explore Gemini Guides</h2>
-  <div class="resources-grid">
-    <a href="/gemini-finance-courses.html" class="resource-card"><div class="resource-card-title" style="text-align:center;">Finance</div></a>
-    <a href="/gemini-hr-courses.html" class="resource-card"><div class="resource-card-title" style="text-align:center;">HR</div></a>
-    <a href="/gemini-marketing-courses.html" class="resource-card"><div class="resource-card-title" style="text-align:center;">Marketing</div></a>
-    <a href="/gemini-legal-courses.html" class="resource-card"><div class="resource-card-title" style="text-align:center;">Legal</div></a>
-    <a href="/gemini-operations-courses.html" class="resource-card"><div class="resource-card-title" style="text-align:center;">Operations</div></a>
-    <a href="/gemini-sales-courses.html" class="resource-card"><div class="resource-card-title" style="text-align:center;">Sales</div></a>
-    <a href="/gemini-customer-service-courses.html" class="resource-card"><div class="resource-card-title" style="text-align:center;">Customer Service</div></a>
-    </div>
-
-<div class="excel-feature">
-  <div class="excel-feature-inner">
-    <div class="excel-feature-text">
-      <h3>⭐ Popular: Excel + Claude</h3>
-      <p>26 practical workflows for solving real Excel problems with Claude — from XLOOKUP to pivot tables to financial models.</p>
-    </div>
-    <a href="/claude-excel-workflows.html" class="excel-feature-btn">Explore Excel Workflows →</a>
-  </div>
-</div>
-
-<div class="resources-section"><h2 class="resources-title">Explore our resources</h2><div class="resources-grid"><a href="/claude-vs-gemini.html" class="resource-card"><div class="resource-card-title">Claude vs Gemini</div><div class="resource-card-desc">Not sure which AI to use at work? We compare both tools by task, role and use case.</div><div class="resource-card-link">Read the guide →</div></a><a href="/claude-vs-copilot-excel.html" class="resource-card"><div class="resource-card-title">Claude vs Copilot Excel</div><div class="resource-card-desc">Not sure which AI to use for spreadsheets? We compare Microsoft's Copilot and Anthropic's Claude.</div><div class="resource-card-link">Read the guide →</div></a><a href="/claude-vs-gemini-finance.html" class="resource-card"><div class="resource-card-title">Claude vs Gemini Finance</div><div class="resource-card-desc">Which AI is better for financial modeling, reporting, and data analysis?</div><div class="resource-card-link">Read the guide →</div></a><a href="/glossary.html" class="resource-card"><div class="resource-card-title">AI Glossary</div><div class="resource-card-desc">40 essential AI terms explained in plain English with real business examples.</div><div class="resource-card-link">Browse the glossary →</div></a><a href="/prompt-library.html" class="resource-card"><div class="resource-card-title">Prompt Library</div><div class="resource-card-desc">Ready-to-copy prompts for Marketing, HR, Finance, Legal and Operations teams.</div><div class="resource-card-link">View prompts →</div></a></div></div>
-<div class="faq-section"><h2>Frequently asked questions</h2><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Are all courses really free? <i class="ti ti-chevron-down"></i></div><div class="faq-a">Most guides on PairWorkflows are completely free. A small number of advanced courses are marked as Premium — these will be available for a one-time fee. Free guides will always remain free.</div></div><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do I need a Claude or Gemini subscription to follow the courses? <i class="ti ti-chevron-down"></i></div><div class="faq-a">No subscription is required to follow the guides. However, to practise what you learn, a free or paid Claude or Gemini account is recommended. Some courses reference features available only on paid plans.</div></div><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How long does each course take? <i class="ti ti-chevron-down"></i></div><div class="faq-a">Each mini-guide is designed to take 5 minutes or less. They are built for busy professionals who need practical answers fast — not hour-long lectures.</div></div><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Which AI tools do the courses cover? <i class="ti ti-chevron-down"></i></div><div class="faq-a">PairWorkflows covers two tools: Claude AI (by Anthropic) and Gemini AI (by Google), including its integration with Google Workspace. </div></div><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Are the courses suitable for non-technical professionals? <i class="ti ti-chevron-down"></i></div><div class="faq-a">Absolutely. PairWorkflows is designed for managers, analysts, marketers, HR professionals, and anyone who uses AI tools at work — no coding or technical background required.</div></div></div>
-</div></div>
-</div>
-
-<!-- ============================================== -->
-<!-- 1) QUI IL COURSE VIEW HA LA SUA CHIUSURA ESATTA -->
-<!-- ============================================== -->
-<div class="course-view" id="courseView">
-  <div class="course-view-inner">
-    <div class="back-bar" onclick="goHome()"><i class="ti ti-arrow-left" style="font-size:14px;color:#6b7280"></i><span>Back to courses</span></div>
-    <div class="page-wrap-fix">
-      <div class="course-wrap-outer">
-        <div class="course-shell">
-          <div class="sidebar">
-            <div class="sidebar-top">
-              <div class="course-label" id="sideLabel"></div>
-              <div class="course-title-side" id="sideTitle"></div>
-            </div>
-            <div class="prog-wrap">
-              <div class="prog-label"><span>Progress</span><span id="progTxt">1 of 4</span></div>
-              <div class="prog-track"><div class="prog-fill" id="pf" style="width:25%"></div></div>
-            </div>
-            <div class="nav-list" id="navList"></div>
-          </div>
-          <div class="content-area">
-            <div class="section-hero" id="sectionHero">
-              <div class="section-tag" id="heroTag"></div>
-              <h2 id="heroTitle"></h2>
-            </div>
-            <div class="content-body" id="cnt"></div>
-            <div class="content-footer">
-              <button class="btn-back" id="btnBack" disabled onclick="go(cur-1)"><i class="ti ti-arrow-left" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Back</button>
-              <button id="btnFwd" onclick="goFwd()">Next <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>
-            </div>
-          </div>
-        </div>
+    <a href="/ai-for-excel.html" class="what-card">
+      <div class="what-card-ico">
+        <svg viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
       </div>
-    </div>
+      <div>
+        <h3>Excel Workflows</h3>
+        <p>Step-by-step guides for formulas, errors, finance models and data tasks — with the exact Claude prompt.</p>
+      </div>
+    </a>
+    <a href="/prompt-generator-excel.html" class="what-card">
+      <div class="what-card-ico">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </div>
+      <div>
+        <h3>Build a prompt</h3>
+        <p>Fill in your details and get a ready-to-copy prompt for Claude, ChatGPT or Gemini.</p>
+      </div>
+    </a>
   </div>
 </div>
-<!-- /// FINE COURSE-VIEW (STRUTTURATA BENE) /// -->
 
+<!-- FAQ -->
+<div class="section-divider"></div>
+<div class="faq-section">
+  <h2>Quick answers</h2>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      Do I need a paid Claude subscription?
+      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="faq-a">No. The free Claude plan works for most workflows on this site. A paid plan gives you longer context and faster responses, but is not required.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      How do the workflows work?
+      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="faq-a">Each workflow gives you a ready-to-use prompt. Copy it, open Claude, paste it in — then follow the steps. No coding required.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      Are all workflows free?
+      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="faq-a">Yes. Every workflow on PairWorkflows is free. No paywall, no signup required.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      Do the prompts work with ChatGPT too?
+      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="faq-a">Yes. The prompts are written for Claude but work well with ChatGPT and other AI assistants too.</div>
+  </div>
+</div>
 
-<div id="searchOverlay" onclick="if(event.target===this)closeSearch()" style="display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;padding-top:140px"><div style="width:100%;max-width:720px;padding:0 2rem;position:relative"><button onclick="closeSearch()" style="position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:#ffffff;font-size:22px"><i class="ti ti-x"></i></button><div style="display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent"><i class="ti ti-search" style="color:#1d9e75;font-size:18px"></i><input type="text" id="searchOverlayInput" placeholder="Search across courses, prompts, and resources..." style="flex:1;border:none;background:transparent;color:#ffffff;font-size:18px;font-family:'Inter',sans-serif;outline:none" onkeydown="if(event.key==='Enter')window.location='/search.html?q='+this.value"></div></div></div>
-<script>
-function toggleResources(){document.getElementById('resourcesMenu').classList.toggle('open');}
-document.addEventListener('click',function(e){if(!e.target.closest('.resources-dropdown')){var m=document.getElementById('resourcesMenu');if(m)m.classList.remove('open');}});
-function openSearch(){document.getElementById('searchOverlay').style.display='flex';document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
-function closeSearch(){document.getElementById('searchOverlay').style.display='none';document.body.style.overflow='';}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
-
-var FILTERS=[
-{key:'all',label:'All courses'},
-{key:'general',label:'General'},
-{key:'hr',label:'HR'},
-{key:'finance',label:'Finance'},
-{key:'marketing',label:'Marketing'},
-{key:'legal',label:'Legal'},
-{key:'operations',label:'Operations'},
-{key:'sales',label:'Sales'},
-{key:'customerservice',label:'Customer Service'}
-];
-
-var COURSES=[];
-var activeTool='';
-var activeTab='claude',activeFilter='all',defaultView=true,cur=0,visited=[],sel={},quizSubmitted=false,quizDone=false,activeCourse=null;
-
-function switchTab(tab){
-  activeTab=tab;activeFilter='all';activeTool='';
-  document.getElementById('tabClaude').className='tab-btn'+(tab==='claude'?' active-claude':'');
-  document.getElementById('tabGemini').className='tab-btn'+(tab==='gemini'?' active-gemini':'');
-  document.getElementById('toolsWrap').style.display=tab==='claude'?'flex':'none';
-  renderFilters();renderGrid();
-}
-function switchFilter(key){
-  activeFilter=key;activeTool='';defaultView=false;
-  document.querySelectorAll('.tool-pill').forEach(function(p){p.classList.remove('active');});
-  renderFilters();renderGrid();
-}
-function switchTool(tool){
-  activeTool = activeTool === tool ? '' : tool;
-  activeFilter = 'all';
-  defaultView = false;
-  renderFilters();
-  renderGrid();
-}
-function renderFilters(){
-  var fw=document.getElementById('filtersWrap');
-  var tabCourses=COURSES.filter(function(c){return c.brand===activeTab;});
-  var usedCats={};
-  tabCourses.forEach(function(c){usedCats[c.category]=true;});
-  var visible=FILTERS.filter(function(f){return f.key==='all'||usedCats[f.key];});
-  fw.innerHTML=visible.map(function(f){
-    return '<button class="filter-btn'+(activeFilter===f.key?' active':'')+'" onclick="switchFilter(\''+f.key+'\')">'+f.label+'</button>';
-  }).join('');
-  document.querySelectorAll('.tool-pill').forEach(function(p){
-    var onclick=p.getAttribute('onclick')||'';
-    var match=onclick.match(/switchTool\('([^']+)'\)/);
-    if(match) p.classList.toggle('active', match[1]===activeTool);
-  });
-}
-function renderGrid(){
-  var g=document.getElementById('coursesGrid');
-  var filtered=COURSES.filter(function(c){
-    if(activeTool){return c.brand===activeTab&&c.category===activeTool;}
-    return c.brand===activeTab&&(activeFilter==='all'||c.category===activeFilter);
-  });
-  if(filtered.length===0){g.innerHTML='<div class="empty-state">No courses in this category yet — check back soon.</div>';return;}
-  var toShow=defaultView?filtered.slice(0,8):filtered;
-  g.innerHTML=toShow.map(function(c){
-    var badgeHtml='';
-    if(c.type==='free')badgeHtml='<span class="badge badge-free">Free</span>';
-    else if(c.type==='premium')badgeHtml='<span class="badge badge-premium">Premium</span>';
-    else badgeHtml='<span class="badge badge-coming">Coming soon</span>';
-    var brandClass=c.brand==='claude'?'brand-claude':'brand-gemini';
-    var brandLabel=c.brand==='claude'?'Claude AI':'Gemini AI';
-    var isActive=c.type==='free';
-    var barCls=c.brand==='gemini'?'bar-gemini':(isActive?'bar-claude':'bar-locked');
-    var isG=c.brand==='gemini';
-    var actionIcon=isActive?('<div class="card-action'+(isG?' card-action-g':'')+'" aria-hidden="true"><i class="ti ti-arrow-up-right"></i></div>'):'';
-    var lockEl=!isActive?'<div class="card-lock" aria-hidden="true"><i class="ti ti-lock"></i></div>':'';
-    return'<div class="card'+(isActive?' active-card':' locked')+'" '+(isActive?'onclick="openCourse(\''+c.id+'\')"':'')+' role="'+(isActive?'button':'article')+'">'+lockEl+'<div class="card-top-bar '+barCls+'"></div><div class="card-body"><div class="card-brand '+brandClass+'">'+brandLabel+'</div><h3>'+c.title+'</h3><div class="card-meta"><div class="card-meta-left">'+badgeHtml+'<span class="card-time"><i class="ti ti-clock" style="font-size:11px" aria-hidden="true"></i> '+c.time+'</span></div>'+actionIcon+'</div></div></div>';
-  }).join('');
-}
-function openCourse(id){activeCourse=COURSES.find(function(c){return c.id===id;});if(!activeCourse)return;if(activeCourse.file){window.location.href=activeCourse.file;return;}cur=0;visited=Array(activeCourse.sections.length).fill(false);var isG=activeCourse.brand==='gemini';document.getElementById('sideLabel').className='course-label '+(isG?'lbl-gemini':'lbl-claude');document.getElementById('sideLabel').textContent=(isG?'Gemini AI':'Claude AI')+' — Mini-course';document.getElementById('sideTitle').textContent=activeCourse.title;document.getElementById('pf').className='prog-fill '+(isG?'fill-gemini':'fill-claude');document.getElementById('btnFwd').className=isG?'btn-fwd-g':'btn-fwd-c';document.getElementById('homeView').style.display='none';document.getElementById('courseView').style.display='block';window.scrollTo(0,0);render();}
-function goHome(){document.getElementById('courseView').style.display='none';document.getElementById('homeView').style.display='block';window.scrollTo(0,0);}
-function buildQuiz(){if(!activeCourse)return'';if(quizDone){var score=0;activeCourse.quiz.forEach(function(q,i){if(sel[i]===q.correct)score++;});var msgs=['Review the course carefully and try again.','Good effort — revisit sections 2 and 3.','Almost there! One more review and you will nail it.','Perfect score! You are ready to apply this today.'];return'<div class="result-box"><div class="result-score">'+score+'/4</div><div class="result-msg">'+msgs[score]+'</div><button class="retake-btn" onclick="retake()"><i class="ti ti-refresh" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Retake quiz</button></div>';}var html='';activeCourse.quiz.forEach(function(q,i){html+='<div class="quiz-q"><p>'+(i+1)+'. '+q.q+'</p>';q.opts.forEach(function(o,j){var cls='opt';if(quizSubmitted){if(j===q.correct)cls+=' correct locked';else if(j===sel[i]&&j!==q.correct)cls+=' wrong locked';else cls+=' locked';}else if(sel[i]===j)cls+=' selected';html+='<div class="'+cls+'" data-qi="'+i+'" data-oi="'+j+'"><div class="radio"></div>'+o+'</div>';});html+='</div>';});var allSel=Object.keys(sel).length===activeCourse.quiz.length;if(!quizSubmitted)html+='<button class="submit-global" '+(allSel?'':'disabled')+' onclick="submitAll()">Submit quiz</button>';else html+='<button class="'+(activeCourse.brand==='gemini'?'btn-fwd-g':'btn-fwd-c')+'" style="margin-top:.5rem" onclick="showResult()">See my result <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i></button>';return html;}
-function render(){if(!activeCourse)return;var total=activeCourse.sections.length;var pct=Math.round(((cur+1)/total)*100);document.getElementById('pf').style.width=pct+'%';document.getElementById('progTxt').textContent=(cur+1)+' of '+total;document.getElementById('heroTag').className='section-tag '+(activeCourse.brand==='gemini'?'tag-gemini':'tag-claude');document.getElementById('heroTag').textContent=activeCourse.heroes[cur].tag;document.getElementById('heroTitle').textContent=activeCourse.heroes[cur].title;document.getElementById('sectionHero').className='section-hero '+(activeCourse.brand==='gemini'?'hero-gemini':'hero-claude');var nl='';activeCourse.sections.forEach(function(s,i){var isG=activeCourse.brand==='gemini';var dotCls='nav-dot';if(visited[i]&&i!==cur)dotCls+=(isG?' done-g':' done-c');else if(i===cur)dotCls+=(isG?' active-g':' active-c');var itemCls='nav-item'+(i===cur?(isG?' active-g':' active-c'):'');var dotContent=visited[i]&&i!==cur?'<i class="ti ti-check" style="font-size:11px"></i>':(i+1);nl+='<div class="'+itemCls+'" onclick="go('+i+')"><div class="'+dotCls+'">'+dotContent+'</div><div class="nav-text">'+s+'</div></div>';});document.getElementById('navList').innerHTML=nl;document.getElementById('cnt').innerHTML=activeCourse.bodies[cur]();document.getElementById('btnBack').disabled=(cur===0);var fwd=document.getElementById('btnFwd');var isLast=cur===total-1;fwd.style.display=isLast?'none':'';if(!isLast)fwd.innerHTML=(cur===total-2?'Take the quiz':'Next')+' <i class="ti ti-arrow-right" style="font-size:13px;vertical-align:-1px;margin-left:4px"></i>';if(cur===total-1){document.getElementById('cnt').addEventListener('click',function(e){if(quizSubmitted||quizDone)return;var opt=e.target.closest('.opt');if(!opt)return;sel[parseInt(opt.dataset.qi)]=parseInt(opt.dataset.oi);render();});}}
-function go(n){if(!activeCourse||n<0||n>=activeCourse.sections.length)return;visited[n]=true;cur=n;render();}
-function goFwd(){if(activeCourse&&cur<activeCourse.sections.length-1)go(cur+1);}
-function submitAll(){if(Object.keys(sel).length<activeCourse.quiz.length)return;quizSubmitted=true;render();}
-function showResult(){quizDone=true;render();}
-function retake(){sel={};quizSubmitted=false;quizDone=false;render();}
-function toggleFaq(el){var a=el.nextElementSibling;a.classList.toggle('open');}
-function copyHomeLink(){
-  var btn=document.getElementById('copyHomeLinkBtn');
-  navigator.clipboard.writeText('https://www.pairworkflows.com');
-  btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';
-  setTimeout(function(){btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link';},2000);
-}
-fetch('courses.json')
-  .then(function(r){return r.json();})
-  .then(function(data){
-    COURSES=data;
-    document.getElementById('toolsWrap').style.display='flex';
-    renderFilters();
-    renderGrid();
-  })
-  .catch(function(){
-    document.getElementById('coursesGrid').innerHTML='<div class="empty-state" style="color:#ff6b6b;">Error loading courses. Please refresh the page.</div>';
-  });
-</script>
-<div class="cookie-banner" id="cookieBanner"><p>We use essential cookies to save your quiz progress locally in your browser. No tracking, no advertising. <a href="/legal.html#cookies">Learn more</a>.</p><div class="cookie-banner-btns"><button class="cookie-decline" onclick="dismissCookie()">Decline</button><button class="cookie-accept" onclick="acceptCookie()">Accept</button></div></div>
-<script>if(localStorage.getItem('pw_cookie_consent')){document.getElementById('cookieBanner').style.display='none';}function acceptCookie(){localStorage.setItem('pw_cookie_consent','accepted');document.getElementById('cookieBanner').style.display='none';}function dismissCookie(){localStorage.setItem('pw_cookie_consent','declined');document.getElementById('cookieBanner').style.display='none';}</script>
-<noscript>
-<div style="display:none">
-<h2>AI Mini-Courses — PairWorkflows</h2>
-<h3>Claude AI — General</h3>
-<ul>
-<li><a href="/claude-ai-tokens-explained.html">What Are AI Tokens? Free 5-Minute Guide for Business Professionals.</a></li>
-<li><a href="/claude-why-model-choice-matters.html">Claude AI Model Costs Explained: Same Task, Three Price Tags.</a></li>
-<li><a href="/claude-token-load-conversations.html">Claude Token Limits: How to Avoid Overruns in Long Conversations.</a></li>
-<li><a href="/claude-common-patterns-professional-habits.html">5 Claude AI Productivity Habits for Corporate Professionals.</a></li>
-<li><a href="/claude-prompting-playbook-professionals.html">Claude Prompt Engineering: Practical Guide for Enterprise Teams.</a></li>
-<li><a href="/claude-projects-team-guide.html">Claude Projects for Teams: Setup &amp; Scaling Guide (2026).</a></li>
-<li><a href="/claude-data-privacy-what-not-to-share.html">Claude AI Data Privacy at Work: Enterprise Compliance Guide.</a></li>
-<li><a href="/claude-how-claude-thinks-and-reasons.html">How Claude AI Thinks: Understanding AI Reasoning at Work.</a></li>
-<li><a href="/claude-prompts-that-work.html">Claude AI Prompts That Actually Work: Stop Getting Generic Answers.</a></li>
-<li><a href="/claude-conversation-structure.html">How to Structure Claude AI Conversations for Better Results at Work.</a></li>
-<li><a href="/claude-microsoft-365-connector.html">Claude AI + Microsoft 365: Access SharePoint, Outlook and Teams Without Uploading.</a></li>
-<li><a href="/claude-projects-rag-advanced.html">Claude Projects Power Guide: RAG, File Strategy and Context That Scales.</a></li>
-<li><a href="/claude-power-user-habits.html">Claude Power User Habits: Context Summaries, Prompt Saving and Smarter Sessions.</a></li>
-<li><a href="/claude-prompting-with-examples.html">How to Use Examples in Claude Prompts: The Technique That Doubles Output Quality.</a></li>
-<li><a href="/claude-artifacts-guide.html">Claude Artifacts Explained: Build Reports, Docs and Visuals Without Leaving Claude.</a></li>
-<li><a href="/claude-handling-errors-hallucinations.html">When Claude Gets It Wrong: How to Spot Errors and Handle Hallucinations.</a></li>
-</ul>
-<h3>Claude AI — HR</h3>
-<ul>
-<li><a href="/claude-prompt-templates-hr.html">Claude AI Prompt Templates for HR Professionals: Ready-to-Use Workflows.</a></li>
-<li><a href="/claude-hr-performance-reviews.html">How to Use Claude AI for Performance Reviews and Employee Feedback.</a></li>
-<li><a href="/claude-hr-recruitment-screening.html">How to Use Claude AI for Recruitment and CV Screening.</a></li>
-<li><a href="/claude-hr-employee-handbook-drafting.html">How to Use Claude AI for Drafting Employee Handbook Policies.</a></li>
-<li><a href="/claude-hr-exit-offboarding.html">How to Use Claude AI for Exit and Offboarding Communications.</a></li>
-</ul>
-<h3>Claude AI — Finance</h3>
-<ul>
-<li><a href="/claude-prompt-templates-finance.html">Claude AI Prompt Templates for Finance Teams: Analysis, Reporting &amp; Compliance.</a></li>
-<li><a href="/claude-finance-data-analysis.html">How to Use Claude AI for Financial Data Analysis and Reporting.</a></li>
-<li><a href="/claude-month-end-close.html">How to Use Claude AI for Month-End Close: Checklists and Reporting Narratives.</a></li>
-<li><a href="/claude-cash-flow-forecasting.html">How to Use Claude AI for Cash Flow Forecasting.</a></li>
-<li><a href="/claude-excel-sheets-finance-formulas.html">How to Use Claude AI for Excel and Google Sheets Formulas in Finance.</a></li>
-</ul>
-<h3>Claude AI — Marketing</h3>
-<ul>
-<li><a href="/claude-prompt-templates-marketing.html">Claude AI Prompt Templates for Marketing Teams: Campaigns, Content &amp; Strategy.</a></li>
-<li><a href="/claude-marketing-content-strategy.html">How to Use Claude AI for Content Strategy and Campaign Planning.</a></li>
-<li><a href="/claude-marketing-seo-content-optimization.html">How to Use Claude AI for SEO Content Optimization.</a></li>
-<li><a href="/claude-marketing-email-campaign-sequences.html">How to Use Claude AI for Email Campaign Sequences.</a></li>
-<li><a href="/claude-marketing-customer-persona-development.html">How to Use Claude AI for Customer Persona Development.</a></li>
-</ul>
-<h3>Claude AI — Legal</h3>
-<ul>
-<li><a href="/claude-prompt-templates-legal.html">Claude AI Prompt Templates for Legal Teams: Contracts, Compliance &amp; Risk.</a></li>
-<li><a href="/claude-legal-document-review.html">How to Use Claude AI for Contract Review and Legal Document Analysis.</a></li>
-<li><a href="/claude-legal-contract-drafting.html">How to Use Claude AI for Contract Drafting.</a></li>
-<li><a href="/claude-legal-compliance-check.html">How to Use Claude AI for Compliance Checks.</a></li>
-<li><a href="/claude-legal-nda-review.html">How to Use Claude AI for NDA Review.</a></li>
-</ul>
-<h3>Claude AI — Operations</h3>
-<ul>
-<li><a href="/claude-prompt-templates-operations.html">Claude AI Prompt Templates for Operations Teams: SOPs, Suppliers &amp; Reporting.</a></li>
-<li><a href="/claude-workflow-automation.html">How to Build Repeatable AI Workflows for Operations Teams.</a></li>
-<li><a href="/claude-operations-sop-writing.html">How to Use Claude AI for Writing Standard Operating Procedures.</a></li>
-<li><a href="/claude-operations-incident-reporting.html">How to Use Claude AI for Incident Reporting.</a></li>
-<li><a href="/claude-operations-kpi-reporting.html">How to Use Claude AI for KPI Reporting.</a></li>
-</ul>
-<h3>Claude AI — Sales</h3>
-<ul>
-<li><a href="/claude-sales-weekly-insight-reports.html">How to Use Claude AI for Weekly Sales Activity and Insight Reports.</a></li>
-<li><a href="/claude-sales-objection-roleplay.html">How to Use Claude AI for Objection Handling Roleplay and Simulation.</a></li>
-<li><a href="/claude-sales-pre-call-research.html">How to Use Claude AI for Pre-Call Research and Stakeholder Mapping.</a></li>
-<li><a href="/claude-sales-win-loss-analysis.html">How to Use Claude AI for Win/Loss Interview Analysis.</a></li>
-<li><a href="/claude-sales-contract-redlining.html">How to Use Claude AI for Contract Redlining and Term Summary.</a></li>
-<li><a href="/claude-sales-call-coaching.html">How to Use Claude AI for Rep Performance and Call Coaching Critique.</a></li>
-<li><a href="/claude-sales-value-proposition.html">How to Use Claude AI for Value Proposition and Messaging Alignment.</a></li>
-<li><a href="/claude-sales-mutual-action-plan.html">How to Use Claude AI for Mutual Action Plan Drafting.</a></li>
-<li><a href="/claude-sales-linkedin-voice.html">How to Use Claude AI for LinkedIn Social Selling and Voice Matching.</a></li>
-<li><a href="/claude-sales-pipeline-review.html">How to Use Claude AI for Pipeline Review and Deal Prioritization.</a></li>
-</ul>
-<h3>Claude AI — Customer Service</h3>
-<ul>
-<li><a href="/claude-cs-qbr-narrative.html">How to Use Claude AI for QBR Deck Narrative Writing.</a></li>
-<li><a href="/claude-cs-sla-breach.html">How to Use Claude AI for SLA Breach and Outage Communication.</a></li>
-<li><a href="/claude-cs-rca-drafting.html">How to Use Claude AI for Post-Incident Root Cause Analysis.</a></li>
-<li><a href="/claude-cs-renewal-negotiation.html">How to Use Claude AI for Renewal Negotiation Prep and Defense.</a></li>
-<li><a href="/claude-cs-churn-risk.html">How to Use Claude AI for Churn Risk and Sentiment Shift Detection.</a></li>
-<li><a href="/claude-cs-policy-exception.html">How to Use Claude AI for Policy Exception and Edge-Case Evaluation.</a></li>
-<li><a href="/claude-cs-unresponsive-accounts.html">How to Use Claude AI for Account Strategy for Unresponsive Clients.</a></li>
-<li><a href="/claude-cs-upsell-signals.html">How to Use Claude AI for Expansion and Upsell Signal Spotting.</a></li>
-<li><a href="/claude-cs-advocacy-interview.html">How to Use Claude AI for Customer Advocacy and Case Study Interview Prep.</a></li>
-<li><a href="/claude-cs-onboarding-plans.html">How to Use Claude AI for Personalized Onboarding and Adoption Plans.</a></li>
-</ul>
-<h3>Claude AI — Excel</h3>
-<ul>
-<li><a href="/claude-excel-ref-errors.html">How to Fix #REF! Errors in Excel Using Claude AI</a></li>
-<li><a href="/claude-excel-na-errors.html">How to Fix #N/A Errors in VLOOKUP and XLOOKUP Using Claude AI</a></li>
-<li><a href="/claude-excel-circular-reference.html">How to Fix a Circular Reference Error in Excel Using Claude AI</a></li>
-<li><a href="/claude-excel-sumifs.html">Use Claude to Build a SUMIFS Formula for Multi-Criteria Excel Reports</a></li>
-<li><a href="/claude-excel-if-ifs.html">Use Claude to Write Complex IF and IFS Formulas for HR and Payroll</a></li>
-<li><a href="/claude-excel-explain-formulas.html">Use Claude to Understand and Document Complex Inherited Excel Formulas</a></li>
-<li><a href="/claude-excel-clean-data.html">Use Claude to Clean and Standardise Imported Data in Excel</a></li>
-<li><a href="/claude-excel-dynamic-reports.html">Turn a Manual Excel Report into a Dynamic Formula-Based Model with Claude</a></li>
-<li><a href="/claude-excel-xlookup.html">Use Claude to Write an XLOOKUP Formula in Excel</a></li>
-<li><a href="/claude-excel-lambda.html">Use Claude to Build a Reusable LAMBDA Function in Excel</a></li>
-</ul>
-<h3>Gemini AI — General</h3>
-<ul>
-<li><a href="/gemini-gmail-inbox-overload.html">How to Use Gemini in Gmail to Beat Inbox Overload at Work.</a></li>
-<li><a href="/gemini-help-me-write-brand-voice.html">Gemini Help Me Write: Draft Professional Emails in Your Voice.</a></li>
-<li><a href="/gemini-meet-automated-notes.html">Gemini in Google Meet: Automate Meeting Notes &amp; Action Items.</a></li>
-<li><a href="/gemini-sheets-clean-data.html">Clean Messy Data Fast with Gemini in Google Sheets (2026).</a></li>
-<li><a href="/gemini-sheets-formulas-debugger.html">Fix Complex Spreadsheet Formulas with Gemini in Google Sheets.</a></li>
-<li><a href="/gemini-docs-proposal-builder.html">Build a Corporate Proposal in Minutes with Gemini in Docs.</a></li>
-<li><a href="/gemini-docs-workspace-grounding.html">Gemini in Docs: Write Reports Using Your Own Company Data.</a></li>
-<li><a href="/gemini-slides-pitch-deck-generator.html">Turn a Text Brief Into a Pitch Deck with Gemini in Slides.</a></li>
-<li><a href="/gemini-slides-enterprise-images.html">Generate On-Brand Visuals Without a Designer Using Gemini.</a></li>
-<li><a href="/gemini-drive-multi-document-analysis.html">Analyse Multiple Documents at Once with Gemini in Google Drive.</a></li>
-<li><a href="/gemini-gems-custom-team-assistants.html">Gemini Gems: Build Custom AI Assistants for Your Whole Team.</a></li>
-<li><a href="/gemini-admins-security-data-privacy.html">Gemini Admin Guide: Control AI Access &amp; Protect Company Data.</a></li>
-<li><a href="/gemini-advanced-vs-standard.html">Gemini Advanced vs Standard: Which Plan Does Your Team Need?</a></li>
-<li><a href="/gemini-calendar-scheduling.html">Gemini + Google Calendar: Automate Scheduling &amp; Meeting Prep at Work.</a></li>
-<li><a href="/gemini-notebooklm.html">Google NotebookLM for Professionals: Turn Documents Into Interactive Briefings.</a></li>
-</ul>
-<h3>Gemini AI — Finance</h3>
-<ul>
-<li><a href="/gemini-for-finance.html">Gemini AI for Finance Teams: Reports, Forecasts and Budget Analysis.</a></li>
-<li><a href="/gemini-finance-invoice-extraction.html">Gemini AI for Invoice and Expense Data Extraction.</a></li>
-<li><a href="/gemini-finance-month-end-reporting.html">Gemini AI for Month-End Reporting in Google Workspace.</a></li>
-<li><a href="/gemini-finance-budget-tracking-alerts.html">Gemini AI for Budget Tracking and Alerts in Google Sheets.</a></li>
-<li><a href="/gemini-finance-financial-presentations.html">Gemini AI for Financial Presentations: Turning Data into Slides.</a></li>
-</ul>
-<h3>Gemini AI — HR</h3>
-<ul>
-<li><a href="/gemini-for-hr.html">Gemini AI for HR Teams: Recruitment, Onboarding and People Operations.</a></li>
-<li><a href="/gemini-hr-candidate-communication.html">How to Use Gemini AI for Candidate Communication.</a></li>
-<li><a href="/gemini-hr-training-materials.html">How to Use Gemini AI for Training Materials and Onboarding Guides.</a></li>
-<li><a href="/gemini-hr-employee-survey-automation.html">How to Use Gemini AI for Employee Survey Analysis.</a></li>
-<li><a href="/gemini-hr-dashboard-reporting.html">How to Use Gemini AI for HR Dashboard Reporting.</a></li>
-</ul>
-<h3>Gemini AI — Marketing</h3>
-<ul>
-<li><a href="/gemini-for-marketing.html">Gemini AI for Marketing Teams: Campaigns, Content and Brand Strategy.</a></li>
-<li><a href="/gemini-marketing-social-media-calendar.html">How to Use Gemini AI for Social Media Content Calendars.</a></li>
-<li><a href="/gemini-marketing-ad-copy-variations.html">How to Use Gemini AI for Ad Copy Variations.</a></li>
-<li><a href="/gemini-marketing-competitor-monitoring.html">How to Use Gemini AI for Competitor Monitoring.</a></li>
-<li><a href="/gemini-marketing-analytics-reporting.html">How to Use Gemini AI for Marketing Analytics Reporting.</a></li>
-</ul>
-<h3>Gemini AI — Legal</h3>
-<ul>
-<li><a href="/gemini-for-legal.html">Gemini AI for Legal Teams: Contract Review, Compliance and Risk Workflows.</a></li>
-<li><a href="/gemini-legal-research-summaries.html">How to Use Gemini AI for Legal Research Summaries.</a></li>
-<li><a href="/gemini-legal-compliance-tracking.html">How to Use Gemini AI for Compliance Tracking.</a></li>
-<li><a href="/gemini-legal-document-version-comparison.html">How to Use Gemini AI for Document Version Comparison.</a></li>
-<li><a href="/gemini-legal-regulatory-updates.html">How to Use Gemini AI for Regulatory Updates.</a></li>
-</ul>
-<h3>Gemini AI — Operations</h3>
-<ul>
-<li><a href="/gemini-for-operations.html">Gemini AI for Operations Teams: Workflows, Reporting and Process Automation.</a></li>
-<li><a href="/gemini-operations-inventory-tracking.html">How to Use Gemini AI for Inventory Tracking.</a></li>
-<li><a href="/gemini-operations-scheduling-automation.html">How to Use Gemini AI for Scheduling Automation.</a></li>
-<li><a href="/gemini-operations-quality-control-checklists.html">How to Use Gemini AI for Quality Control Checklists.</a></li>
-<li><a href="/gemini-operations-logistics-coordination.html">How to Use Gemini AI for Logistics Coordination.</a></li>
-</ul>
-<h3>Gemini AI — Sales</h3>
-<ul>
-<li><a href="/gemini-sales-cold-email-gmail.html">How to Use Gemini AI for Cold Email Outreach in Gmail.</a></li>
-<li><a href="/gemini-sales-meet-call-summaries.html">How to Use Gemini AI for Sales Call Summaries from Google Meet.</a></li>
-<li><a href="/gemini-sales-crm-data-sheets.html">How to Use Gemini AI for CRM Data Analysis in Google Sheets.</a></li>
-<li><a href="/gemini-sales-proposal-docs.html">How to Use Gemini AI for Proposal Generation in Google Docs.</a></li>
-<li><a href="/gemini-sales-account-research.html">How to Use Gemini AI for Account Research &amp; Prospecting.</a></li>
-<li><a href="/gemini-sales-follow-up-gmail.html">How to Use Gemini AI for Follow-Up Sequences in Gmail.</a></li>
-<li><a href="/gemini-sales-pitch-deck-slides.html">How to Use Gemini AI for Pitch Deck Outlines for Google Slides.</a></li>
-<li><a href="/gemini-sales-competitor-battlecards.html">How to Use Gemini AI for Competitor Analysis &amp; Sales Battlecards.</a></li>
-<li><a href="/gemini-sales-calendar-scheduling.html">How to Use Gemini AI for Meeting Scheduling &amp; Calendar Prep.</a></li>
-<li><a href="/gemini-sales-territory-planning-sheets.html">How to Use Gemini AI for Territory &amp; Quota Planning in Google Sheets.</a></li>
-</ul>
-<h3>Gemini AI — Customer Service</h3>
-<ul>
-<li><a href="/gemini-cs-ticket-response-drafting.html">How to Use Gemini AI for Support Ticket Responses.</a></li>
-<li><a href="/gemini-cs-feedback-analysis-sheets.html">How to Use Gemini AI for Customer Feedback Analysis in Google Sheets.</a></li>
-<li><a href="/gemini-cs-escalation-summaries-meet.html">How to Use Gemini AI for Escalation Call Summaries from Google Meet.</a></li>
-<li><a href="/gemini-cs-tone-rewriting-empathy.html">How to Use Gemini AI for Tone Rewriting and Empathy.</a></li>
-<li><a href="/gemini-cs-faq-docs.html">How to Use Gemini AI for FAQ Articles in Google Docs.</a></li>
-<li><a href="/gemini-cs-multilingual-replies.html">How to Use Gemini AI for Multilingual Support Replies.</a></li>
-<li><a href="/gemini-cs-refund-request-response.html">How to Use Gemini AI for Refund Request Responses.</a></li>
-<li><a href="/gemini-cs-macro-templates.html">How to Use Gemini AI for Support Macro and Template Creation.</a></li>
-<li><a href="/gemini-cs-bug-report-summaries.html">How to Use Gemini AI for Summarizing Bug Reports and Feature Requests.</a></li>
-<li><a href="/gemini-cs-onboarding-training-notebooklm.html">How to Use NotebookLM for Customer Onboarding Training.</a></li>
-</ul>
-<h3>Hub Pages</h3>
-<ul>
-<li><a href="/ai-for-excel.html">AI for Excel</a></li>
-<li><a href="/claude-for-finance.html">AI for Finance Teams</a></li>
-<li><a href="/claude-for-hr.html">AI for HR Teams</a></li>
-<li><a href="/claude-for-marketing.html">AI for Marketing Teams</a></li>
-<li><a href="/claude-for-legal.html">AI for Legal Teams</a></li>
-<li><a href="/claude-for-operations.html">AI for Operations Teams</a></li>
-</ul>
-</div>
-</noscript>
-<!-- === INIZIO FOOTER === -->
-<footer style="background:#021a12; padding:2.5rem 1rem 1.5rem; margin-top:0">
-<div style="max-width:1100px; margin:0 auto">
-<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:2.5rem; margin-bottom:2rem">
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Guides by Role</strong>
-<a href="https://www.pairworkflows.com/claude-for-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Finance Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for HR Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Marketing Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-legal.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Legal Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-operations.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Operations Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-sales.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Sales Teams</a>
-<a href="https://www.pairworkflows.com/claude-for-customer-service.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Customer Service</a>
-<a href="https://www.pairworkflows.com/ai-for-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI for Excel</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Prompt Tools</strong>
-<a href="https://www.pairworkflows.com/prompt-generator-excel.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Excel Prompt Builder</a>
-<a href="https://www.pairworkflows.com/prompt-generator-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Finance Prompt Builder</a>
-<a href="https://www.pairworkflows.com/prompt-generator-hr.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">HR Prompt Builder</a>
-<a href="https://www.pairworkflows.com/prompt-generator-marketing.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Marketing Prompt Builder</a>
-<a href="https://www.pairworkflows.com/prompt-library.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">General Prompt Library</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Resources</strong>
-<a href="https://www.pairworkflows.com/claude-workflows.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">HR Workflows<</a>
-<a href="https://www.pairworkflows.com/hr-workflow.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Claude Workflows</a>
-<a href="https://www.pairworkflows.com/gemini-workflows.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">All Gemini Workflows</a>
-<a href="https://www.pairworkflows.com/glossary.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">AI Glossary</a>
-<a href="https://www.pairworkflows.com/claude-vs-gemini.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Claude vs Gemini</a>
-<a href="https://www.pairworkflows.com/claude-vs-gemini-finance.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Claude vs Gemini Finance</a>
-</div>
-<div>
-<strong style="display:block; font-size:13.5px; font-weight:600; color:#ffffff; margin-bottom:1rem; letter-spacing:0.5px">Company &amp; Legal</strong>
-<a href="https://www.pairworkflows.com/about.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">About</a>
-<a href="https://www.pairworkflows.com/contact.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Contact</a>
-<a href="https://www.pairworkflows.com/suggest-a-course.html" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Suggest a Course</a>
-<a href="https://www.pairworkflows.com/legal.html#privacy" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Privacy Policy</a>
-<a href="https://www.pairworkflows.com/legal.html#terms" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Terms of Use</a>
-<a href="https://www.pairworkflows.com/legal.html#cookies" style="display:block; font-size:14px; color:#94a3b8; text-decoration:none; margin-bottom:0.55rem">Cookie Policy</a>
-</div>
-</div>
-<div style="text-align:center; margin-bottom:2rem">
-<p style="font-size:13.5px; color:#64748b; line-height:1.55; max-width:520px; margin:0 auto">Free practical AI guides for Claude &amp; Gemini.<br>Built for real work. No ads, no paywalls.</p>
-</div>
-<div style="border-top:1px solid #0a4a30; padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem">
-<span style="font-size:13px; color:#475569">&copy; 2026 <a href="https://www.pairworkflows.com" style="color:#1d9e75; text-decoration:none">PairWorkflows</a>. All rights reserved.</span>
-<div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
-<button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e5e7eb;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-  Copy link
-</button>
-<a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#374151'" onmouseout="this.style.background='#1f2937'">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-  <span style="font-size:12px;font-weight:500;color:#e5e7eb">Trustpilot</span><span style="color:#00b67a;font-size:13px">★★★★★</span>
-</a>
-<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#0a66c2'" onmouseout="this.style.background='#1f2937'" title="Share on LinkedIn">
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-</a>
-<a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1f2937;border:1px solid rgba(255,255,255,.1);border-radius:12px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#000'" onmouseout="this.style.background='#1f2937'" title="Share on X">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-</a>
-</div>
-</div>
-</div>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <strong>Excel Workflows</strong>
+      <a href="/ai-for-excel.html">All Excel Workflows</a>
+      <a href="/claude-excel-ref-errors.html">Fix Excel Errors</a>
+      <a href="/bank-reconciliation-excel-claude.html">Finance Models</a>
+      <a href="/claude-excel-clean-data.html">Data Cleaning</a>
+    </div>
+    <div class="footer-col">
+      <strong>Prompt Tools</strong>
+      <a href="/prompt-generator-excel.html">Excel Prompt Builder</a>
+      <a href="/prompt-generator-finance.html">Finance Prompt Builder</a>
+      <a href="/prompt-generator-hr.html">HR Prompt Builder</a>
+      <a href="/prompt-generator-marketing.html">Marketing Prompt Builder</a>
+    </div>
+    <div class="footer-col">
+      <strong>Company</strong>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/suggest-a-course.html">Suggest a workflow</a>
+      <a href="/legal.html#privacy">Privacy Policy</a>
+      <a href="/legal.html#terms">Terms of Use</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 PairWorkflows. All rights reserved.</span>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <a href="https://www.trustpilot.com/review/pairworkflows.com" target="_blank" rel="noopener" style="font-size:13px;color:#6b7280;text-decoration:none;">★★★★★ Trustpilot</a>
+      <button onclick="copyLink()" id="copyLinkBtn" style="display:flex;align-items:center;gap:6px;height:32px;padding:0 12px;background:transparent;border:1px solid #e5e7eb;border-radius:8px;color:#6b7280;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all .15s" onmouseover="this.style.borderColor='#9ca3af';this.style.color='#111827'" onmouseout="this.style.borderColor='#e5e7eb';this.style.color='#6b7280'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+        Copy link
+      </button>
+      <a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false" style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:transparent;border:1px solid #e5e7eb;border-radius:8px;text-decoration:none;transition:border-color .15s" onmouseover="this.style.borderColor='#9ca3af'" onmouseout="this.style.borderColor='#e5e7eb'" title="Share on LinkedIn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="#6b7280" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+      </a>
+      <a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href),'_blank');return false" style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:transparent;border:1px solid #e5e7eb;border-radius:8px;text-decoration:none;transition:border-color .15s" onmouseover="this.style.borderColor='#9ca3af'" onmouseout="this.style.borderColor='#e5e7eb'" title="Share on X">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="#6b7280" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+    </div>
+  </div>
 </footer>
+
+<script>
+function heroSearchGo() {
+  const q = document.getElementById('heroSearch').value.trim();
+  if (q) window.location.href = '/search.html?q=' + encodeURIComponent(q);
+}
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    const btn = document.getElementById('copyLinkBtn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> Copy link'; }, 2000);
+  });
+}
+function toggleFaq(el) {
+  const a = el.nextElementSibling;
+  a.classList.toggle('open');
+  el.classList.toggle('open');
+}
+</script>
 </body>
 </html>
