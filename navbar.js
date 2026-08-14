@@ -239,7 +239,7 @@
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
               </button>
               <div class="nav-dropdown-menu" id="navDropdownMenu-workflows" style="min-width:220px;">
-                <a href="https://www.pairworkflows.com/ai-for-excel.html">All Excel Workflows</a>
+                <a href="https://www.pairworkflows.com/claude-excel-workflows.html">All Excel Workflows</a>
                 <div class="nav-dropdown-divider"></div>
                 <div class="nav-dropdown-label">By topic</div>
                 <a href="https://www.pairworkflows.com/excel-errors-claude.html">Fix Excel Errors</a>
@@ -301,7 +301,7 @@
     <div class="nav-mobile-menu" id="navMobileMenu">
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Excel Workflows</div>
-        <a href="https://www.pairworkflows.com/ai-for-excel.html">All Excel Workflows</a>
+        <a href="https://www.pairworkflows.com/claude-excel-workflows.html">All Excel Workflows</a>
         <a href="https://www.pairworkflows.com/excel-errors-claude.html">Fix Excel Errors</a>
         <a href="https://www.pairworkflows.com/excel-formulas-claude.html">Formulas &amp; Functions</a>
         <a href="https://www.pairworkflows.com/excel-data-cleaning-claude.html">Data Cleaning</a>
