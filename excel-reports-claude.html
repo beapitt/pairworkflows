@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><link rel="icon" type="image/png" href="/favicon.png">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Dynamic Excel Reports with Claude AI — PairWorkflows</title>
+<meta name="description" content="Free workflows for building dynamic reports and dashboards in Excel with Claude AI. Pivot tables, dynamic models, automated reports — copy the prompt, paste in Claude, done.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.pairworkflows.com/excel-reports-claude.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/global-fix.css">
+<link rel="stylesheet" href="styles.css">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+* { box-sizing: border-box; }
+body { background: #fafafa !important; color: #1a1a2e !important; margin: 0; font-family: 'Inter', sans-serif; }
+.page-hero { background: #fafafa; padding: 3rem 1.5rem 2rem; text-align: center; border-bottom: 1px solid #f0f0f0; }
+.page-hero .eyebrow { font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.75rem; display: block; }
+.page-hero h1 { font-size: clamp(22px, 3vw, 32px); font-weight: 700; color: #111827; margin: 0 0 0.6rem; letter-spacing: -0.4px; }
+.page-hero p { font-size: 15px; color: #6b7280; max-width: 500px; margin: 0 auto; line-height: 1.6; }
+.breadcrumb { max-width: 900px; margin: 0 auto; padding: 1rem 1.5rem 0; font-size: 13px; color: #9ca3af; }
+.breadcrumb a { color: #6b7280; text-decoration: none; }
+.breadcrumb a:hover { color: #111827; }
+.breadcrumb span { margin: 0 6px; }
+.cards-section { max-width: 900px; margin: 2.5rem auto 4rem; padding: 0 1.5rem; }
+.cards-section h2 { font-size: 13px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 1.25rem; }
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.workflow-card { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 1.25rem 1.5rem; text-decoration: none; color: inherit; display: block; transition: all .15s; }
+.workflow-card:hover { border-color: #1d9e75; box-shadow: 0 2px 8px rgba(29,158,117,0.08); transform: translateY(-1px); }
+.workflow-card-tag { font-size: 11px; font-weight: 600; color: #1d9e75; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 0.5rem; }
+.workflow-card h3 { font-size: 14px; font-weight: 600; color: #111827; margin: 0 0 0.4rem; line-height: 1.4; }
+.workflow-card p { font-size: 13px; color: #6b7280; margin: 0; line-height: 1.5; }
+.workflow-card-arrow { font-size: 13px; color: #9ca3af; margin-top: 0.75rem; display: block; }
+@media(max-width:600px) { .cards-grid { grid-template-columns: 1fr; } .page-hero { padding: 2rem 1.25rem 1.5rem; } }
+</style>
+</head>
+<body>
+<div id="navbar-placeholder"></div>
+<script src="/navbar.js"></script>
+<div class="breadcrumb">
+  <a href="/">PairWorkflows</a><span>›</span>
+  <a href="/ai-for-excel.html">Excel Workflows</a><span>›</span>
+  Dynamic Reports
+</div>
+<div class="page-hero">
+  <span class="eyebrow">Excel · Claude AI</span>
+  <h1>Dynamic Excel Reports with Claude AI</h1>
+  <p>Replace manual, hardcoded reports with formula-driven models that update automatically. Claude writes the logic.</p>
+</div>
+<div class="cards-section">
+  <h2>3 workflows</h2>
+  <div class="cards-grid">
+    <a href="/claude-excel-dynamic-reports.html" class="workflow-card">
+      <div class="workflow-card-tag">Reports</div>
+      <h3>Turn Manual Reports into Dynamic Models</h3>
+      <p>Stop rebuilding the same report every month. Claude replaces hardcoded numbers with formulas that update automatically.</p>
+      <span class="workflow-card-arrow">Read workflow →</span>
+    </a>
+    <a href="/pivot-table-reports-excel-claude.html" class="workflow-card">
+      <div class="workflow-card-tag">Reports</div>
+      <h3>Pivot Table Reports in Excel</h3>
+      <p>Summarize thousands of rows by region, product or period. Claude sets up the pivot structure and calculated fields.</p>
+      <span class="workflow-card-arrow">Read workflow →</span>
+    </a>
+    <a href="/rolling-forecast-excel-claude.html" class="workflow-card">
+      <div class="workflow-card-tag">Reports</div>
+      <h3>12-Month Rolling Forecast</h3>
+      <p>A forecast that shifts forward automatically as each month closes. Claude builds the rolling window formulas.</p>
+      <span class="workflow-card-arrow">Read workflow →</span>
+    </a>
+  </div>
+</div>
+<footer style="background:#fafafa;border-top:1px solid #f0f0f0;padding:2rem 1.5rem 1.25rem">
+  <div style="max-width:900px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;margin-bottom:1.5rem">
+    <div><strong style="display:block;font-size:12px;font-weight:600;color:#374151;margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.6px">Excel Workflows</strong>
+      <a href="/ai-for-excel.html" style="display:block;font-size:13px;color:#6b7280;text-decoration:none;margin-bottom:0.4rem">All Excel Workflows</a>
+      <a href="/excel-errors-claude.html" style="display:block;font-size:13px;color:#6b7280;text-decoration:none;margin-bottom:0.4rem">Fix Excel Errors</a>
+      <a href="/excel-formulas-claude.html" style="display:block;font-size:13px;color:#6b7280;text-decoration:none;margin-bottom:0.4rem">Formulas &amp; Functions</a>
+      <a href="/excel-finance-models-claude.html" style="display:block;font-size:13px;color:#6b7280;text-decoration:none;margin-bottom:0.4rem">Finance Models</a>
+    </div>
+    <div><strong style="display:block;font-size:12px;font-weight:600;color:#374151;margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.6px">Prompt Tools</strong>
+      <a href="/prompt-generator-excel.html" style="display:block;font-size:13px;color:#6b7280;text-decoration:none;margin-bottom:0.4rem">Excel Prompt Builder</a>
+      <a href="/prompt-generator-finance.html" style="display:block;font-size:13px;color:#6b7280;text-decoration:none;margin-bottom:0.4rem">Finance Prompt Builder</a>
+    </div>
+    <div><strong style="display:block;font-size:12px;font-weight:600;color:#374151;margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.6px">Company</strong>
+      <a href="/about.html" style="display:block;font-size:13px;color:#6b7280;text-decoration:none;margin-bottom:0.4rem">About</a>
+      <a href="/contact.html" style="display:block;font-size:13px;color:#6b7280;text-decoration:none;margin-bottom:0.4rem">Contact</a>
+      <a href="/legal.html#privacy" style="display:block;font-size:13px;color:#6b7280;text-decoration:none;margin-bottom:0.4rem">Privacy Policy</a>
+    </div>
+  </div>
+  <div style="max-width:900px;margin:0 auto;border-top:1px solid #f0f0f0;padding-top:1rem">
+    <span style="font-size:13px;color:#9ca3af">&copy; 2026 PairWorkflows. All rights reserved.</span>
+  </div>
+</footer>
+</body>
+</html>
