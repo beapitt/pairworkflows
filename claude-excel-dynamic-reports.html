@@ -65,6 +65,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .xl-table .hl{background:#fffbeb}
 .xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
 .xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.ba-panel{display:none;margin-bottom:1.75rem}
+.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
 .ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
 .claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
@@ -235,42 +237,111 @@ Keep it short enough to paste into a "Documentation" tab in the workbook.</pre>
     </div>
   </div>
 
-  <!-- BEFORE / AFTER VISUAL -->
-  <div class="before-after">
+  <!-- BEFORE / AFTER VISUAL — dynamic per tab -->
+
+  <!-- Tab: analyse -->
+  <div class="before-after ba-panel on" id="ba-analyse">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — manual, fragile</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — manual process, no formula plan</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th></th><th>Region</th><th>Revenue</th></tr>
-          <tr class="section-row"><td colspan="3">Mar_Report tab</td></tr>
-          <tr><td>2</td><td>North</td><td class="err-cell">£24,500 (typed)</td></tr>
-          <tr><td>3</td><td>South</td><td class="err-cell">£18,200 (typed)</td></tr>
-          <tr><td>4</td><td>West</td><td class="err-cell">£31,750 (typed)</td></tr>
+          <tr><th>Step</th><th>How done</th></tr>
+          <tr><td>Revenue by region</td><td class="err-cell">Copy-paste manually</td></tr>
+          <tr><td>Remove closed rows</td><td class="err-cell">Delete by hand</td></tr>
+          <tr><td>Format totals</td><td class="err-cell">Typed each month</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Every value hardcoded — new month means copy, delete, paste, reformat
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ No connection to the raw data at all</div>
+          2 hours every month — same steps, no formulas
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Describe the process, Claude identifies what to automate</div>
         </div>
       </div>
     </div>
-
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude builds the formulas</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude maps the automation plan</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th></th><th>Region</th><th>Revenue</th></tr>
-          <tr class="section-row"><td colspan="3">Summary tab</td></tr>
-          <tr><td>2</td><td>North</td><td class="link-cell">=SUMIFS(...)</td></tr>
-          <tr><td>3</td><td>South</td><td class="link-cell">=SUMIFS(...)</td></tr>
-          <tr><td>4</td><td>West</td><td class="ok-cell">=SUMIFS(...)</td></tr>
+          <tr><th>Step</th><th>Formula</th></tr>
+          <tr><td>Revenue by region</td><td class="ok-cell">SUMIFS ✓</td></tr>
+          <tr><td>Remove closed rows</td><td class="ok-cell">FILTER ✓</td></tr>
+          <tr><td>Format totals</td><td class="ok-cell">Stays manual ✓</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's fix</div>
-          <pre>=SUMIFS(Raw!E:E, Raw!A:A, "North")
+          <div class="claude-fix-label">Claude's plan</div>
+          <pre>2 steps automated, 1 flagged for human judgment.
+Full formula set provided for each step. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
 
-Paste new month into Raw_Data — Summary recalculates instantly. ✓</pre>
+  <!-- Tab: replace -->
+  <div class="before-after ba-panel" id="ba-replace">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — revenue totals hardcoded</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Region</th><th>Revenue (Summary tab)</th></tr>
+          <tr><td>North</td><td class="err-cell">£24,500 (typed)</td></tr>
+          <tr><td>South</td><td class="err-cell">£18,200 (typed)</td></tr>
+          <tr><td>West</td><td class="err-cell">£31,750 (typed)</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Every value hardcoded — new month = copy, delete, paste
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ No connection to raw data at all</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude replaces it with SUMIFS</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Region</th><th>Revenue (Summary tab)</th></tr>
+          <tr><td>North</td><td class="ok-cell">=SUMIFS(Raw!E:E,Raw!A:A,"North")</td></tr>
+          <tr><td>South</td><td class="ok-cell">=SUMIFS(Raw!E:E,Raw!A:A,"South")</td></tr>
+          <tr><td>West</td><td class="ok-cell">=SUMIFS(Raw!E:E,Raw!A:A,"West")</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's formula</div>
+          <pre>Paste new month into Raw_Data —
+Summary recalculates instantly. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: doc -->
+  <div class="before-after ba-panel" id="ba-doc">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — model works but nobody else can maintain it</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Question</th><th>Answer</th></tr>
+          <tr><td>Where do I paste the data?</td><td class="err-cell">Unknown</td></tr>
+          <tr><td>What does SUMIFS in C5 do?</td><td class="err-cell">Unknown</td></tr>
+          <tr><td>What if totals look wrong?</td><td class="err-cell">Unknown</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          No documentation — only you can maintain this
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Run this last once the model works</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude writes the maintenance guide</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Question</th><th>Answer</th></tr>
+          <tr><td>Where do I paste the data?</td><td class="ok-cell">Raw_Data tab, row 2 ✓</td></tr>
+          <tr><td>What does SUMIFS in C5 do?</td><td class="ok-cell">Documented ✓</td></tr>
+          <tr><td>What if totals look wrong?</td><td class="ok-cell">Checklist provided ✓</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's guide</div>
+          <pre>3-section doc: paste instructions, formula
+explanations, troubleshooting checklist. ✓</pre>
         </div>
       </div>
     </div>
@@ -331,8 +402,7 @@ Paste new month into Raw_Data — Summary recalculates instantly. ✓</pre>
   <!-- FAQ -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Frequently asked questions</h2>
   <div class="faq-section">
-    <div class="faq-title" aria-hidden="true">Frequently asked questions</div>
-    <div class="faq-item">
+  <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I automate a monthly report in Excel? <i class="ti ti-chevron-down"></i></div>
       <div class="faq-a">Replace static numbers with dynamic formulas like <code>SUMIFS</code>, <code>XLOOKUP</code>, and <code>FILTER</code> that pull data from a standardized raw data sheet. Claude can write these formulas once you describe your current manual process.</div>
     </div>
@@ -356,7 +426,6 @@ Paste new month into Raw_Data — Summary recalculates instantly. ✓</pre>
 
   <!-- RELATED -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Related Excel workflows</h2>
-  <div class="related-title" aria-hidden="true">Related Excel workflows</div>
   <div class="related-grid">
     <a href="/claude-excel-sumifs.html" class="related-link">
       <strong>Build Multi-Criteria SUMIFS Formulas</strong>
@@ -382,8 +451,10 @@ Paste new month into Raw_Data — Summary recalculates instantly. ✓</pre>
 function switchTab(btn,id){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.ba-panel').forEach(function(p){p.classList.remove('on')});
   btn.classList.add('on');
   document.getElementById('p-'+id).classList.add('on');
+  document.getElementById('ba-'+id).classList.add('on');
 }
 function copyPrompt(btn){
   var text=btn.previousElementSibling.innerText;
