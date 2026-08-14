@@ -40,7 +40,13 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
 .prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
 .prompt-hint a:hover{text-decoration:underline}
-.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
+
+/* DYNAMIC PANELS */
+.ba-panel { display: none; margin-bottom: 1.75rem; }
+.ba-panel.on { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: stretch; }
+.steps-panel { display: none; }
+.steps-panel.on { display: block; }
+
 .ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
@@ -106,7 +112,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
 @media(max-width:640px){
   .hero h1{font-size:24px}
-  .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-panel.on{grid-template-columns:1fr;gap:8px}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
@@ -158,6 +164,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
       </div>
     </div>
 
+    <!-- Panel: Recon -->
     <div id="p-recon" class="panel on">
       <div class="prompt-box">
         <pre>PAYROLL SYSTEM TOTALS (aggregated by Cost Centre and GL Account):
@@ -197,6 +204,7 @@ Output:
       <p class="prompt-hint">Replace all bracketed sections with your real data. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
     </div>
 
+    <!-- Panel: Variance -->
     <div id="p-variance" class="panel">
       <div class="prompt-box">
         <pre>I have a payroll-to-GL variance I need to investigate.
@@ -222,6 +230,7 @@ Tell me what journal entry would correct it if it is a miscoding.</pre>
       <p class="prompt-hint">Use this after spotting a VARIANCE in the main reconciliation output.</p>
     </div>
 
+    <!-- Panel: Employee -->
     <div id="p-employee" class="panel">
       <div class="prompt-box">
         <pre>I need to reconcile payroll at the individual employee level.
@@ -252,8 +261,10 @@ Output:
     </div>
   </div>
 
-  <!-- BEFORE / AFTER VISUAL -->
-  <div class="before-after">
+  <!-- BEFORE / AFTER VISUAL DYNAMIC -->
+
+  <!-- BA: Recon -->
+  <div class="before-after ba-panel on" id="ba-recon">
     <div class="ba-col before">
       <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — totals don't match, cause unknown</div>
       <div class="ba-body">
@@ -268,9 +279,7 @@ Output:
         </div>
       </div>
     </div>
-
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-
     <div class="ba-col after">
       <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude identifies the root cause</div>
       <div class="ba-body">
@@ -285,6 +294,73 @@ Output:
 → PROBABLE MISCODING: Operations gross pay
   posted to Employer NIC account in error.
 Correcting journal: Dr 6100 £2,500 / Cr 6200 £2,500</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BA: Variance -->
+  <div class="before-after ba-panel" id="ba-variance">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — unexplained gap</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Account</th><th>Payroll</th><th>GL</th><th>Variance</th></tr>
+          <tr><td>Gross Pay</td><td>60,000</td><td class="hl">55,000</td><td class="err-cell">-5,000</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Total variance isolated, but cause is hidden in GL detail
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude traces the exact entry</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Account</th><th>Payroll</th><th>GL</th><th>Status</th></tr>
+          <tr><td>Gross Pay</td><td>60,000</td><td>55,000</td><td class="err-cell">VARIANCE</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's diagnosis</div>
+          <pre>Cause 3: Off-cycle run not journalised.
+Found: Payroll system shows £5,000 'Off-cycle' on 15/06.
+No matching GL entry found in the ledger extract.</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BA: Employee -->
+  <div class="before-after ba-panel" id="ba-employee">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — massive raw list</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Emp ID</th><th>Payroll Total</th><th>GL Total</th></tr>
+          <tr><td>EMP-041</td><td>3,500</td><td>3,500</td></tr>
+          <tr><td>EMP-042</td><td class="hl">4,200</td><td>-</td></tr>
+          <tr><td>EMP-043</td><td>2,800</td><td>2,800</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Finding discrepancies manually across 500+ employees is brutal
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — isolated exceptions</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Emp ID</th><th>Payroll Total</th><th>GL Total</th></tr>
+          <tr><td>EMP-042</td><td class="hl">4,200</td><td class="err-cell">0</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's output</div>
+          <pre>Exceptions found:
+EMP-042: Missing from GL (Not posted).
+EMP-091: £50 Variance (Payroll > GL).
+All other 498 employees match perfectly. ✓</pre>
         </div>
       </div>
     </div>
@@ -315,27 +391,79 @@ Correcting journal: Dr 6100 £2,500 / Cr 6200 £2,500</pre>
     </div>
   </div>
 
-  <!-- STEPS -->
-  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
-  <div class="steps-card">
-    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Run a payroll reconciliation with Claude — 4 steps</div>
-    <div class="step">
-      <div class="step-n">1</div>
-      <div class="step-body"><h3>Export payroll totals by cost centre and GL account</h3><p>From your payroll system, export a summary by cost centre and pay type — not individual employee rows. You need: Cost Centre, GL Account, Pay Type (Gross Pay / Employer NIC / Pension), and Amount. Most payroll systems have a cost analysis or cost centre summary report for this.</p></div>
+  <!-- STEPS DYNAMIC -->
+
+  <!-- Steps: Recon -->
+  <div class="steps-panel on" id="steps-recon">
+    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+    <div class="steps-card">
+      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Run a payroll reconciliation with Claude — 4 steps</div>
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body"><h3>Export payroll totals by cost centre and GL account</h3><p>From your payroll system, export a summary by cost centre and pay type — not individual employee rows. You need: Cost Centre, GL Account, Pay Type (Gross Pay / Employer NIC / Pension), and Amount. Most payroll systems have a cost analysis or cost centre summary report for this.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body"><h3>Export the matching GL postings for the same period</h3><p>From your accounting system, extract all journal lines posted to payroll GL accounts (typically 6100–6399 or equivalent) for the period. Include Journal Ref, Cost Centre, GL Account, Description, and Amount. If your payroll and GL use different account codes, prepare a mapping table.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body"><h3>Paste both datasets into the prompt and set your tolerance</h3><p>A tolerance of £0.50 handles rounding differences between systems without flagging them as real variances. Set it to £0.00 if you need exact matching. Specify the period clearly — Claude uses it in the sign-off summary header.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">4</div>
+        <div class="step-body"><h3>Check equal-and-opposite variances first</h3><p>When one account is short by exactly the amount another is over, the total payroll cost is correct but the expense split by type is wrong. This is a GL miscoding — one correcting journal fixes both variances simultaneously. Claude flags these automatically with <code>PROBABLE MISCODING</code> so you don't investigate them as two separate issues.</p></div>
+      </div>
+      <div class="tip"><strong>Tip:</strong> Run payroll reconciliation before bank reconciliation, not after. Confirming that GL postings are correct first makes the bank rec faster — you're only checking that net pay cleared the account, not hunting for coding errors at the same time.</div>
     </div>
-    <div class="step">
-      <div class="step-n">2</div>
-      <div class="step-body"><h3>Export the matching GL postings for the same period</h3><p>From your accounting system, extract all journal lines posted to payroll GL accounts (typically 6100–6399 or equivalent) for the period. Include Journal Ref, Cost Centre, GL Account, Description, and Amount. If your payroll and GL use different account codes, prepare a mapping table.</p></div>
+  </div>
+
+  <!-- Steps: Variance -->
+  <div class="steps-panel" id="steps-variance">
+    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+    <div class="steps-card">
+      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Investigate and fix a variance — 4 steps</div>
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body"><h3>Identify the specific Cost Centre and GL Account</h3><p>Use the main reconciliation output to find the exact combination causing the variance (e.g., Operations - 6100 Gross Pay).</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body"><h3>Pull the GL transaction list</h3><p>Export only the ledger entries for that specific GL account and cost centre for the period. Do not clutter the prompt with the entire company's ledger.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body"><h3>Provide Claude with the details</h3><p>Use the Variance prompt and supply the payroll total, GL total, and the detailed GL rows. Claude checks against common issues like missing journals, wrong period postings, or manual adjustments.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">4</div>
+        <div class="step-body"><h3>Post the correcting journal</h3><p>Depending on Claude's diagnosis, post the appropriate reclass, accrual, or missing entry in your ERP system to bring the GL in line with the actual payroll run.</p></div>
+      </div>
     </div>
-    <div class="step">
-      <div class="step-n">3</div>
-      <div class="step-body"><h3>Paste both datasets into the prompt and set your tolerance</h3><p>A tolerance of £0.50 handles rounding differences between systems without flagging them as real variances. Set it to £0.00 if you need exact matching. Specify the period clearly — Claude uses it in the sign-off summary header.</p></div>
+  </div>
+
+  <!-- Steps: Employee -->
+  <div class="steps-panel" id="steps-employee">
+    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+    <div class="steps-card">
+      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Reconcile at the employee level — 4 steps</div>
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body"><h3>Export raw payroll data per employee</h3><p>Export a detailed payroll register showing Gross Pay, Deductions, and Net Pay tagged with the unique Employee ID.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body"><h3>Ensure GL report includes Employee ID tags</h3><p>Your GL entries must have the Employee ID mapped in a subledger or reference field. Without this, line-by-line employee matching is impossible.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body"><h3>Run the strict Employee ID matching prompt</h3><p>Paste both datasets into Claude using the Employee-level prompt. Claude strictly links the records by ID and Account to identify missing or mismatched figures.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">4</div>
+        <div class="step-body"><h3>Follow up on orphaned records</h3><p>Investigate the exceptions list. Orphaned records often reveal terminated employees paid in error, new hires missing from GL allocation, or manual paychecks circumventing normal systems.</p></div>
+      </div>
     </div>
-    <div class="step">
-      <div class="step-n">4</div>
-      <div class="step-body"><h3>Check equal-and-opposite variances first</h3><p>When one account is short by exactly the amount another is over, the total payroll cost is correct but the expense split by type is wrong. This is a GL miscoding — one correcting journal fixes both variances simultaneously. Claude flags these automatically with <code>PROBABLE MISCODING</code> so you don't investigate them as two separate issues.</p></div>
-    </div>
-    <div class="tip"><strong>Tip:</strong> Run payroll reconciliation before bank reconciliation, not after. Confirming that GL postings are correct first makes the bank rec faster — you're only checking that net pay cleared the account, not hunting for coding errors at the same time.</div>
   </div>
 
   <!-- FAQ -->
@@ -394,8 +522,17 @@ Correcting journal: Dr 6100 £2,500 / Cr 6200 £2,500</pre>
 function switchTab(btn,id){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.ba-panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.steps-panel').forEach(function(p){p.classList.remove('on')});
+
   btn.classList.add('on');
   document.getElementById('p-'+id).classList.add('on');
+
+  var ba = document.getElementById('ba-'+id);
+  if(ba) ba.classList.add('on');
+
+  var steps = document.getElementById('steps-'+id);
+  if(steps) steps.classList.add('on');
 }
 function copyPrompt(btn){
   var text=btn.previousElementSibling.innerText;
