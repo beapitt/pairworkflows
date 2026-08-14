@@ -65,6 +65,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .xl-table .hl{background:#fffbeb}
 .xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
 .xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.ba-panel{display:none;margin-bottom:1.75rem}
+.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
 .ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
 .claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
@@ -226,16 +228,16 @@ when a value genuinely isn't found, the cell shows a dash "—" instead of
     </div>
   </div>
 
-  <!-- BEFORE / AFTER VISUAL -->
-  <div class="before-after">
+  <!-- BEFORE / AFTER VISUAL — dynamic per tab -->
+
+  <!-- Tab: diagnose -->
+  <div class="before-after ba-panel on" id="ba-diagnose">
     <div class="ba-col before">
       <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — silent mismatch</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Lookup value (A2)</th><th>Table value (D:D)</th></tr>
-          <tr class="section-row"><td colspan="2">Why it fails</td></tr>
-          <tr><td class="err-cell">"Smith  " (trailing spaces)</td><td>"Smith"</td></tr>
-          <tr><td class="err-cell">1042 (number)</td><td>"1042" (text)</td></tr>
+          <tr><th>Lookup value (A2)</th><th>Table value (D:D)</th><th>Result</th></tr>
+          <tr><td class="err-cell">"Smith  " (trailing space)</td><td>"Smith"</td><td class="err-cell">#N/A</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
           =VLOOKUP(A2, D:F, 2, FALSE) → #N/A
@@ -243,21 +245,84 @@ when a value genuinely isn't found, the cell shows a dash "—" instead of
         </div>
       </div>
     </div>
-
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude fixes the mismatch</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude identifies the cause</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Fix</th><th>Result</th></tr>
-          <tr class="section-row"><td colspan="2">Corrected formula</td></tr>
-          <tr><td class="link-cell">TRIM(A2)</td><td class="ok-cell">£4,250</td></tr>
+          <tr><th>Fix applied</th><th>Result</th></tr>
+          <tr><td class="link-cell">TRIM(A2) removes trailing space</td><td class="ok-cell">£4,250 ✓</td></tr>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's fix</div>
           <pre>=VLOOKUP(TRIM(A2), D:F, 2, FALSE)
 Trailing space removed — match found. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: type -->
+  <div class="before-after ba-panel" id="ba-type">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — number vs text mismatch</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Cell A2 (number)</th><th>Table col D (text)</th><th>Result</th></tr>
+          <tr><td class="err-cell">1042</td><td class="err-cell">"1042"</td><td class="err-cell">#N/A</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          =VLOOKUP(A2, D:F, 2, FALSE) → #N/A
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Number 1042 ≠ text "1042" even though they look the same</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude converts the type</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Fix applied</th><th>Result</th></tr>
+          <tr><td class="link-cell">TEXT(A2,"0") converts number to text</td><td class="ok-cell">£2,890 ✓</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's fix</div>
+          <pre>=VLOOKUP(TEXT(A2,"0"), D:F, 2, FALSE)
+Type aligned — match found. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: wrap -->
+  <div class="before-after ba-panel" id="ba-wrap">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — missing value shows #N/A</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Lookup value</th><th>In table?</th><th>Result</th></tr>
+          <tr><td>Smith</td><td class="ok-cell">Yes</td><td class="ok-cell">£4,250</td></tr>
+          <tr><td class="err-cell">Jones</td><td class="err-cell">No</td><td class="err-cell">#N/A</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          =VLOOKUP(TRIM(A2), D:F, 2, FALSE) → #N/A for missing values
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Formula is correct — value simply isn't in the table</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — missing values show a dash</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Lookup value</th><th>In table?</th><th>Result</th></tr>
+          <tr><td>Smith</td><td class="ok-cell">Yes</td><td class="ok-cell">£4,250</td></tr>
+          <tr><td>Jones</td><td>No</td><td class="ok-cell">— ✓</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's fix</div>
+          <pre>=IFERROR(VLOOKUP(TRIM(A2), D:F, 2, FALSE), "—")
+Missing values now show "—" instead of #N/A. ✓</pre>
         </div>
       </div>
     </div>
@@ -369,8 +434,10 @@ Trailing space removed — match found. ✓</pre>
 function switchTab(btn,id){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.ba-panel').forEach(function(p){p.classList.remove('on')});
   btn.classList.add('on');
   document.getElementById('p-'+id).classList.add('on');
+  document.getElementById('ba-'+id).classList.add('on');
 }
 function copyPrompt(btn){
   var text=btn.previousElementSibling.innerText;
