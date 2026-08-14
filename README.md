@@ -1,23 +1,22 @@
-# PairWorkflows
+## PairWorkflows provides interactive, scenario-based workflows and prompt tools designed 
+## to solve real-world Excel tasks with Claude AI.
 
-**Master Claude & Gemini for real professional work.**
 
-Free practical resources: **80+ prompts** + **148 mini-guides** (especially strong on Claude + Excel).
+## Key Features
 
-No sign-up, no fluff. Just actionable knowledge you can use in 5 minutes.
+• Interactive Situation Switchers: Dynamically update prompts and visual diagnostics based on your specific Excel error or scenario.
 
-## What you'll find
+• Visual Before/After Diagnostics: Clear side-by-side breakdowns showing broken formulas vs. AI-reconstructed solutions.
 
-- **Prompt Library** – 80+ ready-to-use prompts organized by department (Finance, HR, Legal, Sales, Operations, Management)
-- **Smart Prompt Generators** with built-in filters to reduce hallucinations
-- **148 Mini-Courses & Guides** with final tests
-- Heavy focus on **Claude AI + Excel** workflows
+• Step-by-Step Execution: 5-step guides covering context gathering, prompt execution, and formula verification.
 
-## Quick Links
+• Formula & Model Builders: Dedicated copy-paste tools for error fixing, data cleaning, financial modeling, and formula generation.
+
+100% free, no signups required, static and fast.
 
 → [Visit PairWorkflows](https://www.pairworkflows.com/)  
-→ [Prompt Library](https://www.pairworkflows.com/prompt-library.html)
+→ [Prompt Tools]((https://www.pairworkflows.com/prompt-generator-excel.html))
 
 ---
 
-**Designed for busy professionals who want to work smarter with AI.**
+**Designed for anyone who opens Excel regularly and wants to spend less time wrestling with formulas and errors.**
