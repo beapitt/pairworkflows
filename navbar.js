@@ -242,11 +242,11 @@
                 <a href="https://www.pairworkflows.com/ai-for-excel.html">All Excel Workflows</a>
                 <div class="nav-dropdown-divider"></div>
                 <div class="nav-dropdown-label">By topic</div>
-                <a href="https://www.pairworkflows.com/claude-excel-ref-errors.html">Fix Excel Errors</a>
-                <a href="https://www.pairworkflows.com/claude-excel-xlookup.html">Formulas &amp; Functions</a>
-                <a href="https://www.pairworkflows.com/claude-excel-clean-data.html">Data Cleaning</a>
-                <a href="https://www.pairworkflows.com/bank-reconciliation-excel-claude.html">Finance Models</a>
-                <a href="https://www.pairworkflows.com/claude-excel-dynamic-reports.html">Dynamic Reports</a>
+                <a href="https://www.pairworkflows.com/excel-errors-claude.html">Fix Excel Errors</a>
+                <a href="https://www.pairworkflows.com/excel-formulas-claude.html">Formulas &amp; Functions</a>
+                <a href="https://www.pairworkflows.com/excel-data-cleaning-claude.html">Data Cleaning</a>
+                <a href="https://www.pairworkflows.com/excel-finance-models-claude.html">Finance Models</a>
+                <a href="https://www.pairworkflows.com/excel-reports-claude.html">Dynamic Reports</a>
               </div>
             </div>
 
@@ -302,11 +302,11 @@
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Excel Workflows</div>
         <a href="https://www.pairworkflows.com/ai-for-excel.html">All Excel Workflows</a>
-        <a href="https://www.pairworkflows.com/claude-excel-ref-errors.html">Fix Excel Errors</a>
-        <a href="https://www.pairworkflows.com/claude-excel-xlookup.html">Formulas &amp; Functions</a>
-        <a href="https://www.pairworkflows.com/claude-excel-clean-data.html">Data Cleaning</a>
-        <a href="https://www.pairworkflows.com/bank-reconciliation-excel-claude.html">Finance Models</a>
-        <a href="https://www.pairworkflows.com/claude-excel-dynamic-reports.html">Dynamic Reports</a>
+        <a href="https://www.pairworkflows.com/excel-errors-claude.html">Fix Excel Errors</a>
+        <a href="https://www.pairworkflows.com/excel-formulas-claude.html">Formulas &amp; Functions</a>
+        <a href="https://www.pairworkflows.com/excel-data-cleaning-claude.html">Data Cleaning</a>
+        <a href="https://www.pairworkflows.com/excel-finance-models-claude.html">Finance Models</a>
+        <a href="https://www.pairworkflows.com/excel-reports-claude.html">Dynamic Reports</a>
       </div>
       <div class="nav-mobile-divider"></div>
       <div class="nav-mobile-section">
