@@ -40,7 +40,13 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
 .prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
 .prompt-hint a:hover{text-decoration:underline}
-.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
+
+/* DYNAMIC PANELS */
+.ba-panel { display: none; margin-bottom: 1.75rem; }
+.ba-panel.on { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: stretch; }
+.steps-panel { display: none; }
+.steps-panel.on { display: block; }
+
 .ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
@@ -83,7 +89,6 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .tip{background:#fffbeb;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#92400e;line-height:1.65}
 .tip strong{color:#78350f}
 .faq-section{margin-bottom:1.75rem}
-.faq-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1rem}
 .faq-item{border-bottom:1px solid #f3f4f6;padding:.9rem 0}
 .faq-q{font-size:13px;font-weight:600;color:#1f2937;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .faq-q i{color:#9ca3af;transition:transform .2s;flex-shrink:0}
@@ -107,7 +112,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
 @media(max-width:640px){
   .hero h1{font-size:24px}
-  .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-panel.on{grid-template-columns:1fr;gap:8px}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
@@ -159,6 +164,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
       </div>
     </div>
 
+    <!-- Panel: Build -->
     <div id="p-build" class="panel on">
       <div class="prompt-box">
         <pre>ROLE
@@ -192,6 +198,7 @@ OUTPUT
       <p class="prompt-hint">Replace the bracketed section with your task list. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
     </div>
 
+    <!-- Panel: Owner -->
     <div id="p-owner" class="panel">
       <div class="prompt-box">
         <pre>I have a month-end close checklist in Excel. I need to add an
@@ -212,6 +219,7 @@ Format as a tab-separated table I can paste into Excel.</pre>
       <p class="prompt-hint">Adjust column letters and row numbers to match your actual spreadsheet layout.</p>
     </div>
 
+    <!-- Panel: Debug -->
     <div id="p-debug" class="panel">
       <div class="prompt-box">
         <pre>My month-end close checklist has a COUNTIF formula for % complete
@@ -230,8 +238,10 @@ wrong range reference.</pre>
     </div>
   </div>
 
-  <!-- BEFORE / AFTER VISUAL -->
-  <div class="before-after">
+  <!-- BEFORE / AFTER VISUAL DYNAMIC -->
+
+  <!-- BA: Build -->
+  <div class="before-after ba-panel on" id="ba-build">
     <div class="ba-col before">
       <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — flat list, no tracking</div>
       <div class="ba-body">
@@ -247,9 +257,7 @@ wrong range reference.</pre>
         </div>
       </div>
     </div>
-
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-
     <div class="ba-col after">
       <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude builds the tracker</div>
       <div class="ba-body">
@@ -264,6 +272,70 @@ wrong range reference.</pre>
           <pre>% Complete =COUNTIF(E2:E25,"Complete")/COUNTA(A2:A25)
 Tasks done: 1 of 3 → 33%
 Deadlines auto-update from Month-End Date cell</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BA: Owner -->
+  <div class="before-after ba-panel" id="ba-owner">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — anonymous task list</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Task</th><th>Status</th></tr>
+          <tr><td>Intercompany</td><td>Complete</td></tr>
+          <tr><td>Depreciation</td><td>In Progress</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          No accountability or workload visibility per person
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — owner workload breakdown</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Owner</th><th>Assigned</th><th>Done</th><th>%</th></tr>
+          <tr><td>J. Patel</td><td>8</td><td>8</td><td class="ok-cell">100%</td></tr>
+          <tr><td>S. Okafor</td><td>6</td><td>3</td><td class="warn-cell">50%</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's output</div>
+          <pre>COUNTIFS automatically tracks individual progress
+per team member across the master list. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BA: Debug -->
+  <div class="before-after ba-panel" id="ba-debug">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — broken percentage formula</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Metric</th><th>Value</th></tr>
+          <tr><td>% Complete</td><td class="err-cell">0% (Error)</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Formula looking for "Complete" while cells contain "Done" or trailing spaces
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — fixed syntax &amp; matching</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Metric</th><th>Value</th></tr>
+          <tr><td>% Complete</td><td class="ok-cell">75%</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's fix</div>
+          <pre>Validated options enforced via Data Validation.
+Formula recalculated successfully. ✓</pre>
         </div>
       </div>
     </div>
@@ -294,27 +366,75 @@ Deadlines auto-update from Month-End Date cell</pre>
     </div>
   </div>
 
-  <!-- STEPS -->
-  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
-  <div class="steps-card">
-    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a month-end close checklist with Claude — 4 steps</div>
-    <div class="step">
-      <div class="step-n">1</div>
-      <div class="step-body"><h3>Sequence tasks by dependency</h3><p>Order your close tasks by dependency before pasting into the prompt. Bank reconciliation must come before accruals. Fixed asset depreciation must come before the trial balance. Claude builds the checklist in the order you give — it won't reorder tasks without being asked.</p></div>
+  <!-- STEPS DYNAMIC -->
+
+  <!-- Steps: Build -->
+  <div class="steps-panel on" id="steps-build">
+    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+    <div class="steps-card">
+      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a month-end close checklist with Claude — 4 steps</div>
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body"><h3>Sequence tasks by dependency</h3><p>Order your close tasks by dependency before pasting into the prompt. Bank reconciliation must come before accruals. Fixed asset depreciation must come before the trial balance. Claude builds the checklist in the order you give — it won't reorder tasks without being asked.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body"><h3>Assign named owners, not team names</h3><p>Write "J. Patel" not "Accounting team". Named ownership creates accountability and enables the per-owner COUNTIFS summary. Claude generates that summary table automatically when owners are specific.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body"><h3>Set up Data Validation for the Status column</h3><p>In Excel: select the Status column → Data → Data Validation → List → type exactly: <code>Not Started,In Progress,Pending,Complete</code>. These must match the COUNTIF formula text exactly — one space difference returns 0.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">4</div>
+        <div class="step-body"><h3>Enter the Month-End Date once and let WORKDAY do the rest</h3><p>Claude creates a single input cell for the Month-End Date. All deadline cells reference it with <code>=WORKDAY(MonthEndDate, n)</code>. Change one date at the start of each month and every deadline updates automatically.</p></div>
+      </div>
+      <div class="tip"><strong>Tip:</strong> Add Conditional Formatting to the Status column — green fill for Complete, yellow for In Progress, red for Not Started — so the tracker reads at a glance without opening filters.</div>
     </div>
-    <div class="step">
-      <div class="step-n">2</div>
-      <div class="step-body"><h3>Assign named owners, not team names</h3><p>Write "J. Patel" not "Accounting team". Named ownership creates accountability and enables the per-owner COUNTIFS summary. Claude generates that summary table automatically when owners are specific.</p></div>
+  </div>
+
+  <!-- Steps: Owner -->
+  <div class="steps-panel" id="steps-owner">
+    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+    <div class="steps-card">
+      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Track workload by team member — 4 steps</div>
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body"><h3>Isolate individual owner names</h3><p>Ensure each task row contains a clear individual identifier in the Owner column rather than shared aliases.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body"><h3>Create an independent summary block</h3><p>Designate a separate table matrix outside the main task list to display aggregated totals per person.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body"><h3>Apply COUNTIFS syntax</h3><p>Use Claude's prompt output to dynamically count assigned tasks vs. completed ones based on matching text criteria.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">4</div>
+        <div class="step-body"><h3>Review bottlenecks before sign-off</h3><p>Scan the completion column to identify which team members are holding up the final closing sequence.</p></div>
+      </div>
     </div>
-    <div class="step">
-      <div class="step-n">3</div>
-      <div class="step-body"><h3>Set up Data Validation for the Status column</h3><p>In Excel: select the Status column → Data → Data Validation → List → type exactly: <code>Not Started,In Progress,Pending,Complete</code>. These must match the COUNTIF formula text exactly — one space difference returns 0.</p></div>
+  </div>
+
+  <!-- Steps: Debug -->
+  <div class="steps-panel" id="steps-debug">
+    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+    <div class="steps-card">
+      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Troubleshoot broken summary formulas — 3 steps</div>
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body"><h3>Inspect text formatting</h3><p>Check if your status cells contain hidden trailing spaces or alternative strings like "Done" instead of "Complete".</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body"><h3>Enforce Data Validation dropdowns</h3><p>Lock down input options to restrict team members from entering custom text values that invalidate formula logic.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body"><h3>Run the Debug prompt</h3><p>Paste your syntax into Claude to instantly diagnose range mismatches or incorrect quotation wrapping.</p></div>
+      </div>
     </div>
-    <div class="step">
-      <div class="step-n">4</div>
-      <div class="step-body"><h3>Enter the Month-End Date once and let WORKDAY do the rest</h3><p>Claude creates a single input cell for the Month-End Date. All deadline cells reference it with <code>=WORKDAY(MonthEndDate, n)</code>. Change one date at the start of each month and every deadline updates automatically.</p></div>
-    </div>
-    <div class="tip"><strong>Tip:</strong> Add Conditional Formatting to the Status column — green fill for Complete, yellow for In Progress, red for Not Started — so the tracker reads at a glance without opening filters.</div>
   </div>
 
   <!-- FAQ -->
@@ -365,8 +485,17 @@ Deadlines auto-update from Month-End Date cell</pre>
 function switchTab(btn,id){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.ba-panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.steps-panel').forEach(function(p){p.classList.remove('on')});
+
   btn.classList.add('on');
   document.getElementById('p-'+id).classList.add('on');
+
+  var ba = document.getElementById('ba-'+id);
+  if(ba) ba.classList.add('on');
+
+  var steps = document.getElementById('steps-'+id);
+  if(steps) steps.classList.add('on');
 }
 function copyPrompt(btn){
   var text=btn.previousElementSibling.innerText;
