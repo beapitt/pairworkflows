@@ -240,30 +240,37 @@ Please write the formula that calculates the bonus amount.</pre>
   <!-- Tab: build -->
   <div class="before-after ba-panel on" id="ba-build">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — nested IF wall of brackets</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — 4 nested IFs, impossible to audit</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Cell</th><th>Formula</th></tr>
-          <tr><td>C2</td><td class="err-cell">=IF(B2&gt;=90,"A",IF(B2&gt;=80,"B",IF(B2&gt;=70,"C",IF(B2&lt;70,"Fail","—"))))</td></tr>
+          <tr><th>Student</th><th>Score</th><th>Grade formula (col C)</th><th>Result</th></tr>
+          <tr><td>A. Morris</td><td>94</td><td class="err-cell">=IF(B2&gt;=90,"A",IF(B2&gt;=80,"B",IF(B2&gt;=70,"C",IF(B2&lt;70,"Fail","—"))))</td><td>A</td></tr>
+          <tr><td>B. Chen</td><td>83</td><td class="err-cell">same formula ↑</td><td>B</td></tr>
+          <tr><td>C. Singh</td><td>71</td><td class="err-cell">same formula ↑</td><td>C</td></tr>
+          <tr><td>D. Okafor</td><td>58</td><td class="err-cell">same formula ↑</td><td>Fail</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          4 closing brackets — one wrong and the formula breaks
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Hard to read, hard to debug, hard to hand over</div>
+          4 closing brackets — slip one and every grade in column C breaks silently
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Can't add a 5th grade tier (A+) without rewriting the whole chain</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — clean IFS with default case</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — IFS, one bracket, easy to extend</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Cell</th><th>Formula</th></tr>
-          <tr><td>C2</td><td class="ok-cell">=IFS(B2&gt;=90,"A",B2&gt;=80,"B",B2&gt;=70,"C",B2&lt;70,"Fail",TRUE,"—")</td></tr>
+          <tr><th>Student</th><th>Score</th><th>IFS formula (col C)</th><th>Grade</th></tr>
+          <tr><td>A. Morris</td><td>94</td><td class="link-cell">=IFS(B2&gt;=90,"A",B2&gt;=80,"B",B2&gt;=70,"C",TRUE,"Fail")</td><td class="ok-cell">A ✓</td></tr>
+          <tr><td>B. Chen</td><td>83</td><td class="link-cell">same formula ↑</td><td class="ok-cell">B ✓</td></tr>
+          <tr><td>C. Singh</td><td>71</td><td class="link-cell">same formula ↑</td><td class="ok-cell">C ✓</td></tr>
+          <tr><td>D. Okafor</td><td>58</td><td class="link-cell">same formula ↑</td><td class="ok-cell">Fail ✓</td></tr>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's formula</div>
-          <pre>One closing bracket. Each condition is a clear pair.
-TRUE,"—" catches anything unexpected. ✓</pre>
+          <pre>=IFS(B2&gt;=90,"A", B2&gt;=80,"B", B2&gt;=70,"C", TRUE,"Fail")
+1 bracket. Add A+ tier: prepend B2&gt;=95,"A+" before B2&gt;=90.
+TRUE,"Fail" catches any score below 70 automatically. ✓</pre>
         </div>
       </div>
     </div>
@@ -272,34 +279,39 @@ TRUE,"—" catches anything unexpected. ✓</pre>
   <!-- Tab: debug -->
   <div class="before-after ba-panel" id="ba-debug">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — wrong result at boundary value</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — exact boundary scores land in wrong bucket</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Score</th><th>Expected</th><th>Actual</th></tr>
-          <tr><td>95</td><td>A</td><td class="ok-cell">A ✓</td></tr>
-          <tr><td class="err-cell">80</td><td>B</td><td class="err-cell">C ✗</td></tr>
-          <tr><td>75</td><td>C</td><td class="ok-cell">C ✓</td></tr>
+          <tr><th>Student</th><th>Score</th><th>Expected</th><th>Formula returns</th><th>Correct?</th></tr>
+          <tr><td>A. Morris</td><td>95</td><td>A</td><td class="ok-cell">A</td><td class="ok-cell">✓</td></tr>
+          <tr><td>B. Chen</td><td class="err-cell">90</td><td>A</td><td class="err-cell">B ✗</td><td class="err-cell">✗</td></tr>
+          <tr><td>C. Singh</td><td class="err-cell">80</td><td>B</td><td class="err-cell">C ✗</td><td class="err-cell">✗</td></tr>
+          <tr><td>D. Okafor</td><td class="err-cell">70</td><td>C</td><td class="err-cell">Fail ✗</td><td class="err-cell">✗</td></tr>
+          <tr><td>E. Patel</td><td>65</td><td>Fail</td><td class="ok-cell">Fail</td><td class="ok-cell">✓</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          =IF(B2&gt;80,"A",IF(B2&gt;70,"B",...)) — &gt; instead of &gt;=
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Score of exactly 80 falls into the wrong bucket</div>
+          =IF(B2&gt;90,"A",IF(B2&gt;80,"B",IF(B2&gt;70,"C","Fail"))) — strict &gt; not &gt;=
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ 3 students at exact boundary all get the grade below — one character wrong</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude fixes the operator</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude changes &gt; to &gt;= at every threshold</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Score</th><th>Expected</th><th>Actual</th></tr>
-          <tr><td>95</td><td>A</td><td class="ok-cell">A ✓</td></tr>
-          <tr><td>80</td><td>B</td><td class="ok-cell">B ✓</td></tr>
-          <tr><td>75</td><td>C</td><td class="ok-cell">C ✓</td></tr>
+          <tr><th>Student</th><th>Score</th><th>Expected</th><th>Fixed result</th><th>Correct?</th></tr>
+          <tr><td>A. Morris</td><td>95</td><td>A</td><td class="ok-cell">A</td><td class="ok-cell">✓</td></tr>
+          <tr><td>B. Chen</td><td>90</td><td>A</td><td class="ok-cell">A ✓</td><td class="ok-cell">✓</td></tr>
+          <tr><td>C. Singh</td><td>80</td><td>B</td><td class="ok-cell">B ✓</td><td class="ok-cell">✓</td></tr>
+          <tr><td>D. Okafor</td><td>70</td><td>C</td><td class="ok-cell">C ✓</td><td class="ok-cell">✓</td></tr>
+          <tr><td>E. Patel</td><td>65</td><td>Fail</td><td class="ok-cell">Fail</td><td class="ok-cell">✓</td></tr>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's fix</div>
-          <pre>=IFS(B2&gt;=90,"A",B2&gt;=80,"B",B2&gt;=70,"C",TRUE,"Fail")
-Changed &gt; to &gt;= — boundary values now correct. ✓</pre>
+          <pre>=IFS(B2&gt;=90,"A", B2&gt;=80,"B", B2&gt;=70,"C", TRUE,"Fail")
+Changed &gt; to &gt;= at all 3 thresholds.
+All 5 students now correct — including exact boundaries. ✓</pre>
         </div>
       </div>
     </div>
@@ -308,34 +320,42 @@ Changed &gt; to &gt;= — boundary values now correct. ✓</pre>
   <!-- Tab: bonus -->
   <div class="before-after ba-panel" id="ba-bonus">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — bonus calculated manually</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — bonus hand-calculated each pay cycle</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Employee</th><th>Score</th><th>Salary</th><th>Bonus</th></tr>
-          <tr><td>Adams</td><td class="hl">5</td><td>£40,000</td><td class="err-cell">Manual</td></tr>
-          <tr><td>Bell</td><td class="hl">3</td><td>£35,000</td><td class="err-cell">Manual</td></tr>
-          <tr><td>Clark</td><td>1</td><td>£38,000</td><td class="err-cell">Manual</td></tr>
+          <tr><th>Employee</th><th>Dept</th><th>Score</th><th>Salary</th><th>Bonus %</th><th>Bonus £</th></tr>
+          <tr><td>Adams, J.</td><td>Sales</td><td class="hl">5</td><td>£48,000</td><td class="err-cell">20%</td><td class="err-cell">Manual</td></tr>
+          <tr><td>Bell, K.</td><td>Finance</td><td class="hl">4</td><td>£52,000</td><td class="err-cell">10%</td><td class="err-cell">Manual</td></tr>
+          <tr><td>Chen, L.</td><td>HR</td><td class="hl">3</td><td>£38,000</td><td class="err-cell">5%</td><td class="err-cell">Manual</td></tr>
+          <tr><td>Davis, M.</td><td>Ops</td><td>2</td><td>£41,000</td><td class="err-cell">0%</td><td class="err-cell">Manual</td></tr>
+          <tr><td>Evans, P.</td><td>Sales</td><td>1</td><td>£44,500</td><td class="err-cell">0%</td><td class="err-cell">Manual</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          No formula — bonus calculated separately each cycle
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Describe the tier rules, Claude writes the formula</div>
+          5 employees × manual lookup every cycle — wrong tier applied twice last year
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Describe the score-to-% rules, Claude writes one formula for every row</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude writes the bonus formula</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — one IFS formula, applied to all rows</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Employee</th><th>Score</th><th>Salary</th><th>Bonus</th></tr>
-          <tr><td>Adams</td><td class="hl">5</td><td>£40,000</td><td class="ok-cell">£8,000 ✓</td></tr>
-          <tr><td>Bell</td><td class="hl">3</td><td>£35,000</td><td class="ok-cell">£1,750 ✓</td></tr>
-          <tr><td>Clark</td><td>1</td><td>£38,000</td><td class="ok-cell">£0 ✓</td></tr>
+          <tr><th>Employee</th><th>Score</th><th>Salary</th><th>Bonus %</th><th>Bonus £</th></tr>
+          <tr><td>Adams, J.</td><td class="hl">5</td><td>£48,000</td><td class="link-cell">20%</td><td class="ok-cell">£9,600 ✓</td></tr>
+          <tr><td>Bell, K.</td><td class="hl">4</td><td>£52,000</td><td class="link-cell">10%</td><td class="ok-cell">£5,200 ✓</td></tr>
+          <tr><td>Chen, L.</td><td class="hl">3</td><td>£38,000</td><td class="link-cell">5%</td><td class="ok-cell">£1,900 ✓</td></tr>
+          <tr><td>Davis, M.</td><td>2</td><td>£41,000</td><td>0%</td><td class="ok-cell">£0 ✓</td></tr>
+          <tr><td>Evans, P.</td><td>1</td><td>£44,500</td><td>0%</td><td class="ok-cell">£0 ✓</td></tr>
+          <tr class="section-row"><td colspan="4">Total bonus payout</td><td class="ok-cell">£16,700 ✓</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's formula</div>
-          <pre>=IFS(C2=5,D2*0.2,C2=4,D2*0.1,C2=3,D2*0.05,TRUE,0)
-Score-to-bonus tiers applied automatically. ✓</pre>
+          <div class="claude-fix-label">Claude's formula (col F)</div>
+          <pre>=IFS(C2=5,D2*0.2, C2=4,D2*0.1, C2=3,D2*0.05, TRUE,0)
+Drag down — same formula for every employee.
+Adams: £48,000×20% = £9,600
+Bell:  £52,000×10% = £5,200
+Total: £16,700 ✓</pre>
         </div>
       </div>
     </div>
