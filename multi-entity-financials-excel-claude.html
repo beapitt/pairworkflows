@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>How to Consolidate Multi-Entity Financials in Excel with Claude AI — PairWorkflows</title>
-<meta name="description" content="Use Claude AI to consolidate multi-entity financials in Excel. Combine subsidiary P&Ls, post intercompany eliminations, and produce a group-level report.">
+<meta name="description" content="Learn how to consolidate multi-entity financials in Excel with Claude AI, including subsidiary P&Ls, intercompany eliminations, and group-level reporting.">
 <link rel="canonical" href="https://www.pairworkflows.com/multi-entity-financials-excel-claude.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What are intercompany eliminations and why do they matter?","acceptedAnswer":{"@type":"Answer","text":"Intercompany eliminations remove transactions between entities within the same group — for example, one subsidiary selling services to another. Without eliminations, group revenue and expenses would be overstated because the same transaction appears in both entities' books."}},{"@type":"Question","name":"Can Claude handle currency conversion for foreign subsidiaries?","acceptedAnswer":{"@type":"Answer","text":"Yes. Include each entity's reporting currency and the exchange rate in your prompt. Claude adds a converted column for each entity before consolidating. You specify whether to use the closing rate for balance sheet items and the average rate for P&L items."}},{"@type":"Question","name":"How many entities can this template handle?","acceptedAnswer":{"@type":"Answer","text":"The structure works for any number of entities. For 2-5 entities, a single-sheet layout works well. For larger groups, Claude can structure the workbook with one tab per entity plus a consolidation tab that pulls from each."}},{"@type":"Question","name":"Does this produce a consolidated balance sheet or just a P&L?","acceptedAnswer":{"@type":"Answer","text":"The prompt focuses on the consolidated P&L because that is the most common Excel consolidation task. You can extend it to include a balance sheet by adding balance sheet line items and telling Claude to apply the same elimination logic to intercompany receivables and payables."}},{"@type":"Question","name":"Will Claude invent elimination entries I haven't provided?","acceptedAnswer":{"@type":"Answer","text":"No. The prompt explicitly instructs Claude to use only the intercompany transactions you list. If an imbalance exists between entities, Claude flags it rather than fabricating an offsetting entry."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -396,7 +396,7 @@ Eliminations column balances after adjustment. ✓</pre>
   </div>
 
   <!-- STEPS -->
-  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+  <h1>How to Consolidate Multi-Entity Financials in Excel with Claude AI</h1>
   <div class="steps-card">
     <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Consolidate multi-entity financials with Claude — 4 steps</div>
     <div class="step">
@@ -419,7 +419,7 @@ Eliminations column balances after adjustment. ✓</pre>
   </div>
 
   <!-- FAQ -->
-  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Frequently asked questions</h2>
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Intercompany eliminations and financial consolidation FAQs</h2>
   <div class="faq-section">
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What are intercompany eliminations and why do they matter? <i class="ti ti-chevron-down"></i></div>
