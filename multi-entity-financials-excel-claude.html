@@ -56,6 +56,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .xl-table .elim-cell{color:#dc2626;font-weight:600;background:#fef2f2}
 .xl-table .consol-cell{color:#1f4e79;font-weight:700;background:#e8f0fe}
 .xl-table .total-cell{color:#276221;font-weight:700;background:#e2efda}
+.ba-panel{display:none;margin-bottom:1.75rem}
+.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
 .ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
 .claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
@@ -247,40 +249,122 @@ Please:
     </div>
   </div>
 
-  <!-- BEFORE / AFTER VISUAL -->
-  <div class="before-after">
+  <!-- BEFORE / AFTER VISUAL — dynamic per tab -->
+
+  <!-- Tab: consol -->
+  <div class="before-after ba-panel on" id="ba-consol">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — entities side by side, no eliminations</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — intercompany revenue counted twice</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Line Item</th><th>Entity A</th><th>Entity B</th><th>Total</th></tr>
-          <tr><td>Revenue</td><td>1,200,000</td><td>800,000</td><td class="err-cell">2,000,000</td></tr>
-          <tr><td>COGS</td><td>480,000</td><td>340,000</td><td class="err-cell">820,000</td></tr>
-          <tr><td>Net Income</td><td>200,000</td><td>110,000</td><td class="err-cell">310,000</td></tr>
+          <tr><th>Line Item</th><th>Entity A</th><th>Entity B</th><th>Naive Total</th></tr>
+          <tr><td>Revenue</td><td>£1,200,000</td><td>£800,000</td><td class="err-cell">£2,000,000</td></tr>
+          <tr><td>COGS</td><td>£480,000</td><td>£490,000</td><td class="err-cell">£970,000</td></tr>
+          <tr><td>Gross Profit</td><td>£720,000</td><td>£310,000</td><td class="err-cell">£1,030,000</td></tr>
+          <tr><td>OpEx</td><td>£320,000</td><td>£140,000</td><td>£460,000</td></tr>
+          <tr><td>Op. Income</td><td>£400,000</td><td>£170,000</td><td class="err-cell">£570,000</td></tr>
+          <tr><td>Net Income</td><td>£280,000</td><td>£120,000</td><td class="err-cell">£400,000</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          £150,000 intercompany sale counted twice
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Revenue overstated, group profit wrong</div>
+          Entity A → Entity B: £150,000 manufacturing services
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Revenue overstated by £150k, COGS also overstated</div>
         </div>
       </div>
     </div>
-
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-
     <div class="ba-col after">
       <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude consolidates with eliminations</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Line Item</th><th>Entity A</th><th>Elim.</th><th>Consol.</th></tr>
-          <tr><td>Revenue</td><td>1,200,000</td><td class="elim-cell">−150,000</td><td class="consol-cell">1,850,000</td></tr>
-          <tr><td>COGS</td><td>480,000</td><td class="elim-cell">−150,000</td><td class="consol-cell">670,000</td></tr>
-          <tr><td>Net Income</td><td>200,000</td><td>0</td><td class="total-cell">340,000</td></tr>
+          <tr><th>Line Item</th><th>Entity A</th><th>Entity B</th><th>Elim.</th><th>Consolidated</th></tr>
+          <tr><td>Revenue</td><td>£1,200,000</td><td>£800,000</td><td class="elim-cell">−£150,000</td><td class="consol-cell">£1,850,000</td></tr>
+          <tr><td>COGS</td><td>£480,000</td><td>£490,000</td><td class="elim-cell">−£150,000</td><td class="consol-cell">£820,000</td></tr>
+          <tr><td>Gross Profit</td><td>£720,000</td><td>£310,000</td><td>£0</td><td class="total-cell">£1,030,000</td></tr>
+          <tr><td>OpEx</td><td>£320,000</td><td>£140,000</td><td>£0</td><td class="consol-cell">£460,000</td></tr>
+          <tr><td>Op. Income</td><td>£400,000</td><td>£170,000</td><td>£0</td><td class="total-cell">£570,000</td></tr>
+          <tr><td>Net Income</td><td>£280,000</td><td>£120,000</td><td>£0</td><td class="total-cell">£400,000</td></tr>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's output</div>
-          <pre>Elim: Dr Revenue £150k / Cr COGS £150k
-Both sides net to zero. ✓
-Imbalance check: none flagged.</pre>
+          <pre>Elim. Revenue: −£150,000 (A's interco sale removed)
+Elim. COGS:    −£150,000 (B's interco cost removed)
+Both sides net to zero on Consolidated. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: currency -->
+  <div class="before-after ba-panel" id="ba-currency">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — EUR figures added directly to GBP</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Line Item</th><th>Entity A (GBP)</th><th>Entity B (EUR)</th><th>Wrong Total</th></tr>
+          <tr><td>Revenue</td><td>£1,200,000</td><td class="err-cell">€950,000</td><td class="err-cell">2,150,000 ✗</td></tr>
+          <tr><td>COGS</td><td>£480,000</td><td class="err-cell">€380,000</td><td class="err-cell">860,000 ✗</td></tr>
+          <tr><td>Gross Profit</td><td>£720,000</td><td class="err-cell">€570,000</td><td class="err-cell">1,290,000 ✗</td></tr>
+          <tr><td>OpEx</td><td>£320,000</td><td class="err-cell">€210,000</td><td class="err-cell">530,000 ✗</td></tr>
+          <tr><td>Net Income</td><td>£280,000</td><td class="err-cell">€192,000</td><td class="err-cell">472,000 ✗</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          EUR and GBP added together — meaningless total
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Rate: 1 EUR = 0.86 GBP — must convert before consolidating</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude converts then consolidates</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Line Item</th><th>Entity A (GBP)</th><th>Entity B (GBP)</th><th>Elim.</th><th>Consolidated</th></tr>
+          <tr><td>Revenue</td><td>£1,200,000</td><td class="link-cell">£817,000</td><td class="elim-cell">−£86,000</td><td class="consol-cell">£1,931,000</td></tr>
+          <tr><td>COGS</td><td>£480,000</td><td class="link-cell">£326,800</td><td class="elim-cell">−£86,000</td><td class="consol-cell">£720,800</td></tr>
+          <tr><td>Gross Profit</td><td>£720,000</td><td class="link-cell">£490,200</td><td>£0</td><td class="total-cell">£1,210,200</td></tr>
+          <tr><td>OpEx</td><td>£320,000</td><td class="link-cell">£180,600</td><td>£0</td><td class="consol-cell">£500,600</td></tr>
+          <tr><td>Net Income</td><td>£280,000</td><td class="link-cell">£165,120</td><td>£0</td><td class="total-cell">£445,120</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's conversion</div>
+          <pre>Entity B (GBP) = EUR × 0.86 avg period rate
+Interco elim. converted at same rate.
+All figures now in GBP before consolidation. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: debug -->
+  <div class="before-after ba-panel" id="ba-debug">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — intercompany imbalance blocks sign-off</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Transaction</th><th>Entity A records</th><th>Entity B records</th><th>Difference</th></tr>
+          <tr><td>IT Services</td><td class="hl">£150,000 Revenue</td><td class="err-cell">£145,000 OpEx</td><td class="err-cell">£5,000 ✗</td></tr>
+          <tr><td>Mgmt Fee</td><td class="hl">£30,000 Revenue</td><td class="ok-cell">£30,000 OpEx</td><td class="ok-cell">£0 ✓</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          £5,000 imbalance on IT Services — cannot eliminate cleanly
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Likely: invoice timing difference or FX rounding</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude identifies cause and adjusting entry</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Action</th><th>Entity</th><th>Dr</th><th>Cr</th><th>Amount</th></tr>
+          <tr><td>Accrual</td><td class="link-cell">Entity B</td><td>OpEx</td><td>Accruals</td><td class="ok-cell">£5,000</td></tr>
+          <tr><td>After adjustment</td><td>IT Services</td><td class="ok-cell">£150,000</td><td class="ok-cell">£150,000</td><td class="ok-cell">£0 ✓</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's diagnosis</div>
+          <pre>Cause: invoice not yet posted in Entity B's period.
+Fix: Entity B accrues £5,000 OpEx this period.
+Eliminations column balances after adjustment. ✓</pre>
         </div>
       </div>
     </div>
@@ -386,8 +470,10 @@ Imbalance check: none flagged.</pre>
 function switchTab(btn,id){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.ba-panel').forEach(function(p){p.classList.remove('on')});
   btn.classList.add('on');
   document.getElementById('p-'+id).classList.add('on');
+  document.getElementById('ba-'+id).classList.add('on');
 }
 function copyPrompt(btn){
   var text=btn.previousElementSibling.innerText;
