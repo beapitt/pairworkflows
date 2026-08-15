@@ -65,6 +65,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .xl-table .hl{background:#fffbeb}
 .xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
 .xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.ba-panel{display:none;margin-bottom:1.75rem}
+.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
 .ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
 .claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
@@ -279,38 +281,133 @@ Current. Explain the new priority for each invoice in one short phrase.</pre>
     </div>
   </div>
 
-  <!-- BEFORE / AFTER VISUAL -->
-  <div class="before-after">
+  <!-- BEFORE / AFTER VISUAL — dynamic per tab -->
+
+  <!-- Tab: build -->
+  <div class="before-after ba-panel on" id="ba-build">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — priority by age alone</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — flat invoice list, no aging, no priority</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Vendor</th><th>Amount</th><th>Priority</th></tr>
-          <tr><td>Office Supply Co</td><td>800</td><td class="err-cell">High (60 days)</td></tr>
-          <tr><td>Sole Raw-Material Supplier</td><td>67,500</td><td class="hl">Medium (45 days)</td></tr>
+          <tr><th>Vendor</th><th>Invoice #</th><th>Due Date</th><th>Amount</th><th>Terms</th><th>Bucket</th><th>Priority</th></tr>
+          <tr><td>Apex Logistics</td><td>APX-1041</td><td>15/05/2026</td><td>$67,500</td><td>Net 30</td><td class="err-cell">?</td><td class="err-cell">?</td></tr>
+          <tr><td>Print Co</td><td>PC-0882</td><td>10/06/2026</td><td>$3,200</td><td>2/10 Net 30</td><td class="err-cell">?</td><td class="err-cell">?</td></tr>
+          <tr><td>Cloud Infra Ltd</td><td>CIL-2201</td><td>01/07/2026</td><td>$12,400</td><td>Net 60</td><td class="err-cell">?</td><td class="err-cell">?</td></tr>
+          <tr><td>Office Depot</td><td>OD-0044</td><td>20/07/2026</td><td>$840</td><td>Net 30</td><td class="err-cell">?</td><td class="err-cell">?</td></tr>
+          <tr><td>Apex Logistics</td><td>APX-1055</td><td>28/07/2026</td><td>$31,200</td><td>Net 30</td><td class="err-cell">?</td><td class="err-cell">?</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Age-only ranking flags the wrong invoice as top priority
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ A $800 office invoice outranks a $67,500 sole-supplier invoice</div>
+          Report date: 15/08/2026 · No buckets, no flags, no DPO — which do you pay first?
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ APX-1041 is 92 days overdue — invisible in a flat list</div>
         </div>
       </div>
     </div>
-
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude fixes it</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude builds full aging dashboard</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Vendor</th><th>Amount</th><th>Priority</th></tr>
-          <tr><td>Office Supply Co</td><td>800</td><td class="ok-cell">Low</td></tr>
-          <tr><td>Sole Raw-Material Supplier</td><td>67,500</td><td class="link-cell">High (Critical)</td></tr>
+          <tr><th>Vendor</th><th>Invoice #</th><th>Amount</th><th>Days Overdue</th><th>Bucket</th><th>Discount</th><th>Priority</th></tr>
+          <tr><td>Apex Logistics</td><td>APX-1041</td><td>$67,500</td><td class="err-cell">92 days</td><td class="err-cell">90+</td><td>—</td><td class="err-cell">🔴 High</td></tr>
+          <tr><td>Apex Logistics</td><td>APX-1055</td><td>$31,200</td><td class="err-cell">18 days</td><td class="err-cell">1–30</td><td>—</td><td class="err-cell">🔴 High</td></tr>
+          <tr><td>Print Co</td><td>PC-0882</td><td>$3,200</td><td class="err-cell">66 days</td><td class="err-cell">61–90</td><td class="ok-cell">Disc Expired</td><td class="hl">🟡 Medium</td></tr>
+          <tr><td>Cloud Infra Ltd</td><td>CIL-2201</td><td>$12,400</td><td class="hl">45 days</td><td class="hl">31–60</td><td>—</td><td class="hl">🟡 Medium</td></tr>
+          <tr><td>Office Depot</td><td>OD-0044</td><td>$840</td><td class="ok-cell">26 days</td><td>1–30</td><td>—</td><td class="ok-cell">🟢 Low</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's fix</div>
-          <pre>Priority = f(days overdue, amount, Critical Vendor flag)
-Critical Vendor invoices float to High
-regardless of age. ✓</pre>
+          <div class="claude-fix-label">Claude's AP summary</div>
+          <pre>Total AP:        $115,140
+Current:               $0
+1–30 days:        $32,040  (APX-1055 + OD-0044)
+31–60 days:       $12,400
+61–90 days:        $3,200
+90+ days:         $67,500  ← pay immediately
+DPO = $115,140 ÷ ($820,000 ÷ 180) = 25.2 days ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: discount -->
+  <div class="before-after ba-panel" id="ba-discount">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — discount windows missed, cash wasted</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Vendor</th><th>Invoice #</th><th>Inv. Date</th><th>Amount</th><th>Terms</th><th>Disc Window</th><th>Action</th></tr>
+          <tr><td>Print Co</td><td>PC-0882</td><td>11/06/2026</td><td>$3,200</td><td>2/10 Net 30</td><td class="err-cell">Expires 21/06</td><td class="err-cell">Missed ✗</td></tr>
+          <tr><td>Apex Supply</td><td>AS-4401</td><td>01/08/2026</td><td>$28,000</td><td>1/10 Net 60</td><td class="ok-cell">Expires 11/08</td><td class="err-cell">Not reviewed</td></tr>
+          <tr><td>Packaging Ltd</td><td>PL-1103</td><td>05/08/2026</td><td>$14,500</td><td>2/10 Net 30</td><td class="ok-cell">Expires 15/08</td><td class="err-cell">Not reviewed</td></tr>
+          <tr><td>Nord Freight</td><td>NF-0027</td><td>10/08/2026</td><td>$9,200</td><td>1.5/10 Net 30</td><td class="ok-cell">Expires 20/08</td><td class="err-cell">Not reviewed</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Today: 15/08/2026 · Available cash: $40,000 — which discounts are still open?
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Print Co discount already expired — $64 lost</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude ranks open discount opportunities</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Vendor</th><th>Amount</th><th>Disc Rate</th><th>Disc £</th><th>Days Left</th><th>Cash Used</th><th>Rank</th></tr>
+          <tr><td>Apex Supply</td><td>$28,000</td><td>1%</td><td class="ok-cell">$280</td><td class="err-cell">Expires today</td><td>$27,720</td><td class="err-cell">⚠ Pay now</td></tr>
+          <tr><td>Packaging Ltd</td><td>$14,500</td><td>2%</td><td class="ok-cell">$290</td><td class="ok-cell">0 days</td><td>$14,210</td><td class="ok-cell">1st (2% rate)</td></tr>
+          <tr><td>Nord Freight</td><td>$9,200</td><td>1.5%</td><td class="ok-cell">$138</td><td class="ok-cell">5 days</td><td>$9,062</td><td class="ok-cell">2nd</td></tr>
+          <tr><td>Print Co</td><td>$3,200</td><td>2%</td><td class="err-cell">$64</td><td class="err-cell">Expired</td><td>—</td><td class="err-cell">Missed ✗</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's discount summary</div>
+          <pre>Available cash:    $40,000
+Pay Packaging Ltd: $14,210  saves $290 (2.0% eff. rate)
+Pay Nord Freight:   $9,062  saves $138 (1.5% eff. rate)
+Pay Apex Supply:   $27,720  saves $280 (1.0% eff. rate) ⚠ today
+Total savings if all taken: $708
+Cash required:     $50,992 → exceeds $40k limit
+Priority: Packaging first (best rate), then Nord. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: critical -->
+  <div class="before-after ba-panel" id="ba-critical">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — age-only priority ignores vendor criticality</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Vendor</th><th>Invoice #</th><th>Amount</th><th>Days Overdue</th><th>Critical?</th><th>Priority (age-only)</th></tr>
+          <tr><td>Office Depot</td><td>OD-0044</td><td>$840</td><td class="err-cell">62 days</td><td>N</td><td class="err-cell">🔴 High</td></tr>
+          <tr><td>Apex Logistics</td><td>APX-1055</td><td>$31,200</td><td class="hl">45 days</td><td class="ok-cell">Y — sole source</td><td class="hl">🟡 Medium</td></tr>
+          <tr><td>Cloud Infra Ltd</td><td>CIL-2201</td><td>$12,400</td><td class="hl">45 days</td><td class="ok-cell">Y — SLA risk</td><td class="hl">🟡 Medium</td></tr>
+          <tr><td>Print Co</td><td>PC-0882</td><td>$3,200</td><td>22 days</td><td>N</td><td class="ok-cell">🟢 Low</td></tr>
+          <tr><td>Nord Freight</td><td>NF-0027</td><td>$9,200</td><td>5 days</td><td class="ok-cell">Y — sole carrier</td><td class="ok-cell">🟢 Low</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Office Depot $840 outranks Apex Logistics $31,200 (sole source) — wrong
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Nord Freight 5 days overdue but sole carrier — should be escalated</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — critical vendors always float to High</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Vendor</th><th>Amount</th><th>Days Overdue</th><th>Critical?</th><th>New Priority</th><th>Reason</th></tr>
+          <tr><td>Apex Logistics</td><td>$31,200</td><td class="hl">45 days</td><td class="ok-cell">Y</td><td class="err-cell">🔴 High</td><td>Critical + 31–60 days</td></tr>
+          <tr><td>Cloud Infra Ltd</td><td>$12,400</td><td class="hl">45 days</td><td class="ok-cell">Y</td><td class="err-cell">🔴 High</td><td>Critical + SLA risk</td></tr>
+          <tr><td>Nord Freight</td><td>$9,200</td><td>5 days</td><td class="ok-cell">Y</td><td class="err-cell">🔴 High</td><td>Critical vendor override</td></tr>
+          <tr><td>Office Depot</td><td>$840</td><td class="err-cell">62 days</td><td>N</td><td class="hl">🟡 Medium</td><td>61–90 days, not critical</td></tr>
+          <tr><td>Print Co</td><td>$3,200</td><td>22 days</td><td>N</td><td class="ok-cell">🟢 Low</td><td>1–30 days, ≤$20k</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's priority rule</div>
+          <pre>IF Critical=Y AND NOT Current → High (regardless of age)
+IF Critical=N → apply standard age/amount rules
+3 High (all critical vendors) vs 1 High before.
+Office Depot $840 correctly drops to Medium. ✓</pre>
         </div>
       </div>
     </div>
@@ -420,8 +517,10 @@ regardless of age. ✓</pre>
 function switchTab(btn,id){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.ba-panel').forEach(function(p){p.classList.remove('on')});
   btn.classList.add('on');
   document.getElementById('p-'+id).classList.add('on');
+  document.getElementById('ba-'+id).classList.add('on');
 }
 function copyPrompt(btn){
   var text=btn.previousElementSibling.innerText;
