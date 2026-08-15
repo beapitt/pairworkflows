@@ -233,30 +233,37 @@ when a value genuinely isn't found, the cell shows a dash "—" instead of
   <!-- Tab: diagnose -->
   <div class="before-after ba-panel on" id="ba-diagnose">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — silent mismatch</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — lookup fails, value clearly exists in table</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Lookup value (A2)</th><th>Table value (D:D)</th><th>Result</th></tr>
-          <tr><td class="err-cell">"Smith  " (trailing space)</td><td>"Smith"</td><td class="err-cell">#N/A</td></tr>
+          <tr><th>Col A — Lookup value</th><th>LEN()</th><th>Col D — Table value</th><th>LEN()</th><th>XLOOKUP</th></tr>
+          <tr><td class="err-cell">"Smith, John " </td><td class="err-cell">13</td><td>"Smith, John"</td><td>12</td><td class="err-cell">#N/A</td></tr>
+          <tr><td class="err-cell">"Jones,  Mary"</td><td class="err-cell">13</td><td>"Jones, Mary"</td><td>12</td><td class="err-cell">#N/A</td></tr>
+          <tr><td class="err-cell">" Clark, Peter"</td><td class="err-cell">14</td><td>"Clark, Peter"</td><td>13</td><td class="err-cell">#N/A</td></tr>
+          <tr><td>"Davis, Emma"</td><td class="ok-cell">12</td><td>"Davis, Emma"</td><td class="ok-cell">12</td><td class="ok-cell">£3,400 ✓</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          =VLOOKUP(A2, D:F, 2, FALSE) → #N/A
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Looks identical on screen, doesn't match underneath</div>
+          LEN() reveals the mismatch — Smith,John has 13 chars vs 12 in the table
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Trailing space, double space, leading space — all invisible on screen</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude identifies the cause</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — TRIM() wraps the lookup value, all 3 resolve</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Fix applied</th><th>Result</th></tr>
-          <tr><td class="link-cell">TRIM(A2) removes trailing space</td><td class="ok-cell">£4,250 ✓</td></tr>
+          <tr><th>Lookup value (raw)</th><th>TRIM() result</th><th>LEN()</th><th>XLOOKUP</th><th>Revenue</th></tr>
+          <tr><td>"Smith, John "</td><td class="ok-cell">"Smith, John"</td><td class="ok-cell">12</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£4,250</td></tr>
+          <tr><td>"Jones,  Mary"</td><td class="ok-cell">"Jones, Mary"</td><td class="ok-cell">12</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£7,800</td></tr>
+          <tr><td>" Clark, Peter"</td><td class="ok-cell">"Clark, Peter"</td><td class="ok-cell">13</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£6,100</td></tr>
+          <tr><td>"Davis, Emma"</td><td class="ok-cell">"Davis, Emma"</td><td class="ok-cell">12</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£3,400</td></tr>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's fix</div>
-          <pre>=VLOOKUP(TRIM(A2), D:F, 2, FALSE)
-Trailing space removed — match found. ✓</pre>
+          <pre>=XLOOKUP(TRIM(A2), $D:$D, $E:$E, "Not found")
+TRIM removes all leading/trailing/double spaces.
+All 4 lookups now resolve. Total revenue: £21,550 ✓</pre>
         </div>
       </div>
     </div>
@@ -265,30 +272,37 @@ Trailing space removed — match found. ✓</pre>
   <!-- Tab: type -->
   <div class="before-after ba-panel" id="ba-type">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — number vs text mismatch</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — employee IDs look identical, type mismatch hidden</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Cell A2 (number)</th><th>Table col D (text)</th><th>Result</th></tr>
-          <tr><td class="err-cell">1042</td><td class="err-cell">"1042"</td><td class="err-cell">#N/A</td></tr>
+          <tr><th>Col A — Lookup ID</th><th>Excel type</th><th>Col D — Table ID</th><th>Excel type</th><th>XLOOKUP</th></tr>
+          <tr><td class="err-cell">1041</td><td class="err-cell">Number</td><td class="err-cell">"1041"</td><td class="err-cell">Text</td><td class="err-cell">#N/A</td></tr>
+          <tr><td class="err-cell">1087</td><td class="err-cell">Number</td><td class="err-cell">"1087"</td><td class="err-cell">Text</td><td class="err-cell">#N/A</td></tr>
+          <tr><td class="err-cell">1112</td><td class="err-cell">Number</td><td class="err-cell">"1112"</td><td class="err-cell">Text</td><td class="err-cell">#N/A</td></tr>
+          <tr><td class="err-cell">1203</td><td class="err-cell">Number</td><td class="err-cell">"1203"</td><td class="err-cell">Text</td><td class="err-cell">#N/A</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          =VLOOKUP(A2, D:F, 2, FALSE) → #N/A
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Number 1042 ≠ text "1042" even though they look the same</div>
+          All 4 IDs fail — Col A imported as numbers, Col D as text strings
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Number 1041 ≠ text "1041" even though they display identically</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude converts the type</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — TEXT() converts number to text, all IDs match</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Fix applied</th><th>Result</th></tr>
-          <tr><td class="link-cell">TEXT(A2,"0") converts number to text</td><td class="ok-cell">£2,890 ✓</td></tr>
+          <tr><th>Lookup ID</th><th>TEXT() result</th><th>Table ID</th><th>XLOOKUP</th><th>Salary returned</th></tr>
+          <tr><td>1041</td><td class="link-cell">"1041"</td><td>"1041"</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£48,000</td></tr>
+          <tr><td>1087</td><td class="link-cell">"1087"</td><td>"1087"</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£52,000</td></tr>
+          <tr><td>1112</td><td class="link-cell">"1112"</td><td>"1112"</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£38,000</td></tr>
+          <tr><td>1203</td><td class="link-cell">"1203"</td><td>"1203"</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£44,500</td></tr>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's fix</div>
-          <pre>=VLOOKUP(TEXT(A2,"0"), D:F, 2, FALSE)
-Type aligned — match found. ✓</pre>
+          <pre>=XLOOKUP(TEXT(A2,"0"), $D:$D, $E:$E, "Not found")
+TEXT(A2,"0") converts number 1041 → text "1041".
+All 4 IDs now match. Alternative: VALUE() on col D instead. ✓</pre>
         </div>
       </div>
     </div>
@@ -297,32 +311,39 @@ Type aligned — match found. ✓</pre>
   <!-- Tab: wrap -->
   <div class="before-after ba-panel" id="ba-wrap">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — missing value shows #N/A</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — formula correct, but missing values break the report</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Lookup value</th><th>In table?</th><th>Result</th></tr>
-          <tr><td>Smith</td><td class="ok-cell">Yes</td><td class="ok-cell">£4,250</td></tr>
-          <tr><td class="err-cell">Jones</td><td class="err-cell">No</td><td class="err-cell">#N/A</td></tr>
+          <tr><th>Employee</th><th>ID</th><th>In payroll table?</th><th>XLOOKUP result</th><th>Report breaks?</th></tr>
+          <tr><td>Smith, John</td><td>1041</td><td class="ok-cell">Yes</td><td class="ok-cell">£48,000</td><td class="ok-cell">No ✓</td></tr>
+          <tr><td>Jones, Mary</td><td>1087</td><td class="ok-cell">Yes</td><td class="ok-cell">£52,000</td><td class="ok-cell">No ✓</td></tr>
+          <tr><td>New hire</td><td class="err-cell">1301</td><td class="err-cell">Not yet added</td><td class="err-cell">#N/A</td><td class="err-cell">Yes — breaks SUM ✗</td></tr>
+          <tr><td>Contractor</td><td class="err-cell">1405</td><td class="err-cell">Different table</td><td class="err-cell">#N/A</td><td class="err-cell">Yes — breaks SUM ✗</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          =VLOOKUP(TRIM(A2), D:F, 2, FALSE) → #N/A for missing values
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Formula is correct — value simply isn't in the table</div>
+          2 #N/A errors cascade — any SUM or AVERAGE on this column also returns #N/A
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Formula is correct — add IFERROR only after confirming the formula works</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — missing values show a dash</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — IFERROR handles missing, SUM works again</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Lookup value</th><th>In table?</th><th>Result</th></tr>
-          <tr><td>Smith</td><td class="ok-cell">Yes</td><td class="ok-cell">£4,250</td></tr>
-          <tr><td>Jones</td><td>No</td><td class="ok-cell">— ✓</td></tr>
+          <tr><th>Employee</th><th>ID</th><th>In table?</th><th>IFERROR result</th><th>SUM impact</th></tr>
+          <tr><td>Smith, John</td><td>1041</td><td class="ok-cell">Yes</td><td class="ok-cell">£48,000</td><td class="ok-cell">Included ✓</td></tr>
+          <tr><td>Jones, Mary</td><td>1087</td><td class="ok-cell">Yes</td><td class="ok-cell">£52,000</td><td class="ok-cell">Included ✓</td></tr>
+          <tr><td>New hire</td><td>1301</td><td class="err-cell">Not yet</td><td class="ok-cell">"—"</td><td class="ok-cell">Excluded cleanly ✓</td></tr>
+          <tr><td>Contractor</td><td>1405</td><td class="err-cell">Different table</td><td class="ok-cell">"—"</td><td class="ok-cell">Excluded cleanly ✓</td></tr>
+          <tr class="section-row"><td colspan="3">SUM of salary column</td><td class="ok-cell">£100,000 ✓</td><td class="ok-cell">No longer breaks</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's fix</div>
-          <pre>=IFERROR(VLOOKUP(TRIM(A2), D:F, 2, FALSE), "—")
-Missing values now show "—" instead of #N/A. ✓</pre>
+          <div class="claude-fix-label">Claude's formula</div>
+          <pre>=IFERROR(XLOOKUP(TEXT(A2,"0"), $D:$D, $E:$E), "—")
+"—" is ignored by SUM and AVERAGE.
+Total payroll (known): £100,000 ✓
+2 employees flagged for manual review. ✓</pre>
         </div>
       </div>
     </div>
