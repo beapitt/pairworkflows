@@ -227,30 +227,38 @@ Each formula is supposed to [describe purpose]. Please trace where the loop clos
   <!-- Tab: diagnose -->
   <div class="before-after ba-panel on" id="ba-diagnose">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — direct self-reference</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — status bar shows circular ref warning</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Cell</th><th>Formula</th></tr>
-          <tr><td class="err-cell">C5</td><td class="err-cell">=C5+B5</td></tr>
+          <tr><th>Cell</th><th>Description</th><th>Formula</th><th>Result</th></tr>
+          <tr><td>B3</td><td>Units sold</td><td>500</td><td>500</td></tr>
+          <tr><td>C3</td><td>Unit price</td><td>£42.00</td><td>£42.00</td></tr>
+          <tr><td>D3</td><td>Revenue</td><td>=B3*C3</td><td>£21,000</td></tr>
+          <tr><td class="err-cell">E3</td><td>Commission</td><td class="err-cell">=E3*0.08</td><td class="err-cell">0 or ∞</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          C5 references itself — Excel can't calculate
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Excel shows the circular reference warning on this cell</div>
+          Formulas → Error Checking → Circular References → E3
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ E3 multiplies itself — should reference D3 (Revenue), not E3</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude breaks the loop</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude identifies and breaks the loop</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Cell</th><th>Formula</th></tr>
-          <tr><td>C5</td><td class="ok-cell">=C4+B5</td></tr>
+          <tr><th>Cell</th><th>Description</th><th>Formula</th><th>Result</th></tr>
+          <tr><td>B3</td><td>Units sold</td><td>500</td><td>500</td></tr>
+          <tr><td>C3</td><td>Unit price</td><td>£42.00</td><td>£42.00</td></tr>
+          <tr><td>D3</td><td>Revenue</td><td>=B3*C3</td><td>£21,000</td></tr>
+          <tr><td>E3</td><td>Commission</td><td class="ok-cell">=D3*0.08</td><td class="ok-cell">£1,680 ✓</td></tr>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's fix</div>
-          <pre>=C4+B5
-C5 now references the previous row — loop broken. ✓</pre>
+          <pre>E3 was multiplying itself instead of Revenue (D3).
+Fix: =D3*0.08
+Commission: £21,000 × 8% = £1,680 ✓
+Error Checking → Circular References now greyed out.</pre>
         </div>
       </div>
     </div>
@@ -259,34 +267,38 @@ C5 now references the previous row — loop broken. ✓</pre>
   <!-- Tab: indirect -->
   <div class="before-after ba-panel" id="ba-indirect">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — indirect loop across 3 cells</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — indirect loop traced with Trace Precedents</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Cell</th><th>Formula</th></tr>
-          <tr><td>D3</td><td>=E3*0.8</td></tr>
-          <tr><td>E3</td><td>=F3+100</td></tr>
-          <tr><td class="err-cell">F3</td><td class="err-cell">=D3/1.2</td></tr>
+          <tr><th>Cell</th><th>Purpose</th><th>Formula</th><th>Trace Precedents shows</th></tr>
+          <tr><td>D4</td><td>Net Revenue</td><td>=E4*0.85</td><td>← depends on E4</td></tr>
+          <tr><td>E4</td><td>Gross Revenue</td><td>=F4+D4</td><td>← depends on F4 and D4</td></tr>
+          <tr><td class="err-cell">F4</td><td>Adj. Revenue</td><td class="err-cell">=D4/0.85</td><td class="err-cell">← depends on D4 ✗</td></tr>
+          <tr><td>B4</td><td>Base Revenue</td><td>£84,000</td><td>Fixed input</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          F3 → D3 → E3 → F3: loop closes at F3
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Each formula looks fine on its own — the loop only appears in the chain</div>
+          Loop: D4 → E4 → F4 → D4 — closes at F4
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Formulas → Trace Precedents on F4 reveals the arrow back to D4</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude traces and fixes the chain</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude breaks loop by anchoring to fixed input</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Cell</th><th>Formula</th></tr>
-          <tr><td>D3</td><td>=E3*0.8</td></tr>
-          <tr><td>E3</td><td>=F3+100</td></tr>
-          <tr><td>F3</td><td class="ok-cell">=B3/1.2</td></tr>
+          <tr><th>Cell</th><th>Purpose</th><th>Fixed Formula</th><th>Result</th></tr>
+          <tr><td>B4</td><td>Base Revenue</td><td>£84,000</td><td>£84,000</td></tr>
+          <tr><td>F4</td><td>Adj. Revenue</td><td class="ok-cell">=B4/0.85</td><td class="ok-cell">£98,824</td></tr>
+          <tr><td>E4</td><td>Gross Revenue</td><td>=F4+D4</td><td class="ok-cell">£182,824</td></tr>
+          <tr><td>D4</td><td>Net Revenue</td><td>=E4*0.85</td><td class="ok-cell">£155,400 ✓</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's fix</div>
-          <pre>F3 should reference a fixed input (B3), not D3.
-Formula: =B3/1.2 — loop broken. ✓</pre>
+          <div class="claude-fix-label">Claude's diagnosis via paste</div>
+          <pre>F4 was deriving Adj. Revenue from D4 (Net Revenue).
+F4 should use the fixed base (B4) instead.
+Fix: =B4/0.85 → loop chain D4→E4→F4→D4 broken.
+Trace Precedents on F4 now points only to B4. ✓</pre>
         </div>
       </div>
     </div>
@@ -295,30 +307,40 @@ Formula: =B3/1.2 — loop broken. ✓</pre>
   <!-- Tab: iterative -->
   <div class="before-after ba-panel" id="ba-iterative">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — running total triggers circular ref</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — running total self-references each month</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Cell</th><th>Formula</th><th>Intent</th></tr>
-          <tr><td class="err-cell">D5</td><td class="err-cell">=D5+C5</td><td>Add today's value to running total</td></tr>
+          <tr><th>Month</th><th>Sales</th><th>Running Total (col D)</th><th>Formula in D</th></tr>
+          <tr><td>Jan</td><td>£12,400</td><td>£12,400</td><td>=C2</td></tr>
+          <tr><td>Feb</td><td>£9,800</td><td>£22,200</td><td>=D2+C3</td></tr>
+          <tr><td>Mar</td><td>£14,100</td><td>£36,300</td><td>=D3+C4</td></tr>
+          <tr><td>Apr</td><td>£11,200</td><td class="err-cell">0 or error</td><td class="err-cell">=D4+C5 (wrong row)</td></tr>
+          <tr><td>May</td><td>£13,500</td><td class="err-cell">Circular ref</td><td class="err-cell">=D5+C5 ✗</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          D5 can't add to itself — Excel flags as circular
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Running totals need a different structure</div>
+          D5 adds C5 to itself — Excel flags circular reference on D5
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Running totals never work this way — use expanding SUM range instead</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude restructures with SUM</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude restructures as expanding SUM range</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Cell</th><th>Formula</th><th>Result</th></tr>
-          <tr><td>D5</td><td class="ok-cell">=SUM($C$2:C5)</td><td class="ok-cell">Cumulative ✓</td></tr>
+          <tr><th>Month</th><th>Sales</th><th>Running Total</th><th>Formula in D</th></tr>
+          <tr><td>Jan</td><td>£12,400</td><td class="ok-cell">£12,400</td><td class="link-cell">=SUM($C$2:C2)</td></tr>
+          <tr><td>Feb</td><td>£9,800</td><td class="ok-cell">£22,200</td><td class="link-cell">=SUM($C$2:C3)</td></tr>
+          <tr><td>Mar</td><td>£14,100</td><td class="ok-cell">£36,300</td><td class="link-cell">=SUM($C$2:C4)</td></tr>
+          <tr><td>Apr</td><td>£11,200</td><td class="ok-cell">£47,500</td><td class="link-cell">=SUM($C$2:C5)</td></tr>
+          <tr><td>May</td><td>£13,500</td><td class="ok-cell">£61,000 ✓</td><td class="link-cell">=SUM($C$2:C6)</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's fix</div>
-          <pre>=SUM($C$2:C5)
-Expanding range sums all rows up to current — no loop. ✓</pre>
+          <div class="claude-fix-label">Claude's formula</div>
+          <pre>=SUM($C$2:C2) — drag down, range expands automatically.
+No self-reference, no circular loop.
+May running total: £61,000 ✓
+Error Checking → Circular References now greyed out.</pre>
         </div>
       </div>
     </div>
