@@ -236,34 +236,44 @@ descriptive parameter names. Include the Name Manager registration steps.</pre>
   <!-- Tab: build -->
   <div class="before-after ba-panel on" id="ba-build">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — no LAMBDA, describe from scratch</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — bonus logic written from scratch each pay cycle</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>What I need</th><th>Status</th></tr>
-          <tr><td>Calculate bonus from score + salary</td><td class="err-cell">No formula yet</td></tr>
-          <tr><td>Score 5 → 20%, Score 4 → 10%...</td><td class="err-cell">Manual lookup</td></tr>
+          <tr><th>Employee</th><th>Dept</th><th>Score</th><th>Salary</th><th>Bonus £</th></tr>
+          <tr><td>Adams, J.</td><td>Sales</td><td class="hl">5</td><td>£48,000</td><td class="err-cell">Manual</td></tr>
+          <tr><td>Bell, K.</td><td>Finance</td><td class="hl">4</td><td>£52,000</td><td class="err-cell">Manual</td></tr>
+          <tr><td>Chen, L.</td><td>HR</td><td class="hl">3</td><td>£38,000</td><td class="err-cell">Manual</td></tr>
+          <tr><td>Davis, M.</td><td>Ops</td><td>2</td><td>£41,000</td><td class="err-cell">Manual</td></tr>
+          <tr><td>Evans, P.</td><td>Sales</td><td>1</td><td>£44,500</td><td class="err-cell">Manual</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Calculation repeated manually each payroll cycle
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Describe the logic, Claude writes the full LAMBDA</div>
+          Rules: Score 5→20%, 4→10%, 3→5%, 1-2→0% — entered manually every cycle
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Describe the rules once, Claude writes the LAMBDA for every row</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude builds the LAMBDA</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — BONUS() LAMBDA, one call per row</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Cell</th><th>Formula</th></tr>
-          <tr><td>E2</td><td class="ok-cell">=BONUS(C2,D2)</td></tr>
-          <tr><td>E3</td><td class="ok-cell">=BONUS(C3,D3)</td></tr>
+          <tr><th>Employee</th><th>Score</th><th>Salary</th><th>Formula</th><th>Bonus £</th></tr>
+          <tr><td>Adams, J.</td><td class="hl">5</td><td>£48,000</td><td class="link-cell">=BONUS(C2,D2)</td><td class="ok-cell">£9,600 ✓</td></tr>
+          <tr><td>Bell, K.</td><td class="hl">4</td><td>£52,000</td><td class="link-cell">=BONUS(C3,D3)</td><td class="ok-cell">£5,200 ✓</td></tr>
+          <tr><td>Chen, L.</td><td class="hl">3</td><td>£38,000</td><td class="link-cell">=BONUS(C4,D4)</td><td class="ok-cell">£1,900 ✓</td></tr>
+          <tr><td>Davis, M.</td><td>2</td><td>£41,000</td><td class="link-cell">=BONUS(C5,D5)</td><td class="ok-cell">£0 ✓</td></tr>
+          <tr><td>Evans, P.</td><td>1</td><td>£44,500</td><td class="link-cell">=BONUS(C6,D6)</td><td class="ok-cell">£0 ✓</td></tr>
+          <tr class="section-row"><td colspan="4">Total bonus payout</td><td class="ok-cell">£16,700 ✓</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's LAMBDA</div>
-          <pre>Name Manager: BONUS =
-LAMBDA(score,salary,IFS(score=5,salary*0.2,
-  score=4,salary*0.1,score=3,salary*0.05,TRUE,0))
-Test: =BONUS(5,40000) → 8000 ✓</pre>
+          <div class="claude-fix-label">Claude's LAMBDA — paste into Name Manager</div>
+          <pre>Name: BONUS
+=LAMBDA(score, salary,
+  IFS(score=5, salary*0.2,
+      score=4, salary*0.1,
+      score=3, salary*0.05,
+      TRUE,    0))
+Test inline first: =LAMBDA(score,salary,IFS(score=5,salary*0.2,score=4,salary*0.1,score=3,salary*0.05,TRUE,0))(5,48000) → 9600 ✓</pre>
         </div>
       </div>
     </div>
@@ -272,30 +282,37 @@ Test: =BONUS(5,40000) → 8000 ✓</pre>
   <!-- Tab: debug -->
   <div class="before-after ba-panel" id="ba-debug">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — LAMBDA returns wrong result</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — NET_MARGIN returns negative values across all rows</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Call</th><th>Expected</th><th>Actual</th></tr>
-          <tr><td class="err-cell">=NET_MARGIN(D2,C2)</td><td>18%</td><td class="err-cell">-22%</td></tr>
+          <tr><th>Product</th><th>col C Revenue</th><th>col D Costs</th><th>=NET_MARGIN(D2,C2)</th><th>Expected</th></tr>
+          <tr><td>Widget Pro</td><td>£84,000</td><td>£63,000</td><td class="err-cell">−33.3%</td><td>25.0%</td></tr>
+          <tr><td>Widget A</td><td>£52,000</td><td>£41,600</td><td class="err-cell">−25.0%</td><td>20.0%</td></tr>
+          <tr><td>Widget B</td><td>£31,000</td><td>£26,350</td><td class="err-cell">−17.5%</td><td>15.0%</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Parameter order swapped — costs passed as revenue
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ LAMBDA(revenue,costs,...) but called with (costs,revenue)</div>
+          NET_MARGIN defined as LAMBDA(revenue,costs,...) but called as (D2,C2) — Costs,Revenue
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ All 3 products show negative margin — parameter order is the only cause</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude fixes the parameter order</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude swaps arguments to match definition</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Call</th><th>Expected</th><th>Actual</th></tr>
-          <tr><td class="ok-cell">=NET_MARGIN(C2,D2)</td><td>18%</td><td class="ok-cell">18% ✓</td></tr>
+          <tr><th>Product</th><th>Revenue (C)</th><th>Costs (D)</th><th>=NET_MARGIN(C2,D2)</th><th>Correct?</th></tr>
+          <tr><td>Widget Pro</td><td>£84,000</td><td>£63,000</td><td class="ok-cell">25.0% ✓</td><td class="ok-cell">✓</td></tr>
+          <tr><td>Widget A</td><td>£52,000</td><td>£41,600</td><td class="ok-cell">20.0% ✓</td><td class="ok-cell">✓</td></tr>
+          <tr><td>Widget B</td><td>£31,000</td><td>£26,350</td><td class="ok-cell">15.0% ✓</td><td class="ok-cell">✓</td></tr>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's fix</div>
-          <pre>Swap the arguments: =NET_MARGIN(C2,D2)
-Revenue first, costs second — matches definition. ✓</pre>
+          <pre>Definition: LAMBDA(revenue, costs, (revenue-costs)/revenue)
+Wrong call: =NET_MARGIN(D2, C2)  ← Costs first, Revenue second
+Fixed call: =NET_MARGIN(C2, D2)  ← Revenue first, Costs second
+Widget Pro: (84k−63k)/84k = 25.0% ✓
+Add revenue=0 guard: IF(revenue=0, 0, (revenue-costs)/revenue)</pre>
         </div>
       </div>
     </div>
@@ -304,35 +321,39 @@ Revenue first, costs second — matches definition. ✓</pre>
   <!-- Tab: convert -->
   <div class="before-after ba-panel" id="ba-convert">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — same formula repeated in every row</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — same formula copy-pasted across 12 products</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Cell</th><th>Formula</th></tr>
-          <tr><td>E2</td><td class="err-cell">=IF(C2=0,0,(C2-D2)/C2)</td></tr>
-          <tr><td>E3</td><td class="err-cell">=IF(C3=0,0,(C3-D3)/C3)</td></tr>
-          <tr><td>E4</td><td class="err-cell">=IF(C4=0,0,(C4-D4)/C4)</td></tr>
+          <tr><th>Product</th><th>Revenue</th><th>Costs</th><th>Net Margin (col E)</th><th>Problem</th></tr>
+          <tr><td>Widget Pro</td><td>£84,000</td><td>£63,000</td><td class="err-cell">=IF(C2=0,0,(C2-D2)/C2)</td><td class="err-cell">12 copies</td></tr>
+          <tr><td>Widget A</td><td>£52,000</td><td>£41,600</td><td class="err-cell">=IF(C3=0,0,(C3-D3)/C3)</td><td class="err-cell">12 copies</td></tr>
+          <tr><td>Widget B</td><td>£31,000</td><td>£26,350</td><td class="err-cell">=IF(C4=0,0,(C4-D4)/C4)</td><td class="err-cell">12 copies</td></tr>
+          <tr><td>…</td><td>…</td><td>…</td><td class="err-cell">same formula…</td><td class="err-cell">×12 rows</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Fix a bug → update every row manually
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ No single source of truth for the calculation</div>
+          Fix the divide-by-zero guard → update 12 cells manually — every time
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Accounting wants EBITDA margin added — that's 12 more copy-paste rows</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — one LAMBDA, called everywhere</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — NET_MARGIN LAMBDA, single source of truth</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Cell</th><th>Formula</th></tr>
-          <tr><td>E2</td><td class="ok-cell">=NET_MARGIN(C2,D2)</td></tr>
-          <tr><td>E3</td><td class="ok-cell">=NET_MARGIN(C3,D3)</td></tr>
-          <tr><td>E4</td><td class="ok-cell">=NET_MARGIN(C4,D4)</td></tr>
+          <tr><th>Product</th><th>Revenue</th><th>Costs</th><th>Net Margin (col E)</th><th>Result</th></tr>
+          <tr><td>Widget Pro</td><td>£84,000</td><td>£63,000</td><td class="link-cell">=NET_MARGIN(C2,D2)</td><td class="ok-cell">25.0% ✓</td></tr>
+          <tr><td>Widget A</td><td>£52,000</td><td>£41,600</td><td class="link-cell">=NET_MARGIN(C3,D3)</td><td class="ok-cell">20.0% ✓</td></tr>
+          <tr><td>Widget B</td><td>£31,000</td><td>£26,350</td><td class="link-cell">=NET_MARGIN(C4,D4)</td><td class="ok-cell">15.0% ✓</td></tr>
+          <tr><td>…</td><td>…</td><td>…</td><td class="link-cell">same 1 formula…</td><td class="ok-cell">×12 ✓</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's LAMBDA</div>
-          <pre>NET_MARGIN =
-LAMBDA(revenue,costs,IF(revenue=0,0,(revenue-costs)/revenue))
-Change the logic once — every row updates. ✓</pre>
+          <div class="claude-fix-label">Claude's LAMBDA — Name Manager</div>
+          <pre>Name: NET_MARGIN
+=LAMBDA(revenue, costs,
+  IF(revenue=0, 0, (revenue-costs)/revenue))
+Change the formula once in Name Manager → all 12 rows update.
+Add EBITDA: new LAMBDA(revenue,costs,da,...) — zero copy-paste. ✓</pre>
         </div>
       </div>
     </div>
