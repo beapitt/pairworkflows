@@ -210,34 +210,37 @@ apply every time I import this data.</pre>
   <!-- Tab: diagnose -->
   <div class="before-after ba-panel on" id="ba-diagnose">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — raw import (broken)</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — CRM export, 5 silent issues across 3 columns</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th></th><th>Raw value</th></tr>
-          <tr><td>Name</td><td class="err-cell">"smith, john "</td></tr>
-          <tr><td>Date</td><td class="err-cell">'01/15/2026</td></tr>
-          <tr><td>Amount</td><td class="err-cell">"£ 4,250.00" (text)</td></tr>
+          <tr><th>Col A — Name</th><th>Col B — Invoice Date</th><th>Col C — Amount</th><th>Col D — Region</th><th>SUMIFS result</th></tr>
+          <tr><td class="err-cell">"smith, john "</td><td class="err-cell">'15/01/2026</td><td class="err-cell">"£ 4,250.00"</td><td>North</td><td class="err-cell">0 ✗</td></tr>
+          <tr><td class="err-cell">"JONES, MARY"</td><td class="err-cell">'28/02/2026</td><td class="err-cell">"£ 7,800.00"</td><td>South</td><td class="err-cell">0 ✗</td></tr>
+          <tr><td class="err-cell">" Clark, Peter"</td><td class="err-cell">'05/03/2026</td><td class="err-cell">"£12,100.00"</td><td>North</td><td class="err-cell">0 ✗</td></tr>
+          <tr><td>Davis, Emma</td><td>10/03/2026</td><td class="err-cell">"£ 3,400.00"</td><td>East</td><td class="err-cell">0 ✗</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          SUMIFS returns 0, date sorts alphabetically
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Paste 5 rows — Claude identifies every issue</div>
+          SUMIFS on Amount returns 0 · Dates sort alphabetically · Names don't match lookups
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Paste these 4 rows — Claude identifies all 5 issues in one response</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude diagnoses all issues</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude diagnoses all 5 issues with formula for each</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Issue found</th><th>Fix</th></tr>
-          <tr><td>Trailing space + wrong case</td><td class="ok-cell">TRIM(PROPER())</td></tr>
-          <tr><td>Date stored as text</td><td class="ok-cell">DATEVALUE()</td></tr>
-          <tr><td>Number stored as text</td><td class="ok-cell">VALUE()</td></tr>
+          <tr><th>Column</th><th>Issue detected</th><th>Cleaning formula</th><th>Example result</th></tr>
+          <tr><td>Col A — Name</td><td class="err-cell">Trailing spaces + wrong case</td><td class="link-cell">=TRIM(PROPER(A2))</td><td class="ok-cell">Smith, John</td></tr>
+          <tr><td>Col B — Date</td><td class="err-cell">Apostrophe prefix → text</td><td class="link-cell">=DATEVALUE(B2)</td><td class="ok-cell">15/01/2026 (real date)</td></tr>
+          <tr><td>Col C — Amount</td><td class="err-cell">£ prefix + spaces → text</td><td class="link-cell">=VALUE(SUBSTITUTE(SUBSTITUTE(C2,"£","")," ",""))</td><td class="ok-cell">4250 (number)</td></tr>
+          <tr><td>Col D — Region</td><td class="ok-cell">Clean — no fix needed</td><td>—</td><td class="ok-cell">North ✓</td></tr>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's diagnosis</div>
-          <pre>3 issues found: trailing spaces, text dates,
-text numbers. Formulas provided for each. ✓</pre>
+          <pre>5 issues found across 3 columns.
+After cleaning: SUMIFS(C:C, A:A, "Smith, John") → £4,250 ✓
+Date column now sorts chronologically. ✓</pre>
         </div>
       </div>
     </div>
@@ -246,34 +249,38 @@ text numbers. Formulas provided for each. ✓</pre>
   <!-- Tab: formula -->
   <div class="before-after ba-panel" id="ba-formula">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — names with spaces and wrong case</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — names won't match, XLOOKUP returns #N/A</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Raw (col A)</th><th>COUNTIF result</th></tr>
-          <tr><td class="err-cell">"  smith, john "</td><td class="err-cell">0</td></tr>
-          <tr><td class="err-cell">"JONES, MARY"</td><td class="err-cell">0</td></tr>
-          <tr><td class="err-cell">"clark, peter"</td><td class="err-cell">0</td></tr>
+          <tr><th>Raw name (col A)</th><th>What Excel sees</th><th>Lookup target</th><th>XLOOKUP result</th></tr>
+          <tr><td class="err-cell">"  smith, john "</td><td class="err-cell">12 chars (with spaces)</td><td>"Smith, John"</td><td class="err-cell">#N/A ✗</td></tr>
+          <tr><td class="err-cell">"JONES, MARY"</td><td class="err-cell">All uppercase</td><td>"Jones, Mary"</td><td class="err-cell">#N/A ✗</td></tr>
+          <tr><td class="err-cell">" Clark, Peter"</td><td class="err-cell">Leading space</td><td>"Clark, Peter"</td><td class="err-cell">#N/A ✗</td></tr>
+          <tr><td>"Davis, Emma"</td><td class="ok-cell">Clean</td><td>"Davis, Emma"</td><td class="ok-cell">£3,400 ✓</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Names won't match — spaces and inconsistent case
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Ask for the cleaning formula for this specific problem</div>
+          3 of 4 names fail XLOOKUP — all caused by spaces or inconsistent case
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ One formula in a helper column fixes all 3 at once</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — helper column cleans the data</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — helper column, all lookups resolve</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Cleaned (col B)</th><th>COUNTIF result</th></tr>
-          <tr><td class="ok-cell">Smith, John</td><td class="ok-cell">1 ✓</td></tr>
-          <tr><td class="ok-cell">Jones, Mary</td><td class="ok-cell">1 ✓</td></tr>
-          <tr><td class="ok-cell">Clark, Peter</td><td class="ok-cell">1 ✓</td></tr>
+          <tr><th>Raw (col A)</th><th>Cleaned (col B) =TRIM(PROPER(A2))</th><th>XLOOKUP on col B</th><th>Amount returned</th></tr>
+          <tr><td class="err-cell">"  smith, john "</td><td class="ok-cell">Smith, John</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£4,250</td></tr>
+          <tr><td class="err-cell">"JONES, MARY"</td><td class="ok-cell">Jones, Mary</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£7,800</td></tr>
+          <tr><td class="err-cell">" Clark, Peter"</td><td class="ok-cell">Clark, Peter</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£12,100</td></tr>
+          <tr><td>"Davis, Emma"</td><td class="ok-cell">Davis, Emma</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£3,400</td></tr>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's formula</div>
           <pre>=TRIM(PROPER(A2))
-Applied in helper column — lookups now work. ✓</pre>
+TRIM removes leading/trailing spaces.
+PROPER fixes case: "JONES, MARY" → "Jones, Mary".
+All 4 XLOOKUP calls now resolve. Total: £27,550 ✓</pre>
         </div>
       </div>
     </div>
@@ -282,33 +289,38 @@ Applied in helper column — lookups now work. ✓</pre>
   <!-- Tab: template -->
   <div class="before-after ba-panel" id="ba-template">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — same cleanup done manually every month</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — same 5 issues recur every month, no template</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Month</th><th>Cleanup time</th><th>Errors found</th></tr>
-          <tr><td>Jan</td><td class="err-cell">2h manual</td><td class="err-cell">12</td></tr>
-          <tr><td>Feb</td><td class="err-cell">2h manual</td><td class="err-cell">9</td></tr>
-          <tr><td>Mar</td><td class="err-cell">2h manual</td><td class="err-cell">14</td></tr>
+          <tr><th>Month</th><th>Import rows</th><th>Issues found</th><th>Time to fix</th><th>Errors missed</th></tr>
+          <tr><td>Jan 2026</td><td>842</td><td class="err-cell">47</td><td class="err-cell">2h 20min</td><td class="err-cell">3 (found later)</td></tr>
+          <tr><td>Feb 2026</td><td>791</td><td class="err-cell">39</td><td class="err-cell">1h 55min</td><td class="err-cell">1 (found later)</td></tr>
+          <tr><td>Mar 2026</td><td>908</td><td class="err-cell">52</td><td class="err-cell">2h 40min</td><td class="err-cell">5 (found later)</td></tr>
+          <tr><td>Apr 2026</td><td>874</td><td class="err-cell">?</td><td class="err-cell">?</td><td class="err-cell">?</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Same problems every import — no reusable fix
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Build the checklist once, apply it every time</div>
+          Same Name/Date/Amount problems every import — ~2h manual work each time
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Build the template once, run in minutes from April onwards</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — reusable cleaning template</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — reusable template, 4 helper columns pre-built</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Month</th><th>Cleanup time</th><th>Errors found</th></tr>
-          <tr><td>Apr</td><td class="ok-cell">10 min ✓</td><td class="ok-cell">0</td></tr>
-          <tr><td>May</td><td class="ok-cell">10 min ✓</td><td class="ok-cell">0</td></tr>
+          <tr><th>Month</th><th>Import rows</th><th>Issues found</th><th>Time to fix</th><th>Errors missed</th></tr>
+          <tr><td>Apr 2026</td><td>874</td><td class="ok-cell">0</td><td class="ok-cell">8 min ✓</td><td class="ok-cell">0</td></tr>
+          <tr><td>May 2026</td><td>903</td><td class="ok-cell">0</td><td class="ok-cell">8 min ✓</td><td class="ok-cell">0</td></tr>
+          <tr><td>Jun 2026</td><td>861</td><td class="ok-cell">0</td><td class="ok-cell">8 min ✓</td><td class="ok-cell">0</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's template</div>
-          <pre>Checklist + 4 helper column formulas saved.
-Paste new import → run template → done. ✓</pre>
+          <div class="claude-fix-label">Claude's template — 4 pre-built helper columns</div>
+          <pre>Col E: =TRIM(PROPER(A2))          ← clean names
+Col F: =DATEVALUE(B2)             ← real dates
+Col G: =VALUE(SUBSTITUTE(...))    ← real numbers
+Col H: =IF(E2="","⚠ Missing","") ← blank check
+Paste import → template auto-flags every issue. ✓</pre>
         </div>
       </div>
     </div>
