@@ -261,35 +261,40 @@ Please:
   <!-- Tab: design -->
   <div class="before-after ba-panel on" id="ba-design">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — flat data, no structure</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — 480 rows flat, no summary, GM% missing</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Region</th><th>Category</th><th>Revenue</th><th>COGS</th></tr>
-          <tr><td>North</td><td>Hardware</td><td>8,400</td><td>5,190</td></tr>
-          <tr><td>South</td><td>Software</td><td>12,200</td><td>3,480</td></tr>
-          <tr><td>West</td><td>Services</td><td>6,750</td><td>2,550</td></tr>
+          <tr><th>Region</th><th>Rep</th><th>Category</th><th>Date</th><th>Revenue</th><th>COGS</th><th>GM%</th></tr>
+          <tr><td>North</td><td>A. Reid</td><td>Hardware</td><td>15/01/2026</td><td>£8,400</td><td>£5,190</td><td class="err-cell">?</td></tr>
+          <tr><td>South</td><td>B. Shaw</td><td>Software</td><td>22/01/2026</td><td>£12,200</td><td>£3,480</td><td class="err-cell">?</td></tr>
+          <tr><td>West</td><td>C. Fox</td><td>Services</td><td>03/02/2026</td><td>£6,750</td><td>£2,550</td><td class="err-cell">?</td></tr>
+          <tr><td>North</td><td>A. Reid</td><td>Software</td><td>14/02/2026</td><td>£9,800</td><td>£2,940</td><td class="err-cell">?</td></tr>
+          <tr><td colspan="4" style="color:#9ca3af;font-style:italic">… 476 more rows</td><td>…</td><td>…</td><td class="err-cell">?</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          480 rows — no summary, no GM%, 20 min of trial and error
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Which fields go where? Calculated field syntax?</div>
+          Need: Revenue + GM% by Region × Category × Quarter — 6 fields to place
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Which fields go in Rows / Columns / Values / Filters? Claude specifies all of it</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude specifies the layout</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude specifies the full layout + calculated field</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Region ↓</th><th class="blue-cell">Hardware</th><th class="blue-cell">Software</th><th>Total</th></tr>
-          <tr><td>North</td><td>£312,400</td><td>£198,750</td><td class="subtotal-cell">£511,150</td></tr>
-          <tr><td style="color:#6b7280;font-size:11px">GM %</td><td style="color:#6b7280;font-size:11px">38.2%</td><td style="color:#6b7280;font-size:11px">71.4%</td><td style="color:#6b7280;font-size:11px">55.3%</td></tr>
-          <tr><td>South</td><td>£274,100</td><td>£143,600</td><td class="subtotal-cell">£417,700</td></tr>
+          <tr><th>Region ↓</th><th class="blue-cell">Hardware</th><th class="blue-cell">Software</th><th class="blue-cell">Services</th><th>Grand Total</th></tr>
+          <tr><td><strong>North</strong></td><td>£312,400</td><td>£198,750</td><td>£84,200</td><td class="subtotal-cell">£595,350</td></tr>
+          <tr><td style="color:#6b7280;font-size:11px;padding-left:12px">GM %</td><td style="color:#6b7280;font-size:11px">38.2%</td><td style="color:#6b7280;font-size:11px">71.4%</td><td style="color:#6b7280;font-size:11px">62.1%</td><td style="color:#6b7280;font-size:11px">53.8%</td></tr>
+          <tr><td><strong>South</strong></td><td>£274,100</td><td>£143,600</td><td>£61,800</td><td class="subtotal-cell">£479,500</td></tr>
+          <tr><td style="color:#6b7280;font-size:11px;padding-left:12px">GM %</td><td style="color:#6b7280;font-size:11px">41.0%</td><td style="color:#6b7280;font-size:11px">68.9%</td><td style="color:#6b7280;font-size:11px">58.4%</td><td style="color:#6b7280;font-size:11px">53.1%</td></tr>
+          <tr><td><strong>West</strong></td><td>£198,600</td><td>£112,400</td><td>£47,300</td><td class="subtotal-cell">£358,300</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's output</div>
-          <pre>Rows: Region | Columns: Category
-Values: Sum of Revenue (£), GM % calculated field
-Formula: =(Revenue-COGS)/Revenue</pre>
+          <div class="claude-fix-label">Claude's layout specification</div>
+          <pre>Rows: Region | Columns: Category | Filters: Quarter
+Values: Sum of Revenue (£0) + GM% calculated field
+Calculated field: =(Revenue-COGS)/Revenue
+Sort: Revenue descending per region. ✓</pre>
         </div>
       </div>
     </div>
@@ -298,35 +303,38 @@ Formula: =(Revenue-COGS)/Revenue</pre>
   <!-- Tab: calcfield -->
   <div class="before-after ba-panel" id="ba-calcfield">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — calculating in source data</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — average of row-level GM% gives wrong grand total</div>
       <div class="ba-body">
-         <table class="xl-table">
-           <tr><th>Region</th><th>Revenue</th><th>GM% (Avg)</th></tr>
-           <tr><td>North</td><td>£100,000</td><td class="err-cell">55%</td></tr>
-           <tr><td>South</td><td>£50,000</td><td class="err-cell">30%</td></tr>
-           <tr class="section-row"><td>Grand Total</td><td>£150,000</td><td class="err-cell">42.5%</td></tr>
-         </table>
-         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-           Averages of percentages give wrong totals
-           <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Excel is averaging 55% and 30% incorrectly</div>
-         </div>
+        <table class="xl-table">
+          <tr><th>Region</th><th>Revenue</th><th>COGS</th><th>Row GM%</th><th>Pivot Grand Total GM%</th></tr>
+          <tr><td>North</td><td>£420,000</td><td>£189,000</td><td>55.0%</td><td rowspan="3" class="err-cell" style="vertical-align:middle;font-size:13px;font-weight:700">42.5% ✗<br><span style="font-size:10px;font-weight:400">(avg of 55+30=42.5)</span></td></tr>
+          <tr><td>South</td><td>£180,000</td><td>£126,000</td><td>30.0%</td></tr>
+          <tr><td><strong>Grand Total</strong></td><td><strong>£600,000</strong></td><td><strong>£315,000</strong></td><td><strong>correct: 47.5%</strong></td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Pivot averages 55% + 30% = 42.5% — but £(600k−315k)/600k = 47.5%
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ North has 2.3× more revenue — simple average ignores weighting</div>
+        </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — exact pivot calculated field</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — calculated field applies formula at aggregate level</div>
       <div class="ba-body">
-         <table class="xl-table">
-           <tr><th>Region</th><th>Revenue</th><th>GM% (Calc)</th></tr>
-           <tr><td>North</td><td>£100,000</td><td class="ok-cell">55.0%</td></tr>
-           <tr><td>South</td><td>£50,000</td><td class="ok-cell">30.0%</td></tr>
-           <tr class="section-row"><td>Grand Total</td><td>£150,000</td><td class="ok-cell">46.6%</td></tr>
-         </table>
-         <div class="claude-fix">
-           <div class="claude-fix-label">Claude's formula</div>
-           <pre>=(Revenue-COGS)/Revenue
-Calculation applied correctly at total level. ✓</pre>
-         </div>
+        <table class="xl-table">
+          <tr><th>Region</th><th>Revenue</th><th>COGS</th><th>Row GM%</th><th>Pivot Grand Total GM%</th></tr>
+          <tr><td>North</td><td>£420,000</td><td>£189,000</td><td>55.0%</td><td rowspan="3" class="ok-cell" style="vertical-align:middle;font-size:13px;font-weight:700">47.5% ✓<br><span style="font-size:10px;font-weight:400">(285k÷600k)</span></td></tr>
+          <tr><td>South</td><td>£180,000</td><td>£126,000</td><td>30.0%</td></tr>
+          <tr><td><strong>Grand Total</strong></td><td><strong>£600,000</strong></td><td><strong>£315,000</strong></td><td><strong>47.5%</strong></td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's calculated field</div>
+          <pre>PivotTable Analyze → Fields, Items & Sets → Calculated Field
+Name: GM_Pct
+Formula: =(Revenue-COGS)/Revenue
+Excel sums Revenue and COGS first, then divides.
+Grand Total: (£420k+£180k−£189k−£126k)/£600k = 47.5% ✓</pre>
+        </div>
       </div>
     </div>
   </div>
@@ -334,34 +342,42 @@ Calculation applied correctly at total level. ✓</pre>
   <!-- Tab: debug -->
   <div class="before-after ba-panel" id="ba-debug">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — broken structure</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — 3 data problems split the pivot into 6 rows</div>
       <div class="ba-body">
-         <table class="xl-table">
-           <tr><th>Region</th><th>Revenue</th></tr>
-           <tr><td>North</td><td>£100,000</td></tr>
-           <tr><td>NORTH</td><td class="err-cell">£25,000</td></tr>
-           <tr><td>(blank)</td><td class="err-cell">£5,000</td></tr>
-         </table>
-         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-           Duplicate labels and missing data split the pivot
-         </div>
+        <table class="xl-table">
+          <tr><th>Region (raw)</th><th>Revenue</th><th>Pivot shows as</th><th>Problem</th></tr>
+          <tr><td>North</td><td>£312,400</td><td>North</td><td class="ok-cell">✓ Clean</td></tr>
+          <tr><td class="err-cell">NORTH</td><td>£84,200</td><td class="err-cell">NORTH (separate row)</td><td class="err-cell">Case mismatch</td></tr>
+          <tr><td class="err-cell">north region</td><td>£28,100</td><td class="err-cell">north region (separate)</td><td class="err-cell">Extra word</td></tr>
+          <tr><td class="err-cell">(blank)</td><td>£14,600</td><td class="err-cell">(blank) row</td><td class="err-cell">Missing value</td></tr>
+          <tr><td>South</td><td>£274,100</td><td>South</td><td class="ok-cell">✓ Clean</td></tr>
+          <tr class="section-row"><td>True North total</td><td class="err-cell">£424,700</td><td class="err-cell">Split across 3 rows</td><td class="err-cell">Understated</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          North revenue split: £312,400 + £84,200 + £28,100 = £424,700 hidden across 3 pivot rows
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Paste the raw Region column — Claude gives the exact fix for each issue</div>
+        </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude diagnoses fix</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude fixes all 3, pivot consolidates correctly</div>
       <div class="ba-body">
-         <table class="xl-table">
-           <tr><th>Region</th><th>Revenue</th></tr>
-           <tr><td>North</td><td class="ok-cell">£125,000</td></tr>
-           <tr><td>Unknown</td><td class="ok-cell">£5,000</td></tr>
-         </table>
-         <div class="claude-fix">
-           <div class="claude-fix-label">Claude's fix</div>
-           <pre>1. Clean duplicates: =PROPER(TRIM(A2))
-2. Replace blanks with 'Unknown'
-3. Refresh Pivot Table ✓</pre>
-         </div>
+        <table class="xl-table">
+          <tr><th>Region (cleaned)</th><th>Revenue</th><th>Pivot shows as</th><th>Fix applied</th></tr>
+          <tr><td class="ok-cell">North</td><td>£312,400</td><td rowspan="3" class="ok-cell" style="vertical-align:middle;font-weight:700">North<br>£424,700 ✓</td><td class="link-cell">=TRIM(PROPER(A2))</td></tr>
+          <tr><td class="ok-cell">North</td><td>£84,200</td><td class="link-cell">=TRIM(PROPER(A2))</td></tr>
+          <tr><td class="ok-cell">North</td><td>£28,100</td><td class="link-cell">=TRIM(PROPER(A2))</td></tr>
+          <tr><td class="ok-cell">North (Unknown)</td><td>£14,600</td><td class="ok-cell">North (Unknown)</td><td class="link-cell">IF(A2="","North (Unknown)",…)</td></tr>
+          <tr><td class="ok-cell">South</td><td>£274,100</td><td class="ok-cell">South</td><td class="ok-cell">Already clean ✓</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's 3-step fix</div>
+          <pre>1. Helper col: =TRIM(PROPER(A2)) → standardises case + spaces
+2. Blanks: =IF(A2="","North (Unknown)",TRIM(PROPER(A2)))
+3. Refresh pivot → North consolidates to £424,700 ✓
+Pivot row count: 6 rows → 2 rows (North + South)</pre>
+        </div>
       </div>
     </div>
   </div>
