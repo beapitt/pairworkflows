@@ -65,6 +65,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .xl-table .hl{background:#fffbeb}
 .xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
 .xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.ba-panel{display:none;margin-bottom:1.75rem}
+.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
 .ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
 .claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
@@ -222,40 +224,116 @@ Data is on sheet [name]. Keep any existing IFERROR wrapper.</pre>
     </div>
   </div>
 
-  <!-- BEFORE / AFTER VISUAL -->
-  <div class="before-after">
+  <!-- BEFORE / AFTER VISUAL — dynamic per tab -->
+
+  <!-- Tab: build -->
+  <div class="before-after ba-panel on" id="ba-build">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — VLOOKUP, fragile index</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — no formula, manual lookup</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th></th><th>Feature</th><th>VLOOKUP</th></tr>
-          <tr class="section-row"><td colspan="3">Return column</td></tr>
-          <tr><td>Reference type</td><td>Column index</td><td class="err-cell">Breaks if columns inserted</td></tr>
-          <tr><td>Missing values</td><td>Error handling</td><td class="err-cell">Needs IFERROR wrapper</td></tr>
+          <tr><th>Emp ID</th><th>Name</th><th>Department</th><th>Salary</th><th>Bonus %</th></tr>
+          <tr><td>EMP-041</td><td>Sarah Chen</td><td>Finance</td><td>£52,000</td><td class="err-cell">?</td></tr>
+          <tr><td>EMP-087</td><td>James Ward</td><td>Sales</td><td>£48,500</td><td class="err-cell">?</td></tr>
+          <tr><td>EMP-112</td><td>Priya Patel</td><td>HR</td><td>£44,000</td><td class="err-cell">?</td></tr>
+          <tr><td>EMP-203</td><td>Tom Ellis</td><td>Engineering</td><td>£67,000</td><td class="err-cell">?</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          =VLOOKUP(A2,Sheet2!A:C,3,FALSE)
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Hardcoded "3" breaks the moment a column is inserted in Sheet2</div>
+          Bonus % comes from a separate BonusTable sheet — looked up manually each cycle
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ "Look up Emp ID in BonusTable and return Bonus %" — Claude writes it</div>
         </div>
       </div>
     </div>
-
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — XLOOKUP, direct reference</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude writes the XLOOKUP formula</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th></th><th>Feature</th><th>XLOOKUP</th></tr>
-          <tr class="section-row"><td colspan="3">Return column</td></tr>
-          <tr><td>Reference type</td><td>Direct range</td><td class="link-cell">Never breaks</td></tr>
-          <tr><td>Missing values</td><td>Error handling</td><td class="ok-cell">Built-in 4th argument</td></tr>
+          <tr><th>Emp ID</th><th>Name</th><th>Department</th><th>Salary</th><th>Bonus %</th></tr>
+          <tr><td>EMP-041</td><td>Sarah Chen</td><td>Finance</td><td>£52,000</td><td class="ok-cell">12% ✓</td></tr>
+          <tr><td>EMP-087</td><td>James Ward</td><td>Sales</td><td>£48,500</td><td class="ok-cell">18% ✓</td></tr>
+          <tr><td>EMP-112</td><td>Priya Patel</td><td>HR</td><td>£44,000</td><td class="ok-cell">8% ✓</td></tr>
+          <tr><td>EMP-203</td><td>Tom Ellis</td><td>Engineering</td><td>£67,000</td><td class="ok-cell">15% ✓</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's formula</div>
+          <pre>=XLOOKUP(A2, BonusTable!$A:$A, BonusTable!$C:$C, "Not found", 0)
+Argument 4: "Not found" if ID missing — no IFERROR needed.
+Argument 5: 0 = exact match. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: debug -->
+  <div class="before-after ba-panel" id="ba-debug">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — XLOOKUP returns #N/A despite value existing</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Cell A2 (lookup)</th><th>Type</th><th>BonusTable col A</th><th>Type</th><th>Result</th></tr>
+          <tr><td class="err-cell">1041</td><td class="err-cell">Number</td><td class="err-cell">"EMP-1041"</td><td class="err-cell">Text</td><td class="err-cell">#N/A</td></tr>
+          <tr><td class="err-cell">1087</td><td class="err-cell">Number</td><td class="err-cell">"EMP-1087"</td><td class="err-cell">Text</td><td class="err-cell">#N/A</td></tr>
+          <tr><td class="err-cell">1112</td><td class="err-cell">Number</td><td class="err-cell">"EMP-1112"</td><td class="err-cell">Text</td><td class="err-cell">#N/A</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          =XLOOKUP(A2, BonusTable!$A:$A, BonusTable!$C:$C, "Not found") → #N/A
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ ID exists in BonusTable — data type mismatch is the cause</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude spots the mismatch and fixes it</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Lookup value</th><th>Fix applied</th><th>BonusTable match</th><th>Result</th></tr>
+          <tr><td>1041</td><td class="link-cell">"EMP-"&amp;TEXT(A2,"0")</td><td>"EMP-1041"</td><td class="ok-cell">12% ✓</td></tr>
+          <tr><td>1087</td><td class="link-cell">"EMP-"&amp;TEXT(A3,"0")</td><td>"EMP-1087"</td><td class="ok-cell">18% ✓</td></tr>
+          <tr><td>1112</td><td class="link-cell">"EMP-"&amp;TEXT(A4,"0")</td><td>"EMP-1112"</td><td class="ok-cell">8% ✓</td></tr>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's fix</div>
-          <pre>=XLOOKUP(A2,Sheet2!A:A,Sheet2!C:C,"Not found")
+          <pre>Cause: col A stores numbers (1041), BonusTable stores "EMP-1041" text.
+Fix: prefix the lookup value to match table format.
+=XLOOKUP("EMP-"&TEXT(A2,"0"), BonusTable!$A:$A, BonusTable!$C:$C, "Not found")
+All 3 rows now resolve correctly. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
 
-Direct range reference — inserting a column no longer breaks it. ✓</pre>
+  <!-- Tab: convert -->
+  <div class="before-after ba-panel" id="ba-convert">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — VLOOKUP breaks after column insert</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Col A</th><th>Col B</th><th>Col C (inserted)</th><th>Col D</th><th>VLOOKUP result</th></tr>
+          <tr><td>EMP-041</td><td>Sarah Chen</td><td class="hl">Dept (new)</td><td>£52,000</td><td class="err-cell">Returns "Dept" ✗</td></tr>
+          <tr><td>EMP-087</td><td>James Ward</td><td class="hl">Sales (new)</td><td>£48,500</td><td class="err-cell">Returns "Sales" ✗</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          =IFERROR(VLOOKUP(A2, Staff!A:C, 3, FALSE), "—")
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Hardcoded "3" now returns col C (Dept) instead of Salary after insert</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude converts to XLOOKUP with direct reference</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Col A</th><th>Col B</th><th>Col C (inserted)</th><th>Col D</th><th>XLOOKUP result</th></tr>
+          <tr><td>EMP-041</td><td>Sarah Chen</td><td class="hl">Finance</td><td>£52,000</td><td class="ok-cell">£52,000 ✓</td></tr>
+          <tr><td>EMP-087</td><td>James Ward</td><td class="hl">Sales</td><td>£48,500</td><td class="ok-cell">£48,500 ✓</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's conversion</div>
+          <pre>Old: =IFERROR(VLOOKUP(A2, Staff!A:C, 3, FALSE), "—")
+New: =XLOOKUP(A2, Staff!A:A, Staff!D:D, "—", 0)
+Direct column reference — inserting cols never breaks it.
+IFERROR removed: handled by 4th XLOOKUP argument. ✓</pre>
         </div>
       </div>
     </div>
@@ -367,8 +445,10 @@ Direct range reference — inserting a column no longer breaks it. ✓</pre>
 function switchTab(btn,id){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.ba-panel').forEach(function(p){p.classList.remove('on')});
   btn.classList.add('on');
   document.getElementById('p-'+id).classList.add('on');
+  document.getElementById('ba-'+id).classList.add('on');
 }
 function copyPrompt(btn){
   var text=btn.previousElementSibling.innerText;
