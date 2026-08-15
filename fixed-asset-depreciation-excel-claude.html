@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Depreciation Schedule Excel Template with Claude AI — PairWorkflows</title>
-<meta name="description" content="Build a fixed asset depreciation schedule in Excel using Claude AI or Gemini AI. Supports straight-line, declining balance, and SYD methods with automatic NBV tracking.">
+<title>Depreciation Formula in Excel with Claude AI — PairWorkflows</title>
+<meta name="description" content="Learn how to calculate depreciation in Excel with Claude AI using straight-line, declining balance and SYD formulas, plus automatic NBV tracking.">
 <link rel="canonical" href="https://www.pairworkflows.com/fixed-asset-depreciation-excel-claude.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Which Excel function does Claude use for straight-line depreciation?","acceptedAnswer":{"@type":"Answer","text":"Claude uses Excel's built-in SLN function, which takes three arguments: cost, salvage value, and useful life. The formula is =SLN(cost, salvage, life). Claude can also build the calculation manually as (Cost - Salvage) / Life if you prefer to see the logic explicitly."}},{"@type":"Question","name":"Can Claude handle mid-year asset additions in a depreciation schedule?","acceptedAnswer":{"@type":"Answer","text":"Yes. Include the in-service date for each asset and tell Claude your convention — half-year, mid-month, or exact-day. Claude will prorate the first-year and last-year depreciation accordingly."}},{"@type":"Question","name":"What is the difference between SLN, DDB, and SYD in Excel?","acceptedAnswer":{"@type":"Answer","text":"SLN spreads the depreciable amount equally over the useful life. DDB (double declining balance) front-loads depreciation by applying a fixed rate to the declining book value. SYD (sum of years' digits) also front-loads but less aggressively than DDB. Claude can build schedules using any of these methods."}},{"@type":"Question","name":"How do I handle fully depreciated assets in the template?","acceptedAnswer":{"@type":"Answer","text":"The prompt instructs Claude to add a check that stops depreciation once net book value reaches the salvage value. Fully depreciated assets remain in the register with zero annual depreciation and an NBV equal to salvage."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -172,7 +172,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
-   <h1>How to Build a Depreciation Schedule Excel Template with Claude AI</h1>
+   <h1>How to Calculate Depreciation in Excel with Claude AI</h1>
     <p class="hero-sub">Convert your basic asset register into a complete depreciation schedule. Generate formulas for straight-line, declining balance, and SYD methods with automatic net book value (NBV) tracking.</p>
   </div>
 
@@ -401,7 +401,7 @@ Yr1 Depr = SLN(Cost,Salvage,Life) × Factor
   </div>
 
   <!-- STEPS -->
-  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Build the depreciation formulas step by step</h2>
   <div class="steps-card">
     <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a fixed asset template with Claude</div>
     <div class="step">
