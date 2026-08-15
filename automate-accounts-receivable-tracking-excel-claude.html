@@ -65,6 +65,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .xl-table .hl{background:#fffbeb}
 .xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
 .xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.ba-panel{display:none;margin-bottom:1.75rem}
+.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
 .ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
 .claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
@@ -274,36 +276,127 @@ change in days. Flag any period where DSO increased by more than [5] days.</pre>
     </div>
   </div>
 
-  <!-- BEFORE / AFTER VISUAL -->
-  <div class="before-after">
+  <!-- BEFORE / AFTER VISUAL — dynamic per tab -->
+
+  <!-- Tab: build -->
+  <div class="before-after ba-panel on" id="ba-build">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — aged from the wrong date</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — aged from invoice date, false alerts triggered</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Invoice</th><th>Terms</th><th>Bucket</th></tr>
-          <tr><td>INV-1142</td><td>Net 60</td><td class="err-cell">31–60 overdue</td></tr>
+          <tr><th>Customer</th><th>Invoice #</th><th>Inv. Date</th><th>Terms</th><th>Balance</th><th>Wrong Bucket</th><th>Priority</th></tr>
+          <tr><td>Horizon Group</td><td>INV-1142</td><td>01/06/2026</td><td>Net 60</td><td>$42,000</td><td class="err-cell">31–60 days ✗</td><td class="err-cell">🔴 High ✗</td></tr>
+          <tr><td>Vertex Ltd</td><td>INV-1089</td><td>15/05/2026</td><td>Net 30</td><td>$18,500</td><td class="err-cell">61–90 days ✗</td><td class="err-cell">🔴 High ✗</td></tr>
+          <tr><td>Bluewave Co</td><td>INV-1201</td><td>20/07/2026</td><td>Net 30</td><td>$7,200</td><td class="ok-cell">Current ✓</td><td class="ok-cell">🟢 Low ✓</td></tr>
+          <tr><td>NordEx</td><td>INV-1055</td><td>10/04/2026</td><td>Net 30</td><td>$31,000</td><td class="err-cell">90+ days</td><td class="err-cell">🔴 High</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Aged 45 days from the invoice date on a Net 60 invoice
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Triggers a false collection alert — the invoice isn't even due yet</div>
+          Report date: 15/08/2026 — aged from Invoice Date instead of Due Date
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ INV-1142 (Net 60) isn't due until 31/07 — "31–60 days overdue" is wrong</div>
         </div>
       </div>
     </div>
-
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude fixes it</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude ages from Due Date, correct buckets</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Invoice</th><th>Terms</th><th>Bucket</th></tr>
-          <tr><td>INV-1142</td><td>Net 60</td><td class="ok-cell">Current</td></tr>
+          <tr><th>Customer</th><th>Invoice #</th><th>Due Date</th><th>Balance</th><th>Days Overdue</th><th>Correct Bucket</th><th>Priority</th></tr>
+          <tr><td>NordEx</td><td>INV-1055</td><td>10/05/2026</td><td>$31,000</td><td class="err-cell">97 days</td><td class="err-cell">90+</td><td class="err-cell">🔴 High</td></tr>
+          <tr><td>Vertex Ltd</td><td>INV-1089</td><td>14/06/2026</td><td>$18,500</td><td class="err-cell">62 days</td><td class="hl">61–90</td><td class="hl">🟡 Medium</td></tr>
+          <tr><td>Horizon Group</td><td>INV-1142</td><td>31/07/2026</td><td>$42,000</td><td class="ok-cell">15 days</td><td>1–30</td><td class="err-cell">🔴 High</td></tr>
+          <tr><td>Bluewave Co</td><td>INV-1201</td><td>19/08/2026</td><td>$7,200</td><td class="ok-cell">Current</td><td class="ok-cell">Current</td><td class="ok-cell">🟢 Low</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's fix</div>
-          <pre>Days Overdue = Report Date − Due Date
-Due Date = Invoice Date + 60 (Net 60 terms)
-Result: Current, not overdue. ✓</pre>
+          <div class="claude-fix-label">Claude's AR summary</div>
+          <pre>Total AR:       $98,700
+Current:         $7,200
+1–30 days:      $42,000  (Horizon, >$25k → High)
+61–90 days:     $18,500
+90+ days:       $31,000  ← collect immediately
+DSO = $98,700 ÷ ($540,000 ÷ 180) = 32.9 days ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: partial -->
+  <div class="before-after ba-panel" id="ba-partial">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — aged on original amount, balance overstated</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Customer</th><th>Invoice #</th><th>Due Date</th><th>Original</th><th>Paid</th><th>Aged On</th><th>Bucket</th></tr>
+          <tr><td>Horizon Group</td><td>INV-1142</td><td>31/07/2026</td><td>$42,000</td><td class="ok-cell">$28,000</td><td class="err-cell">$42,000 ✗</td><td class="err-cell">1–30 High</td></tr>
+          <tr><td>NordEx</td><td>INV-1055</td><td>10/05/2026</td><td>$31,000</td><td class="ok-cell">$31,000</td><td class="err-cell">$31,000 ✗</td><td class="err-cell">90+ High ✗</td></tr>
+          <tr><td>Vertex Ltd</td><td>INV-1089</td><td>14/06/2026</td><td>$18,500</td><td class="ok-cell">$5,000</td><td class="err-cell">$18,500 ✗</td><td class="err-cell">61–90 Med</td></tr>
+          <tr><td>Bluewave Co</td><td>INV-1201</td><td>19/08/2026</td><td>$7,200</td><td>$0</td><td class="ok-cell">$7,200 ✓</td><td class="ok-cell">Current Low</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Total AR shows $98,700 — but $64,000 already collected; actual exposure $34,700
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ NordEx fully paid ($31k) still appearing as 90+ days overdue</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude ages on balance outstanding only</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Customer</th><th>Invoice #</th><th>Due Date</th><th>Original</th><th>Paid</th><th>Balance</th><th>Bucket</th><th>Priority</th></tr>
+          <tr><td>Horizon Group</td><td>INV-1142</td><td>31/07/2026</td><td>$42,000</td><td>$28,000</td><td class="ok-cell">$14,000</td><td>1–30</td><td class="ok-cell">🟢 Low</td></tr>
+          <tr><td>NordEx</td><td>INV-1055</td><td>10/05/2026</td><td>$31,000</td><td>$31,000</td><td class="ok-cell">$0</td><td class="ok-cell">Paid — removed</td><td class="ok-cell">—</td></tr>
+          <tr><td>Vertex Ltd</td><td>INV-1089</td><td>14/06/2026</td><td>$18,500</td><td>$5,000</td><td class="hl">$13,500</td><td class="hl">61–90</td><td class="hl">🟡 Medium</td></tr>
+          <tr><td>Bluewave Co</td><td>INV-1201</td><td>19/08/2026</td><td>$7,200</td><td>$0</td><td>$7,200</td><td class="ok-cell">Current</td><td class="ok-cell">🟢 Low</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's corrected AR</div>
+          <pre>Balance = Original Amount − Amount Paid
+NordEx fully paid → removed from aging report
+True AR exposure: $34,700 (not $98,700)
+Horizon drops from High to Low — $14k balance, 1–30 days ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: dso -->
+  <div class="before-after ba-panel" id="ba-dso">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — single DSO snapshot, no trend visibility</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Period</th><th>Total AR</th><th>Credit Sales</th><th>Days</th><th>DSO</th><th>Δ vs Prior</th></tr>
+          <tr><td>Feb 2026</td><td>$81,400</td><td>$490,000</td><td>28</td><td>4.7 days</td><td class="err-cell">?</td></tr>
+          <tr><td>Mar 2026</td><td>$94,200</td><td>$520,000</td><td>31</td><td>5.6 days</td><td class="err-cell">?</td></tr>
+          <tr><td>Apr 2026</td><td>$88,700</td><td>$480,000</td><td>30</td><td>5.5 days</td><td class="err-cell">?</td></tr>
+          <tr><td>May 2026</td><td>$102,300</td><td>$510,000</td><td>31</td><td>6.2 days</td><td class="err-cell">?</td></tr>
+          <tr><td>Jun 2026</td><td>$98,700</td><td>$540,000</td><td>30</td><td class="err-cell">?</td><td class="err-cell">?</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          5 months of data but no trend table, no flags — are collections improving?
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ May DSO up 0.7 days vs Apr — flaggable or noise? Impossible to tell without a trend</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude builds DSO trend with flags</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Period</th><th>Total AR</th><th>DSO</th><th>Δ Days</th><th>Flag</th></tr>
+          <tr><td>Feb 2026</td><td>$81,400</td><td>4.7 days</td><td>—</td><td>—</td></tr>
+          <tr><td>Mar 2026</td><td>$94,200</td><td>5.6 days</td><td class="err-cell">+0.9</td><td>—</td></tr>
+          <tr><td>Apr 2026</td><td>$88,700</td><td>5.5 days</td><td class="ok-cell">−0.1</td><td>—</td></tr>
+          <tr><td>May 2026</td><td>$102,300</td><td>6.2 days</td><td class="err-cell">+0.7</td><td>—</td></tr>
+          <tr><td>Jun 2026</td><td>$98,700</td><td class="link-cell">5.5 days</td><td class="ok-cell">−0.7</td><td class="ok-cell">—</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's DSO trend summary</div>
+          <pre>Jun DSO = $98,700 ÷ ($540,000 ÷ 30) = 5.5 days
+Period range: 4.7 → 6.2 → 5.5 days
+No period exceeded the +5-day flag threshold.
+Collections stable — no escalation needed. ✓</pre>
         </div>
       </div>
     </div>
@@ -413,8 +506,10 @@ Result: Current, not overdue. ✓</pre>
 function switchTab(btn,id){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.ba-panel').forEach(function(p){p.classList.remove('on')});
   btn.classList.add('on');
   document.getElementById('p-'+id).classList.add('on');
+  document.getElementById('ba-'+id).classList.add('on');
 }
 function copyPrompt(btn){
   var text=btn.previousElementSibling.innerText;
