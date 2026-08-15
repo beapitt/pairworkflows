@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Claude AI for Cleaning Imported Excel Data — PairWorkflows</title>
-<meta name="description" content="Use Claude AI to diagnose invisible Excel data problems and get the exact cleaning formulas — TRIM, VALUE, PROPER, DATEVALUE.">
+<title>How to Clean Data in Excel with Claude AI — PairWorkflows</title>
+<meta name="description" content="Learn how to clean imported Excel data with Claude AI using TRIM, VALUE, PROPER and DATEVALUE to fix spaces, text numbers, dates and inconsistent formatting.">
 <link rel="canonical" href="https://www.pairworkflows.com/claude-excel-clean-data.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I remove trailing spaces in Excel?","acceptedAnswer":{"@type":"Answer","text":"Use the TRIM function, e.g. =TRIM(A2). It automatically removes all leading, trailing, and double spaces between words. If you still have invisible spaces after using TRIM, they might be non-printable characters — use =CLEAN(TRIM(A2)) to remove them."}},{"@type":"Question","name":"Why are my numbers stored as text in Excel?","acceptedAnswer":{"@type":"Answer","text":"When data is imported from external systems like CRMs or accounting software, numbers are often formatted with text characters or invisible apostrophes. Excel treats them as text, so math formulas and SUMIFS will ignore them or return 0. Use =VALUE() to convert them back to real numbers."}},{"@type":"Question","name":"How do I fix dates that won't sort in Excel?","acceptedAnswer":{"@type":"Answer","text":"If dates sort alphabetically instead of chronologically, Excel is treating them as text rather than serial date numbers. Fix this by applying =DATEVALUE() to the text dates, then formatting the result as a Date."}},{"@type":"Question","name":"What's the difference between TRIM and CLEAN in Excel?","acceptedAnswer":{"@type":"Answer","text":"TRIM removes leading, trailing, and double spaces. CLEAN removes non-printable characters — the hidden characters that appear when you import from legacy systems or mainframes. If TRIM alone doesn't fix a stubborn cell, try =CLEAN(TRIM(A2))."}},{"@type":"Question","name":"Can Claude clean my Excel data for me automatically?","acceptedAnswer":{"@type":"Answer","text":"No. Claude can't touch your spreadsheet directly — it diagnoses the problem from a sample you paste in and gives you the exact formula to apply yourself in a helper column."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -150,7 +150,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-droplet-half-2" style="font-size:12px"></i> Excel · Claude AI</div>
-    <h1>Claude AI for Cleaning Imported Excel Data</h1>
+    <h1>How to Clean Imported Data in Excel with Claude AI</h1>
     <p class="hero-sub">Every CRM, accounting, or HR export brings the same invisible problems — dates that won't sort, numbers stored as text, trailing spaces. Claude can't touch your spreadsheet directly, but paste a sample and it diagnoses exactly what's wrong and hands you the precise cleaning formula to fix it.</p>
   </div>
 
@@ -340,7 +340,7 @@ Paste new import → run template → done. ✓</pre>
   </div>
 
   <!-- STEPS -->
-  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">How to clean imported Excel data step by step</h2>
   <div class="steps-card">
     <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Clean imported Excel data with Claude — 5 steps</div>
     <div class="step">
