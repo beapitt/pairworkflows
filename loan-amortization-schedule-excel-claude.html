@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Loan Amortization Schedule in Excel with Claude AI — PairWorkflows</title>
+<title>Loan Amortization Schedule in Excel Using Claude AI — PairWorkflows</title>
 <meta name="description" content="Generate a full loan amortization schedule in Excel using Claude AI or Gemini AI. See principal, interest, and remaining balance for every payment period.">
 <link rel="canonical" href="https://www.pairworkflows.com/loan-amortization-schedule-excel-claude.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude handle variable interest rates in an amortization schedule?","acceptedAnswer":{"@type":"Answer","text":"Yes. Include a rate schedule in your prompt — for example, 4.5% for months 1–24, then 5.2% from month 25 onward. The prompt instructs Claude to recalculate the payment amount at each rate change so principal and interest splits remain accurate."}},{"@type":"Question","name":"How does Claude calculate the monthly payment amount?","acceptedAnswer":{"@type":"Answer","text":"Claude uses the standard annuity formula: PMT = P × [r(1+r)^n] / [(1+r)^n − 1], where P is the principal, r is the periodic interest rate, and n is the total number of payments. This is the same formula behind Excel's PMT function."}},{"@type":"Question","name":"Can I model extra principal payments or lump-sum prepayments?","acceptedAnswer":{"@type":"Answer","text":"Yes. Add the period number and amount to the Extra Payments section of the prompt. Claude reduces the outstanding balance immediately and recalculates interest for all subsequent periods, showing you exactly how much interest the prepayment saves."}},{"@type":"Question","name":"Will the schedule work for quarterly or annual payment frequencies?","acceptedAnswer":{"@type":"Answer","text":"Yes. Specify the frequency in the prompt — monthly, quarterly, semi-annual, or annual. Claude adjusts the periodic rate and number of periods. A 5-year loan at 6% annual with quarterly payments becomes 20 periods at 1.5% per period."}},{"@type":"Question","name":"How do I verify Claude's amortization output?","acceptedAnswer":{"@type":"Answer","text":"Check three things: the first payment's interest equals the principal multiplied by the periodic rate; the final remaining balance is exactly zero; and the sum of all principal payments equals the original loan amount. If any of these fail, the schedule has an error."}}]}</script>
@@ -418,7 +418,7 @@ Balance reaches exactly £0.00 at Period 60. ✓</pre>
   </div>
 
   <!-- STEPS -->
-  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Build Your Excel Amortization Schedule with Claude</h2>
   <div class="steps-card">
     <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build the schedule with Claude</div>
     <div class="step">
