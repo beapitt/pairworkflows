@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>IF and IFS Formulas in Excel with Claude AI — PairWorkflows</title>
-<meta name="description" content="Use Claude AI to write, debug and explain IF and IFS formulas in Excel — grading scales, bonus tiers, payroll rules, and more.">
+<meta name="description" content="Learn how to write IF, IFS, and nested IF formulas in Excel with Claude AI for multiple conditions, grading scales, bonus tiers, payroll rules, and more.">
 <link rel="canonical" href="https://www.pairworkflows.com/claude-excel-if-ifs.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between IF and IFS in Excel?","acceptedAnswer":{"@type":"Answer","text":"IF is a traditional function that can be nested to handle multiple conditions, while IFS allows you to test multiple conditions without nesting, making the formula much cleaner and easier to read."}},{"@type":"Question","name":"How many IF statements can you nest in Excel?","acceptedAnswer":{"@type":"Answer","text":"Excel technically allows up to 64 nested IF statements, but it is highly recommended to avoid this as it makes the formula nearly impossible to debug or maintain. Use IFS, VLOOKUP, or XLOOKUP instead."}},{"@type":"Question","name":"How do I build a bonus tier calculation in Excel?","acceptedAnswer":{"@type":"Answer","text":"You can build a bonus tier calculation using an IFS function or a VLOOKUP/XLOOKUP table. Use IFS if your tiers are simple ranges, or a lookup table if your tiers change frequently."}},{"@type":"Question","name":"Does IFS have a built-in else condition?","acceptedAnswer":{"@type":"Answer","text":"No. IFS has no built-in else like nested IF does. To handle values that match none of your conditions, add TRUE and a default result as the final pair — without it, IFS returns an error if nothing matches."}},{"@type":"Question","name":"Which Excel versions support IFS?","acceptedAnswer":{"@type":"Answer","text":"IFS is available in Excel 365 and Excel 2019 or later. On Excel 2016 or older, you need nested IF instead — tell Claude your version and it will write the right one."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -171,7 +171,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-code" style="font-size:12px"></i> Excel · Claude AI</div>
-    <h1>Write IF and IFS Formulas in Excel with Claude AI</h1>
+    <h1>Write IF, IFS and Nested IF Formulas in Excel with Claude AI</h1>
     <p class="hero-sub">Grading scales, bonus tiers, payroll rules — they all start the same way: "if this, then that". Describe your logic as a plain list and Claude writes a clean IF or IFS formula, chooses the right function for your Excel version, and adds the default case most people forget.</p>
   </div>
 
@@ -367,7 +367,7 @@ Score-to-bonus tiers applied automatically. ✓</pre>
   </div>
 
   <!-- STEPS -->
-  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">How to build IF and IFS formulas step by step</h2>
   <div class="steps-card">
     <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Write and test an IF or IFS formula with Claude — 5 steps</div>
     <div class="step">
