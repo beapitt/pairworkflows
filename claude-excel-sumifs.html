@@ -273,18 +273,18 @@ Result: £1,200 + £2,100 + £1,800 = £5,100 ✓</pre>
   <!-- Tab: debug -->
   <div class="before-after ba-panel on" id="ba-debug">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — SUMIFS returns 0, data clearly present</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — SUMIFS returns #VALUE!, data clearly present</div>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th>Region</th><th>Product</th><th>Date</th><th>Revenue</th><th>Formula result</th></tr>
-          <tr><td class="hl">North</td><td>Widget Pro</td><td>15/01/2026</td><td class="hl">£1,200</td><td class="err-cell">0</td></tr>
-          <tr><td class="hl">North</td><td>Widget Pro</td><td>03/02/2026</td><td class="hl">£2,100</td><td class="err-cell">0</td></tr>
-          <tr><td class="hl">North</td><td>Widget Pro</td><td>05/03/2026</td><td class="hl">£1,800</td><td class="err-cell">0</td></tr>
-          <tr><td>South</td><td>Widget A</td><td>20/01/2026</td><td>£850</td><td class="err-cell">0</td></tr>
+          <tr><td class="hl">North</td><td>Widget Pro</td><td>15/01/2026</td><td class="hl">£1,200</td><td class="err-cell">#VALUE!</td></tr>
+          <tr><td class="hl">North</td><td>Widget Pro</td><td>03/02/2026</td><td class="hl">£2,100</td><td class="err-cell">#VALUE!</td></tr>
+          <tr><td class="hl">North</td><td>Widget Pro</td><td>05/03/2026</td><td class="hl">£1,800</td><td class="err-cell">#VALUE!</td></tr>
+          <tr><td>South</td><td>Widget A</td><td>20/01/2026</td><td>£850</td><td class="err-cell">#VALUE!</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          =SUMIFS(E2:E100, A2:A99, "North", C2:C100, "Widget Pro") → 0
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Range mismatch: E is 99 rows (E2:E100), A is 98 rows (A2:A99)</div>
+          =SUMIFS(E2:E100, A2:A99, "North", C2:C100, "Widget Pro") → #VALUE!
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Range mismatch: E2:E100 is 99 rows, A2:A99 is 98 rows — Excel rejects mismatched ranges</div>
         </div>
       </div>
     </div>
@@ -358,7 +358,7 @@ Total: £6,240 ✓</pre>
     <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Why SUMIFS returns 0 — the 4 most common causes</div>
     <div class="diag-row">
       <div class="diag-cause">Range size mismatch</div>
-      <div class="diag-example">SUM: <span class="bad">E2:E100</span> · Criteria: <span class="bad">A2:A99</span> → must match exactly</div>
+      <div class="diag-example">SUM: <span class="bad">E2:E100</span> · Criteria: <span class="bad">A2:A99</span> → Excel returns <span class="bad">#VALUE!</span> — ranges must be the same size</div>
       <div class="diag-badge badge-red">Most common</div>
     </div>
     <div class="diag-row">
