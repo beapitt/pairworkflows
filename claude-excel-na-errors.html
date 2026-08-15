@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Fix #N/A Errors in Excel with Claude AI — PairWorkflows</title>
-<meta name="description" content="Use Claude AI to diagnose and fix #N/A errors in VLOOKUP and XLOOKUP — trailing spaces, data type mismatches, and wrong match arguments.">
+<title>VLOOKUP #N/A Error in Excel: How to Fix It  — PairWorkflows</title>
+<meta name="description" content="Fix VLOOKUP and XLOOKUP #N/A errors in Excel with Claude AI. Diagnose trailing spaces, text-vs-number mismatches, and incorrect match settings.">
 <link rel="canonical" href="https://www.pairworkflows.com/claude-excel-na-errors.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why does VLOOKUP return #N/A when the value exists?","acceptedAnswer":{"@type":"Answer","text":"VLOOKUP returns #N/A when it cannot find an exact match, even if the value appears to exist in the table. The most common causes are trailing spaces in the lookup value, a data type mismatch, or a missing FALSE argument in the fourth parameter."}},{"@type":"Question","name":"How do I fix #N/A caused by trailing spaces?","acceptedAnswer":{"@type":"Answer","text":"Wrap your lookup value in the TRIM() function to remove leading and trailing spaces. For example, change =VLOOKUP(A2, D:F, 2, FALSE) to =VLOOKUP(TRIM(A2), D:F, 2, FALSE)."}},{"@type":"Question","name":"Does XLOOKUP still return #N/A errors?","acceptedAnswer":{"@type":"Answer","text":"Yes. XLOOKUP defaults to exact match, so the match argument is rarely the problem. It still returns #N/A when there is a data type mismatch or trailing spaces in the lookup value — the fix is the same, TRIM() or VALUE()/TEXT()."}},{"@type":"Question","name":"What is the fastest way to tell if #N/A is a formula problem or a data problem?","acceptedAnswer":{"@type":"Answer","text":"Replace the cell reference in your formula with the value typed directly. If the hardcoded version returns a result but the cell reference version returns #N/A, the problem is in the data, not the formula structure."}},{"@type":"Question","name":"Should I wrap every lookup formula in IFERROR?","acceptedAnswer":{"@type":"Answer","text":"Only after you've confirmed the formula is correct. Wrapping a broken formula in IFERROR just hides the #N/A instead of fixing it — diagnose the real cause first, then add IFERROR for genuinely missing values."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -171,7 +171,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-search-off" style="font-size:12px"></i> Excel · Claude AI</div>
-    <h1>Fix #N/A Errors in Excel with Claude AI</h1>
+    <h1>How to Fix VLOOKUP #N/A Errors in Excel with Claude AI</h1>
     <p class="hero-sub">Your VLOOKUP or XLOOKUP is returning #N/A but the value is right there in the table. Paste the formula and a few sample rows into Claude — it spots the trailing space, the type mismatch, or the missing match argument and gives you the exact fix.</p>
   </div>
 
@@ -354,7 +354,7 @@ Missing values now show "—" instead of #N/A. ✓</pre>
   </div>
 
   <!-- STEPS -->
-  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Common causes of #N/A errors and how to fix them</h2>
   <div class="steps-card">
     <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Diagnose and fix a #N/A error — 5 steps</div>
     <div class="step">
