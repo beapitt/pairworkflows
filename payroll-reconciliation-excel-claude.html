@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Payroll Reconciliation Template Excel with Claude AI — PairWorkflows</title>
-<meta name="description" content="Build a payroll reconciliation template in Excel with Claude AI. Match payroll totals to your GL, flag variances, and close the period faster.">
+<title>Payroll Reconciliation in Excel with Claude AI — PairWorkflows</title>
+<meta name="description" content="Learn how to reconcile payroll totals to the general ledger in Excel with Claude AI, identify variances, and verify payroll balances before closing the period.">
 <link rel="canonical" href="https://www.pairworkflows.com/payroll-reconciliation-excel-claude.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is payroll reconciliation and why does it matter for month-end close?","acceptedAnswer":{"@type":"Answer","text":"Payroll reconciliation is the process of verifying that total payroll costs recorded in your general ledger match what was actually paid through your payroll system — including gross pay, employer taxes, and benefits. Without it, the salary line on your P&L can carry errors for weeks before anyone notices."}},{"@type":"Question","name":"Can Claude reconcile payroll across multiple pay frequencies in one pass?","acceptedAnswer":{"@type":"Answer","text":"Yes. If you run weekly payroll for hourly workers and monthly payroll for salaried staff, include both datasets and specify which cost centre or GL account each feeds into. Claude will reconcile them separately and then produce a combined total for comparison against your GL."}},{"@type":"Question","name":"What causes most payroll-to-GL variances?","acceptedAnswer":{"@type":"Answer","text":"The three most common causes are: a payroll run posted to the wrong accounting period; employer tax or benefit costs coded to the wrong GL account; and a manual journal that adjusted gross pay without a matching payroll entry. The reconciliation template surfaces all three."}},{"@type":"Question","name":"Does Claude work with exports from ADP, Workday, or SAP?","acceptedAnswer":{"@type":"Answer","text":"Claude works with whatever data you paste into the prompt or upload as a file. Most payroll and ERP systems export to CSV or Excel. Clean the export to match the column layout in the prompt and Claude handles the rest."}},{"@type":"Question","name":"How do I handle mid-month pay adjustments or off-cycle runs?","acceptedAnswer":{"@type":"Answer","text":"Include them as separate rows in your payroll extract with a Pay Type of 'Off-cycle'. The prompt instructs Claude to list them in a dedicated section at the bottom of the output so reviewers can find them without searching the main table."}},{"@type":"Question","name":"Can I use this to check individual employee records?","acceptedAnswer":{"@type":"Answer","text":"The prompt is designed for cost-centre or department-level reconciliation. For employee-level checking, change the grouping instruction from 'by Cost Centre and GL Account' to 'by Employee ID and GL Account'. Everything else stays the same."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -149,7 +149,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Finance</div>
-    <h1>How to Build a Payroll Reconciliation Template in Excel with Claude AI</h1>
+    <h1>How to Reconcile Payroll in Excel with Claude AI</h1>
     <p class="hero-sub">Paste your payroll export and GL extract into Claude and get back a line-by-line reconciliation — matched items confirmed, variances flagged with probable cause, off-cycle items listed separately, and a sign-off summary ready for month-end close.</p>
   </div>
 
@@ -395,7 +395,7 @@ All other 498 employees match perfectly. ✓</pre>
 
   <!-- Steps: Recon -->
   <div class="steps-panel on" id="steps-recon">
-    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Payroll reconciliation process step by step</h2>
     <div class="steps-card">
       <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Run a payroll reconciliation with Claude — 4 steps</div>
       <div class="step">
