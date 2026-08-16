@@ -201,8 +201,8 @@ Here are my open invoices:
 
 For each unpaid invoice, calculate:
 - Days outstanding (from invoice date to today)
-- Status: Current / Due soon (within [e.g. 7] days) /
-  Overdue (past due) / Seriously overdue ([e.g. 30]+ days past due)
+- Status: Current / Due soon (within 7 days) /
+  Overdue (past due) / Seriously overdue (30+ days past due)
 
 Output: Invoice # | Client | Invoice Date | Due Date |
         Amount | Days Outstanding | Status
@@ -253,22 +253,19 @@ my accountant. Do not add figures that aren't in the data above.</pre>
 
   <!-- Tab: categorize -->
   <div class="before-after ba-panel on" id="ba-categorize">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — raw bank export, no categories</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Date</th><th>Description</th><th>Amount</th><th>Category</th></tr>
-          <tr><td>02/07</td><td>STRIPE PAYOUT — Client A</td><td class="ok-cell">+$4,200.00</td><td class="err-cell">?</td></tr>
-          <tr><td>04/07</td><td>AWS EMEA</td><td>−$87.40</td><td class="err-cell">?</td></tr>
-          <tr><td>07/07</td><td>AMZN MKTP US*4R2K</td><td class="err-cell">−$214.60</td><td class="err-cell">Personal or business?</td></tr>
-          <tr><td>15/07</td><td>Freelancer – J. Kim</td><td>−$950.00</td><td class="err-cell">?</td></tr>
-          <tr><td>18/07</td><td>GOOGLE ADS</td><td>−$430.00</td><td class="err-cell">?</td></tr>
-          <tr><td>24/07</td><td>NOTION.SO</td><td>−$16.00</td><td class="err-cell">?</td></tr>
-          <tr><td>28/07</td><td>STRIPE PAYOUT — Client B</td><td class="ok-cell">+$3,800.00</td><td class="err-cell">?</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          7 transactions — 45 min to categorize manually, every single month
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ AMZN MKTP could be desk supplies or a personal order — needs a flag</div>
+    <div class="ba-col before" style="border-color:#334155">
+      <div class="ba-header" style="background:#1e293b;color:#64748b;border-bottom:1px solid #334155"><i class="ti ti-file-spreadsheet" style="font-size:14px;color:#475569"></i> Before — raw CSV export pasted as-is</div>
+      <div class="ba-body" style="padding:12px">
+        <div class="raw-export"><span class="header">Date         Description                    Amount</span>02/07/2026   STRIPE PAYOUT - CLIENT A       <span class="credit">+4200.00</span>
+04/07/2026   AWS EMEA                         <span class="debit">-87.40</span>
+07/07/2026   <span class="flag">AMZN MKTP US*4R2K              -214.60  ← ?</span>
+15/07/2026   Freelancer - J. Kim              <span class="debit">-950.00</span>
+18/07/2026   GOOGLE ADS                       <span class="debit">-430.00</span>
+24/07/2026   NOTION.SO                        <span class="debit">-16.00</span>
+28/07/2026   STRIPE PAYOUT - CLIENT B       <span class="credit">+3800.00</span></div>
+        <div style="margin-top:10px;padding:8px 10px;background:#1e293b;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#64748b">
+          7 transactions — this is exactly what the bank gives you
+          <div style="font-size:10px;color:#475569;margin-top:3px">↑ AMZN MKTP could be desk supplies or a personal purchase — no way to tell without context</div>
         </div>
       </div>
     </div>
@@ -302,20 +299,20 @@ Net (excl. review):     $6,516.60 ✓</pre>
 
   <!-- Tab: invoices -->
   <div class="before-after ba-panel" id="ba-invoices">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — no visibility on overdue invoices</div>
+    <div class="ba-col before" style="border-color:#e5e7eb">
+      <div class="ba-header" style="background:#f9fafb;color:#374151;border-bottom:1px solid #e5e7eb"><i class="ti ti-file-invoice" style="font-size:14px;color:#6b7280"></i> Before — invoices logged, no status calculated</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Invoice #</th><th>Client</th><th>Date</th><th>Amount</th><th>Paid?</th><th>Status</th></tr>
-          <tr><td>INV-041</td><td>Acme Co.</td><td>15/06</td><td>$2,400</td><td class="err-cell">No</td><td class="err-cell">?</td></tr>
-          <tr><td>INV-042</td><td>Blue Fin</td><td>28/06</td><td>$1,800</td><td class="err-cell">No</td><td class="err-cell">?</td></tr>
-          <tr><td>INV-043</td><td>Acme Co.</td><td>10/07</td><td>$3,100</td><td class="err-cell">No</td><td class="err-cell">?</td></tr>
-          <tr><td>INV-044</td><td>Nord Ltd</td><td>18/07</td><td>$950</td><td class="err-cell">No</td><td class="err-cell">?</td></tr>
-          <tr><td>INV-045</td><td>Blue Fin</td><td>25/07</td><td>$2,200</td><td class="err-cell">No</td><td class="err-cell">?</td></tr>
+        <table class="inv-table">
+          <tr><th></th><th>Invoice #</th><th>Client</th><th>Sent</th><th>Amount</th><th>Status</th></tr>
+          <tr><td></td><td>INV-041</td><td>Acme Co.</td><td>15/06</td><td>$2,400</td><td class="unknown">Not tracked</td></tr>
+          <tr><td></td><td>INV-042</td><td>Blue Fin</td><td>28/06</td><td>$1,800</td><td class="unknown">Not tracked</td></tr>
+          <tr><td></td><td>INV-043</td><td>Acme Co.</td><td>10/07</td><td>$3,100</td><td class="unknown">Not tracked</td></tr>
+          <tr><td></td><td>INV-044</td><td>Nord Ltd</td><td>18/07</td><td>$950</td><td class="unknown">Not tracked</td></tr>
+          <tr><td></td><td>INV-045</td><td>Blue Fin</td><td>25/07</td><td>$2,200</td><td class="unknown">Not tracked</td></tr>
         </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Today: 15/08/2026 · Terms: Net 30 — no idea which are overdue
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Acme Co. has 2 unpaid invoices — needs a flag</div>
+        <div style="margin-top:10px;padding:8px 10px;background:#f9fafb;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b7280">
+          Today: 15/08/2026 · Terms: Net 30 · Total unpaid: $10,450
+          <div style="font-size:10px;color:#9ca3af;margin-top:3px">↑ No due dates calculated — Acme has 2 invoices, no way to know which to chase first</div>
         </div>
       </div>
     </div>
