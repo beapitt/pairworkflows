@@ -271,6 +271,49 @@ explicitly instead of forcing a runway number.</pre>
   </div>
 
   <!-- BEFORE / AFTER VISUAL -->
+  <div id="ba-build" class="ba-scenario">
+  <div class="before-after">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — raw transactions, uncategorised</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Date</th><th>Description</th><th>Amount</th><th>Category</th></tr>
+          <tr><td>03/06/2026</td><td>Customer payments</td><td>+$29,000</td><td class="err-cell">Uncategorised</td></tr>
+          <tr><td>05/06/2026</td><td>Payroll run</td><td>−$32,000</td><td class="err-cell">Uncategorised</td></tr>
+          <tr><td>06/06/2026</td><td>Supplier invoices</td><td>−$18,000</td><td class="err-cell">Uncategorised</td></tr>
+          <tr><td>07/06/2026</td><td>Transfer to savings</td><td>−$50,000</td><td class="err-cell">Uncategorised</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Opening balance $500,000 — 4 transactions, nothing categorised
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ No weekly totals, no Operating/Investing/Financing split, no closing balance</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude categorises and builds the dashboard</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Transaction</th><th>Amount</th><th>Category</th></tr>
+          <tr><td>Customer payments</td><td>+$29,000</td><td class="ok-cell">Operating Inflow ✓</td></tr>
+          <tr><td>Payroll run</td><td>−$32,000</td><td class="ok-cell">Operating Outflow ✓</td></tr>
+          <tr><td>Supplier invoices</td><td>−$18,000</td><td class="ok-cell">Operating Outflow ✓</td></tr>
+          <tr><td>Transfer to savings</td><td>−$50,000</td><td class="link-cell">Internal Transfer — excluded</td></tr>
+          <tr><td><strong>Net Operating</strong></td><td class="ok-cell"><strong>−$21,000</strong></td><td></td></tr>
+          <tr><td><strong>Closing Balance</strong></td><td class="ok-cell"><strong>$479,000</strong></td><td></td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's output</div>
+          <pre>$500,000 opening + $29k in − $50k out = $479,000 closing ✓
+Net Operating: $29k − $32k − $18k = −$21k (transfer excluded) ✓
+Internal Transfer flagged separately — does not change cash balance.</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div id="ba-transfers" class="ba-scenario" style="display:none">
   <div class="before-after">
     <div class="ba-col before">
       <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — transfer miscategorised as Operating</div>
@@ -289,9 +332,7 @@ explicitly instead of forcing a runway number.</pre>
         </div>
       </div>
     </div>
-
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-
     <div class="ba-col after">
       <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude recategorises and reconciles</div>
       <div class="ba-body">
@@ -312,6 +353,51 @@ Net Operating burn: −$21,000 (not −$71,000). ✓</pre>
         </div>
       </div>
     </div>
+  </div>
+  </div>
+
+  <div id="ba-runway" class="ba-scenario" style="display:none">
+  <div class="before-after">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — weekly data with no runway calculation</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Week</th><th>Net Cash Change</th><th>Runway</th></tr>
+          <tr><td>Wk 1</td><td>−$21,000</td><td class="err-cell">—</td></tr>
+          <tr><td>Wk 2</td><td>−$18,000</td><td class="err-cell">—</td></tr>
+          <tr><td>Wk 3</td><td>−$31,000</td><td class="err-cell">—</td></tr>
+          <tr><td>Wk 4</td><td>−$15,000</td><td class="err-cell">—</td></tr>
+          <tr><td><strong>Cash balance</strong></td><td><strong>$479,000</strong></td><td class="err-cell">Unknown</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          4 weeks of burn data and a cash balance — but no runway figure
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Leadership is flying blind on how long the cash lasts</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude calculates runway</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>Week</th><th>Net Cash Change</th><th></th></tr>
+          <tr><td>Wk 1</td><td>−$21,000</td><td></td></tr>
+          <tr><td>Wk 2</td><td>−$18,000</td><td></td></tr>
+          <tr><td>Wk 3</td><td>−$31,000</td><td></td></tr>
+          <tr><td>Wk 4</td><td>−$15,000</td><td></td></tr>
+          <tr><td><strong>Avg weekly burn</strong></td><td class="err-cell"><strong>−$21,250</strong></td><td style="font-size:10px;color:#6b7280">(21+18+31+15)÷4</td></tr>
+          <tr><td><strong>Runway</strong></td><td class="ok-cell"><strong>22.5 weeks</strong></td><td style="font-size:10px;color:#6b7280">$479,000÷$21,250</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's output</div>
+          <pre>Avg burn = ($21k+$18k+$31k+$15k) ÷ 4 = $21,250/week ✓
+Runway = $479,000 ÷ $21,250 = 22.5 weeks ✓
+If avg were positive (cash growing), Claude says so
+explicitly — no runway number is shown. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
 
   <!-- DIAGNOSIS TABLE -->
@@ -418,8 +504,11 @@ Net Operating burn: −$21,000 (not −$71,000). ✓</pre>
 function switchTab(btn,id){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.ba-scenario').forEach(function(s){s.style.display='none'});
   btn.classList.add('on');
   document.getElementById('p-'+id).classList.add('on');
+  var ba=document.getElementById('ba-'+id);
+  if(ba)ba.style.display='block';
 }
 function copyPrompt(btn){
   var text=btn.previousElementSibling.innerText;
