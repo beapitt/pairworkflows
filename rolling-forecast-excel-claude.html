@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>12 Month Rolling Forecast Excel Template with Claude AI — PairWorkflows</title>
-<meta name="description" content="Build a 12 month rolling forecast Excel template with Claude AI. Actuals replace forecasts as each month closes, keeping the horizon always 12 months ahead.">
+<title>12-Month Rolling Forecast in Excel with Claude AI — PairWorkflows</title>
+<meta name="description" content="Learn how to build a 12-month rolling forecast in Excel with Claude AI, replacing forecasts with actuals as each month closes and keeping the horizon updated.>
 <link rel="canonical" href="https://www.pairworkflows.com/rolling-forecast-excel-claude.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between a rolling forecast and an annual budget?","acceptedAnswer":{"@type":"Answer","text":"An annual budget is set once and stays fixed for the fiscal year. A rolling forecast is updated every month: actuals replace the oldest forecast period, and a new period is added at the far end so the model always looks 12 months ahead. This keeps planning current with business conditions."}},{"@type":"Question","name":"How many months should a rolling forecast cover?","acceptedAnswer":{"@type":"Answer","text":"Twelve months is the most common horizon. Some organisations use 18 months to ensure the forecast always spans at least one full fiscal year. The prompt in this workflow defaults to 12 but you can change it."}},{"@type":"Question","name":"Can Claude automatically pull actuals into the forecast each month?","acceptedAnswer":{"@type":"Answer","text":"Claude cannot connect to live data sources. It builds the Excel structure with clearly separated Actuals and Forecast columns. Each month, you paste updated actuals into the Actuals section and the formulas recalculate the remaining forecast periods automatically."}},{"@type":"Question","name":"How do I handle seasonality in a rolling forecast?","acceptedAnswer":{"@type":"Answer","text":"Include a seasonality index or monthly weighting in your input data. The prompt instructs Claude to apply seasonal adjustments to the base forecast so that Q4 revenue projections reflect your historical uplift rather than a flat monthly average."}},{"@type":"Question","name":"Does this replace a 3-statement financial model?","acceptedAnswer":{"@type":"Answer","text":"No. A rolling forecast focuses on the P&L and key operating metrics. A 3-statement model links the income statement, balance sheet, and cash flow statement. They serve different purposes and can complement each other."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -149,7 +149,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Finance</div>
-    <h1>How to Build a 12 Month Rolling Forecast Excel Template with Claude AI</h1>
+    <h1>How to Build a 12-Month Rolling Forecast in Excel with Claude AI</h1>
     <p class="hero-sub">Paste your historical actuals and growth assumptions into Claude. It builds a 12-month rolling model where actuals replace forecasts as each month closes — always looking exactly 12 months ahead, driven by formulas not hard-coded numbers.</p>
   </div>
 
@@ -379,7 +379,7 @@ Rolling total dynamically adjusted. ✓</pre>
 
   <!-- Steps: Build -->
   <div class="steps-panel on" id="steps-build">
-    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Build a rolling forecast step by step</h2>
     <div class="steps-card">
       <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a 12-month rolling forecast with Claude — 4 steps</div>
       <div class="step">
