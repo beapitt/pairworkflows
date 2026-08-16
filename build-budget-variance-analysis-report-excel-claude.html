@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Build a Budget Variance Analysis Report in Excel with Claude AI — PairWorkflows</title>
-<meta name="description" content="Use Claude AI to build a budget vs actual variance report in Excel — auto-calculated variances, threshold flags, and commentary columns.">
+<title>Budget vs Actual Report in Excel with Claude AI — PairWorkflows</title>
+<meta name="description" content="Learn how to build a budget vs actual report in Excel with Claude AI, including variance amount, variance %, threshold flags, and commentary.">
 <link rel="canonical" href="https://www.pairworkflows.com/build-budget-variance-analysis-report-excel-claude.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Should variance be calculated as Budget minus Actual or Actual minus Budget?","acceptedAnswer":{"@type":"Answer","text":"Convention varies. For revenue lines, Actual minus Budget is common so a positive number means favourable. For expense lines, Budget minus Actual is typical so under-spending shows as positive. The prompt asks you to specify your convention and Claude applies it consistently across all line items."}},{"@type":"Question","name":"What variance threshold should trigger a flag?","acceptedAnswer":{"@type":"Answer","text":"A common rule flags any line where the variance exceeds 5-10 percent or a fixed dollar amount like 5000. The right threshold depends on materiality for your business. The prompt lets you set both a percentage and an absolute amount, combined with AND or OR logic."}},{"@type":"Question","name":"Can Claude write the variance commentary for me?","acceptedAnswer":{"@type":"Answer","text":"Claude can draft commentary based on the numbers — for example noting that a line is 12 percent over budget. But meaningful explanations require business context only your team has. Use Claude's draft as a starting point, then add the real reasons."}},{"@type":"Question","name":"How do I handle budget variance for a partial period?","acceptedAnswer":{"@type":"Answer","text":"Compare year-to-date actuals against the YTD portion of the annual budget — not the full year. The prompt includes a reporting period field so Claude labels the report correctly and can prorate if needed."}},{"@type":"Question","name":"What is the difference between a favourable and unfavourable variance?","acceptedAnswer":{"@type":"Answer","text":"A favourable variance improves the bottom line — revenue above budget or expenses below budget. An unfavourable variance hurts the bottom line — revenue below budget or expenses above budget. The label depends on the line type, not just the sign of the number."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -171,7 +171,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-report-money" style="font-size:12px"></i> Excel · Claude AI</div>
-    <h1>Build a Budget Variance Analysis Report in Excel with Claude AI</h1>
+    <h1>How to Build a Budget vs Actual Report in Excel with Claude AI</h1>
     <p class="hero-sub">Paste your budget and actuals into Claude and get back a formula-driven variance report — dollar and percentage variances, favourable/unfavourable labels, threshold flags, and a blank commentary column ready for your team.</p>
   </div>
 
@@ -432,7 +432,7 @@ Revenue: only −3.5% off YTD pace — manageable. ✓</pre>
   </div>
 
   <!-- STEPS -->
-  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Build a budget vs actual report step by step</h2>
   <div class="steps-card">
     <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a budget variance report with Claude — 5 steps</div>
     <div class="step">
