@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Bank Reconciliation Taking Too Long? Automate It with Claude AI — PairWorkflows</title>
-<meta name="description" content="Use Claude AI to reconcile your bank statement against the general ledger in Excel. Match transactions, flag discrepancies, copy the prompt.">
+<title>Bank Reconciliation in Excel with Claude AI — PairWorkflows — PairWorkflows</title>
+<meta name="description" content="Learn how to reconcile a bank statement against your general ledger in Excel with Claude AI, match transactions, and flag discrepancies.">
 <link rel="canonical" href="https://www.pairworkflows.com/bank-reconciliation-excel-claude.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude read my Excel bank statement directly?","acceptedAnswer":{"@type":"Answer","text":"Claude cannot open .xlsx files natively in the free chat. You can paste your data as text, or upload the file in Claude Pro which supports file attachments. For best results, copy the relevant columns from Excel and paste them into the prompt."}},{"@type":"Question","name":"How does Claude match bank transactions to ledger entries?","acceptedAnswer":{"@type":"Answer","text":"Claude compares rows across two datasets using the matching criteria you specify — typically date, amount, and reference number. It flags exact matches, partial matches (e.g. same amount but different date), and completely unmatched items on both sides."}},{"@type":"Question","name":"Will Claude invent matches that don't exist?","acceptedAnswer":{"@type":"Answer","text":"Not if your prompt includes anti-hallucination guardrails. The prompt in this workflow explicitly instructs Claude to flag unmatched items rather than forcing a match. Always verify the output against your source data."}},{"@type":"Question","name":"Can I use this for multi-currency bank reconciliation?","acceptedAnswer":{"@type":"Answer","text":"Yes. Add a Currency column to both datasets and include the exchange rate in your prompt. Ask Claude to convert all amounts to your reporting currency before matching."}},{"@type":"Question","name":"How often should I run this reconciliation?","acceptedAnswer":{"@type":"Answer","text":"Most finance teams reconcile monthly at minimum. Weekly reconciliation catches errors faster and makes month-end close significantly smoother. The template Claude builds works for any frequency."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -179,8 +179,8 @@ section { margin-bottom: 2rem; }
   <!-- HERO -->
   <section class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
-    <h1>How to Automate Bank Reconciliation in Excel with Claude AI</h1>
-    <h2>Automate bank reconciliation<br>in minutes with Claude.</h2>
+    <h1>How to Do Bank Reconciliation in Excel with Claude AI</h1>
+    <h2>Reconcile bank transactions step by step</h2>
     <p class="hero-sub">Paste your bank statement and general ledger into Claude with the prompt below. It matches transactions by date and amount, flags partial matches, and lists every unmatched item — no forced matches, no invented entries.</p>
   </section>
 
