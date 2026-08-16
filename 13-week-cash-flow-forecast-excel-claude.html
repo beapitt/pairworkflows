@@ -285,9 +285,10 @@ Output the full 26-week table in the same column format as my original.</pre>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th></th><th>Wk 3</th><th>Wk 4</th></tr>
-          <tr class="section-row"><td colspan="3">13-Week Forecast</td></tr>
+          <tr class="section-row"><td colspan="3">Base-Case Forecast (at-risk receipt included)</td></tr>
+          <tr><td>Opening Bal</td><td>59,300</td><td>67,800</td></tr>
           <tr><td>Total In</td><td>36,500</td><td class="hl">8,500</td></tr>
-          <tr><td>Total Out</td><td>-28,000</td><td>-62,000</td></tr>
+          <tr><td>Total Out</td><td>−28,000</td><td>−62,000</td></tr>
           <tr><td>Closing Bal</td><td>67,800</td><td class="err-cell">14,300</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
@@ -304,16 +305,18 @@ Output the full 26-week table in the same column format as my original.</pre>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th></th><th>Wk 3</th><th>Wk 4</th></tr>
-          <tr class="section-row"><td colspan="3">Worst-Case Forecast</td></tr>
+          <tr class="section-row"><td colspan="3">Worst-Case Forecast (at-risk receipt excluded)</td></tr>
+          <tr><td>Opening Bal</td><td>59,300</td><td>67,800</td></tr>
           <tr><td>Total In (ex at-risk)</td><td>36,500</td><td class="link-cell">0</td></tr>
-          <tr><td>Total Out</td><td>-28,000</td><td>-62,000</td></tr>
+          <tr><td>Total Out</td><td>−28,000</td><td>−62,000</td></tr>
           <tr><td>Closing Bal</td><td>67,800</td><td class="err-cell">5,800</td></tr>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's fix</div>
-          <pre>Worst-case Week 4 closing = 14,300 − 8,500
-  = 5,800 — below the £20,000 minimum buffer
-Base case looked fine. Worst case flags the real gap. ✓</pre>
+          <pre>Worst-case Wk 4: 67,800 + £0 (at-risk excluded) − 62,000
+  = 5,800 — below the £20,000 minimum buffer ✗
+Base case (14,300) already below buffer too.
+Worst case confirms the gap is real, not just a risk. ✓</pre>
         </div>
       </div>
     </div>
@@ -345,7 +348,7 @@ Base case looked fine. Worst case flags the real gap. ✓</pre>
   </div>
 
   <!-- STEPS -->
-  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Build a 13-week cash flow forecast step by step/h2>
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Build a 13-week cash flow forecast step by step</h2>
   <div class="steps-card">
     <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a 13-week cash flow forecast with Claude — 5 steps</div>
     <div class="step">
