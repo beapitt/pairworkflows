@@ -279,13 +279,58 @@ Output the full 26-week table in the same column format as my original.</pre>
   </div>
 
   <!-- BEFORE / AFTER VISUAL -->
+  <div id="ba-build" class="ba-scenario">
   <div class="before-after">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — at-risk cash treated as certain</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — unstructured list, no week-by-week table</div>
       <div class="ba-body">
         <table class="xl-table">
+          <tr><th>Item</th><th>Amount</th><th>Timing</th></tr>
+          <tr class="section-row"><td colspan="3">Inflows (as provided)</td></tr>
+          <tr><td>Customer invoice A</td><td>£36,500</td><td class="err-cell">Week 3 — confirmed</td></tr>
+          <tr><td>Customer invoice B</td><td>£8,500</td><td class="hl">Week 4 — at risk</td></tr>
+          <tr class="section-row"><td colspan="3">Outflows (as provided)</td></tr>
+          <tr><td>Payroll</td><td>£28,000</td><td class="err-cell">Monthly — week unclear</td></tr>
+          <tr><td>Supplier batch</td><td>£62,000</td><td class="err-cell">Week 4</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Opening £59,300 — items listed but no weekly structure built
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ No closing balance, no buffer check, no view of which week cash runs tight</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude builds the structured forecast</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th colspan="5" style="text-align:center;font-size:10px;color:#6b7280;font-weight:400">13-week forecast excerpt (weeks 3–4 of 13)</th></tr>
           <tr><th></th><th>Wk 3</th><th>Wk 4</th></tr>
-          <tr class="section-row"><td colspan="3">Base-Case Forecast (at-risk receipt included)</td></tr>
+          <tr><td>Opening Bal</td><td>59,300</td><td>67,800</td></tr>
+          <tr><td>Total In</td><td>36,500</td><td class="hl">8,500</td></tr>
+          <tr><td>Total Out</td><td>−28,000</td><td>−62,000</td></tr>
+          <tr><td>Closing Bal</td><td class="ok-cell">67,800</td><td class="err-cell">14,300 ⚠ below buffer</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's output</div>
+          <pre>Wk 3: 59,300 + 36,500 − 28,000 = 67,800 ✓
+Wk 4: 67,800 + 8,500 − 62,000 = 14,300 ✓
+Week 4 closing (£14,300) is below the £20,000 minimum buffer.
+Flagged — even in the base case. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div id="ba-risk" class="ba-scenario" style="display:none">
+  <div class="before-after">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — at-risk receipt treated as confirmed</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th colspan="4" style="text-align:center;font-size:10px;color:#6b7280;font-weight:400">13-week forecast excerpt — base case only</th></tr>
+          <tr><th></th><th>Wk 3</th><th>Wk 4</th></tr>
           <tr><td>Opening Bal</td><td>59,300</td><td>67,800</td></tr>
           <tr><td>Total In</td><td>36,500</td><td class="hl">8,500</td></tr>
           <tr><td>Total Out</td><td>−28,000</td><td>−62,000</td></tr>
@@ -297,29 +342,69 @@ Output the full 26-week table in the same column format as my original.</pre>
         </div>
       </div>
     </div>
-
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — worst case flags the real risk</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — 3 scenarios make the real risk visible</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th></th><th>Wk 3</th><th>Wk 4</th></tr>
-          <tr class="section-row"><td colspan="3">Worst-Case Forecast (at-risk receipt excluded)</td></tr>
-          <tr><td>Opening Bal</td><td>59,300</td><td>67,800</td></tr>
-          <tr><td>Total In (ex at-risk)</td><td>36,500</td><td class="link-cell">0</td></tr>
-          <tr><td>Total Out</td><td>−28,000</td><td>−62,000</td></tr>
-          <tr><td>Closing Bal</td><td>67,800</td><td class="err-cell">5,800</td></tr>
+          <tr><th colspan="4" style="text-align:center;font-size:10px;color:#6b7280;font-weight:400">13-week forecast excerpt — Wk 4 comparison</th></tr>
+          <tr><th>Scenario</th><th>Wk 4 In</th><th>Wk 4 Out</th><th>Closing Bal</th></tr>
+          <tr><td>Base case</td><td>8,500</td><td>−62,000</td><td class="err-cell">14,300 ⚠</td></tr>
+          <tr><td>Worst case (0%)</td><td class="link-cell">0</td><td>−62,000</td><td class="err-cell">5,800 ✗</td></tr>
+          <tr><td>Weighted (50%)</td><td class="hl">4,250</td><td>−62,000</td><td class="err-cell">10,050 ✗</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's fix</div>
-          <pre>Worst-case Wk 4: 67,800 + £0 (at-risk excluded) − 62,000
-  = 5,800 — below the £20,000 minimum buffer ✗
-Base case (14,300) already below buffer too.
-Worst case confirms the gap is real, not just a risk. ✓</pre>
+          <div class="claude-fix-label">Claude's output</div>
+          <pre>Worst-case Wk 4: 67,800 + £0 − 62,000 = 5,800 ✗ (buffer: £20,000)
+Weighted Wk 4:  67,800 + £4,250 − 62,000 = 10,050 ✗
+All 3 scenarios breach the buffer. Risk is structural, not just worst-case. ✓</pre>
         </div>
       </div>
     </div>
+  </div>
+  </div>
+
+  <div id="ba-extend" class="ba-scenario" style="display:none">
+  <div class="before-after">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — forecast ends at Week 13</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th colspan="4" style="text-align:center;font-size:10px;color:#6b7280;font-weight:400">13-week forecast excerpt — final weeks</th></tr>
+          <tr><th></th><th>Wk 12</th><th>Wk 13</th><th>Wk 14</th></tr>
+          <tr><td>Opening Bal</td><td>35,200</td><td>38,700</td><td class="err-cell">—</td></tr>
+          <tr><td>Total In</td><td>41,000</td><td>33,800</td><td class="err-cell">—</td></tr>
+          <tr><td>Total Out</td><td>−37,500</td><td>−30,000</td><td class="err-cell">—</td></tr>
+          <tr><td>Closing Bal</td><td>38,700</td><td class="ok-cell">42,500</td><td class="err-cell">No data</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Lender asks for 26 weeks — forecast cuts off at Week 13
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Wk 13 closing (£42,500) exists but weeks 14–26 are blank</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude extends using Wk 13 closing as new opening</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th colspan="4" style="text-align:center;font-size:10px;color:#6b7280;font-weight:400">26-week extension excerpt (weeks 13–15 of 26)</th></tr>
+          <tr><th></th><th>Wk 13</th><th>Wk 14</th><th>Wk 15</th></tr>
+          <tr><td>Opening Bal</td><td>38,700</td><td class="link-cell">42,500</td><td>39,500</td></tr>
+          <tr><td>Total In</td><td>33,800</td><td>28,000</td><td>35,000</td></tr>
+          <tr><td>Total Out</td><td>−30,000</td><td>−31,000</td><td>−31,000</td></tr>
+          <tr><td>Closing Bal</td><td class="ok-cell">42,500</td><td class="ok-cell">39,500</td><td class="ok-cell">43,500</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's output</div>
+          <pre>Wk 14 opening = Wk 13 closing = 42,500 ✓
+Wk 14: 42,500 + 28,000 − 31,000 = 39,500 ✓
+Wk 15: 39,500 + 35,000 − 31,000 = 43,500 ✓
+Weeks 1–13 kept exactly as provided — not recalculated. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
 
   <!-- DIAGNOSIS TABLE -->
@@ -426,8 +511,11 @@ Worst case confirms the gap is real, not just a risk. ✓</pre>
 function switchTab(btn,id){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.ba-scenario').forEach(function(s){s.style.display='none'});
   btn.classList.add('on');
   document.getElementById('p-'+id).classList.add('on');
+  var ba=document.getElementById('ba-'+id);
+  if(ba)ba.style.display='block';
 }
 function copyPrompt(btn){
   var text=btn.previousElementSibling.innerText;
