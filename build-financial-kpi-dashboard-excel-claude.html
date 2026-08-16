@@ -205,8 +205,10 @@ KPIs TO CALCULATE
 - EBITDA Margin % = (Operating Income + D&A) / Revenue
 - Current Ratio = Current Assets / Current Liabilities
 - Quick Ratio = (Current Assets - Inventory) / Current Liabilities
-- DSO = (Accounts Receivable / Revenue) × days in period
-- DPO = (Accounts Payable / COGS) × days in period
+- DSO = (Accounts Receivable / Credit Sales) × days in period
+  [Credit Sales = Revenue excluding cash-at-point-of-sale transactions]
+- DPO = (Accounts Payable / Purchases) × days in period
+  [Use Purchases if available; COGS is an acceptable proxy if purchases data is not provided — state which you are using]
 
 THRESHOLDS (for RAG status)
 [List each KPI with Green / Amber / Red rules. Examples:]
@@ -277,15 +279,24 @@ RAG status.</pre>
   <!-- BEFORE / AFTER VISUAL -->
   <div class="before-after">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — no thresholds set</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — numbers with no targets</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>KPI</th><th>Value</th><th>Status</th></tr>
-          <tr><td>EBITDA Margin</td><td>16.1%</td><td class="err-cell">No status</td></tr>
+          <tr><th>KPI</th><th>Category</th><th>Current</th><th>Prior</th><th>Change</th><th>Status</th></tr>
+          <tr class="section-row"><td colspan="6">Profitability</td></tr>
+          <tr><td>Gross Margin %</td><td></td><td>60.0%</td><td>60.0%</td><td>0.0pp</td><td class="err-cell">—</td></tr>
+          <tr><td>Operating Margin %</td><td></td><td>15.0%</td><td>16.0%</td><td>−1.0pp</td><td class="err-cell">—</td></tr>
+          <tr><td>EBITDA Margin %</td><td></td><td>17.1%</td><td>18.2%</td><td>−1.1pp</td><td class="err-cell">—</td></tr>
+          <tr class="section-row"><td colspan="6">Liquidity</td></tr>
+          <tr><td>Current Ratio</td><td></td><td>1.40</td><td>1.72</td><td>−0.32</td><td class="err-cell">—</td></tr>
+          <tr><td>Quick Ratio</td><td></td><td>1.06</td><td>1.36</td><td>−0.30</td><td class="err-cell">—</td></tr>
+          <tr class="section-row"><td colspan="6">Efficiency</td></tr>
+          <tr><td>DSO (days)</td><td></td><td>86</td><td>81</td><td>+5d</td><td class="err-cell">—</td></tr>
+          <tr><td>DPO (days)</td><td></td><td>108</td><td>120</td><td>−12d</td><td class="err-cell">—</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          A number with no target is not a signal
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Is 16.1% good or bad? Nobody can tell without a threshold</div>
+          7 KPIs — all moving in the wrong direction. None flagged.
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Without thresholds, nothing triggers a conversation with leadership</div>
         </div>
       </div>
     </div>
@@ -293,17 +304,30 @@ RAG status.</pre>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
 
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude fixes it</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude applies your thresholds</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>KPI</th><th>Value</th><th>Status</th></tr>
-          <tr><td>EBITDA Margin</td><td>16.1%</td><td class="err-cell">Red</td></tr>
+          <tr><th>KPI</th><th>Formula</th><th>Current</th><th>Prior</th><th>Change</th><th>RAG</th></tr>
+          <tr class="section-row"><td colspan="6">Profitability</td></tr>
+          <tr><td>Gross Margin %</td><td style="font-size:10px">(Rev−COGS)/Rev</td><td>60.0%</td><td>60.0%</td><td>0.0pp</td><td class="ok-cell">Green ✓</td></tr>
+          <tr><td>Operating Margin %</td><td style="font-size:10px">Op.Inc/Rev</td><td>15.0%</td><td>16.0%</td><td>−1.0pp</td><td class="hl">Amber ⚠</td></tr>
+          <tr><td>EBITDA Margin %</td><td style="font-size:10px">(Op.Inc+D&A)/Rev</td><td>17.1%</td><td>18.2%</td><td>−1.1pp</td><td class="err-cell">Red ✗</td></tr>
+          <tr class="section-row"><td colspan="6">Liquidity</td></tr>
+          <tr><td>Current Ratio</td><td style="font-size:10px">CA/CL</td><td>1.40</td><td>1.72</td><td>−0.32</td><td class="hl">Amber ⚠</td></tr>
+          <tr><td>Quick Ratio</td><td style="font-size:10px">(CA−Inv)/CL</td><td>1.06</td><td>1.36</td><td>−0.30</td><td class="err-cell">Red ✗</td></tr>
+          <tr class="section-row"><td colspan="6">Efficiency</td></tr>
+          <tr><td>DSO (days)</td><td style="font-size:10px">(AR/CreditSales)×30</td><td>86</td><td>81</td><td>+5d</td><td class="err-cell">Red ✗</td></tr>
+          <tr><td>DPO (days)</td><td style="font-size:10px">(AP/Purchases)×30</td><td>108</td><td>120</td><td>−12d</td><td class="hl">Amber ⚠</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's fix</div>
-          <pre>Threshold: Green ≥18%, Red <18%
-16.1% < 18% → Red status applied.
-Now it's a call to action. ✓</pre>
+          <div class="claude-fix-label">Claude's output — thresholds you defined applied</div>
+          <pre>EBITDA Margin: Green ≥18%, Amber 16–17.9%, Red &lt;16%
+  → 17.1% = Amber. (Threshold is yours — not a universal benchmark.)
+Quick Ratio: Green ≥1.2, Amber 1.0–1.19, Red &lt;1.0
+  → 1.06 = Amber. Watch — one bad week tips this to Red.
+DSO: Green ≤75d, Amber 76–85d, Red &gt;85d
+  → 86d = Red. Credit sales used, not total revenue. ✓
+DPO: COGS used as proxy for purchases (purchases data not provided). ✓</pre>
         </div>
       </div>
     </div>
@@ -358,7 +382,7 @@ Now it's a call to action. ✓</pre>
       <div class="step-n">5</div>
       <div class="step-body"><h3>Structure your input as a dedicated Data tab</h3><p>Every KPI formula should reference that tab. Each month, update just the Data tab and every KPI, trend, and RAG status recalculates instantly. Ask Claude to build this structure.</p></div>
     </div>
-    <div class="warn"><strong>Common mistake:</strong> Using DSO that's calculated from revenue rather than credit sales. If 30% of your revenue is cash at point of sale, DSO based on total revenue will look artificially low. Tell Claude which revenue figure to use.</div>
+    <div class="warn"><strong>Common mistake:</strong> Using DSO calculated from total revenue rather than credit sales. If any portion of your revenue is cash at point of sale, DSO based on total revenue will look artificially low — tell Claude which revenue figure to use. Also: RAG thresholds in this workflow are always <em>yours</em> — a "good" EBITDA margin for a SaaS business (25–35%) is very different from a distributor (3–6%). Do not treat the examples above as universal benchmarks.</div>
   </div>
 
   <!-- FAQ -->
