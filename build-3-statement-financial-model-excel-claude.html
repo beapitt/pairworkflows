@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>3-Statement Model Not Balancing? Build It Right with Claude AI — PairWorkflows</title>
-<meta name="description" content="Use Claude AI to build a linked 3-statement financial model in Excel — income statement, balance sheet, and cash flow connected by formulas. Copy the prompt.">
+<title>How to Build a 3-Statement Model in Excel with Claude AI — PairWorkflows</title>
+<meta name="description" content="Learn how to build a linked 3-statement financial model in Excel with Claude AI, connecting the income statement, balance sheet, and cash flow with formulas.">
 <link rel="canonical" href="https://www.pairworkflows.com/build-3-statement-financial-model-excel-claude.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What links the three financial statements together?","acceptedAnswer":{"@type":"Answer","text":"Net income from the income statement flows into retained earnings on the balance sheet and is the starting point for the cash flow statement (indirect method). Changes in balance sheet working capital items feed the operating section of the cash flow statement. CapEx on the cash flow statement increases PP&E on the balance sheet. The ending cash balance on the cash flow statement must equal cash on the balance sheet."}},{"@type":"Question","name":"Can Claude build a 3-statement model from scratch without historical data?","acceptedAnswer":{"@type":"Answer","text":"Claude can build the model structure and formulas without historical data, but the output will be a blank template. For a working model, provide at least one year of historical financials so Claude can populate the base period and project forward from real numbers."}},{"@type":"Question","name":"How does Claude handle the balance sheet check?","acceptedAnswer":{"@type":"Answer","text":"The prompt instructs Claude to add a balance check row that calculates Total Assets minus Total Liabilities and Equity. If this row shows anything other than zero, the model has a linkage error. This is the single most important integrity check in any 3-statement model."}},{"@type":"Question","name":"Should I use the direct or indirect method for the cash flow statement?","acceptedAnswer":{"@type":"Answer","text":"The indirect method is standard for financial modelling because it starts with net income and adjusts for non-cash items and working capital changes. The prompt in this workflow uses the indirect method."}},{"@type":"Question","name":"Can I extend this to a 5-year projection?","acceptedAnswer":{"@type":"Answer","text":"Yes. The prompt defaults to a 3-year projection but you can change the horizon. Provide your growth and margin assumptions for each year, and Claude will extend the model accordingly."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -174,8 +174,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
-   <h1>Build a 3-Statement Model in Excel with Claude AI</h1>
-    <p class="hero-sub">Paste one year of historical financials and your assumptions into Claude. It builds the income statement, balance sheet, and cash flow statement — fully linked, with a Balance Check row so you can verify every connection.</p>
+   <h1>How to Build a 3-Statement Model in Excel with Claude AI</h1>
+   <p class="hero-sub">Paste one year of historical financials and your assumptions into Claude. It builds the income statement, balance sheet, and cash flow statement — fully linked, with a Balance Check row so you can verify every connection.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -433,7 +433,7 @@ New 8% growth rate applied safely. ✓</pre>
   
   <!-- Steps: Build -->
   <div class="steps-panel on" id="steps-build">
-    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Build a linked 3-statement model step by step</h2>
     <div class="steps-card">
       <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a 3-statement model with Claude — 5 steps</div>
       <div class="step">
