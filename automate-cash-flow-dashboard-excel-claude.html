@@ -273,16 +273,19 @@ explicitly instead of forcing a runway number.</pre>
   <!-- BEFORE / AFTER VISUAL -->
   <div class="before-after">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — transfer miscategorised</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — transfer miscategorised as Operating</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Transaction</th><th>Category</th></tr>
-          <tr><td>Transfer to savings</td><td class="err-cell">Operating Outflow</td></tr>
-          <tr><td>Net Operating (week)</td><td class="err-cell">−$71,000</td></tr>
+          <tr><th>Transaction</th><th>Amount</th><th>Category (wrong)</th></tr>
+          <tr><td>Customer payments</td><td>+$29,000</td><td class="ok-cell">Operating Inflow ✓</td></tr>
+          <tr><td>Payroll</td><td>−$32,000</td><td class="ok-cell">Operating Outflow ✓</td></tr>
+          <tr><td>Supplier invoices</td><td>−$18,000</td><td class="ok-cell">Operating Outflow ✓</td></tr>
+          <tr><td>Transfer to savings</td><td>−$50,000</td><td class="err-cell">Operating Outflow ✗</td></tr>
+          <tr><td><strong>Net Operating (week)</strong></td><td class="err-cell"><strong>−$71,000</strong></td><td></td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          $50,000 internal transfer counted as a real cash outflow
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Burn rate looks worse than it actually is</div>
+          $29k − $32k − $18k − $50k = −$71k ← transfer inflates burn
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Real operating burn is only −$21,000 — the transfer is a reclassification</div>
         </div>
       </div>
     </div>
@@ -290,18 +293,22 @@ explicitly instead of forcing a runway number.</pre>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
 
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude fixes it</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude recategorises and reconciles</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Transaction</th><th>Category</th></tr>
-          <tr><td>Transfer to savings</td><td class="link-cell">Internal Transfer</td></tr>
-          <tr><td>Net Operating (week)</td><td class="ok-cell">−$21,000</td></tr>
+          <tr><th>Transaction</th><th>Amount</th><th>Category (corrected)</th></tr>
+          <tr><td>Customer payments</td><td>+$29,000</td><td class="ok-cell">Operating Inflow ✓</td></tr>
+          <tr><td>Payroll</td><td>−$32,000</td><td class="ok-cell">Operating Outflow ✓</td></tr>
+          <tr><td>Supplier invoices</td><td>−$18,000</td><td class="ok-cell">Operating Outflow ✓</td></tr>
+          <tr><td>Transfer to savings</td><td>−$50,000</td><td class="link-cell">Internal Transfer — excluded</td></tr>
+          <tr><td><strong>Net Operating (week)</strong></td><td class="ok-cell"><strong>−$21,000</strong></td><td></td></tr>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's fix</div>
-          <pre>Internal Transfer excluded from Operating,
-Investing, and Financing totals.
-True burn rate now visible. ✓</pre>
+          <pre>$29k − $32k − $18k = −$21k ← transfer excluded ✓
+Internal Transfer does NOT change your cash balance —
+it moves money between your own accounts.
+Net Operating burn: −$21,000 (not −$71,000). ✓</pre>
         </div>
       </div>
     </div>
@@ -372,7 +379,7 @@ True burn rate now visible. ✓</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I calculate cash runway from this dashboard? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">The dashboard includes a runway formula: current cash balance divided by average weekly net cash burn over the trailing period you specify (typically 4-8 weeks). This gives you estimated weeks of runway at the current burn rate.</div>
+      <div class="faq-a">The dashboard includes a runway formula: current cash balance divided by average weekly net cash burn over the trailing period you specify (typically 4–8 weeks). If the average net cash change is negative (you are burning cash), this gives estimated weeks of runway. If the average is positive — cash is growing week on week — the dashboard says so explicitly rather than showing a runway number, since dividing by a positive burn figure produces a meaningless result.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Should I use bank data or general ledger data as input? <i class="ti ti-chevron-down"></i></div>
