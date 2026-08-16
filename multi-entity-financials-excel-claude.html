@@ -253,42 +253,41 @@ Please:
 
   <!-- Tab: consol -->
   <div class="before-after ba-panel on" id="ba-consol">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — intercompany revenue counted twice</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Line Item</th><th>Entity A</th><th>Entity B</th><th>Naive Total</th></tr>
-          <tr><td>Revenue</td><td>£1,200,000</td><td>£800,000</td><td class="err-cell">£2,000,000</td></tr>
-          <tr><td>COGS</td><td>£480,000</td><td>£490,000</td><td class="err-cell">£970,000</td></tr>
-          <tr><td>Gross Profit</td><td>£720,000</td><td>£310,000</td><td class="err-cell">£1,030,000</td></tr>
+    <div class="ba-col before" style="border-color:#cbd5e1">
+      <div class="ba-header" style="background:#1e293b;color:#94a3b8;border-bottom:none"><i class="ti ti-building-bank" style="font-size:14px"></i> Group P&amp;L — interco transaction not eliminated</div>
+      <div class="ba-body" style="padding:0">
+        <table class="me-table">
+          <tr><th>Line Item</th><th>Entity A</th><th>Entity B</th><th>Total</th></tr>
+          <tr><td>Revenue<span class="interco-note" style="margin-left:6px">← £150k interco</span></td><td>£1,200,000</td><td>£800,000</td><td class="naive">£2,000,000</td></tr>
+          <tr><td>COGS<span class="interco-note" style="margin-left:6px">← £150k interco</span></td><td>£480,000</td><td>£490,000</td><td class="naive">£970,000</td></tr>
+          <tr class="subtotal"><td>Gross Profit</td><td>£720,000</td><td>£310,000</td><td class="naive">£1,030,000</td></tr>
           <tr><td>OpEx</td><td>£320,000</td><td>£140,000</td><td>£460,000</td></tr>
-          <tr><td>Op. Income</td><td>£400,000</td><td>£170,000</td><td class="err-cell">£570,000</td></tr>
-          <tr><td>Net Income</td><td>£280,000</td><td>£120,000</td><td class="err-cell">£400,000</td></tr>
+          <tr class="subtotal"><td>Op. Income</td><td>£400,000</td><td>£170,000</td><td class="naive">£570,000</td></tr>
+          <tr class="subtotal"><td>Net Income</td><td>£280,000</td><td>£120,000</td><td class="naive">£400,000</td></tr>
         </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Entity A → Entity B: £150,000 manufacturing services
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Revenue overstated by £150k, COGS also overstated</div>
+        <div style="padding:10px 14px;background:#fff7ed;font-family:'JetBrains Mono',monospace;font-size:11px;color:#c2410c;border-top:2px solid #f97316">
+          ⊗ Revenue inflated £150k · COGS inflated £150k — same transaction counted twice
+          <div style="font-size:10px;color:#fb923c;margin-top:3px">Underlined totals = figures that change after elimination</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude consolidates with eliminations</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Line Item</th><th>Entity A</th><th>Entity B</th><th>Elim.</th><th>Consolidated</th></tr>
-          <tr><td>Revenue</td><td>£1,200,000</td><td>£800,000</td><td class="elim-cell">−£150,000</td><td class="consol-cell">£1,850,000</td></tr>
-          <tr><td>COGS</td><td>£480,000</td><td>£490,000</td><td class="elim-cell">−£150,000</td><td class="consol-cell">£820,000</td></tr>
-          <tr><td>Gross Profit</td><td>£720,000</td><td>£310,000</td><td>£0</td><td class="total-cell">£1,030,000</td></tr>
-          <tr><td>OpEx</td><td>£320,000</td><td>£140,000</td><td>£0</td><td class="consol-cell">£460,000</td></tr>
-          <tr><td>Op. Income</td><td>£400,000</td><td>£170,000</td><td>£0</td><td class="total-cell">£570,000</td></tr>
-          <tr><td>Net Income</td><td>£280,000</td><td>£120,000</td><td>£0</td><td class="total-cell">£400,000</td></tr>
+    <div class="ba-col after" style="border-color:#6ee7b7">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — elimination column removes interco, totals correct</div>
+      <div class="ba-body" style="padding:0">
+        <table class="me-table">
+          <tr><th>Line Item</th><th>Entity A</th><th>Entity B</th><th style="background:#fff7ed;color:#c2410c;border-left:2px solid #f97316">Elim.</th><th style="background:#f0fdf4;color:#065f46">Consol.</th></tr>
+          <tr><td>Revenue</td><td>£1,200,000</td><td>£800,000</td><td class="elim-col">−£150,000</td><td class="consol-col">£1,850,000</td></tr>
+          <tr><td>COGS</td><td>£480,000</td><td>£490,000</td><td class="elim-col">−£150,000</td><td class="consol-col">£820,000</td></tr>
+          <tr class="subtotal"><td>Gross Profit</td><td>£720,000</td><td>£310,000</td><td class="elim-col">£0</td><td class="consol-col">£1,030,000</td></tr>
+          <tr><td>OpEx</td><td>£320,000</td><td>£140,000</td><td class="elim-col">£0</td><td class="consol-col">£460,000</td></tr>
+          <tr class="subtotal"><td>Net Income</td><td>£280,000</td><td>£120,000</td><td class="elim-col">£0</td><td class="consol-col">£400,000</td></tr>
         </table>
-        <div class="claude-fix">
+        <div class="claude-fix" style="margin:10px 14px">
           <div class="claude-fix-label">Claude's output</div>
-          <pre>Elim. Revenue: −£150,000 (A's interco sale removed)
-Elim. COGS:    −£150,000 (B's interco cost removed)
-Both sides net to zero on Consolidated. ✓</pre>
+          <pre>Elim. Revenue: −£150,000 (A's interco sale)
+Elim. COGS:    −£150,000 (B's interco cost)
+Net elimination: £0 · Consol. Net Income unchanged. ✓</pre>
         </div>
       </div>
     </div>
@@ -296,20 +295,20 @@ Both sides net to zero on Consolidated. ✓</pre>
 
   <!-- Tab: currency -->
   <div class="before-after ba-panel" id="ba-currency">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — EUR figures added directly to GBP</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Line Item</th><th>Entity A (GBP)</th><th>Entity B (EUR)</th><th>Wrong Total</th></tr>
-          <tr><td>Revenue</td><td>£1,200,000</td><td class="err-cell">€950,000</td><td class="err-cell">2,150,000 ✗</td></tr>
-          <tr><td>COGS</td><td>£480,000</td><td class="err-cell">€380,000</td><td class="err-cell">860,000 ✗</td></tr>
-          <tr><td>Gross Profit</td><td>£720,000</td><td class="err-cell">€570,000</td><td class="err-cell">1,290,000 ✗</td></tr>
-          <tr><td>OpEx</td><td>£320,000</td><td class="err-cell">€210,000</td><td class="err-cell">530,000 ✗</td></tr>
-          <tr><td>Net Income</td><td>£280,000</td><td class="err-cell">€192,000</td><td class="err-cell">472,000 ✗</td></tr>
+    <div class="ba-col before" style="border-color:#fde68a">
+      <div class="ba-header" style="background:#fffbeb;color:#92400e;border-bottom:1px solid #fde68a"><i class="ti ti-currency-pound" style="font-size:14px"></i> Before — EUR and GBP summed as if equal</div>
+      <div class="ba-body" style="padding:0">
+        <table class="me-table">
+          <tr><th>Line Item</th><th>Entity A <span class="currency-badge badge-gbp">GBP</span></th><th>Entity B <span class="currency-badge badge-eur">EUR</span></th><th><span class="currency-badge badge-mix">GBP+EUR?</span> Total</th></tr>
+          <tr><td>Revenue</td><td>£1,200,000</td><td style="color:#1e40af;font-weight:600">€950,000</td><td class="naive" style="color:#dc2626">2,150,000 ✗</td></tr>
+          <tr><td>COGS</td><td>£480,000</td><td style="color:#1e40af;font-weight:600">€380,000</td><td class="naive" style="color:#dc2626">860,000 ✗</td></tr>
+          <tr class="subtotal"><td>Gross Profit</td><td>£720,000</td><td style="color:#1e40af;font-weight:600">€570,000</td><td class="naive" style="color:#dc2626">1,290,000 ✗</td></tr>
+          <tr><td>OpEx</td><td>£320,000</td><td style="color:#1e40af;font-weight:600">€210,000</td><td class="naive" style="color:#dc2626">530,000 ✗</td></tr>
+          <tr class="subtotal"><td>Net Income</td><td>£280,000</td><td style="color:#1e40af;font-weight:600">€192,000</td><td class="naive" style="color:#dc2626">472,000 ✗</td></tr>
         </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          EUR and GBP added together — meaningless total
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Rate: 1 EUR = 0.86 GBP — must convert before consolidating</div>
+        <div style="padding:10px 14px;background:#fffbeb;font-family:'JetBrains Mono',monospace;font-size:11px;color:#92400e;border-top:1px solid #fde68a">
+          Rate: 1 EUR = 0.86 GBP — Entity B must be converted before summing
+          <div style="font-size:10px;color:#a16207;margin-top:3px">↑ Blue = EUR figures. Adding them to GBP gives a meaningless mixed-currency total.</div>
         </div>
       </div>
     </div>
