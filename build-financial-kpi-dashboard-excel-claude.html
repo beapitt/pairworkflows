@@ -277,60 +277,153 @@ RAG status.</pre>
   </div>
 
   <!-- BEFORE / AFTER VISUAL -->
+  <div id="ba-build" class="ba-scenario">
   <div class="before-after">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — numbers with no targets</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — raw data, no dashboard structure</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>KPI</th><th>Category</th><th>Current</th><th>Prior</th><th>Change</th><th>Status</th></tr>
-          <tr class="section-row"><td colspan="6">Profitability</td></tr>
-          <tr><td>Gross Margin %</td><td></td><td>60.0%</td><td>60.0%</td><td>0.0pp</td><td class="err-cell">—</td></tr>
-          <tr><td>Operating Margin %</td><td></td><td>15.0%</td><td>16.0%</td><td>−1.0pp</td><td class="err-cell">—</td></tr>
-          <tr><td>EBITDA Margin %</td><td></td><td>17.1%</td><td>18.2%</td><td>−1.1pp</td><td class="err-cell">—</td></tr>
-          <tr class="section-row"><td colspan="6">Liquidity</td></tr>
-          <tr><td>Current Ratio</td><td></td><td>1.40</td><td>1.72</td><td>−0.32</td><td class="err-cell">—</td></tr>
-          <tr><td>Quick Ratio</td><td></td><td>1.06</td><td>1.36</td><td>−0.30</td><td class="err-cell">—</td></tr>
-          <tr class="section-row"><td colspan="6">Efficiency</td></tr>
-          <tr><td>DSO (days)</td><td></td><td>86</td><td>81</td><td>+5d</td><td class="err-cell">—</td></tr>
-          <tr><td>DPO (days)</td><td></td><td>108</td><td>120</td><td>−12d</td><td class="err-cell">—</td></tr>
+          <tr><th>Line item</th><th>Current qtr</th><th>Prior qtr</th></tr>
+          <tr class="section-row"><td colspan="3">Income Statement (pasted as-is)</td></tr>
+          <tr><td>Revenue</td><td>850,000</td><td>820,000</td></tr>
+          <tr><td>COGS</td><td>340,000</td><td>328,000</td></tr>
+          <tr><td>Operating Income</td><td>127,500</td><td>131,200</td></tr>
+          <tr><td>D&amp;A</td><td>18,000</td><td>18,000</td></tr>
+          <tr class="section-row"><td colspan="3">Balance Sheet (pasted as-is)</td></tr>
+          <tr><td>Current Assets</td><td>295,000</td><td>310,000</td></tr>
+          <tr><td>Inventory</td><td>72,000</td><td>65,000</td></tr>
+          <tr><td>Accounts Receivable</td><td>204,000</td><td>185,000</td></tr>
+          <tr><td>Current Liabilities</td><td>210,000</td><td>180,000</td></tr>
+          <tr><td>Accounts Payable</td><td>102,000</td><td>109,000</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          7 KPIs — all moving in the wrong direction. None flagged.
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Without thresholds, nothing triggers a conversation with leadership</div>
+          Raw financials — no KPIs calculated, no structure, no status
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Nothing actionable until the ratios are computed and grouped</div>
         </div>
       </div>
     </div>
-
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude applies your thresholds</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude builds the structured dashboard</div>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th>KPI</th><th>Formula</th><th>Current</th><th>Prior</th><th>Change</th><th>RAG</th></tr>
           <tr class="section-row"><td colspan="6">Profitability</td></tr>
           <tr><td>Gross Margin %</td><td style="font-size:10px">(Rev−COGS)/Rev</td><td>60.0%</td><td>60.0%</td><td>0.0pp</td><td class="ok-cell">Green ✓</td></tr>
           <tr><td>Operating Margin %</td><td style="font-size:10px">Op.Inc/Rev</td><td>15.0%</td><td>16.0%</td><td>−1.0pp</td><td class="hl">Amber ⚠</td></tr>
-          <tr><td>EBITDA Margin %</td><td style="font-size:10px">(Op.Inc+D&A)/Rev</td><td>17.1%</td><td>18.2%</td><td>−1.1pp</td><td class="err-cell">Red ✗</td></tr>
+          <tr><td>EBITDA Margin %</td><td style="font-size:10px">(Op.Inc+D&amp;A)/Rev</td><td>17.1%</td><td>18.2%</td><td>−1.1pp</td><td class="err-cell">Red ✗</td></tr>
           <tr class="section-row"><td colspan="6">Liquidity</td></tr>
           <tr><td>Current Ratio</td><td style="font-size:10px">CA/CL</td><td>1.40</td><td>1.72</td><td>−0.32</td><td class="hl">Amber ⚠</td></tr>
           <tr><td>Quick Ratio</td><td style="font-size:10px">(CA−Inv)/CL</td><td>1.06</td><td>1.36</td><td>−0.30</td><td class="err-cell">Red ✗</td></tr>
           <tr class="section-row"><td colspan="6">Efficiency</td></tr>
           <tr><td>DSO (days)</td><td style="font-size:10px">(AR/CreditSales)×30</td><td>86</td><td>81</td><td>+5d</td><td class="err-cell">Red ✗</td></tr>
-          <tr><td>DPO (days)</td><td style="font-size:10px">(AP/Purchases)×30</td><td>108</td><td>120</td><td>−12d</td><td class="hl">Amber ⚠</td></tr>
+          <tr><td>DPO (days)</td><td style="font-size:10px">(AP/COGS proxy)×30</td><td>108</td><td>120</td><td>−12d</td><td class="hl">Amber ⚠</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's output — thresholds you defined applied</div>
-          <pre>EBITDA Margin: Green ≥18%, Amber 16–17.9%, Red &lt;16%
-  → 17.1% = Amber. (Threshold is yours — not a universal benchmark.)
-Quick Ratio: Green ≥1.2, Amber 1.0–1.19, Red &lt;1.0
-  → 1.06 = Amber. Watch — one bad week tips this to Red.
-DSO: Green ≤75d, Amber 76–85d, Red &gt;85d
-  → 86d = Red. Credit sales used, not total revenue. ✓
-DPO: COGS used as proxy for purchases (purchases data not provided). ✓</pre>
+          <div class="claude-fix-label">Claude's output</div>
+          <pre>7 KPIs computed from your data, grouped by category.
+Formulas written out so you can audit each one.
+RAG applied using thresholds you provided. ✓</pre>
         </div>
       </div>
     </div>
+  </div>
+  </div>
+
+  <div id="ba-thresholds" class="ba-scenario" style="display:none">
+  <div class="before-after">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — KPIs calculated, no thresholds set</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>KPI</th><th>Current</th><th>Prior</th><th>Change</th><th>Status</th></tr>
+          <tr class="section-row"><td colspan="5">Profitability</td></tr>
+          <tr><td>Gross Margin %</td><td>60.0%</td><td>60.0%</td><td>0.0pp</td><td class="err-cell">No threshold</td></tr>
+          <tr><td>Operating Margin %</td><td>15.0%</td><td>16.0%</td><td>−1.0pp</td><td class="err-cell">No threshold</td></tr>
+          <tr><td>EBITDA Margin %</td><td>17.1%</td><td>18.2%</td><td>−1.1pp</td><td class="err-cell">No threshold</td></tr>
+          <tr class="section-row"><td colspan="5">Liquidity</td></tr>
+          <tr><td>Current Ratio</td><td>1.40</td><td>1.72</td><td>−0.32</td><td class="err-cell">No threshold</td></tr>
+          <tr><td>Quick Ratio</td><td>1.06</td><td>1.36</td><td>−0.30</td><td class="err-cell">No threshold</td></tr>
+          <tr class="section-row"><td colspan="5">Efficiency</td></tr>
+          <tr><td>DSO (days)</td><td>86</td><td>81</td><td>+5d</td><td class="err-cell">No threshold</td></tr>
+          <tr><td>DPO (days)</td><td>108</td><td>120</td><td>−12d</td><td class="err-cell">No threshold</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Numbers computed — but is 17.1% EBITDA good or bad for this business?
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Without thresholds, the dashboard cannot escalate anything</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude applies your thresholds</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>KPI</th><th>Current</th><th>Your threshold</th><th>RAG</th></tr>
+          <tr class="section-row"><td colspan="4">Profitability</td></tr>
+          <tr><td>Gross Margin %</td><td>60.0%</td><td>Green ≥58%</td><td class="ok-cell">Green ✓</td></tr>
+          <tr><td>Operating Margin %</td><td>15.0%</td><td>Amber 14–15.9%</td><td class="hl">Amber ⚠</td></tr>
+          <tr><td>EBITDA Margin %</td><td>17.1%</td><td>Red &lt;18%</td><td class="err-cell">Red ✗</td></tr>
+          <tr class="section-row"><td colspan="4">Liquidity</td></tr>
+          <tr><td>Current Ratio</td><td>1.40</td><td>Amber 1.2–1.49</td><td class="hl">Amber ⚠</td></tr>
+          <tr><td>Quick Ratio</td><td>1.06</td><td>Amber 1.0–1.19</td><td class="hl">Amber ⚠</td></tr>
+          <tr class="section-row"><td colspan="4">Efficiency</td></tr>
+          <tr><td>DSO (days)</td><td>86</td><td>Red &gt;85d</td><td class="err-cell">Red ✗</td></tr>
+          <tr><td>DPO (days)</td><td>108</td><td>Amber 90–119d</td><td class="hl">Amber ⚠</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's output</div>
+          <pre>Thresholds applied from your stated targets — not industry benchmarks.
+A "good" EBITDA margin for SaaS (25–35%) differs from
+a distributor (3–6%). These thresholds are yours. ✓
+2 Red, 4 Amber, 1 Green — board pack ready.</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div id="ba-trend" class="ba-scenario" style="display:none">
+  <div class="before-after">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — current period only, no trend visible</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>KPI</th><th>Current</th><th>RAG</th><th>Trend</th></tr>
+          <tr class="section-row"><td colspan="4">Profitability</td></tr>
+          <tr><td>EBITDA Margin %</td><td>17.1%</td><td class="err-cell">Red ✗</td><td class="err-cell">—</td></tr>
+          <tr><td>Operating Margin %</td><td>15.0%</td><td class="hl">Amber ⚠</td><td class="err-cell">—</td></tr>
+          <tr class="section-row"><td colspan="4">Efficiency</td></tr>
+          <tr><td>DSO (days)</td><td>86</td><td class="err-cell">Red ✗</td><td class="err-cell">—</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
+          Single period — Red flags visible, but is this a blip or a slide?
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ A margin that dropped once is noise. Five months in a row is a trend.</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — 6-month history with trend flags</div>
+      <div class="ba-body">
+        <table class="xl-table">
+          <tr><th>KPI</th><th>M−5</th><th>M−4</th><th>M−3</th><th>M−2</th><th>M−1</th><th>Current</th><th>Trend</th></tr>
+          <tr class="section-row"><td colspan="8">Profitability</td></tr>
+          <tr><td>EBITDA Margin %</td><td>19.2%</td><td>18.8%</td><td>18.2%</td><td>17.8%</td><td>17.4%</td><td>17.1%</td><td class="err-cell">↓ Declining — 5 consecutive months</td></tr>
+          <tr><td>Operating Margin %</td><td>16.8%</td><td>16.4%</td><td>15.9%</td><td>15.6%</td><td>15.3%</td><td>15.0%</td><td class="err-cell">↓ Declining — 5 consecutive months</td></tr>
+          <tr class="section-row"><td colspan="8">Efficiency</td></tr>
+          <tr><td>DSO (days)</td><td>76</td><td>79</td><td>81</td><td>83</td><td>84</td><td>86</td><td class="err-cell">↑ Rising — 5 consecutive months</td></tr>
+        </table>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Claude's output</div>
+          <pre>EBITDA: 19.2% → 17.1% — fell every month for 5 months (−2.1pp total).
+Op. Margin: 16.8% → 15.0% — fell every month for 5 months (−1.8pp total).
+DSO: 76d → 86d — rose every month for 5 months (+10d total).
+Each was Amber or Green in isolation. Together: structural decline. ✓</pre>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
 
   <!-- DIAGNOSIS TABLE -->
@@ -437,8 +530,11 @@ DPO: COGS used as proxy for purchases (purchases data not provided). ✓</pre>
 function switchTab(btn,id){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.ba-scenario').forEach(function(s){s.style.display='none'});
   btn.classList.add('on');
   document.getElementById('p-'+id).classList.add('on');
+  var ba=document.getElementById('ba-'+id);
+  if(ba)ba.style.display='block';
 }
 function copyPrompt(btn){
   var text=btn.previousElementSibling.innerText;
