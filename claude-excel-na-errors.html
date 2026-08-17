@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>VLOOKUP #N/A Error in Excel: How to Fix It  — PairWorkflows</title>
+<title>VLOOKUP #N/A Error in Excel: How to Fix It — PairWorkflows</title>
 <meta name="description" content="Fix VLOOKUP and XLOOKUP #N/A errors in Excel with Claude AI. Diagnose trailing spaces, text-vs-number mismatches, and incorrect match settings.">
 <link rel="canonical" href="https://www.pairworkflows.com/claude-excel-na-errors.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why does VLOOKUP return #N/A when the value exists?","acceptedAnswer":{"@type":"Answer","text":"VLOOKUP returns #N/A when it cannot find an exact match, even if the value appears to exist in the table. The most common causes are trailing spaces in the lookup value, a data type mismatch, or a missing FALSE argument in the fourth parameter."}},{"@type":"Question","name":"How do I fix #N/A caused by trailing spaces?","acceptedAnswer":{"@type":"Answer","text":"Wrap your lookup value in the TRIM() function to remove leading and trailing spaces. For example, change =VLOOKUP(A2, D:F, 2, FALSE) to =VLOOKUP(TRIM(A2), D:F, 2, FALSE)."}},{"@type":"Question","name":"Does XLOOKUP still return #N/A errors?","acceptedAnswer":{"@type":"Answer","text":"Yes. XLOOKUP defaults to exact match, so the match argument is rarely the problem. It still returns #N/A when there is a data type mismatch or trailing spaces in the lookup value — the fix is the same, TRIM() or VALUE()/TEXT()."}},{"@type":"Question","name":"What is the fastest way to tell if #N/A is a formula problem or a data problem?","acceptedAnswer":{"@type":"Answer","text":"Replace the cell reference in your formula with the value typed directly. If the hardcoded version returns a result but the cell reference version returns #N/A, the problem is in the data, not the formula structure."}},{"@type":"Question","name":"Should I wrap every lookup formula in IFERROR?","acceptedAnswer":{"@type":"Answer","text":"Only after you've confirmed the formula is correct. Wrapping a broken formula in IFERROR just hides the #N/A instead of fixing it — diagnose the real cause first, then add IFERROR for genuinely missing values."}}]}</script>
@@ -13,21 +13,19 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <link rel="stylesheet" href="/global-fix.css">
 <link rel="icon" type="image/png" href="/favicon.png">
+
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:100vh;display:flex;flex-direction:column}
 
-/* PAGE */
 .page{max-width:1300px;margin:0 auto;width:100%;padding:2rem 2.5rem 4rem;flex:1}
 
-/* ── HERO ── */
 .hero{margin-bottom:2rem}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#0f6e56;background:#e1f5ee;border:1px solid #a7f3d0;border-radius:20px;padding:4px 12px;margin-bottom:.9rem}
 .hero h1{font-size:32px;font-weight:700;line-height:1.2;color:#111827;margin-bottom:.6rem;letter-spacing:-.5px}
 .hero h1 span{color:#1d9e75}
 .hero-sub{font-size:15px;color:#6b7280;line-height:1.65;max-width:600px}
 
-/* ── PROMPT SELECTOR ── */
 .prompt-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .prompt-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.75rem}
 .prompt-card-label{font-size:13px;font-weight:600;color:#374151}
@@ -39,16 +37,11 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .panel.on{display:block}
 .prompt-box{background:#0f172a;border-radius:10px;padding:1.25rem 1.25rem 1rem;position:relative}
 .prompt-box pre{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#e2e8f0;line-height:1.7;white-space:pre-wrap;word-break:break-word;padding-right:70px;max-height:220px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent}
-.prompt-box pre::-webkit-scrollbar{width:6px}
-.prompt-box pre::-webkit-scrollbar-track{background:transparent}
-.prompt-box pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:3px}
 .copy-btn{position:absolute;top:.75rem;right:.75rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-weight:500;font-family:inherit;cursor:pointer;padding:5px 12px;transition:all .15s;display:flex;align-items:center;gap:5px}
 .copy-btn:hover{background:rgba(255,255,255,.15);color:#fff}
 .prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
 .prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
-.prompt-hint a:hover{text-decoration:underline}
 
-/* ── BEFORE / AFTER VISUAL ── */
 .before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
 .ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
 .ba-col.before{border-color:#fca5a5}
@@ -57,23 +50,22 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
 .ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
 .ba-body{padding:14px}
+.ba-panel{display:none;margin-bottom:1.75rem}
+.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+
 .xl-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
 .xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
 .xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
 .xl-table .err-cell{color:#dc2626;font-weight:700;background:#fef2f2}
 .xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
-.xl-table .hl{background:#fffbeb}
 .xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
 .xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
-.ba-panel{display:none;margin-bottom:1.75rem}
-.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
-.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
 .claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
 .claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
 
-
-/* ── NA ERRORS — lookup inspector ── */
 .na-wrap{padding:10px 10px 12px;display:flex;flex-direction:column;align-items:stretch}
 .na-inspect{display:grid;grid-template-columns:1fr auto 1fr;gap:0;width:100%}
 .na-col{background:#fff;border-radius:8px;padding:12px}
@@ -99,7 +91,6 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .type-num{background:#e0f2fe;color:#0369a1}
 .type-txt{background:#fce4f0;color:#7e3a8a}
 
-/* ── DIAGNOSIS TABLE ── */
 .diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .diag-header{background:#fef2f2;border-bottom:1px solid #fecaca;padding:12px 18px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#dc2626}
 .diag-row{display:grid;grid-template-columns:180px 1fr 90px;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid #f9fafb}
@@ -113,7 +104,6 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .badge-red{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
 .badge-yellow{background:#fffbeb;color:#b45309;border:1px solid #fde68a}
 
-/* ── STEPS ── */
 .steps-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .steps-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
 .step{display:flex;gap:16px;padding:.9rem 0;border-bottom:1px solid #f3f4f6}
@@ -123,62 +113,51 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .step-body p{font-size:13px;color:#6b7280;line-height:1.65}
 .step-body code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
 
-/* ── INFO BOXES ── */
 .tip{background:#fffbeb;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#92400e;line-height:1.65}
-.tip strong{color:#78350f}
-.note{background:#e1f5ee;border-left:3px solid #1d9e75;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#065f46;line-height:1.65}
-.warn{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#7f1d1d;line-height:1.65}
-.warn strong{color:#991b1b}
 
-/* ── FAQ ── */
 .faq-section{margin-bottom:1.75rem}
-.faq-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1rem}
 .faq-item{border-bottom:1px solid #f3f4f6;padding:.9rem 0}
 .faq-q{font-size:13px;font-weight:600;color:#1f2937;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .faq-q i{color:#9ca3af;transition:transform .2s;flex-shrink:0}
 .faq-q.open i{transform:rotate(180deg)}
 .faq-a{font-size:13px;color:#6b7280;line-height:1.7;display:none;padding-top:.6rem}
 .faq-a.open{display:block}
-.faq-a code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
 
-/* ── RELATED ── */
-.related-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af;margin-bottom:.75rem}
 .related-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .related-link{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:.9rem 1rem;text-decoration:none;transition:border-color .15s}
 .related-link:hover{border-color:#1d9e75}
 .related-link strong{display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem}
 .related-link span{display:block;font-size:12px;color:#9ca3af;line-height:1.4}
 
-/* ── SEARCH ── */
 #searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
 #searchOverlay.open{display:flex}
 .search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
 .search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px}
 .search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
-.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
 .search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:inherit}
-.search-box input::placeholder{color:rgba(255,255,255,.35)}
 
 @media(max-width:640px){
-  .hero h1{font-size:24px}
-  .before-after{grid-template-columns:1fr;gap:8px}
-  .ba-panel.on{grid-template-columns:1fr;gap:8px}
-  .ba-arrow{transform:rotate(90deg);padding:4px 0}
-  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
-  .diag-row{grid-template-columns:1fr 1fr;gap:8px}
-  .diag-example{display:none}
-  .related-grid{grid-template-columns:1fr}
-  .page{padding:1.5rem 1rem 3rem}
+.hero h1{font-size:24px}
+.before-after{grid-template-columns:1fr;gap:8px}
+.ba-panel.on{grid-template-columns:1fr;gap:8px}
+.ba-arrow{transform:rotate(90deg);padding:.5rem 0}
+.na-inspect{grid-template-columns:1fr}
+.na-mid{padding:6px 0}
+.diag-row{grid-template-columns:1fr 1fr;gap:8px}
+.diag-example{display:none}
+.related-grid{grid-template-columns:1fr}
+.page{padding:1.5rem 1rem 3rem}
 }
 </style>
 </head>
+
 <body>
 
 <div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
   <div class="search-overlay-inner">
     <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
     <form action="/search.html" method="get">
-      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search workflows, prompts, and guides..." autocomplete="off"></div>
+      <div class="search-box"><input type="text" name="q" id="searchOverlayInput" placeholder="Search workflows, prompts, and guides..." autocomplete="off"></div>
     </form>
   </div>
 </div>
@@ -187,24 +166,14 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 <script src="/navbar.js"></script>
 <script src="/footer.js"></script>
 
-<noscript>
-<nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
-<a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
-<a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
-</nav>
-</noscript>
-
 <div class="page">
 
-  <!-- HERO -->
   <div class="hero">
-    <div class="hero-eyebrow"><i class="ti ti-search-off" style="font-size:12px"></i> Excel · Claude AI</div>
+    <div class="hero-eyebrow"><i class="ti ti-search-off"></i> Excel · Claude AI</div>
     <h1>How to Fix VLOOKUP #N/A Errors in Excel with Claude AI</h1>
     <p class="hero-sub">Your VLOOKUP or XLOOKUP is returning #N/A but the value is right there in the table. Paste the formula and a few sample rows into Claude — it spots the trailing space, the type mismatch, or the missing match argument and gives you the exact fix.</p>
   </div>
 
-  <!-- PROMPT SELECTOR -->
   <div class="prompt-card">
     <div class="prompt-card-top">
       <span class="prompt-card-label">Choose your situation — copy the prompt:</span>
@@ -220,110 +189,109 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
         <pre>I have a VLOOKUP / XLOOKUP that is returning #N/A. Here is the formula:
 [paste formula]
 
-The lookup value is in cell [e.g. A2] and its current value is [paste the
-actual value].
+The lookup value is in cell [e.g. A2] and its current value is [paste the actual value].
 The lookup table is on sheet [name], columns [e.g. A to D].
 Here are 3 rows from the lookup table around where the match should be:
 [paste rows]
 
-When I replace the cell reference with the value typed directly, the
-formula [works / still returns #N/A].
+When I replace the cell reference with the value typed directly, the formula [works / still returns #N/A].
 Please identify why the match is failing and give me the corrected formula.</pre>
-        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
       </div>
-      <p class="prompt-hint">Run the manual test (swap the cell ref for a typed value) before pasting — it narrows the diagnosis fast. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
     </div>
 
     <div id="p-type" class="panel">
       <div class="prompt-box">
-        <pre>I think my #N/A error is caused by a data type mismatch — my lookup
-value appears to be a number but the table column might store it as text
-(or vice versa). Can you rewrite my formula to handle this?
+        <pre>I think my #N/A error is caused by a data type mismatch — my lookup value appears to be a number but the table column might store it as text (or vice versa). Can you rewrite my formula to handle this?
 [paste formula]</pre>
-        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
       </div>
-      <p class="prompt-hint">Use this when the values look identical on screen but still don't match.</p>
     </div>
 
     <div id="p-wrap" class="panel">
       <div class="prompt-box">
-        <pre>My formula is now working correctly. Can you wrap it in IFERROR so that
-when a value genuinely isn't found, the cell shows a dash "—" instead of
-#N/A?
+        <pre>My formula is now working correctly. Can you wrap it in IFERROR so that when a value genuinely isn't found, the cell shows a dash "—" instead of #N/A?
 [paste formula]</pre>
-        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
       </div>
-      <p class="prompt-hint">Only run this after the formula is confirmed correct — IFERROR should hide missing values, not real bugs.</p>
     </div>
   </div>
 
-  <!-- BEFORE / AFTER VISUAL — dynamic per tab -->
-
-  <!-- Tab: diagnose -->
   <div class="before-after ba-panel on" id="ba-diagnose">
     <div class="ba-col before" style="border-color:#d8b4e2">
-      <div class="ba-header" style="background:#fce4f0;color:#5c1d6b;border-bottom:1px solid #d8b4e2"><i class="ti ti-search" style="font-size:14px"></i> Before — values look identical but LEN() differs</div>
+      <div class="ba-header" style="background:#fce4f0;color:#5c1d6b;border-bottom:1px solid #d8b4e2">
+        Before — values look identical but LEN() differs
+      </div>
       <div class="ba-body">
         <div class="na-wrap">
           <div class="na-inspect">
             <div class="na-col lkp">
               <div class="na-col-head">Lookup value (col A)</div>
-              <div class="na-row"><span class="val">"Smith, John<span class="na-hl"> </span>"</span><span class="len fail">LEN 13</span></div>
-              <div class="na-row"><span class="val">"Jones,<span class="na-hl">  </span>Mary"</span><span class="len fail">LEN 13</span></div>
-              <div class="na-row"><span class="val">"<span class="na-hl"> </span>Clark, Peter"</span><span class="len fail">LEN 14</span></div>
-              <div class="na-row"><span class="val">"Davis, Emma"</span><span class="len match">LEN 12</span></div>
+              <div class="na-row"><span class="val">"Smith, John<span class="na-hl"> </span>"</span><span class="len fail">LEN 12</span></div>
+              <div class="na-row"><span class="val">"Jones,<span class="na-hl">  </span>Mary"</span><span class="len fail">LEN 12</span></div>
+              <div class="na-row"><span class="val">"<span class="na-hl"> </span>Clark, Peter"</span><span class="len fail">LEN 13</span></div>
+              <div class="na-row"><span class="val">"Davis, Emma"</span><span class="len match">LEN 11</span></div>
             </div>
+
             <div class="na-mid">≠</div>
+
             <div class="na-col src">
               <div class="na-col-head">Table value (col D)</div>
-              <div class="na-row"><span class="val">"Smith, John"</span><span class="len match">LEN 12</span></div>
-              <div class="na-row"><span class="val">"Jones, Mary"</span><span class="len match">LEN 12</span></div>
-              <div class="na-row"><span class="val">"Clark, Peter"</span><span class="len match">LEN 13</span></div>
-              <div class="na-row"><span class="val">"Davis, Emma"</span><span class="len match">LEN 12</span></div>
+              <div class="na-row"><span class="val">"Smith, John"</span><span class="len match">LEN 11</span></div>
+              <div class="na-row"><span class="val">"Jones, Mary"</span><span class="len match">LEN 11</span></div>
+              <div class="na-row"><span class="val">"Clark, Peter"</span><span class="len match">LEN 12</span></div>
+              <div class="na-row"><span class="val">"Davis, Emma"</span><span class="len match">LEN 11</span></div>
             </div>
           </div>
+
           <div class="na-caption">
-            <span style="background:#fce4f0;padding:0 3px;border-radius:2px">Highlighted</span> = invisible extra characters that break the lookup
+            Highlighted = invisible extra characters that break the lookup
             <div class="sub">Trailing space · double space · leading space — all return #N/A</div>
           </div>
         </div>
       </div>
     </div>
-    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
+    <div class="ba-arrow">→</div>
+
     <div class="ba-col after" style="border-color:#36b7b4">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — TRIM() normalizes, all 4 match</div>
+      <div class="ba-header fix">After — TRIM() normalizes, all 4 match</div>
       <div class="ba-body">
         <div class="na-wrap">
           <div class="na-inspect">
             <div class="na-col lkp">
               <div class="na-col-head">TRIM(lookup)</div>
-              <div class="na-row"><span class="val">"Smith, John"</span><span class="len match">12</span></div>
-              <div class="na-row"><span class="val">"Jones, Mary"</span><span class="len match">12</span></div>
-              <div class="na-row"><span class="val">"Clark, Peter"</span><span class="len match">13</span></div>
-              <div class="na-row"><span class="val">"Davis, Emma"</span><span class="len match">12</span></div>
+              <div class="na-row"><span class="val">"Smith, John"</span><span class="len match">11</span></div>
+              <div class="na-row"><span class="val">"Jones, Mary"</span><span class="len match">11</span></div>
+              <div class="na-row"><span class="val">"Clark, Peter"</span><span class="len match">12</span></div>
+              <div class="na-row"><span class="val">"Davis, Emma"</span><span class="len match">11</span></div>
             </div>
+
             <div class="na-mid">=</div>
+
             <div class="na-col src">
               <div class="na-col-head">Table → Revenue</div>
-              <div class="na-row"><span class="val match">Found ✓</span><span class="len" style="color:#36b7b4;font-weight:700">£4,250</span></div>
-              <div class="na-row"><span class="val match">Found ✓</span><span class="len" style="color:#36b7b4;font-weight:700">£7,800</span></div>
-              <div class="na-row"><span class="val match">Found ✓</span><span class="len" style="color:#36b7b4;font-weight:700">£6,100</span></div>
-              <div class="na-row"><span class="val match">Found ✓</span><span class="len" style="color:#36b7b4;font-weight:700">£3,400</span></div>
+              <div class="na-row"><span class="val match">Found ✓</span><span class="len">£4,250</span></div>
+              <div class="na-row"><span class="val match">Found ✓</span><span class="len">£7,800</span></div>
+              <div class="na-row"><span class="val match">Found ✓</span><span class="len">£6,100</span></div>
+              <div class="na-row"><span class="val match">Found ✓</span><span class="len">£3,400</span></div>
             </div>
           </div>
+
           <div class="na-fix">
             <strong>=XLOOKUP(TRIM(A2), $D:$D, $E:$E, "Not found")</strong>
-            <div class="sub">All 4 resolved. Total: £4,250+£7,800+£6,100+£3,400 = <span class="res">£21,550 ✓</span></div>
+            <div class="sub">All 4 resolved. Total: £4,250 + £7,800 + £6,100 + £3,400 = <span class="res">£21,550 ✓</span></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Tab: type -->
   <div class="before-after ba-panel" id="ba-type">
     <div class="ba-col before" style="border-color:#d8b4e2">
-      <div class="ba-header" style="background:#fce4f0;color:#5c1d6b;border-bottom:1px solid #d8b4e2"><i class="ti ti-ab" style="font-size:14px"></i> Before — IDs display identically but types don't match</div>
+      <div class="ba-header" style="background:#fce4f0;color:#5c1d6b;border-bottom:1px solid #d8b4e2">
+        Before — IDs display identically but types don't match
+      </div>
       <div class="ba-body">
         <div class="na-wrap">
           <div class="na-inspect">
@@ -334,7 +302,9 @@ when a value genuinely isn't found, the cell shows a dash "—" instead of
               <div class="na-row"><span class="val">1112</span><span class="type-badge type-num">NUMBER</span></div>
               <div class="na-row"><span class="val">1203</span><span class="type-badge type-num">NUMBER</span></div>
             </div>
-            <div class="na-mid" style="color:#7e3a8a;font-size:24px">≠</div>
+
+            <div class="na-mid">≠</div>
+
             <div class="na-col src">
               <div class="na-col-head">Table ID (col D)</div>
               <div class="na-row"><span class="val">"1041"</span><span class="type-badge type-txt">TEXT</span></div>
@@ -343,6 +313,7 @@ when a value genuinely isn't found, the cell shows a dash "—" instead of
               <div class="na-row"><span class="val">"1203"</span><span class="type-badge type-txt">TEXT</span></div>
             </div>
           </div>
+
           <div class="na-caption">
             Number 1041 ≠ text "1041" — they display identically but Excel sees different types
             <div class="sub">All 4 XLOOKUP calls return #N/A because of the type mismatch</div>
@@ -350,160 +321,190 @@ when a value genuinely isn't found, the cell shows a dash "—" instead of
         </div>
       </div>
     </div>
-    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
+    <div class="ba-arrow">→</div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — TEXT() converts number to text, all IDs match</div>
+      <div class="ba-header fix">After — TEXT() converts number to text, all IDs match</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Lookup ID</th><th>TEXT() result</th><th>Table ID</th><th>XLOOKUP</th><th>Salary returned</th></tr>
-          <tr><td>1041</td><td class="link-cell">"1041"</td><td>"1041"</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£48,000</td></tr>
-          <tr><td>1087</td><td class="link-cell">"1087"</td><td>"1087"</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£52,000</td></tr>
-          <tr><td>1112</td><td class="link-cell">"1112"</td><td>"1112"</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£38,000</td></tr>
-          <tr><td>1203</td><td class="link-cell">"1203"</td><td>"1203"</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£44,500</td></tr>
+          <tr><th>Lookup ID</th><th>TEXT() result</th><th>Table ID</th><th>XLOOKUP</th><th>Salary</th></tr>
+          <tr><td>1041</td><td>"1041"</td><td>"1041"</td><td class="ok-cell">Found ✓</td><td>£48,000</td></tr>
+          <tr><td>1087</td><td>"1087"</td><td>"1087"</td><td class="ok-cell">Found ✓</td><td>£52,000</td></tr>
+          <tr><td>1112</td><td>"1112"</td><td>"1112"</td><td class="ok-cell">Found ✓</td><td>£38,000</td></tr>
+          <tr><td>1203</td><td>"1203"</td><td>"1203"</td><td class="ok-cell">Found ✓</td><td>£44,500</td></tr>
         </table>
+
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's fix</div>
           <pre>=XLOOKUP(TEXT(A2,"0"), $D:$D, $E:$E, "Not found")
 TEXT(A2,"0") converts number 1041 → text "1041".
-All 4 IDs now match. Alternative: VALUE() on col D instead. ✓</pre>
+Alternative: convert column D with VALUE().</pre>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Tab: wrap -->
   <div class="before-after ba-panel" id="ba-wrap">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — formula correct, but missing values break the report</div>
+      <div class="ba-header err">Before — formula correct, but missing values break the report</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Employee</th><th>ID</th><th>In payroll table?</th><th>XLOOKUP result</th><th>Report breaks?</th></tr>
-          <tr><td>Smith, John</td><td>1041</td><td class="ok-cell">Yes</td><td class="ok-cell">£48,000</td><td class="ok-cell">No ✓</td></tr>
-          <tr><td>Jones, Mary</td><td>1087</td><td class="ok-cell">Yes</td><td class="ok-cell">£52,000</td><td class="ok-cell">No ✓</td></tr>
-          <tr><td>New hire</td><td class="err-cell">1301</td><td class="err-cell">Not yet added</td><td class="err-cell">#N/A</td><td class="err-cell">Yes — breaks SUM ✗</td></tr>
-          <tr><td>Contractor</td><td class="err-cell">1405</td><td class="err-cell">Different table</td><td class="err-cell">#N/A</td><td class="err-cell">Yes — breaks SUM ✗</td></tr>
+          <tr><th>Employee</th><th>ID</th><th>In payroll table?</th><th>XLOOKUP</th><th>Report</th></tr>
+          <tr><td>Smith, John</td><td>1041</td><td>Yes</td><td>£48,000</td><td>No issue</td></tr>
+          <tr><td>Jones, Mary</td><td>1087</td><td>Yes</td><td>£52,000</td><td>No issue</td></tr>
+          <tr><td>New hire</td><td>1301</td><td>Not yet added</td><td class="err-cell">#N/A</td><td class="err-cell">SUM breaks</td></tr>
+          <tr><td>Contractor</td><td>1405</td><td>Different table</td><td class="err-cell">#N/A</td><td class="err-cell">SUM breaks</td></tr>
         </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          2 #N/A errors cascade — any SUM or AVERAGE on this column also returns #N/A
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Formula is correct — add IFERROR only after confirming the formula works</div>
-        </div>
       </div>
     </div>
-    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
+    <div class="ba-arrow">→</div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — IFERROR handles missing, SUM works again</div>
+      <div class="ba-header fix">After — IFERROR handles missing, SUM works again</div>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th>Employee</th><th>ID</th><th>In table?</th><th>IFERROR result</th><th>SUM impact</th></tr>
-          <tr><td>Smith, John</td><td>1041</td><td class="ok-cell">Yes</td><td class="ok-cell">£48,000</td><td class="ok-cell">Included ✓</td></tr>
-          <tr><td>Jones, Mary</td><td>1087</td><td class="ok-cell">Yes</td><td class="ok-cell">£52,000</td><td class="ok-cell">Included ✓</td></tr>
-          <tr><td>New hire</td><td>1301</td><td class="err-cell">Not yet</td><td class="ok-cell">"—"</td><td class="ok-cell">Excluded cleanly ✓</td></tr>
-          <tr><td>Contractor</td><td>1405</td><td class="err-cell">Different table</td><td class="ok-cell">"—"</td><td class="ok-cell">Excluded cleanly ✓</td></tr>
-          <tr class="section-row"><td colspan="3">SUM of salary column</td><td class="ok-cell">£100,000 ✓</td><td class="ok-cell">No longer breaks</td></tr>
+          <tr><td>Smith, John</td><td>1041</td><td>Yes</td><td>£48,000</td><td>Included ✓</td></tr>
+          <tr><td>Jones, Mary</td><td>1087</td><td>Yes</td><td>£52,000</td><td>Included ✓</td></tr>
+          <tr><td>New hire</td><td>1301</td><td>Not yet</td><td>—</td><td>Excluded cleanly ✓</td></tr>
+          <tr><td>Contractor</td><td>1405</td><td>Different table</td><td>—</td><td>Excluded cleanly ✓</td></tr>
+          <tr class="section-row"><td colspan="3">SUM of salary column</td><td>£100,000 ✓</td><td>No longer breaks</td></tr>
         </table>
+
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's formula</div>
           <pre>=IFERROR(XLOOKUP(TEXT(A2,"0"), $D:$D, $E:$E), "—")
 "—" is ignored by SUM and AVERAGE.
-Total payroll (known): £100,000 ✓
-2 employees flagged for manual review. ✓</pre>
+Known payroll total: £100,000 ✓
+2 employees remain visible for manual review.</pre>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- DIAGNOSIS TABLE -->
   <div class="diag-card">
-    <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Why lookups return #N/A — the 4 most common causes</div>
+    <div class="diag-header">Why lookups return #N/A — the 4 most common causes</div>
+
     <div class="diag-row">
       <div class="diag-cause">Trailing spaces</div>
       <div class="diag-example">Lookup value is <span class="bad">"Smith "</span> but the table has <span class="good">"Smith"</span></div>
       <div class="diag-badge badge-red">Most common</div>
     </div>
+
     <div class="diag-row">
       <div class="diag-cause">Data type mismatch</div>
-      <div class="diag-example">Lookup value is <span class="bad">the number 1042</span>, table stores <span class="good">"1042" as text</span></div>
+      <div class="diag-example">Lookup value is <span class="bad">1042</span>, table stores <span class="good">"1042"</span></div>
       <div class="diag-badge badge-red">Most common</div>
     </div>
+
     <div class="diag-row">
       <div class="diag-cause">Wrong match argument</div>
-      <div class="diag-example">VLOOKUP's 4th argument defaults to <span class="bad">TRUE (approximate)</span> on unsorted data</div>
+      <div class="diag-example">VLOOKUP's fourth argument defaults to <span class="bad">TRUE</span> when omitted</div>
       <div class="diag-badge badge-yellow">Easy fix</div>
     </div>
+
     <div class="diag-row">
       <div class="diag-cause">Value genuinely missing</div>
-      <div class="diag-example">Item isn't in the table yet — wrap with <span class="good">IFERROR(...,"—")</span></div>
-      <div class="diag-badge badge-yellow">Invisible</div>
+      <div class="diag-example">Item isn't in the table yet — use <span class="good">IFERROR(...,"—")</span></div>
+      <div class="diag-badge badge-yellow">Expected</div>
     </div>
   </div>
 
-  <!-- STEPS -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Common causes of #N/A errors and how to fix them</h2>
+
   <div class="steps-card">
-    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Diagnose and fix a #N/A error — 5 steps</div>
+    <div class="steps-title">Diagnose and fix a #N/A error — 5 steps</div>
+
     <div class="step">
       <div class="step-n">1</div>
-      <div class="step-body"><h3>Check the match argument</h3><p>For VLOOKUP: is the fourth argument <code>FALSE</code>? If it's missing or <code>TRUE</code>, that's often the problem. For XLOOKUP, the default is already exact match, so this isn't the issue.</p></div>
+      <div class="step-body">
+        <h3>Check the match argument</h3>
+        <p>For VLOOKUP, check whether the fourth argument is <code>FALSE</code>. XLOOKUP uses exact match by default.</p>
+      </div>
     </div>
+
     <div class="step">
       <div class="step-n">2</div>
-      <div class="step-body"><h3>Compare the values in the formula bar</h3><p>Click the cell with the lookup value, then a matching cell in the table. Look at both in the formula bar. If they look identical, the difference is invisible — a space or a type mismatch.</p></div>
+      <div class="step-body">
+        <h3>Compare the values in the formula bar</h3>
+        <p>If two values look identical but do not match, check for spaces or data-type differences.</p>
+      </div>
     </div>
+
     <div class="step">
       <div class="step-n">3</div>
-      <div class="step-body"><h3>Run the manual test</h3><p>Replace the cell reference with the value typed directly — change <code>=VLOOKUP(A2,...)</code> to <code>=VLOOKUP("Smith",...)</code>. If the hardcoded version works, the problem is in the source data, not the formula.</p></div>
+      <div class="step-body">
+        <h3>Run the manual test</h3>
+        <p>Replace the lookup-cell reference with a hardcoded value. If that version works, investigate the source data.</p>
+      </div>
     </div>
+
     <div class="step">
       <div class="step-n">4</div>
-      <div class="step-body"><h3>Paste into Claude with the test result</h3><p>Share the formula, a few sample rows of both the lookup value and the table, and whether the manual test worked. Claude identifies the mismatch and gives you the exact fix.</p></div>
+      <div class="step-body">
+        <h3>Paste the evidence into Claude</h3>
+        <p>Include the formula, sample values, and the result of your manual test.</p>
+      </div>
     </div>
+
     <div class="step">
       <div class="step-n">5</div>
-      <div class="step-body"><h3>Apply the fix, then wrap in IFERROR</h3><p>Usually <code>TRIM()</code> for spaces, <code>VALUE()</code> or <code>TEXT()</code> for type mismatches, or a <code>FALSE</code> fourth argument. Once confirmed correct, wrap the formula in <a href="/claude-excel-na-errors.html" style="color:#0f6e56;font-weight:500">IFERROR</a> so future missing values show a dash instead of #N/A.</p></div>
+      <div class="step-body">
+        <h3>Apply the fix, then add IFERROR if appropriate</h3>
+        <p>Use <code>TRIM()</code>, <code>VALUE()</code>, <code>TEXT()</code>, or an exact-match setting depending on the cause.</p>
+      </div>
     </div>
-    <div class="tip"><strong>Many #N/A errors at once?</strong> Don't fix them one at a time. Paste a sample of the broken rows into Claude and ask for a single formula that handles all cases — including the IFERROR wrapper.</div>
   </div>
 
-  <!-- FAQ -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Frequently asked questions</h2>
+
   <div class="faq-section">
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Why does VLOOKUP return #N/A when the value exists? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">VLOOKUP returns #N/A when it cannot find an exact match, even if the value appears to exist in the table. The most common causes are trailing spaces in the lookup value, a data type mismatch, or a missing FALSE argument in the fourth parameter.</div>
+      <div class="faq-a">VLOOKUP returns #N/A when it cannot find an exact match. Common causes include extra spaces, mismatched data types, or incorrect match settings.</div>
     </div>
+
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I fix #N/A caused by trailing spaces? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Wrap your lookup value in the <code>TRIM()</code> function to remove leading and trailing spaces. For example, change <code>=VLOOKUP(A2, D:F, 2, FALSE)</code> to <code>=VLOOKUP(TRIM(A2), D:F, 2, FALSE)</code>.</div>
+      <div class="faq-a">Use <code>TRIM()</code> on the lookup value or clean the source data before performing the lookup.</div>
     </div>
+
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Does XLOOKUP still return #N/A errors? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes. XLOOKUP defaults to exact match, so the match argument is rarely the problem. It still returns #N/A when there is a data type mismatch or trailing spaces — the fix is the same, TRIM() or VALUE()/TEXT().</div>
+      <div class="faq-a">Yes. XLOOKUP still returns #N/A when no exact match exists, including cases caused by spaces or different data types.</div>
     </div>
+
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What is the fastest way to tell if #N/A is a formula problem or a data problem? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Replace the cell reference in your formula with the value typed directly. If the hardcoded version returns a result but the cell reference version returns #N/A, the problem is in the data, not the formula structure.</div>
+      <div class="faq-a">Try a hardcoded lookup value. If it works while the cell reference does not, inspect the source value for spaces or type differences.</div>
     </div>
+
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Should I wrap every lookup formula in IFERROR? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Only after you've confirmed the formula is correct. Wrapping a broken formula in IFERROR just hides the #N/A instead of fixing it — diagnose the real cause first, then add IFERROR for genuinely missing values.</div>
+      <div class="faq-a">Only after confirming that the underlying lookup is correct. Otherwise IFERROR can hide a real data or formula problem.</div>
     </div>
   </div>
 
-  <!-- RELATED -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Related Excel workflows</h2>
+
   <div class="related-grid">
     <a href="/claude-excel-xlookup.html" class="related-link">
       <strong>Write an XLOOKUP Formula with Claude</strong>
       <span>Master XLOOKUP syntax, nested lookups, and multiple criteria.</span>
     </a>
+
     <a href="/claude-excel-clean-data.html" class="related-link">
       <strong>Clean Data in Excel with Claude AI</strong>
       <span>Fix formatting, remove duplicates, and standardise messy datasets.</span>
     </a>
+
     <a href="/claude-excel-ref-errors.html" class="related-link">
       <strong>Fix #REF! Errors in Excel</strong>
       <span>Identify broken references and reconstruct the correct formula.</span>
     </a>
+
     <a href="/ai-for-excel.html" class="related-link">
       <strong>AI for Excel — All Workflows</strong>
       <span>Browse every Excel workflow built for Claude.</span>
@@ -521,20 +522,34 @@ function switchTab(btn,id){
   document.getElementById('p-'+id).classList.add('on');
   document.getElementById('ba-'+id).classList.add('on');
 }
+
 function copyPrompt(btn){
   var text=btn.previousElementSibling.innerText;
   navigator.clipboard.writeText(text);
-  btn.innerHTML='<i class="ti ti-check" style="font-size:12px"></i> Copied!';
-  setTimeout(function(){btn.innerHTML='<i class="ti ti-copy" style="font-size:12px"></i> Copy';},2000);
+  btn.textContent='Copied!';
+  setTimeout(function(){btn.textContent='Copy';},2000);
 }
+
 function toggleFaq(q){
   q.classList.toggle('open');
   q.nextElementSibling.classList.toggle('open');
 }
-function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
-function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+
+function openSearch(){
+  document.getElementById('searchOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeSearch(){
+  document.getElementById('searchOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape')closeSearch();
+});
 </script>
+
 <footer></footer>
 </body>
 </html>
