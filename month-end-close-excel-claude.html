@@ -42,30 +42,56 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint a:hover{text-decoration:underline}
 
 /* DYNAMIC PANELS */
-.ba-panel { display: none; margin-bottom: 1.75rem; }
-.ba-panel.on { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: stretch; }
-.steps-panel { display: none; }
-.steps-panel.on { display: block; }
+.ba-panel{display:none;margin-bottom:1.75rem}
+.ba-panel.on{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:0;align-items:start}
+.steps-panel{display:none}
+.steps-panel.on{display:block}
 
-.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;min-width:0}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
 .ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
 .ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
 .ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
-.ba-body{padding:14px}
-.xl-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
-.xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
-.xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
-.xl-table .err-cell{color:#dc2626;font-weight:700;background:#fef2f2}
-.xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
-.xl-table .warn-cell{color:#b45309;font-weight:700;background:#fffbeb}
-.xl-table .blue-cell{color:#1f4e79;font-weight:700;background:#e8f0fe}
-.xl-table .hl{background:#fffbeb}
-.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+.ba-body{padding:14px;min-width:0}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0;align-self:center}
+.excel-window{border:1px solid #cbd5e1;border-radius:7px;overflow:hidden;background:#fff;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.excel-ribbon{display:flex;align-items:center;gap:12px;padding:5px 9px;background:#f8fafc;border-bottom:1px solid #dbe3ec;font-size:11px;color:#64748b}
+.excel-ribbon strong{color:#217346;font-size:11.5px}
+.formula-row{display:grid;grid-template-columns:54px 24px minmax(0,1fr);border-bottom:1px solid #cbd5e1;background:#fff;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.name-box{padding:6px 7px;border-right:1px solid #cbd5e1;background:#f8fafc;color:#334155}
+.fx-box{display:flex;align-items:center;justify-content:center;border-right:1px solid #cbd5e1;color:#64748b;font-style:italic}
+.formula-input{padding:6px 8px;line-height:1.45;white-space:normal;overflow-wrap:anywhere;min-width:0}
+.sheet-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.excel-grid{width:100%;min-width:760px;border-collapse:collapse;table-layout:fixed;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.excel-grid th,.excel-grid td{border:1px solid #d6dde5;padding:5px 7px;height:28px;vertical-align:middle;overflow-wrap:anywhere}
+.excel-grid thead th{background:#f3f6f8;color:#475569;text-align:center;font-weight:500;padding:4px 6px}
+.excel-grid .corner{width:34px;background:#eef2f5}
+.excel-grid .row-num{width:34px;background:#f3f6f8;color:#64748b;text-align:center;font-weight:500}
+.excel-grid .header-cell{background:#eef5f1;color:#1f2937;font-weight:700}
+.excel-grid .selected{background:#f0fdf4;box-shadow:inset 0 0 0 2px #217346}
+.excel-grid .error-selected{background:#fef2f2;box-shadow:inset 0 0 0 2px #dc2626;color:#b91c1c;font-weight:700}
+.excel-grid .complete{background:#f0fdf4;color:#047857;font-weight:700}
+.excel-grid .progress{background:#eff6ff;color:#1d4ed8;font-weight:700}
+.excel-grid .pending{background:#fffbeb;color:#b45309;font-weight:700}
+.excel-grid .notstarted{background:#fef2f2;color:#b91c1c;font-weight:700}
+.excel-grid .formula-cell{background:#eff6ff;color:#1f4e79}
+.excel-grid .blocker{background:#fff7ed;color:#c2410c;font-weight:700}
+.excel-grid .subtotal{background:#f1f5f9;font-weight:700}
+.excel-grid .muted{color:#94a3b8}
+.sheet-note{margin-top:10px;padding:9px 10px;border-radius:7px;font-size:11.5px;line-height:1.55}
+.sheet-note.bad{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c}
+.sheet-note.good{background:#f0fdf4;border:1px solid #a7f3d0;color:#047857}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
-.claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
-.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
+.claude-fix-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
+.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+
+@media(max-width:640px){
+  .ba-panel.on{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:.4rem 0}
+  .excel-grid{min-width:760px}
+}
+
 .diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .diag-header{background:#fef2f2;border-bottom:1px solid #fecaca;padding:12px 18px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#dc2626}
 .diag-row{display:grid;grid-template-columns:180px 1fr 90px;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid #f9fafb}
@@ -112,8 +138,6 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
 @media(max-width:640px){
   .hero h1{font-size:24px}
-  .ba-panel.on{grid-template-columns:1fr;gap:8px}
-  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
   .related-grid{grid-template-columns:1fr}
@@ -243,35 +267,67 @@ wrong range reference.</pre>
   <!-- BA: Build -->
   <div class="before-after ba-panel on" id="ba-build">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — flat list, no tracking</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — close tasks exist, but timing and accountability are informal</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Task</th><th>Status</th></tr>
-          <tr><td>Bank rec</td><td class="err-cell">Done</td></tr>
-          <tr><td>Accruals</td><td class="err-cell">In progress</td></tr>
-          <tr><td>AP review</td><td class="err-cell">—</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          "Done" ≠ "Complete" — COUNTIF returns 0%
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ No owners, hardcoded dates, no completion formula</div>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Data</span><span>Review</span></div>
+          <div class="formula-row"><div class="name-box">B3</div><div class="fx-box">fx</div><div class="formula-input">In progress</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:205px"><col style="width:135px"><col style="width:145px"><col style="width:150px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Task</td><td class="header-cell">Status</td><td class="header-cell">Owner</td><td class="header-cell">Due</td></tr>
+                <tr><th class="row-num">2</th><td>Bank reconciliation</td><td class="error-selected">Done</td><td>Finance team</td><td>2nd business day</td></tr>
+                <tr><th class="row-num">3</th><td>AP review</td><td>In progress</td><td class="muted">—</td><td>3rd business day</td></tr>
+                <tr><th class="row-num">4</th><td>Accruals</td><td class="muted">—</td><td>S. Okafor</td><td class="muted">—</td></tr>
+                <tr><th class="row-num">5</th><td>Fixed asset depreciation</td><td>Pending</td><td>M. Chen</td><td>4th business day</td></tr>
+                <tr><th class="row-num">6</th><td>Trial balance review</td><td class="muted">—</td><td>Controller</td><td>5th business day</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+        <div class="sheet-note bad">Status text is inconsistent, owners are incomplete, and deadlines are descriptions rather than formulas tied to the actual month-end date.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude builds the tracker</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — structured close tracker with live dates, blockers and completion KPI</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Task</th><th>Owner</th><th>Deadline</th><th>Status</th></tr>
-          <tr><td>Bank rec</td><td>J. Patel</td><td>=WORKDAY(B1,1)</td><td class="ok-cell">Complete</td></tr>
-          <tr><td>Accruals</td><td>S. Okafor</td><td>=WORKDAY(B1,3)</td><td class="blue-cell">In Progress</td></tr>
-          <tr><td>AP review</td><td>M. Chen</td><td>=WORKDAY(B1,2)</td><td class="warn-cell">Pending</td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data Validation</span></div>
+          <div class="formula-row"><div class="name-box">E4</div><div class="fx-box">fx</div><div class="formula-input">=WORKDAY($B$1,D4)</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:60px"><col style="width:190px"><col style="width:125px"><col style="width:85px"><col style="width:125px"><col style="width:120px"><col style="width:135px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Month-End</td><td class="header-cell">31/07/2026</td><td class="header-cell">Summary</td><td class="header-cell">5 tasks</td><td class="header-cell">2 Complete</td><td class="header-cell">40%</td><td class="header-cell"></td></tr>
+                <tr><th class="row-num">2</th><td class="header-cell">#</td><td class="header-cell">Task</td><td class="header-cell">Owner</td><td class="header-cell">Offset</td><td class="header-cell">Deadline</td><td class="header-cell">Status</td><td class="header-cell">Blocker / Notes</td></tr>
+                <tr><th class="row-num">3</th><td>1</td><td>Bank reconciliation</td><td>J. Patel</td><td>1</td><td class="formula-cell">03/08/2026</td><td class="complete">Complete</td><td></td></tr>
+                <tr><th class="row-num">4</th><td>2</td><td>AP review</td><td>M. Chen</td><td>2</td><td class="selected formula-cell">04/08/2026</td><td class="progress">In Progress</td><td>Waiting on 2 vendor statements</td></tr>
+                <tr><th class="row-num">5</th><td>3</td><td>Accruals</td><td>S. Okafor</td><td>3</td><td class="formula-cell">05/08/2026</td><td class="pending">Pending</td><td class="blocker">Blocked by AP review</td></tr>
+                <tr><th class="row-num">6</th><td>4</td><td>Fixed asset depreciation</td><td>M. Chen</td><td>3</td><td class="formula-cell">05/08/2026</td><td class="complete">Complete</td><td></td></tr>
+                <tr><th class="row-num">7</th><td>5</td><td>Trial balance review</td><td>Controller</td><td>4</td><td class="formula-cell">06/08/2026</td><td class="notstarted">Not Started</td><td class="blocker">Depends on tasks 2–4</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's output</div>
-          <pre>% Complete =COUNTIF(E2:E25,"Complete")/COUNTA(A2:A25)
-Tasks done: 1 of 3 → 33%
-Deadlines auto-update from Month-End Date cell</pre>
+          <div class="claude-fix-label">Live formulas</div>
+          <pre>Deadline:
+=WORKDAY($B$1,D3)
+
+% Complete:
+=COUNTIF(F3:F7,"Complete")/COUNTA(B3:B7)
+
+2 Complete / 5 tasks = 40% ✓
+
+With Month-End = 31/07/2026:
+WORKDAY(+1) = 03/08/2026
+WORKDAY(+4) = 06/08/2026 ✓</pre>
         </div>
       </div>
     </div>
@@ -280,31 +336,68 @@ Deadlines auto-update from Month-End Date cell</pre>
   <!-- BA: Owner -->
   <div class="before-after ba-panel" id="ba-owner">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — anonymous task list</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — master checklist hides workload concentration</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Task</th><th>Status</th></tr>
-          <tr><td>Intercompany</td><td>Complete</td></tr>
-          <tr><td>Depreciation</td><td>In Progress</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          No accountability or workload visibility per person
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Data</span><span>Filter</span></div>
+          <div class="formula-row"><div class="name-box">C6</div><div class="fx-box">fx</div><div class="formula-input">M. Chen</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:205px"><col style="width:125px"><col style="width:125px"><col style="width:145px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Task</td><td class="header-cell">Owner</td><td class="header-cell">Status</td><td class="header-cell">Deadline</td></tr>
+                <tr><th class="row-num">2</th><td>Bank reconciliation</td><td>J. Patel</td><td class="complete">Complete</td><td>03/08</td></tr>
+                <tr><th class="row-num">3</th><td>Cash rec review</td><td>J. Patel</td><td class="complete">Complete</td><td>03/08</td></tr>
+                <tr><th class="row-num">4</th><td>AP review</td><td>M. Chen</td><td class="progress">In Progress</td><td>04/08</td></tr>
+                <tr><th class="row-num">5</th><td>Depreciation</td><td>M. Chen</td><td class="complete">Complete</td><td>05/08</td></tr>
+                <tr><th class="row-num">6</th><td>Lease entries</td><td class="error-selected">M. Chen</td><td class="pending">Pending</td><td>05/08</td></tr>
+                <tr><th class="row-num">7</th><td>Accruals</td><td>S. Okafor</td><td class="pending">Pending</td><td>05/08</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+        <div class="sheet-note bad">The task list shows ownership row by row, but not that M. Chen owns 3 tasks and still has 2 open items.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — owner workload breakdown</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — owner summary exposes assigned work, open items and completion rate</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Owner</th><th>Assigned</th><th>Done</th><th>%</th></tr>
-          <tr><td>J. Patel</td><td>8</td><td>8</td><td class="ok-cell">100%</td></tr>
-          <tr><td>S. Okafor</td><td>6</td><td>3</td><td class="warn-cell">50%</td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>COUNTIFS</span></div>
+          <div class="formula-row"><div class="name-box">C3</div><div class="fx-box">fx</div><div class="formula-input">=COUNTIFS($B$2:$B$7,A3,$C$2:$C$7,"Complete")</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:140px"><col style="width:110px"><col style="width:110px"><col style="width:110px"><col style="width:120px"><col style="width:140px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Owner</td><td class="header-cell">Assigned</td><td class="header-cell">Complete</td><td class="header-cell">Open</td><td class="header-cell">% Complete</td><td class="header-cell">Attention</td></tr>
+                <tr><th class="row-num">2</th><td>J. Patel</td><td>2</td><td class="complete">2</td><td>0</td><td class="complete">100%</td><td></td></tr>
+                <tr><th class="row-num">3</th><td class="selected">M. Chen</td><td>3</td><td>1</td><td class="pending">2</td><td class="pending">33.3%</td><td class="blocker">2 tasks still open</td></tr>
+                <tr><th class="row-num">4</th><td>S. Okafor</td><td>1</td><td>0</td><td class="notstarted">1</td><td class="notstarted">0%</td><td class="blocker">Pending</td></tr>
+                <tr><th class="row-num">5</th><td class="subtotal">Total</td><td class="subtotal">6</td><td class="subtotal">3</td><td class="subtotal">3</td><td class="subtotal">50%</td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's output</div>
-          <pre>COUNTIFS automatically tracks individual progress
-per team member across the master list. ✓</pre>
+          <div class="claude-fix-label">Owner formulas</div>
+          <pre>Assigned:
+=COUNTIF(OwnerRange,A2)
+
+Complete:
+=COUNTIFS(OwnerRange,A2,StatusRange,"Complete")
+
+Open:
+=Assigned-Complete
+
+% Complete:
+=IF(Assigned=0,0,Complete/Assigned)
+
+M. Chen: 1 / 3 = 33.3% complete; 2 open ✓</pre>
         </div>
       </div>
     </div>
@@ -313,29 +406,64 @@ per team member across the master list. ✓</pre>
   <!-- BA: Debug -->
   <div class="before-after ba-panel" id="ba-debug">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — broken percentage formula</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — COUNTIF looks for exact text, but status values are inconsistent</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Metric</th><th>Value</th></tr>
-          <tr><td>% Complete</td><td class="err-cell">0% (Error)</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Formula looking for "Complete" while cells contain "Done" or trailing spaces
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data Validation</span></div>
+          <div class="formula-row"><div class="name-box">B7</div><div class="fx-box">fx</div><div class="formula-input">=COUNTIF(B2:B5,"Complete")/COUNTA(A2:A5)</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:185px"><col style="width:145px"><col style="width:155px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Task</td><td class="header-cell">Status</td><td class="header-cell">COUNTIF result</td></tr>
+                <tr><th class="row-num">2</th><td>Bank rec</td><td class="error-selected">Done</td><td>Not counted</td></tr>
+                <tr><th class="row-num">3</th><td>AP review</td><td class="bad">Complete␠</td><td>Not counted</td></tr>
+                <tr><th class="row-num">4</th><td>Accruals</td><td class="progress">In Progress</td><td>Not complete</td></tr>
+                <tr><th class="row-num">5</th><td>Depreciation</td><td class="complete">Complete</td><td>Counted</td></tr>
+                <tr><th class="row-num">6</th><td class="subtotal">% Complete</td><td></td><td class="bad">25%</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+        <div class="sheet-note bad">Only one of four rows matches the exact criterion "Complete". “Done” is different text, and “Complete ” contains a trailing space.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — fixed syntax &amp; matching</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — statuses are normalised and Data Validation prevents drift</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Metric</th><th>Value</th></tr>
-          <tr><td>% Complete</td><td class="ok-cell">75%</td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data Validation</span></div>
+          <div class="formula-row"><div class="name-box">C2</div><div class="fx-box">fx</div><div class="formula-input">=IF(TRIM(B2)="Done","Complete",TRIM(B2))</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:170px"><col style="width:145px"><col style="width:145px"><col style="width:145px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Task</td><td class="header-cell">Raw Status</td><td class="header-cell">Clean Status</td><td class="header-cell">COUNTIF</td></tr>
+                <tr><th class="row-num">2</th><td>Bank rec</td><td>Done</td><td class="selected complete">Complete</td><td>Counted</td></tr>
+                <tr><th class="row-num">3</th><td>AP review</td><td>Complete␠</td><td class="complete">Complete</td><td>Counted</td></tr>
+                <tr><th class="row-num">4</th><td>Accruals</td><td>In Progress</td><td class="progress">In Progress</td><td>Not complete</td></tr>
+                <tr><th class="row-num">5</th><td>Depreciation</td><td>Complete</td><td class="complete">Complete</td><td>Counted</td></tr>
+                <tr><th class="row-num">6</th><td class="subtotal">% Complete</td><td></td><td></td><td class="subtotal good">75%</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's fix</div>
-          <pre>Validated options enforced via Data Validation.
-Formula recalculated successfully. ✓</pre>
+          <div class="claude-fix-label">Corrected logic</div>
+          <pre>Clean legacy values first:
+=IF(TRIM(B2)="Done","Complete",TRIM(B2))
+
+Then enforce Data Validation:
+Not Started / In Progress / Pending / Complete
+
+Final:
+=COUNTIF(C2:C5,"Complete")/COUNTA(A2:A5)
+=3/4 = 75% ✓</pre>
         </div>
       </div>
     </div>
@@ -346,7 +474,7 @@ Formula recalculated successfully. ✓</pre>
     <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Why month-end checklists break in Excel</div>
     <div class="diag-row">
       <div class="diag-cause">Free-text status</div>
-      <div class="diag-example"><span class="bad">"Done"</span> vs <span class="good">"Complete"</span> → COUNTIF returns 0 every time</div>
+      <div class="diag-example"><span class="bad">"Done"</span> or trailing spaces vs <span class="good">"Complete"</span> → those rows are not counted</div>
       <div class="diag-badge badge-red">Most common</div>
     </div>
     <div class="diag-row">
@@ -383,7 +511,7 @@ Formula recalculated successfully. ✓</pre>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Set up Data Validation for the Status column</h3><p>In Excel: select the Status column → Data → Data Validation → List → type exactly: <code>Not Started,In Progress,Pending,Complete</code>. These must match the COUNTIF formula text exactly — one space difference returns 0.</p></div>
+        <div class="step-body"><h3>Set up Data Validation for the Status column</h3><p>In Excel: select the Status column → Data → Data Validation → List → type exactly: <code>Not Started,In Progress,Pending,Complete</code>. These must match the COUNTIF criterion exactly — a row with a different value or trailing space will not be counted.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
@@ -432,7 +560,7 @@ Formula recalculated successfully. ✓</pre>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Run the Debug prompt</h3><p>Paste your syntax into Claude to instantly diagnose range mismatches or incorrect quotation wrapping.</p></div>
+        <div class="step-body"><h3>Run the Debug prompt</h3><p>Paste your formula and sample rows into Claude to diagnose likely range mismatches, text mismatches, or quoting errors.</p></div>
       </div>
     </div>
   </div>
