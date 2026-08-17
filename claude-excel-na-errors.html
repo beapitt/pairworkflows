@@ -72,6 +72,33 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
 .claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
 
+
+/* ── NA ERRORS — lookup inspector ── */
+.na-wrap{padding:10px 10px 12px;display:flex;flex-direction:column;align-items:stretch}
+.na-inspect{display:grid;grid-template-columns:1fr auto 1fr;gap:0;width:100%}
+.na-col{background:#fff;border-radius:8px;padding:12px}
+.na-col.src{border:2px solid #36b7b4}
+.na-col.lkp{border:2px solid #7e3a8a}
+.na-col-head{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.na-col.src .na-col-head{color:#36b7b4}
+.na-col.lkp .na-col-head{color:#7e3a8a}
+.na-row{font-family:'JetBrains Mono',monospace;font-size:13px;padding:5px 0;border-bottom:1px solid #f5f0e0;display:flex;justify-content:space-between;align-items:center;gap:6px}
+.na-row:last-child{border:none}
+.na-row .val{color:#1e293b;font-weight:500}
+.na-row .len{font-size:10.5px;color:#94a3b8;font-weight:600}
+.na-row .match{color:#36b7b4;font-weight:700;font-size:11px}
+.na-row .fail{color:#7e3a8a;font-weight:700;font-size:11px}
+.na-mid{display:flex;align-items:center;justify-content:center;padding:0 8px;font-size:20px;color:#94a3b8}
+.na-hl{background:#fce4f0;padding:0 3px;border-radius:2px;font-weight:700;color:#7e3a8a}
+.na-caption{margin-top:12px;padding:10px 12px;background:#fce4f0;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#5c1d6b;width:100%;box-sizing:border-box;line-height:1.5}
+.na-caption .sub{font-size:11px;color:#a085a8;margin-top:4px}
+.na-fix{margin-top:12px;padding:12px 14px;background:#1a3636;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.5;color:#b8e6e4;width:100%;box-sizing:border-box}
+.na-fix .res{color:#36b7b4;font-weight:700}
+.na-fix .sub{font-size:11.5px;color:#6fa8a6;margin-top:5px;line-height:1.5}
+.type-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px}
+.type-num{background:#e0f2fe;color:#0369a1}
+.type-txt{background:#fce4f0;color:#7e3a8a}
+
 /* ── DIAGNOSIS TABLE ── */
 .diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .diag-header{background:#fef2f2;border-bottom:1px solid #fecaca;padding:12px 18px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#dc2626}
@@ -135,6 +162,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 @media(max-width:640px){
   .hero h1{font-size:24px}
   .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-panel.on{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:4px 0}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
@@ -232,38 +261,60 @@ when a value genuinely isn't found, the cell shows a dash "—" instead of
 
   <!-- Tab: diagnose -->
   <div class="before-after ba-panel on" id="ba-diagnose">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — lookup fails, value clearly exists in table</div>
+    <div class="ba-col before" style="border-color:#d8b4e2">
+      <div class="ba-header" style="background:#fce4f0;color:#5c1d6b;border-bottom:1px solid #d8b4e2"><i class="ti ti-search" style="font-size:14px"></i> Before — values look identical but LEN() differs</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Col A — Lookup value</th><th>LEN()</th><th>Col D — Table value</th><th>LEN()</th><th>XLOOKUP</th></tr>
-          <tr><td class="err-cell">"Smith, John " </td><td class="err-cell">13</td><td>"Smith, John"</td><td>12</td><td class="err-cell">#N/A</td></tr>
-          <tr><td class="err-cell">"Jones,  Mary"</td><td class="err-cell">13</td><td>"Jones, Mary"</td><td>12</td><td class="err-cell">#N/A</td></tr>
-          <tr><td class="err-cell">" Clark, Peter"</td><td class="err-cell">14</td><td>"Clark, Peter"</td><td>13</td><td class="err-cell">#N/A</td></tr>
-          <tr><td>"Davis, Emma"</td><td class="ok-cell">12</td><td>"Davis, Emma"</td><td class="ok-cell">12</td><td class="ok-cell">£3,400 ✓</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          LEN() reveals the mismatch — Smith,John has 13 chars vs 12 in the table
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Trailing space, double space, leading space — all invisible on screen</div>
+        <div class="na-wrap">
+          <div class="na-inspect">
+            <div class="na-col lkp">
+              <div class="na-col-head">Lookup value (col A)</div>
+              <div class="na-row"><span class="val">"Smith, John<span class="na-hl"> </span>"</span><span class="len fail">LEN 13</span></div>
+              <div class="na-row"><span class="val">"Jones,<span class="na-hl">  </span>Mary"</span><span class="len fail">LEN 13</span></div>
+              <div class="na-row"><span class="val">"<span class="na-hl"> </span>Clark, Peter"</span><span class="len fail">LEN 14</span></div>
+              <div class="na-row"><span class="val">"Davis, Emma"</span><span class="len match">LEN 12</span></div>
+            </div>
+            <div class="na-mid">≠</div>
+            <div class="na-col src">
+              <div class="na-col-head">Table value (col D)</div>
+              <div class="na-row"><span class="val">"Smith, John"</span><span class="len match">LEN 12</span></div>
+              <div class="na-row"><span class="val">"Jones, Mary"</span><span class="len match">LEN 12</span></div>
+              <div class="na-row"><span class="val">"Clark, Peter"</span><span class="len match">LEN 13</span></div>
+              <div class="na-row"><span class="val">"Davis, Emma"</span><span class="len match">LEN 12</span></div>
+            </div>
+          </div>
+          <div class="na-caption">
+            <span style="background:#fce4f0;padding:0 3px;border-radius:2px">Highlighted</span> = invisible extra characters that break the lookup
+            <div class="sub">Trailing space · double space · leading space — all return #N/A</div>
+          </div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — TRIM() wraps the lookup value, all 3 resolve</div>
+    <div class="ba-col after" style="border-color:#36b7b4">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — TRIM() normalizes, all 4 match</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Lookup value (raw)</th><th>TRIM() result</th><th>LEN()</th><th>XLOOKUP</th><th>Revenue</th></tr>
-          <tr><td>"Smith, John "</td><td class="ok-cell">"Smith, John"</td><td class="ok-cell">12</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£4,250</td></tr>
-          <tr><td>"Jones,  Mary"</td><td class="ok-cell">"Jones, Mary"</td><td class="ok-cell">12</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£7,800</td></tr>
-          <tr><td>" Clark, Peter"</td><td class="ok-cell">"Clark, Peter"</td><td class="ok-cell">13</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£6,100</td></tr>
-          <tr><td>"Davis, Emma"</td><td class="ok-cell">"Davis, Emma"</td><td class="ok-cell">12</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£3,400</td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's fix</div>
-          <pre>=XLOOKUP(TRIM(A2), $D:$D, $E:$E, "Not found")
-TRIM removes all leading/trailing/double spaces.
-All 4 lookups now resolve. Total revenue: £21,550 ✓</pre>
+        <div class="na-wrap">
+          <div class="na-inspect">
+            <div class="na-col lkp">
+              <div class="na-col-head">TRIM(lookup)</div>
+              <div class="na-row"><span class="val">"Smith, John"</span><span class="len match">12</span></div>
+              <div class="na-row"><span class="val">"Jones, Mary"</span><span class="len match">12</span></div>
+              <div class="na-row"><span class="val">"Clark, Peter"</span><span class="len match">13</span></div>
+              <div class="na-row"><span class="val">"Davis, Emma"</span><span class="len match">12</span></div>
+            </div>
+            <div class="na-mid">=</div>
+            <div class="na-col src">
+              <div class="na-col-head">Table → Revenue</div>
+              <div class="na-row"><span class="val match">Found ✓</span><span class="len" style="color:#36b7b4;font-weight:700">£4,250</span></div>
+              <div class="na-row"><span class="val match">Found ✓</span><span class="len" style="color:#36b7b4;font-weight:700">£7,800</span></div>
+              <div class="na-row"><span class="val match">Found ✓</span><span class="len" style="color:#36b7b4;font-weight:700">£6,100</span></div>
+              <div class="na-row"><span class="val match">Found ✓</span><span class="len" style="color:#36b7b4;font-weight:700">£3,400</span></div>
+            </div>
+          </div>
+          <div class="na-fix">
+            <strong>=XLOOKUP(TRIM(A2), $D:$D, $E:$E, "Not found")</strong>
+            <div class="sub">All 4 resolved. Total: £4,250+£7,800+£6,100+£3,400 = <span class="res">£21,550 ✓</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -271,19 +322,31 @@ All 4 lookups now resolve. Total revenue: £21,550 ✓</pre>
 
   <!-- Tab: type -->
   <div class="before-after ba-panel" id="ba-type">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — employee IDs look identical, type mismatch hidden</div>
+    <div class="ba-col before" style="border-color:#d8b4e2">
+      <div class="ba-header" style="background:#fce4f0;color:#5c1d6b;border-bottom:1px solid #d8b4e2"><i class="ti ti-ab" style="font-size:14px"></i> Before — IDs display identically but types don't match</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Col A — Lookup ID</th><th>Excel type</th><th>Col D — Table ID</th><th>Excel type</th><th>XLOOKUP</th></tr>
-          <tr><td class="err-cell">1041</td><td class="err-cell">Number</td><td class="err-cell">"1041"</td><td class="err-cell">Text</td><td class="err-cell">#N/A</td></tr>
-          <tr><td class="err-cell">1087</td><td class="err-cell">Number</td><td class="err-cell">"1087"</td><td class="err-cell">Text</td><td class="err-cell">#N/A</td></tr>
-          <tr><td class="err-cell">1112</td><td class="err-cell">Number</td><td class="err-cell">"1112"</td><td class="err-cell">Text</td><td class="err-cell">#N/A</td></tr>
-          <tr><td class="err-cell">1203</td><td class="err-cell">Number</td><td class="err-cell">"1203"</td><td class="err-cell">Text</td><td class="err-cell">#N/A</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          All 4 IDs fail — Col A imported as numbers, Col D as text strings
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Number 1041 ≠ text "1041" even though they display identically</div>
+        <div class="na-wrap">
+          <div class="na-inspect">
+            <div class="na-col lkp">
+              <div class="na-col-head">Lookup ID (col A)</div>
+              <div class="na-row"><span class="val">1041</span><span class="type-badge type-num">NUMBER</span></div>
+              <div class="na-row"><span class="val">1087</span><span class="type-badge type-num">NUMBER</span></div>
+              <div class="na-row"><span class="val">1112</span><span class="type-badge type-num">NUMBER</span></div>
+              <div class="na-row"><span class="val">1203</span><span class="type-badge type-num">NUMBER</span></div>
+            </div>
+            <div class="na-mid" style="color:#7e3a8a;font-size:24px">≠</div>
+            <div class="na-col src">
+              <div class="na-col-head">Table ID (col D)</div>
+              <div class="na-row"><span class="val">"1041"</span><span class="type-badge type-txt">TEXT</span></div>
+              <div class="na-row"><span class="val">"1087"</span><span class="type-badge type-txt">TEXT</span></div>
+              <div class="na-row"><span class="val">"1112"</span><span class="type-badge type-txt">TEXT</span></div>
+              <div class="na-row"><span class="val">"1203"</span><span class="type-badge type-txt">TEXT</span></div>
+            </div>
+          </div>
+          <div class="na-caption">
+            Number 1041 ≠ text "1041" — they display identically but Excel sees different types
+            <div class="sub">All 4 XLOOKUP calls return #N/A because of the type mismatch</div>
+          </div>
         </div>
       </div>
     </div>
