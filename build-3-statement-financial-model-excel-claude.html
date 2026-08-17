@@ -6,7 +6,7 @@
 <title>How to Build a 3-Statement Model in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to build a linked 3-statement financial model in Excel with Claude AI, connecting the income statement, balance sheet, and cash flow with formulas.">
 <link rel="canonical" href="https://www.pairworkflows.com/build-3-statement-financial-model-excel-claude.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What links the three financial statements together?","acceptedAnswer":{"@type":"Answer","text":"Net income from the income statement flows into retained earnings on the balance sheet and is the starting point for the cash flow statement (indirect method). Changes in balance sheet working capital items feed the operating section of the cash flow statement. CapEx on the cash flow statement increases PP&E on the balance sheet. The ending cash balance on the cash flow statement must equal cash on the balance sheet."}},{"@type":"Question","name":"Can Claude build a 3-statement model from scratch without historical data?","acceptedAnswer":{"@type":"Answer","text":"Claude can build the model structure and formulas without historical data, but the output will be a blank template. For a working model, provide at least one year of historical financials so Claude can populate the base period and project forward from real numbers."}},{"@type":"Question","name":"How does Claude handle the balance sheet check?","acceptedAnswer":{"@type":"Answer","text":"The prompt instructs Claude to add a balance check row that calculates Total Assets minus Total Liabilities and Equity. If this row shows anything other than zero, the model has a linkage error. This is the single most important integrity check in any 3-statement model."}},{"@type":"Question","name":"Should I use the direct or indirect method for the cash flow statement?","acceptedAnswer":{"@type":"Answer","text":"The indirect method is standard for financial modelling because it starts with net income and adjusts for non-cash items and working capital changes. The prompt in this workflow uses the indirect method."}},{"@type":"Question","name":"Can I extend this to a 5-year projection?","acceptedAnswer":{"@type":"Answer","text":"Yes. The prompt defaults to a 3-year projection but you can change the horizon. Provide your growth and margin assumptions for each year, and Claude will extend the model accordingly."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What links the three financial statements together?","acceptedAnswer":{"@type":"Answer","text":"Net income from the income statement is the starting point for the cash flow statement (indirect method) and contributes to the retained earnings roll-forward on the balance sheet, together with dividends or distributions where applicable. Changes in balance sheet working capital items feed the operating section of the cash flow statement. CapEx on the cash flow statement increases PP&E on the balance sheet. The ending cash balance on the cash flow statement must equal cash on the balance sheet."}},{"@type":"Question","name":"Can Claude build a 3-statement model from scratch without historical data?","acceptedAnswer":{"@type":"Answer","text":"Claude can build the model structure and formulas without historical data, but the output will be a blank template. For a working model, provide at least one year of historical financials so Claude can populate the base period and project forward from real numbers."}},{"@type":"Question","name":"How does Claude handle the balance sheet check?","acceptedAnswer":{"@type":"Answer","text":"The prompt instructs Claude to add a balance check row that calculates Total Assets minus Total Liabilities and Equity. If this row shows anything other than zero, the model has a linkage error. This is the single most important integrity check in any 3-statement model."}},{"@type":"Question","name":"Should I use the direct or indirect method for the cash flow statement?","acceptedAnswer":{"@type":"Answer","text":"The indirect method is standard for financial modelling because it starts with net income and adjusts for non-cash items and working capital changes. The prompt in this workflow uses the indirect method."}},{"@type":"Question","name":"Can I extend this to a 5-year projection?","acceptedAnswer":{"@type":"Answer","text":"Yes. The prompt defaults to a 3-year projection but you can change the horizon. Provide your growth and margin assumptions for each year, and Claude will extend the model accordingly."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -49,28 +49,55 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint a:hover{text-decoration:underline}
 
 /* ── BEFORE / AFTER VISUAL ── */
-.ba-panel { display: none; margin-bottom: 1.75rem; }
-.ba-panel.on { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: stretch; }
-
-.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.ba-panel{display:none;margin-bottom:1.75rem}
+.ba-panel.on{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:0;align-items:start}
+.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;min-width:0}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
 .ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
 .ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
 .ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
-.ba-body{padding:14px}
-.xl-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
-.xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
-.xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
-.xl-table .err-cell{color:#dc2626;font-weight:700;background:#fef2f2}
-.xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
-.xl-table .hl{background:#fffbeb}
-.xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
-.xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
-.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+.ba-body{padding:14px;min-width:0}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0;align-self:center}
+
+.excel-window{border:1px solid #cbd5e1;border-radius:7px;overflow:hidden;background:#fff;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.excel-ribbon{display:flex;align-items:center;gap:12px;padding:5px 9px;background:#f8fafc;border-bottom:1px solid #dbe3ec;font-size:11px;color:#64748b}
+.excel-ribbon strong{color:#217346;font-size:11.5px}
+.formula-row{display:grid;grid-template-columns:54px 24px minmax(0,1fr);border-bottom:1px solid #cbd5e1;background:#fff;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.name-box{padding:6px 7px;border-right:1px solid #cbd5e1;background:#f8fafc;color:#334155}
+.fx-box{display:flex;align-items:center;justify-content:center;border-right:1px solid #cbd5e1;color:#64748b;font-style:italic}
+.formula-input{padding:6px 8px;line-height:1.45;white-space:normal;overflow-wrap:anywhere;min-width:0}
+.sheet-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.excel-grid{width:100%;min-width:660px;border-collapse:collapse;table-layout:fixed;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.excel-grid th,.excel-grid td{border:1px solid #d6dde5;padding:5px 7px;height:28px;vertical-align:middle;overflow-wrap:anywhere}
+.excel-grid thead th{background:#f3f6f8;color:#475569;text-align:center;font-weight:500;padding:4px 6px}
+.excel-grid .corner{width:34px;background:#eef2f5}
+.excel-grid .row-num{width:34px;background:#f3f6f8;color:#64748b;text-align:center;font-weight:500}
+.excel-grid .header-cell{background:#eef5f1;color:#1f2937;font-weight:700}
+.excel-grid .section-cell{background:#f1f5f9;color:#475569;font-weight:700}
+.excel-grid .selected{background:#f0fdf4;box-shadow:inset 0 0 0 2px #217346}
+.excel-grid .error-selected{background:#fef2f2;box-shadow:inset 0 0 0 2px #dc2626;color:#b91c1c;font-weight:700}
+.excel-grid .bad{background:#fef2f2;color:#b91c1c;font-weight:700}
+.excel-grid .good{background:#f0fdf4;color:#047857;font-weight:700}
+.excel-grid .formula-cell{background:#eff6ff;color:#1f4e79}
+.excel-grid .assumption{background:#fff7ed;color:#c2410c}
+.excel-grid .locked{background:#f8fafc;color:#64748b}
+.excel-grid .subtotal{background:#f1f5f9;font-weight:700}
+.sheet-tabs{display:flex;gap:2px;padding:5px 7px;background:#f8fafc;border-top:1px solid #dbe3ec;font-size:11px}
+.sheet-tab{padding:4px 9px;color:#64748b}
+.sheet-tab.active{background:#fff;color:#217346;font-weight:700;border:1px solid #dbe3ec;border-bottom-color:#fff}
+.sheet-note{margin-top:10px;padding:9px 10px;border-radius:7px;font-size:11.5px;line-height:1.55}
+.sheet-note.bad{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c}
+.sheet-note.good{background:#f0fdf4;border:1px solid #a7f3d0;color:#047857}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
-.claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
-.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
+.claude-fix-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
+.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+
+@media(max-width:640px){
+  .ba-panel.on{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:.4rem 0}
+  .excel-grid{min-width:660px}
+}
 
 /* ── DIAGNOSIS TABLE ── */
 .diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
@@ -137,8 +164,6 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
 @media(max-width:640px){
   .hero h1{font-size:24px}
-  .ba-panel.on{grid-template-columns:1fr;gap:8px}
-  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
   .related-grid{grid-template-columns:1fr}
@@ -258,7 +283,7 @@ Please identify which linkage is broken and give me the corrected formula.
 Do not rebuild the entire model — only fix the specific broken connection.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">A non-zero Balance Check almost always means one of the linkages has a broken formula reference.</p>
+      <p class="prompt-hint">A non-zero Balance Check means the model is not internally consistent; a broken linkage, omitted roll-forward item, or sign/formula error is a common cause.</p>
     </div>
 
     <!-- Panel: Extend to 5 years -->
@@ -286,40 +311,78 @@ I can paste into Excel.</pre>
   </div>
 
   <!-- BEFORE / AFTER VISUAL DYNAMIC -->
-  
+
   <!-- Tab: Build -->
   <div class="before-after ba-panel on" id="ba-build">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — unlinked statements</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — three statements contain numbers but no roll-forward links</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th></th><th>FY24</th><th>FY25</th></tr>
-          <tr class="section-row"><td colspan="3">Income Statement</td></tr>
-          <tr><td>Net Income</td><td>120,000</td><td class="hl">135,000</td></tr>
-          <tr class="section-row"><td colspan="3">Balance Sheet</td></tr>
-          <tr><td>Retained Earnings</td><td>500,000</td><td class="err-cell">500,000</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Values are hardcoded — changes to IS don't affect BS
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Creating scenarios is impossible</div>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data</span></div>
+          <div class="formula-row"><div class="name-box">C7</div><div class="fx-box">fx</div><div class="formula-input">500000</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:190px"><col style="width:120px"><col style="width:120px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Line</td><td class="header-cell">FY24</td><td class="header-cell">FY25</td></tr>
+                <tr><th class="row-num">2</th><td class="section-cell">Income Statement</td><td class="section-cell"></td><td class="section-cell"></td></tr>
+                <tr><th class="row-num">3</th><td>Net Income</td><td>£120,000</td><td>£135,000</td></tr>
+                <tr><th class="row-num">4</th><td class="section-cell">Balance Sheet</td><td class="section-cell"></td><td class="section-cell"></td></tr>
+                <tr><th class="row-num">5</th><td>Cash</td><td>£210,000</td><td class="bad">£210,000 hardcoded</td></tr>
+                <tr><th class="row-num">6</th><td>Net PP&amp;E</td><td>£760,000</td><td class="bad">£760,000 hardcoded</td></tr>
+                <tr><th class="row-num">7</th><td>Retained Earnings</td><td>£500,000</td><td class="error-selected">£500,000 hardcoded</td></tr>
+                <tr><th class="row-num">8</th><td class="section-cell">Cash Flow Statement</td><td class="section-cell"></td><td class="section-cell"></td></tr>
+                <tr><th class="row-num">9</th><td>Ending Cash</td><td>£210,000</td><td class="bad">not linked</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="sheet-tabs"><span class="sheet-tab">IS</span><span class="sheet-tab active">BS</span><span class="sheet-tab">CFS</span><span class="sheet-tab">Assumptions</span></div>
         </div>
+        <div class="sheet-note bad">Scenario changes cannot propagate because Cash, PP&amp;E and Retained Earnings are hardcoded instead of rolling forward from CFS / CapEx / Net Income.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — fully linked by Claude</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — core linkages roll through all three statements</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th></th><th>FY24</th><th>FY25</th></tr>
-          <tr class="section-row"><td colspan="3">Income Statement</td></tr>
-          <tr><td>Net Income</td><td>120,000</td><td>135,000</td></tr>
-          <tr class="section-row"><td colspan="3">Balance Sheet</td></tr>
-          <tr><td>Retained Earnings</td><td>500,000</td><td class="link-cell">=B12+C4</td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Trace Precedents</span></div>
+          <div class="formula-row"><div class="name-box">C7</div><div class="fx-box">fx</div><div class="formula-input">=B7+C3-C8</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:190px"><col style="width:125px"><col style="width:125px"><col style="width:180px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Line</td><td class="header-cell">FY24</td><td class="header-cell">FY25</td><td class="header-cell">FY25 formula</td></tr>
+                <tr><th class="row-num">2</th><td>Net Income (IS)</td><td>£120,000</td><td>£135,000</td><td class="formula-cell">=IS!C18</td></tr>
+                <tr><th class="row-num">3</th><td>Dividends / Distributions</td><td>£0</td><td>£20,000</td><td class="assumption">=Assumptions!C12</td></tr>
+                <tr><th class="row-num">4</th><td>Retained Earnings (BS)</td><td>£500,000</td><td class="selected good">£615,000</td><td class="formula-cell">=B4+C2-C3</td></tr>
+                <tr><th class="row-num">5</th><td>Net PP&amp;E (BS)</td><td>£760,000</td><td>£850,000</td><td class="formula-cell">=B5+CapEx-D&amp;A</td></tr>
+                <tr><th class="row-num">6</th><td>Ending Cash (CFS)</td><td>£210,000</td><td>£268,000</td><td class="formula-cell">=BeginningCash+CFO+CFI+CFF</td></tr>
+                <tr><th class="row-num">7</th><td>Cash (BS)</td><td>£210,000</td><td class="good">£268,000</td><td class="formula-cell">=CFS!C30</td></tr>
+                <tr><th class="row-num">8</th><td>Balance Check</td><td>£0</td><td class="good">£0</td><td class="formula-cell">=TotalAssets-(TotalLiab+Equity)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's output</div>
-          <pre>All 3 statements linked via formulas.
-Balance check equals 0 across all years. ✓</pre>
+          <div class="claude-fix-label">Core model logic</div>
+          <pre>Retained Earnings:
+Prior RE + Net Income − Dividends/Distributions
+
+Net PP&E:
+Prior Net PP&E + CapEx − D&A
+
+Cash:
+BS Cash = CFS Ending Cash
+
+Balance Check:
+Total Assets − (Total Liabilities + Equity) = 0 ✓
+
+Net income does not simply "flow into retained earnings" if dividends/distributions exist.</pre>
         </div>
       </div>
     </div>
@@ -328,39 +391,64 @@ Balance check equals 0 across all years. ✓</pre>
   <!-- Tab: Debug -->
   <div class="before-after ba-panel" id="ba-debug">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — linkage broken</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — balance check is −£8,000; cash link is the broken connection</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th></th><th>FY24</th><th>FY25</th></tr>
-          <tr class="section-row"><td colspan="3">Balance Sheet</td></tr>
-          <tr><td>Total Assets</td><td>1,800,000</td><td>1,980,000</td></tr>
-          <tr><td>Total L + Equity</td><td>1,800,000</td><td class="hl">1,988,000</td></tr>
-          <tr><td>Balance Check</td><td class="ok-cell">0</td><td class="err-cell">−8,000</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Retained Earnings not updated — Net Income missing from equity
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ IS → BS link broken in FY25 column</div>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Trace Precedents</span></div>
+          <div class="formula-row"><div class="name-box">C6</div><div class="fx-box">fx</div><div class="formula-input">=B6</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:195px"><col style="width:120px"><col style="width:120px"><col style="width:170px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Line</td><td class="header-cell">FY24</td><td class="header-cell">FY25</td><td class="header-cell">Formula / source</td></tr>
+                <tr><th class="row-num">2</th><td>CFS Ending Cash</td><td>£210,000</td><td>£268,000</td><td class="formula-cell">CFS calculation</td></tr>
+                <tr><th class="row-num">3</th><td>BS Cash</td><td>£210,000</td><td class="error-selected bad">£260,000</td><td class="bad">=B3 + £50,000</td></tr>
+                <tr><th class="row-num">4</th><td>Total Assets</td><td>£1,800,000</td><td class="bad">£1,972,000</td><td>Includes BS Cash</td></tr>
+                <tr><th class="row-num">5</th><td>Total Liabilities + Equity</td><td>£1,800,000</td><td>£1,980,000</td><td></td></tr>
+                <tr><th class="row-num">6</th><td>Balance Check</td><td class="good">£0</td><td class="bad">−£8,000</td><td>Assets − L&amp;E</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+        <div class="sheet-note bad">The £8,000 imbalance exactly matches the difference between CFS Ending Cash (£268,000) and BS Cash (£260,000). This is a coherent diagnostic trail; the original example was not.</div>
       </div>
     </div>
-    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude fixes it</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th></th><th>FY24</th><th>FY25</th></tr>
-          <tr class="section-row"><td colspan="3">Balance Sheet</td></tr>
-          <tr><td>Total Assets</td><td>1,800,000</td><td>1,980,000</td></tr>
-          <tr><td>Total L + Equity</td><td>1,800,000</td><td class="link-cell">1,980,000</td></tr>
-          <tr><td>Balance Check</td><td class="ok-cell">0</td><td class="ok-cell">0</td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's fix</div>
-          <pre>Retained Earnings (FY25) =
-  Retained Earnings (FY24) + Net Income (FY25)
 
-Formula: =C12 + C4
-Both years now balance. ✓</pre>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — BS Cash links directly to CFS Ending Cash</div>
+      <div class="ba-body">
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Trace Precedents</span></div>
+          <div class="formula-row"><div class="name-box">C3</div><div class="fx-box">fx</div><div class="formula-input">=CFS!C30</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:195px"><col style="width:120px"><col style="width:120px"><col style="width:170px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Line</td><td class="header-cell">FY24</td><td class="header-cell">FY25</td><td class="header-cell">Formula / source</td></tr>
+                <tr><th class="row-num">2</th><td>CFS Ending Cash</td><td>£210,000</td><td>£268,000</td><td class="formula-cell">CFS calculation</td></tr>
+                <tr><th class="row-num">3</th><td>BS Cash</td><td>£210,000</td><td class="selected good">£268,000</td><td class="formula-cell">=CFS!C30</td></tr>
+                <tr><th class="row-num">4</th><td>Total Assets</td><td>£1,800,000</td><td class="good">£1,980,000</td><td>Cash corrected +£8,000</td></tr>
+                <tr><th class="row-num">5</th><td>Total Liabilities + Equity</td><td>£1,800,000</td><td>£1,980,000</td><td></td></tr>
+                <tr><th class="row-num">6</th><td>Balance Check</td><td class="good">£0</td><td class="good">£0</td><td class="formula-cell">=C4-C5</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="claude-fix">
+          <div class="claude-fix-label">Targeted fix</div>
+          <pre>Broken FY25 BS Cash: £260,000
+CFS Ending Cash:       £268,000
+Difference:             £8,000
+
+Correct BS Cash formula:
+=CFS!C30
+
+Total Assets rise from £1,972,000 to £1,980,000.
+Balance Check: £1,980,000 − £1,980,000 = £0 ✓</pre>
         </div>
       </div>
     </div>
@@ -369,36 +457,64 @@ Both years now balance. ✓</pre>
   <!-- Tab: Extend -->
   <div class="before-after ba-panel" id="ba-extend">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — ending at FY26</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — projection logic stops after Year 3</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th></th><th>FY24</th><th>FY25</th><th>FY26</th></tr>
-          <tr class="section-row"><td colspan="4">Assumptions</td></tr>
-          <tr><td>Revenue Growth</td><td>-</td><td>10%</td><td>10%</td></tr>
-          <tr class="section-row"><td colspan="4">Income Statement</td></tr>
-          <tr><td>Revenue</td><td>1.0M</td><td>1.1M</td><td>1.21M</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Model stops abruptly
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Dragging formulas manually often breaks CapEx schedules</div>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data</span></div>
+          <div class="formula-row"><div class="name-box">D5</div><div class="fx-box">fx</div><div class="formula-input">=C5*(1+D2)</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:165px"><col style="width:110px"><col style="width:110px"><col style="width:110px"><col style="width:110px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Assumption / Output</td><td class="header-cell">FY24A</td><td class="header-cell">FY25E</td><td class="header-cell">FY26E</td><td class="header-cell">FY27E</td></tr>
+                <tr><th class="row-num">2</th><td>Revenue Growth</td><td>—</td><td class="assumption">10%</td><td class="assumption">10%</td><td class="error-selected">—</td></tr>
+                <tr><th class="row-num">3</th><td>CapEx</td><td>—</td><td>£200k</td><td>£200k</td><td class="bad">—</td></tr>
+                <tr><th class="row-num">4</th><td>Debt Repayment</td><td>—</td><td>£50k</td><td>£50k</td><td class="bad">—</td></tr>
+                <tr><th class="row-num">5</th><td>Revenue</td><td>£1.00m</td><td>£1.10m</td><td>£1.21m</td><td class="bad">No formula</td></tr>
+                <tr><th class="row-num">6</th><td>Balance Check</td><td>£0</td><td>£0</td><td>£0</td><td class="bad">—</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+        <div class="sheet-note bad">Extending only the Revenue row is not enough: assumptions, debt, CapEx, PP&amp;E, working capital, cash and the balance check all need new linked columns.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — safely extended</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Years 4 and 5 extend the same linked model logic</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th></th><th>FY26</th><th>FY27 (New)</th><th>FY28 (New)</th></tr>
-          <tr class="section-row"><td colspan="4">Assumptions</td></tr>
-          <tr><td>Revenue Growth</td><td>10%</td><td class="hl">8%</td><td class="hl">8%</td></tr>
-          <tr class="section-row"><td colspan="4">Income Statement</td></tr>
-          <tr><td>Revenue</td><td>1.21M</td><td class="link-cell">1.30M</td><td class="link-cell">1.41M</td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Trace Dependents</span></div>
+          <div class="formula-row"><div class="name-box">E5</div><div class="fx-box">fx</div><div class="formula-input">=D5*(1+E2)</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:165px"><col style="width:110px"><col style="width:110px"><col style="width:110px"><col style="width:110px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Assumption / Output</td><td class="header-cell">FY26E</td><td class="header-cell">FY27E</td><td class="header-cell">FY28E</td><td class="header-cell">Formula pattern</td></tr>
+                <tr><th class="row-num">2</th><td>Revenue Growth</td><td class="locked">10%</td><td class="assumption">8%</td><td class="assumption">8%</td><td>New assumption</td></tr>
+                <tr><th class="row-num">3</th><td>CapEx</td><td class="locked">£200k</td><td class="assumption">£250k</td><td class="assumption">£250k</td><td>New assumption</td></tr>
+                <tr><th class="row-num">4</th><td>Debt Repayment</td><td class="locked">£50k</td><td>£50k</td><td>£50k</td><td>Same as Year 3</td></tr>
+                <tr><th class="row-num">5</th><td>Revenue</td><td class="locked">£1.210m</td><td class="selected formula-cell">£1.3068m</td><td class="formula-cell">£1.4113m</td><td>=PriorRevenue*(1+Growth)</td></tr>
+                <tr><th class="row-num">6</th><td>Net PP&amp;E</td><td class="locked">linked</td><td class="formula-cell">Prior + CapEx − D&amp;A</td><td class="formula-cell">Prior + CapEx − D&amp;A</td><td>Roll-forward</td></tr>
+                <tr><th class="row-num">7</th><td>BS Cash</td><td class="locked">=CFS</td><td class="formula-cell">=CFS Ending Cash</td><td class="formula-cell">=CFS Ending Cash</td><td>Cross-statement link</td></tr>
+                <tr><th class="row-num">8</th><td>Balance Check</td><td class="good">£0</td><td class="good">£0</td><td class="good">£0</td><td>Must stay zero</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's extension</div>
-          <pre>Added FY27/FY28 columns.
-New 8% growth rate applied safely. ✓</pre>
+          <div class="claude-fix-label">Extension verification</div>
+          <pre>FY27 Revenue = £1.2100m × 1.08 = £1.3068m
+FY28 Revenue = £1.3068m × 1.08 = £1.411344m ≈ £1.4113m ✓
+
+But the extension is only valid if every linked schedule also continues:
+working capital, debt, interest, CapEx, D&A, PP&E, cash and retained earnings.
+
+Balance Check must remain £0 in every added year.</pre>
         </div>
       </div>
     </div>
@@ -409,12 +525,12 @@ New 8% growth rate applied safely. ✓</pre>
     <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Why the balance sheet doesn't balance — the 4 most common breaks</div>
     <div class="diag-row">
       <div class="diag-cause">Missing RE link</div>
-      <div class="diag-example">Retained Earnings not referencing <span class="bad">Net Income</span> from IS → equity is wrong</div>
+      <div class="diag-example">Retained Earnings roll-forward omits <span class="bad">Net Income or dividends/distributions</span> → equity is wrong</div>
       <div class="diag-badge badge-red">Most common</div>
     </div>
     <div class="diag-row">
       <div class="diag-cause">Cash not plugged</div>
-      <div class="diag-example">BS Cash ≠ CFS Ending Cash → <span class="bad">hardcoded</span> instead of <span class="good">=CFS_cell</span></div>
+      <div class="diag-example">BS Cash ≠ CFS Ending Cash → <span class="bad">hardcoded / broken link</span> instead of <span class="good">=CFS ending cash</span></div>
       <div class="diag-badge badge-red">Most common</div>
     </div>
     <div class="diag-row">
@@ -467,7 +583,7 @@ New 8% growth rate applied safely. ✓</pre>
       <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Debug model balances — 3 steps</div>
       <div class="step">
         <div class="step-n">1</div>
-        <div class="step-body"><h3>Identify the variance amount</h3><p>Look at the Balance Check row to see exactly how much you are off by. A variance that exactly matches Net Income usually means Retained Earnings isn't linked correctly.</p></div>
+        <div class="step-body"><h3>Identify the variance amount</h3><p>Look at the Balance Check row to see exactly how much you are off by. A variance that matches a known flow amount can point to a missing linkage, but confirm the direction and the relevant roll-forward before changing a formula.</p></div>
       </div>
       <div class="step">
         <div class="step-n">2</div>
@@ -505,7 +621,7 @@ New 8% growth rate applied safely. ✓</pre>
   <div class="faq-section">
   <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What links the three financial statements together? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Net income flows from the income statement into retained earnings on the balance sheet, and is the starting point for the cash flow statement. Working capital changes (ΔAR, ΔAP, ΔInventory) flow from the balance sheet to the operating section of the CFS. CapEx on the CFS increases PP&amp;E on the balance sheet. Ending cash on the CFS must equal cash on the balance sheet.</div>
+      <div class="faq-a">Net income is the starting point for the cash flow statement and contributes to the retained earnings roll-forward on the balance sheet, net of dividends or distributions where applicable. Working capital changes (ΔAR, ΔAP, ΔInventory) flow from the balance sheet to the operating section of the CFS. CapEx on the CFS increases PP&amp;E on the balance sheet. Ending cash on the CFS must equal cash on the balance sheet.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can Claude build this without historical data? <i class="ti ti-chevron-down"></i></div>
