@@ -89,6 +89,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .bp-layer .desc{color:#30343b}
 .bp-fix{margin-top:12px;padding:12px 14px;background:#30343b;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.5;color:#c5c0b8;width:100%;box-sizing:border-box}
 .bp-fix .res{color:#9b93e0;font-weight:700}
+
+.bp-svg{width:100%;max-width:none;height:auto;display:block}
 .bp-fix .sub{font-size:11.5px;color:#7a7590;margin-top:5px;line-height:1.5}
 .bp-qa{width:100%;font-family:'JetBrains Mono',monospace;font-size:12.5px}
 .bp-qa-row{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid #eee8f4;align-items:baseline;line-height:1.5}
@@ -271,16 +273,43 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after" style="border-color:#4f46a5">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude decomposes layer by layer</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — formula blueprint, layer by layer</div>
       <div class="ba-body" style="padding:12px">
-        <div class="bp-layers">
-          <div class="bp-layer"><span class="tag bp-s1">IFERROR</span><span class="desc">Outer shell — catches errors, returns "" instead of #N/A</span></div>
-          <div class="bp-layer"><span class="tag bp-s2">INDEX</span><span class="desc">Returns a value from Sales!$C (Revenue column)</span></div>
-          <div class="bp-layer"><span class="tag bp-s3">MATCH</span><span class="desc">Finds the row where col A = A2 <strong>AND</strong> col B = B2</span></div>
+        <div class="bp-wrap">
+          <svg class="bp-svg" viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
+            <!-- Layer 1: IFERROR -->
+            <rect x="100" y="10" width="200" height="44" rx="8" fill="rgba(79,70,165,.12)" stroke="#4f46a5" stroke-width="1.5"/>
+            <text x="200" y="30" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" font-weight="700" fill="#4f46a5">IFERROR</text>
+            <text x="200" y="46" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#6b6478">catches errors → returns ""</text>
+            <!-- arrow down -->
+            <line x1="200" y1="54" x2="200" y2="74" stroke="#9b93e0" stroke-width="1.8"/>
+            <polygon points="194,72 200,80 206,72" fill="#9b93e0"/>
+            <!-- Layer 2: INDEX -->
+            <rect x="100" y="80" width="200" height="44" rx="8" fill="rgba(242,166,111,.12)" stroke="#f2a66f" stroke-width="1.5"/>
+            <text x="200" y="100" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" font-weight="700" fill="#c27a3a">INDEX</text>
+            <text x="200" y="116" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#6b6478">returns value from Sales!$C</text>
+            <!-- arrow down -->
+            <line x1="200" y1="124" x2="200" y2="144" stroke="#f2a66f" stroke-width="1.8"/>
+            <polygon points="194,142 200,150 206,142" fill="#f2a66f"/>
+            <!-- Layer 3: MATCH -->
+            <rect x="100" y="150" width="200" height="44" rx="8" fill="rgba(72,187,169,.12)" stroke="#48bba9" stroke-width="1.5"/>
+            <text x="200" y="170" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" font-weight="700" fill="#2a8a7a">MATCH</text>
+            <text x="200" y="186" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#6b6478">row where col A = A2 AND col B = B2</text>
+            <!-- arrow down to inputs -->
+            <line x1="170" y1="194" x2="130" y2="220" stroke="#48bba9" stroke-width="1.5"/>
+            <line x1="230" y1="194" x2="270" y2="220" stroke="#48bba9" stroke-width="1.5"/>
+            <!-- Inputs -->
+            <rect x="70" y="222" width="120" height="38" rx="6" fill="#f0ece6" stroke="#c9bfa8" stroke-width="1"/>
+            <text x="130" y="240" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12" font-weight="600" fill="#30343b">A2 (Region)</text>
+            <text x="130" y="254" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#6b6478">criteria 1</text>
+            <rect x="210" y="222" width="120" height="38" rx="6" fill="#f0ece6" stroke="#c9bfa8" stroke-width="1"/>
+            <text x="270" y="240" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12" font-weight="600" fill="#30343b">B2 (Rep)</text>
+            <text x="270" y="254" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#6b6478">criteria 2</text>
+          </svg>
         </div>
         <div class="bp-fix">
-          Looks up Revenue where Region = A2 AND Rep = B2.
-          <div class="sub">Risk: ranges capped at row 500 — extend if Sales sheet grows. <span class="res">✓</span></div>
+          Revenue where Region = A2 AND Rep = B2.
+          <div class="sub">⚠ Risk: ranges capped at row 500 — extend if Sales sheet grows. <span class="res">✓</span></div>
         </div>
       </div>
     </div>
@@ -294,7 +323,7 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
         <div class="bp-qa">
           <div class="bp-qa-row"><span class="q">A2 not in Sales?</span><span class="a" style="color:#94a3b8;font-style:italic">Unknown risk</span></div>
           <div class="bp-qa-row"><span class="q">Extend to row 1000?</span><span class="a" style="color:#94a3b8;font-style:italic">Unknown risk</span></div>
-          <div class="bp-qa-row"><span class="q">Rename Sales sheet?</span><span class="a" style="color:#94a3b8;font-style:italic">Unknown risk</span></div>
+          <div class="bp-qa-row"><span class="q">New rows past 500?</span><span class="a" style="color:#94a3b8;font-style:italic">Unknown risk</span></div>
         </div>
         <div class="bp-caption">
           Formula works today — but you can't tell which changes will break it
@@ -309,11 +338,11 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
         <div class="bp-qa">
           <div class="bp-qa-row"><span class="q">A2 not in Sales?</span><span class="a safe">Returns "" — safe ✓</span></div>
           <div class="bp-qa-row"><span class="q">Extend to row 1000?</span><span class="a safe">Yes — update 3 ranges ✓</span></div>
-          <div class="bp-qa-row"><span class="q">Rename Sales sheet?</span><span class="a warn">Breaks all 3 refs ⚠</span></div>
+          <div class="bp-qa-row"><span class="q">New rows past 500?</span><span class="a warn">Silently ignored ⚠</span></div>
         </div>
         <div class="bp-fix">
-          Renaming "Sales" breaks all 3 references.
-          <div class="sub">Use Find/Replace on sheet name to fix safely. <span class="res">✓</span></div>
+          Ranges hardcoded to row 500 — new data past row 500 is silently excluded.
+          <div class="sub">Change $C$500 → $C$5000 or use a dynamic range. <span class="res">✓</span></div>
         </div>
       </div>
     </div>
@@ -340,7 +369,7 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
           Multi-criteria lookup: returns Sales[Revenue]<br>
           where Region = A2 AND Rep = B2.<br>
           Returns blank if no match.<br>
-          <span style="color:#c2410c;font-weight:600">Do not rename the Sales sheet.</span>
+          <span style="color:#c2410c;font-weight:600">Ranges capped at row 500 — extend if data grows.</span>
         </div>
         <div class="bp-fix">
           One comment prevents hours of reverse-engineering.
