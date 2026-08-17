@@ -49,26 +49,55 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint a:hover{text-decoration:underline}
 
 /* ── BEFORE / AFTER VISUAL ── */
-.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
-.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.before-after{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:0;margin-bottom:1.75rem;align-items:start}
+.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;min-width:0}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
 .ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
 .ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
 .ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
-.ba-body{padding:14px}
-.xl-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
-.xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
-.xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
-.xl-table .err-cell{color:#dc2626;font-weight:700;background:#fef2f2}
-.xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
-.xl-table .hl{background:#fffbeb}
-.xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
-.xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
-.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+.ba-body{padding:14px;min-width:0}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0;align-self:center}
+.ba-scenario{margin-bottom:1.75rem}
+
+.excel-window{border:1px solid #cbd5e1;border-radius:7px;overflow:hidden;background:#fff;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.excel-ribbon{display:flex;align-items:center;gap:12px;padding:5px 9px;background:#f8fafc;border-bottom:1px solid #dbe3ec;font-size:11px;color:#64748b}
+.excel-ribbon strong{color:#217346;font-size:11.5px}
+.formula-row{display:grid;grid-template-columns:54px 24px minmax(0,1fr);border-bottom:1px solid #cbd5e1;background:#fff;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.name-box{padding:6px 7px;border-right:1px solid #cbd5e1;background:#f8fafc;color:#334155}
+.fx-box{display:flex;align-items:center;justify-content:center;border-right:1px solid #cbd5e1;color:#64748b;font-style:italic}
+.formula-input{padding:6px 8px;line-height:1.45;white-space:normal;overflow-wrap:anywhere;min-width:0}
+.sheet-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.excel-grid{width:100%;min-width:620px;border-collapse:collapse;table-layout:fixed;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.excel-grid th,.excel-grid td{border:1px solid #d6dde5;padding:5px 7px;height:28px;vertical-align:middle;overflow-wrap:anywhere}
+.excel-grid thead th{background:#f3f6f8;color:#475569;text-align:center;font-weight:500;padding:4px 6px}
+.excel-grid .corner{width:34px;background:#eef2f5}
+.excel-grid .row-num{width:34px;background:#f3f6f8;color:#64748b;text-align:center;font-weight:500}
+.excel-grid .header-cell{background:#eef5f1;color:#1f2937;font-weight:700}
+.excel-grid .selected{background:#f0fdf4;box-shadow:inset 0 0 0 2px #217346}
+.excel-grid .error-selected{background:#fef2f2;box-shadow:inset 0 0 0 2px #dc2626;color:#b91c1c;font-weight:700}
+.excel-grid .bad{background:#fef2f2;color:#b91c1c;font-weight:700}
+.excel-grid .good{background:#f0fdf4;color:#047857;font-weight:700}
+.excel-grid .formula-cell{background:#eff6ff;color:#1f4e79}
+.excel-grid .input-cell{background:#fffbeb}
+.excel-grid .internal{background:#eff6ff;color:#1d4ed8;font-weight:700}
+.excel-grid .subtotal{background:#f1f5f9;font-weight:700}
+.excel-grid .warn-cell{background:#fff7ed;color:#c2410c;font-weight:700}
+.sheet-tabs{display:flex;gap:2px;padding:5px 7px;background:#f8fafc;border-top:1px solid #dbe3ec;font-size:11px}
+.sheet-tab{padding:4px 9px;color:#64748b}
+.sheet-tab.active{background:#fff;color:#217346;font-weight:700;border:1px solid #dbe3ec;border-bottom-color:#fff}
+.sheet-note{margin-top:10px;padding:9px 10px;border-radius:7px;font-size:11.5px;line-height:1.55}
+.sheet-note.bad{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c}
+.sheet-note.good{background:#f0fdf4;border:1px solid #a7f3d0;color:#047857}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
-.claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
-.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
+.claude-fix-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
+.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+
+@media(max-width:640px){
+  .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:.4rem 0}
+  .excel-grid{min-width:620px}
+}
 
 /* ── DIAGNOSIS TABLE ── */
 .diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
@@ -132,8 +161,6 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
 @media(max-width:640px){
   .hero h1{font-size:24px}
-  .before-after{grid-template-columns:1fr;gap:8px}
-  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
   .related-grid{grid-template-columns:1fr}
@@ -271,133 +298,210 @@ explicitly instead of forcing a runway number.</pre>
   </div>
 
   <!-- BEFORE / AFTER VISUAL -->
+
+  <!-- Tab: build -->
   <div id="ba-build" class="ba-scenario">
-  <div class="before-after">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — raw transactions, uncategorised</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Date</th><th>Description</th><th>Amount</th><th>Category</th></tr>
-          <tr><td>03/06/2026</td><td>Customer payments</td><td>+$29,000</td><td class="err-cell">Uncategorised</td></tr>
-          <tr><td>05/06/2026</td><td>Payroll run</td><td>−$32,000</td><td class="err-cell">Uncategorised</td></tr>
-          <tr><td>06/06/2026</td><td>Supplier invoices</td><td>−$18,000</td><td class="err-cell">Uncategorised</td></tr>
-          <tr><td>07/06/2026</td><td>Transfer to savings</td><td>−$50,000</td><td class="err-cell">Uncategorised</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Opening balance $500,000 — 4 transactions, nothing categorised
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ No weekly totals, no Operating/Investing/Financing split, no closing balance</div>
+    <div class="before-after">
+      <div class="ba-col before">
+        <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — bank export has movements but no cash-flow classification</div>
+        <div class="ba-body">
+          <div class="excel-window">
+            <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Data</span><span>Sort & Filter</span></div>
+            <div class="formula-row"><div class="name-box">E2</div><div class="fx-box">fx</div><div class="formula-input"></div></div>
+            <div class="sheet-scroll">
+              <table class="excel-grid">
+                <colgroup><col style="width:34px"><col style="width:110px"><col style="width:190px"><col style="width:105px"><col style="width:125px"><col style="width:145px"></colgroup>
+                <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead>
+                <tbody>
+                  <tr><th class="row-num">1</th><td class="header-cell">Date</td><td class="header-cell">Description</td><td class="header-cell">Amount</td><td class="header-cell">Reference</td><td class="header-cell">Category</td></tr>
+                  <tr><th class="row-num">2</th><td>03/06/2026</td><td>Customer payments</td><td>+$29,000</td><td>DEP-1082</td><td class="error-selected">Uncategorised</td></tr>
+                  <tr><th class="row-num">3</th><td>05/06/2026</td><td>Payroll run</td><td>−$32,000</td><td>PAY-0605</td><td class="bad">Uncategorised</td></tr>
+                  <tr><th class="row-num">4</th><td>06/06/2026</td><td>Supplier invoices</td><td>−$18,000</td><td>AP-771</td><td class="bad">Uncategorised</td></tr>
+                  <tr><th class="row-num">5</th><td>07/06/2026</td><td>Transfer to savings</td><td>−$50,000</td><td>INT-552</td><td class="bad">Uncategorised</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="sheet-tabs"><span class="sheet-tab active">Transactions</span><span class="sheet-tab">Weekly Dashboard</span></div>
+          </div>
+          <div class="sheet-note bad">Opening consolidated cash: $500,000. Without categories, the weekly dashboard cannot separate operating burn from internal account movements.</div>
+        </div>
+      </div>
+
+      <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
+      <div class="ba-col after">
+        <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — categorised transactions feed a weekly cash dashboard</div>
+        <div class="ba-body">
+          <div class="excel-window">
+            <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data</span></div>
+            <div class="formula-row"><div class="name-box">B8</div><div class="fx-box">fx</div><div class="formula-input">=B7+B6</div></div>
+            <div class="sheet-scroll">
+              <table class="excel-grid">
+                <colgroup><col style="width:34px"><col style="width:185px"><col style="width:125px"><col style="width:150px"></colgroup>
+                <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th></tr></thead>
+                <tbody>
+                  <tr><th class="row-num">1</th><td class="header-cell">Weekly Cash Dashboard</td><td class="header-cell">Wk 1</td><td class="header-cell">Source</td></tr>
+                  <tr><th class="row-num">2</th><td>Operating Inflows</td><td class="good">+$29,000</td><td>Customer payments</td></tr>
+                  <tr><th class="row-num">3</th><td>Operating Outflows</td><td class="bad">−$50,000</td><td>Payroll + suppliers</td></tr>
+                  <tr><th class="row-num">4</th><td class="subtotal">Net Operating</td><td class="subtotal bad">−$21,000</td><td></td></tr>
+                  <tr><th class="row-num">5</th><td>Investing / Financing</td><td>$0</td><td></td></tr>
+                  <tr><th class="row-num">6</th><td class="subtotal">Net external cash change</td><td class="subtotal bad">−$21,000</td><td>Transfers excluded</td></tr>
+                  <tr><th class="row-num">7</th><td>Opening consolidated cash</td><td>$500,000</td><td></td></tr>
+                  <tr><th class="row-num">8</th><td class="subtotal">Closing consolidated cash</td><td class="selected good">$479,000</td><td>$500k − $21k</td></tr>
+                  <tr><th class="row-num">9</th><td>Internal transfer</td><td class="internal">−$50,000</td><td class="internal">Excluded from consolidated flow</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="sheet-tabs"><span class="sheet-tab">Transactions</span><span class="sheet-tab active">Weekly Dashboard</span></div>
+          </div>
+          <div class="claude-fix">
+            <div class="claude-fix-label">Reconciliation</div>
+            <pre>Operating inflow: +$29,000
+Operating outflows: −$32,000 − $18,000 = −$50,000
+Net operating / external cash change = −$21,000
+
+Closing consolidated cash:
+$500,000 − $21,000 = $479,000 ✓
+
+The $50,000 transfer is excluded only because both company accounts are part of the consolidated cash view.</pre>
+          </div>
         </div>
       </div>
     </div>
-    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude categorises and builds the dashboard</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Transaction</th><th>Amount</th><th>Category</th></tr>
-          <tr><td>Customer payments</td><td>+$29,000</td><td class="ok-cell">Operating Inflow ✓</td></tr>
-          <tr><td>Payroll run</td><td>−$32,000</td><td class="ok-cell">Operating Outflow ✓</td></tr>
-          <tr><td>Supplier invoices</td><td>−$18,000</td><td class="ok-cell">Operating Outflow ✓</td></tr>
-          <tr><td>Transfer to savings</td><td>−$50,000</td><td class="link-cell">Internal Transfer — excluded</td></tr>
-          <tr><td><strong>Net Operating</strong></td><td class="ok-cell"><strong>−$21,000</strong></td><td></td></tr>
-          <tr><td><strong>Closing Balance</strong></td><td class="ok-cell"><strong>$479,000</strong></td><td></td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's output</div>
-          <pre>$500,000 opening + $29k in − $50k out = $479,000 closing ✓
-Net Operating: $29k − $32k − $18k = −$21k (transfer excluded) ✓
-Internal Transfer flagged separately — does not change cash balance.</pre>
-        </div>
-      </div>
-    </div>
-  </div>
   </div>
 
+  <!-- Tab: transfers -->
   <div id="ba-transfers" class="ba-scenario" style="display:none">
-  <div class="before-after">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — transfer miscategorised as Operating</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Transaction</th><th>Amount</th><th>Category (wrong)</th></tr>
-          <tr><td>Customer payments</td><td>+$29,000</td><td class="ok-cell">Operating Inflow ✓</td></tr>
-          <tr><td>Payroll</td><td>−$32,000</td><td class="ok-cell">Operating Outflow ✓</td></tr>
-          <tr><td>Supplier invoices</td><td>−$18,000</td><td class="ok-cell">Operating Outflow ✓</td></tr>
-          <tr><td>Transfer to savings</td><td>−$50,000</td><td class="err-cell">Operating Outflow ✗</td></tr>
-          <tr><td><strong>Net Operating (week)</strong></td><td class="err-cell"><strong>−$71,000</strong></td><td></td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          $29k − $32k − $18k − $50k = −$71k ← transfer inflates burn
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Real operating burn is only −$21,000 — the transfer is a reclassification</div>
+    <div class="before-after">
+      <div class="ba-col before">
+        <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — internal transfer is counted as operating spend</div>
+        <div class="ba-body">
+          <div class="excel-window">
+            <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Data</span><span>Filter</span></div>
+            <div class="formula-row"><div class="name-box">D5</div><div class="fx-box">fx</div><div class="formula-input">Operating Outflow</div></div>
+            <div class="sheet-scroll">
+              <table class="excel-grid">
+                <colgroup><col style="width:34px"><col style="width:190px"><col style="width:110px"><col style="width:170px"></colgroup>
+                <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th></tr></thead>
+                <tbody>
+                  <tr><th class="row-num">1</th><td class="header-cell">Transaction</td><td class="header-cell">Amount</td><td class="header-cell">Current category</td></tr>
+                  <tr><th class="row-num">2</th><td>Customer payments</td><td>+$29,000</td><td class="good">Operating Inflow</td></tr>
+                  <tr><th class="row-num">3</th><td>Payroll</td><td>−$32,000</td><td>Operating Outflow</td></tr>
+                  <tr><th class="row-num">4</th><td>Supplier invoices</td><td>−$18,000</td><td>Operating Outflow</td></tr>
+                  <tr><th class="row-num">5</th><td>Transfer to savings</td><td>−$50,000</td><td class="error-selected bad">Operating Outflow ✗</td></tr>
+                  <tr><th class="row-num">6</th><td class="subtotal">Net Operating</td><td class="subtotal bad">−$71,000</td><td></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="sheet-note bad">The transfer makes weekly operating burn look $50,000 worse than it really is.</div>
+        </div>
+      </div>
+
+      <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
+      <div class="ba-col after">
+        <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — transfer is isolated and operating burn reconciles</div>
+        <div class="ba-body">
+          <div class="excel-window">
+            <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Data</span><span>Filter</span></div>
+            <div class="formula-row"><div class="name-box">D5</div><div class="fx-box">fx</div><div class="formula-input">INTERNAL TRANSFER</div></div>
+            <div class="sheet-scroll">
+              <table class="excel-grid">
+                <colgroup><col style="width:34px"><col style="width:190px"><col style="width:110px"><col style="width:170px"></colgroup>
+                <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th></tr></thead>
+                <tbody>
+                  <tr><th class="row-num">1</th><td class="header-cell">Transaction</td><td class="header-cell">Amount</td><td class="header-cell">Corrected category</td></tr>
+                  <tr><th class="row-num">2</th><td>Customer payments</td><td>+$29,000</td><td class="good">Operating Inflow</td></tr>
+                  <tr><th class="row-num">3</th><td>Payroll</td><td>−$32,000</td><td>Operating Outflow</td></tr>
+                  <tr><th class="row-num">4</th><td>Supplier invoices</td><td>−$18,000</td><td>Operating Outflow</td></tr>
+                  <tr><th class="row-num">5</th><td>Transfer to savings</td><td>−$50,000</td><td class="selected internal">INTERNAL TRANSFER</td></tr>
+                  <tr><th class="row-num">6</th><td class="subtotal">Net Operating</td><td class="subtotal good">−$21,000</td><td>Transfer excluded</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="claude-fix">
+            <div class="claude-fix-label">Corrected operating total</div>
+            <pre>+$29,000 − $32,000 − $18,000 = −$21,000 ✓
+
+Wrong result with transfer included:
+−$21,000 − $50,000 = −$71,000
+
+Use INTERNAL TRANSFER only when the movement is between company-owned accounts included in the consolidated cash perimeter.</pre>
+          </div>
         </div>
       </div>
     </div>
-    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude recategorises and reconciles</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Transaction</th><th>Amount</th><th>Category (corrected)</th></tr>
-          <tr><td>Customer payments</td><td>+$29,000</td><td class="ok-cell">Operating Inflow ✓</td></tr>
-          <tr><td>Payroll</td><td>−$32,000</td><td class="ok-cell">Operating Outflow ✓</td></tr>
-          <tr><td>Supplier invoices</td><td>−$18,000</td><td class="ok-cell">Operating Outflow ✓</td></tr>
-          <tr><td>Transfer to savings</td><td>−$50,000</td><td class="link-cell">Internal Transfer — excluded</td></tr>
-          <tr><td><strong>Net Operating (week)</strong></td><td class="ok-cell"><strong>−$21,000</strong></td><td></td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's fix</div>
-          <pre>$29k − $32k − $18k = −$21k ← transfer excluded ✓
-Internal Transfer does NOT change your cash balance —
-it moves money between your own accounts.
-Net Operating burn: −$21,000 (not −$71,000). ✓</pre>
-        </div>
-      </div>
-    </div>
-  </div>
   </div>
 
+  <!-- Tab: runway -->
   <div id="ba-runway" class="ba-scenario" style="display:none">
-  <div class="before-after">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — weekly data with no runway calculation</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Week</th><th>Net Cash Change</th><th>Runway</th></tr>
-          <tr><td>Wk 1</td><td>−$21,000</td><td class="err-cell">—</td></tr>
-          <tr><td>Wk 2</td><td>−$18,000</td><td class="err-cell">—</td></tr>
-          <tr><td>Wk 3</td><td>−$31,000</td><td class="err-cell">—</td></tr>
-          <tr><td>Wk 4</td><td>−$15,000</td><td class="err-cell">—</td></tr>
-          <tr><td><strong>Cash balance</strong></td><td><strong>$479,000</strong></td><td class="err-cell">Unknown</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          4 weeks of burn data and a cash balance — but no runway figure
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Leadership is flying blind on how long the cash lasts</div>
+    <div class="before-after">
+      <div class="ba-col before">
+        <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — trailing weekly burn exists but runway is not calculated</div>
+        <div class="ba-body">
+          <div class="excel-window">
+            <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data</span></div>
+            <div class="formula-row"><div class="name-box">C7</div><div class="fx-box">fx</div><div class="formula-input"></div></div>
+            <div class="sheet-scroll">
+              <table class="excel-grid">
+                <colgroup><col style="width:34px"><col style="width:120px"><col style="width:145px"><col style="width:130px"></colgroup>
+                <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th></tr></thead>
+                <tbody>
+                  <tr><th class="row-num">1</th><td class="header-cell">Week</td><td class="header-cell">Net Cash Change</td><td class="header-cell">Runway</td></tr>
+                  <tr><th class="row-num">2</th><td>Wk 1</td><td>−$21,000</td><td class="muted">—</td></tr>
+                  <tr><th class="row-num">3</th><td>Wk 2</td><td>−$18,000</td><td class="muted">—</td></tr>
+                  <tr><th class="row-num">4</th><td>Wk 3</td><td>−$31,000</td><td class="muted">—</td></tr>
+                  <tr><th class="row-num">5</th><td>Wk 4</td><td>−$15,000</td><td class="muted">—</td></tr>
+                  <tr><th class="row-num">6</th><td>Cash balance</td><td>$479,000</td><td class="error-selected">Unknown</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="sheet-note bad">A single cash balance does not show urgency. The trailing burn needs to be converted into an average weekly burn and then into weeks of runway.</div>
+        </div>
+      </div>
+
+      <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
+      <div class="ba-col after">
+        <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — trailing burn converts directly into weeks of runway</div>
+        <div class="ba-body">
+          <div class="excel-window">
+            <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data</span></div>
+            <div class="formula-row"><div class="name-box">B8</div><div class="fx-box">fx</div><div class="formula-input">=B7/ABS(B6)</div></div>
+            <div class="sheet-scroll">
+              <table class="excel-grid">
+                <colgroup><col style="width:34px"><col style="width:155px"><col style="width:150px"><col style="width:180px"></colgroup>
+                <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th></tr></thead>
+                <tbody>
+                  <tr><th class="row-num">1</th><td class="header-cell">Metric</td><td class="header-cell">Value</td><td class="header-cell">Formula / source</td></tr>
+                  <tr><th class="row-num">2</th><td>Wk 1</td><td>−$21,000</td><td>Trailing data</td></tr>
+                  <tr><th class="row-num">3</th><td>Wk 2</td><td>−$18,000</td><td>Trailing data</td></tr>
+                  <tr><th class="row-num">4</th><td>Wk 3</td><td>−$31,000</td><td>Trailing data</td></tr>
+                  <tr><th class="row-num">5</th><td>Wk 4</td><td>−$15,000</td><td>Trailing data</td></tr>
+                  <tr><th class="row-num">6</th><td class="subtotal">Avg weekly net change</td><td class="subtotal bad">−$21,250</td><td class="formula-cell">=AVERAGE(B2:B5)</td></tr>
+                  <tr><th class="row-num">7</th><td>Current cash</td><td>$479,000</td><td>Dashboard balance</td></tr>
+                  <tr><th class="row-num">8</th><td class="subtotal">Estimated runway</td><td class="selected good">22.5 weeks</td><td class="formula-cell">=B7/ABS(B6)</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="claude-fix">
+            <div class="claude-fix-label">Runway calculation</div>
+            <pre>Average weekly net change:
+(−21,000 −18,000 −31,000 −15,000) / 4
+= −$21,250
+
+Runway:
+$479,000 / $21,250 = 22.54 ≈ 22.5 weeks ✓
+
+If the trailing average is zero or positive, return "Cash not currently burning" instead of a runway number.</pre>
+          </div>
         </div>
       </div>
     </div>
-    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude calculates runway</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Week</th><th>Net Cash Change</th><th></th></tr>
-          <tr><td>Wk 1</td><td>−$21,000</td><td></td></tr>
-          <tr><td>Wk 2</td><td>−$18,000</td><td></td></tr>
-          <tr><td>Wk 3</td><td>−$31,000</td><td></td></tr>
-          <tr><td>Wk 4</td><td>−$15,000</td><td></td></tr>
-          <tr><td><strong>Avg weekly burn</strong></td><td class="err-cell"><strong>−$21,250</strong></td><td style="font-size:10px;color:#6b7280">(21+18+31+15)÷4</td></tr>
-          <tr><td><strong>Runway</strong></td><td class="ok-cell"><strong>22.5 weeks</strong></td><td style="font-size:10px;color:#6b7280">$479,000÷$21,250</td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's output</div>
-          <pre>Avg burn = ($21k+$18k+$31k+$15k) ÷ 4 = $21,250/week ✓
-Runway = $479,000 ÷ $21,250 = 22.5 weeks ✓
-If avg were positive (cash growing), Claude says so
-explicitly — no runway number is shown. ✓</pre>
-        </div>
-      </div>
-    </div>
-  </div>
   </div>
 
   <!-- DIAGNOSIS TABLE -->
