@@ -114,6 +114,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 @media(max-width:640px){
   .hero h1{font-size:24px}
   .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-panel.on{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:4px 0}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
@@ -209,19 +211,16 @@ apply every time I import this data.</pre>
 
   <!-- Tab: diagnose -->
   <div class="before-after ba-panel on" id="ba-diagnose">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — CRM export, 5 silent issues across 3 columns</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Col A — Name</th><th>Col B — Invoice Date</th><th>Col C — Amount</th><th>Col D — Region</th><th>SUMIFS result</th></tr>
-          <tr><td class="err-cell">"smith, john "</td><td class="err-cell">'15/01/2026</td><td class="err-cell">"£ 4,250.00"</td><td>North</td><td class="err-cell">0 ✗</td></tr>
-          <tr><td class="err-cell">"JONES, MARY"</td><td class="err-cell">'28/02/2026</td><td class="err-cell">"£ 7,800.00"</td><td>South</td><td class="err-cell">0 ✗</td></tr>
-          <tr><td class="err-cell">" Clark, Peter"</td><td class="err-cell">'05/03/2026</td><td class="err-cell">"£12,100.00"</td><td>North</td><td class="err-cell">0 ✗</td></tr>
-          <tr><td>Davis, Emma</td><td>10/03/2026</td><td class="err-cell">"£ 3,400.00"</td><td>East</td><td class="err-cell">0 ✗</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          SUMIFS on Amount returns 0 · Dates sort alphabetically · Names don't match lookups
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Paste these 4 rows — Claude identifies all 5 issues in one response</div>
+    <div class="ba-col before" style="border-color:#4a3f35">
+      <div class="ba-header" style="background:#1e1c1a;color:#a09890;border-bottom:1px solid #2a2826"><i class="ti ti-database-import" style="font-size:14px;color:#b85c3c"></i> Before — CRM export pasted, 5 silent issues</div>
+      <div class="ba-body" style="padding:12px">
+        <div class="dirty-dump"><span class="head">Name              Inv.Date      Amount         Region</span><span class="issue">smith, john </span>    <span class="issue">'15/01/2026</span>   <span class="issue">"£ 4,250.00"</span>   <span class="clean">North</span>
+<span class="issue">JONES, MARY</span>     <span class="issue">'28/02/2026</span>   <span class="issue">"£ 7,800.00"</span>   <span class="clean">South</span>
+<span class="issue"> Clark, Peter</span>   <span class="issue">'05/03/2026</span>   <span class="issue">"£12,100.00"</span>  <span class="clean">North</span>
+<span class="clean">Davis, Emma</span>     <span class="clean">10/03/2026</span>    <span class="issue">"£ 3,400.00"</span>   <span class="clean">East</span></div>
+        <div class="dirty-caption">
+          5 issues: wrong case · trailing spaces · leading spaces · text dates · £-prefixed amounts
+          <div class="sub">SUMIFS returns 0, dates sort alphabetically, names break lookups</div>
         </div>
       </div>
     </div>
