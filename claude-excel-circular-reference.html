@@ -72,6 +72,26 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
 .claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
 
+
+/* ── CIRCULAR REF — node diagram family ── */
+.node-wrap{padding:20px 14px 14px;display:flex;flex-direction:column;align-items:center}
+.node-svg{width:100%;max-width:340px;height:auto}
+.node-box{fill:#fff;stroke:#c9bfa8;stroke-width:1.5;rx:8}
+.node-box.loop{fill:#fbeaf1;stroke:#c23b75;stroke-width:2}
+.node-box.fixed{fill:#eef2f8;stroke:#16213e;stroke-width:2}
+.node-label{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;fill:#16213e}
+.node-sub{font-family:'JetBrains Mono',monospace;font-size:9px;fill:#6b6478}
+.node-arrow{fill:none;stroke:#a99f88;stroke-width:1.8;marker-end:url(#ah)}
+.node-arrow.bad{stroke:#c23b75;stroke-width:2.2;marker-end:url(#ahr)}
+.node-arrow.good{stroke:#16213e;stroke-width:2;marker-end:url(#ahg)}
+.loop-badge{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;fill:#c23b75}
+.node-caption{margin-top:14px;padding:8px 10px;background:#fbeaf1;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#8a2350;width:100%;box-sizing:border-box}
+.node-caption .sub{font-size:10px;color:#a99f88;margin-top:4px;font-family:inherit}
+.node-caption.good{background:#eef2f8;color:#16213e}
+.node-caption.good .sub{color:#6b7a94}
+.fix-strip{margin-top:12px;padding:9px 12px;background:#16213e;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#e9dcc9;width:100%;box-sizing:border-box}
+.fix-strip .res{color:#7ee0b8;font-weight:700}
+
 /* ── DIAGNOSIS TABLE ── */
 .diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .diag-header{background:#fef2f2;border-bottom:1px solid #fecaca;padding:12px 18px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#dc2626}
@@ -135,6 +155,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 @media(max-width:640px){
   .hero h1{font-size:24px}
   .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-panel.on{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:4px 0}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
@@ -226,39 +248,59 @@ Each formula is supposed to [describe purpose]. Please trace where the loop clos
 
   <!-- Tab: diagnose -->
   <div class="before-after ba-panel on" id="ba-diagnose">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — status bar shows circular ref warning</div>
+    <div class="ba-col before" style="border-color:#e9c2d4">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — E3 references itself</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Cell</th><th>Description</th><th>Formula</th><th>Result</th></tr>
-          <tr><td>B3</td><td>Units sold</td><td>500</td><td>500</td></tr>
-          <tr><td>C3</td><td>Unit price</td><td>£42.00</td><td>£42.00</td></tr>
-          <tr><td>D3</td><td>Revenue</td><td>=B3*C3</td><td>£21,000</td></tr>
-          <tr><td class="err-cell">E3</td><td>Commission</td><td class="err-cell">=E3*0.08</td><td class="err-cell">0 or ∞</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Formulas → Error Checking → Circular References → E3
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ E3 multiplies itself — should reference D3 (Revenue), not E3</div>
+        <div class="node-wrap">
+          <svg class="node-svg" viewBox="0 0 300 190" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="none" stroke="#94a3b8" stroke-width="1.5"/></marker>
+              <marker id="ahr" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6" fill="none" stroke="#c23b75" stroke-width="1.8"/></marker>
+            </defs>
+            <!-- D3 Revenue -->
+            <rect class="node-box" x="30" y="20" width="110" height="42" rx="8"/>
+            <text class="node-label" x="85" y="38" text-anchor="middle">D3</text>
+            <text class="node-sub" x="85" y="52" text-anchor="middle">Revenue £21,000</text>
+            <!-- E3 Commission (loop) -->
+            <rect class="node-box loop" x="160" y="110" width="115" height="46" rx="8"/>
+            <text class="node-label" x="217" y="130" text-anchor="middle" fill="#c23b75">E3 =E3*0.08</text>
+            <text class="node-sub" x="217" y="145" text-anchor="middle" fill="#8a2350">Commission → 0 or ∞</text>
+            <!-- self-loop arrow on E3 -->
+            <path class="node-arrow bad" d="M 265 108 C 300 80, 300 165, 265 150"/>
+            <text class="loop-badge" x="285" y="130" text-anchor="middle">↻</text>
+            <!-- what it SHOULD point to (dashed grey) -->
+            <path d="M 120 62 L 175 108" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#ah)"/>
+            <text class="node-sub" x="120" y="95" fill="#94a3b8">should be =D3*0.08</text>
+          </svg>
+          <div class="node-caption">
+            ↻ E3 multiplies its own cell — Excel flags a circular reference
+            <div class="sub">Formulas → Error Checking → Circular References → E3</div>
+          </div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude identifies and breaks the loop</div>
+    <div class="ba-col after" style="border-color:#16213e">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — E3 points to Revenue, loop gone</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Cell</th><th>Description</th><th>Formula</th><th>Result</th></tr>
-          <tr><td>B3</td><td>Units sold</td><td>500</td><td>500</td></tr>
-          <tr><td>C3</td><td>Unit price</td><td>£42.00</td><td>£42.00</td></tr>
-          <tr><td>D3</td><td>Revenue</td><td>=B3*C3</td><td>£21,000</td></tr>
-          <tr><td>E3</td><td>Commission</td><td class="ok-cell">=D3*0.08</td><td class="ok-cell">£1,680 ✓</td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's fix</div>
-          <pre>E3 was multiplying itself instead of Revenue (D3).
-Fix: =D3*0.08
-Commission: £21,000 × 8% = £1,680 ✓
-Error Checking → Circular References now greyed out.</pre>
+        <div class="node-wrap">
+          <svg class="node-svg" viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="ahg" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6" fill="none" stroke="#16213e" stroke-width="1.8"/></marker>
+            </defs>
+            <!-- linear: D3 → E3 -->
+            <rect class="node-box fixed" x="20" y="45" width="110" height="42" rx="8"/>
+            <text class="node-label" x="75" y="63" text-anchor="middle">D3</text>
+            <text class="node-sub" x="75" y="77" text-anchor="middle">Revenue £21,000</text>
+            <rect class="node-box fixed" x="170" y="45" width="115" height="42" rx="8"/>
+            <text class="node-label" x="227" y="63" text-anchor="middle">E3 =D3*0.08</text>
+            <text class="node-sub" x="227" y="77" text-anchor="middle">Commission £1,680</text>
+            <path class="node-arrow good" d="M 130 66 L 170 66"/>
+          </svg>
+          <div class="fix-strip">
+            Fix: <strong>=D3*0.08</strong> → £21,000 × 8% = <span class="res">£1,680 ✓</span>
+            <div style="font-size:10px;color:#9ca9bd;margin-top:3px">Circular References list now empty.</div>
+          </div>
         </div>
       </div>
     </div>
@@ -266,39 +308,70 @@ Error Checking → Circular References now greyed out.</pre>
 
   <!-- Tab: indirect -->
   <div class="before-after ba-panel" id="ba-indirect">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — indirect loop traced with Trace Precedents</div>
+    <div class="ba-col before" style="border-color:#e9c2d4">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — three cells form a closed loop</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Cell</th><th>Purpose</th><th>Formula</th><th>Trace Precedents shows</th></tr>
-          <tr><td>D4</td><td>Net Revenue</td><td>=E4*0.85</td><td>← depends on E4</td></tr>
-          <tr><td>E4</td><td>Gross Revenue</td><td>=F4+D4</td><td>← depends on F4 and D4</td></tr>
-          <tr><td class="err-cell">F4</td><td>Adj. Revenue</td><td class="err-cell">=D4/0.85</td><td class="err-cell">← depends on D4 ✗</td></tr>
-          <tr><td>B4</td><td>Base Revenue</td><td>£84,000</td><td>Fixed input</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Loop: D4 → E4 → F4 → D4 — closes at F4
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Formulas → Trace Precedents on F4 reveals the arrow back to D4</div>
+        <div class="node-wrap">
+          <svg class="node-svg" viewBox="0 0 300 210" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="ah2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="none" stroke="#94a3b8" stroke-width="1.5"/></marker>
+              <marker id="ahr2" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6" fill="none" stroke="#c23b75" stroke-width="1.8"/></marker>
+            </defs>
+            <!-- D4 top -->
+            <rect class="node-box loop" x="95" y="14" width="110" height="40" rx="8"/>
+            <text class="node-label" x="150" y="31" text-anchor="middle" fill="#c23b75">D4</text>
+            <text class="node-sub" x="150" y="45" text-anchor="middle" fill="#8a2350">=E4*0.85</text>
+            <!-- E4 bottom-left -->
+            <rect class="node-box loop" x="14" y="150" width="110" height="40" rx="8"/>
+            <text class="node-label" x="69" y="167" text-anchor="middle" fill="#c23b75">E4</text>
+            <text class="node-sub" x="69" y="181" text-anchor="middle" fill="#8a2350">=F4+D4</text>
+            <!-- F4 bottom-right -->
+            <rect class="node-box loop" x="176" y="150" width="110" height="40" rx="8"/>
+            <text class="node-label" x="231" y="167" text-anchor="middle" fill="#c23b75">F4</text>
+            <text class="node-sub" x="231" y="181" text-anchor="middle" fill="#8a2350">=D4/0.85</text>
+            <!-- arrows forming the cycle D4→E4→F4→D4 -->
+            <path class="node-arrow bad" d="M 110 54 L 74 148"/>
+            <path class="node-arrow bad" d="M 124 170 L 176 170"/>
+            <path class="node-arrow bad" d="M 226 148 L 190 54"/>
+            <text class="loop-badge" x="150" y="112" text-anchor="middle">↻ closed loop</text>
+          </svg>
+          <div class="node-caption">
+            Loop: D4 → E4 → F4 → D4 — closes at F4
+            <div class="sub">Formulas → Trace Precedents on F4 reveals the arrow back to D4</div>
+          </div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude breaks loop by anchoring to fixed input</div>
+    <div class="ba-col after" style="border-color:#16213e">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — anchored to fixed input, chain is linear</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Cell</th><th>Purpose</th><th>Fixed Formula</th><th>Result</th></tr>
-          <tr><td>B4</td><td>Base Revenue</td><td>£84,000</td><td>£84,000</td></tr>
-          <tr><td>F4</td><td>Adj. Revenue</td><td class="ok-cell">=B4/0.85</td><td class="ok-cell">£98,824</td></tr>
-          <tr><td>E4</td><td>Gross Revenue</td><td>=F4+D4</td><td class="ok-cell">£182,824</td></tr>
-          <tr><td>D4</td><td>Net Revenue</td><td>=E4*0.85</td><td class="ok-cell">£155,400 ✓</td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's diagnosis via paste</div>
-          <pre>F4 was deriving Adj. Revenue from D4 (Net Revenue).
-F4 should use the fixed base (B4) instead.
-Fix: =B4/0.85 → loop chain D4→E4→F4→D4 broken.
-Trace Precedents on F4 now points only to B4. ✓</pre>
+        <div class="node-wrap">
+          <svg class="node-svg" viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="ahg2" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6" fill="none" stroke="#16213e" stroke-width="1.8"/></marker>
+            </defs>
+            <!-- linear chain B4 → F4 → E4 → D4 -->
+            <rect class="node-box fixed" x="6" y="20" width="80" height="38" rx="7"/>
+            <text class="node-label" x="46" y="37" text-anchor="middle" font-size="11">B4 input</text>
+            <text class="node-sub" x="46" y="50" text-anchor="middle">£84,000</text>
+            <rect class="node-box fixed" x="6" y="95" width="80" height="38" rx="7"/>
+            <text class="node-label" x="46" y="112" text-anchor="middle" font-size="11">F4</text>
+            <text class="node-sub" x="46" y="125" text-anchor="middle">£98,824</text>
+            <rect class="node-box fixed" x="110" y="95" width="80" height="38" rx="7"/>
+            <text class="node-label" x="150" y="112" text-anchor="middle" font-size="11">E4</text>
+            <text class="node-sub" x="150" y="125" text-anchor="middle">£108,706</text>
+            <rect class="node-box fixed" x="214" y="95" width="80" height="38" rx="7"/>
+            <text class="node-label" x="254" y="112" text-anchor="middle" font-size="11">D4</text>
+            <text class="node-sub" x="254" y="125" text-anchor="middle">£92,400</text>
+            <path class="node-arrow good" d="M 46 58 L 46 93"/>
+            <path class="node-arrow good" d="M 86 114 L 110 114"/>
+            <path class="node-arrow good" d="M 190 114 L 214 114"/>
+          </svg>
+          <div class="fix-strip">
+            F4 now derives from fixed <strong>B4</strong>, not D4 — no cycle.
+            <div style="font-size:10px;color:#9ca9bd;margin-top:3px">F4=B4/0.85=98,824 · E4=F4×1.10=108,706 · D4=E4×0.85=<span class="res">92,400 ✓</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -306,41 +379,70 @@ Trace Precedents on F4 now points only to B4. ✓</pre>
 
   <!-- Tab: iterative -->
   <div class="before-after ba-panel" id="ba-iterative">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — running total self-references each month</div>
+    <div class="ba-col before" style="border-color:#e9c2d4">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — last cell adds itself to the chain</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Month</th><th>Sales</th><th>Running Total (col D)</th><th>Formula in D</th></tr>
-          <tr><td>Jan</td><td>£12,400</td><td>£12,400</td><td>=C2</td></tr>
-          <tr><td>Feb</td><td>£9,800</td><td>£22,200</td><td>=D2+C3</td></tr>
-          <tr><td>Mar</td><td>£14,100</td><td>£36,300</td><td>=D3+C4</td></tr>
-          <tr><td>Apr</td><td>£11,200</td><td class="err-cell">0 or error</td><td class="err-cell">=D4+C5 (wrong row)</td></tr>
-          <tr><td>May</td><td>£13,500</td><td class="err-cell">Circular ref</td><td class="err-cell">=D5+C5 ✗</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          D5 adds C5 to itself — Excel flags circular reference on D5
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Running totals never work this way — use expanding SUM range instead</div>
+        <div class="node-wrap">
+          <svg class="node-svg" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="ah3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="none" stroke="#94a3b8" stroke-width="1.5"/></marker>
+              <marker id="ahr3" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6" fill="none" stroke="#c23b75" stroke-width="1.8"/></marker>
+            </defs>
+            <!-- chain D2 → D3 → D4 → D5(loop) -->
+            <rect class="node-box" x="6" y="60" width="58" height="38" rx="7"/>
+            <text class="node-label" x="35" y="77" text-anchor="middle" font-size="11">D3</text>
+            <text class="node-sub" x="35" y="90" text-anchor="middle">=D2+C3</text>
+            <rect class="node-box" x="90" y="60" width="58" height="38" rx="7"/>
+            <text class="node-label" x="119" y="77" text-anchor="middle" font-size="11">D4</text>
+            <text class="node-sub" x="119" y="90" text-anchor="middle">=D3+C4</text>
+            <rect class="node-box loop" x="188" y="60" width="72" height="38" rx="7"/>
+            <text class="node-label" x="224" y="77" text-anchor="middle" font-size="11" fill="#c23b75">D5</text>
+            <text class="node-sub" x="224" y="90" text-anchor="middle" fill="#8a2350">=D5+C5</text>
+            <!-- forward arrows -->
+            <path class="node-arrow" d="M 64 79 L 90 79"/>
+            <path class="node-arrow" d="M 148 79 L 188 79"/>
+            <!-- self loop on D5 -->
+            <path class="node-arrow bad" d="M 250 58 C 285 30, 285 128, 250 100"/>
+            <text class="loop-badge" x="272" y="82" text-anchor="middle">↻</text>
+            <text class="node-sub" x="224" y="125" text-anchor="middle" fill="#94a3b8">D5 references itself</text>
+          </svg>
+          <div class="node-caption">
+            D5 adds C5 to itself — Excel flags a circular reference on D5
+            <div class="sub">Running totals never work this way — use an expanding SUM range instead</div>
+          </div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude restructures as expanding SUM range</div>
+    <div class="ba-col after" style="border-color:#16213e">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — expanding SUM, each cell independent</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Month</th><th>Sales</th><th>Running Total</th><th>Formula in D</th></tr>
-          <tr><td>Jan</td><td>£12,400</td><td class="ok-cell">£12,400</td><td class="link-cell">=SUM($C$2:C2)</td></tr>
-          <tr><td>Feb</td><td>£9,800</td><td class="ok-cell">£22,200</td><td class="link-cell">=SUM($C$2:C3)</td></tr>
-          <tr><td>Mar</td><td>£14,100</td><td class="ok-cell">£36,300</td><td class="link-cell">=SUM($C$2:C4)</td></tr>
-          <tr><td>Apr</td><td>£11,200</td><td class="ok-cell">£47,500</td><td class="link-cell">=SUM($C$2:C5)</td></tr>
-          <tr><td>May</td><td>£13,500</td><td class="ok-cell">£61,000 ✓</td><td class="link-cell">=SUM($C$2:C6)</td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's formula</div>
-          <pre>=SUM($C$2:C2) — drag down, range expands automatically.
-No self-reference, no circular loop.
-May running total: £61,000 ✓
-Error Checking → Circular References now greyed out.</pre>
+        <div class="node-wrap">
+          <svg class="node-svg" viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="ahg3" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6" fill="none" stroke="#16213e" stroke-width="1.8"/></marker>
+            </defs>
+            <!-- fixed anchor C2 feeding each D via SUM -->
+            <rect class="node-box fixed" x="110" y="12" width="80" height="34" rx="7"/>
+            <text class="node-label" x="150" y="27" text-anchor="middle" font-size="10">$C$2 anchor</text>
+            <text class="node-sub" x="150" y="39" text-anchor="middle">fixed start</text>
+            <rect class="node-box fixed" x="8" y="98" width="80" height="36" rx="7"/>
+            <text class="node-label" x="48" y="114" text-anchor="middle" font-size="10">D3 =SUM($C$2:C3)</text>
+            <text class="node-sub" x="48" y="127" text-anchor="middle">£22,200</text>
+            <rect class="node-box fixed" x="110" y="98" width="80" height="36" rx="7"/>
+            <text class="node-label" x="150" y="114" text-anchor="middle" font-size="10">D4 …:C4</text>
+            <text class="node-sub" x="150" y="127" text-anchor="middle">£36,300</text>
+            <rect class="node-box fixed" x="212" y="98" width="80" height="36" rx="7"/>
+            <text class="node-label" x="252" y="114" text-anchor="middle" font-size="10">D6 …:C6</text>
+            <text class="node-sub" x="252" y="127" text-anchor="middle">£61,000</text>
+            <path class="node-arrow good" d="M 135 46 L 60 96"/>
+            <path class="node-arrow good" d="M 150 46 L 150 96"/>
+            <path class="node-arrow good" d="M 165 46 L 240 96"/>
+          </svg>
+          <div class="fix-strip">
+            <strong>=SUM($C$2:C2)</strong> — drag down, range expands. No self-reference.
+            <div style="font-size:10px;color:#9ca9bd;margin-top:3px">May total: 12,400+9,800+14,100+11,200+13,500 = <span class="res">£61,000 ✓</span></div>
+          </div>
         </div>
       </div>
     </div>
