@@ -6,7 +6,7 @@
 <title>SUMIFS Returning 0 in Excel? How to Fix It — PairWorkflows</title>
 <meta name="description" content="Fix SUMIFS returning 0 in Excel with Claude AI. Diagnose mismatched ranges, text-formatted numbers, multiple criteria, and AND/OR logic errors.">
 <link rel="canonical" href="https://www.pairworkflows.com/claude-excel-sumifs.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why does my SUMIFS return 0?","acceptedAnswer":{"@type":"Answer","text":"A SUMIFS formula usually returns 0 because of a mismatch in range sizes, missing quotation marks around text criteria, dates stored as text, or extra hidden spaces in your data."}},{"@type":"Question","name":"Can SUMIFS handle OR conditions?","acceptedAnswer":{"@type":"Answer","text":"Yes, but not within a single SUMIFS. Write two separate SUMIFS and add them together with +."}},{"@type":"Question","name":"How do I use date ranges in SUMIFS?","acceptedAnswer":{"@type":"Answer","text":"Wrap the operator in quotes and use & to join the date: use >=\"&DATE(2026,1,1) or >=\"&A1 to sum values on or after a date."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why does my SUMIFS return 0?","acceptedAnswer":{"@type":"Answer","text":"A SUMIFS formula usually returns 0 because of a mismatch in range sizes, missing quotation marks around text criteria, dates stored as text, or extra hidden spaces in your data."}},{"@type":"Question","name":"Can SUMIFS handle OR conditions?","acceptedAnswer":{"@type":"Answer","text":"Yes. SUMIFS combines its criteria with AND, so a clear way to handle OR is to add separate SUMIFS together. In current Excel you can also use an array constant with SUM(SUMIFS(...)) for compact OR logic."}},{"@type":"Question","name":"How do I use date ranges in SUMIFS?","acceptedAnswer":{"@type":"Answer","text":"Wrap the operator in quotes and use & to join the date: use >=\"&DATE(2026,1,1) or >=\"&A1 to sum values on or after a date."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -303,12 +303,12 @@ Result: £1,200 + £2,100 + £1,800 = £5,100 ✓</pre>
       <div class="ba-header" style="background:#fef3e2;color:#7a5a10;border-bottom:1px solid #d7cdb0"><i class="ti ti-ruler-off" style="font-size:14px"></i> Before — ranges have different sizes → #VALUE!</div>
       <div class="ba-body">
         <div class="crit-wrap">
-          <div style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#25313c;padding:4px 0;line-height:1.6;margin-bottom:8px">=SUMIFS( <strong>E2:E100</strong>, <strong>A2:A99</strong>, "North", <strong>C2:C100</strong>, "Widget Pro" )</div>
-          <div class="range-bar"><span class="range-seg range-ok">E2:E100</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#087e7a">99 rows</span></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#25313c;padding:4px 0;line-height:1.6;margin-bottom:8px">=SUMIFS( <strong>D2:D100</strong>, <strong>A2:A99</strong>, "North", <strong>B2:B100</strong>, "Widget Pro" )</div>
+          <div class="range-bar"><span class="range-seg range-ok">D2:D100</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#087e7a">99 rows</span></div>
           <div class="range-bar"><span class="range-seg range-bad">A2:A99</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#b91c1c">98 rows ✗</span></div>
-          <div class="range-bar"><span class="range-seg range-ok">C2:C100</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#087e7a">99 rows</span></div>
+          <div class="range-bar"><span class="range-seg range-ok">B2:B100</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#087e7a">99 rows</span></div>
           <div class="crit-caption" style="margin-top:16px">
-            Range size mismatch: E=99, A=98, C=99 — Excel rejects mismatched ranges
+            Range size mismatch: D=99, A=98, B=99 — Excel rejects mismatched ranges
             <div class="sub">One row off is enough to break SUMIFS entirely</div>
           </div>
         </div>
@@ -327,8 +327,8 @@ Result: £1,200 + £2,100 + £1,800 = £5,100 ✓</pre>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's fix</div>
-          <pre>=SUMIFS($E$2:$E$100,$A$2:$A$100,"North",$C$2:$C$100,"Widget Pro")
-All ranges: E2:E100, A2:A100, C2:C100 — same size. ✓
+          <pre>=SUMIFS($D$2:$D$100,$A$2:$A$100,"North",$B$2:$B$100,"Widget Pro")
+All ranges: D2:D100, A2:A100, B2:B100 — same size. ✓
 $ locks added so formula copies safely down the sheet.
 Result: £5,100 ✓</pre>
         </div>
@@ -339,7 +339,7 @@ Result: £5,100 ✓</pre>
   <!-- Tab: or -->
   <div class="before-after ba-panel" id="ba-or">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — need North + South but SUMIFS only handles AND</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — need North + South but SUMIFS combines criteria as AND</div>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th>Region</th><th>Rep</th><th>Product</th><th>Revenue</th><th>North OR South?</th></tr>
@@ -351,7 +351,7 @@ Result: £5,100 ✓</pre>
           <tr><td class="hl">South</td><td>B. Shaw</td><td>Widget A</td><td class="hl">£1,140</td><td class="err-cell">Include</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          SUMIFS(... "North" OR "South") is not valid syntax — returns error
+          Writing "North" OR "South" directly inside SUMIFS is not valid syntax
           <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Expected total: £1,200 + £2,100 + £1,800 + £1,140 = £6,240</div>
         </div>
       </div>
@@ -384,7 +384,7 @@ Total: £6,240 ✓</pre>
     <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Why SUMIFS returns 0 — the 4 most common causes</div>
     <div class="diag-row">
       <div class="diag-cause">Range size mismatch</div>
-      <div class="diag-example">SUM: <span class="bad">E2:E100</span> · Criteria: <span class="bad">A2:A99</span> → Excel returns <span class="bad">#VALUE!</span> — ranges must be the same size</div>
+      <div class="diag-example">SUM: <span class="bad">D2:D100</span> · Criteria: <span class="bad">A2:A99</span> → Excel returns <span class="bad">#VALUE!</span> — ranges must be the same size</div>
       <div class="diag-badge badge-red">Most common</div>
     </div>
     <div class="diag-row">
