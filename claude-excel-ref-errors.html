@@ -72,6 +72,28 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
 .claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
 
+
+/* ── REF ERRORS — dependency map ── */
+.ref-wrap{padding:10px 10px 12px;display:flex;flex-direction:column;align-items:center}
+.ref-svg{width:100%;max-width:none;height:auto;display:block}
+.ref-box{fill:#fff;stroke:#94a3b8;stroke-width:1.5;rx:10}
+.ref-box.ok{fill:#eef1fa;stroke:#3157d5;stroke-width:2}
+.ref-box.broken{fill:#fef8ec;stroke:#e8a317;stroke-width:2.5;stroke-dasharray:6 3}
+.ref-box.fixed{fill:#eef1fa;stroke:#3157d5;stroke-width:2}
+.ref-lbl{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;fill:#1e293b}
+.ref-sub{font-family:'JetBrains Mono',monospace;font-size:11.5px;fill:#475569}
+.ref-arrow{fill:none;stroke:#94a3b8;stroke-width:1.8}
+.ref-arrow.live{stroke:#3157d5;stroke-width:2}
+.ref-arrow.dead{stroke:#e8a317;stroke-width:2.5;stroke-dasharray:7 4}
+.ref-badge{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;fill:#e8a317}
+.ref-caption{margin-top:12px;padding:10px 12px;background:#fef8ec;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#92610b;width:100%;box-sizing:border-box;line-height:1.5}
+.ref-caption .sub{font-size:11px;color:#a99f88;margin-top:4px;font-family:inherit}
+.ref-caption.good{background:#eef1fa;color:#1e3a7a}
+.ref-caption.good .sub{color:#6b7a94}
+.ref-fix{margin-top:12px;padding:12px 14px;background:#1e2d4d;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.5;color:#c5d0e6;width:100%;box-sizing:border-box}
+.ref-fix .res{color:#5b9bf5;font-weight:700}
+.ref-fix .sub{font-size:11.5px;color:#7b8aa6;margin-top:5px;line-height:1.5}
+
 /* ── DIAGNOSIS TABLE ── */
 .diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .diag-header{background:#fef2f2;border-bottom:1px solid #fecaca;padding:12px 18px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#dc2626}
@@ -241,34 +263,53 @@ recreate the sheet?</pre>
 
   <!-- Tab: diagnose -->
   <div class="before-after ba-panel on" id="ba-diagnose">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — reference broken</div>
+    <div class="ba-col before" style="border-color:#e8d8a0">
+      <div class="ba-header" style="background:#fef8ec;color:#92610b;border-bottom:1px solid #e8d8a0"><i class="ti ti-link-off" style="font-size:14px"></i> Before — column deleted, reference broken</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th></th><th>Cell</th><th>Formula</th></tr>
-          <tr class="section-row"><td colspan="3">E5 formula bar</td></tr>
-          <tr><td>Column deleted</td><td>E5</td><td class="err-cell">=SUM(D2:#REF!)</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Column C was deleted — the range endpoint is now gone
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Excel replaces the broken reference with #REF!</div>
+        <div class="ref-wrap">
+          <svg class="ref-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="rl" markerWidth="10" markerHeight="10" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7" fill="none" stroke="#3157d5" stroke-width="2"/></marker>
+              <marker id="rd" markerWidth="10" markerHeight="10" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7" fill="none" stroke="#e8a317" stroke-width="2"/></marker>
+            </defs>
+            <rect class="ref-box ok" x="14" y="76" width="110" height="52" rx="10"/>
+            <text class="ref-lbl" x="69" y="100" text-anchor="middle">D2:D20</text>
+            <text class="ref-sub" x="69" y="118" text-anchor="middle">valid range</text>
+            <rect class="ref-box broken" x="155" y="76" width="110" height="52" rx="10"/>
+            <text class="ref-lbl" x="210" y="100" text-anchor="middle" fill="#e8a317">#REF!</text>
+            <text class="ref-sub" x="210" y="118" text-anchor="middle" fill="#b8860b">col C deleted</text>
+            <rect class="ref-box ok" x="296" y="76" width="90" height="52" rx="10"/>
+            <text class="ref-lbl" x="341" y="100" text-anchor="middle">E5</text>
+            <text class="ref-sub" x="341" y="118" text-anchor="middle">=SUM(…)</text>
+            <path class="ref-arrow live" d="M 124 102 L 155 102" marker-end="url(#rl)"/>
+            <path class="ref-arrow dead" d="M 265 102 L 296 102" marker-end="url(#rd)"/>
+            <text class="ref-badge" x="210" y="62" text-anchor="middle">✗ BROKEN LINK</text>
+          </svg>
+          <div class="ref-caption">
+            =SUM(D2:#REF!) — column C was deleted, endpoint gone
+            <div class="sub">Excel replaces the missing reference with #REF! — you can't tell what it used to point to</div>
+          </div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude reconstructs it</div>
+    <div class="ba-col after" style="border-color:#3157d5">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — link restored, formula recalculates</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th></th><th>Cell</th><th>Formula</th></tr>
-          <tr class="section-row"><td colspan="3">E5 formula bar</td></tr>
-          <tr><td>Reference restored</td><td>E5</td><td class="ok-cell">=SUM(D2:D20)</td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's fix</div>
-          <pre>=SUM(D2:D20)
-
-Returns: 14,320 — formula recalculates correctly. ✓</pre>
+        <div class="ref-wrap">
+          <svg class="ref-svg" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+            <rect class="ref-box fixed" x="40" y="55" width="130" height="52" rx="10"/>
+            <text class="ref-lbl" x="105" y="79" text-anchor="middle">D2:D20</text>
+            <text class="ref-sub" x="105" y="97" text-anchor="middle">19 rows</text>
+            <rect class="ref-box fixed" x="230" y="55" width="130" height="52" rx="10"/>
+            <text class="ref-lbl" x="295" y="79" text-anchor="middle">E5</text>
+            <text class="ref-sub" x="295" y="97" text-anchor="middle">=SUM(D2:D20)</text>
+            <path class="ref-arrow live" d="M 170 81 L 230 81" marker-end="url(#rl)"/>
+          </svg>
+          <div class="ref-fix">
+            Fix: <strong>=SUM(D2:D20)</strong> → returns <span class="res">£14,320 ✓</span>
+            <div class="sub">Reference reconstructed — formula recalculates correctly.</div>
+          </div>
         </div>
       </div>
     </div>
@@ -276,34 +317,60 @@ Returns: 14,320 — formula recalculates correctly. ✓</pre>
 
   <!-- Tab: cascade -->
   <div class="before-after ba-panel" id="ba-cascade">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — multiple formulas broken</div>
+    <div class="ba-col before" style="border-color:#e8d8a0">
+      <div class="ba-header" style="background:#fef8ec;color:#92610b;border-bottom:1px solid #e8d8a0"><i class="ti ti-link-off" style="font-size:14px"></i> Before — one deletion broke 3 formulas</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Cell</th><th>Formula</th><th>Status</th></tr>
-          <tr><td>E5</td><td class="err-cell">=SUM(D2:#REF!)</td><td class="err-cell">#REF!</td></tr>
-          <tr><td>F5</td><td class="err-cell">=AVERAGE(#REF!:D20)</td><td class="err-cell">#REF!</td></tr>
-          <tr><td>G5</td><td class="err-cell">=MAX(#REF!)</td><td class="err-cell">#REF!</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          One deletion broke 3 formulas at once
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Paste all broken formulas to Claude in one go</div>
+        <div class="ref-wrap">
+          <svg class="ref-svg" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+            <rect class="ref-box broken" x="14" y="80" width="140" height="52" rx="10"/>
+            <text class="ref-lbl" x="84" y="104" text-anchor="middle" fill="#e8a317">Deleted column</text>
+            <text class="ref-sub" x="84" y="122" text-anchor="middle" fill="#b8860b">#REF!</text>
+            <rect class="ref-box ok" x="240" y="18" width="148" height="44" rx="10"/>
+            <text class="ref-lbl" x="314" y="38" text-anchor="middle" font-size="12">E5 =SUM(D2:#REF!)</text>
+            <text class="ref-sub" x="314" y="53" text-anchor="middle">#REF!</text>
+            <rect class="ref-box ok" x="240" y="82" width="148" height="44" rx="10"/>
+            <text class="ref-lbl" x="314" y="102" text-anchor="middle" font-size="12">F5 =AVG(#REF!:D20)</text>
+            <text class="ref-sub" x="314" y="117" text-anchor="middle">#REF!</text>
+            <rect class="ref-box ok" x="240" y="146" width="148" height="44" rx="10"/>
+            <text class="ref-lbl" x="314" y="166" text-anchor="middle" font-size="12">G5 =MAX(#REF!)</text>
+            <text class="ref-sub" x="314" y="181" text-anchor="middle">#REF!</text>
+            <path class="ref-arrow dead" d="M 154 94 L 240 40" marker-end="url(#rd)"/>
+            <path class="ref-arrow dead" d="M 154 106 L 240 104" marker-end="url(#rd)"/>
+            <path class="ref-arrow dead" d="M 154 118 L 240 168" marker-end="url(#rd)"/>
+          </svg>
+          <div class="ref-caption">
+            One column deleted → all 3 downstream formulas broken simultaneously
+            <div class="sub">Paste all broken formulas to Claude in one message — it fixes all at once</div>
+          </div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — all fixed in one response</div>
+    <div class="ba-col after" style="border-color:#3157d5">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — all 3 repaired in one response</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Cell</th><th>Formula</th><th>Status</th></tr>
-          <tr><td>E5</td><td class="ok-cell">=SUM(D2:D20)</td><td class="ok-cell">✓</td></tr>
-          <tr><td>F5</td><td class="ok-cell">=AVERAGE(C2:D20)</td><td class="ok-cell">✓</td></tr>
-          <tr><td>G5</td><td class="ok-cell">=MAX(D2:D20)</td><td class="ok-cell">✓</td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's fix</div>
-          <pre>All 3 formulas corrected — column C reference removed from each. ✓</pre>
+        <div class="ref-wrap">
+          <svg class="ref-svg" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+            <rect class="ref-box fixed" x="14" y="80" width="140" height="52" rx="10"/>
+            <text class="ref-lbl" x="84" y="104" text-anchor="middle">D2:D20</text>
+            <text class="ref-sub" x="84" y="122" text-anchor="middle">valid range</text>
+            <rect class="ref-box fixed" x="240" y="18" width="148" height="44" rx="10"/>
+            <text class="ref-lbl" x="314" y="38" text-anchor="middle" font-size="12">E5 =SUM(D2:D20)</text>
+            <text class="ref-sub" x="314" y="53" text-anchor="middle" fill="#3157d5">✓</text>
+            <rect class="ref-box fixed" x="240" y="82" width="148" height="44" rx="10"/>
+            <text class="ref-lbl" x="314" y="102" text-anchor="middle" font-size="12">F5 =AVG(C2:D20)</text>
+            <text class="ref-sub" x="314" y="117" text-anchor="middle" fill="#3157d5">✓</text>
+            <rect class="ref-box fixed" x="240" y="146" width="148" height="44" rx="10"/>
+            <text class="ref-lbl" x="314" y="166" text-anchor="middle" font-size="12">G5 =MAX(D2:D20)</text>
+            <text class="ref-sub" x="314" y="181" text-anchor="middle" fill="#3157d5">✓</text>
+            <path class="ref-arrow live" d="M 154 94 L 240 40" marker-end="url(#rl)"/>
+            <path class="ref-arrow live" d="M 154 106 L 240 104" marker-end="url(#rl)"/>
+            <path class="ref-arrow live" d="M 154 118 L 240 168" marker-end="url(#rl)"/>
+          </svg>
+          <div class="ref-fix">
+            All 3 formulas repaired — broken column reference removed from each.
+            <div class="sub">E5: =SUM(D2:D20) · F5: =AVERAGE(C2:D20) · G5: =MAX(D2:D20) <span class="res">✓</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -311,36 +378,46 @@ Returns: 14,320 — formula recalculates correctly. ✓</pre>
 
   <!-- Tab: crosssheet -->
   <div class="before-after ba-panel" id="ba-crosssheet">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — sheet reference broken</div>
+    <div class="ba-col before" style="border-color:#e8d8a0">
+      <div class="ba-header" style="background:#fef8ec;color:#92610b;border-bottom:1px solid #e8d8a0"><i class="ti ti-file-off" style="font-size:14px"></i> Before — "Budget" sheet deleted, cross-sheet link broken</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th></th><th>Cell</th><th>Formula</th></tr>
-          <tr class="section-row"><td colspan="3">H5 formula bar</td></tr>
-          <tr><td>Sheet deleted</td><td>Budget</td><td class="err-cell">#REF!</td></tr>
-          <tr><td>Full formula</td><td>H5</td><td class="err-cell">=IFERROR(#REF!*Budget!#REF!,0)</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          The "Budget" sheet was deleted — every formula referencing it now shows #REF!
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Excel can't tell you what the reference used to point to</div>
+        <div class="ref-wrap">
+          <svg class="ref-svg" viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg">
+            <rect class="ref-box ok" x="14" y="74" width="140" height="62" rx="10"/>
+            <text class="ref-lbl" x="84" y="96" text-anchor="middle" font-size="13">Summary sheet</text>
+            <text class="ref-sub" x="84" y="117" text-anchor="middle">H5 =IFERROR(…)</text>
+            <rect class="ref-box broken" x="226" y="74" width="160" height="62" rx="10"/>
+            <text class="ref-lbl" x="306" y="96" text-anchor="middle" fill="#e8a317">Budget sheet</text>
+            <text class="ref-sub" x="306" y="117" text-anchor="middle" fill="#b8860b">DELETED ✗</text>
+            <path class="ref-arrow dead" d="M 154 105 L 226 105" marker-end="url(#rd)"/>
+            <text class="ref-badge" x="190" y="66" text-anchor="middle">✗ BROKEN</text>
+            <text class="ref-sub" x="200" y="176" text-anchor="middle" font-size="12" fill="#475569">=IFERROR(#REF! * Budget!#REF!, 0)</text>
+          </svg>
+          <div class="ref-caption">
+            Every formula referencing "Budget" now returns #REF!
+            <div class="sub">Excel can't tell you what the reference used to point to — only Claude can reconstruct it</div>
+          </div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude reconstructs it</div>
+    <div class="ba-col after" style="border-color:#3157d5">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude redirects to Targets sheet</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th></th><th>Cell</th><th>Formula</th></tr>
-          <tr class="section-row"><td colspan="3">H5 formula bar</td></tr>
-          <tr><td>Reference restored</td><td>H5</td><td class="link-cell">D5 * Targets!C5</td></tr>
-          <tr><td>Full formula</td><td>H5</td><td class="ok-cell">=IFERROR(D5*Targets!C5,0)</td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's fix</div>
-          <pre>=IFERROR(D5*Targets!C5, 0)
-
-Returns: £1,825 — formula recalculates correctly. ✓</pre>
+        <div class="ref-wrap">
+          <svg class="ref-svg" viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg">
+            <rect class="ref-box fixed" x="14" y="55" width="140" height="62" rx="10"/>
+            <text class="ref-lbl" x="84" y="77" text-anchor="middle" font-size="13">Summary sheet</text>
+            <text class="ref-sub" x="84" y="98" text-anchor="middle">H5 =IFERROR(…)</text>
+            <rect class="ref-box fixed" x="226" y="55" width="160" height="62" rx="10"/>
+            <text class="ref-lbl" x="306" y="77" text-anchor="middle" font-size="13">Targets sheet</text>
+            <text class="ref-sub" x="306" y="98" text-anchor="middle">C5</text>
+            <path class="ref-arrow live" d="M 154 86 L 226 86" marker-end="url(#rl)"/>
+          </svg>
+          <div class="ref-fix">
+            Fix: <strong>=IFERROR(D5*Targets!C5, 0)</strong> → returns <span class="res">£1,825 ✓</span>
+            <div class="sub">Cross-sheet link redirected from deleted "Budget" to existing "Targets" sheet.</div>
+          </div>
         </div>
       </div>
     </div>
