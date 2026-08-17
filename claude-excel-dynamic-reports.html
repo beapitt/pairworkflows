@@ -49,28 +49,56 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint a:hover{text-decoration:underline}
 
 /* ── BEFORE / AFTER VISUAL ── */
-.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
-.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.before-after{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:0;margin-bottom:1.75rem;align-items:start}
+.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;min-width:0}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
 .ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
 .ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
 .ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
-.ba-body{padding:14px}
-.xl-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
-.xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
-.xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
-.xl-table .err-cell{color:#dc2626;font-weight:700;background:#fef2f2}
-.xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
-.xl-table .hl{background:#fffbeb}
-.xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
-.xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.ba-body{padding:14px;min-width:0}
 .ba-panel{display:none;margin-bottom:1.75rem}
-.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
-.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+.ba-panel.on{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:0;align-items:start}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0;align-self:center}
+
+.excel-window{border:1px solid #cbd5e1;border-radius:7px;overflow:hidden;background:#fff;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.excel-ribbon{display:flex;align-items:center;gap:12px;padding:5px 9px;background:#f8fafc;border-bottom:1px solid #dbe3ec;font-size:11px;color:#64748b}
+.excel-ribbon strong{color:#217346;font-size:11.5px}
+.sheet-tabs{display:flex;gap:2px;padding:5px 7px;background:#f8fafc;border-top:1px solid #dbe3ec;font-size:11px}
+.sheet-tab{padding:4px 9px;border-radius:4px 4px 0 0;color:#64748b}
+.sheet-tab.active{background:#fff;color:#217346;font-weight:700;border:1px solid #dbe3ec;border-bottom-color:#fff}
+.formula-row{display:grid;grid-template-columns:54px 24px minmax(0,1fr);align-items:stretch;border-bottom:1px solid #cbd5e1;background:#fff;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.name-box{padding:6px 7px;border-right:1px solid #cbd5e1;color:#334155;background:#f8fafc}
+.fx-box{display:flex;align-items:center;justify-content:center;border-right:1px solid #cbd5e1;color:#64748b;font-style:italic}
+.formula-input{padding:6px 8px;color:#111827;white-space:normal;overflow-wrap:anywhere;line-height:1.45;min-width:0}
+.sheet-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.excel-grid{border-collapse:collapse;min-width:520px;width:100%;table-layout:fixed;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.excel-grid th,.excel-grid td{border:1px solid #d6dde5;padding:5px 7px;height:28px;vertical-align:middle;overflow-wrap:anywhere}
+.excel-grid thead th{background:#f3f6f8;color:#475569;text-align:center;font-weight:500;padding:4px 6px}
+.excel-grid .corner{width:34px;background:#eef2f5}
+.excel-grid .row-num{width:34px;background:#f3f6f8;color:#64748b;text-align:center;font-weight:500}
+.excel-grid .header-cell{background:#eef5f1;color:#1f2937;font-weight:700}
+.excel-grid .selected{background:#f0fdf4;box-shadow:inset 0 0 0 2px #217346}
+.excel-grid .error-selected{background:#fef2f2;box-shadow:inset 0 0 0 2px #dc2626;color:#b91c1c;font-weight:700}
+.excel-grid .hardcoded{background:#fef2f2;color:#b91c1c;font-weight:700}
+.excel-grid .formula-cell{background:#eff6ff;color:#1f4e79}
+.excel-grid .result-ok{background:#f0fdf4;color:#047857;font-weight:700}
+.excel-grid .manual-cell{background:#fffbeb;color:#92400e;font-weight:600}
+.excel-grid .muted-cell{color:#94a3b8}
+.excel-grid .doc-cell{background:#fffbea;color:#7c5a00}
+.sheet-note{margin-top:10px;padding:9px 10px;border-radius:7px;font-size:11.5px;line-height:1.55}
+.sheet-note.bad{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c}
+.sheet-note.good{background:#f0fdf4;border:1px solid #a7f3d0;color:#047857}
+.sheet-note code{font-family:'JetBrains Mono',monospace;font-size:11px;overflow-wrap:anywhere}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
-.claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
-.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
+.claude-fix-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
+.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+
+@media(max-width:640px){
+  .before-after,.ba-panel.on{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:.4rem 0}
+  .excel-grid{min-width:500px}
+}
 
 /* ── DIAGNOSIS TABLE ── */
 .diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
@@ -134,8 +162,6 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
 @media(max-width:640px){
   .hero h1{font-size:24px}
-  .before-after{grid-template-columns:1fr;gap:8px}
-  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
   .related-grid{grid-template-columns:1fr}
@@ -242,34 +268,68 @@ Keep it short enough to paste into a "Documentation" tab in the workbook.</pre>
   <!-- Tab: analyse -->
   <div class="before-after ba-panel on" id="ba-analyse">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — manual process, no formula plan</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — monthly report rebuilt by hand</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Step</th><th>How done</th></tr>
-          <tr><td>Revenue by region</td><td class="err-cell">Copy-paste manually</td></tr>
-          <tr><td>Remove closed rows</td><td class="err-cell">Delete by hand</td></tr>
-          <tr><td>Format totals</td><td class="err-cell">Typed each month</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          2 hours every month — same steps, no formulas
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Describe the process, Claude identifies what to automate</div>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Data</span><span>Review</span></div>
+          <div class="formula-row">
+            <div class="name-box">C5</div><div class="fx-box">fx</div>
+            <div class="formula-input">24500</div>
+          </div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:150px"><col style="width:120px"><col style="width:120px"><col style="width:150px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Task</td><td class="header-cell">Source</td><td class="header-cell">Current method</td><td class="header-cell">Problem</td></tr>
+                <tr><th class="row-num">2</th><td>Revenue by region</td><td>Raw_Data</td><td class="hardcoded">Copy / paste totals</td><td>Repeats monthly</td></tr>
+                <tr><th class="row-num">3</th><td>Closed records</td><td>Raw_Data</td><td class="hardcoded">Delete rows manually</td><td>Easy to miss one</td></tr>
+                <tr><th class="row-num">4</th><td>Exception review</td><td>Summary</td><td class="manual-cell">Manager judgment</td><td>Needs context</td></tr>
+                <tr><th class="row-num">5</th><td>Regional total</td><td>Summary</td><td class="error-selected">24,500 typed</td><td>No source link</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="sheet-tabs"><span class="sheet-tab">Raw_Data</span><span class="sheet-tab active">Summary</span></div>
         </div>
+        <div class="sheet-note bad">The workbook mixes repeatable spreadsheet logic with human-review steps. Nothing identifies which parts should become formulas.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude maps the automation plan</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — each step has a clear automation path</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Step</th><th>Formula</th></tr>
-          <tr><td>Revenue by region</td><td class="ok-cell">SUMIFS ✓</td></tr>
-          <tr><td>Remove closed rows</td><td class="ok-cell">FILTER ✓</td></tr>
-          <tr><td>Format totals</td><td class="ok-cell">Stays manual ✓</td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data</span></div>
+          <div class="formula-row">
+            <div class="name-box">D2</div><div class="fx-box">fx</div>
+            <div class="formula-input">=SUMIFS(Raw_Data!$E:$E,Raw_Data!$A:$A,A2)</div>
+          </div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:150px"><col style="width:120px"><col style="width:170px"><col style="width:130px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Task</td><td class="header-cell">Keep?</td><td class="header-cell">Replacement</td><td class="header-cell">Why</td></tr>
+                <tr><th class="row-num">2</th><td>Revenue by region</td><td class="result-ok">Automate</td><td class="selected formula-cell">SUMIFS</td><td>Repeatable criteria</td></tr>
+                <tr><th class="row-num">3</th><td>Closed records</td><td class="result-ok">Automate</td><td class="formula-cell">FILTER</td><td>Rule-based</td></tr>
+                <tr><th class="row-num">4</th><td>Exception review</td><td class="manual-cell">Keep manual</td><td class="manual-cell">Human review</td><td>Needs judgment</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="sheet-tabs"><span class="sheet-tab">Raw_Data</span><span class="sheet-tab active">Automation_Plan</span></div>
+        </div>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's plan</div>
-          <pre>2 steps automated, 1 flagged for human judgment.
-Full formula set provided for each step. ✓</pre>
+          <pre>Automate:
+• Revenue by region → SUMIFS
+• Closed-row output → FILTER
+
+Keep manual:
+• Exception review / sign-off
+
+The distinction is based on whether the step is rule-based or needs human judgment. ✓</pre>
         </div>
       </div>
     </div>
@@ -278,34 +338,66 @@ Full formula set provided for each step. ✓</pre>
   <!-- Tab: replace -->
   <div class="before-after ba-panel" id="ba-replace">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — revenue totals hardcoded</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — Summary contains typed revenue totals</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Region</th><th>Revenue (Summary tab)</th></tr>
-          <tr><td>North</td><td class="err-cell">£24,500 (typed)</td></tr>
-          <tr><td>South</td><td class="err-cell">£18,200 (typed)</td></tr>
-          <tr><td>West</td><td class="err-cell">£31,750 (typed)</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Every value hardcoded — new month = copy, delete, paste
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ No connection to raw data at all</div>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Insert</span><span>Formulas</span></div>
+          <div class="formula-row">
+            <div class="name-box">C5</div><div class="fx-box">fx</div>
+            <div class="formula-input">24500</div>
+          </div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:130px"><col style="width:130px"><col style="width:150px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">4</th><td class="header-cell">Region</td><td class="header-cell">Target</td><td class="header-cell">Revenue</td></tr>
+                <tr><th class="row-num">5</th><td>North</td><td>£23,000</td><td class="error-selected">£24,500</td></tr>
+                <tr><th class="row-num">6</th><td>South</td><td>£20,000</td><td class="hardcoded">£18,200</td></tr>
+                <tr><th class="row-num">7</th><td>West</td><td>£30,000</td><td class="hardcoded">£31,750</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="sheet-tabs"><span class="sheet-tab">Raw_Data</span><span class="sheet-tab active">Summary</span></div>
         </div>
+        <div class="sheet-note bad">C5:C7 are values, not formulas. Replacing the raw export next month will not update the report.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude replaces it with SUMIFS</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — SUMIFS links Summary to Raw_Data</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Region</th><th>Revenue (Summary tab)</th></tr>
-          <tr><td>North</td><td class="ok-cell">=SUMIFS(Raw!E:E,Raw!A:A,"North")</td></tr>
-          <tr><td>South</td><td class="ok-cell">=SUMIFS(Raw!E:E,Raw!A:A,"South")</td></tr>
-          <tr><td>West</td><td class="ok-cell">=SUMIFS(Raw!E:E,Raw!A:A,"West")</td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Insert</span><span>Formulas</span></div>
+          <div class="formula-row">
+            <div class="name-box">C5</div><div class="fx-box">fx</div>
+            <div class="formula-input">=SUMIFS(Raw_Data!$E:$E,Raw_Data!$A:$A,A5)</div>
+          </div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:130px"><col style="width:130px"><col style="width:150px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">4</th><td class="header-cell">Region</td><td class="header-cell">Target</td><td class="header-cell">Revenue</td></tr>
+                <tr><th class="row-num">5</th><td>North</td><td>£23,000</td><td class="selected result-ok">£24,500</td></tr>
+                <tr><th class="row-num">6</th><td>South</td><td>£20,000</td><td class="result-ok">£18,200</td></tr>
+                <tr><th class="row-num">7</th><td>West</td><td>£30,000</td><td class="result-ok">£31,750</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="sheet-tabs"><span class="sheet-tab">Raw_Data</span><span class="sheet-tab active">Summary</span></div>
+        </div>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's formula</div>
-          <pre>Paste new month into Raw_Data —
-Summary recalculates instantly. ✓</pre>
+          <pre>=SUMIFS(Raw_Data!$E:$E,
+        Raw_Data!$A:$A,
+        A5)
+
+Copy C5 down to C7.
+Each row uses its region in column A.
+Paste a new export into Raw_Data → Summary recalculates automatically. ✓</pre>
         </div>
       </div>
     </div>
@@ -314,34 +406,68 @@ Summary recalculates instantly. ✓</pre>
   <!-- Tab: doc -->
   <div class="before-after ba-panel" id="ba-doc">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — model works but nobody else can maintain it</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — the workbook has no maintenance instructions</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Question</th><th>Answer</th></tr>
-          <tr><td>Where do I paste the data?</td><td class="err-cell">Unknown</td></tr>
-          <tr><td>What does SUMIFS in C5 do?</td><td class="err-cell">Unknown</td></tr>
-          <tr><td>What if totals look wrong?</td><td class="err-cell">Unknown</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          No documentation — only you can maintain this
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Run this last once the model works</div>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Review</span><span>View</span></div>
+          <div class="formula-row">
+            <div class="name-box">A1</div><div class="fx-box">fx</div>
+            <div class="formula-input"></div>
+          </div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:220px"><col style="width:230px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Documentation</td><td class="header-cell">Notes</td></tr>
+                <tr><th class="row-num">2</th><td>Where do I paste monthly data?</td><td class="error-selected">—</td></tr>
+                <tr><th class="row-num">3</th><td>What does Summary!C5 do?</td><td class="hardcoded">—</td></tr>
+                <tr><th class="row-num">4</th><td>What if totals look wrong?</td><td class="hardcoded">—</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="sheet-tabs"><span class="sheet-tab">Raw_Data</span><span class="sheet-tab">Summary</span><span class="sheet-tab active">Documentation</span></div>
         </div>
+        <div class="sheet-note bad">The model may work today, but the next person cannot see the monthly input step, the key formula logic, or the checks to run.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude writes the maintenance guide</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Documentation tab explains exactly what to do</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Question</th><th>Answer</th></tr>
-          <tr><td>Where do I paste the data?</td><td class="ok-cell">Raw_Data tab, row 2 ✓</td></tr>
-          <tr><td>What does SUMIFS in C5 do?</td><td class="ok-cell">Documented ✓</td></tr>
-          <tr><td>What if totals look wrong?</td><td class="ok-cell">Checklist provided ✓</td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Review</span><span>View</span></div>
+          <div class="formula-row">
+            <div class="name-box">B2</div><div class="fx-box">fx</div>
+            <div class="formula-input">Paste new export into Raw_Data starting at A2. Keep the header row unchanged.</div>
+          </div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:180px"><col style="width:300px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Maintenance item</td><td class="header-cell">Instruction</td></tr>
+                <tr><th class="row-num">2</th><td>Monthly data</td><td class="selected doc-cell">Paste export into Raw_Data starting at A2; do not rename headers.</td></tr>
+                <tr><th class="row-num">3</th><td>Summary!C5:C7</td><td class="doc-cell">SUMIFS totals Revenue by the region listed in column A.</td></tr>
+                <tr><th class="row-num">4</th><td>If totals look wrong</td><td class="doc-cell">Check region names, Revenue column E, and blank/extra rows in Raw_Data.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="sheet-tabs"><span class="sheet-tab">Raw_Data</span><span class="sheet-tab">Summary</span><span class="sheet-tab active">Documentation</span></div>
+        </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's guide</div>
-          <pre>3-section doc: paste instructions, formula
-explanations, troubleshooting checklist. ✓</pre>
+          <div class="claude-fix-label">Maintenance guide</div>
+          <pre>1. Monthly input
+   Paste new data into Raw_Data from row 2.
+
+2. Main formula
+   Summary!C5:C7 uses SUMIFS by Region.
+
+3. Troubleshooting
+   Check headers, region spelling, Revenue in column E,
+   and whether new rows were pasted inside the source range. ✓</pre>
         </div>
       </div>
     </div>
