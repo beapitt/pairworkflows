@@ -72,6 +72,32 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
 .claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
 
+
+/* ── EXPLAIN FORMULAS — formula blueprint ── */
+.bp-wrap{padding:10px 10px 12px}
+.bp-formula{background:#30343b;border-radius:8px;padding:16px 18px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#c5c0b8;line-height:2;width:100%;box-sizing:border-box;overflow-x:auto}
+.bp-formula .seg{padding:2px 6px;border-radius:4px;font-weight:600}
+.bp-s1{background:rgba(79,70,165,.2);color:#9b93e0}
+.bp-s2{background:rgba(242,166,111,.15);color:#f2a66f}
+.bp-s3{background:rgba(72,187,169,.15);color:#48bba9}
+.bp-caption{margin-top:12px;padding:10px 12px;background:#f0eef8;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#3a3470;width:100%;box-sizing:border-box;line-height:1.5}
+.bp-caption .sub{font-size:11px;color:#8a84b0;margin-top:4px}
+.bp-layers{width:100%;margin-top:4px}
+.bp-layer{display:flex;align-items:baseline;gap:10px;padding:8px 0;border-bottom:1px solid #eee8f4;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.5}
+.bp-layer:last-child{border:none}
+.bp-layer .tag{display:inline-block;padding:3px 8px;border-radius:5px;font-size:11px;font-weight:700;flex-shrink:0;min-width:70px;text-align:center}
+.bp-layer .desc{color:#30343b}
+.bp-fix{margin-top:12px;padding:12px 14px;background:#30343b;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.5;color:#c5c0b8;width:100%;box-sizing:border-box}
+.bp-fix .res{color:#9b93e0;font-weight:700}
+.bp-fix .sub{font-size:11.5px;color:#7a7590;margin-top:5px;line-height:1.5}
+.bp-qa{width:100%;font-family:'JetBrains Mono',monospace;font-size:12.5px}
+.bp-qa-row{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid #eee8f4;align-items:baseline;line-height:1.5}
+.bp-qa-row:last-child{border:none}
+.bp-qa-row .q{color:#4f46a5;font-weight:600;flex-shrink:0;min-width:130px}
+.bp-qa-row .a{color:#30343b}
+.bp-qa-row .a.warn{color:#c2410c}
+.bp-qa-row .a.safe{color:#087e7a}
+
 /* ── DIAGNOSIS TABLE ── */
 .diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .diag-header{background:#fef2f2;border-bottom:1px solid #fecaca;padding:12px 18px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#dc2626}
@@ -135,6 +161,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 @media(max-width:640px){
   .hero h1{font-size:24px}
   .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-panel.on{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:4px 0}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
@@ -231,33 +259,28 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
 
   <!-- Tab: explain -->
   <div class="before-after ba-panel on" id="ba-explain">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — undocumented and confusing</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Cell</th><th>Formula</th></tr>
-          <tr><td>C2</td><td class="err-cell">=IFERROR(INDEX(Sales!$C$2:$C$500,MATCH(1,(Sales!$A$2:$A$500=A2)*(Sales!$B$2:$B$500=B2),0)),"")</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          No comments — nobody knows what it does or if it's safe to touch
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Array-style multi-criteria lookup, hardcoded to row 500</div>
+    <div class="ba-col before" style="border-color:#9b93e0">
+      <div class="ba-header" style="background:#30343b;color:#c5c0b8;border-bottom:1px solid #4a4650"><i class="ti ti-code" style="font-size:14px;color:#9b93e0"></i> Before — one long formula, no explanation</div>
+      <div class="ba-body" style="padding:12px">
+        <div class="bp-formula"><span style="color:#5a5660">C2 =</span> <span class="seg bp-s1">IFERROR(</span><span class="seg bp-s2">INDEX(</span>Sales!$C$2:$C$500,<br>    <span class="seg bp-s3">MATCH(</span>1,(Sales!$A$2:$A$500=A2)<br>    *(Sales!$B$2:$B$500=B2),0<span class="seg bp-s3">)</span><span class="seg bp-s2">)</span>,""<span class="seg bp-s1">)</span></div>
+        <div class="bp-caption">
+          3 nested layers — nobody knows what it does or if it's safe to modify
+          <div class="sub">Array-style multi-criteria lookup, hardcoded to row 500</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude explains it layer by layer</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Layer</th><th>What it does</th></tr>
-          <tr><td class="link-cell">IFERROR</td><td>Catches errors, returns "" instead</td></tr>
-          <tr><td class="link-cell">INDEX + MATCH</td><td>Multi-criteria lookup on A2 and B2</td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's explanation</div>
-          <pre>"Looks up col C where col A = A2 AND col B = B2.
-Returns blank if no match. Risk: ranges hardcoded
-to row 500 — extend if Sales sheet grows." ✓</pre>
+    <div class="ba-col after" style="border-color:#4f46a5">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude decomposes layer by layer</div>
+      <div class="ba-body" style="padding:12px">
+        <div class="bp-layers">
+          <div class="bp-layer"><span class="tag bp-s1">IFERROR</span><span class="desc">Outer shell — catches errors, returns "" instead of #N/A</span></div>
+          <div class="bp-layer"><span class="tag bp-s2">INDEX</span><span class="desc">Returns a value from Sales!$C (Revenue column)</span></div>
+          <div class="bp-layer"><span class="tag bp-s3">MATCH</span><span class="desc">Finds the row where col A = A2 <strong>AND</strong> col B = B2</span></div>
+        </div>
+        <div class="bp-fix">
+          Looks up Revenue where Region = A2 AND Rep = B2.
+          <div class="sub">Risk: ranges capped at row 500 — extend if Sales sheet grows. <span class="res">✓</span></div>
         </div>
       </div>
     </div>
@@ -265,35 +288,32 @@ to row 500 — extend if Sales sheet grows." ✓</pre>
 
   <!-- Tab: followup -->
   <div class="before-after ba-panel" id="ba-followup">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — hidden risks not obvious</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Question</th><th>Status</th></tr>
-          <tr><td>What if A2 doesn't exist in Sales?</td><td class="err-cell">Unknown</td></tr>
-          <tr><td>Safe to extend to row 1000?</td><td class="err-cell">Unknown</td></tr>
-          <tr><td>What breaks if Sales sheet renamed?</td><td class="err-cell">Unknown</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Formula works but risks are invisible until something breaks
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Ask follow-up questions to surface hidden fragility</div>
+    <div class="ba-col before" style="border-color:#9b93e0">
+      <div class="ba-header" style="background:#f0eef8;color:#3a3470;border-bottom:1px solid #d0cce8"><i class="ti ti-help-circle" style="font-size:14px;color:#4f46a5"></i> Before — formula works, but risks are invisible</div>
+      <div class="ba-body" style="padding:12px">
+        <div class="bp-qa">
+          <div class="bp-qa-row"><span class="q">A2 not in Sales?</span><span class="a" style="color:#94a3b8;font-style:italic">Unknown risk</span></div>
+          <div class="bp-qa-row"><span class="q">Extend to row 1000?</span><span class="a" style="color:#94a3b8;font-style:italic">Unknown risk</span></div>
+          <div class="bp-qa-row"><span class="q">Rename Sales sheet?</span><span class="a" style="color:#94a3b8;font-style:italic">Unknown risk</span></div>
+        </div>
+        <div class="bp-caption">
+          Formula works today — but you can't tell which changes will break it
+          <div class="sub">Ask Claude follow-up questions to surface hidden fragility</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude surfaces the risks</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Question</th><th>Claude's answer</th></tr>
-          <tr><td>A2 not found?</td><td class="ok-cell">Returns "" — safe ✓</td></tr>
-          <tr><td>Extend to row 1000?</td><td class="ok-cell">Yes, update 3 ranges ✓</td></tr>
-          <tr><td>Rename Sales sheet?</td><td class="err-cell">Breaks — update ref ⚠</td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's answer</div>
-          <pre>Renaming "Sales" breaks all 3 references.
-Find/Replace Sheet name to fix safely. ✓</pre>
+    <div class="ba-col after" style="border-color:#4f46a5">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — each risk answered</div>
+      <div class="ba-body" style="padding:12px">
+        <div class="bp-qa">
+          <div class="bp-qa-row"><span class="q">A2 not in Sales?</span><span class="a safe">Returns "" — safe ✓</span></div>
+          <div class="bp-qa-row"><span class="q">Extend to row 1000?</span><span class="a safe">Yes — update 3 ranges ✓</span></div>
+          <div class="bp-qa-row"><span class="q">Rename Sales sheet?</span><span class="a warn">Breaks all 3 refs ⚠</span></div>
+        </div>
+        <div class="bp-fix">
+          Renaming "Sales" breaks all 3 references.
+          <div class="sub">Use Find/Replace on sheet name to fix safely. <span class="res">✓</span></div>
         </div>
       </div>
     </div>
@@ -301,32 +321,30 @@ Find/Replace Sheet name to fix safely. ✓</pre>
 
   <!-- Tab: doc -->
   <div class="before-after ba-panel" id="ba-doc">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — formula with no written context</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Cell</th><th>Comment</th></tr>
-          <tr><td>C2</td><td class="err-cell">— (none)</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          No documentation — the next person starts from scratch
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ One comment prevents hours of reverse-engineering</div>
+    <div class="ba-col before" style="border-color:#9b93e0">
+      <div class="ba-header" style="background:#30343b;color:#c5c0b8;border-bottom:1px solid #4a4650"><i class="ti ti-message-off" style="font-size:14px;color:#f2a66f"></i> Before — no comment, no documentation</div>
+      <div class="ba-body" style="padding:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:120px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#5a5660;text-align:center;line-height:1.8">
+          <span style="color:#f2a66f;font-size:18px">C2</span><br>
+          <span style="font-size:12px;color:#4a4650">— no comment attached —</span><br>
+          <span style="font-size:11px;color:#4a4650;margin-top:8px;display:block">The next person starts from scratch</span>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude writes the documentation</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Cell</th><th>Comment added</th></tr>
-          <tr><td>C2</td><td class="ok-cell">✓ Documented</td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's documentation</div>
-          <pre>"Multi-criteria lookup: returns Sales[Revenue]
-where Region = A2 AND Rep = B2. Returns blank
-if no match. Do not rename the Sales sheet." ✓</pre>
+    <div class="ba-col after" style="border-color:#4f46a5">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude writes the comment</div>
+      <div class="ba-body" style="padding:12px">
+        <div style="background:#fffdf5;border:1.5px solid #f2a66f;border-radius:8px;padding:14px 16px;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#30343b;line-height:1.6">
+          <div style="font-size:10px;font-weight:700;color:#f2a66f;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">📝 C2 — Comment</div>
+          Multi-criteria lookup: returns Sales[Revenue]<br>
+          where Region = A2 AND Rep = B2.<br>
+          Returns blank if no match.<br>
+          <span style="color:#c2410c;font-weight:600">Do not rename the Sales sheet.</span>
+        </div>
+        <div class="bp-fix">
+          One comment prevents hours of reverse-engineering.
+          <div class="sub">Paste into Insert → Comment or use a named note. <span class="res">✓</span></div>
         </div>
       </div>
     </div>
@@ -358,7 +376,7 @@ if no match. Do not rename the Sales sheet." ✓</pre>
   </div>
 
   <!-- STEPS -->
-  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">How to break down and understand an Excel formula
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">How to break down and understand an Excel formula</h2>
   <div class="steps-card">
     <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Understand and document any inherited formula — 5 steps</div>
     <div class="step">
