@@ -74,26 +74,26 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
 
 /* ── EXPLAIN FORMULAS — formula blueprint ── */
-.bp-wrap{padding:10px 10px 12px}
-.bp-formula{background:#30343b;border-radius:8px;padding:16px 18px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#c5c0b8;line-height:2;width:100%;box-sizing:border-box;overflow-x:auto}
+.bp-wrap{padding:6px 8px 8px}
+.bp-formula{background:#30343b;border-radius:8px;padding:12px 14px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#c5c0b8;line-height:2;width:100%;box-sizing:border-box;overflow-x:auto}
 .bp-formula .seg{padding:2px 6px;border-radius:4px;font-weight:600}
 .bp-s1{background:rgba(79,70,165,.2);color:#9b93e0}
 .bp-s2{background:rgba(242,166,111,.15);color:#f2a66f}
 .bp-s3{background:rgba(72,187,169,.15);color:#48bba9}
-.bp-caption{margin-top:12px;padding:10px 12px;background:#f0eef8;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#3a3470;width:100%;box-sizing:border-box;line-height:1.5}
-.bp-caption .sub{font-size:11px;color:#8a84b0;margin-top:4px}
+.bp-caption{margin-top:10px;padding:11px 14px;background:#eae6f4;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#2a2460;width:100%;box-sizing:border-box;line-height:1.5}
+.bp-caption .sub{font-size:11.5px;color:#5a5490;margin-top:4px}
 .bp-layers{width:100%;margin-top:4px}
-.bp-layer{display:flex;align-items:baseline;gap:10px;padding:8px 0;border-bottom:1px solid #eee8f4;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.5}
+.bp-layer{display:flex;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid #eee8f4;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.5}
 .bp-layer:last-child{border:none}
 .bp-layer .tag{display:inline-block;padding:3px 8px;border-radius:5px;font-size:11px;font-weight:700;flex-shrink:0;min-width:70px;text-align:center}
 .bp-layer .desc{color:#30343b}
-.bp-fix{margin-top:12px;padding:12px 14px;background:#30343b;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.5;color:#c5c0b8;width:100%;box-sizing:border-box}
+.bp-fix{margin-top:10px;padding:12px 14px;background:#30343b;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.5;color:#dbd6ce;width:100%;box-sizing:border-box}
 .bp-fix .res{color:#9b93e0;font-weight:700}
 
 .bp-svg{width:100%;max-width:none;height:auto;display:block}
-.bp-fix .sub{font-size:11.5px;color:#7a7590;margin-top:5px;line-height:1.5}
+.bp-fix .sub{font-size:11.5px;color:#9a95b0;margin-top:4px;line-height:1.5}
 .bp-qa{width:100%;font-family:'JetBrains Mono',monospace;font-size:12.5px}
-.bp-qa-row{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid #eee8f4;align-items:baseline;line-height:1.5}
+.bp-qa-row{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid #eee8f4;align-items:baseline;line-height:1.5}
 .bp-qa-row:last-child{border:none}
 .bp-qa-row .q{color:#4f46a5;font-weight:600;flex-shrink:0;min-width:130px}
 .bp-qa-row .a{color:#30343b}
@@ -263,7 +263,7 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
   <div class="before-after ba-panel on" id="ba-explain">
     <div class="ba-col before" style="border-color:#9b93e0">
       <div class="ba-header" style="background:#30343b;color:#c5c0b8;border-bottom:1px solid #4a4650"><i class="ti ti-code" style="font-size:14px;color:#9b93e0"></i> Before — one long formula, no explanation</div>
-      <div class="ba-body" style="padding:12px">
+      <div class="ba-body" style="padding:10px">
         <div class="bp-formula"><span style="color:#5a5660">C2 =</span> <span class="seg bp-s1">IFERROR(</span><span class="seg bp-s2">INDEX(</span>Sales!$C$2:$C$500,<br>    <span class="seg bp-s3">MATCH(</span>1,(Sales!$A$2:$A$500=A2)<br>    *(Sales!$B$2:$B$500=B2),0<span class="seg bp-s3">)</span><span class="seg bp-s2">)</span>,""<span class="seg bp-s1">)</span></div>
         <div class="bp-caption">
           3 nested layers — nobody knows what it does or if it's safe to modify
@@ -274,9 +274,9 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after" style="border-color:#4f46a5">
       <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — formula blueprint, layer by layer</div>
-      <div class="ba-body" style="padding:12px">
+      <div class="ba-body" style="padding:10px">
         <div class="bp-wrap">
-          <svg class="bp-svg" viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
+          <svg class="bp-svg" viewBox="0 0 400 265" xmlns="http://www.w3.org/2000/svg">
             <!-- Layer 1: IFERROR -->
             <rect x="100" y="10" width="200" height="44" rx="8" fill="rgba(79,70,165,.12)" stroke="#4f46a5" stroke-width="1.5"/>
             <text x="200" y="30" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" font-weight="700" fill="#4f46a5">IFERROR</text>
@@ -319,7 +319,7 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
   <div class="before-after ba-panel" id="ba-followup">
     <div class="ba-col before" style="border-color:#9b93e0">
       <div class="ba-header" style="background:#f0eef8;color:#3a3470;border-bottom:1px solid #d0cce8"><i class="ti ti-help-circle" style="font-size:14px;color:#4f46a5"></i> Before — formula works, but risks are invisible</div>
-      <div class="ba-body" style="padding:12px">
+      <div class="ba-body" style="padding:10px">
         <div class="bp-qa">
           <div class="bp-qa-row"><span class="q">A2 not in Sales?</span><span class="a" style="color:#94a3b8;font-style:italic">Unknown risk</span></div>
           <div class="bp-qa-row"><span class="q">Extend to row 1000?</span><span class="a" style="color:#94a3b8;font-style:italic">Unknown risk</span></div>
@@ -334,7 +334,7 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after" style="border-color:#4f46a5">
       <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — each risk answered</div>
-      <div class="ba-body" style="padding:12px">
+      <div class="ba-body" style="padding:10px">
         <div class="bp-qa">
           <div class="bp-qa-row"><span class="q">A2 not in Sales?</span><span class="a safe">Returns "" — safe ✓</span></div>
           <div class="bp-qa-row"><span class="q">Extend to row 1000?</span><span class="a safe">Yes — update 3 ranges ✓</span></div>
@@ -352,7 +352,7 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
   <div class="before-after ba-panel" id="ba-doc">
     <div class="ba-col before" style="border-color:#9b93e0">
       <div class="ba-header" style="background:#30343b;color:#c5c0b8;border-bottom:1px solid #4a4650"><i class="ti ti-message-off" style="font-size:14px;color:#f2a66f"></i> Before — no comment, no documentation</div>
-      <div class="ba-body" style="padding:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:120px">
+      <div class="ba-body" style="padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:0">
         <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#5a5660;text-align:center;line-height:1.8">
           <span style="color:#f2a66f;font-size:18px">C2</span><br>
           <span style="font-size:12px;color:#4a4650">— no comment attached —</span><br>
