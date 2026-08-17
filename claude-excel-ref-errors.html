@@ -286,7 +286,7 @@ recreate the sheet?</pre>
             <text class="ref-badge" x="210" y="62" text-anchor="middle">✗ BROKEN LINK</text>
           </svg>
           <div class="ref-caption">
-            =SUM(D2:#REF!) — column C was deleted, endpoint gone
+            =SUM(#REF!) — the deleted source range has been replaced by #REF!
             <div class="sub">Excel replaces the missing reference with #REF! — you can't tell what it used to point to</div>
           </div>
         </div>
@@ -307,7 +307,7 @@ recreate the sheet?</pre>
             <path class="ref-arrow live" d="M 170 81 L 230 81" marker-end="url(#rl)"/>
           </svg>
           <div class="ref-fix">
-            Fix: <strong>=SUM(D2:D20)</strong> → returns <span class="res">£14,320 ✓</span>
+            Fix: <strong>=SUM(D2:D20)</strong> → valid range restored <span class="res">✓</span>
             <div class="sub">Reference reconstructed — formula recalculates correctly.</div>
           </div>
         </div>
@@ -329,7 +329,7 @@ recreate the sheet?</pre>
             <text class="ref-lbl" x="314" y="38" text-anchor="middle" font-size="12">E5 =SUM(D2:#REF!)</text>
             <text class="ref-sub" x="314" y="53" text-anchor="middle">#REF!</text>
             <rect class="ref-box ok" x="240" y="82" width="148" height="44" rx="10"/>
-            <text class="ref-lbl" x="314" y="102" text-anchor="middle" font-size="12">F5 =AVG(#REF!:D20)</text>
+            <text class="ref-lbl" x="314" y="102" text-anchor="middle" font-size="12">F5 =AVERAGE(#REF!:D20)</text>
             <text class="ref-sub" x="314" y="117" text-anchor="middle">#REF!</text>
             <rect class="ref-box ok" x="240" y="146" width="148" height="44" rx="10"/>
             <text class="ref-lbl" x="314" y="166" text-anchor="middle" font-size="12">G5 =MAX(#REF!)</text>
@@ -391,18 +391,18 @@ recreate the sheet?</pre>
             <text class="ref-sub" x="306" y="117" text-anchor="middle" fill="#b8860b">DELETED ✗</text>
             <path class="ref-arrow dead" d="M 154 105 L 226 105" marker-end="url(#rd)"/>
             <text class="ref-badge" x="190" y="66" text-anchor="middle">✗ BROKEN</text>
-            <text class="ref-sub" x="200" y="176" text-anchor="middle" font-size="12" fill="#475569">=IFERROR(#REF! * Budget!#REF!, 0)</text>
+            <text class="ref-sub" x="200" y="176" text-anchor="middle" font-size="12" fill="#475569">=IFERROR(D5*#REF!C5, 0)</text>
           </svg>
           <div class="ref-caption">
-            Every formula referencing "Budget" now returns #REF!
-            <div class="sub">Excel can't tell you what the reference used to point to — only Claude can reconstruct it</div>
+            The deleted sheet reference is replaced with #REF! in dependent formulas
+            <div class="sub">Use workbook context, backups/version history, or Claude to identify the intended source before rewriting the formula</div>
           </div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after" style="border-color:#3157d5">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude redirects to Targets sheet</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — intended cross-sheet source restored</div>
       <div class="ba-body">
         <div class="ref-wrap">
           <svg class="ref-svg" viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg">
@@ -410,13 +410,13 @@ recreate the sheet?</pre>
             <text class="ref-lbl" x="84" y="77" text-anchor="middle" font-size="13">Summary sheet</text>
             <text class="ref-sub" x="84" y="98" text-anchor="middle">H5 =IFERROR(…)</text>
             <rect class="ref-box fixed" x="226" y="55" width="160" height="62" rx="10"/>
-            <text class="ref-lbl" x="306" y="77" text-anchor="middle" font-size="13">Targets sheet</text>
+            <text class="ref-lbl" x="306" y="77" text-anchor="middle" font-size="13">Budget sheet</text>
             <text class="ref-sub" x="306" y="98" text-anchor="middle">C5</text>
             <path class="ref-arrow live" d="M 154 86 L 226 86" marker-end="url(#rl)"/>
           </svg>
           <div class="ref-fix">
-            Fix: <strong>=IFERROR(D5*Targets!C5, 0)</strong> → returns <span class="res">£1,825 ✓</span>
-            <div class="sub">Cross-sheet link redirected from deleted "Budget" to existing "Targets" sheet.</div>
+            Fix: <strong>=IFERROR(D5*Budget!C5, 0)</strong> → valid cross-sheet reference restored <span class="res">✓</span>
+            <div class="sub">After confirming the intended source, recreate/restore the Budget sheet or point the formula to the correct replacement cell.</div>
           </div>
         </div>
       </div>
