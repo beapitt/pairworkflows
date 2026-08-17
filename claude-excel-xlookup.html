@@ -73,6 +73,24 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
 
 
+
+/* ── XLOOKUP — Excel-like grid ── */
+.xl-grid{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
+.xl-grid th{background:#e8ebef;color:#3047a6;font-weight:700;font-size:10.5px;padding:5px 10px;text-align:center;border:1px solid #c5cdd8;min-width:32px}
+.xl-grid td{padding:5px 10px;border:1px solid #d8dce4;color:#1e293b;font-size:12px}
+.xl-grid .row-n{background:#e8ebef;color:#3047a6;font-weight:700;font-size:10.5px;text-align:center;width:28px}
+.xl-grid .sel{background:#dbeafe;border:2px solid #3047a6 !important}
+.xl-grid .manual{color:#e07850;font-style:italic;font-weight:600}
+.xl-grid .result{color:#3047a6;font-weight:700}
+.xl-grid .formula{color:#3047a6;font-size:11px;font-weight:600}
+.xl-grid .hl-src{background:#fdf4ef}
+.xl-grid .hl-match{background:#edf0f8}
+.xl-sheet-label{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:#475569;padding:4px 8px;background:#f1f5f9;border:1px solid #d8dce4;border-bottom:none;border-radius:6px 6px 0 0;display:inline-block;margin-top:8px}
+.xl-sheet-label.active{background:#fff;border-bottom:1px solid #fff;color:#3047a6}
+.xl-fbar{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#1e293b;padding:6px 10px;background:#f8f9fa;border:1px solid #d8dce4;border-radius:4px;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.xl-fbar .cell-ref{color:#3047a6;font-weight:700;min-width:28px}
+.xl-fbar .fx{color:#059669;font-weight:700;margin-right:4px}
+
 /* ── XLOOKUP — lookup-path arrow ── */
 .lk-wrap{padding:6px 8px 8px;display:flex;flex-direction:column;align-items:center}
 .lk-svg{width:100%;max-width:none;height:auto;display:block}
@@ -255,85 +273,46 @@ Data is on sheet [name]. Keep any existing IFERROR wrapper.</pre>
   <!-- Tab: build -->
   <div class="before-after ba-panel on" id="ba-build">
     <div class="ba-col before" style="border-color:#f4ae8c">
-      <div class="ba-header" style="background:#fdf4ef;color:#8a4a25;border-bottom:1px solid #f4d0b8"><i class="ti ti-search" style="font-size:14px;color:#e07850"></i> Before — Bonus % looked up manually each cycle</div>
-      <div class="ba-body">
-        <div class="lk-wrap">
-          <svg class="lk-svg" viewBox="0 0 400 158" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <marker id="la" markerWidth="10" markerHeight="10" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7" fill="none" stroke="#3047a6" stroke-width="2"/></marker>
-              <marker id="lm" markerWidth="10" markerHeight="10" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7" fill="none" stroke="#e07850" stroke-width="2"/></marker>
-            </defs>
-            <!-- Step 1: lookup key -->
-            <rect class="lk-box src" x="10" y="20" width="98" height="50" rx="8"/>
-            <text class="lk-lbl" x="59" y="42" text-anchor="middle" font-size="12">EMP-041</text>
-            <text class="lk-sub" x="59" y="60" text-anchor="middle">Staff col A</text>
-            <!-- Step 2: scan BonusTable -->
-            <rect class="lk-box tgt" x="148" y="20" width="116" height="50" rx="8"/>
-            <text class="lk-lbl" x="206" y="42" text-anchor="middle" font-size="12">BonusTable</text>
-            <text class="lk-sub" x="206" y="60" text-anchor="middle">scan col A…</text>
-            <!-- Step 3: return column -->
-            <rect class="lk-box miss" x="304" y="20" width="86" height="50" rx="8"/>
-            <text class="lk-lbl" x="347" y="42" text-anchor="middle" font-size="13" fill="#e07850">?</text>
-            <text class="lk-sub" x="347" y="60" text-anchor="middle" fill="#b8860b">Bonus %</text>
-            <!-- arrows -->
-            <path class="lk-arrow" d="M 108 45 L 148 45" marker-end="url(#la)"/>
-            <path class="lk-arrow miss" d="M 264 45 L 304 45" marker-end="url(#lm)"/>
-            <!-- manual rows below -->
-            <line x1="10" y1="84" x2="390" y2="84" stroke="#f0ece6" stroke-width="1"/>
-            <text class="lk-sub" x="59" y="106" text-anchor="middle">EMP-041</text>
-            <text class="lk-sub" x="206" y="106" text-anchor="middle">EMP-041 → found</text>
-            <text class="lk-sub" x="347" y="106" text-anchor="middle" fill="#e07850" font-weight="600">12% (manual)</text>
-            <text class="lk-sub" x="59" y="126" text-anchor="middle">EMP-087</text>
-            <text class="lk-sub" x="206" y="126" text-anchor="middle">EMP-087 → found</text>
-            <text class="lk-sub" x="347" y="126" text-anchor="middle" fill="#e07850" font-weight="600">18% (manual)</text>
-            <text class="lk-sub" x="59" y="146" text-anchor="middle">EMP-112</text>
-            <text class="lk-sub" x="206" y="146" text-anchor="middle">EMP-112 → found</text>
-            <text class="lk-sub" x="347" y="146" text-anchor="middle" fill="#e07850" font-weight="600">8% (manual)</text>
-          </svg>
-          <div class="lk-caption">
-            Each row looked up by hand — no formula connects Staff to BonusTable
-            <div class="sub">4 employees × every payroll cycle = slow and error-prone</div>
-          </div>
+      <div class="ba-header" style="background:#fdf4ef;color:#6a3515;border-bottom:1px solid #f4d0b8"><i class="ti ti-table" style="font-size:14px;color:#e07850"></i> Before — Bonus % column filled manually</div>
+      <div class="ba-body" style="padding:10px">
+        <span class="xl-sheet-label active">Staff</span>
+        <table class="xl-grid">
+          <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th></tr>
+          <tr><td class="row-n">1</td><td style="font-weight:600">Emp ID</td><td style="font-weight:600">Name</td><td style="font-weight:600">Salary</td><td style="font-weight:600">Bonus %</td></tr>
+          <tr><td class="row-n">2</td><td>EMP-041</td><td>Sarah Chen</td><td>£52,000</td><td class="manual">? manual</td></tr>
+          <tr><td class="row-n">3</td><td>EMP-087</td><td>James Ward</td><td>£48,500</td><td class="manual">? manual</td></tr>
+          <tr><td class="row-n">4</td><td>EMP-112</td><td>Priya Patel</td><td>£44,000</td><td class="manual">? manual</td></tr>
+        </table>
+        <span class="xl-sheet-label">BonusTable</span>
+        <table class="xl-grid">
+          <tr><th></th><th>A</th><th>B</th></tr>
+          <tr><td class="row-n">1</td><td style="font-weight:600">Emp ID</td><td style="font-weight:600">Bonus %</td></tr>
+          <tr><td class="row-n">2</td><td class="hl-src">EMP-041</td><td class="hl-src">12%</td></tr>
+          <tr><td class="row-n">3</td><td>EMP-087</td><td>18%</td></tr>
+          <tr><td class="row-n">4</td><td>EMP-112</td><td>8%</td></tr>
+        </table>
+        <div class="lk-caption" style="margin-top:8px">
+          D2:D4 filled by hand — find EMP ID in BonusTable, copy the %, paste back
+          <div class="sub">Repeated every payroll cycle, error-prone</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after" style="border-color:#3047a6">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — XLOOKUP automates the path</div>
-      <div class="ba-body">
-        <div class="lk-wrap">
-          <svg class="lk-svg" viewBox="0 0 400 158" xmlns="http://www.w3.org/2000/svg">
-            <!-- Step 1: lookup key -->
-            <rect class="lk-box ok" x="10" y="20" width="98" height="50" rx="8"/>
-            <text class="lk-lbl" x="59" y="42" text-anchor="middle" font-size="12">EMP-041</text>
-            <text class="lk-sub" x="59" y="60" text-anchor="middle">Staff col A</text>
-            <!-- Step 2: match in BonusTable -->
-            <rect class="lk-box ok" x="148" y="20" width="116" height="50" rx="8"/>
-            <text class="lk-lbl" x="206" y="42" text-anchor="middle" font-size="12">BonusTable</text>
-            <text class="lk-sub" x="206" y="60" text-anchor="middle" fill="#3047a6">matched ✓</text>
-            <!-- Step 3: return value -->
-            <rect class="lk-box ok" x="304" y="20" width="86" height="50" rx="8"/>
-            <text class="lk-lbl" x="347" y="42" text-anchor="middle" font-size="13" fill="#3047a6">12%</text>
-            <text class="lk-sub" x="347" y="60" text-anchor="middle">Bonus %</text>
-            <!-- arrows -->
-            <path class="lk-arrow" d="M 108 45 L 148 45" marker-end="url(#la)"/>
-            <path class="lk-arrow" d="M 264 45 L 304 45" marker-end="url(#la)"/>
-            <!-- result rows -->
-            <line x1="10" y1="84" x2="390" y2="84" stroke="#dde4f0" stroke-width="1"/>
-            <text class="lk-sub" x="59" y="106" text-anchor="middle">EMP-041</text>
-            <text class="lk-sub" x="206" y="106" text-anchor="middle" fill="#3047a6">→ matched</text>
-            <text class="lk-sub" x="347" y="106" text-anchor="middle" fill="#3047a6" font-weight="700">12% ✓</text>
-            <text class="lk-sub" x="59" y="126" text-anchor="middle">EMP-087</text>
-            <text class="lk-sub" x="206" y="126" text-anchor="middle" fill="#3047a6">→ matched</text>
-            <text class="lk-sub" x="347" y="126" text-anchor="middle" fill="#3047a6" font-weight="700">18% ✓</text>
-            <text class="lk-sub" x="59" y="146" text-anchor="middle">EMP-203</text>
-            <text class="lk-sub" x="206" y="146" text-anchor="middle" fill="#3047a6">→ matched</text>
-            <text class="lk-sub" x="347" y="146" text-anchor="middle" fill="#3047a6" font-weight="700">15% ✓</text>
-          </svg>
-          <div class="lk-fix">
-            <strong>=XLOOKUP(A2, BonusTable!$A:$A,<br>BonusTable!$C:$C, "Not found", 0)</strong>
-            <div class="sub">Arg 4 handles missing IDs. Arg 5 = exact match. <span class="res">✓</span></div>
-          </div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — XLOOKUP fills D automatically</div>
+      <div class="ba-body" style="padding:10px">
+        <div class="xl-fbar"><span class="cell-ref">D2</span><span class="fx">fx</span>=XLOOKUP(A2,BonusTable!A:A,BonusTable!B:B,"Not found",0)</div>
+        <span class="xl-sheet-label active">Staff</span>
+        <table class="xl-grid">
+          <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th></tr>
+          <tr><td class="row-n">1</td><td style="font-weight:600">Emp ID</td><td style="font-weight:600">Name</td><td style="font-weight:600">Salary</td><td style="font-weight:600">Bonus %</td></tr>
+          <tr><td class="row-n">2</td><td class="hl-match">EMP-041</td><td>Sarah Chen</td><td>£52,000</td><td class="sel result">12% ✓</td></tr>
+          <tr><td class="row-n">3</td><td>EMP-087</td><td>James Ward</td><td>£48,500</td><td class="result">18% ✓</td></tr>
+          <tr><td class="row-n">4</td><td>EMP-112</td><td>Priya Patel</td><td>£44,000</td><td class="result">8% ✓</td></tr>
+        </table>
+        <div class="lk-fix" style="margin-top:8px">
+          <strong>=XLOOKUP(A2, BonusTable!A:A, BonusTable!B:B, "Not found", 0)</strong>
+          <div class="sub">Arg 4 handles missing IDs. Arg 5 = exact match. Drag D2 down to fill all rows. <span class="res">✓</span></div>
         </div>
       </div>
     </div>
