@@ -42,29 +42,51 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint a:hover{text-decoration:underline}
 
 /* New Dynamic Before/After Panels */
-.ba-panel { display: none; margin-bottom: 1.75rem; }
-.ba-panel.on { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: stretch; }
-
-.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.ba-panel{display:none;margin-bottom:1.75rem}
+.ba-panel.on{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:0;align-items:start}
+.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;min-width:0}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
 .ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
 .ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
 .ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
-.ba-body{padding:14px}
-.xl-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
-.xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
-.xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
-.xl-table .err-cell{color:#dc2626;font-weight:700;background:#fef2f2}
-.xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
-.xl-table .blue-cell{color:#1f4e79;font-weight:700;background:#dce6f1}
-.xl-table .subtotal-cell{color:#375623;font-weight:700;background:#e2efda}
-.xl-table .hl{background:#fffbeb}
-.xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
-.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+.ba-body{padding:14px;min-width:0}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0;align-self:center}
+
+.excel-window{border:1px solid #cbd5e1;border-radius:7px;overflow:hidden;background:#fff;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.excel-ribbon{display:flex;align-items:center;gap:12px;padding:5px 9px;background:#f8fafc;border-bottom:1px solid #dbe3ec;font-size:11px;color:#64748b}
+.excel-ribbon strong{color:#217346;font-size:11.5px}
+.formula-row{display:grid;grid-template-columns:54px 24px minmax(0,1fr);border-bottom:1px solid #cbd5e1;background:#fff;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.name-box{padding:6px 7px;border-right:1px solid #cbd5e1;background:#f8fafc;color:#334155}
+.fx-box{display:flex;align-items:center;justify-content:center;border-right:1px solid #cbd5e1;color:#64748b;font-style:italic}
+.formula-input{padding:6px 8px;line-height:1.45;white-space:normal;overflow-wrap:anywhere;min-width:0}
+.sheet-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.excel-grid{width:100%;min-width:520px;border-collapse:collapse;table-layout:fixed;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.excel-grid th,.excel-grid td{border:1px solid #d6dde5;padding:5px 7px;height:28px;vertical-align:middle;overflow-wrap:anywhere}
+.excel-grid thead th{background:#f3f6f8;color:#475569;text-align:center;font-weight:500;padding:4px 6px}
+.excel-grid .corner{width:34px;background:#eef2f5}
+.excel-grid .row-num{width:34px;background:#f3f6f8;color:#64748b;text-align:center;font-weight:500}
+.excel-grid .header-cell{background:#eef5f1;color:#1f2937;font-weight:700}
+.excel-grid .selected{background:#f0fdf4;box-shadow:inset 0 0 0 2px #217346}
+.excel-grid .error-selected{background:#fef2f2;box-shadow:inset 0 0 0 2px #dc2626;color:#b91c1c;font-weight:700}
+.excel-grid .bad{background:#fef2f2;color:#b91c1c;font-weight:700}
+.excel-grid .good{background:#f0fdf4;color:#047857;font-weight:700}
+.excel-grid .pivot-head{background:#dce6f1;color:#1f4e79;font-weight:700}
+.excel-grid .pivot-total{background:#e2efda;color:#375623;font-weight:700}
+.excel-grid .formula-cell{background:#eff6ff;color:#1f4e79}
+.excel-grid .manual-cell{background:#fffbeb;color:#92400e}
+.pivot-fields{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}
+.pivot-field-box{border:1px solid #cbd5e1;border-radius:6px;background:#f8fafc;padding:8px}
+.pivot-field-box strong{display:block;font-size:10.5px;color:#475569;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.pivot-field-chip{display:inline-block;background:#fff;border:1px solid #cbd5e1;border-radius:4px;padding:3px 6px;margin:2px 3px 2px 0;font-family:'JetBrains Mono',monospace;font-size:11px;color:#334155}
+.sheet-note{margin-top:10px;padding:9px 10px;border-radius:7px;font-size:11.5px;line-height:1.55}
+.sheet-note.bad{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c}
+.sheet-note.good{background:#f0fdf4;border:1px solid #a7f3d0;color:#047857}
+.sheet-note code{font-family:'JetBrains Mono',monospace;font-size:11px;overflow-wrap:anywhere}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
-.claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
-.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
+.claude-fix-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
+.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+
 .diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .diag-header{background:#fef2f2;border-bottom:1px solid #fecaca;padding:12px 18px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#dc2626}
 .diag-row{display:grid;grid-template-columns:180px 1fr 90px;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid #f9fafb}
@@ -117,6 +139,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 @media(max-width:640px){
   .hero h1{font-size:24px}
   .ba-panel.on{grid-template-columns:1fr;gap:8px}
+  .excel-grid{min-width:500px}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
@@ -152,7 +175,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
-    h1>How to Create a Pivot Table in Excel with Claude AI</h1>
+    <h1>How to Create a Pivot Table in Excel with Claude AI</h1>
     <p class="hero-sub">Describe your data and reporting goal — Claude specifies the exact pivot table layout: which fields go in Rows, Columns, Values, and Filters; calculated field formulas; date grouping steps; and a suggested slicer. Build it in Excel in under 5 minutes.</p>
   </div>
 
@@ -261,40 +284,66 @@ Please:
   <!-- Tab: design -->
   <div class="before-after ba-panel on" id="ba-design">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — 480 rows flat, no summary, GM% missing</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — flat transaction table, no pivot layout yet</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Region</th><th>Rep</th><th>Category</th><th>Date</th><th>Revenue</th><th>COGS</th><th>GM%</th></tr>
-          <tr><td>North</td><td>A. Reid</td><td>Hardware</td><td>15/01/2026</td><td>£8,400</td><td>£5,190</td><td class="err-cell">?</td></tr>
-          <tr><td>South</td><td>B. Shaw</td><td>Software</td><td>22/01/2026</td><td>£12,200</td><td>£3,480</td><td class="err-cell">?</td></tr>
-          <tr><td>West</td><td>C. Fox</td><td>Services</td><td>03/02/2026</td><td>£6,750</td><td>£2,550</td><td class="err-cell">?</td></tr>
-          <tr><td>North</td><td>A. Reid</td><td>Software</td><td>14/02/2026</td><td>£9,800</td><td>£2,940</td><td class="err-cell">?</td></tr>
-          <tr><td colspan="4" style="color:#9ca3af;font-style:italic">… 476 more rows</td><td>…</td><td>…</td><td class="err-cell">?</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Need: Revenue + GM% by Region × Category × Quarter — 6 fields to place
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Which fields go in Rows / Columns / Values / Filters? Claude specifies all of it</div>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Insert</span><span>Data</span><span>PivotTable</span></div>
+          <div class="formula-row">
+            <div class="name-box">E2</div><div class="fx-box">fx</div><div class="formula-input">8400</div>
+          </div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:85px"><col style="width:95px"><col style="width:110px"><col style="width:110px"><col style="width:95px"><col style="width:95px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Region</td><td class="header-cell">Rep</td><td class="header-cell">Category</td><td class="header-cell">Date</td><td class="header-cell">Revenue</td><td class="header-cell">COGS</td></tr>
+                <tr><th class="row-num">2</th><td>North</td><td>A. Reid</td><td>Hardware</td><td>15/01/2026</td><td class="error-selected">£8,400</td><td>£5,190</td></tr>
+                <tr><th class="row-num">3</th><td>South</td><td>B. Shaw</td><td>Software</td><td>22/01/2026</td><td>£12,200</td><td>£3,480</td></tr>
+                <tr><th class="row-num">4</th><td>West</td><td>C. Fox</td><td>Services</td><td>03/02/2026</td><td>£6,750</td><td>£2,550</td></tr>
+                <tr><th class="row-num">5</th><td>North</td><td>A. Reid</td><td>Software</td><td>14/02/2026</td><td>£9,800</td><td>£2,940</td></tr>
+                <tr><th class="row-num">6</th><td colspan="6" style="color:#94a3b8;font-style:italic">… 476 more transaction rows</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+        <div class="sheet-note bad">Goal: Revenue and gross margin by Region × Category, grouped by Quarter. The source data is valid, but the field placement is still undefined.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude specifies the full layout + calculated field</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — pivot layout matches the reporting goal</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Region ↓</th><th class="blue-cell">Hardware</th><th class="blue-cell">Software</th><th class="blue-cell">Services</th><th>Grand Total</th></tr>
-          <tr><td><strong>North</strong></td><td>£312,400</td><td>£198,750</td><td>£84,200</td><td class="subtotal-cell">£595,350</td></tr>
-          <tr><td style="color:#6b7280;font-size:11px;padding-left:12px">GM %</td><td style="color:#6b7280;font-size:11px">38.2%</td><td style="color:#6b7280;font-size:11px">71.4%</td><td style="color:#6b7280;font-size:11px">62.1%</td><td style="color:#6b7280;font-size:11px">53.8%</td></tr>
-          <tr><td><strong>South</strong></td><td>£274,100</td><td>£143,600</td><td>£61,800</td><td class="subtotal-cell">£479,500</td></tr>
-          <tr><td style="color:#6b7280;font-size:11px;padding-left:12px">GM %</td><td style="color:#6b7280;font-size:11px">41.0%</td><td style="color:#6b7280;font-size:11px">68.9%</td><td style="color:#6b7280;font-size:11px">58.4%</td><td style="color:#6b7280;font-size:11px">53.1%</td></tr>
-          <tr><td><strong>West</strong></td><td>£198,600</td><td>£112,400</td><td>£47,300</td><td class="subtotal-cell">£358,300</td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>PivotTable Analyze</span><span>Design</span><span>Insert Slicer</span></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:115px"><col style="width:105px"><col style="width:105px"><col style="width:105px"><col style="width:115px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">3</th><td class="pivot-head">Region</td><td class="pivot-head">Hardware</td><td class="pivot-head">Software</td><td class="pivot-head">Services</td><td class="pivot-head">Grand Total</td></tr>
+                <tr><th class="row-num">4</th><td><strong>North</strong></td><td>£312,400</td><td>£198,750</td><td>£84,200</td><td class="pivot-total">£595,350</td></tr>
+                <tr><th class="row-num">5</th><td style="padding-left:14px;color:#64748b">GM %</td><td>38.2%</td><td>71.4%</td><td>62.1%</td><td class="good">53.8%</td></tr>
+                <tr><th class="row-num">6</th><td><strong>South</strong></td><td>£274,100</td><td>£143,600</td><td>£61,800</td><td class="pivot-total">£479,500</td></tr>
+                <tr><th class="row-num">7</th><td style="padding-left:14px;color:#64748b">GM %</td><td>41.0%</td><td>68.9%</td><td>58.4%</td><td class="good">53.1%</td></tr>
+                <tr><th class="row-num">8</th><td><strong>West</strong></td><td>£198,600</td><td>£112,400</td><td>£47,300</td><td class="pivot-total">£358,300</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="pivot-fields">
+          <div class="pivot-field-box"><strong>Rows</strong><span class="pivot-field-chip">Region</span></div>
+          <div class="pivot-field-box"><strong>Columns</strong><span class="pivot-field-chip">Category</span></div>
+          <div class="pivot-field-box"><strong>Values</strong><span class="pivot-field-chip">Sum of Revenue</span><span class="pivot-field-chip">GM %</span></div>
+          <div class="pivot-field-box"><strong>Filters / grouping</strong><span class="pivot-field-chip">Date → Quarter</span></div>
+        </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's layout specification</div>
-          <pre>Rows: Region | Columns: Category | Filters: Quarter
-Values: Sum of Revenue (£0) + GM% calculated field
-Calculated field: =(Revenue-COGS)/Revenue
-Sort: Revenue descending per region. ✓</pre>
+          <div class="claude-fix-label">Calculated field</div>
+          <pre>Name: GM_Pct
+Formula: =(Revenue-COGS)/Revenue
+Format: Percentage, 1 decimal place
+Slicer: Region or Quarter ✓</pre>
         </div>
       </div>
     </div>
@@ -303,37 +352,59 @@ Sort: Revenue descending per region. ✓</pre>
   <!-- Tab: calcfield -->
   <div class="before-after ba-panel" id="ba-calcfield">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — average of row-level GM% gives wrong grand total</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — averaging percentages produces the wrong total</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Region</th><th>Revenue</th><th>COGS</th><th>Row GM%</th><th>Pivot Grand Total GM%</th></tr>
-          <tr><td>North</td><td>£420,000</td><td>£189,000</td><td>55.0%</td><td rowspan="3" class="err-cell" style="vertical-align:middle;font-size:13px;font-weight:700">42.5% ✗<br><span style="font-size:10px;font-weight:400">(avg of 55+30=42.5)</span></td></tr>
-          <tr><td>South</td><td>£180,000</td><td>£126,000</td><td>30.0%</td></tr>
-          <tr><td><strong>Grand Total</strong></td><td><strong>£600,000</strong></td><td><strong>£315,000</strong></td><td><strong>correct: 47.5%</strong></td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Pivot averages 55% + 30% = 42.5% — but £(600k−315k)/600k = 47.5%
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ North has 2.3× more revenue — simple average ignores weighting</div>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>PivotTable Analyze</span><span>Field Settings</span></div>
+          <div class="formula-row">
+            <div class="name-box">E5</div><div class="fx-box">fx</div><div class="formula-input">Average of Row GM%</div>
+          </div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:120px"><col style="width:115px"><col style="width:115px"><col style="width:105px"><col style="width:130px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">3</th><td class="pivot-head">Region</td><td class="pivot-head">Revenue</td><td class="pivot-head">COGS</td><td class="pivot-head">Row GM%</td><td class="pivot-head">Pivot GM%</td></tr>
+                <tr><th class="row-num">4</th><td>North</td><td>£420,000</td><td>£189,000</td><td>55.0%</td><td>55.0%</td></tr>
+                <tr><th class="row-num">5</th><td>South</td><td>£180,000</td><td>£126,000</td><td>30.0%</td><td>30.0%</td></tr>
+                <tr><th class="row-num">6</th><td class="pivot-total">Grand Total</td><td class="pivot-total">£600,000</td><td class="pivot-total">£315,000</td><td class="pivot-total">—</td><td class="error-selected">42.5%</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+        <div class="sheet-note bad">42.5% is the simple average of 55% and 30%. But the correct weighted margin is (£600k−£315k) ÷ £600k = 47.5%.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — calculated field applies formula at aggregate level</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — calculated field uses Revenue and COGS totals</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Region</th><th>Revenue</th><th>COGS</th><th>Row GM%</th><th>Pivot Grand Total GM%</th></tr>
-          <tr><td>North</td><td>£420,000</td><td>£189,000</td><td>55.0%</td><td rowspan="3" class="ok-cell" style="vertical-align:middle;font-size:13px;font-weight:700">47.5% ✓<br><span style="font-size:10px;font-weight:400">(285k÷600k)</span></td></tr>
-          <tr><td>South</td><td>£180,000</td><td>£126,000</td><td>30.0%</td></tr>
-          <tr><td><strong>Grand Total</strong></td><td><strong>£600,000</strong></td><td><strong>£315,000</strong></td><td><strong>47.5%</strong></td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>PivotTable Analyze</span><span>Fields, Items & Sets</span><span>Calculated Field</span></div>
+          <div class="formula-row">
+            <div class="name-box">GM_Pct</div><div class="fx-box">fx</div><div class="formula-input">=(Revenue-COGS)/Revenue</div>
+          </div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:120px"><col style="width:115px"><col style="width:115px"><col style="width:130px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">3</th><td class="pivot-head">Region</td><td class="pivot-head">Revenue</td><td class="pivot-head">COGS</td><td class="pivot-head">GM_Pct</td></tr>
+                <tr><th class="row-num">4</th><td>North</td><td>£420,000</td><td>£189,000</td><td class="good">55.0%</td></tr>
+                <tr><th class="row-num">5</th><td>South</td><td>£180,000</td><td>£126,000</td><td class="good">30.0%</td></tr>
+                <tr><th class="row-num">6</th><td class="pivot-total">Grand Total</td><td class="pivot-total">£600,000</td><td class="pivot-total">£315,000</td><td class="selected good">47.5%</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's calculated field</div>
-          <pre>PivotTable Analyze → Fields, Items & Sets → Calculated Field
-Name: GM_Pct
-Formula: =(Revenue-COGS)/Revenue
-Excel sums Revenue and COGS first, then divides.
-Grand Total: (£420k+£180k−£189k−£126k)/£600k = 47.5% ✓</pre>
+          <div class="claude-fix-label">Verification</div>
+          <pre>Gross profit = £600,000 − £315,000 = £285,000
+GM % = £285,000 / £600,000 = 47.5% ✓
+
+Do not use Average of row-level GM% for this total.</pre>
         </div>
       </div>
     </div>
@@ -342,41 +413,70 @@ Grand Total: (£420k+£180k−£189k−£126k)/£600k = 47.5% ✓</pre>
   <!-- Tab: debug -->
   <div class="before-after ba-panel" id="ba-debug">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — 3 data problems split the pivot into 6 rows</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — inconsistent Region values split the pivot</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Region (raw)</th><th>Revenue</th><th>Pivot shows as</th><th>Problem</th></tr>
-          <tr><td>North</td><td>£312,400</td><td>North</td><td class="ok-cell">✓ Clean</td></tr>
-          <tr><td class="err-cell">NORTH</td><td>£84,200</td><td class="err-cell">NORTH (separate row)</td><td class="err-cell">Case mismatch</td></tr>
-          <tr><td class="err-cell">north region</td><td>£28,100</td><td class="err-cell">north region (separate)</td><td class="err-cell">Extra word</td></tr>
-          <tr><td class="err-cell">(blank)</td><td>£14,600</td><td class="err-cell">(blank) row</td><td class="err-cell">Missing value</td></tr>
-          <tr><td>South</td><td>£274,100</td><td>South</td><td class="ok-cell">✓ Clean</td></tr>
-          <tr class="section-row"><td>True North total</td><td class="err-cell">£424,700</td><td class="err-cell">Split across 3 rows</td><td class="err-cell">Understated</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          North revenue split: £312,400 + £84,200 + £28,100 = £424,700 hidden across 3 pivot rows
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Paste the raw Region column — Claude gives the exact fix for each issue</div>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Data</span><span>PivotTable</span></div>
+          <div class="formula-row">
+            <div class="name-box">A4</div><div class="fx-box">fx</div><div class="formula-input">north region</div>
+          </div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:145px"><col style="width:120px"><col style="width:160px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Region</td><td class="header-cell">Revenue</td><td class="header-cell">Pivot row</td></tr>
+                <tr><th class="row-num">2</th><td>North</td><td>£312,400</td><td>North</td></tr>
+                <tr><th class="row-num">3</th><td class="bad">NORTH</td><td>£84,200</td><td class="bad">NORTH</td></tr>
+                <tr><th class="row-num">4</th><td class="error-selected">north region</td><td>£28,100</td><td class="bad">north region</td></tr>
+                <tr><th class="row-num">5</th><td class="bad">(blank)</td><td>£14,600</td><td class="bad">(blank)</td></tr>
+                <tr><th class="row-num">6</th><td>South</td><td>£274,100</td><td>South</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+        <div class="sheet-note bad">North-related revenue is split across three labels. The blank £14,600 cannot safely be assigned to North unless another field proves that mapping.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude fixes all 3, pivot consolidates correctly</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — helper column standardises known labels and isolates blanks</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Region (cleaned)</th><th>Revenue</th><th>Pivot shows as</th><th>Fix applied</th></tr>
-          <tr><td class="ok-cell">North</td><td>£312,400</td><td rowspan="3" class="ok-cell" style="vertical-align:middle;font-weight:700">North<br>£424,700 ✓</td><td class="link-cell">=TRIM(PROPER(A2))</td></tr>
-          <tr><td class="ok-cell">North</td><td>£84,200</td><td class="link-cell">=TRIM(PROPER(A2))</td></tr>
-          <tr><td class="ok-cell">North</td><td>£28,100</td><td class="link-cell">=TRIM(PROPER(A2))</td></tr>
-          <tr><td class="ok-cell">North (Unknown)</td><td>£14,600</td><td class="ok-cell">North (Unknown)</td><td class="link-cell">IF(A2="","North (Unknown)",…)</td></tr>
-          <tr><td class="ok-cell">South</td><td>£274,100</td><td class="ok-cell">South</td><td class="ok-cell">Already clean ✓</td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data</span></div>
+          <div class="formula-row">
+            <div class="name-box">C2</div><div class="fx-box">fx</div>
+            <div class="formula-input">=IF(TRIM(A2)="","Unknown",IF(ISNUMBER(SEARCH("north",A2)),"North",PROPER(TRIM(A2))))</div>
+          </div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:145px"><col style="width:120px"><col style="width:140px"><col style="width:145px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Region raw</td><td class="header-cell">Revenue</td><td class="header-cell">Region clean</td><td class="header-cell">Pivot result</td></tr>
+                <tr><th class="row-num">2</th><td>North</td><td>£312,400</td><td class="selected good">North</td><td rowspan="3" class="good" style="vertical-align:middle">North<br>£424,700</td></tr>
+                <tr><th class="row-num">3</th><td>NORTH</td><td>£84,200</td><td class="good">North</td></tr>
+                <tr><th class="row-num">4</th><td>north region</td><td>£28,100</td><td class="good">North</td></tr>
+                <tr><th class="row-num">5</th><td>(blank)</td><td>£14,600</td><td class="manual-cell">Unknown</td><td class="manual-cell">Unknown £14,600</td></tr>
+                <tr><th class="row-num">6</th><td>South</td><td>£274,100</td><td class="good">South</td><td class="good">South £274,100</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's 3-step fix</div>
-          <pre>1. Helper col: =TRIM(PROPER(A2)) → standardises case + spaces
-2. Blanks: =IF(A2="","North (Unknown)",TRIM(PROPER(A2)))
-3. Refresh pivot → North consolidates to £424,700 ✓
-Pivot row count: 6 rows → 2 rows (North + South)</pre>
+          <div class="claude-fix-label">Safe cleaning logic</div>
+          <pre>=IF(TRIM(A2)="","Unknown",
+   IF(ISNUMBER(SEARCH("north",A2)),
+      "North",
+      PROPER(TRIM(A2))))
+
+North total:
+£312,400 + £84,200 + £28,100 = £424,700 ✓
+
+Blank stays Unknown until you have evidence for its region.
+Refresh the pivot after filling the helper column.</pre>
         </div>
       </div>
     </div>
@@ -402,7 +502,7 @@ Pivot row count: 6 rows → 2 rows (North + South)</pre>
     </div>
     <div class="diag-row">
       <div class="diag-cause">Wrong calculated field</div>
-      <div class="diag-example">GM% formula applies to <span class="bad">individual rows</span> before summing → wrong % at totals</div>
+      <div class="diag-example">Using <span class="bad">Average of row-level GM%</span> → wrong weighted percentage at totals</div>
       <div class="diag-badge badge-yellow">Invisible</div>
     </div>
   </div>
@@ -430,7 +530,7 @@ Pivot row count: 6 rows → 2 rows (North + South)</pre>
         <div class="step-n">4</div>
         <div class="step-body"><h3>Verify calculated fields at the total row, not individual rows</h3><p>Percentage calculated fields (GM%, conversion rate, margin) must be checked at the Grand Total level. If the Grand Total GM% is clearly wrong — say, 0% or 200% — the formula is being applied to individual rows before summing. Use the Calculated Field debug prompt above to fix it, or move the metric to a helper column in the source data.</p></div>
       </div>
-      <div class="tip"><strong>Tip:</strong> Standardise category labels before pivoting with a quick <code>=TRIM(PROPER(A2))</code> helper column. "North", "NORTH", and "north region" all become "North" — one row in the pivot instead of three.</div>
+      <div class="tip"><strong>Tip:</strong> Use <code>=TRIM(PROPER(A2))</code> for case and stray spaces only. It will turn "NORTH" into "North", but it will not turn "north region" into "North". For aliases or extra words, use an explicit mapping rule or lookup table.</div>
     </div>
   </div>
 
