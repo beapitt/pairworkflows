@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>12-Month Rolling Forecast in Excel with Claude AI — PairWorkflows</title>
-<meta name="description" content="Learn how to build a 12-month rolling forecast in Excel with Claude AI, replacing forecasts with actuals as each month closes and keeping the horizon updated.>
+<meta name="description" content="Learn how to build a 12-month rolling forecast in Excel with Claude AI, replacing forecasts with actuals as each month closes and keeping the horizon updated.">
 <link rel="canonical" href="https://www.pairworkflows.com/rolling-forecast-excel-claude.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between a rolling forecast and an annual budget?","acceptedAnswer":{"@type":"Answer","text":"An annual budget is set once and stays fixed for the fiscal year. A rolling forecast is updated every month: actuals replace the oldest forecast period, and a new period is added at the far end so the model always looks 12 months ahead. This keeps planning current with business conditions."}},{"@type":"Question","name":"How many months should a rolling forecast cover?","acceptedAnswer":{"@type":"Answer","text":"Twelve months is the most common horizon. Some organisations use 18 months to ensure the forecast always spans at least one full fiscal year. The prompt in this workflow defaults to 12 but you can change it."}},{"@type":"Question","name":"Can Claude automatically pull actuals into the forecast each month?","acceptedAnswer":{"@type":"Answer","text":"Claude cannot connect to live data sources. It builds the Excel structure with clearly separated Actuals and Forecast columns. Each month, you paste updated actuals into the Actuals section and the formulas recalculate the remaining forecast periods automatically."}},{"@type":"Question","name":"How do I handle seasonality in a rolling forecast?","acceptedAnswer":{"@type":"Answer","text":"Include a seasonality index or monthly weighting in your input data. The prompt instructs Claude to apply seasonal adjustments to the base forecast so that Q4 revenue projections reflect your historical uplift rather than a flat monthly average."}},{"@type":"Question","name":"Does this replace a 3-statement financial model?","acceptedAnswer":{"@type":"Answer","text":"No. A rolling forecast focuses on the P&L and key operating metrics. A 3-statement model links the income statement, balance sheet, and cash flow statement. They serve different purposes and can complement each other."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between a rolling forecast and an annual budget?","acceptedAnswer":{"@type":"Answer","text":"An annual budget is set once and stays fixed for the fiscal year. A rolling forecast is updated every month: the closed month moves into historical actuals, that month leaves the active forecast horizon, and a new period is added at the far end so the model continues to look 12 months ahead. This keeps planning current with business conditions."}},{"@type":"Question","name":"How many months should a rolling forecast cover?","acceptedAnswer":{"@type":"Answer","text":"Twelve months is the most common horizon. Some organisations use 18 months to ensure the forecast always spans at least one full fiscal year. The prompt in this workflow defaults to 12 but you can change it."}},{"@type":"Question","name":"Can Claude automatically pull actuals into the forecast each month?","acceptedAnswer":{"@type":"Answer","text":"Claude cannot connect to live data sources. It builds the Excel structure with clearly separated Actuals and Forecast columns. Each month, you paste updated actuals into the Actuals section and the formulas recalculate the remaining forecast periods automatically."}},{"@type":"Question","name":"How do I handle seasonality in a rolling forecast?","acceptedAnswer":{"@type":"Answer","text":"Include a seasonality index or monthly weighting in your input data. The prompt instructs Claude to apply seasonal adjustments to the base forecast so that Q4 revenue projections reflect your historical uplift rather than a flat monthly average."}},{"@type":"Question","name":"Does this replace a 3-statement financial model?","acceptedAnswer":{"@type":"Answer","text":"No. A rolling forecast focuses on the P&L and key operating metrics. A 3-statement model links the income statement, balance sheet, and cash flow statement. They serve different purposes and can complement each other."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -42,31 +42,59 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint a:hover{text-decoration:underline}
 
 /* DYNAMIC PANELS */
-.ba-panel { display: none; margin-bottom: 1.75rem; }
-.ba-panel.on { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: stretch; }
-.steps-panel { display: none; }
-.steps-panel.on { display: block; }
+.ba-panel{display:none;margin-bottom:1.75rem}
+.ba-panel.on{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:0;align-items:start}
+.steps-panel{display:none}
+.steps-panel.on{display:block}
 
-.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;min-width:0}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
 .ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
 .ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
 .ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
-.ba-body{padding:14px}
-.xl-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
-.xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
-.xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
-.xl-table .err-cell{color:#dc2626;font-weight:700;background:#fef2f2}
-.xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
-.xl-table .actual-cell{color:#1f4e79;font-weight:600;background:#e8f0fe}
-.xl-table .forecast-cell{color:#9c6500;background:#fff8e1}
-.xl-table .total-cell{color:#276221;font-weight:700;background:#e2efda}
-.xl-table .hl{background:#fffbeb}
-.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+.ba-body{padding:14px;min-width:0}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0;align-self:center}
+.excel-window{border:1px solid #cbd5e1;border-radius:7px;overflow:hidden;background:#fff;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.excel-ribbon{display:flex;align-items:center;gap:12px;padding:5px 9px;background:#f8fafc;border-bottom:1px solid #dbe3ec;font-size:11px;color:#64748b}
+.excel-ribbon strong{color:#217346;font-size:11.5px}
+.formula-row{display:grid;grid-template-columns:54px 24px minmax(0,1fr);border-bottom:1px solid #cbd5e1;background:#fff;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.name-box{padding:6px 7px;border-right:1px solid #cbd5e1;background:#f8fafc;color:#334155}
+.fx-box{display:flex;align-items:center;justify-content:center;border-right:1px solid #cbd5e1;color:#64748b;font-style:italic}
+.formula-input{padding:6px 8px;line-height:1.45;white-space:normal;overflow-wrap:anywhere;min-width:0}
+.sheet-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.excel-grid{width:100%;min-width:820px;border-collapse:collapse;table-layout:fixed;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.excel-grid th,.excel-grid td{border:1px solid #d6dde5;padding:5px 7px;height:28px;vertical-align:middle;overflow-wrap:anywhere}
+.excel-grid thead th{background:#f3f6f8;color:#475569;text-align:center;font-weight:500;padding:4px 6px}
+.excel-grid .corner{width:34px;background:#eef2f5}
+.excel-grid .row-num{width:34px;background:#f3f6f8;color:#64748b;text-align:center;font-weight:500}
+.excel-grid .header-cell{background:#eef5f1;color:#1f2937;font-weight:700}
+.excel-grid .actual{background:#eff6ff;color:#1d4ed8;font-weight:700}
+.excel-grid .forecast{background:#fffbeb;color:#a16207}
+.excel-grid .assumption{background:#f5f3ff;color:#6d28d9;font-weight:700}
+.excel-grid .selected{background:#f0fdf4;box-shadow:inset 0 0 0 2px #217346}
+.excel-grid .error-selected{background:#fef2f2;box-shadow:inset 0 0 0 2px #dc2626;color:#b91c1c;font-weight:700}
+.excel-grid .subtotal{background:#f1f5f9;font-weight:700}
+.excel-grid .good{background:#f0fdf4;color:#047857;font-weight:700}
+.excel-grid .bad{background:#fef2f2;color:#b91c1c;font-weight:700}
+.excel-grid .formula-cell{background:#eff6ff;color:#1f4e79}
+.excel-grid .oneoff{background:#fff7ed;color:#c2410c;font-weight:700}
+.sheet-tabs{display:flex;gap:2px;padding:5px 7px;background:#f8fafc;border-top:1px solid #dbe3ec;font-size:11px}
+.sheet-tab{padding:4px 9px;color:#64748b}
+.sheet-tab.active{background:#fff;color:#217346;font-weight:700;border:1px solid #dbe3ec;border-bottom-color:#fff}
+.sheet-note{margin-top:10px;padding:9px 10px;border-radius:7px;font-size:11.5px;line-height:1.55}
+.sheet-note.bad{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c}
+.sheet-note.good{background:#f0fdf4;border:1px solid #a7f3d0;color:#047857}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
-.claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
-.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
+.claude-fix-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
+.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+
+@media(max-width:640px){
+  .ba-panel.on{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:.4rem 0}
+  .excel-grid{min-width:820px}
+}
+
 .diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .diag-header{background:#fef2f2;border-bottom:1px solid #fecaca;padding:12px 18px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#dc2626}
 .diag-row{display:grid;grid-template-columns:180px 1fr 90px;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid #f9fafb}
@@ -112,8 +140,6 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
 @media(max-width:640px){
   .hero h1{font-size:24px}
-  .ba-panel.on{grid-template-columns:1fr;gap:8px}
-  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
   .related-grid{grid-template-columns:1fr}
@@ -169,8 +195,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
       <div class="prompt-box">
         <pre>I need a rolling 12-month forecast model in Excel.
 
-HISTORICAL ACTUALS (columns: Line Item, then one column per month):
-[Paste your actuals here — at least 3 months, more is better]
+HISTORICAL ACTUALS (columns: Line Item, then one column per closed month):
+[Paste your actuals here — at least 3 months, preferably 6–12]
 
 FORECAST ASSUMPTIONS:
 - Revenue growth: [e.g. 2% month-over-month]
@@ -179,23 +205,27 @@ FORECAST ASSUMPTIONS:
 - Seasonality index (optional): [e.g. Jan=0.85, Feb=0.90, ..., Dec=1.20]
 - One-off items (optional): [e.g. Sep: £50,000 relocation cost in OpEx]
 
-Current month (first open forecast month): [e.g. July 2025]
+First open forecast month: [e.g. July 2025]
+
+MODEL DEFINITION
+- Keep historical actuals in an Actuals section to the left.
+- Keep a separate ACTIVE FORECAST HORIZON containing exactly 12 future months,
+  starting with the first open forecast month.
+- When a month closes, move its final actual into the Actuals section, remove that
+  month from the active forecast horizon, and append one new forecast month at the
+  far right. The active forecast horizon must remain exactly 12 months.
 
 Requirements:
-- Build a 12-month rolling model: actuals in the leftmost columns
-  (blue header), forecast in the remaining columns (yellow header).
-- Each month I will paste new actuals to replace the oldest forecast
-  column and add a new forecast month at the far end.
-- Forecast columns must use formulas referencing assumptions,
-  NOT hard-coded values.
-- Apply seasonality index to monthly revenue if provided.
-- Add one-off items as hard-coded overrides in the specified month.
-- Include subtotal rows: Gross Profit, Operating Income, Net Income.
-- Add a rolling 12-month total column on the far right.
+- Use formulas referencing an Assumptions tab — do not hard-code recurring forecast drivers.
+- Revenue formula must use one clearly defined base and apply growth only once.
+- If seasonality is used, reference the month-specific index from the Assumptions tab.
+- Add one-off items only in the specified month as explicit overrides/additions.
+- Include subtotal rows: Gross Profit and Operating Income.
+- Include Net Income only if I provide all required below-operating-income assumptions
+  (for example interest and tax). Otherwise stop at Operating Income rather than inventing inputs.
+- Add a Forecast 12M Total column that sums only the 12 active forecast months.
 - Do NOT invent figures or assumptions I haven't provided.
-- Do NOT project beyond the 12-month horizon.
-- Format as tab-separated table I can paste into Excel,
-  with formulas written out (e.g. =B3*1.02).</pre>
+- Format as tab-separated tables ready to paste into Excel, with formulas written out.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Paste your real actuals and assumptions. Works in <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
@@ -206,19 +236,29 @@ Requirements:
       <div class="prompt-box">
         <pre>I need to add a seasonality index to my rolling forecast model.
 
-My annual revenue: [e.g. £6,000,000]
-My historical monthly revenue split (as % of annual):
+BASE-YEAR ANNUAL REVENUE: [e.g. £600,000]
+
+Historical monthly revenue split as % of annual revenue:
 Jan: [%] Feb: [%] Mar: [%] Apr: [%] May: [%] Jun: [%]
 Jul: [%] Aug: [%] Sep: [%] Oct: [%] Nov: [%] Dec: [%]
 
+Forecast growth assumption:
+[e.g. 2% month-over-month, or leave blank if growth is already built into my base forecast]
+
 Requirements:
-- Convert the monthly percentages into a seasonality index
-  (where 1.0 = average month).
-- Apply the index to the base monthly forecast:
+- First verify that the 12 monthly shares total approximately 100%.
+- Convert each monthly share into a normalized seasonality index:
+  SeasonIndex = MonthlyShare / (1/12) = MonthlyShare × 12
+  so the average index across the 12 months is 1.0.
+- Define BaseMonthlyRevenue = BaseYearAnnualRevenue / 12.
+- If growth is NOT already embedded elsewhere, use:
   Forecast = BaseMonthlyRevenue × SeasonIndex × (1 + GrowthRate)^n
-- Put the seasonality index on a separate Assumptions tab so I
-  can adjust it without touching the formula structure.
-- Write the exact formula for each forecast revenue cell.</pre>
+  where n = 0 for the first forecast month, 1 for the next month, etc.
+- If my existing base forecast already includes growth, do NOT multiply by growth again;
+  apply only the seasonality adjustment.
+- Put the seasonality index on a separate Assumptions tab.
+- Write the exact Excel formula for each forecast revenue cell.
+- Do not invent missing monthly shares or growth assumptions.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Use this after building the base model — add it as a separate tab so your assumptions stay organised.</p>
@@ -227,25 +267,31 @@ Requirements:
     <!-- Panel: Update -->
     <div id="p-update" class="panel">
       <div class="prompt-box">
-        <pre>I need to update my rolling 12-month forecast for the new month.
+        <pre>I need to roll my 12-month forecast forward after month-end close.
 
-The month that just closed: [e.g. June 2025]
-Actual figures for that month:
+Month just closed: [e.g. June 2025]
+Final actual figures for that month:
 [Paste: Revenue, COGS, OpEx, and any other line items]
 
-My model currently runs from [start month] to [end month].
+Current ACTIVE FORECAST HORIZON:
+[e.g. June 2025 through May 2026]
+
+New far-end forecast month to add:
+[e.g. June 2026]
 
 Instructions:
-1. Replace the June 2025 Forecast column with these actuals.
-2. Add a new Forecast column for [new far-end month, e.g. June 2026]
-   using the same growth rate and seasonality assumptions as the
-   rest of the model.
-3. Update the rolling 12-month total column.
-4. Show me only the changed cells with their new values/formulas —
-   do not reprint the entire model.</pre>
+1. Move the closed month's final actuals into the historical Actuals section.
+2. Remove that closed month from the ACTIVE FORECAST HORIZON.
+3. Append the new far-end forecast month using the same linked assumptions,
+   growth logic, seasonality logic, and one-off rules as the existing forecast.
+4. Confirm that the ACTIVE FORECAST HORIZON still contains exactly 12 future months.
+5. Update the Forecast 12M Total so it sums only those 12 active forecast months.
+6. Show me only the changed cells / formulas and the new 12-month horizon —
+   do not reprint the entire model.
+7. Do not overwrite historical actuals or invent assumptions.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Run this prompt every month to keep the model rolling — takes about 2 minutes per update.</p>
+      <p class="prompt-hint">Run this after month-end close: the closed month moves to Actuals, one new far-end month is appended, and the active forecast stays at 12 future months.</p>
     </div>
   </div>
 
@@ -254,33 +300,68 @@ Instructions:
   <!-- BA: Build -->
   <div class="before-after ba-panel on" id="ba-build">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — static annual budget</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — static budget repeats assumptions and has no rolling horizon</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Line Item</th><th>Jan</th><th>Feb</th><th>Mar</th><th>FY Total</th></tr>
-          <tr><td>Revenue</td><td class="hl">480k</td><td class="hl">480k</td><td class="hl">480k</td><td>5,760k</td></tr>
-          <tr><td>Net Income</td><td>42k</td><td>42k</td><td>42k</td><td>504k</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Fixed in January — stale by February
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Flat £480k every month — no growth, no seasonality</div>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data</span></div>
+          <div class="formula-row"><div class="name-box">C2</div><div class="fx-box">fx</div><div class="formula-input">480000</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:160px"><col style="width:110px"><col style="width:110px"><col style="width:110px"><col style="width:120px"><col style="width:145px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Line Item</td><td class="header-cell">Jan Budget</td><td class="header-cell">Feb Budget</td><td class="header-cell">Mar Budget</td><td class="header-cell">FY Total</td><td class="header-cell">Driver</td></tr>
+                <tr><th class="row-num">2</th><td>Revenue</td><td>£480k</td><td class="error-selected">£480k</td><td>£480k</td><td>£5,760k</td><td class="bad">Hardcoded</td></tr>
+                <tr><th class="row-num">3</th><td>COGS</td><td>£192k</td><td>£192k</td><td>£192k</td><td>£2,304k</td><td class="bad">Hardcoded 40%</td></tr>
+                <tr><th class="row-num">4</th><td>OpEx</td><td>£220k</td><td>£220k</td><td>£220k</td><td>£2,640k</td><td class="bad">No escalation</td></tr>
+                <tr><th class="row-num">5</th><td class="subtotal">Operating Income</td><td class="subtotal">£68k</td><td class="subtotal">£68k</td><td class="subtotal">£68k</td><td class="subtotal">£816k</td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="sheet-tabs"><span class="sheet-tab active">Annual Budget</span><span class="sheet-tab">Actuals</span><span class="sheet-tab">Assumptions</span></div>
         </div>
+        <div class="sheet-note bad">The sheet is a static annual budget: no first-open-month marker, no 12-month forward horizon, and recurring forecast drivers are embedded as numbers.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude builds the rolling model</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — historical actuals sit beside a formula-driven 12-month forecast horizon</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Line Item</th><th>Apr</th><th>May</th><th>Jun</th><th>Jul</th></tr>
-          <tr><td>Revenue</td><td class="actual-cell">520k</td><td class="actual-cell">535k</td><td class="actual-cell">510k</td><td class="forecast-cell">540k</td></tr>
-          <tr><td>Net Income</td><td class="actual-cell">67k</td><td class="actual-cell">73k</td><td class="actual-cell">56k</td><td class="forecast-cell">72k</td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Trace Precedents</span></div>
+          <div class="formula-row"><div class="name-box">E2</div><div class="fx-box">fx</div><div class="formula-input">=D2*(1+Assumptions!$B$2)</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:160px"><col style="width:105px"><col style="width:105px"><col style="width:105px"><col style="width:105px"><col style="width:105px"><col style="width:115px"><col style="width:130px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Line Item</td><td class="actual">Apr A</td><td class="actual">May A</td><td class="actual">Jun A</td><td class="forecast">Jul F</td><td class="forecast">Aug F</td><td class="forecast">Sep F</td><td class="forecast">… Jun F+1</td><td class="header-cell">Forecast 12M</td></tr>
+                <tr><th class="row-num">2</th><td>Revenue</td><td class="actual">£520.0k</td><td class="actual">£535.0k</td><td class="actual">£510.0k</td><td class="selected formula-cell">£520.2k</td><td class="formula-cell">£530.6k</td><td class="formula-cell">£541.2k</td><td class="formula-cell">linked</td><td class="formula-cell">=SUM(E2:P2)</td></tr>
+                <tr><th class="row-num">3</th><td>COGS @ 40%</td><td class="actual">£208.0k</td><td class="actual">£214.0k</td><td class="actual">£204.0k</td><td class="formula-cell">£208.1k</td><td class="formula-cell">£212.2k</td><td class="formula-cell">£216.5k</td><td class="formula-cell">linked</td><td class="formula-cell">=SUM(E3:P3)</td></tr>
+                <tr><th class="row-num">4</th><td>OpEx</td><td class="actual">£221.0k</td><td class="actual">£223.0k</td><td class="actual">£225.0k</td><td class="formula-cell">£226.1k</td><td class="formula-cell">£227.3k</td><td class="oneoff">£278.4k*</td><td class="formula-cell">linked</td><td class="formula-cell">=SUM(E4:P4)</td></tr>
+                <tr><th class="row-num">5</th><td class="subtotal">Operating Income</td><td class="subtotal actual">£91.0k</td><td class="subtotal actual">£98.0k</td><td class="subtotal actual">£81.0k</td><td class="subtotal">£86.0k</td><td class="subtotal">£91.1k</td><td class="subtotal">£46.3k</td><td class="subtotal">linked</td><td class="subtotal">12M sum</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="sheet-tabs"><span class="sheet-tab">Actuals</span><span class="sheet-tab active">Rolling Forecast</span><span class="sheet-tab">Assumptions</span></div>
+        </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's formula</div>
-          <pre>Jul Revenue =E3*1.02*SeasonIndex_Jul
-Always 12 months ahead. Actuals replace
-forecasts as each month closes. ✓</pre>
+          <div class="claude-fix-label">Driver logic</div>
+          <pre>Assumptions:
+Revenue growth = 2.0% MoM
+COGS = 40% of Revenue
+OpEx escalation = 0.5% MoM
+Sep one-off relocation = £50k
+
+Jul Revenue = £510.0k × 1.02 = £520.2k
+Aug Revenue = £520.2k × 1.02 = £530.604k
+Jul COGS = £520.2k × 40% = £208.08k
+Jul OpEx = £225.0k × 1.005 = £226.125k
+
+Sep OpEx includes the explicit £50k one-off.
+Forecast 12M totals sum only the 12 active forecast months. ✓</pre>
         </div>
       </div>
     </div>
@@ -289,30 +370,63 @@ forecasts as each month closes. ✓</pre>
   <!-- BA: Seasonal -->
   <div class="before-after ba-panel" id="ba-seasonal">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — flat monthly averages</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — monthly revenue shares exist, but no normalized index is used</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Revenue</th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th></tr>
-          <tr><td>Base</td><td class="hl">50k</td><td class="hl">50k</td><td class="hl">50k</td><td class="hl">50k</td><td class="hl">50k</td><td class="hl">50k</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Q4 peak completely ignored, throwing off cash flow planning
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Data</span><span>Formulas</span></div>
+          <div class="formula-row"><div class="name-box">G3</div><div class="fx-box">fx</div><div class="formula-input">12.5%</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:145px"><col style="width:95px"><col style="width:95px"><col style="width:95px"><col style="width:95px"><col style="width:95px"><col style="width:95px"><col style="width:110px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Metric</td><td class="header-cell">Jul</td><td class="header-cell">Aug</td><td class="header-cell">Sep</td><td class="header-cell">Oct</td><td class="header-cell">Nov</td><td class="header-cell">Dec</td><td class="header-cell">Check</td></tr>
+                <tr><th class="row-num">2</th><td>Flat base</td><td>£50k</td><td>£50k</td><td>£50k</td><td>£50k</td><td>£50k</td><td>£50k</td><td>Ignores seasonality</td></tr>
+                <tr><th class="row-num">3</th><td>Historical share</td><td>7.0%</td><td>6.5%</td><td>7.5%</td><td>9.0%</td><td>10.5%</td><td class="error-selected">12.5%</td><td>Full year must = 100%</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+        <div class="sheet-note bad">A monthly share is not itself the seasonality index. It must be normalized against an average month (8.333% of annual revenue).</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — adjusted with seasonality index</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — monthly shares become a normalized 1.0-average seasonality index</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Revenue</th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th></tr>
-          <tr><td>Seasonal</td><td class="actual-cell">42k</td><td class="actual-cell">38k</td><td class="actual-cell">45k</td><td class="forecast-cell">55k</td><td class="forecast-cell">65k</td><td class="forecast-cell">75k</td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Assumptions</span></div>
+          <div class="formula-row"><div class="name-box">G3</div><div class="fx-box">fx</div><div class="formula-input">=G2*12</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:145px"><col style="width:95px"><col style="width:95px"><col style="width:95px"><col style="width:95px"><col style="width:95px"><col style="width:95px"><col style="width:130px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Metric</td><td class="header-cell">Jul</td><td class="header-cell">Aug</td><td class="header-cell">Sep</td><td class="header-cell">Oct</td><td class="header-cell">Nov</td><td class="header-cell">Dec</td><td class="header-cell">Logic</td></tr>
+                <tr><th class="row-num">2</th><td>Historical share</td><td>7.0%</td><td>6.5%</td><td>7.5%</td><td>9.0%</td><td>10.5%</td><td>12.5%</td><td>Input</td></tr>
+                <tr><th class="row-num">3</th><td>Season Index</td><td class="assumption">0.84</td><td class="assumption">0.78</td><td class="assumption">0.90</td><td class="assumption">1.08</td><td class="assumption">1.26</td><td class="selected assumption">1.50</td><td>Share × 12</td></tr>
+                <tr><th class="row-num">4</th><td>Base monthly revenue</td><td colspan="6">£600,000 annual / 12 = £50,000</td><td class="formula-cell">Annual / 12</td></tr>
+                <tr><th class="row-num">5</th><td>Seasonal revenue</td><td>£42,000</td><td>£39,000</td><td>£45,000</td><td>£54,000</td><td>£63,000</td><td class="good">£75,000</td><td>Base × Index</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's output</div>
-          <pre>Index applied to base formula: =Base * Index
-(e.g., Dec = 50k * 1.50)
-Now accounts for historical year-end spikes. ✓</pre>
+          <div class="claude-fix-label">Seasonality math</div>
+          <pre>Average monthly share = 1/12 = 8.333%
+
+Jul index = 7.0% × 12 = 0.84
+Dec index = 12.5% × 12 = 1.50
+
+With £600k base-year annual revenue:
+Base month = £600k / 12 = £50k
+Jul = £50k × 0.84 = £42k
+Dec = £50k × 1.50 = £75k ✓
+
+If the base forecast already contains growth, apply seasonality only.
+Do not multiply by a growth factor twice.</pre>
         </div>
       </div>
     </div>
@@ -321,30 +435,60 @@ Now accounts for historical year-end spikes. ✓</pre>
   <!-- BA: Update -->
   <div class="before-after ba-panel" id="ba-update">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — outdated period structure</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — June has closed but still occupies the first forecast slot</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Line Item</th><th>May (Act)</th><th>Jun (Fcst)</th><th>Jul (Fcst)</th></tr>
-          <tr><td>Revenue</td><td>40k</td><td class="hl">42k</td><td>45k</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          June is already closed, but model still shows old forecast values
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data</span></div>
+          <div class="formula-row"><div class="name-box">C2</div><div class="fx-box">fx</div><div class="formula-input">42000</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:145px"><col style="width:110px"><col style="width:110px"><col style="width:110px"><col style="width:125px"><col style="width:150px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Line Item</td><td class="actual">May A</td><td class="forecast">Jun F</td><td class="forecast">Jul F</td><td class="forecast">… May F+1</td><td class="header-cell">Forecast Horizon</td></tr>
+                <tr><th class="row-num">2</th><td>Revenue</td><td class="actual">£40k</td><td class="error-selected">£42k</td><td class="forecast">£45k</td><td class="forecast">linked</td><td class="bad">Still starts Jun</td></tr>
+                <tr><th class="row-num">3</th><td>COGS</td><td class="actual">£16k</td><td class="forecast">£16.8k</td><td class="forecast">£18k</td><td class="forecast">linked</td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+        <div class="sheet-note bad">June is now a closed month. Leaving it inside the active forecast means the horizon is stale and no longer represents 12 future months.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — rolled forward perfectly</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — June moves to Actuals and a new June forecast is appended at the far end</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Line Item</th><th>May (Act)</th><th>Jun (Act)</th><th>Jul (Fcst)</th><th>Jun+1 (Fcst)</th></tr>
-          <tr><td>Revenue</td><td>40k</td><td class="actual-cell">44k</td><td>45k</td><td class="forecast-cell">50k</td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Trace Precedents</span></div>
+          <div class="formula-row"><div class="name-box">E2</div><div class="fx-box">fx</div><div class="formula-input">=PriorMonthRevenue*(1+Growth)*SeasonalityAdjustment</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:145px"><col style="width:105px"><col style="width:105px"><col style="width:105px"><col style="width:125px"><col style="width:145px"><col style="width:130px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Line Item</td><td class="actual">May A</td><td class="actual">Jun A</td><td class="forecast">Jul F</td><td class="forecast">… May F+1</td><td class="forecast">Jun F+1 NEW</td><td class="header-cell">Active Forecast</td></tr>
+                <tr><th class="row-num">2</th><td>Revenue</td><td class="actual">£40k</td><td class="selected actual">£44k</td><td class="forecast">£45k</td><td class="forecast">linked</td><td class="formula-cell">new formula</td><td class="good">Jul→Jun = 12 months</td></tr>
+                <tr><th class="row-num">3</th><td>COGS</td><td class="actual">£16k</td><td class="actual">£17.6k</td><td class="forecast">£18k</td><td class="forecast">linked</td><td class="formula-cell">=Revenue*40%</td><td class="good">12 months</td></tr>
+                <tr><th class="row-num">4</th><td class="subtotal">Forecast 12M Total</td><td></td><td></td><td colspan="3" class="subtotal formula-cell">=SUM(Jul F : Jun F+1)</td><td class="subtotal good">Updated</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's update</div>
-          <pre>June converted to Actuals column.
-New June (+1 Year) forecast appended.
-Rolling total dynamically adjusted. ✓</pre>
+          <div class="claude-fix-label">Monthly roll-forward</div>
+          <pre>Before close:
+Active forecast = Jun 2025 → May 2026 (12 months)
+
+After June closes:
+June 2025 actual moves to history.
+Active forecast = Jul 2025 → Jun 2026 (12 months)
+
+The new June 2026 formula inherits the same assumptions.
+Historical June actual is not overwritten.
+Forecast 12M Total sums Jul 2025 through Jun 2026 only. ✓</pre>
         </div>
       </div>
     </div>
@@ -365,7 +509,7 @@ Rolling total dynamically adjusted. ✓</pre>
     </div>
     <div class="diag-row">
       <div class="diag-cause">Flat monthly forecast</div>
-      <div class="diag-example">No seasonality → <span class="bad">December projected same as August</span>, Q4 badly understated</div>
+      <div class="diag-example">Ignoring a known seasonal pattern → <span class="bad">peak/trough months flattened</span> and timing distorted</div>
       <div class="diag-badge badge-yellow">Easy fix</div>
     </div>
     <div class="diag-row">
@@ -396,7 +540,7 @@ Rolling total dynamically adjusted. ✓</pre>
       </div>
       <div class="step">
         <div class="step-n">4</div>
-        <div class="step-body"><h3>Update monthly using the Update with actuals prompt</h3><p>At the end of each month, use the third tab prompt above. Paste the closed actuals, Claude gives you the replacement values and the new far-end forecast month. The whole update takes about 2 minutes and keeps the model rolling forward automatically.</p></div>
+        <div class="step-body"><h3>Update monthly using the Update with actuals prompt</h3><p>At the end of each month, use the third tab prompt above. Paste the closed actuals; Claude can identify the cells to move into history and provide the new far-end forecast formulas while keeping the active horizon at 12 future months.</p></div>
       </div>
       <div class="tip"><strong>Tip:</strong> Keep the rolling forecast alongside your static annual budget — not instead of it. Use the annual budget for board reporting and compensation benchmarks, the rolling forecast for operational decisions. Run the <a href="/build-budget-variance-analysis-report-excel-claude.html" style="color:#92400e;font-weight:600">budget variance report</a> against both to see which is tracking reality more closely.</div>
     </div>
@@ -441,11 +585,11 @@ Rolling total dynamically adjusted. ✓</pre>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Paste actuals over old forecast</h3><p>Replace the oldest forecast column (which represents the just-closed month) with the newly generated actuals values.</p></div>
+        <div class="step-body"><h3>Paste actuals over old forecast</h3><p>Move the just-closed month out of the active forecast horizon into the historical Actuals section, preserving the final actual values.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
-        <div class="step-body"><h3>Append the new far-end month</h3><p>Add Claude's new formula column at the end of the sheet to immediately extend the rolling horizon to a full 12 months again.</p></div>
+        <div class="step-body"><h3>Append the new far-end month</h3><p>Append the new far-end forecast formula column so the active horizon again contains exactly 12 future months.</p></div>
       </div>
     </div>
   </div>
@@ -455,7 +599,7 @@ Rolling total dynamically adjusted. ✓</pre>
   <div class="faq-section">
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What is the difference between a rolling forecast and an annual budget? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">An annual budget is set once and stays fixed for the fiscal year. A rolling forecast is updated every month: actuals replace the oldest forecast period, and a new period is added at the far end so the model always looks 12 months ahead. This keeps planning current with business conditions rather than locked to assumptions made 10 months ago.</div>
+      <div class="faq-a">An annual budget is set once and stays fixed for the fiscal year. A rolling forecast is updated every month: the closed month moves into historical actuals, that month leaves the active forecast horizon, and a new period is added at the far end so the model continues to look 12 months ahead. This keeps planning current with business conditions rather than locked to assumptions made 10 months ago.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How many months should a rolling forecast cover? <i class="ti ti-chevron-down"></i></div>
@@ -463,7 +607,7 @@ Rolling total dynamically adjusted. ✓</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can Claude automatically pull actuals into the forecast each month? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Claude cannot connect to live data sources. It builds the Excel structure with clearly separated Actuals and Forecast columns. Each month, paste updated actuals into the Actuals section and the formulas recalculate the remaining forecast periods automatically. Use the Update with actuals prompt tab above to guide this process.</div>
+      <div class="faq-a">Claude cannot connect to live data sources. It builds the Excel structure with clearly separated Actuals and Forecast columns. Each month, paste the closed month into the Actuals section, roll the active forecast forward by one month, and append a new far-end forecast period using the same linked assumptions. Use the Update with actuals prompt tab above to guide this process.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I handle seasonality in a rolling forecast? <i class="ti ti-chevron-down"></i></div>
