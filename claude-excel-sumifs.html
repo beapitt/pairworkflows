@@ -67,6 +67,29 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
 .claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
 
+
+/* ── SUMIFS — criteria matrix ── */
+.crit-wrap{padding:10px 10px 12px}
+.crit-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
+.crit-table th{background:#25313c;color:#a9b4c2;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.06em;padding:7px 12px;text-align:left}
+.crit-table td{padding:6px 12px;border-bottom:1px solid #f0ede4;color:#25313c}
+.crit-table tr:nth-child(even) td{background:#fafaf7}
+.chip{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;letter-spacing:.03em}
+.chip-pass{background:#e6f5f4;color:#087e7a}
+.chip-fail{background:#fef3e2;color:#b8860b}
+.chip-err{background:#fde8e8;color:#b91c1c}
+.crit-row-match td{background:#e6f5f4 !important}
+.crit-row-miss td{opacity:.55}
+.crit-caption{margin-top:12px;padding:10px 12px;background:#fef3e2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#7a5a10;width:100%;box-sizing:border-box;line-height:1.5}
+.crit-caption .sub{font-size:11px;color:#b8a060;margin-top:4px}
+.crit-fix{margin-top:12px;padding:12px 14px;background:#1a2e2e;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.5;color:#b8e6e4;width:100%;box-sizing:border-box}
+.crit-fix .res{color:#2ec4b6;font-weight:700}
+.crit-fix .sub{font-size:11.5px;color:#6fa8a6;margin-top:5px;line-height:1.5}
+.range-bar{display:flex;align-items:center;gap:6px;margin:6px 0;font-family:'JetBrains Mono',monospace;font-size:12px}
+.range-seg{padding:6px 14px;border-radius:6px;font-weight:600}
+.range-ok{background:#e6f5f4;color:#087e7a;border:1.5px solid #087e7a}
+.range-bad{background:#fde8e8;color:#b91c1c;border:1.5px solid #b91c1c}
+
 /* ── DIAGNOSIS TABLE ── */
 .diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .diag-header{background:#fef2f2;border-bottom:1px solid #fecaca;padding:12px 18px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#dc2626}
@@ -128,6 +151,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 @media(max-width:640px){
   .hero h1{font-size:24px}
   .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-panel.on{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:4px 0}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
@@ -229,21 +254,23 @@ Sum range is column E, Region is column A, data from row 2 to 500.</pre>
 
   <!-- Tab: build -->
   <div class="before-after ba-panel" id="ba-build">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — raw sales data, summary done manually</div>
+    <div class="ba-col before" style="border-color:#d7cdb0">
+      <div class="ba-header" style="background:#fef3e2;color:#7a5a10;border-bottom:1px solid #d7cdb0"><i class="ti ti-filter" style="font-size:14px"></i> Before — 3 criteria needed, no formula written yet</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Region</th><th>Rep</th><th>Product</th><th>Date</th><th>Revenue</th><th>Q1 Total?</th></tr>
-          <tr><td class="hl">North</td><td>A. Reid</td><td class="hl">Widget Pro</td><td>15/01/2026</td><td class="hl">£1,200</td><td class="err-cell">?</td></tr>
-          <tr><td>South</td><td>B. Shaw</td><td>Widget A</td><td>20/01/2026</td><td>£850</td><td class="err-cell">—</td></tr>
-          <tr><td class="hl">North</td><td>C. Fox</td><td class="hl">Widget Pro</td><td>03/02/2026</td><td class="hl">£2,100</td><td class="err-cell">?</td></tr>
-          <tr><td>East</td><td>D. Lane</td><td>Widget A</td><td>18/02/2026</td><td>£940</td><td class="err-cell">—</td></tr>
-          <tr><td class="hl">North</td><td>A. Reid</td><td class="hl">Widget Pro</td><td>05/03/2026</td><td class="hl">£1,800</td><td class="err-cell">?</td></tr>
-          <tr><td>South</td><td>B. Shaw</td><td>Widget B</td><td>22/03/2026</td><td>£1,140</td><td class="err-cell">—</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Need: North + Widget Pro + Q1 (Jan–Mar 2026) — 3 criteria, no formula
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Describe in plain English, Claude writes the 4-criteria SUMIFS</div>
+        <div class="crit-wrap">
+          <table class="crit-table">
+            <tr><th>Region</th><th>Product</th><th>Date</th><th>Revenue</th><th>Criteria check</th></tr>
+            <tr class="crit-row-match"><td>North</td><td>Widget Pro</td><td>15/01/2026</td><td>£1,200</td><td><span class="chip chip-pass">✓ MATCH</span></td></tr>
+            <tr class="crit-row-miss"><td>South</td><td>Widget A</td><td>20/01/2026</td><td>£850</td><td><span class="chip chip-fail">✗ region</span></td></tr>
+            <tr class="crit-row-match"><td>North</td><td>Widget Pro</td><td>03/02/2026</td><td>£2,100</td><td><span class="chip chip-pass">✓ MATCH</span></td></tr>
+            <tr class="crit-row-miss"><td>East</td><td>Widget A</td><td>18/02/2026</td><td>£940</td><td><span class="chip chip-fail">✗ region + product</span></td></tr>
+            <tr class="crit-row-match"><td>North</td><td>Widget Pro</td><td>05/03/2026</td><td>£1,800</td><td><span class="chip chip-pass">✓ MATCH</span></td></tr>
+            <tr class="crit-row-miss"><td>South</td><td>Widget B</td><td>22/03/2026</td><td>£1,140</td><td><span class="chip chip-fail">✗ region + product</span></td></tr>
+          </table>
+          <div class="crit-caption">
+            Need: North + Widget Pro + Q1 2026 — 3 of 6 rows match, but no formula to extract the total
+            <div class="sub">Describe criteria in plain English, Claude writes the SUMIFS</div>
+          </div>
         </div>
       </div>
     </div>
@@ -272,19 +299,18 @@ Result: £1,200 + £2,100 + £1,800 = £5,100 ✓</pre>
 
   <!-- Tab: debug -->
   <div class="before-after ba-panel on" id="ba-debug">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — SUMIFS returns #VALUE!, data clearly present</div>
+    <div class="ba-col before" style="border-color:#d7cdb0">
+      <div class="ba-header" style="background:#fef3e2;color:#7a5a10;border-bottom:1px solid #d7cdb0"><i class="ti ti-ruler-off" style="font-size:14px"></i> Before — ranges have different sizes → #VALUE!</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Region</th><th>Product</th><th>Date</th><th>Revenue</th><th>Formula result</th></tr>
-          <tr><td class="hl">North</td><td>Widget Pro</td><td>15/01/2026</td><td class="hl">£1,200</td><td class="err-cell">#VALUE!</td></tr>
-          <tr><td class="hl">North</td><td>Widget Pro</td><td>03/02/2026</td><td class="hl">£2,100</td><td class="err-cell">#VALUE!</td></tr>
-          <tr><td class="hl">North</td><td>Widget Pro</td><td>05/03/2026</td><td class="hl">£1,800</td><td class="err-cell">#VALUE!</td></tr>
-          <tr><td>South</td><td>Widget A</td><td>20/01/2026</td><td>£850</td><td class="err-cell">#VALUE!</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          =SUMIFS(E2:E100, A2:A99, "North", C2:C100, "Widget Pro") → #VALUE!
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Range mismatch: E2:E100 is 99 rows, A2:A99 is 98 rows — Excel rejects mismatched ranges</div>
+        <div class="crit-wrap">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#25313c;padding:4px 0;line-height:1.6;margin-bottom:8px">=SUMIFS( <strong>E2:E100</strong>, <strong>A2:A99</strong>, "North", <strong>C2:C100</strong>, "Widget Pro" )</div>
+          <div class="range-bar"><span class="range-seg range-ok">E2:E100</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#087e7a">99 rows</span></div>
+          <div class="range-bar"><span class="range-seg range-bad">A2:A99</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#b91c1c">98 rows ✗</span></div>
+          <div class="range-bar"><span class="range-seg range-ok">C2:C100</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#087e7a">99 rows</span></div>
+          <div class="crit-caption" style="margin-top:16px">
+            Range size mismatch: E=99, A=98, C=99 — Excel rejects mismatched ranges
+            <div class="sub">One row off is enough to break SUMIFS entirely</div>
+          </div>
         </div>
       </div>
     </div>
