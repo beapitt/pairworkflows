@@ -49,26 +49,56 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint a:hover{text-decoration:underline}
 
 /* ── BEFORE / AFTER VISUAL ── */
-.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
-.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.before-after{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:0;margin-bottom:1.75rem;align-items:start}
+.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;min-width:0}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
 .ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
 .ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
 .ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
-.ba-body{padding:14px}
-.xl-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
-.xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
-.xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
-.xl-table .err-cell{color:#dc2626;font-weight:700;background:#fef2f2}
-.xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
-.xl-table .hl{background:#fffbeb}
-.xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
-.xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
-.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+.ba-body{padding:14px;min-width:0}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0;align-self:center}
+.ba-scenario{margin-bottom:1.75rem}
+
+.excel-window{border:1px solid #cbd5e1;border-radius:7px;overflow:hidden;background:#fff;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.excel-ribbon{display:flex;align-items:center;gap:12px;padding:5px 9px;background:#f8fafc;border-bottom:1px solid #dbe3ec;font-size:11px;color:#64748b}
+.excel-ribbon strong{color:#217346;font-size:11.5px}
+.formula-row{display:grid;grid-template-columns:54px 24px minmax(0,1fr);border-bottom:1px solid #cbd5e1;background:#fff;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.name-box{padding:6px 7px;border-right:1px solid #cbd5e1;background:#f8fafc;color:#334155}
+.fx-box{display:flex;align-items:center;justify-content:center;border-right:1px solid #cbd5e1;color:#64748b;font-style:italic}
+.formula-input{padding:6px 8px;line-height:1.45;white-space:normal;overflow-wrap:anywhere;min-width:0}
+.sheet-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.excel-grid{width:100%;min-width:620px;border-collapse:collapse;table-layout:fixed;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.excel-grid th,.excel-grid td{border:1px solid #d6dde5;padding:5px 7px;height:28px;vertical-align:middle;overflow-wrap:anywhere}
+.excel-grid thead th{background:#f3f6f8;color:#475569;text-align:center;font-weight:500;padding:4px 6px}
+.excel-grid .corner{width:34px;background:#eef2f5}
+.excel-grid .row-num{width:34px;background:#f3f6f8;color:#64748b;text-align:center;font-weight:500}
+.excel-grid .header-cell{background:#eef5f1;color:#1f2937;font-weight:700}
+.excel-grid .section-cell{background:#f1f5f9;color:#475569;font-weight:700}
+.excel-grid .selected{background:#f0fdf4;box-shadow:inset 0 0 0 2px #217346}
+.excel-grid .error-selected{background:#fef2f2;box-shadow:inset 0 0 0 2px #dc2626;color:#b91c1c;font-weight:700}
+.excel-grid .formula-cell{background:#eff6ff;color:#1f4e79}
+.excel-grid .input-cell{background:#fffbeb}
+.excel-grid .rag-green{background:#f0fdf4;color:#047857;font-weight:700}
+.excel-grid .rag-amber{background:#fffbeb;color:#b45309;font-weight:700}
+.excel-grid .rag-red{background:#fef2f2;color:#b91c1c;font-weight:700}
+.excel-grid .watch{background:#fff7ed;color:#c2410c;font-weight:700}
+.excel-grid .muted{color:#94a3b8}
+.sheet-tabs{display:flex;gap:2px;padding:5px 7px;background:#f8fafc;border-top:1px solid #dbe3ec;font-size:11px}
+.sheet-tab{padding:4px 9px;color:#64748b}
+.sheet-tab.active{background:#fff;color:#217346;font-weight:700;border:1px solid #dbe3ec;border-bottom-color:#fff}
+.sheet-note{margin-top:10px;padding:9px 10px;border-radius:7px;font-size:11.5px;line-height:1.55}
+.sheet-note.bad{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c}
+.sheet-note.good{background:#f0fdf4;border:1px solid #a7f3d0;color:#047857}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
-.claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
-.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
+.claude-fix-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
+.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+
+@media(max-width:640px){
+  .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:.4rem 0}
+  .excel-grid{min-width:620px}
+}
 
 /* ── DIAGNOSIS TABLE ── */
 .diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
@@ -132,8 +162,6 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
 @media(max-width:640px){
   .hero h1{font-size:24px}
-  .before-after{grid-template-columns:1fr;gap:8px}
-  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
   .related-grid{grid-template-columns:1fr}
@@ -277,153 +305,214 @@ RAG status.</pre>
   </div>
 
   <!-- BEFORE / AFTER VISUAL -->
+
+  <!-- Tab: build -->
   <div id="ba-build" class="ba-scenario">
-  <div class="before-after">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — raw data, no dashboard structure</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Line item</th><th>Current qtr</th><th>Prior qtr</th></tr>
-          <tr class="section-row"><td colspan="3">Income Statement (pasted as-is)</td></tr>
-          <tr><td>Revenue</td><td>850,000</td><td>820,000</td></tr>
-          <tr><td>COGS</td><td>340,000</td><td>328,000</td></tr>
-          <tr><td>Operating Income</td><td>127,500</td><td>131,200</td></tr>
-          <tr><td>D&amp;A</td><td>18,000</td><td>18,000</td></tr>
-          <tr class="section-row"><td colspan="3">Balance Sheet (pasted as-is)</td></tr>
-          <tr><td>Current Assets</td><td>295,000</td><td>310,000</td></tr>
-          <tr><td>Inventory</td><td>72,000</td><td>65,000</td></tr>
-          <tr><td>Accounts Receivable</td><td>204,000</td><td>185,000</td></tr>
-          <tr><td>Current Liabilities</td><td>210,000</td><td>180,000</td></tr>
-          <tr><td>Accounts Payable</td><td>102,000</td><td>109,000</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Raw financials — no KPIs calculated, no structure, no status
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Nothing actionable until the ratios are computed and grouped</div>
+    <div class="before-after">
+      <div class="ba-col before">
+        <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — financial statements pasted, no KPI layer</div>
+        <div class="ba-body">
+          <div class="excel-window">
+            <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data</span></div>
+            <div class="formula-row"><div class="name-box">B2</div><div class="fx-box">fx</div><div class="formula-input">850000</div></div>
+            <div class="sheet-scroll">
+              <table class="excel-grid">
+                <colgroup><col style="width:34px"><col style="width:180px"><col style="width:120px"><col style="width:120px"></colgroup>
+                <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th></tr></thead>
+                <tbody>
+                  <tr><th class="row-num">1</th><td class="header-cell">Line item</td><td class="header-cell">Current qtr</td><td class="header-cell">Prior qtr</td></tr>
+                  <tr><th class="row-num">2</th><td class="section-cell">Income Statement</td><td class="section-cell"></td><td class="section-cell"></td></tr>
+                  <tr><th class="row-num">3</th><td>Revenue</td><td class="error-selected">850,000</td><td>820,000</td></tr>
+                  <tr><th class="row-num">4</th><td>COGS</td><td>340,000</td><td>328,000</td></tr>
+                  <tr><th class="row-num">5</th><td>Operating Income</td><td>127,500</td><td>131,200</td></tr>
+                  <tr><th class="row-num">6</th><td>D&amp;A</td><td>18,000</td><td>18,000</td></tr>
+                  <tr><th class="row-num">7</th><td class="section-cell">Balance Sheet</td><td class="section-cell"></td><td class="section-cell"></td></tr>
+                  <tr><th class="row-num">8</th><td>Current Assets</td><td>295,000</td><td>310,000</td></tr>
+                  <tr><th class="row-num">9</th><td>Inventory</td><td>72,000</td><td>65,000</td></tr>
+                  <tr><th class="row-num">10</th><td>Accounts Receivable</td><td>204,000</td><td>185,000</td></tr>
+                  <tr><th class="row-num">11</th><td>Current Liabilities</td><td>210,000</td><td>180,000</td></tr>
+                  <tr><th class="row-num">12</th><td>Accounts Payable</td><td>102,000</td><td>109,000</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="sheet-tabs"><span class="sheet-tab active">Data</span><span class="sheet-tab">Dashboard</span></div>
+          </div>
+          <div class="sheet-note bad">The inputs are valid, but leadership still has to mentally calculate margins, liquidity ratios and working-capital days.</div>
+        </div>
+      </div>
+
+      <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
+      <div class="ba-col after">
+        <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — KPI formulas reference the Data tab</div>
+        <div class="ba-body">
+          <div class="excel-window">
+            <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Conditional Formatting</span></div>
+            <div class="formula-row"><div class="name-box">C3</div><div class="fx-box">fx</div><div class="formula-input">=(Data!B3-Data!B4)/Data!B3</div></div>
+            <div class="sheet-scroll">
+              <table class="excel-grid">
+                <colgroup><col style="width:34px"><col style="width:165px"><col style="width:105px"><col style="width:105px"><col style="width:95px"><col style="width:95px"></colgroup>
+                <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead>
+                <tbody>
+                  <tr><th class="row-num">1</th><td class="header-cell">KPI</td><td class="header-cell">Prior</td><td class="header-cell">Current</td><td class="header-cell">Change</td><td class="header-cell">RAG</td></tr>
+                  <tr><th class="row-num">2</th><td class="section-cell">Profitability</td><td class="section-cell"></td><td class="section-cell"></td><td class="section-cell"></td><td class="section-cell"></td></tr>
+                  <tr><th class="row-num">3</th><td>Gross Margin %</td><td>60.0%</td><td class="selected formula-cell">60.0%</td><td>0.0pp</td><td class="rag-green">Green</td></tr>
+                  <tr><th class="row-num">4</th><td>Operating Margin %</td><td>16.0%</td><td>15.0%</td><td>−1.0pp</td><td class="rag-amber">Amber</td></tr>
+                  <tr><th class="row-num">5</th><td>EBITDA Margin %</td><td>18.2%</td><td>17.1%</td><td>−1.1pp</td><td class="rag-red">Red</td></tr>
+                  <tr><th class="row-num">6</th><td class="section-cell">Liquidity</td><td class="section-cell"></td><td class="section-cell"></td><td class="section-cell"></td><td class="section-cell"></td></tr>
+                  <tr><th class="row-num">7</th><td>Current Ratio</td><td>1.72</td><td>1.40</td><td>−0.32</td><td class="rag-amber">Amber</td></tr>
+                  <tr><th class="row-num">8</th><td>Quick Ratio</td><td>1.36</td><td>1.06</td><td>−0.30</td><td class="rag-amber">Amber</td></tr>
+                  <tr><th class="row-num">9</th><td class="section-cell">Efficiency</td><td class="section-cell"></td><td class="section-cell"></td><td class="section-cell"></td><td class="section-cell"></td></tr>
+                  <tr><th class="row-num">10</th><td>DSO (90-day qtr)</td><td>20.3d</td><td>21.6d</td><td>+1.3d</td><td class="rag-green">Green</td></tr>
+                  <tr><th class="row-num">11</th><td>DPO (COGS proxy)</td><td>29.9d</td><td>27.0d</td><td>−2.9d</td><td class="rag-amber">Amber</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="sheet-tabs"><span class="sheet-tab">Data</span><span class="sheet-tab active">Dashboard</span></div>
+          </div>
+          <div class="claude-fix">
+            <div class="claude-fix-label">Verified formulas</div>
+            <pre>Gross Margin = (850,000−340,000)/850,000 = 60.0%
+EBITDA Margin = (127,500+18,000)/850,000 = 17.1%
+Current Ratio = 295,000/210,000 = 1.40
+Quick Ratio = (295,000−72,000)/210,000 = 1.06
+
+Quarterly DSO = 204,000/850,000 × 90 = 21.6 days
+Quarterly DPO = 102,000/340,000 × 90 = 27.0 days ✓</pre>
+          </div>
         </div>
       </div>
     </div>
-    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude builds the structured dashboard</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>KPI</th><th>Formula</th><th>Current</th><th>Prior</th><th>Change</th><th>RAG</th></tr>
-          <tr class="section-row"><td colspan="6">Profitability</td></tr>
-          <tr><td>Gross Margin %</td><td style="font-size:10px">(Rev−COGS)/Rev</td><td>60.0%</td><td>60.0%</td><td>0.0pp</td><td class="ok-cell">Green ✓</td></tr>
-          <tr><td>Operating Margin %</td><td style="font-size:10px">Op.Inc/Rev</td><td>15.0%</td><td>16.0%</td><td>−1.0pp</td><td class="hl">Amber ⚠</td></tr>
-          <tr><td>EBITDA Margin %</td><td style="font-size:10px">(Op.Inc+D&amp;A)/Rev</td><td>17.1%</td><td>18.2%</td><td>−1.1pp</td><td class="err-cell">Red ✗</td></tr>
-          <tr class="section-row"><td colspan="6">Liquidity</td></tr>
-          <tr><td>Current Ratio</td><td style="font-size:10px">CA/CL</td><td>1.40</td><td>1.72</td><td>−0.32</td><td class="hl">Amber ⚠</td></tr>
-          <tr><td>Quick Ratio</td><td style="font-size:10px">(CA−Inv)/CL</td><td>1.06</td><td>1.36</td><td>−0.30</td><td class="err-cell">Red ✗</td></tr>
-          <tr class="section-row"><td colspan="6">Efficiency</td></tr>
-          <tr><td>DSO (days)</td><td style="font-size:10px">(AR/CreditSales)×30</td><td>86</td><td>81</td><td>+5d</td><td class="err-cell">Red ✗</td></tr>
-          <tr><td>DPO (days)</td><td style="font-size:10px">(AP/COGS proxy)×30</td><td>108</td><td>120</td><td>−12d</td><td class="hl">Amber ⚠</td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's output</div>
-          <pre>7 KPIs computed from your data, grouped by category.
-Formulas written out so you can audit each one.
-RAG applied using thresholds you provided. ✓</pre>
-        </div>
-      </div>
-    </div>
-  </div>
   </div>
 
+  <!-- Tab: thresholds -->
   <div id="ba-thresholds" class="ba-scenario" style="display:none">
-  <div class="before-after">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — KPIs calculated, no thresholds set</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>KPI</th><th>Current</th><th>Prior</th><th>Change</th><th>Status</th></tr>
-          <tr class="section-row"><td colspan="5">Profitability</td></tr>
-          <tr><td>Gross Margin %</td><td>60.0%</td><td>60.0%</td><td>0.0pp</td><td class="err-cell">No threshold</td></tr>
-          <tr><td>Operating Margin %</td><td>15.0%</td><td>16.0%</td><td>−1.0pp</td><td class="err-cell">No threshold</td></tr>
-          <tr><td>EBITDA Margin %</td><td>17.1%</td><td>18.2%</td><td>−1.1pp</td><td class="err-cell">No threshold</td></tr>
-          <tr class="section-row"><td colspan="5">Liquidity</td></tr>
-          <tr><td>Current Ratio</td><td>1.40</td><td>1.72</td><td>−0.32</td><td class="err-cell">No threshold</td></tr>
-          <tr><td>Quick Ratio</td><td>1.06</td><td>1.36</td><td>−0.30</td><td class="err-cell">No threshold</td></tr>
-          <tr class="section-row"><td colspan="5">Efficiency</td></tr>
-          <tr><td>DSO (days)</td><td>86</td><td>81</td><td>+5d</td><td class="err-cell">No threshold</td></tr>
-          <tr><td>DPO (days)</td><td>108</td><td>120</td><td>−12d</td><td class="err-cell">No threshold</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Numbers computed — but is 17.1% EBITDA good or bad for this business?
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Without thresholds, the dashboard cannot escalate anything</div>
+    <div class="before-after">
+      <div class="ba-col before">
+        <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — KPI values exist, Status cells are blank</div>
+        <div class="ba-body">
+          <div class="excel-window">
+            <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Conditional Formatting</span></div>
+            <div class="formula-row"><div class="name-box">E3</div><div class="fx-box">fx</div><div class="formula-input"></div></div>
+            <div class="sheet-scroll">
+              <table class="excel-grid">
+                <colgroup><col style="width:34px"><col style="width:165px"><col style="width:105px"><col style="width:105px"><col style="width:95px"><col style="width:120px"></colgroup>
+                <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead>
+                <tbody>
+                  <tr><th class="row-num">1</th><td class="header-cell">KPI</td><td class="header-cell">Prior</td><td class="header-cell">Current</td><td class="header-cell">Change</td><td class="header-cell">Status</td></tr>
+                  <tr><th class="row-num">2</th><td>Gross Margin %</td><td>60.0%</td><td>60.0%</td><td>0.0pp</td><td class="error-selected">No threshold</td></tr>
+                  <tr><th class="row-num">3</th><td>Operating Margin %</td><td>16.0%</td><td>15.0%</td><td>−1.0pp</td><td class="muted">No threshold</td></tr>
+                  <tr><th class="row-num">4</th><td>EBITDA Margin %</td><td>18.2%</td><td>17.1%</td><td>−1.1pp</td><td class="muted">No threshold</td></tr>
+                  <tr><th class="row-num">5</th><td>Current Ratio</td><td>1.72</td><td>1.40</td><td>−0.32</td><td class="muted">No threshold</td></tr>
+                  <tr><th class="row-num">6</th><td>Quick Ratio</td><td>1.36</td><td>1.06</td><td>−0.30</td><td class="muted">No threshold</td></tr>
+                  <tr><th class="row-num">7</th><td>DSO</td><td>20.3d</td><td>21.6d</td><td>+1.3d</td><td class="muted">No threshold</td></tr>
+                  <tr><th class="row-num">8</th><td>DPO</td><td>29.9d</td><td>27.0d</td><td>−2.9d</td><td class="muted">No threshold</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="sheet-note bad">A value alone does not tell the user whether it is acceptable. The Status column cannot be meaningful until explicit rules are entered.</div>
+        </div>
+      </div>
+
+      <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
+      <div class="ba-col after">
+        <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — user-defined thresholds drive RAG formulas</div>
+        <div class="ba-body">
+          <div class="excel-window">
+            <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Conditional Formatting</span></div>
+            <div class="formula-row"><div class="name-box">E4</div><div class="fx-box">fx</div><div class="formula-input">=IF(C4&gt;=18%,"Green",IF(C4&gt;=16%,"Amber","Red"))</div></div>
+            <div class="sheet-scroll">
+              <table class="excel-grid">
+                <colgroup><col style="width:34px"><col style="width:165px"><col style="width:105px"><col style="width:190px"><col style="width:100px"></colgroup>
+                <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+                <tbody>
+                  <tr><th class="row-num">1</th><td class="header-cell">KPI</td><td class="header-cell">Current</td><td class="header-cell">Your threshold</td><td class="header-cell">RAG</td></tr>
+                  <tr><th class="row-num">2</th><td>Gross Margin %</td><td>60.0%</td><td>Green ≥58%; Amber 55–57.9%</td><td class="rag-green">Green</td></tr>
+                  <tr><th class="row-num">3</th><td>Operating Margin %</td><td>15.0%</td><td>Green ≥16%; Amber 14–15.9%</td><td class="rag-amber">Amber</td></tr>
+                  <tr><th class="row-num">4</th><td>EBITDA Margin %</td><td class="selected">17.1%</td><td>Green ≥18%; Amber 16–17.9%</td><td class="rag-amber">Amber</td></tr>
+                  <tr><th class="row-num">5</th><td>Current Ratio</td><td>1.40</td><td>Green ≥1.5; Amber 1.2–1.49</td><td class="rag-amber">Amber</td></tr>
+                  <tr><th class="row-num">6</th><td>Quick Ratio</td><td>1.06</td><td>Green ≥1.2; Amber 1.0–1.19</td><td class="rag-amber">Amber</td></tr>
+                  <tr><th class="row-num">7</th><td>DSO</td><td>21.6d</td><td>Green ≤30d; Amber 31–40d</td><td class="rag-green">Green</td></tr>
+                  <tr><th class="row-num">8</th><td>DPO</td><td>27.0d</td><td>Green ≥30d; Amber 20–29d</td><td class="rag-amber">Amber</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="claude-fix">
+            <div class="claude-fix-label">Threshold logic</div>
+            <pre>The thresholds shown here are example user-defined rules for this visual.
+Claude should apply the rules you provide, not generic industry benchmarks.
+
+Example for EBITDA Margin:
+=IF(C4>=18%,"Green",IF(C4>=16%,"Amber","Red"))
+17.1% → Amber ✓</pre>
+          </div>
         </div>
       </div>
     </div>
-    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude applies your thresholds</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>KPI</th><th>Current</th><th>Your threshold</th><th>RAG</th></tr>
-          <tr class="section-row"><td colspan="4">Profitability</td></tr>
-          <tr><td>Gross Margin %</td><td>60.0%</td><td>Green ≥58%</td><td class="ok-cell">Green ✓</td></tr>
-          <tr><td>Operating Margin %</td><td>15.0%</td><td>Amber 14–15.9%</td><td class="hl">Amber ⚠</td></tr>
-          <tr><td>EBITDA Margin %</td><td>17.1%</td><td>Red &lt;18%</td><td class="err-cell">Red ✗</td></tr>
-          <tr class="section-row"><td colspan="4">Liquidity</td></tr>
-          <tr><td>Current Ratio</td><td>1.40</td><td>Amber 1.2–1.49</td><td class="hl">Amber ⚠</td></tr>
-          <tr><td>Quick Ratio</td><td>1.06</td><td>Amber 1.0–1.19</td><td class="hl">Amber ⚠</td></tr>
-          <tr class="section-row"><td colspan="4">Efficiency</td></tr>
-          <tr><td>DSO (days)</td><td>86</td><td>Red &gt;85d</td><td class="err-cell">Red ✗</td></tr>
-          <tr><td>DPO (days)</td><td>108</td><td>Amber 90–119d</td><td class="hl">Amber ⚠</td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's output</div>
-          <pre>Thresholds applied from your stated targets — not industry benchmarks.
-A "good" EBITDA margin for SaaS (25–35%) differs from
-a distributor (3–6%). These thresholds are yours. ✓
-2 Red, 4 Amber, 1 Green — board pack ready.</pre>
-        </div>
-      </div>
-    </div>
-  </div>
   </div>
 
+  <!-- Tab: trend -->
   <div id="ba-trend" class="ba-scenario" style="display:none">
-  <div class="before-after">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — current period only, no trend visible</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>KPI</th><th>Current</th><th>RAG</th><th>Trend</th></tr>
-          <tr class="section-row"><td colspan="4">Profitability</td></tr>
-          <tr><td>EBITDA Margin %</td><td>17.1%</td><td class="err-cell">Red ✗</td><td class="err-cell">—</td></tr>
-          <tr><td>Operating Margin %</td><td>15.0%</td><td class="hl">Amber ⚠</td><td class="err-cell">—</td></tr>
-          <tr class="section-row"><td colspan="4">Efficiency</td></tr>
-          <tr><td>DSO (days)</td><td>86</td><td class="err-cell">Red ✗</td><td class="err-cell">—</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Single period — Red flags visible, but is this a blip or a slide?
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ A margin that dropped once is noise. Five months in a row is a trend.</div>
+    <div class="before-after">
+      <div class="ba-col before">
+        <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — snapshot shows status, not direction</div>
+        <div class="ba-body">
+          <div class="excel-window">
+            <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Conditional Formatting</span></div>
+            <div class="formula-row"><div class="name-box">B2</div><div class="fx-box">fx</div><div class="formula-input">17.1%</div></div>
+            <div class="sheet-scroll">
+              <table class="excel-grid">
+                <colgroup><col style="width:34px"><col style="width:180px"><col style="width:120px"><col style="width:120px"></colgroup>
+                <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th></tr></thead>
+                <tbody>
+                  <tr><th class="row-num">1</th><td class="header-cell">KPI</td><td class="header-cell">Current</td><td class="header-cell">RAG</td></tr>
+                  <tr><th class="row-num">2</th><td>EBITDA Margin %</td><td class="error-selected">17.1%</td><td class="rag-amber">Amber</td></tr>
+                  <tr><th class="row-num">3</th><td>Operating Margin %</td><td>15.0%</td><td class="rag-amber">Amber</td></tr>
+                  <tr><th class="row-num">4</th><td>DSO (days)</td><td>21.6</td><td class="rag-green">Green</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="sheet-note bad">The current status does not reveal whether the metric moved once or has been deteriorating month after month.</div>
+        </div>
+      </div>
+
+      <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
+      <div class="ba-col after">
+        <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — six monthly columns expose persistent movement</div>
+        <div class="ba-body">
+          <div class="excel-window">
+            <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Sparklines</span></div>
+            <div class="formula-row"><div class="name-box">H2</div><div class="fx-box">fx</div><div class="formula-input">Trending — watch</div></div>
+            <div class="sheet-scroll">
+              <table class="excel-grid">
+                <colgroup><col style="width:34px"><col style="width:165px"><col style="width:80px"><col style="width:80px"><col style="width:80px"><col style="width:80px"><col style="width:80px"><col style="width:80px"><col style="width:165px"></colgroup>
+                <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th></tr></thead>
+                <tbody>
+                  <tr><th class="row-num">1</th><td class="header-cell">KPI</td><td class="header-cell">M−5</td><td class="header-cell">M−4</td><td class="header-cell">M−3</td><td class="header-cell">M−2</td><td class="header-cell">M−1</td><td class="header-cell">Current</td><td class="header-cell">Trend</td></tr>
+                  <tr><th class="row-num">2</th><td>EBITDA Margin %</td><td>19.2%</td><td>18.8%</td><td>18.2%</td><td>17.8%</td><td>17.4%</td><td class="selected">17.1%</td><td class="watch">↓ Trending — watch</td></tr>
+                  <tr><th class="row-num">3</th><td>Operating Margin %</td><td>16.8%</td><td>16.4%</td><td>15.9%</td><td>15.6%</td><td>15.3%</td><td>15.0%</td><td class="watch">↓ Trending — watch</td></tr>
+                  <tr><th class="row-num">4</th><td>DSO (days)</td><td>18.9</td><td>19.4</td><td>19.8</td><td>20.3</td><td>20.9</td><td>21.6</td><td class="watch">↑ Trending — watch</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="claude-fix">
+            <div class="claude-fix-label">Trend check</div>
+            <pre>EBITDA Margin: 19.2% → 17.1% = −2.1pp
+Operating Margin: 16.8% → 15.0% = −1.8pp
+DSO: 18.9d → 21.6d = +2.7d
+
+All three moved in the same adverse direction for 5 consecutive month-to-month changes.
+Flag: "Trending — watch" even before a hard RAG breach. ✓</pre>
+          </div>
         </div>
       </div>
     </div>
-    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — 6-month history with trend flags</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>KPI</th><th>M−5</th><th>M−4</th><th>M−3</th><th>M−2</th><th>M−1</th><th>Current</th><th>Trend</th></tr>
-          <tr class="section-row"><td colspan="8">Profitability</td></tr>
-          <tr><td>EBITDA Margin %</td><td>19.2%</td><td>18.8%</td><td>18.2%</td><td>17.8%</td><td>17.4%</td><td>17.1%</td><td class="err-cell">↓ Declining — 5 consecutive months</td></tr>
-          <tr><td>Operating Margin %</td><td>16.8%</td><td>16.4%</td><td>15.9%</td><td>15.6%</td><td>15.3%</td><td>15.0%</td><td class="err-cell">↓ Declining — 5 consecutive months</td></tr>
-          <tr class="section-row"><td colspan="8">Efficiency</td></tr>
-          <tr><td>DSO (days)</td><td>76</td><td>79</td><td>81</td><td>83</td><td>84</td><td>86</td><td class="err-cell">↑ Rising — 5 consecutive months</td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's output</div>
-          <pre>EBITDA: 19.2% → 17.1% — fell every month for 5 months (−2.1pp total).
-Op. Margin: 16.8% → 15.0% — fell every month for 5 months (−1.8pp total).
-DSO: 76d → 86d — rose every month for 5 months (+10d total).
-Each was Amber or Green in isolation. Together: structural decline. ✓</pre>
-        </div>
-      </div>
-    </div>
-  </div>
   </div>
 
   <!-- DIAGNOSIS TABLE -->
