@@ -49,28 +49,54 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint a:hover{text-decoration:underline}
 
 /* ── BEFORE / AFTER VISUAL ── */
-.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
-.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.before-after{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:0;margin-bottom:1.75rem;align-items:start}
+.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;min-width:0}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
 .ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
 .ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
 .ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
-.ba-body{padding:14px}
-.xl-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
-.xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
-.xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
-.xl-table .err-cell{color:#dc2626;font-weight:700;background:#fef2f2}
-.xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
-.xl-table .hl{background:#fffbeb}
-.xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
-.xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.ba-body{padding:14px;min-width:0}
 .ba-panel{display:none;margin-bottom:1.75rem}
-.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
-.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+.ba-panel.on{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:0;align-items:start}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0;align-self:center}
+
+.excel-window{border:1px solid #cbd5e1;border-radius:7px;overflow:hidden;background:#fff;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.excel-ribbon{display:flex;align-items:center;gap:12px;padding:5px 9px;background:#f8fafc;border-bottom:1px solid #dbe3ec;font-size:11px;color:#64748b}
+.excel-ribbon strong{color:#217346;font-size:11.5px}
+.formula-row{display:grid;grid-template-columns:54px 24px minmax(0,1fr);border-bottom:1px solid #cbd5e1;background:#fff;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.name-box{padding:6px 7px;border-right:1px solid #cbd5e1;background:#f8fafc;color:#334155}
+.fx-box{display:flex;align-items:center;justify-content:center;border-right:1px solid #cbd5e1;color:#64748b;font-style:italic}
+.formula-input{padding:6px 8px;line-height:1.45;white-space:normal;overflow-wrap:anywhere;min-width:0}
+.sheet-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.excel-grid{width:100%;min-width:620px;border-collapse:collapse;table-layout:fixed;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.excel-grid th,.excel-grid td{border:1px solid #d6dde5;padding:5px 7px;height:28px;vertical-align:middle;overflow-wrap:anywhere}
+.excel-grid thead th{background:#f3f6f8;color:#475569;text-align:center;font-weight:500;padding:4px 6px}
+.excel-grid .corner{width:34px;background:#eef2f5}
+.excel-grid .row-num{width:34px;background:#f3f6f8;color:#64748b;text-align:center;font-weight:500}
+.excel-grid .header-cell{background:#eef5f1;color:#1f2937;font-weight:700}
+.excel-grid .selected{background:#f0fdf4;box-shadow:inset 0 0 0 2px #217346}
+.excel-grid .error-selected{background:#fef2f2;box-shadow:inset 0 0 0 2px #dc2626;color:#b91c1c;font-weight:700}
+.excel-grid .bad{background:#fef2f2;color:#b91c1c;font-weight:700}
+.excel-grid .good{background:#f0fdf4;color:#047857;font-weight:700}
+.excel-grid .formula-cell{background:#eff6ff;color:#1f4e79}
+.excel-grid .input-cell{background:#fffbeb}
+.excel-grid .subtotal{background:#f1f5f9;font-weight:700}
+.excel-grid .flag{background:#fff7ed;color:#c2410c;font-weight:700}
+.excel-grid .quiet{color:#94a3b8}
+.sheet-note{margin-top:10px;padding:9px 10px;border-radius:7px;font-size:11.5px;line-height:1.55}
+.sheet-note.bad{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c}
+.sheet-note.good{background:#f0fdf4;border:1px solid #a7f3d0;color:#047857}
+.sheet-note code{font-family:'JetBrains Mono',monospace;font-size:11px;overflow-wrap:anywhere}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
-.claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
-.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
+.claude-fix-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
+.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+
+@media(max-width:640px){
+  .before-after,.ba-panel.on{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:.4rem 0}
+  .excel-grid{min-width:620px}
+}
 
 /* ── DIAGNOSIS TABLE ── */
 .diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
@@ -134,8 +160,6 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
 @media(max-width:640px){
   .hero h1{font-size:24px}
-  .before-after{grid-template-columns:1fr;gap:8px}
-  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
   .related-grid{grid-template-columns:1fr}
@@ -278,43 +302,73 @@ figure. Flag any line where I should use a non-linear prorating method
   <!-- Tab: build -->
   <div class="before-after ba-panel on" id="ba-build">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — raw budget vs actual, no variance structure</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — budget and actuals are present, analysis columns are empty</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Line Item</th><th>Type</th><th>Budget</th><th>Actual</th><th>Var $</th><th>Var %</th><th>Flag</th></tr>
-          <tr><td>Revenue — UK</td><td>Revenue</td><td>£420,000</td><td>£389,500</td><td class="err-cell">?</td><td class="err-cell">?</td><td class="err-cell">?</td></tr>
-          <tr><td>Revenue — EU</td><td>Revenue</td><td>£180,000</td><td>£201,400</td><td class="err-cell">?</td><td class="err-cell">?</td><td class="err-cell">?</td></tr>
-          <tr><td>COGS</td><td>Expense</td><td>£210,000</td><td>£228,300</td><td class="err-cell">?</td><td class="err-cell">?</td><td class="err-cell">?</td></tr>
-          <tr><td>Payroll</td><td>Expense</td><td>£145,000</td><td>£152,400</td><td class="err-cell">?</td><td class="err-cell">?</td><td class="err-cell">?</td></tr>
-          <tr><td>Marketing</td><td>Expense</td><td>£48,000</td><td>£39,200</td><td class="err-cell">?</td><td class="err-cell">?</td><td class="err-cell">?</td></tr>
-          <tr><td>T&E</td><td>Expense</td><td>£12,000</td><td>£18,750</td><td class="err-cell">?</td><td class="err-cell">?</td><td class="err-cell">?</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          No variance formulas, no F/U labels, no flags — can't send to the CFO
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ T&E over by £6,750 — invisible without a proper report</div>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data</span></div>
+          <div class="formula-row">
+            <div class="name-box">E2</div><div class="fx-box">fx</div><div class="formula-input"></div>
+          </div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:150px"><col style="width:85px"><col style="width:100px"><col style="width:100px"><col style="width:95px"><col style="width:85px"><col style="width:90px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Line Item</td><td class="header-cell">Type</td><td class="header-cell">Budget</td><td class="header-cell">Actual</td><td class="header-cell">Var £</td><td class="header-cell">Var %</td><td class="header-cell">Flag</td></tr>
+                <tr><th class="row-num">2</th><td>Revenue — UK</td><td>Revenue</td><td>£420,000</td><td>£389,500</td><td class="error-selected">?</td><td class="bad">?</td><td class="bad">?</td></tr>
+                <tr><th class="row-num">3</th><td>Revenue — EU</td><td>Revenue</td><td>£180,000</td><td>£201,400</td><td class="bad">?</td><td class="bad">?</td><td class="bad">?</td></tr>
+                <tr><th class="row-num">4</th><td>COGS</td><td>Expense</td><td>£210,000</td><td>£228,300</td><td class="bad">?</td><td class="bad">?</td><td class="bad">?</td></tr>
+                <tr><th class="row-num">5</th><td>Payroll</td><td>Expense</td><td>£145,000</td><td>£152,400</td><td class="bad">?</td><td class="bad">?</td><td class="bad">?</td></tr>
+                <tr><th class="row-num">6</th><td>Marketing</td><td>Expense</td><td>£48,000</td><td>£39,200</td><td class="bad">?</td><td class="bad">?</td><td class="bad">?</td></tr>
+                <tr><th class="row-num">7</th><td>T&amp;E</td><td>Expense</td><td>£12,000</td><td>£18,750</td><td class="bad">?</td><td class="bad">?</td><td class="bad">?</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+        <div class="sheet-note bad">The source numbers are there, but there is no variance direction, percentage, F/U logic, materiality flag, or commentary field.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude builds the full variance report</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — formulas turn the same rows into a review-ready variance report</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Line Item</th><th>Budget</th><th>Actual</th><th>Var £</th><th>Var %</th><th>F/U</th><th>Flag</th></tr>
-          <tr><td>Revenue — UK</td><td>£420,000</td><td>£389,500</td><td class="err-cell">−£30,500</td><td class="err-cell">−7.3%</td><td class="err-cell">U</td><td class="err-cell">⚠ Review</td></tr>
-          <tr><td>Revenue — EU</td><td>£180,000</td><td>£201,400</td><td class="ok-cell">+£21,400</td><td class="ok-cell">+11.9%</td><td class="ok-cell">F</td><td class="err-cell">⚠ Review</td></tr>
-          <tr><td>COGS</td><td>£210,000</td><td>£228,300</td><td class="err-cell">−£18,300</td><td class="err-cell">−8.7%</td><td class="err-cell">U</td><td class="err-cell">⚠ Review</td></tr>
-          <tr class="section-row"><td><strong>Gross Profit</strong></td><td><strong>£390,000</strong></td><td><strong>£362,600</strong></td><td class="err-cell"><strong>−£27,400</strong></td><td class="err-cell"><strong>−7.0%</strong></td><td class="err-cell"><strong>U</strong></td><td class="err-cell">⚠</td></tr>
-          <tr><td>Payroll</td><td>£145,000</td><td>£152,400</td><td class="err-cell">−£7,400</td><td class="err-cell">−5.1%</td><td class="err-cell">U</td><td class="err-cell">⚠ Review</td></tr>
-          <tr><td>Marketing</td><td>£48,000</td><td>£39,200</td><td class="ok-cell">+£8,800</td><td class="ok-cell">+18.3%</td><td class="ok-cell">F</td><td>—</td></tr>
-          <tr><td>T&E</td><td>£12,000</td><td>£18,750</td><td class="err-cell">−£6,750</td><td class="err-cell">−56.3%</td><td class="err-cell">U</td><td class="err-cell">⚠ Review</td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Conditional Formatting</span></div>
+          <div class="formula-row">
+            <div class="name-box">E2</div><div class="fx-box">fx</div>
+            <div class="formula-input">=IF(B2="Revenue",D2-C2,C2-D2)</div>
+          </div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:145px"><col style="width:95px"><col style="width:95px"><col style="width:95px"><col style="width:90px"><col style="width:70px"><col style="width:90px"><col style="width:110px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Line Item</td><td class="header-cell">Budget</td><td class="header-cell">Actual</td><td class="header-cell">Var £</td><td class="header-cell">Var %</td><td class="header-cell">F/U</td><td class="header-cell">Flag</td><td class="header-cell">Commentary</td></tr>
+                <tr><th class="row-num">2</th><td>Revenue — UK</td><td>£420,000</td><td>£389,500</td><td class="selected bad">−£30,500</td><td class="bad">−7.3%</td><td class="bad">U</td><td class="flag">⚠ Review</td><td></td></tr>
+                <tr><th class="row-num">3</th><td>Revenue — EU</td><td>£180,000</td><td>£201,400</td><td class="good">+£21,400</td><td class="good">+11.9%</td><td class="good">F</td><td class="flag">⚠ Review</td><td></td></tr>
+                <tr><th class="row-num">4</th><td>COGS</td><td>£210,000</td><td>£228,300</td><td class="bad">−£18,300</td><td class="bad">−8.7%</td><td class="bad">U</td><td class="flag">⚠ Review</td><td></td></tr>
+                <tr><th class="row-num">5</th><td class="subtotal">Gross Profit</td><td class="subtotal">£390,000</td><td class="subtotal">£362,600</td><td class="bad">−£27,400</td><td class="bad">−7.0%</td><td class="bad">U</td><td class="flag">⚠ Review</td><td></td></tr>
+                <tr><th class="row-num">6</th><td>Payroll</td><td>£145,000</td><td>£152,400</td><td class="bad">−£7,400</td><td class="bad">−5.1%</td><td class="bad">U</td><td class="flag">⚠ Review</td><td></td></tr>
+                <tr><th class="row-num">7</th><td>Marketing</td><td>£48,000</td><td>£39,200</td><td class="good">+£8,800</td><td class="good">+18.3%</td><td class="good">F</td><td class="flag">⚠ Review</td><td></td></tr>
+                <tr><th class="row-num">8</th><td>T&amp;E</td><td>£12,000</td><td>£18,750</td><td class="bad">−£6,750</td><td class="bad">−56.3%</td><td class="bad">U</td><td class="flag">⚠ Review</td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's formula logic</div>
-          <pre>Revenue Var £ = Actual − Budget  (pos = Favourable)
-Expense Var £ = Budget − Actual  (pos = Favourable)
-Flag: IF(ABS(Var%)>5% OR ABS(Var£)>£5,000,"⚠","—")
-T&E flagged at −56.3% — needs immediate commentary. ✓</pre>
+          <div class="claude-fix-label">Formula logic</div>
+          <pre>Var £:
+=IF(Type="Revenue",Actual-Budget,Budget-Actual)
+
+Var %:
+=Var£/Budget
+
+Flag:
+=IF(OR(ABS(Var%)>5%,ABS(Var£)>5000),"⚠ Review","—")
+
+Marketing is correctly flagged because 18.3% > 5%. ✓</pre>
         </div>
       </div>
     </div>
@@ -323,44 +377,71 @@ T&E flagged at −56.3% — needs immediate commentary. ✓</pre>
   <!-- Tab: threshold -->
   <div class="before-after ba-panel" id="ba-threshold">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — OR threshold flags too many lines</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — the 5% OR £5k rule creates too many review items</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Line Item</th><th>Var £</th><th>Var %</th><th>Flag (OR logic)</th></tr>
-          <tr><td>Revenue — UK</td><td class="err-cell">−£30,500</td><td class="err-cell">−7.3%</td><td class="err-cell">⚠ Review</td></tr>
-          <tr><td>Revenue — EU</td><td class="ok-cell">+£21,400</td><td class="ok-cell">+11.9%</td><td class="err-cell">⚠ Review</td></tr>
-          <tr><td>COGS</td><td class="err-cell">−£18,300</td><td class="err-cell">−8.7%</td><td class="err-cell">⚠ Review</td></tr>
-          <tr><td>Payroll</td><td class="err-cell">−£7,400</td><td class="err-cell">−5.1%</td><td class="err-cell">⚠ Review</td></tr>
-          <tr><td>Marketing</td><td class="ok-cell">+£8,800</td><td class="ok-cell">+18.3%</td><td class="err-cell">⚠ Review</td></tr>
-          <tr><td>T&E</td><td class="err-cell">−£6,750</td><td class="err-cell">−56.3%</td><td class="err-cell">⚠ Review</td></tr>
-          <tr><td>Software</td><td>−£320</td><td>−4.2%</td><td class="err-cell">⚠ Review</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          7 of 7 lines flagged — the report is useless noise
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Switch OR → AND: only flag lines that are both material AND significant</div>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Conditional Formatting</span></div>
+          <div class="formula-row">
+            <div class="name-box">G2</div><div class="fx-box">fx</div>
+            <div class="formula-input">=IF(OR(ABS(F2)&gt;5%,ABS(E2)&gt;5000),"⚠ Review","—")</div>
+          </div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:150px"><col style="width:105px"><col style="width:95px"><col style="width:110px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>E</th><th>F</th><th>G</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">2</th><td>Revenue — UK</td><td>−£30,500</td><td>−7.3%</td><td class="error-selected flag">⚠ Review</td></tr>
+                <tr><th class="row-num">3</th><td>Revenue — EU</td><td>+£21,400</td><td>+11.9%</td><td class="flag">⚠ Review</td></tr>
+                <tr><th class="row-num">4</th><td>COGS</td><td>−£18,300</td><td>−8.7%</td><td class="flag">⚠ Review</td></tr>
+                <tr><th class="row-num">5</th><td>Payroll</td><td>−£7,400</td><td>−5.1%</td><td class="flag">⚠ Review</td></tr>
+                <tr><th class="row-num">6</th><td>Marketing</td><td>+£8,800</td><td>+18.3%</td><td class="flag">⚠ Review</td></tr>
+                <tr><th class="row-num">7</th><td>T&amp;E</td><td>−£6,750</td><td>−56.3%</td><td class="flag">⚠ Review</td></tr>
+                <tr><th class="row-num">8</th><td>Software</td><td>−£320</td><td>−4.2%</td><td class="good">—</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+        <div class="sheet-note bad">6 of 7 lines are flagged. Software is correctly unflagged because it breaches neither the 5% nor the £5,000 threshold.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — AND threshold focuses on what matters</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — 10% AND £10k isolates only truly material exceptions</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Line Item</th><th>Var £</th><th>Var %</th><th>Flag (AND logic)</th></tr>
-          <tr><td>Revenue — UK</td><td class="err-cell">−£30,500</td><td class="err-cell">−7.3%</td><td class="err-cell">⚠ Review</td></tr>
-          <tr><td>Revenue — EU</td><td class="ok-cell">+£21,400</td><td class="ok-cell">+11.9%</td><td class="ok-cell">—</td></tr>
-          <tr><td>COGS</td><td class="err-cell">−£18,300</td><td class="err-cell">−8.7%</td><td class="err-cell">⚠ Review</td></tr>
-          <tr><td>Payroll</td><td class="err-cell">−£7,400</td><td class="err-cell">−5.1%</td><td class="ok-cell">—</td></tr>
-          <tr><td>Marketing</td><td class="ok-cell">+£8,800</td><td class="ok-cell">+18.3%</td><td class="ok-cell">—</td></tr>
-          <tr><td>T&E</td><td class="err-cell">−£6,750</td><td class="err-cell">−56.3%</td><td class="err-cell">⚠ Review</td></tr>
-          <tr><td>Software</td><td>−£320</td><td>−4.2%</td><td class="ok-cell">—</td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Conditional Formatting</span></div>
+          <div class="formula-row">
+            <div class="name-box">G2</div><div class="fx-box">fx</div>
+            <div class="formula-input">=IF(AND(ABS(F2)&gt;10%,ABS(E2)&gt;10000),"⚠ Review","—")</div>
+          </div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:150px"><col style="width:105px"><col style="width:95px"><col style="width:110px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>E</th><th>F</th><th>G</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">2</th><td>Revenue — UK</td><td>−£30,500</td><td>−7.3%</td><td class="good">—</td></tr>
+                <tr><th class="row-num">3</th><td>Revenue — EU</td><td>+£21,400</td><td>+11.9%</td><td class="selected flag">⚠ Review</td></tr>
+                <tr><th class="row-num">4</th><td>COGS</td><td>−£18,300</td><td>−8.7%</td><td class="good">—</td></tr>
+                <tr><th class="row-num">5</th><td>Payroll</td><td>−£7,400</td><td>−5.1%</td><td class="good">—</td></tr>
+                <tr><th class="row-num">6</th><td>Marketing</td><td>+£8,800</td><td>+18.3%</td><td class="good">—</td></tr>
+                <tr><th class="row-num">7</th><td>T&amp;E</td><td>−£6,750</td><td>−56.3%</td><td class="good">—</td></tr>
+                <tr><th class="row-num">8</th><td>Software</td><td>−£320</td><td>−4.2%</td><td class="good">—</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's new flag formula</div>
-          <pre>Old: IF(ABS(Var%)>5% OR  ABS(Var£)>£5,000,"⚠","—")
-New: IF(ABS(Var%)>10% AND ABS(Var£)>£10,000,"⚠","—")
-Flags reduced: 7 → 3  (Revenue UK, COGS, T&E)
-Board pack now has 3 items to discuss, not 7. ✓</pre>
+          <div class="claude-fix-label">New threshold result</div>
+          <pre>Old rule: >5% OR >£5,000
+Flagged: 6 of 7
+
+New rule: >10% AND >£10,000
+Flagged: 1 of 7
+
+Only Revenue — EU breaches BOTH:
+11.9% and £21,400. ✓</pre>
         </div>
       </div>
     </div>
@@ -369,38 +450,68 @@ Board pack now has 3 items to discuss, not 7. ✓</pre>
   <!-- Tab: ytd -->
   <div class="before-after ba-panel" id="ba-ytd">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — 6-month actuals vs 12-month budget (misleading)</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — six months of actuals are compared with a full-year budget</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Line Item</th><th>Annual Budget</th><th>YTD Actual (6m)</th><th>Var £</th><th>Var %</th><th>Looks like</th></tr>
-          <tr><td>Revenue</td><td>£600,000</td><td>£289,500</td><td class="err-cell">−£310,500</td><td class="err-cell">−51.8%</td><td class="err-cell">Disaster ✗</td></tr>
-          <tr><td>Payroll</td><td>£290,000</td><td>£152,400</td><td class="ok-cell">+£137,600</td><td class="ok-cell">+47.4%</td><td class="err-cell">Huge saving ✗</td></tr>
-          <tr><td>Marketing</td><td>£96,000</td><td>£39,200</td><td class="ok-cell">+£56,800</td><td class="ok-cell">+59.2%</td><td class="err-cell">Under budget ✗</td></tr>
-          <tr><td>T&E</td><td>£24,000</td><td>£18,750</td><td class="ok-cell">+£5,250</td><td class="ok-cell">+21.9%</td><td class="err-cell">Fine ✗</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Every expense line looks "favourable" — half-year vs full-year makes no sense
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ T&E at £18,750 of £24k annual budget — actually 56% over YTD pace</div>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data</span></div>
+          <div class="formula-row">
+            <div class="name-box">D2</div><div class="fx-box">fx</div><div class="formula-input">=C2-B2</div>
+          </div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:130px"><col style="width:125px"><col style="width:125px"><col style="width:105px"><col style="width:95px"><col style="width:120px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Line Item</td><td class="header-cell">Annual Budget</td><td class="header-cell">YTD Actual</td><td class="header-cell">Var £</td><td class="header-cell">Var %</td><td class="header-cell">Interpretation</td></tr>
+                <tr><th class="row-num">2</th><td>Revenue</td><td>£600,000</td><td>£289,500</td><td class="error-selected bad">−£310,500</td><td class="bad">−51.8%</td><td class="bad">Misleading</td></tr>
+                <tr><th class="row-num">3</th><td>Payroll</td><td>£290,000</td><td>£152,400</td><td class="good">+£137,600</td><td class="good">+47.4%</td><td class="bad">Misleading</td></tr>
+                <tr><th class="row-num">4</th><td>Marketing</td><td>£96,000</td><td>£39,200</td><td class="good">+£56,800</td><td class="good">+59.2%</td><td class="bad">Misleading</td></tr>
+                <tr><th class="row-num">5</th><td>T&amp;E</td><td>£24,000</td><td>£18,750</td><td class="good">+£5,250</td><td class="good">+21.9%</td><td class="bad">Misleading</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+        <div class="sheet-note bad">The arithmetic is valid, but the comparison basis is wrong: 6-month actuals are being measured against 12 months of budget.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude prorates to YTD budget, like-for-like</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — annual budget is prorated to a like-for-like YTD budget</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Line Item</th><th>Annual Budget</th><th>YTD Budget (×6/12)</th><th>YTD Actual</th><th>Var £</th><th>Var %</th><th>Flag</th></tr>
-          <tr><td>Revenue</td><td>£600,000</td><td class="link-cell">£300,000</td><td>£289,500</td><td class="err-cell">−£10,500</td><td class="err-cell">−3.5%</td><td>—</td></tr>
-          <tr><td>Payroll</td><td>£290,000</td><td class="link-cell">£145,000</td><td>£152,400</td><td class="err-cell">−£7,400</td><td class="err-cell">−5.1%</td><td class="err-cell">⚠</td></tr>
-          <tr><td>Marketing</td><td>£96,000</td><td class="link-cell">£48,000</td><td>£39,200</td><td class="ok-cell">+£8,800</td><td class="ok-cell">+18.3%</td><td>—</td></tr>
-          <tr><td>T&E</td><td>£24,000</td><td class="link-cell">£12,000</td><td>£18,750</td><td class="err-cell">−£6,750</td><td class="err-cell">−56.3%</td><td class="err-cell">⚠</td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data</span></div>
+          <div class="formula-row">
+            <div class="name-box">C2</div><div class="fx-box">fx</div><div class="formula-input">=B2*6/12</div>
+          </div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:125px"><col style="width:120px"><col style="width:120px"><col style="width:120px"><col style="width:100px"><col style="width:95px"><col style="width:90px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Line Item</td><td class="header-cell">Annual Budget</td><td class="header-cell">YTD Budget</td><td class="header-cell">YTD Actual</td><td class="header-cell">Var £</td><td class="header-cell">Var %</td><td class="header-cell">Flag</td></tr>
+                <tr><th class="row-num">2</th><td>Revenue</td><td>£600,000</td><td class="selected formula-cell">£300,000</td><td>£289,500</td><td class="bad">−£10,500</td><td class="bad">−3.5%</td><td class="flag">⚠</td></tr>
+                <tr><th class="row-num">3</th><td>Payroll</td><td>£290,000</td><td class="formula-cell">£145,000</td><td>£152,400</td><td class="bad">−£7,400</td><td class="bad">−5.1%</td><td class="flag">⚠</td></tr>
+                <tr><th class="row-num">4</th><td>Marketing</td><td>£96,000</td><td class="formula-cell">£48,000</td><td>£39,200</td><td class="good">+£8,800</td><td class="good">+18.3%</td><td class="flag">⚠</td></tr>
+                <tr><th class="row-num">5</th><td>T&amp;E</td><td>£24,000</td><td class="formula-cell">£12,000</td><td>£18,750</td><td class="bad">−£6,750</td><td class="bad">−56.3%</td><td class="flag">⚠</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's YTD proration</div>
+          <div class="claude-fix-label">YTD basis</div>
           <pre>YTD Budget = Annual Budget × 6/12
-T&E: £24,000 × 6/12 = £12,000 YTD budget
-Actual £18,750 → −56.3% over YTD pace. ⚠
-Revenue: only −3.5% off YTD pace — manageable. ✓</pre>
+
+Revenue:
+£600,000 × 6/12 = £300,000
+£289,500 − £300,000 = −£10,500 (−3.5%)
+
+T&E:
+£24,000 × 6/12 = £12,000
+£12,000 − £18,750 = −£6,750 (−56.3%) ✓
+
+Use a non-linear budget profile for seasonal items instead of simple proration.</pre>
         </div>
       </div>
     </div>
