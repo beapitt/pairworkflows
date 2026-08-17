@@ -89,7 +89,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .node-caption .sub{font-size:10px;color:#a99f88;margin-top:4px;font-family:inherit}
 .node-caption.good{background:#eef2f8;color:#16213e}
 .node-caption.good .sub{color:#6b7a94}
-.fix-strip{margin-top:12px;padding:9px 12px;background:#16213e;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#e9dcc9;width:100%;box-sizing:border-box}
+.fix-strip{margin-top:12px;padding:12px 14px;background:#16213e;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.5;color:#e9dcc9;width:100%;box-sizing:border-box}
 .fix-strip .res{color:#7ee0b8;font-weight:700}
 
 /* ── DIAGNOSIS TABLE ── */
@@ -294,7 +294,7 @@ Each formula is supposed to [describe purpose]. Please trace where the loop clos
           </svg>
           <div class="fix-strip">
             Fix: <strong>=D3*0.08</strong> → £21,000 × 8% = <span class="res">£1,680 ✓</span>
-            <div style="font-size:10px;color:#9ca9bd;margin-top:3px">Circular References list now empty.</div>
+            <div style="font-size:11.5px;color:#9ca9bd;margin-top:5px;line-height:1.5">Circular References list now empty.</div>
           </div>
         </div>
       </div>
@@ -359,7 +359,7 @@ Each formula is supposed to [describe purpose]. Please trace where the loop clos
           </svg>
           <div class="fix-strip">
             F4 now derives from fixed <strong>B4</strong>, not D4 — no cycle.
-            <div style="font-size:10px;color:#9ca9bd;margin-top:3px">F4=B4/0.85=98,824 · E4=F4×1.10=108,706 · D4=E4×0.85=<span class="res">92,400 ✓</span></div>
+            <div style="font-size:11.5px;color:#9ca9bd;margin-top:5px;line-height:1.5">F4=B4/0.85=98,824 · E4=F4×1.10=108,706 · D4=E4×0.85=<span class="res">92,400 ✓</span></div>
           </div>
         </div>
       </div>
@@ -426,7 +426,7 @@ Each formula is supposed to [describe purpose]. Please trace where the loop clos
           </svg>
           <div class="fix-strip">
             <strong>=SUM($C$2:C3)</strong> in D3, drag down — range expands, no self-reference.
-            <div style="font-size:10px;color:#9ca9bd;margin-top:3px">D3=…:C3 · D4=…:C4 · D6=…:C6 → May total 12,400+9,800+14,100+11,200+13,500 = <span class="res">£61,000 ✓</span></div>
+            <div style="font-size:11.5px;color:#9ca9bd;margin-top:5px;line-height:1.5">D3=…:C3 · D4=…:C4 · D6=…:C6 → May total 12,400+9,800+14,100+11,200+13,500 = <span class="res">£61,000 ✓</span></div>
           </div>
         </div>
       </div>
