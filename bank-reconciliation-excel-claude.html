@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Bank Reconciliation in Excel with Claude AI — PairWorkflows — PairWorkflows</title>
+<title>Bank Reconciliation in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to reconcile a bank statement against your general ledger in Excel with Claude AI, match transactions, and flag discrepancies.">
 <link rel="canonical" href="https://www.pairworkflows.com/bank-reconciliation-excel-claude.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude read my Excel bank statement directly?","acceptedAnswer":{"@type":"Answer","text":"Claude cannot open .xlsx files natively in the free chat. You can paste your data as text, or upload the file in Claude Pro which supports file attachments. For best results, copy the relevant columns from Excel and paste them into the prompt."}},{"@type":"Question","name":"How does Claude match bank transactions to ledger entries?","acceptedAnswer":{"@type":"Answer","text":"Claude compares rows across two datasets using the matching criteria you specify — typically date, amount, and reference number. It flags exact matches, partial matches (e.g. same amount but different date), and completely unmatched items on both sides."}},{"@type":"Question","name":"Will Claude invent matches that don't exist?","acceptedAnswer":{"@type":"Answer","text":"Not if your prompt includes anti-hallucination guardrails. The prompt in this workflow explicitly instructs Claude to flag unmatched items rather than forcing a match. Always verify the output against your source data."}},{"@type":"Question","name":"Can I use this for multi-currency bank reconciliation?","acceptedAnswer":{"@type":"Answer","text":"Yes. Add a Currency column to both datasets and include the exchange rate in your prompt. Ask Claude to convert all amounts to your reporting currency before matching."}},{"@type":"Question","name":"How often should I run this reconciliation?","acceptedAnswer":{"@type":"Answer","text":"Most finance teams reconcile monthly at minimum. Weekly reconciliation catches errors faster and makes month-end close significantly smoother. The template Claude builds works for any frequency."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude read my Excel bank statement directly?","acceptedAnswer":{"@type":"Answer","text":"Claude may support spreadsheet file uploads depending on the plan and current product features. If file upload is unavailable, paste the relevant columns as text. For best results, provide only the rows and columns needed for the reconciliation."}},{"@type":"Question","name":"How does Claude match bank transactions to ledger entries?","acceptedAnswer":{"@type":"Answer","text":"Claude compares rows across two datasets using the matching criteria you specify — typically date, amount, and reference number. It flags exact matches, partial matches (e.g. same amount but different date), and completely unmatched items on both sides."}},{"@type":"Question","name":"Will Claude invent matches that don't exist?","acceptedAnswer":{"@type":"Answer","text":"Not if your prompt includes anti-hallucination guardrails. The prompt in this workflow explicitly instructs Claude to flag unmatched items rather than forcing a match. Always verify the output against your source data."}},{"@type":"Question","name":"Can I use this for multi-currency bank reconciliation?","acceptedAnswer":{"@type":"Answer","text":"Yes. Add a Currency column to both datasets and include the exchange rate in your prompt. Ask Claude to convert all amounts to your reporting currency before matching."}},{"@type":"Question","name":"How often should I run this reconciliation?","acceptedAnswer":{"@type":"Answer","text":"Most finance teams reconcile monthly at minimum. Weekly reconciliation catches errors faster and makes month-end close significantly smoother. The template Claude builds works for any frequency."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -50,27 +50,55 @@ section { margin-bottom: 2rem; }
 .prompt-hint a:hover{text-decoration:underline}
 
 /* ── BEFORE / AFTER VISUAL ── */
-.ba-panel { display: none; margin-bottom: 1.75rem; }
-.ba-panel.on { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: stretch; }
-
-.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.ba-panel{display:none;margin-bottom:1.75rem}
+.ba-panel.on{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:0;align-items:start}
+.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;min-width:0}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
 .ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
 .ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
 .ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
-.ba-body{padding:14px}
-.xl-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
-.xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
-.xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
-.xl-table .err-cell{color:#dc2626;font-weight:700;background:#fef2f2}
-.xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
-.xl-table .warn-cell{color:#b45309;font-weight:700;background:#fffbeb}
-.xl-table .hl{background:#fffbeb}
-.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+.ba-body{padding:14px;min-width:0}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0;align-self:center}
+
+.excel-window{border:1px solid #cbd5e1;border-radius:7px;overflow:hidden;background:#fff;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.excel-ribbon{display:flex;align-items:center;gap:12px;padding:5px 9px;background:#f8fafc;border-bottom:1px solid #dbe3ec;font-size:11px;color:#64748b}
+.excel-ribbon strong{color:#217346;font-size:11.5px}
+.formula-row{display:grid;grid-template-columns:54px 24px minmax(0,1fr);border-bottom:1px solid #cbd5e1;background:#fff;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.name-box{padding:6px 7px;border-right:1px solid #cbd5e1;background:#f8fafc;color:#334155}
+.fx-box{display:flex;align-items:center;justify-content:center;border-right:1px solid #cbd5e1;color:#64748b;font-style:italic}
+.formula-input{padding:6px 8px;line-height:1.45;white-space:normal;overflow-wrap:anywhere;min-width:0}
+.sheet-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.excel-grid{width:100%;min-width:620px;border-collapse:collapse;table-layout:fixed;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.excel-grid th,.excel-grid td{border:1px solid #d6dde5;padding:5px 7px;height:28px;vertical-align:middle;overflow-wrap:anywhere}
+.excel-grid thead th{background:#f3f6f8;color:#475569;text-align:center;font-weight:500;padding:4px 6px}
+.excel-grid .corner{width:34px;background:#eef2f5}
+.excel-grid .row-num{width:34px;background:#f3f6f8;color:#64748b;text-align:center;font-weight:500}
+.excel-grid .header-cell{background:#eef5f1;color:#1f2937;font-weight:700}
+.excel-grid .selected{background:#f0fdf4;box-shadow:inset 0 0 0 2px #217346}
+.excel-grid .error-selected{background:#fef2f2;box-shadow:inset 0 0 0 2px #dc2626;color:#b91c1c;font-weight:700}
+.excel-grid .matched{background:#f0fdf4;color:#047857;font-weight:700}
+.excel-grid .partial{background:#fffbeb;color:#b45309;font-weight:700}
+.excel-grid .unmatched{background:#fef2f2;color:#b91c1c;font-weight:700}
+.excel-grid .formula-cell{background:#eff6ff;color:#1f4e79}
+.excel-grid .fx-cell{background:#f5f3ff;color:#6d28d9;font-weight:700}
+.excel-grid .muted{color:#94a3b8}
+.excel-grid .subtotal{background:#f1f5f9;font-weight:700}
+.sheet-tabs{display:flex;gap:2px;padding:5px 7px;background:#f8fafc;border-top:1px solid #dbe3ec;font-size:11px}
+.sheet-tab{padding:4px 9px;color:#64748b}
+.sheet-tab.active{background:#fff;color:#217346;font-weight:700;border:1px solid #dbe3ec;border-bottom-color:#fff}
+.sheet-note{margin-top:10px;padding:9px 10px;border-radius:7px;font-size:11.5px;line-height:1.55}
+.sheet-note.bad{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c}
+.sheet-note.good{background:#f0fdf4;border:1px solid #a7f3d0;color:#047857}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
-.claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
-.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
+.claude-fix-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
+.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+
+@media(max-width:640px){
+  .ba-panel.on{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:.4rem 0}
+  .excel-grid{min-width:620px}
+}
 
 /* ── DIAGNOSIS TABLE ── */
 .diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
@@ -142,8 +170,6 @@ section { margin-bottom: 2rem; }
 @media(max-width:640px){
   .hero h1{font-size:24px}
   .hero h2 {font-size: 20px;}
-  .ba-panel.on{grid-template-columns:1fr;gap:8px}
-  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
   .related-grid{grid-template-columns:1fr}
@@ -270,39 +296,63 @@ Apply the same matching rules: Matched / Partial / Unmatched. Flag every discrep
   </section>
 
   <!-- BEFORE / AFTER VISUAL DYNAMIC -->
-  
+
   <!-- BA: Recon -->
   <section class="before-after ba-panel on" id="ba-recon">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — raw data, no matching</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — bank and ledger rows are separate, status is unknown</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Date</th><th>Bank Ref</th><th>Amount</th><th>Status</th></tr>
-          <tr><td>01/06/2025</td><td>TXN-4401</td><td>-12,500.00</td><td class="err-cell">?</td></tr>
-          <tr><td>05/06/2025</td><td>TXN-4410</td><td class="hl">8,750.00</td><td class="err-cell">?</td></tr>
-          <tr><td>07/06/2025</td><td>TXN-4415</td><td>-1,980.00</td><td class="err-cell">?</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Ledger shows 8,700.00 for TXN-4410 — £50 difference hidden in the data
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ TXN-4415 has no ledger entry at all</div>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Data</span><span>Sort & Filter</span></div>
+          <div class="formula-row"><div class="name-box">D3</div><div class="fx-box">fx</div><div class="formula-input"></div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:110px"><col style="width:130px"><col style="width:125px"><col style="width:120px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Date</td><td class="header-cell">Bank Ref</td><td class="header-cell">Bank Amount</td><td class="header-cell">Status</td></tr>
+                <tr><th class="row-num">2</th><td>01/06/2025</td><td>TXN-4401</td><td>−£12,500</td><td class="muted">?</td></tr>
+                <tr><th class="row-num">3</th><td>05/06/2025</td><td>TXN-4410</td><td class="error-selected">+£8,750</td><td class="muted">?</td></tr>
+                <tr><th class="row-num">4</th><td>07/06/2025</td><td>TXN-4415</td><td>−£1,980</td><td class="muted">?</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="sheet-tabs"><span class="sheet-tab active">Bank</span><span class="sheet-tab">Ledger</span><span class="sheet-tab">Reconciliation</span></div>
         </div>
+        <div class="sheet-note bad">Ledger contains −£12,500 for TXN-4401 and +£8,700 for TXN-4410. TXN-4415 has no ledger row. Without a reconciliation table, the £50 partial difference and bank-only item are hidden.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude reconciles it</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — one reconciliation sheet shows exact, partial and unmatched items</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Date</th><th>Bank Ref</th><th>Bank Amt</th><th>Status</th></tr>
-          <tr><td>01/06/2025</td><td>TXN-4401</td><td>-12,500.00</td><td class="ok-cell">Matched</td></tr>
-          <tr><td>05/06/2025</td><td>TXN-4410</td><td class="hl">8,750.00</td><td class="warn-cell">Partial</td></tr>
-          <tr><td>07/06/2025</td><td>TXN-4415</td><td>-1,980.00</td><td class="err-cell">Unmatched</td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data</span></div>
+          <div class="formula-row"><div class="name-box">E3</div><div class="fx-box">fx</div><div class="formula-input">=C3-D3</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:105px"><col style="width:125px"><col style="width:110px"><col style="width:110px"><col style="width:95px"><col style="width:145px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Date</td><td class="header-cell">Bank Ref</td><td class="header-cell">Bank Amt</td><td class="header-cell">Ledger Amt</td><td class="header-cell">Difference</td><td class="header-cell">Status</td></tr>
+                <tr><th class="row-num">2</th><td>01/06/2025</td><td>TXN-4401</td><td>−£12,500</td><td>−£12,500</td><td>£0</td><td class="matched">Matched</td></tr>
+                <tr><th class="row-num">3</th><td>05/06/2025</td><td>TXN-4410</td><td>+£8,750</td><td>+£8,700</td><td class="selected partial">+£50</td><td class="partial">Partial</td></tr>
+                <tr><th class="row-num">4</th><td>07/06/2025</td><td>TXN-4415</td><td>−£1,980</td><td class="muted">—</td><td class="muted">—</td><td class="unmatched">Bank only</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="sheet-tabs"><span class="sheet-tab">Bank</span><span class="sheet-tab">Ledger</span><span class="sheet-tab active">Reconciliation</span></div>
+        </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's output</div>
-          <pre>TXN-4410: Partial — Bank £8,750 vs Ledger £8,700 (Δ £50)
-TXN-4415: Unmatched (Bank only) — no ledger entry found
-Net difference: £50 partial + £1,980 unmatched</pre>
+          <div class="claude-fix-label">Reconciliation result</div>
+          <pre>TXN-4401 → exact match, difference £0
+TXN-4410 → partial match, bank £8,750 vs ledger £8,700, difference +£50
+TXN-4415 → unmatched bank item, −£1,980
+
+Do not combine the £50 partial variance and £1,980 bank-only item into one generic "net difference".
+They are different exception types and should be investigated separately. ✓</pre>
         </div>
       </div>
     </div>
@@ -311,33 +361,57 @@ Net difference: £50 partial + £1,980 unmatched</pre>
   <!-- BA: Debug -->
   <section class="before-after ba-panel" id="ba-debug">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — hidden data mismatch</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — one date is a real Excel date, the other is text</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Source</th><th>Date</th><th>Amount</th><th>Status</th></tr>
-          <tr><td>Bank</td><td class="hl">01/06/2025</td><td>500.00</td><td class="err-cell">Unmatched</td></tr>
-          <tr><td>Ledger</td><td class="hl">2025-06-01</td><td>500.00</td><td class="err-cell">Unmatched</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Amounts match perfectly, but dates format splits the entry
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ VLOOKUP or automated matching fails completely</div>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Number</span><span>Data</span></div>
+          <div class="formula-row"><div class="name-box">B3</div><div class="fx-box">fx</div><div class="formula-input">'2025-06-01</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:105px"><col style="width:135px"><col style="width:115px"><col style="width:145px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Source</td><td class="header-cell">Date value</td><td class="header-cell">Amount</td><td class="header-cell">Type / result</td></tr>
+                <tr><th class="row-num">2</th><td>Bank</td><td>01/06/2025</td><td>£500</td><td class="matched">Excel date serial</td></tr>
+                <tr><th class="row-num">3</th><td>Ledger</td><td class="error-selected">'2025-06-01</td><td>£500</td><td class="unmatched">Text</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+        <div class="sheet-note bad">Changing the Ledger cell's display format to DD/MM/YYYY does not convert text into a real Excel date. Matching can still fail even when the cells look identical.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude diagnosis</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — convert the text value, then format the real date</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Source</th><th>Date</th><th>Amount</th><th>Status</th></tr>
-          <tr><td>Bank</td><td>01/06/2025</td><td>500.00</td><td class="ok-cell">Matched</td></tr>
-          <tr><td>Ledger</td><td>01/06/2025</td><td>500.00</td><td class="ok-cell">Matched</td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Number</span></div>
+          <div class="formula-row"><div class="name-box">C3</div><div class="fx-box">fx</div><div class="formula-input">=DATE(LEFT(B3,4),MID(B3,6,2),RIGHT(B3,2))</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:105px"><col style="width:145px"><col style="width:145px"><col style="width:115px"><col style="width:120px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Source</td><td class="header-cell">Original</td><td class="header-cell">Clean Date</td><td class="header-cell">Amount</td><td class="header-cell">Status</td></tr>
+                <tr><th class="row-num">2</th><td>Bank</td><td>01/06/2025</td><td>01/06/2025</td><td>£500</td><td class="matched">Matched</td></tr>
+                <tr><th class="row-num">3</th><td>Ledger</td><td>'2025-06-01</td><td class="selected formula-cell">01/06/2025</td><td>£500</td><td class="matched">Matched</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's fix</div>
-          <pre>1. Select Ledger dates -> Format Cells
-2. Custom -> DD/MM/YYYY
-Dates aligned. Rerun prompt -> Matched. ✓</pre>
+          <div class="claude-fix-label">Correct date fix</div>
+          <pre>If B3 contains ISO text "2025-06-01":
+
+=DATE(LEFT(B3,4),MID(B3,6,2),RIGHT(B3,2))
+
+This creates a real Excel date value.
+Then apply DD/MM/YYYY as the display format.
+
+Formatting alone changes appearance, not the underlying data type. ✓</pre>
         </div>
       </div>
     </div>
@@ -346,33 +420,57 @@ Dates aligned. Rerun prompt -> Matched. ✓</pre>
   <!-- BA: Multi-currency -->
   <section class="before-after ba-panel" id="ba-multi">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — different currencies</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — original-currency amount is compared directly with GBP ledger</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Source</th><th>Currency</th><th>Amount</th><th>Status</th></tr>
-          <tr><td>Bank</td><td>USD</td><td class="hl">1,000.00</td><td class="err-cell">Unmatched</td></tr>
-          <tr><td>Ledger</td><td>GBP</td><td class="hl">790.00</td><td class="err-cell">Unmatched</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Values don't match without an applied exchange rate
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Manual conversion takes hours across hundreds of rows</div>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Data</span><span>Number</span></div>
+          <div class="formula-row"><div class="name-box">C2</div><div class="fx-box">fx</div><div class="formula-input">1000</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:105px"><col style="width:105px"><col style="width:120px"><col style="width:135px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Source</td><td class="header-cell">Currency</td><td class="header-cell">Amount</td><td class="header-cell">Status</td></tr>
+                <tr><th class="row-num">2</th><td>Bank</td><td>USD</td><td class="error-selected">$1,000.00</td><td class="unmatched">Unmatched</td></tr>
+                <tr><th class="row-num">3</th><td>Ledger</td><td>GBP</td><td>£790.00</td><td class="unmatched">Unmatched</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+        <div class="sheet-note bad">The amounts are not comparable until the bank transaction is translated into the ledger's reporting currency using the specified rate.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude applies rate</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — helper column converts bank amount before matching</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Source</th><th>Conversion</th><th>Amount</th><th>Status</th></tr>
-          <tr><td>Bank</td><td>1000 * 0.79</td><td>£ 790.00</td><td class="ok-cell">Matched</td></tr>
-          <tr><td>Ledger</td><td>Base Rate</td><td>£ 790.00</td><td class="ok-cell">Matched</td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Number</span></div>
+          <div class="formula-row"><div class="name-box">D2</div><div class="fx-box">fx</div><div class="formula-input">=C2*$G$1</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:105px"><col style="width:105px"><col style="width:120px"><col style="width:125px"><col style="width:120px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Source</td><td class="header-cell">Currency</td><td class="header-cell">Original</td><td class="header-cell">GBP Amount</td><td class="header-cell">Status</td></tr>
+                <tr><th class="row-num">2</th><td>Bank</td><td>USD</td><td>$1,000.00</td><td class="selected fx-cell">£790.00</td><td class="matched">Matched</td></tr>
+                <tr><th class="row-num">3</th><td>Ledger</td><td>GBP</td><td>£790.00</td><td>£790.00</td><td class="matched">Matched</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's output</div>
-          <pre>Rate applied: 1 USD = 0.79 GBP
-Bank USD 1,000 converted to GBP 790
-Matched exactly to Ledger entry. ✓</pre>
+          <div class="claude-fix-label">FX conversion</div>
+          <pre>Assumed rate in G1:
+1 USD = 0.79 GBP
+
+Bank conversion:
+$1,000 × 0.79 = £790.00 ✓
+
+Only after conversion should £790 be compared with the GBP ledger amount.
+For real reconciliations, use the transaction-specific or policy-approved FX rate supplied in your data.</pre>
         </div>
       </div>
     </div>
@@ -383,7 +481,7 @@ Matched exactly to Ledger entry. ✓</pre>
     <div class="diag-header"><h2><i class="ti ti-zoom-question" style="font-size:15px"></i> Why reconciliations fail — the 4 most common causes</h2></div>
     <div class="diag-row">
       <div class="diag-cause">Date format mismatch</div>
-      <div class="diag-example">Bank: <span class="bad">01/06/2025</span> · Ledger: <span class="bad">2025-06-01</span> → all rows show Unmatched</div>
+      <div class="diag-example">One side is a real Excel date, the other is <span class="bad">text</span> → values may look alike but fail exact matching</div>
       <div class="diag-badge badge-red">Most common</div>
     </div>
     <div class="diag-row">
@@ -447,7 +545,7 @@ Matched exactly to Ledger entry. ✓</pre>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Query Claude for hidden formatting</h3><p>Paste the samples into Claude using the prompt above. Claude spots invisible characters, trailing spaces, differing sign conventions, or text-stored dates instantly.</p></div>
+        <div class="step-body"><h3>Query Claude for hidden formatting</h3><p>Paste the samples into Claude using the prompt above. Claude can help identify likely issues such as invisible characters, trailing spaces, differing sign conventions, or text-stored dates from the samples you provide.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
@@ -484,7 +582,7 @@ Matched exactly to Ledger entry. ✓</pre>
     <div class="faq-title"><h2>Frequently asked questions</h2></div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can Claude read my Excel bank statement directly? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Claude cannot open .xlsx files natively in the free chat. Copy the relevant columns from Excel and paste them as plain text into the prompt. Claude Pro supports file uploads if you prefer to attach the file directly.</div>
+      <div class="faq-a">Claude may support spreadsheet file uploads depending on the plan and current product features. If file upload is unavailable, copy the relevant Excel columns and paste them as plain text into the prompt.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How does Claude match bank transactions to ledger entries? <i class="ti ti-chevron-down"></i></div>
