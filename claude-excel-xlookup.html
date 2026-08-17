@@ -72,6 +72,30 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
 .claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
 
+
+/* ── XLOOKUP — lookup-path arrow ── */
+.lk-wrap{padding:10px 10px 12px;display:flex;flex-direction:column;align-items:center}
+.lk-svg{width:100%;max-width:none;height:auto;display:block}
+.lk-box{fill:#fff;stroke:#c5cdd8;stroke-width:1.5;rx:10}
+.lk-box.src{fill:#edf0f8;stroke:#3047a6;stroke-width:2}
+.lk-box.tgt{fill:#fdf4ef;stroke:#f4ae8c;stroke-width:2}
+.lk-box.miss{fill:#fdf4ef;stroke:#e07850;stroke-width:2.5;stroke-dasharray:7 4}
+.lk-box.ok{fill:#edf0f8;stroke:#3047a6;stroke-width:2}
+.lk-lbl{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;fill:#1e293b}
+.lk-sub{font-family:'JetBrains Mono',monospace;font-size:11.5px;fill:#64748b}
+.lk-arrow{fill:none;stroke:#3047a6;stroke-width:2}
+.lk-arrow.miss{stroke:#e07850;stroke-width:2.5;stroke-dasharray:7 4}
+.lk-caption{margin-top:12px;padding:10px 12px;background:#fdf4ef;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#8a4a25;width:100%;box-sizing:border-box;line-height:1.5}
+.lk-caption .sub{font-size:11px;color:#b89070;margin-top:4px}
+.lk-caption.ok{background:#edf0f8;color:#1e3a7a}
+.lk-caption.ok .sub{color:#6b7a94}
+.lk-fix{margin-top:12px;padding:12px 14px;background:#1a2440;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.5;color:#b8c8e6;width:100%;box-sizing:border-box}
+.lk-fix .res{color:#5b9bf5;font-weight:700}
+.lk-fix .sub{font-size:11.5px;color:#6b8aaa;margin-top:5px;line-height:1.5}
+.lk-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
+.lk-table th{background:#edf0f8;color:#3047a6;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.06em;padding:7px 12px;text-align:left;border-bottom:2px solid #c5cdd8}
+.lk-table td{padding:6px 12px;border-bottom:1px solid #f0f2f5;color:#1e293b}
+
 /* ── DIAGNOSIS TABLE ── */
 .diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .diag-header{background:#fef2f2;border-bottom:1px solid #fecaca;padding:12px 18px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#dc2626}
@@ -135,6 +159,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 @media(max-width:640px){
   .hero h1{font-size:24px}
   .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-panel.on{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:4px 0}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
@@ -228,38 +254,62 @@ Data is on sheet [name]. Keep any existing IFERROR wrapper.</pre>
 
   <!-- Tab: build -->
   <div class="before-after ba-panel on" id="ba-build">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — no formula, manual lookup</div>
+    <div class="ba-col before" style="border-color:#f4ae8c">
+      <div class="ba-header" style="background:#fdf4ef;color:#8a4a25;border-bottom:1px solid #f4d0b8"><i class="ti ti-search" style="font-size:14px;color:#e07850"></i> Before — Bonus % manual, no formula links the two sheets</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Emp ID</th><th>Name</th><th>Department</th><th>Salary</th><th>Bonus %</th></tr>
-          <tr><td>EMP-041</td><td>Sarah Chen</td><td>Finance</td><td>£52,000</td><td class="err-cell">?</td></tr>
-          <tr><td>EMP-087</td><td>James Ward</td><td>Sales</td><td>£48,500</td><td class="err-cell">?</td></tr>
-          <tr><td>EMP-112</td><td>Priya Patel</td><td>HR</td><td>£44,000</td><td class="err-cell">?</td></tr>
-          <tr><td>EMP-203</td><td>Tom Ellis</td><td>Engineering</td><td>£67,000</td><td class="err-cell">?</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Bonus % comes from a separate BonusTable sheet — looked up manually each cycle
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ "Look up Emp ID in BonusTable and return Bonus %" — Claude writes it</div>
+        <div class="lk-wrap">
+          <svg class="lk-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="la" markerWidth="10" markerHeight="10" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7" fill="none" stroke="#3047a6" stroke-width="2"/></marker>
+              <marker id="lm" markerWidth="10" markerHeight="10" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7" fill="none" stroke="#e07850" stroke-width="2"/></marker>
+            </defs>
+            <rect class="lk-box src" x="14" y="28" width="170" height="144" rx="10"/>
+            <text class="lk-lbl" x="99" y="52" text-anchor="middle">Staff sheet</text>
+            <text class="lk-sub" x="99" y="80" text-anchor="middle">EMP-041  Sarah Chen  £52k</text>
+            <text class="lk-sub" x="99" y="100" text-anchor="middle">EMP-087  James Ward  £48k</text>
+            <text class="lk-sub" x="99" y="120" text-anchor="middle">EMP-112  Priya Patel  £44k</text>
+            <text class="lk-sub" x="99" y="140" text-anchor="middle">EMP-203  Tom Ellis   £67k</text>
+            <text class="lk-sub" x="99" y="162" text-anchor="middle" fill="#e07850" font-weight="600">Bonus %  ?  ?  ?  ?</text>
+            <rect class="lk-box tgt" x="230" y="48" width="156" height="104" rx="10"/>
+            <text class="lk-lbl" x="308" y="72" text-anchor="middle">BonusTable</text>
+            <text class="lk-sub" x="308" y="98" text-anchor="middle">EMP-041  12%</text>
+            <text class="lk-sub" x="308" y="118" text-anchor="middle">EMP-087  18%</text>
+            <text class="lk-sub" x="308" y="138" text-anchor="middle">EMP-112   8%</text>
+            <path class="lk-arrow miss" d="M 184 100 L 230 100" marker-end="url(#lm)"/>
+            <text class="lk-sub" x="207" y="90" text-anchor="middle" fill="#e07850" font-weight="600">manual?</text>
+          </svg>
+          <div class="lk-caption">
+            Bonus % exists in BonusTable but no formula connects the two sheets
+            <div class="sub">Looked up manually each payroll cycle — slow and error-prone</div>
+          </div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude writes the XLOOKUP formula</div>
+    <div class="ba-col after" style="border-color:#3047a6">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — XLOOKUP links the sheets automatically</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Emp ID</th><th>Name</th><th>Department</th><th>Salary</th><th>Bonus %</th></tr>
-          <tr><td>EMP-041</td><td>Sarah Chen</td><td>Finance</td><td>£52,000</td><td class="ok-cell">12% ✓</td></tr>
-          <tr><td>EMP-087</td><td>James Ward</td><td>Sales</td><td>£48,500</td><td class="ok-cell">18% ✓</td></tr>
-          <tr><td>EMP-112</td><td>Priya Patel</td><td>HR</td><td>£44,000</td><td class="ok-cell">8% ✓</td></tr>
-          <tr><td>EMP-203</td><td>Tom Ellis</td><td>Engineering</td><td>£67,000</td><td class="ok-cell">15% ✓</td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's formula</div>
-          <pre>=XLOOKUP(A2, BonusTable!$A:$A, BonusTable!$C:$C, "Not found", 0)
-Argument 4: "Not found" if ID missing — no IFERROR needed.
-Argument 5: 0 = exact match. ✓</pre>
+        <div class="lk-wrap">
+          <svg class="lk-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+            <rect class="lk-box ok" x="14" y="28" width="170" height="144" rx="10"/>
+            <text class="lk-lbl" x="99" y="52" text-anchor="middle">Staff sheet</text>
+            <text class="lk-sub" x="99" y="80" text-anchor="middle">EMP-041  Sarah Chen  £52k</text>
+            <text class="lk-sub" x="99" y="100" text-anchor="middle">EMP-087  James Ward  £48k</text>
+            <text class="lk-sub" x="99" y="120" text-anchor="middle">EMP-112  Priya Patel  £44k</text>
+            <text class="lk-sub" x="99" y="140" text-anchor="middle">EMP-203  Tom Ellis   £67k</text>
+            <text class="lk-sub" x="99" y="162" text-anchor="middle" fill="#3047a6" font-weight="700">Bonus  12% 18% 8% 15%</text>
+            <rect class="lk-box ok" x="230" y="48" width="156" height="104" rx="10"/>
+            <text class="lk-lbl" x="308" y="72" text-anchor="middle">BonusTable</text>
+            <text class="lk-sub" x="308" y="98" text-anchor="middle">EMP-041  12%</text>
+            <text class="lk-sub" x="308" y="118" text-anchor="middle">EMP-087  18%</text>
+            <text class="lk-sub" x="308" y="138" text-anchor="middle">EMP-112   8%</text>
+            <path class="lk-arrow" d="M 184 100 L 230 100" marker-end="url(#la)"/>
+            <text class="lk-sub" x="207" y="90" text-anchor="middle" fill="#3047a6" font-weight="600">XLOOKUP</text>
+          </svg>
+          <div class="lk-fix">
+            <strong>=XLOOKUP(A2, BonusTable!$A:$A, BonusTable!$C:$C,<br>"Not found", 0)</strong>
+            <div class="sub">Arg 4 handles missing IDs (no IFERROR needed). Arg 5 = exact match. <span class="res">✓</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -267,18 +317,28 @@ Argument 5: 0 = exact match. ✓</pre>
 
   <!-- Tab: debug -->
   <div class="before-after ba-panel" id="ba-debug">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — XLOOKUP returns #N/A despite value existing</div>
+    <div class="ba-col before" style="border-color:#f4ae8c">
+      <div class="ba-header" style="background:#fdf4ef;color:#8a4a25;border-bottom:1px solid #f4d0b8"><i class="ti ti-unlink" style="font-size:14px;color:#e07850"></i> Before — lookup key format doesn't match table</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Cell A2 (lookup)</th><th>Type</th><th>BonusTable col A</th><th>Type</th><th>Result</th></tr>
-          <tr><td class="err-cell">1041</td><td class="err-cell">Number</td><td class="err-cell">"EMP-1041"</td><td class="err-cell">Text</td><td class="err-cell">#N/A</td></tr>
-          <tr><td class="err-cell">1087</td><td class="err-cell">Number</td><td class="err-cell">"EMP-1087"</td><td class="err-cell">Text</td><td class="err-cell">#N/A</td></tr>
-          <tr><td class="err-cell">1112</td><td class="err-cell">Number</td><td class="err-cell">"EMP-1112"</td><td class="err-cell">Text</td><td class="err-cell">#N/A</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          =XLOOKUP(A2, BonusTable!$A:$A, BonusTable!$C:$C, "Not found") → #N/A
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ ID exists in BonusTable — data type mismatch is the cause</div>
+        <div class="lk-wrap">
+          <svg class="lk-svg" viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg">
+            <rect class="lk-box miss" x="14" y="36" width="160" height="96" rx="10"/>
+            <text class="lk-lbl" x="94" y="62" text-anchor="middle" fill="#e07850">Lookup key</text>
+            <text class="lk-sub" x="94" y="86" text-anchor="middle" fill="#e07850">1041  (Number)</text>
+            <text class="lk-sub" x="94" y="106" text-anchor="middle" fill="#e07850">1087  (Number)</text>
+            <text class="lk-sub" x="94" y="122" text-anchor="middle" fill="#e07850">1112  (Number)</text>
+            <rect class="lk-box tgt" x="226" y="36" width="160" height="96" rx="10"/>
+            <text class="lk-lbl" x="306" y="62" text-anchor="middle">BonusTable</text>
+            <text class="lk-sub" x="306" y="86" text-anchor="middle">"EMP-1041" (Text)</text>
+            <text class="lk-sub" x="306" y="106" text-anchor="middle">"EMP-1087" (Text)</text>
+            <text class="lk-sub" x="306" y="122" text-anchor="middle">"EMP-1112" (Text)</text>
+            <path class="lk-arrow miss" d="M 174 84 L 226 84" marker-end="url(#lm)"/>
+            <text class="lk-sub" x="200" y="72" text-anchor="middle" fill="#e07850" font-weight="700">#N/A</text>
+          </svg>
+          <div class="lk-caption">
+            1041 (number) ≠ "EMP-1041" (text) — different format, not just different type
+            <div class="sub">The ID exists in BonusTable but the lookup key doesn't include the "EMP-" prefix</div>
+          </div>
         </div>
       </div>
     </div>
@@ -305,17 +365,19 @@ All 3 rows now resolve correctly. ✓</pre>
 
   <!-- Tab: convert -->
   <div class="before-after ba-panel" id="ba-convert">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — VLOOKUP breaks after column insert</div>
+    <div class="ba-col before" style="border-color:#f4ae8c">
+      <div class="ba-header" style="background:#fdf4ef;color:#8a4a25;border-bottom:1px solid #f4d0b8"><i class="ti ti-column-insert-right" style="font-size:14px;color:#e07850"></i> Before — column inserted, VLOOKUP index now wrong</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Col A</th><th>Col B</th><th>Col C (inserted)</th><th>Col D</th><th>VLOOKUP result</th></tr>
-          <tr><td>EMP-041</td><td>Sarah Chen</td><td class="hl">Dept (new)</td><td>£52,000</td><td class="err-cell">Returns "Dept" ✗</td></tr>
-          <tr><td>EMP-087</td><td>James Ward</td><td class="hl">Sales (new)</td><td>£48,500</td><td class="err-cell">Returns "Sales" ✗</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          =IFERROR(VLOOKUP(A2, Staff!A:C, 3, FALSE), "—")
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Hardcoded "3" now returns col C (Dept) instead of Salary after insert</div>
+        <div class="lk-wrap">
+          <table class="lk-table">
+            <tr><th>Col A</th><th>Col B</th><th style="background:#fdf4ef;color:#e07850;font-weight:700">Col C (inserted)</th><th>Col D</th><th>VLOOKUP "col 3"</th></tr>
+            <tr><td>EMP-041</td><td>Sarah Chen</td><td style="color:#e07850;font-weight:600">Finance</td><td>£52,000</td><td style="color:#e07850;font-weight:700">Returns "Finance" ✗</td></tr>
+            <tr><td>EMP-087</td><td>James Ward</td><td style="color:#e07850;font-weight:600">Sales</td><td>£48,500</td><td style="color:#e07850;font-weight:700">Returns "Sales" ✗</td></tr>
+          </table>
+          <div class="lk-caption">
+            VLOOKUP(…, 3, FALSE) — hardcoded "3" now points to col C (Dept) not col D (Salary)
+            <div class="sub">Every column insert silently shifts the return value</div>
+          </div>
         </div>
       </div>
     </div>
