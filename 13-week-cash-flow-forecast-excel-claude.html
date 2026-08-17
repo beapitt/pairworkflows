@@ -49,26 +49,55 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint a:hover{text-decoration:underline}
 
 /* ── BEFORE / AFTER VISUAL ── */
-.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
-.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.before-after{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:0;margin-bottom:1.75rem;align-items:start}
+.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;min-width:0}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
 .ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
 .ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
 .ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
-.ba-body{padding:14px}
-.xl-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
-.xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
-.xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
-.xl-table .err-cell{color:#dc2626;font-weight:700;background:#fef2f2}
-.xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
-.xl-table .hl{background:#fffbeb}
-.xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
-.xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
-.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+.ba-body{padding:14px;min-width:0}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0;align-self:center}
+.ba-scenario{margin-bottom:1.75rem}
+
+.excel-window{border:1px solid #cbd5e1;border-radius:7px;overflow:hidden;background:#fff;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.excel-ribbon{display:flex;align-items:center;gap:12px;padding:5px 9px;background:#f8fafc;border-bottom:1px solid #dbe3ec;font-size:11px;color:#64748b}
+.excel-ribbon strong{color:#217346;font-size:11.5px}
+.formula-row{display:grid;grid-template-columns:54px 24px minmax(0,1fr);border-bottom:1px solid #cbd5e1;background:#fff;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.name-box{padding:6px 7px;border-right:1px solid #cbd5e1;background:#f8fafc;color:#334155}
+.fx-box{display:flex;align-items:center;justify-content:center;border-right:1px solid #cbd5e1;color:#64748b;font-style:italic}
+.formula-input{padding:6px 8px;line-height:1.45;white-space:normal;overflow-wrap:anywhere;min-width:0}
+.sheet-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.excel-grid{width:100%;min-width:620px;border-collapse:collapse;table-layout:fixed;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.excel-grid th,.excel-grid td{border:1px solid #d6dde5;padding:5px 7px;height:28px;vertical-align:middle;overflow-wrap:anywhere}
+.excel-grid thead th{background:#f3f6f8;color:#475569;text-align:center;font-weight:500;padding:4px 6px}
+.excel-grid .corner{width:34px;background:#eef2f5}
+.excel-grid .row-num{width:34px;background:#f3f6f8;color:#64748b;text-align:center;font-weight:500}
+.excel-grid .header-cell{background:#eef5f1;color:#1f2937;font-weight:700}
+.excel-grid .selected{background:#f0fdf4;box-shadow:inset 0 0 0 2px #217346}
+.excel-grid .error-selected{background:#fef2f2;box-shadow:inset 0 0 0 2px #dc2626;color:#b91c1c;font-weight:700}
+.excel-grid .bad{background:#fef2f2;color:#b91c1c;font-weight:700}
+.excel-grid .good{background:#f0fdf4;color:#047857;font-weight:700}
+.excel-grid .formula-cell{background:#eff6ff;color:#1f4e79}
+.excel-grid .input-cell{background:#fffbeb}
+.excel-grid .subtotal{background:#f1f5f9;font-weight:700}
+.excel-grid .risk{background:#fff7ed;color:#c2410c;font-weight:700}
+.excel-grid .locked{background:#f8fafc;color:#64748b}
+.sheet-tabs{display:flex;gap:2px;padding:5px 7px;background:#f8fafc;border-top:1px solid #dbe3ec;font-size:11px}
+.sheet-tab{padding:4px 9px;color:#64748b}
+.sheet-tab.active{background:#fff;color:#217346;font-weight:700;border:1px solid #dbe3ec;border-bottom-color:#fff}
+.sheet-note{margin-top:10px;padding:9px 10px;border-radius:7px;font-size:11.5px;line-height:1.55}
+.sheet-note.bad{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c}
+.sheet-note.good{background:#f0fdf4;border:1px solid #a7f3d0;color:#047857}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
-.claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
-.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
+.claude-fix-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
+.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+
+@media(max-width:640px){
+  .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:.4rem 0}
+  .excel-grid{min-width:620px}
+}
 
 /* ── DIAGNOSIS TABLE ── */
 .diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
@@ -132,8 +161,6 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
 @media(max-width:640px){
   .hero h1{font-size:24px}
-  .before-after{grid-template-columns:1fr;gap:8px}
-  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
   .related-grid{grid-template-columns:1fr}
@@ -279,132 +306,203 @@ Output the full 26-week table in the same column format as my original.</pre>
   </div>
 
   <!-- BEFORE / AFTER VISUAL -->
+
+  <!-- Tab: build -->
   <div id="ba-build" class="ba-scenario">
-  <div class="before-after">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — unstructured list, no week-by-week table</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Item</th><th>Amount</th><th>Timing</th></tr>
-          <tr class="section-row"><td colspan="3">Inflows (as provided)</td></tr>
-          <tr><td>Customer invoice A</td><td>£36,500</td><td class="err-cell">Week 3 — confirmed</td></tr>
-          <tr><td>Customer invoice B</td><td>£8,500</td><td class="hl">Week 4 — at risk</td></tr>
-          <tr class="section-row"><td colspan="3">Outflows (as provided)</td></tr>
-          <tr><td>Payroll</td><td>£28,000</td><td class="err-cell">Monthly — week unclear</td></tr>
-          <tr><td>Supplier batch</td><td>£62,000</td><td class="err-cell">Week 4</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Opening £59,300 — items listed but no weekly structure built
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ No closing balance, no buffer check, no view of which week cash runs tight</div>
+    <div class="before-after">
+      <div class="ba-col before">
+        <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — receipts and payments are listed, but not linked by week</div>
+        <div class="ba-body">
+          <div class="excel-window">
+            <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Data</span><span>Sort & Filter</span></div>
+            <div class="formula-row"><div class="name-box">C3</div><div class="fx-box">fx</div><div class="formula-input">Week 4 — at risk</div></div>
+            <div class="sheet-scroll">
+              <table class="excel-grid">
+                <colgroup><col style="width:34px"><col style="width:185px"><col style="width:110px"><col style="width:170px"></colgroup>
+                <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th></tr></thead>
+                <tbody>
+                  <tr><th class="row-num">1</th><td class="header-cell">Item</td><td class="header-cell">Amount</td><td class="header-cell">Timing</td></tr>
+                  <tr><th class="row-num">2</th><td>Customer invoice A</td><td>£36,500</td><td>Week 3 — confirmed</td></tr>
+                  <tr><th class="row-num">3</th><td>Customer invoice B</td><td>£8,500</td><td class="error-selected risk">Week 4 — at risk</td></tr>
+                  <tr><th class="row-num">4</th><td>Payroll</td><td>−£28,000</td><td class="bad">Monthly — week unclear</td></tr>
+                  <tr><th class="row-num">5</th><td>Supplier batch</td><td>−£62,000</td><td>Week 4</td></tr>
+                  <tr><th class="row-num">6</th><td>Opening cash</td><td>£59,300</td><td>Start of Wk 3</td></tr>
+                  <tr><th class="row-num">7</th><td>Minimum buffer</td><td>£20,000</td><td></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="sheet-tabs"><span class="sheet-tab active">Inputs</span><span class="sheet-tab">13W Forecast</span></div>
+          </div>
+          <div class="sheet-note bad">The data cannot yet answer the treasury question: which specific week drops below the £20,000 cash buffer?</div>
+        </div>
+      </div>
+
+      <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
+      <div class="ba-col after">
+        <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — opening and closing balances roll forward week by week</div>
+        <div class="ba-body">
+          <div class="excel-window">
+            <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Conditional Formatting</span></div>
+            <div class="formula-row"><div class="name-box">C6</div><div class="fx-box">fx</div><div class="formula-input">=C3+C4-C5</div></div>
+            <div class="sheet-scroll">
+              <table class="excel-grid">
+                <colgroup><col style="width:34px"><col style="width:175px"><col style="width:115px"><col style="width:115px"><col style="width:115px"></colgroup>
+                <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+                <tbody>
+                  <tr><th class="row-num">1</th><td class="header-cell">Forecast line</td><td class="header-cell">Wk 2</td><td class="header-cell">Wk 3</td><td class="header-cell">Wk 4</td></tr>
+                  <tr><th class="row-num">2</th><td>Week starting</td><td>—</td><td>15 Jun</td><td>22 Jun</td></tr>
+                  <tr><th class="row-num">3</th><td>Opening Balance</td><td>—</td><td>£59,300</td><td class="formula-cell">£67,800</td></tr>
+                  <tr><th class="row-num">4</th><td>Total In</td><td>—</td><td class="good">£36,500</td><td class="risk">£8,500</td></tr>
+                  <tr><th class="row-num">5</th><td>Total Out</td><td>—</td><td>£28,000</td><td>£62,000</td></tr>
+                  <tr><th class="row-num">6</th><td class="subtotal">Closing Balance</td><td>—</td><td class="subtotal good">£67,800</td><td class="error-selected bad">£14,300 ⚠</td></tr>
+                  <tr><th class="row-num">7</th><td>Minimum Buffer</td><td>£20,000</td><td>£20,000</td><td>£20,000</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="sheet-tabs"><span class="sheet-tab">Inputs</span><span class="sheet-tab active">13W Forecast</span></div>
+          </div>
+          <div class="claude-fix">
+            <div class="claude-fix-label">Roll-forward logic</div>
+            <pre>Wk 3 close = £59,300 + £36,500 − £28,000 = £67,800
+Wk 4 open  = prior week close = £67,800
+Wk 4 close = £67,800 + £8,500 − £62,000 = £14,300
+
+£14,300 < £20,000 minimum buffer → flag Week 4. ✓</pre>
+          </div>
         </div>
       </div>
     </div>
-    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude builds the structured forecast</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th colspan="5" style="text-align:center;font-size:10px;color:#6b7280;font-weight:400">13-week forecast excerpt (weeks 3–4 of 13)</th></tr>
-          <tr><th></th><th>Wk 3</th><th>Wk 4</th></tr>
-          <tr><td>Opening Bal</td><td>59,300</td><td>67,800</td></tr>
-          <tr><td>Total In</td><td>36,500</td><td class="hl">8,500</td></tr>
-          <tr><td>Total Out</td><td>−28,000</td><td>−62,000</td></tr>
-          <tr><td>Closing Bal</td><td class="ok-cell">67,800</td><td class="err-cell">14,300 ⚠ below buffer</td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's output</div>
-          <pre>Wk 3: 59,300 + 36,500 − 28,000 = 67,800 ✓
-Wk 4: 67,800 + 8,500 − 62,000 = 14,300 ✓
-Week 4 closing (£14,300) is below the £20,000 minimum buffer.
-Flagged — even in the base case. ✓</pre>
-        </div>
-      </div>
-    </div>
-  </div>
   </div>
 
+  <!-- Tab: risk -->
   <div id="ba-risk" class="ba-scenario" style="display:none">
-  <div class="before-after">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — at-risk receipt treated as confirmed</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th colspan="4" style="text-align:center;font-size:10px;color:#6b7280;font-weight:400">13-week forecast excerpt — base case only</th></tr>
-          <tr><th></th><th>Wk 3</th><th>Wk 4</th></tr>
-          <tr><td>Opening Bal</td><td>59,300</td><td>67,800</td></tr>
-          <tr><td>Total In</td><td>36,500</td><td class="hl">8,500</td></tr>
-          <tr><td>Total Out</td><td>−28,000</td><td>−62,000</td></tr>
-          <tr><td>Closing Bal</td><td>67,800</td><td class="err-cell">14,300</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          £8,500 "at risk" overdue invoice counted at full value in Week 4
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ No worst-case check — the buffer breach only shows up if that invoice actually pays</div>
+    <div class="before-after">
+      <div class="ba-col before">
+        <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — the at-risk receipt is carried at 100% in the base forecast</div>
+        <div class="ba-body">
+          <div class="excel-window">
+            <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data</span></div>
+            <div class="formula-row"><div class="name-box">D4</div><div class="fx-box">fx</div><div class="formula-input">8500</div></div>
+            <div class="sheet-scroll">
+              <table class="excel-grid">
+                <colgroup><col style="width:34px"><col style="width:180px"><col style="width:120px"><col style="width:120px"></colgroup>
+                <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th></tr></thead>
+                <tbody>
+                  <tr><th class="row-num">1</th><td class="header-cell">Wk 4 line</td><td class="header-cell">Value</td><td class="header-cell">Assumption</td></tr>
+                  <tr><th class="row-num">2</th><td>Opening Balance</td><td>£67,800</td><td>From Wk 3 close</td></tr>
+                  <tr><th class="row-num">3</th><td>Confirmed inflows</td><td>£0</td><td></td></tr>
+                  <tr><th class="row-num">4</th><td>Invoice B</td><td class="error-selected risk">£8,500</td><td class="risk">At risk, but counted 100%</td></tr>
+                  <tr><th class="row-num">5</th><td>Total Out</td><td>£62,000</td><td></td></tr>
+                  <tr><th class="row-num">6</th><td class="subtotal">Closing Balance</td><td class="subtotal bad">£14,300</td><td>Base case only</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="sheet-note bad">The base case already breaches the £20,000 buffer, but it still hides how much worse liquidity becomes if the £8,500 invoice does not arrive.</div>
+        </div>
+      </div>
+
+      <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
+      <div class="ba-col after">
+        <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — base, worst-case and weighted scenarios share the same opening balance</div>
+        <div class="ba-body">
+          <div class="excel-window">
+            <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Scenario Manager</span></div>
+            <div class="formula-row"><div class="name-box">D4</div><div class="fx-box">fx</div><div class="formula-input">=8500*50%</div></div>
+            <div class="sheet-scroll">
+              <table class="excel-grid">
+                <colgroup><col style="width:34px"><col style="width:170px"><col style="width:105px"><col style="width:105px"><col style="width:120px"></colgroup>
+                <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+                <tbody>
+                  <tr><th class="row-num">1</th><td class="header-cell">Scenario</td><td class="header-cell">Wk 4 In</td><td class="header-cell">Wk 4 Out</td><td class="header-cell">Closing</td></tr>
+                  <tr><th class="row-num">2</th><td>Base case (100%)</td><td>£8,500</td><td>£62,000</td><td class="bad">£14,300 ⚠</td></tr>
+                  <tr><th class="row-num">3</th><td>Worst case (0%)</td><td class="formula-cell">£0</td><td>£62,000</td><td class="bad">£5,800 ✗</td></tr>
+                  <tr><th class="row-num">4</th><td>Weighted (50%)</td><td class="selected risk">£4,250</td><td>£62,000</td><td class="bad">£10,050 ✗</td></tr>
+                  <tr><th class="row-num">5</th><td>Buffer</td><td></td><td></td><td>£20,000</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="claude-fix">
+            <div class="claude-fix-label">Scenario reconciliation</div>
+            <pre>Same Wk 4 opening in every scenario: £67,800
+
+Base:     £67,800 + £8,500 − £62,000 = £14,300
+Worst:    £67,800 + £0     − £62,000 = £5,800
+Weighted: £67,800 + £4,250 − £62,000 = £10,050
+
+All three are below the £20,000 buffer. ✓</pre>
+          </div>
         </div>
       </div>
     </div>
-    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — 3 scenarios make the real risk visible</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th colspan="4" style="text-align:center;font-size:10px;color:#6b7280;font-weight:400">13-week forecast excerpt — Wk 4 comparison</th></tr>
-          <tr><th>Scenario</th><th>Wk 4 In</th><th>Wk 4 Out</th><th>Closing Bal</th></tr>
-          <tr><td>Base case</td><td>8,500</td><td>−62,000</td><td class="err-cell">14,300 ⚠</td></tr>
-          <tr><td>Worst case (0%)</td><td class="link-cell">0</td><td>−62,000</td><td class="err-cell">5,800 ✗</td></tr>
-          <tr><td>Weighted (50%)</td><td class="hl">4,250</td><td>−62,000</td><td class="err-cell">10,050 ✗</td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's output</div>
-          <pre>Worst-case Wk 4: 67,800 + £0 − 62,000 = 5,800 ✗ (buffer: £20,000)
-Weighted Wk 4:  67,800 + £4,250 − 62,000 = 10,050 ✗
-All 3 scenarios breach the buffer. Risk is structural, not just worst-case. ✓</pre>
-        </div>
-      </div>
-    </div>
-  </div>
   </div>
 
+  <!-- Tab: extend -->
   <div id="ba-extend" class="ba-scenario" style="display:none">
-  <div class="before-after">
-    <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — forecast ends at Week 13</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th colspan="4" style="text-align:center;font-size:10px;color:#6b7280;font-weight:400">13-week forecast excerpt — final weeks</th></tr>
-          <tr><th></th><th>Wk 12</th><th>Wk 13</th><th>Wk 14</th></tr>
-          <tr><td>Opening Bal</td><td>35,200</td><td>38,700</td><td class="err-cell">—</td></tr>
-          <tr><td>Total In</td><td>41,000</td><td>33,800</td><td class="err-cell">—</td></tr>
-          <tr><td>Total Out</td><td>−37,500</td><td>−30,000</td><td class="err-cell">—</td></tr>
-          <tr><td>Closing Bal</td><td>38,700</td><td class="ok-cell">42,500</td><td class="err-cell">No data</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Lender asks for 26 weeks — forecast cuts off at Week 13
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Wk 13 closing (£42,500) exists but weeks 14–26 are blank</div>
+    <div class="before-after">
+      <div class="ba-col before">
+        <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — formulas stop at Week 13</div>
+        <div class="ba-body">
+          <div class="excel-window">
+            <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data</span></div>
+            <div class="formula-row"><div class="name-box">D6</div><div class="fx-box">fx</div><div class="formula-input"></div></div>
+            <div class="sheet-scroll">
+              <table class="excel-grid">
+                <colgroup><col style="width:34px"><col style="width:175px"><col style="width:115px"><col style="width:115px"><col style="width:115px"></colgroup>
+                <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+                <tbody>
+                  <tr><th class="row-num">1</th><td class="header-cell">Forecast line</td><td class="header-cell">Wk 12</td><td class="header-cell">Wk 13</td><td class="header-cell">Wk 14</td></tr>
+                  <tr><th class="row-num">2</th><td>Opening Balance</td><td>£35,200</td><td>£38,700</td><td class="locked">—</td></tr>
+                  <tr><th class="row-num">3</th><td>Total In</td><td>£41,000</td><td>£33,800</td><td class="locked">—</td></tr>
+                  <tr><th class="row-num">4</th><td>Total Out</td><td>£37,500</td><td>£30,000</td><td class="locked">—</td></tr>
+                  <tr><th class="row-num">5</th><td class="subtotal">Closing Balance</td><td class="subtotal">£38,700</td><td class="subtotal good">£42,500</td><td class="error-selected">No formula</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="sheet-note bad">The lender needs 26 weeks, but the existing model has no Week 14 opening link and no projected inflow/outflow columns beyond Week 13.</div>
+        </div>
+      </div>
+
+      <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
+      <div class="ba-col after">
+        <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Week 14 starts exactly from the locked Week 13 close</div>
+        <div class="ba-body">
+          <div class="excel-window">
+            <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data</span></div>
+            <div class="formula-row"><div class="name-box">D2</div><div class="fx-box">fx</div><div class="formula-input">=C5</div></div>
+            <div class="sheet-scroll">
+              <table class="excel-grid">
+                <colgroup><col style="width:34px"><col style="width:175px"><col style="width:115px"><col style="width:115px"><col style="width:115px"><col style="width:115px"></colgroup>
+                <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead>
+                <tbody>
+                  <tr><th class="row-num">1</th><td class="header-cell">Forecast line</td><td class="header-cell">Wk 12</td><td class="header-cell">Wk 13</td><td class="header-cell">Wk 14</td><td class="header-cell">Wk 15</td></tr>
+                  <tr><th class="row-num">2</th><td>Opening Balance</td><td class="locked">£35,200</td><td class="locked">£38,700</td><td class="selected formula-cell">£42,500</td><td class="formula-cell">£39,500</td></tr>
+                  <tr><th class="row-num">3</th><td>Total In</td><td class="locked">£41,000</td><td class="locked">£33,800</td><td>£28,000</td><td>£35,000</td></tr>
+                  <tr><th class="row-num">4</th><td>Total Out</td><td class="locked">£37,500</td><td class="locked">£30,000</td><td>£31,000</td><td>£31,000</td></tr>
+                  <tr><th class="row-num">5</th><td class="subtotal">Closing Balance</td><td class="subtotal locked">£38,700</td><td class="subtotal locked">£42,500</td><td class="subtotal good">£39,500</td><td class="subtotal good">£43,500</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="claude-fix">
+            <div class="claude-fix-label">Extension logic</div>
+            <pre>Weeks 1–13 stay locked exactly as provided.
+
+Wk 14 opening = Wk 13 closing = £42,500
+Wk 14 closing = £42,500 + £28,000 − £31,000 = £39,500
+Wk 15 opening = £39,500
+Wk 15 closing = £39,500 + £35,000 − £31,000 = £43,500 ✓
+
+Continue the same roll-forward through Week 26.</pre>
+          </div>
         </div>
       </div>
     </div>
-    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude extends using Wk 13 closing as new opening</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th colspan="4" style="text-align:center;font-size:10px;color:#6b7280;font-weight:400">26-week extension excerpt (weeks 13–15 of 26)</th></tr>
-          <tr><th></th><th>Wk 13</th><th>Wk 14</th><th>Wk 15</th></tr>
-          <tr><td>Opening Bal</td><td>38,700</td><td class="link-cell">42,500</td><td>39,500</td></tr>
-          <tr><td>Total In</td><td>33,800</td><td>28,000</td><td>35,000</td></tr>
-          <tr><td>Total Out</td><td>−30,000</td><td>−31,000</td><td>−31,000</td></tr>
-          <tr><td>Closing Bal</td><td class="ok-cell">42,500</td><td class="ok-cell">39,500</td><td class="ok-cell">43,500</td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's output</div>
-          <pre>Wk 14 opening = Wk 13 closing = 42,500 ✓
-Wk 14: 42,500 + 28,000 − 31,000 = 39,500 ✓
-Wk 15: 39,500 + 35,000 − 31,000 = 43,500 ✓
-Weeks 1–13 kept exactly as provided — not recalculated. ✓</pre>
-        </div>
-      </div>
-    </div>
-  </div>
   </div>
 
   <!-- DIAGNOSIS TABLE -->
