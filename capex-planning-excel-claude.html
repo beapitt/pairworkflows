@@ -6,7 +6,7 @@
 <title>CapEx Planning in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to build a CapEx plan in Excel with Claude AI to track project costs, approvals, spend phasing, and depreciation impact.">
 <link rel="canonical" href="https://www.pairworkflows.com/capex-planning-excel-claude.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between CapEx and OpEx in Excel planning?","acceptedAnswer":{"@type":"Answer","text":"CapEx (capital expenditure) is spending on long-term assets like equipment, vehicles, or property that get capitalised on the balance sheet and depreciated over time. OpEx (operating expenditure) is day-to-day spending that hits the income statement immediately. This template handles CapEx only — each project is tracked as an asset with a useful life and depreciation schedule."}},{"@type":"Question","name":"Can Claude phase CapEx spending across multiple months?","acceptedAnswer":{"@type":"Answer","text":"Yes. The prompt asks you to provide a spend schedule per project — for example, 30% in Q1 and 70% in Q2. Claude distributes the total project cost across the months you specify, giving you a monthly cash outflow forecast."}},{"@type":"Question","name":"How does this template connect to depreciation?","acceptedAnswer":{"@type":"Answer","text":"The template includes an estimated annual depreciation column for each project based on the cost, salvage value, and useful life you provide. For the full depreciation schedule with monthly granularity and multiple methods, use this alongside the fixed asset depreciation course."}},{"@type":"Question","name":"Should I include projects that haven't been approved yet?","acceptedAnswer":{"@type":"Answer","text":"Yes. The template includes an Approval Status column so you can track proposed, submitted, approved, and rejected projects in one view. This gives leadership a complete picture of the CapEx pipeline, not just committed spend."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between CapEx and OpEx in Excel planning?","acceptedAnswer":{"@type":"Answer","text":"CapEx (capital expenditure) is spending on long-term assets like equipment, vehicles, or property that get capitalised on the balance sheet and depreciated over time. OpEx (operating expenditure) is day-to-day spending that hits the income statement immediately. This template handles CapEx only — each project is tracked as an asset with a useful life and depreciation schedule."}},{"@type":"Question","name":"Can Claude phase CapEx spending across multiple months?","acceptedAnswer":{"@type":"Answer","text":"Yes. If you provide monthly timing, the prompt can place spend directly into those months. If you provide only quarterly percentages, the amount should remain unallocated within that quarter until you specify the monthly split, rather than inventing cash timing."}},{"@type":"Question","name":"How does this template connect to depreciation?","acceptedAnswer":{"@type":"Answer","text":"The template includes an estimated annual depreciation column for each project based on the cost, salvage value, and useful life you provide. For the full depreciation schedule with monthly granularity and multiple methods, use this alongside the fixed asset depreciation course."}},{"@type":"Question","name":"Should I include projects that haven't been approved yet?","acceptedAnswer":{"@type":"Answer","text":"Yes. The template includes an Approval Status column so you can track proposed, submitted, approved, and rejected projects in one view. This gives leadership a complete picture of the CapEx pipeline, not just committed spend."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -49,31 +49,61 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint a:hover{text-decoration:underline}
 
 /* DYNAMIC PANELS */
-.ba-panel { display: none; margin-bottom: 1.75rem; }
-.ba-panel.on { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: stretch; }
-.steps-panel { display: none; }
-.steps-panel.on { display: block; }
+.ba-panel{display:none;margin-bottom:1.75rem}
+.ba-panel.on{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:0;align-items:start}
+.steps-panel{display:none}
+.steps-panel.on{display:block}
 
 /* ── BEFORE / AFTER VISUAL ── */
-.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;min-width:0}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
 .ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
 .ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
 .ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
-.ba-body{padding:14px}
-.xl-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
-.xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
-.xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
-.xl-table .err-cell{color:#dc2626;font-weight:700;background:#fef2f2}
-.xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
-.xl-table .warn-cell{color:#b45309;font-weight:700;background:#fffbeb}
-.xl-table .blue-cell{color:#1f4e79;font-weight:700;background:#e8f0fe}
-.xl-table .hl{background:#fffbeb}
-.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+.ba-body{padding:14px;min-width:0}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0;align-self:center}
+
+.excel-window{border:1px solid #cbd5e1;border-radius:7px;overflow:hidden;background:#fff;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.excel-ribbon{display:flex;align-items:center;gap:12px;padding:5px 9px;background:#f8fafc;border-bottom:1px solid #dbe3ec;font-size:11px;color:#64748b}
+.excel-ribbon strong{color:#217346;font-size:11.5px}
+.formula-row{display:grid;grid-template-columns:54px 24px minmax(0,1fr);border-bottom:1px solid #cbd5e1;background:#fff;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.name-box{padding:6px 7px;border-right:1px solid #cbd5e1;background:#f8fafc;color:#334155}
+.fx-box{display:flex;align-items:center;justify-content:center;border-right:1px solid #cbd5e1;color:#64748b;font-style:italic}
+.formula-input{padding:6px 8px;line-height:1.45;white-space:normal;overflow-wrap:anywhere;min-width:0}
+.sheet-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.excel-grid{width:100%;min-width:720px;border-collapse:collapse;table-layout:fixed;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.excel-grid th,.excel-grid td{border:1px solid #d6dde5;padding:5px 7px;height:28px;vertical-align:middle;overflow-wrap:anywhere}
+.excel-grid thead th{background:#f3f6f8;color:#475569;text-align:center;font-weight:500;padding:4px 6px}
+.excel-grid .corner{width:34px;background:#eef2f5}
+.excel-grid .row-num{width:34px;background:#f3f6f8;color:#64748b;text-align:center;font-weight:500}
+.excel-grid .header-cell{background:#eef5f1;color:#1f2937;font-weight:700}
+.excel-grid .selected{background:#f0fdf4;box-shadow:inset 0 0 0 2px #217346}
+.excel-grid .error-selected{background:#fef2f2;box-shadow:inset 0 0 0 2px #dc2626;color:#b91c1c;font-weight:700}
+.excel-grid .approved{background:#f0fdf4;color:#047857;font-weight:700}
+.excel-grid .submitted{background:#eff6ff;color:#1d4ed8;font-weight:700}
+.excel-grid .proposed{background:#fffbeb;color:#b45309;font-weight:700}
+.excel-grid .rejected{background:#fef2f2;color:#b91c1c;font-weight:700}
+.excel-grid .formula-cell{background:#eff6ff;color:#1f4e79}
+.excel-grid .unallocated{background:#fff7ed;color:#c2410c;font-weight:700}
+.excel-grid .subtotal{background:#f1f5f9;font-weight:700}
+.excel-grid .good{background:#f0fdf4;color:#047857;font-weight:700}
+.excel-grid .bad{background:#fef2f2;color:#b91c1c;font-weight:700}
+.sheet-tabs{display:flex;gap:2px;padding:5px 7px;background:#f8fafc;border-top:1px solid #dbe3ec;font-size:11px}
+.sheet-tab{padding:4px 9px;color:#64748b}
+.sheet-tab.active{background:#fff;color:#217346;font-weight:700;border:1px solid #dbe3ec;border-bottom-color:#fff}
+.sheet-note{margin-top:10px;padding:9px 10px;border-radius:7px;font-size:11.5px;line-height:1.55}
+.sheet-note.bad{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c}
+.sheet-note.good{background:#f0fdf4;border:1px solid #a7f3d0;color:#047857}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
-.claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
-.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
+.claude-fix-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
+.claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+
+@media(max-width:640px){
+  .ba-panel.on{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:.4rem 0}
+  .excel-grid{min-width:720px}
+}
 
 /* ── DIAGNOSIS TABLE ── */
 .diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
@@ -136,8 +166,6 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
 @media(max-width:640px){
   .hero h1{font-size:24px}
-  .ba-panel.on{grid-template-columns:1fr;gap:8px}
-  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
   .related-grid{grid-template-columns:1fr}
@@ -234,14 +262,18 @@ PROJECT LIST WITH SPEND TIMING:
 
 Requirements:
 - Create a 12-month grid (Jan–Dec) with one row per project.
-- Distribute each project's cost across the months using the timing I specified.
-- Add a monthly total row at the bottom summing all projects per month.
-- Add a cumulative spend row below the monthly total.
-- Do NOT spread costs evenly — use only the phasing I've provided.
+- If I provide exact monthly percentages, use them exactly.
+- If I provide only a quarterly percentage (for example 50% Q2), do NOT invent
+  which month receives the spend. Put the quarterly amount in a clearly labelled
+  "Unallocated within Q2" row or ask me for a monthly split before allocating it.
+- Add a monthly total row at the bottom summing all allocated project spend per month.
+- Add an Unallocated by Quarter row so quarterly-only amounts remain visible.
+- Add a cumulative allocated spend row below the monthly total.
+- Do NOT smooth or spread quarterly amounts evenly unless I explicitly instruct you to.
 - Format as a tab-separated table ready to paste into Excel.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Specify timing as percentages by quarter or month — Claude distributes exactly as instructed, no smoothing.</p>
+      <p class="prompt-hint">Use monthly percentages when you need exact cash timing. If you provide only a quarterly percentage, keep it unallocated within that quarter until you define the monthly split.</p>
     </div>
 
     <!-- Panel: Summary -->
@@ -271,40 +303,69 @@ Format as tab-separated, ready to paste into Excel.</pre>
   </div>
 
   <!-- BEFORE / AFTER VISUAL DYNAMIC -->
-  
+
   <!-- Tab: Build -->
   <div class="before-after ba-panel on" id="ba-build">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — unstructured project list</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — project list has costs but no capital-planning controls</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Project</th><th>Cost</th><th>Status</th><th>Depr.</th></tr>
-          <tr><td>Warehouse roof</td><td>320,000</td><td class="err-cell">TBC</td><td class="err-cell">?</td></tr>
-          <tr><td>CNC machine</td><td>185,000</td><td class="err-cell">TBC</td><td class="err-cell">?</td></tr>
-          <tr><td>ERP upgrade</td><td>450,000</td><td class="err-cell">TBC</td><td class="err-cell">?</td></tr>
-          <tr><td><strong>Total</strong></td><td class="hl">955,000</td><td>—</td><td class="err-cell">?</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          No approval workflow, no depreciation calculated
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Total blindly sums unapproved pipeline items</div>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Data</span><span>Review</span></div>
+          <div class="formula-row"><div class="name-box">F2</div><div class="fx-box">fx</div><div class="formula-input"></div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:180px"><col style="width:125px"><col style="width:120px"><col style="width:115px"><col style="width:120px"><col style="width:125px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Project</td><td class="header-cell">Category</td><td class="header-cell">Cost</td><td class="header-cell">Salvage</td><td class="header-cell">Useful Life</td><td class="header-cell">Status</td></tr>
+                <tr><th class="row-num">2</th><td>Warehouse roof</td><td>Facilities</td><td>£320,000</td><td>£0</td><td>20 yrs</td><td class="error-selected">TBC</td></tr>
+                <tr><th class="row-num">3</th><td>CNC machine</td><td>Equipment</td><td>£185,000</td><td>£15,000</td><td>10 yrs</td><td class="bad">TBC</td></tr>
+                <tr><th class="row-num">4</th><td>ERP upgrade</td><td>IT / Software</td><td>£450,000</td><td>£0</td><td>7 yrs</td><td class="bad">TBC</td></tr>
+                <tr><th class="row-num">5</th><td class="subtotal">Raw total</td><td></td><td class="subtotal">£955,000</td><td></td><td></td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="sheet-tabs"><span class="sheet-tab active">Project List</span><span class="sheet-tab">Summary</span><span class="sheet-tab">Spend Phasing</span></div>
         </div>
+        <div class="sheet-note bad">£955,000 mixes approved and pipeline projects. There is no depreciation formula, approval control, or committed-vs-pipeline view.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude builds the structured register</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — register separates committed spend, pipeline and depreciation impact</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Project</th><th>Cost</th><th>Status</th><th>Ann. Depr.</th></tr>
-          <tr><td>Warehouse roof</td><td>320,000</td><td class="ok-cell">Approved</td><td>16,000</td></tr>
-          <tr><td>CNC machine</td><td>185,000</td><td class="ok-cell">Approved</td><td>17,000</td></tr>
-          <tr><td>ERP upgrade</td><td>450,000</td><td class="warn-cell">Proposed</td><td>64,286</td></tr>
-          <tr><td><strong>Approved total</strong></td><td class="ok-cell">505,000</td><td>—</td><td class="ok-cell">33,000</td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Data Validation</span><span>Conditional Formatting</span></div>
+          <div class="formula-row"><div class="name-box">G2</div><div class="fx-box">fx</div><div class="formula-input">=(C2-D2)/E2</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:175px"><col style="width:120px"><col style="width:110px"><col style="width:105px"><col style="width:95px"><col style="width:115px"><col style="width:120px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Project</td><td class="header-cell">Category</td><td class="header-cell">Cost</td><td class="header-cell">Salvage</td><td class="header-cell">Life</td><td class="header-cell">Status</td><td class="header-cell">Annual Depr.</td></tr>
+                <tr><th class="row-num">2</th><td>Warehouse roof</td><td>Facilities</td><td>£320,000</td><td>£0</td><td>20</td><td class="approved">Approved</td><td class="selected formula-cell">£16,000</td></tr>
+                <tr><th class="row-num">3</th><td>CNC machine</td><td>Equipment</td><td>£185,000</td><td>£15,000</td><td>10</td><td class="approved">Approved</td><td class="formula-cell">£17,000</td></tr>
+                <tr><th class="row-num">4</th><td>ERP upgrade</td><td>IT / Software</td><td>£450,000</td><td>£0</td><td>7</td><td class="proposed">Proposed</td><td class="formula-cell">£64,286</td></tr>
+                <tr><th class="row-num">5</th><td class="subtotal">Approved CapEx</td><td></td><td class="subtotal good">£505,000</td><td></td><td></td><td></td><td class="subtotal good">£33,000</td></tr>
+                <tr><th class="row-num">6</th><td class="subtotal">Pipeline CapEx</td><td></td><td class="subtotal">£450,000</td><td></td><td></td><td>Proposed + Submitted</td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="sheet-tabs"><span class="sheet-tab active">CapEx Register</span><span class="sheet-tab">Summary</span><span class="sheet-tab">Spend Phasing</span></div>
+        </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's formula logic</div>
-          <pre>Total Approved: =SUMIFS(C:C,G:G,"Approved")
-Ann. Depr: =(Cost−Salvage)/Useful Life</pre>
+          <div class="claude-fix-label">Verified register formulas</div>
+          <pre>Annual depreciation:
+=(Cost-Salvage)/UsefulLife
+
+Warehouse roof: (320,000−0)/20 = £16,000
+CNC machine: (185,000−15,000)/10 = £17,000
+ERP upgrade: (450,000−0)/7 = £64,285.71 ≈ £64,286
+
+Approved CapEx = £320,000 + £185,000 = £505,000
+Approved annual depreciation = £16,000 + £17,000 = £33,000 ✓</pre>
         </div>
       </div>
     </div>
@@ -313,30 +374,67 @@ Ann. Depr: =(Cost−Salvage)/Useful Life</pre>
   <!-- Tab: Phase -->
   <div class="before-after ba-panel" id="ba-phase">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — lumped timing</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — quarterly timing is too coarse for a monthly cash forecast</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Project</th><th>Cost</th><th>Timing</th></tr>
-          <tr><td>Warehouse roof</td><td>320,000</td><td class="hl">50% Q2, 50% Q3</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Cash flow impact is invisible in text format
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Data</span><span>Forecast</span></div>
+          <div class="formula-row"><div class="name-box">C2</div><div class="fx-box">fx</div><div class="formula-input">50% Q2, 50% Q3</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:185px"><col style="width:115px"><col style="width:190px"><col style="width:155px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Project</td><td class="header-cell">Cost</td><td class="header-cell">Spend Timing</td><td class="header-cell">Monthly Allocation?</td></tr>
+                <tr><th class="row-num">2</th><td>Warehouse roof</td><td>£320,000</td><td class="error-selected unallocated">50% Q2, 50% Q3</td><td class="bad">Unknown</td></tr>
+                <tr><th class="row-num">3</th><td>CNC machine</td><td>£185,000</td><td>100% Aug</td><td class="good">Exact</td></tr>
+                <tr><th class="row-num">4</th><td>ERP upgrade</td><td>£450,000</td><td class="unallocated">25% Q1, 25% Q2, 50% Q3</td><td class="bad">Unknown by month</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+        <div class="sheet-note bad">“50% Q2” defines £160,000 for the quarter, but does not tell Excel whether that cash leaves in April, May, June, or some combination. Picking May would invent timing.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — exact monthly cash flow</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — exact months are allocated; quarterly-only amounts stay visibly unallocated</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Project</th><th>Apr</th><th>May</th><th>Jun</th><th>...</th></tr>
-          <tr><td>Warehouse roof</td><td>0</td><td class="ok-cell">160,000</td><td>0</td><td>...</td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data Validation</span></div>
+          <div class="formula-row"><div class="name-box">I3</div><div class="fx-box">fx</div><div class="formula-input">=185000</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:170px"><col style="width:88px"><col style="width:88px"><col style="width:88px"><col style="width:88px"><col style="width:88px"><col style="width:88px"><col style="width:88px"><col style="width:135px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th><th>I</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Project</td><td class="header-cell">Apr</td><td class="header-cell">May</td><td class="header-cell">Jun</td><td class="header-cell">Jul</td><td class="header-cell">Aug</td><td class="header-cell">Sep</td><td class="header-cell">Allocated</td><td class="header-cell">Unallocated</td></tr>
+                <tr><th class="row-num">2</th><td>Warehouse roof</td><td>£0</td><td>£0</td><td>£0</td><td>£0</td><td>£0</td><td>£0</td><td>£0</td><td class="unallocated">£320,000 (Q2/Q3)</td></tr>
+                <tr><th class="row-num">3</th><td>CNC machine</td><td>£0</td><td>£0</td><td>£0</td><td>£0</td><td class="selected good">£185,000</td><td>£0</td><td class="good">£185,000</td><td>£0</td></tr>
+                <tr><th class="row-num">4</th><td>ERP upgrade</td><td>£0</td><td>£0</td><td>£0</td><td>£0</td><td>£0</td><td>£0</td><td>£0</td><td class="unallocated">£450,000 (Q1/Q2/Q3)</td></tr>
+                <tr><th class="row-num">5</th><td class="subtotal">Monthly allocated total</td><td class="subtotal">£0</td><td class="subtotal">£0</td><td class="subtotal">£0</td><td class="subtotal">£0</td><td class="subtotal good">£185,000</td><td class="subtotal">£0</td><td class="subtotal good">£185,000</td><td class="subtotal unallocated">£770,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's output</div>
-          <pre>Claude interprets "50% Q2" and splits the cost 
-cleanly into specific monthly buckets based on
-your exact phase instructions. ✓</pre>
+          <div class="claude-fix-label">Safe phasing rule</div>
+          <pre>CNC machine: "100% Aug" → £185,000 in Aug ✓
+
+Warehouse roof:
+50% Q2 = £160,000
+50% Q3 = £160,000
+But month-level timing is still unknown.
+
+ERP upgrade:
+25% Q1 = £112,500
+25% Q2 = £112,500
+50% Q3 = £225,000
+Again: do not invent monthly dates.
+
+Allocated now: £185,000
+Still unallocated within quarters: £770,000 ✓</pre>
         </div>
       </div>
     </div>
@@ -345,33 +443,63 @@ your exact phase instructions. ✓</pre>
   <!-- Tab: Summary -->
   <div class="before-after ba-panel" id="ba-summary">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — flat massive list</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — register is detailed but leadership cannot see exposure by status</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Category</th><th>Project</th><th>Cost</th></tr>
-          <tr><td>IT</td><td>Server A</td><td>5,000</td></tr>
-          <tr><td>Facilities</td><td>Desk</td><td>2,000</td></tr>
-          <tr><td>IT</td><td>Laptops</td><td>10,000</td></tr>
-        </table>
-        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          No high-level visibility for department heads
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Data</span><span>Sort & Filter</span></div>
+          <div class="formula-row"><div class="name-box">D3</div><div class="fx-box">fx</div><div class="formula-input">450000</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:155px"><col style="width:140px"><col style="width:115px"><col style="width:120px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Category</td><td class="header-cell">Project</td><td class="header-cell">Status</td><td class="header-cell">Cost</td></tr>
+                <tr><th class="row-num">2</th><td>Facilities</td><td>Warehouse roof</td><td class="approved">Approved</td><td>£320,000</td></tr>
+                <tr><th class="row-num">3</th><td>Equipment</td><td>CNC machine</td><td class="approved">Approved</td><td>£185,000</td></tr>
+                <tr><th class="row-num">4</th><td>IT / Software</td><td>ERP upgrade</td><td class="error-selected proposed">Proposed</td><td>£450,000</td></tr>
+                <tr><th class="row-num">5</th><td>IT / Software</td><td>Network refresh</td><td class="submitted">Submitted</td><td>£90,000</td></tr>
+                <tr><th class="row-num">6</th><td>Facilities</td><td>Office fit-out</td><td class="rejected">Rejected</td><td>£120,000</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+        <div class="sheet-note bad">The register answers “which projects exist?” but not “how much is committed, awaiting approval, proposed, or rejected by category?”</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — clean executive view</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — SUMIFS matrix exposes committed and pipeline CapEx</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Category</th><th>Approved</th><th>Proposed</th><th>Total</th></tr>
-          <tr><td>IT</td><td class="ok-cell">15,000</td><td>0</td><td>15,000</td></tr>
-          <tr><td>Facilities</td><td class="ok-cell">2,000</td><td>0</td><td>2,000</td></tr>
-        </table>
+        <div class="excel-window">
+          <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>SUMIFS</span></div>
+          <div class="formula-row"><div class="name-box">B2</div><div class="fx-box">fx</div><div class="formula-input">=SUMIFS(Register!$D:$D,Register!$A:$A,$A2,Register!$C:$C,B$1)</div></div>
+          <div class="sheet-scroll">
+            <table class="excel-grid">
+              <colgroup><col style="width:34px"><col style="width:150px"><col style="width:115px"><col style="width:115px"><col style="width:115px"><col style="width:115px"><col style="width:115px"></colgroup>
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr></thead>
+              <tbody>
+                <tr><th class="row-num">1</th><td class="header-cell">Category</td><td class="header-cell">Approved</td><td class="header-cell">Submitted</td><td class="header-cell">Proposed</td><td class="header-cell">Rejected</td><td class="header-cell">Grand Total</td></tr>
+                <tr><th class="row-num">2</th><td>Facilities</td><td class="selected approved">£320,000</td><td>£0</td><td>£0</td><td class="rejected">£120,000</td><td>£440,000</td></tr>
+                <tr><th class="row-num">3</th><td>Equipment</td><td class="approved">£185,000</td><td>£0</td><td>£0</td><td>£0</td><td>£185,000</td></tr>
+                <tr><th class="row-num">4</th><td>IT / Software</td><td>£0</td><td class="submitted">£90,000</td><td class="proposed">£450,000</td><td>£0</td><td>£540,000</td></tr>
+                <tr><th class="row-num">5</th><td class="subtotal">Total</td><td class="subtotal approved">£505,000</td><td class="subtotal submitted">£90,000</td><td class="subtotal proposed">£450,000</td><td class="subtotal rejected">£120,000</td><td class="subtotal">£1,165,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's output</div>
-          <pre>Claude writes the exact SUMIFS formula mapping 
-your categories and statuses to aggregate 
-the raw project list dynamically. ✓</pre>
+          <div class="claude-fix-label">Management view</div>
+          <pre>Committed Approved CapEx = £505,000
+Active pipeline = Submitted + Proposed
+                = £90,000 + £450,000
+                = £540,000
+
+Rejected = £120,000
+Grand project universe = £1,165,000 ✓
+
+SUMIFS keeps the matrix live as project statuses change.</pre>
         </div>
       </div>
     </div>
@@ -386,7 +514,7 @@ the raw project list dynamically. ✓</pre>
       <div class="diag-badge badge-red">Most common</div>
     </div>
     <div class="diag-row">
-      <div class="diag-cause">D&amp;A lumped into cost</div>
+      <div class="diag-cause">Depreciation inputs missing</div>
       <div class="diag-example">Missing <span class="bad">salvage value</span> and <span class="bad">useful life</span> → depreciation can't be calculated</div>
       <div class="diag-badge badge-red">Most common</div>
     </div>
@@ -444,7 +572,7 @@ the raw project list dynamically. ✓</pre>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Prompt Claude to build the 12-month grid</h3><p>Run the Phase prompt. Claude will translate your text-based timing into a rigid 12-month matrix, performing the percentage math perfectly.</p></div>
+        <div class="step-body"><h3>Prompt Claude to build the 12-month grid</h3><p>Run the Phase prompt. Exact monthly percentages can populate the 12-month matrix directly. Quarter-only percentages should remain visibly unallocated within that quarter until you provide a monthly split.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
@@ -486,7 +614,7 @@ the raw project list dynamically. ✓</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can Claude phase CapEx spending across multiple months? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes. The Phase spend prompt distributes each project's total cost across the months you specify — for example, 30% in Q1 and 70% in Q2. Claude does not smooth or average; it follows your timing exactly and gives you a monthly cash outflow row ready to paste into Excel.</div>
+      <div class="faq-a">Yes. The Phase spend prompt uses exact monthly timing where you provide it. Quarter-only percentages should remain unallocated within the relevant quarter until you specify the month-level split; this avoids inventing cash timing.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How does this template connect to depreciation? <i class="ti ti-chevron-down"></i></div>
