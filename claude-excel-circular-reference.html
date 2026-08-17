@@ -74,13 +74,13 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
 
 /* ── CIRCULAR REF — node diagram family ── */
-.node-wrap{padding:20px 14px 14px;display:flex;flex-direction:column;align-items:center}
-.node-svg{width:100%;max-width:340px;height:auto}
+.node-wrap{padding:10px 10px 12px;display:flex;flex-direction:column;align-items:center}
+.node-svg{width:100%;max-width:none;height:auto;display:block}
 .node-box{fill:#fff;stroke:#c9bfa8;stroke-width:1.5;rx:8}
 .node-box.loop{fill:#fbeaf1;stroke:#c23b75;stroke-width:2}
 .node-box.fixed{fill:#eef2f8;stroke:#16213e;stroke-width:2}
-.node-label{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;fill:#16213e}
-.node-sub{font-family:'JetBrains Mono',monospace;font-size:9px;fill:#6b6478}
+.node-label{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;fill:#16213e}
+.node-sub{font-family:'JetBrains Mono',monospace;font-size:11.5px;fill:#6b6478}
 .node-arrow{fill:none;stroke:#a99f88;stroke-width:1.8;marker-end:url(#ah)}
 .node-arrow.bad{stroke:#c23b75;stroke-width:2.2;marker-end:url(#ahr)}
 .node-arrow.good{stroke:#16213e;stroke-width:2;marker-end:url(#ahg)}
@@ -252,25 +252,21 @@ Each formula is supposed to [describe purpose]. Please trace where the loop clos
       <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — E3 references itself</div>
       <div class="ba-body">
         <div class="node-wrap">
-          <svg class="node-svg" viewBox="0 0 300 190" xmlns="http://www.w3.org/2000/svg">
+          <svg class="node-svg" viewBox="0 0 400 236" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="none" stroke="#94a3b8" stroke-width="1.5"/></marker>
-              <marker id="ahr" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6" fill="none" stroke="#c23b75" stroke-width="1.8"/></marker>
+              <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6" fill="none" stroke="#a99f88" stroke-width="1.6"/></marker>
+              <marker id="ahr" markerWidth="10" markerHeight="10" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7" fill="none" stroke="#c23b75" stroke-width="2"/></marker>
             </defs>
-            <!-- D3 Revenue -->
-            <rect class="node-box" x="30" y="20" width="110" height="42" rx="8"/>
-            <text class="node-label" x="85" y="38" text-anchor="middle">D3</text>
-            <text class="node-sub" x="85" y="52" text-anchor="middle">Revenue £21,000</text>
-            <!-- E3 Commission (loop) -->
-            <rect class="node-box loop" x="160" y="110" width="115" height="46" rx="8"/>
-            <text class="node-label" x="217" y="130" text-anchor="middle" fill="#c23b75">E3 =E3*0.08</text>
-            <text class="node-sub" x="217" y="145" text-anchor="middle" fill="#8a2350">Commission → 0 or ∞</text>
-            <!-- self-loop arrow on E3 -->
-            <path class="node-arrow bad" d="M 265 108 C 300 80, 300 165, 265 150"/>
-            <text class="loop-badge" x="285" y="130" text-anchor="middle">↻</text>
-            <!-- what it SHOULD point to (dashed grey) -->
-            <path d="M 120 62 L 175 108" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#ah)"/>
-            <text class="node-sub" x="120" y="95" fill="#94a3b8">should be =D3*0.08</text>
+            <rect class="node-box" x="34" y="22" width="190" height="62" rx="10"/>
+            <text class="node-label" x="129" y="49" text-anchor="middle">D3 · Revenue</text>
+            <text class="node-sub" x="129" y="70" text-anchor="middle">£21,000</text>
+            <rect class="node-box loop" x="176" y="150" width="196" height="68" rx="10"/>
+            <text class="node-label" x="274" y="180" text-anchor="middle" fill="#c23b75">E3 = E3 * 0.08</text>
+            <text class="node-sub" x="274" y="201" text-anchor="middle" fill="#8a2350">Commission → 0 or ∞</text>
+            <path class="node-arrow bad" d="M 360 148 C 400 108, 400 228, 360 212"/>
+            <text class="loop-badge" x="388" y="184" text-anchor="middle" font-size="24">↻</text>
+            <path d="M 150 84 L 235 148" fill="none" stroke="#c9bfa8" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+            <text class="node-sub" x="118" y="126" fill="#a99f88">should be = D3 * 0.08</text>
           </svg>
           <div class="node-caption">
             ↻ E3 multiplies its own cell — Excel flags a circular reference
@@ -284,18 +280,17 @@ Each formula is supposed to [describe purpose]. Please trace where the loop clos
       <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — E3 points to Revenue, loop gone</div>
       <div class="ba-body">
         <div class="node-wrap">
-          <svg class="node-svg" viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg">
+          <svg class="node-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <marker id="ahg" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6" fill="none" stroke="#16213e" stroke-width="1.8"/></marker>
+              <marker id="ahg" markerWidth="10" markerHeight="10" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7" fill="none" stroke="#16213e" stroke-width="2"/></marker>
             </defs>
-            <!-- linear: D3 → E3 -->
-            <rect class="node-box fixed" x="20" y="45" width="110" height="42" rx="8"/>
-            <text class="node-label" x="75" y="63" text-anchor="middle">D3</text>
-            <text class="node-sub" x="75" y="77" text-anchor="middle">Revenue £21,000</text>
-            <rect class="node-box fixed" x="170" y="45" width="115" height="42" rx="8"/>
-            <text class="node-label" x="227" y="63" text-anchor="middle">E3 =D3*0.08</text>
-            <text class="node-sub" x="227" y="77" text-anchor="middle">Commission £1,680</text>
-            <path class="node-arrow good" d="M 130 66 L 170 66"/>
+            <rect class="node-box fixed" x="20" y="44" width="165" height="62" rx="10"/>
+            <text class="node-label" x="102" y="72" text-anchor="middle">D3 · Revenue</text>
+            <text class="node-sub" x="102" y="93" text-anchor="middle">£21,000</text>
+            <rect class="node-box fixed" x="235" y="44" width="150" height="62" rx="10"/>
+            <text class="node-label" x="310" y="72" text-anchor="middle">E3 = D3 * 0.08</text>
+            <text class="node-sub" x="310" y="93" text-anchor="middle">£1,680</text>
+            <path class="node-arrow good" d="M 185 75 L 233 75"/>
           </svg>
           <div class="fix-strip">
             Fix: <strong>=D3*0.08</strong> → £21,000 × 8% = <span class="res">£1,680 ✓</span>
@@ -312,28 +307,23 @@ Each formula is supposed to [describe purpose]. Please trace where the loop clos
       <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — three cells form a closed loop</div>
       <div class="ba-body">
         <div class="node-wrap">
-          <svg class="node-svg" viewBox="0 0 300 210" xmlns="http://www.w3.org/2000/svg">
+          <svg class="node-svg" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <marker id="ah2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="none" stroke="#94a3b8" stroke-width="1.5"/></marker>
-              <marker id="ahr2" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6" fill="none" stroke="#c23b75" stroke-width="1.8"/></marker>
+              <marker id="ahr2" markerWidth="10" markerHeight="10" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7" fill="none" stroke="#c23b75" stroke-width="2"/></marker>
             </defs>
-            <!-- D4 top -->
-            <rect class="node-box loop" x="95" y="14" width="110" height="40" rx="8"/>
-            <text class="node-label" x="150" y="31" text-anchor="middle" fill="#c23b75">D4</text>
-            <text class="node-sub" x="150" y="45" text-anchor="middle" fill="#8a2350">=E4*0.85</text>
-            <!-- E4 bottom-left -->
-            <rect class="node-box loop" x="14" y="150" width="110" height="40" rx="8"/>
-            <text class="node-label" x="69" y="167" text-anchor="middle" fill="#c23b75">E4</text>
-            <text class="node-sub" x="69" y="181" text-anchor="middle" fill="#8a2350">=F4+D4</text>
-            <!-- F4 bottom-right -->
-            <rect class="node-box loop" x="176" y="150" width="110" height="40" rx="8"/>
-            <text class="node-label" x="231" y="167" text-anchor="middle" fill="#c23b75">F4</text>
-            <text class="node-sub" x="231" y="181" text-anchor="middle" fill="#8a2350">=D4/0.85</text>
-            <!-- arrows forming the cycle D4→E4→F4→D4 -->
-            <path class="node-arrow bad" d="M 110 54 L 74 148"/>
-            <path class="node-arrow bad" d="M 124 170 L 176 170"/>
-            <path class="node-arrow bad" d="M 226 148 L 190 54"/>
-            <text class="loop-badge" x="150" y="112" text-anchor="middle">↻ closed loop</text>
+            <rect class="node-box loop" x="125" y="16" width="150" height="56" rx="10"/>
+            <text class="node-label" x="200" y="42" text-anchor="middle" fill="#c23b75">D4</text>
+            <text class="node-sub" x="200" y="61" text-anchor="middle" fill="#8a2350">= E4 * 0.85</text>
+            <rect class="node-box loop" x="18" y="178" width="150" height="56" rx="10"/>
+            <text class="node-label" x="93" y="204" text-anchor="middle" fill="#c23b75">E4</text>
+            <text class="node-sub" x="93" y="223" text-anchor="middle" fill="#8a2350">= F4 + D4</text>
+            <rect class="node-box loop" x="232" y="178" width="150" height="56" rx="10"/>
+            <text class="node-label" x="307" y="204" text-anchor="middle" fill="#c23b75">F4</text>
+            <text class="node-sub" x="307" y="223" text-anchor="middle" fill="#8a2350">= D4 / 0.85</text>
+            <path class="node-arrow bad" d="M 150 72 L 100 176"/>
+            <path class="node-arrow bad" d="M 168 206 L 232 206"/>
+            <path class="node-arrow bad" d="M 300 176 L 250 72"/>
+            <text class="loop-badge" x="200" y="130" text-anchor="middle" font-size="14">↻ closed loop</text>
           </svg>
           <div class="node-caption">
             Loop: D4 → E4 → F4 → D4 — closes at F4
@@ -347,26 +337,25 @@ Each formula is supposed to [describe purpose]. Please trace where the loop clos
       <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — anchored to fixed input, chain is linear</div>
       <div class="ba-body">
         <div class="node-wrap">
-          <svg class="node-svg" viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
+          <svg class="node-svg" viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <marker id="ahg2" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6" fill="none" stroke="#16213e" stroke-width="1.8"/></marker>
+              <marker id="ahg2" markerWidth="10" markerHeight="10" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7" fill="none" stroke="#16213e" stroke-width="2"/></marker>
             </defs>
-            <!-- linear chain B4 → F4 → E4 → D4 -->
-            <rect class="node-box fixed" x="6" y="20" width="80" height="38" rx="7"/>
-            <text class="node-label" x="46" y="37" text-anchor="middle" font-size="11">B4 input</text>
-            <text class="node-sub" x="46" y="50" text-anchor="middle">£84,000</text>
-            <rect class="node-box fixed" x="6" y="95" width="80" height="38" rx="7"/>
-            <text class="node-label" x="46" y="112" text-anchor="middle" font-size="11">F4</text>
-            <text class="node-sub" x="46" y="125" text-anchor="middle">£98,824</text>
-            <rect class="node-box fixed" x="110" y="95" width="80" height="38" rx="7"/>
-            <text class="node-label" x="150" y="112" text-anchor="middle" font-size="11">E4</text>
-            <text class="node-sub" x="150" y="125" text-anchor="middle">£108,706</text>
-            <rect class="node-box fixed" x="214" y="95" width="80" height="38" rx="7"/>
-            <text class="node-label" x="254" y="112" text-anchor="middle" font-size="11">D4</text>
-            <text class="node-sub" x="254" y="125" text-anchor="middle">£92,400</text>
-            <path class="node-arrow good" d="M 46 58 L 46 93"/>
-            <path class="node-arrow good" d="M 86 114 L 110 114"/>
-            <path class="node-arrow good" d="M 190 114 L 214 114"/>
+            <rect class="node-box fixed" x="18" y="18" width="150" height="56" rx="10"/>
+            <text class="node-label" x="93" y="44" text-anchor="middle">B4 · input</text>
+            <text class="node-sub" x="93" y="63" text-anchor="middle">£84,000</text>
+            <rect class="node-box fixed" x="18" y="132" width="112" height="56" rx="10"/>
+            <text class="node-label" x="74" y="158" text-anchor="middle">F4</text>
+            <text class="node-sub" x="74" y="177" text-anchor="middle">£98,824</text>
+            <rect class="node-box fixed" x="144" y="132" width="112" height="56" rx="10"/>
+            <text class="node-label" x="200" y="158" text-anchor="middle">E4</text>
+            <text class="node-sub" x="200" y="177" text-anchor="middle">£108,706</text>
+            <rect class="node-box fixed" x="270" y="132" width="112" height="56" rx="10"/>
+            <text class="node-label" x="326" y="158" text-anchor="middle">D4</text>
+            <text class="node-sub" x="326" y="177" text-anchor="middle">£92,400</text>
+            <path class="node-arrow good" d="M 74 74 L 74 130"/>
+            <path class="node-arrow good" d="M 130 160 L 144 160"/>
+            <path class="node-arrow good" d="M 256 160 L 270 160"/>
           </svg>
           <div class="fix-strip">
             F4 now derives from fixed <strong>B4</strong>, not D4 — no cycle.
@@ -383,28 +372,25 @@ Each formula is supposed to [describe purpose]. Please trace where the loop clos
       <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — last cell adds itself to the chain</div>
       <div class="ba-body">
         <div class="node-wrap">
-          <svg class="node-svg" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg">
+          <svg class="node-svg" viewBox="0 0 400 190" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <marker id="ah3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="none" stroke="#94a3b8" stroke-width="1.5"/></marker>
-              <marker id="ahr3" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6" fill="none" stroke="#c23b75" stroke-width="1.8"/></marker>
+              <marker id="ah3" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6" fill="none" stroke="#a99f88" stroke-width="1.6"/></marker>
+              <marker id="ahr3" markerWidth="10" markerHeight="10" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7" fill="none" stroke="#c23b75" stroke-width="2"/></marker>
             </defs>
-            <!-- chain D2 → D3 → D4 → D5(loop) -->
-            <rect class="node-box" x="6" y="60" width="58" height="38" rx="7"/>
-            <text class="node-label" x="35" y="77" text-anchor="middle" font-size="11">D3</text>
-            <text class="node-sub" x="35" y="90" text-anchor="middle">=D2+C3</text>
-            <rect class="node-box" x="90" y="60" width="58" height="38" rx="7"/>
-            <text class="node-label" x="119" y="77" text-anchor="middle" font-size="11">D4</text>
-            <text class="node-sub" x="119" y="90" text-anchor="middle">=D3+C4</text>
-            <rect class="node-box loop" x="188" y="60" width="72" height="38" rx="7"/>
-            <text class="node-label" x="224" y="77" text-anchor="middle" font-size="11" fill="#c23b75">D5</text>
-            <text class="node-sub" x="224" y="90" text-anchor="middle" fill="#8a2350">=D5+C5</text>
-            <!-- forward arrows -->
-            <path class="node-arrow" d="M 64 79 L 90 79"/>
-            <path class="node-arrow" d="M 148 79 L 188 79"/>
-            <!-- self loop on D5 -->
-            <path class="node-arrow bad" d="M 250 58 C 285 30, 285 128, 250 100"/>
-            <text class="loop-badge" x="272" y="82" text-anchor="middle">↻</text>
-            <text class="node-sub" x="224" y="125" text-anchor="middle" fill="#94a3b8">D5 references itself</text>
+            <rect class="node-box" x="14" y="66" width="96" height="54" rx="10"/>
+            <text class="node-label" x="62" y="92" text-anchor="middle">D3</text>
+            <text class="node-sub" x="62" y="110" text-anchor="middle">= D2 + C3</text>
+            <rect class="node-box" x="152" y="66" width="96" height="54" rx="10"/>
+            <text class="node-label" x="200" y="92" text-anchor="middle">D4</text>
+            <text class="node-sub" x="200" y="110" text-anchor="middle">= D3 + C4</text>
+            <rect class="node-box loop" x="290" y="66" width="96" height="54" rx="10"/>
+            <text class="node-label" x="338" y="92" text-anchor="middle" fill="#c23b75">D5</text>
+            <text class="node-sub" x="338" y="110" text-anchor="middle" fill="#8a2350">= D5 + C5</text>
+            <path class="node-arrow" d="M 110 93 L 152 93"/>
+            <path class="node-arrow" d="M 248 93 L 290 93"/>
+            <path class="node-arrow bad" d="M 378 64 C 400 34, 400 152, 378 122"/>
+            <text class="loop-badge" x="396" y="97" text-anchor="middle" font-size="22">↻</text>
+            <text class="node-sub" x="338" y="150" text-anchor="middle" fill="#a99f88">D5 references itself</text>
           </svg>
           <div class="node-caption">
             D5 adds C5 to itself — Excel flags a circular reference on D5
@@ -418,30 +404,29 @@ Each formula is supposed to [describe purpose]. Please trace where the loop clos
       <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — expanding SUM, each cell independent</div>
       <div class="ba-body">
         <div class="node-wrap">
-          <svg class="node-svg" viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
+          <svg class="node-svg" viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <marker id="ahg3" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6" fill="none" stroke="#16213e" stroke-width="1.8"/></marker>
+              <marker id="ahg3" markerWidth="10" markerHeight="10" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7" fill="none" stroke="#16213e" stroke-width="2"/></marker>
             </defs>
-            <!-- fixed anchor C2 feeding each D via SUM -->
-            <rect class="node-box fixed" x="110" y="12" width="80" height="34" rx="7"/>
-            <text class="node-label" x="150" y="27" text-anchor="middle" font-size="10">$C$2 anchor</text>
-            <text class="node-sub" x="150" y="39" text-anchor="middle">fixed start</text>
-            <rect class="node-box fixed" x="8" y="98" width="80" height="36" rx="7"/>
-            <text class="node-label" x="48" y="114" text-anchor="middle" font-size="10">D3 =SUM($C$2:C3)</text>
-            <text class="node-sub" x="48" y="127" text-anchor="middle">£22,200</text>
-            <rect class="node-box fixed" x="110" y="98" width="80" height="36" rx="7"/>
-            <text class="node-label" x="150" y="114" text-anchor="middle" font-size="10">D4 …:C4</text>
-            <text class="node-sub" x="150" y="127" text-anchor="middle">£36,300</text>
-            <rect class="node-box fixed" x="212" y="98" width="80" height="36" rx="7"/>
-            <text class="node-label" x="252" y="114" text-anchor="middle" font-size="10">D6 …:C6</text>
-            <text class="node-sub" x="252" y="127" text-anchor="middle">£61,000</text>
-            <path class="node-arrow good" d="M 135 46 L 60 96"/>
-            <path class="node-arrow good" d="M 150 46 L 150 96"/>
-            <path class="node-arrow good" d="M 165 46 L 240 96"/>
+            <rect class="node-box fixed" x="140" y="14" width="120" height="52" rx="10"/>
+            <text class="node-label" x="200" y="40" text-anchor="middle">$C$2 anchor</text>
+            <text class="node-sub" x="200" y="58" text-anchor="middle">fixed start</text>
+            <rect class="node-box fixed" x="14" y="140" width="112" height="56" rx="10"/>
+            <text class="node-label" x="70" y="164" text-anchor="middle" font-size="12">D3</text>
+            <text class="node-sub" x="70" y="183" text-anchor="middle">£22,200</text>
+            <rect class="node-box fixed" x="144" y="140" width="112" height="56" rx="10"/>
+            <text class="node-label" x="200" y="164" text-anchor="middle" font-size="12">D4</text>
+            <text class="node-sub" x="200" y="183" text-anchor="middle">£36,300</text>
+            <rect class="node-box fixed" x="274" y="140" width="112" height="56" rx="10"/>
+            <text class="node-label" x="330" y="164" text-anchor="middle" font-size="12">D6</text>
+            <text class="node-sub" x="330" y="183" text-anchor="middle">£61,000</text>
+            <path class="node-arrow good" d="M 175 66 L 82 138"/>
+            <path class="node-arrow good" d="M 200 66 L 200 138"/>
+            <path class="node-arrow good" d="M 225 66 L 318 138"/>
           </svg>
           <div class="fix-strip">
-            <strong>=SUM($C$2:C2)</strong> — drag down, range expands. No self-reference.
-            <div style="font-size:10px;color:#9ca9bd;margin-top:3px">May total: 12,400+9,800+14,100+11,200+13,500 = <span class="res">£61,000 ✓</span></div>
+            <strong>=SUM($C$2:C3)</strong> in D3, drag down — range expands, no self-reference.
+            <div style="font-size:10px;color:#9ca9bd;margin-top:3px">D3=…:C3 · D4=…:C4 · D6=…:C6 → May total 12,400+9,800+14,100+11,200+13,500 = <span class="res">£61,000 ✓</span></div>
           </div>
         </div>
       </div>
