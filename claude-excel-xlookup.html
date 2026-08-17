@@ -6,7 +6,7 @@
 <title>How to Use XLOOKUP in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to use XLOOKUP in Excel with Claude AI. Build formulas from scratch, fix #N/A errors, and convert old VLOOKUP formulas faster.">
 <link rel="canonical" href="https://www.pairworkflows.com/claude-excel-xlookup.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is XLOOKUP better than VLOOKUP?","acceptedAnswer":{"@type":"Answer","text":"Yes. XLOOKUP improves on VLOOKUP in several important ways: it uses a direct range reference instead of a fragile column index number, it can look left, it has a built-in argument for handling missing values, and its match modes are clearer. XLOOKUP is the recommended replacement wherever Excel 365 or Excel 2019+ is available."}},{"@type":"Question","name":"Why is my XLOOKUP returning #N/A?","acceptedAnswer":{"@type":"Answer","text":"The most common cause is a data type mismatch between the lookup value and the lookup column — for example, one is stored as text and the other as a number. Trailing spaces or invisible characters in either value are the second most frequent cause. Paste the formula and a few sample rows into Claude and it will identify the exact issue."}},{"@type":"Question","name":"What Excel versions support XLOOKUP?","acceptedAnswer":{"@type":"Answer","text":"XLOOKUP is available in Microsoft 365 (formerly Office 365) and Excel 2021. It is not available in Excel 2019, 2016, or earlier. If you are on an older version, use INDEX/MATCH instead — it offers the same flexibility and works in every Excel version."}},{"@type":"Question","name":"Does XLOOKUP replace INDEX MATCH?","acceptedAnswer":{"@type":"Answer","text":"XLOOKUP and INDEX/MATCH solve the same problems, but XLOOKUP has simpler syntax and built-in error handling. If everyone on your team uses Excel 365 or 2021, XLOOKUP is the cleaner choice. If any colleagues use older versions, INDEX/MATCH is safer because it works everywhere."}},{"@type":"Question","name":"Can XLOOKUP return more than one column at once?","acceptedAnswer":{"@type":"Answer","text":"Yes. If you need multiple fields from the same lookup — for example both name and salary — describe that to Claude and it will write a single XLOOKUP that spills both results, instead of writing two separate formulas."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is XLOOKUP better than VLOOKUP?","acceptedAnswer":{"@type":"Answer","text":"Yes. XLOOKUP improves on VLOOKUP in several important ways: it uses a direct range reference instead of a fragile column index number, it can look left, it has a built-in argument for handling missing values, and its match modes are clearer. XLOOKUP is the recommended replacement wherever Microsoft 365 or Excel 2021+ is available."}},{"@type":"Question","name":"Why is my XLOOKUP returning #N/A?","acceptedAnswer":{"@type":"Answer","text":"The most common cause is a data type mismatch between the lookup value and the lookup column — for example, one is stored as text and the other as a number. Trailing spaces or invisible characters in either value are the second most frequent cause. Paste the formula and a few sample rows into Claude and it will identify the exact issue."}},{"@type":"Question","name":"What Excel versions support XLOOKUP?","acceptedAnswer":{"@type":"Answer","text":"XLOOKUP is available in Microsoft 365 (formerly Office 365) and Excel 2021. It is not available in Excel 2019, 2016, or earlier. If you are on an older version, use INDEX/MATCH instead — it offers the same flexibility and works in every Excel version."}},{"@type":"Question","name":"Does XLOOKUP replace INDEX MATCH?","acceptedAnswer":{"@type":"Answer","text":"XLOOKUP and INDEX/MATCH solve the same problems, but XLOOKUP has simpler syntax and built-in error handling. If everyone on your team uses Excel 365 or 2021, XLOOKUP is the cleaner choice. If any colleagues use older versions, INDEX/MATCH is safer because it works everywhere."}},{"@type":"Question","name":"Can XLOOKUP return more than one column at once?","acceptedAnswer":{"@type":"Answer","text":"Yes. If you need multiple fields from the same lookup — for example both name and salary — describe that to Claude and it will write a single XLOOKUP that spills both results, instead of writing two separate formulas."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -114,6 +114,40 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .lk-table th{background:#edf0f8;color:#3047a6;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.06em;padding:7px 12px;text-align:left;border-bottom:2px solid #c5cdd8}
 .lk-table td{padding:6px 12px;border-bottom:1px solid #f0f2f5;color:#1e293b}
 
+/* ── EXCELJET-STYLE XLOOKUP VISUALS ── */
+.excel-shot{border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;background:#fff;font-family:'JetBrains Mono',monospace}
+.excel-tabs{display:flex;gap:4px;padding:6px 8px 0;background:#f8fafc;border-bottom:1px solid #dbe3ec}
+.excel-tab{font-size:10px;font-weight:700;color:#475569;background:#eef2f7;border:1px solid #cbd5e1;border-bottom:none;border-radius:5px 5px 0 0;padding:4px 9px}
+.excel-formula-bar{display:grid;grid-template-columns:52px 34px 1fr;align-items:center;border-bottom:1px solid #cbd5e1;background:#f8fafc;min-height:34px}
+.excel-namebox{padding:7px 8px;border-right:1px solid #cbd5e1;font-size:10.5px;font-weight:700;color:#475569;background:#fff}
+.excel-fx{padding:7px 8px;border-right:1px solid #cbd5e1;font-size:11px;font-weight:700;color:#0f6e56;text-align:center}
+.excel-formula-text{padding:7px 10px;font-size:11.5px;color:#111827;line-height:1.55;white-space:normal;overflow-wrap:anywhere}
+.excel-grid2{display:grid;grid-template-columns:34px 95px 108px 88px 90px}
+.excel-grid-small{display:grid;grid-template-columns:34px 120px 1fr}
+.excel-cell{min-height:30px;padding:6px 8px;border-right:1px solid #dbe3ec;border-bottom:1px solid #dbe3ec;font-size:11.5px;color:#334155;background:#fff}
+.excel-corner,.excel-col,.excel-row{background:#eef2f7;color:#64748b;font-weight:700;text-align:center}
+.excel-col,.excel-row{display:flex;align-items:center;justify-content:center}
+.excel-head{font-weight:700;background:#f8fafc;color:#1f2937}
+.excel-selected{outline:2px solid #217346;outline-offset:-2px;background:#f0fdf4}
+.excel-lookup{background:#eef2ff;color:#3730a3;font-weight:700}
+.excel-return{background:#ecfdf5;color:#047857;font-weight:700}
+.excel-bad{background:#fef2f2;color:#b91c1c;font-weight:700}
+.excel-inserted{background:#fff7ed;color:#c2410c;font-weight:700}
+.excel-note{margin-top:10px;padding:10px 12px;border-left:3px solid #f59e0b;background:#fffbeb;border-radius:0 6px 6px 0;font-family:'JetBrains Mono',monospace;font-size:11.75px;line-height:1.5;color:#78350f}
+.excel-fix{margin-top:10px;padding:10px 12px;border-left:3px solid #059669;background:#ecfdf5;border-radius:0 6px 6px 0;font-family:'JetBrains Mono',monospace;font-size:11.75px;line-height:1.5;color:#065f46}
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.compare-card{border:1px solid #dbe3ec;border-radius:7px;overflow:hidden;background:#fff}
+.compare-title{padding:7px 9px;background:#f8fafc;border-bottom:1px solid #dbe3ec;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;color:#475569}
+.compare-body{padding:9px;font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.5;color:#334155}
+@media(max-width:760px){
+  .excel-grid2{grid-template-columns:30px 82px 92px 78px 80px}
+  .excel-grid-small{grid-template-columns:30px 105px 1fr}
+  .excel-cell{font-size:10.5px;padding:5px 6px}
+  .excel-formula-bar{grid-template-columns:48px 30px 1fr}
+  .excel-formula-text{font-size:10.5px}
+  .compare-row{grid-template-columns:1fr}
+}
+
 /* ── DIAGNOSIS TABLE ── */
 .diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .diag-header{background:#fef2f2;border-bottom:1px solid #fecaca;padding:12px 18px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#dc2626}
@@ -216,7 +250,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
     <h1>How to Use XLOOKUP in Excel with Claude AI</h1>
-    <p class="hero-sub">XLOOKUP is the modern replacement for VLOOKUP — more flexible, easier to read, and available in Excel 365 and Excel 2019+. Describe what you want to look up and Claude writes the correct formula with the right match mode, or diagnoses a broken one in seconds.</p>
+    <p class="hero-sub">XLOOKUP is the modern replacement for VLOOKUP — more flexible, easier to read, and available in Microsoft 365 and Excel 2021+. Describe what you want to look up and Claude writes the correct formula with the right match mode, or diagnoses a broken one in seconds.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -273,47 +307,54 @@ Data is on sheet [name]. Keep any existing IFERROR wrapper.</pre>
   <!-- Tab: build -->
   <div class="before-after ba-panel on" id="ba-build">
     <div class="ba-col before" style="border-color:#f4ae8c">
-      <div class="ba-header" style="background:#fdf4ef;color:#6a3515;border-bottom:1px solid #f4d0b8"><i class="ti ti-table" style="font-size:14px;color:#e07850"></i> Before — Bonus % column filled manually</div>
+      <div class="ba-header" style="background:#fdf4ef;color:#6a3515;border-bottom:1px solid #f4d0b8"><i class="ti ti-table" style="font-size:14px;color:#e07850"></i> Before — bonus % copied manually from another sheet</div>
       <div class="ba-body" style="padding:10px">
-        <span class="xl-sheet-label active">Staff</span>
-        <table class="xl-grid">
-          <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th></tr>
-          <tr><td class="row-n">1</td><td style="font-weight:600">Emp ID</td><td style="font-weight:600">Name</td><td style="font-weight:600">Salary</td><td style="font-weight:600">Bonus %</td></tr>
-          <tr><td class="row-n">2</td><td>EMP-041</td><td>Sarah Chen</td><td>£52,000</td><td class="manual">? manual</td></tr>
-          <tr><td class="row-n">3</td><td>EMP-087</td><td>James Ward</td><td>£48,500</td><td class="manual">? manual</td></tr>
-          <tr><td class="row-n">4</td><td>EMP-112</td><td>Priya Patel</td><td>£44,000</td><td class="manual">? manual</td></tr>
-        </table>
-        <span class="xl-sheet-label">BonusTable</span>
-        <table class="xl-grid">
-          <tr><th></th><th>A</th><th>B</th></tr>
-          <tr><td class="row-n">1</td><td style="font-weight:600">Emp ID</td><td style="font-weight:600">Bonus %</td></tr>
-          <tr><td class="row-n">2</td><td class="hl-src">EMP-041</td><td class="hl-src">12%</td></tr>
-          <tr><td class="row-n">3</td><td>EMP-087</td><td>18%</td></tr>
-          <tr><td class="row-n">4</td><td>EMP-112</td><td>8%</td></tr>
-        </table>
-        <div class="lk-caption" style="margin-top:8px">
-          D2:D4 filled by hand — find EMP ID in BonusTable, copy the %, paste back
-          <div class="sub">Repeated every payroll cycle, error-prone</div>
+        <div class="excel-shot">
+          <div class="excel-tabs"><span class="excel-tab">Staff</span></div>
+          <div class="excel-grid2">
+            <div class="excel-cell excel-corner"></div><div class="excel-cell excel-col">A</div><div class="excel-cell excel-col">B</div><div class="excel-cell excel-col">C</div><div class="excel-cell excel-col">D</div>
+            <div class="excel-cell excel-row">1</div><div class="excel-cell excel-head">Emp ID</div><div class="excel-cell excel-head">Name</div><div class="excel-cell excel-head">Salary</div><div class="excel-cell excel-head">Bonus %</div>
+            <div class="excel-cell excel-row">2</div><div class="excel-cell excel-lookup">EMP-041</div><div class="excel-cell">Sarah Chen</div><div class="excel-cell">£52,000</div><div class="excel-cell excel-bad">manual</div>
+            <div class="excel-cell excel-row">3</div><div class="excel-cell">EMP-087</div><div class="excel-cell">James Ward</div><div class="excel-cell">£48,500</div><div class="excel-cell excel-bad">manual</div>
+            <div class="excel-cell excel-row">4</div><div class="excel-cell">EMP-112</div><div class="excel-cell">Priya Patel</div><div class="excel-cell">£44,000</div><div class="excel-cell excel-bad">manual</div>
+          </div>
         </div>
+
+        <div class="excel-shot" style="margin-top:10px">
+          <div class="excel-tabs"><span class="excel-tab">BonusTable</span></div>
+          <div class="excel-grid-small">
+            <div class="excel-cell excel-corner"></div><div class="excel-cell excel-col">A</div><div class="excel-cell excel-col">B</div>
+            <div class="excel-cell excel-row">1</div><div class="excel-cell excel-head">Emp ID</div><div class="excel-cell excel-head">Bonus %</div>
+            <div class="excel-cell excel-row">2</div><div class="excel-cell excel-lookup">EMP-041</div><div class="excel-cell excel-return">12%</div>
+            <div class="excel-cell excel-row">3</div><div class="excel-cell">EMP-087</div><div class="excel-cell">18%</div>
+            <div class="excel-cell excel-row">4</div><div class="excel-cell">EMP-112</div><div class="excel-cell">8%</div>
+          </div>
+        </div>
+        <div class="excel-note"><strong>Manual process:</strong> find EMP-041 in BonusTable, copy 12%, paste into Staff!D2. Repeat for every employee and every payroll cycle.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+
     <div class="ba-col after" style="border-color:#3047a6">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — XLOOKUP fills D automatically</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — XLOOKUP returns the bonus automatically</div>
       <div class="ba-body" style="padding:10px">
-        <div class="xl-fbar"><span class="cell-ref">D2</span><span class="fx">fx</span>=XLOOKUP(A2,BonusTable!A:A,BonusTable!B:B,"Not found",0)</div>
-        <span class="xl-sheet-label active">Staff</span>
-        <table class="xl-grid">
-          <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th></tr>
-          <tr><td class="row-n">1</td><td style="font-weight:600">Emp ID</td><td style="font-weight:600">Name</td><td style="font-weight:600">Salary</td><td style="font-weight:600">Bonus %</td></tr>
-          <tr><td class="row-n">2</td><td class="hl-match">EMP-041</td><td>Sarah Chen</td><td>£52,000</td><td class="sel result">12% ✓</td></tr>
-          <tr><td class="row-n">3</td><td>EMP-087</td><td>James Ward</td><td>£48,500</td><td class="result">18% ✓</td></tr>
-          <tr><td class="row-n">4</td><td>EMP-112</td><td>Priya Patel</td><td>£44,000</td><td class="result">8% ✓</td></tr>
-        </table>
-        <div class="lk-fix" style="margin-top:8px">
-          <strong>=XLOOKUP(A2, BonusTable!A:A, BonusTable!B:B, "Not found", 0)</strong>
-          <div class="sub">Arg 4 handles missing IDs. Arg 5 = exact match. Drag D2 down to fill all rows. <span class="res">✓</span></div>
+        <div class="excel-shot">
+          <div class="excel-tabs"><span class="excel-tab">Staff</span></div>
+          <div class="excel-formula-bar">
+            <div class="excel-namebox">D2</div>
+            <div class="excel-fx">fx</div>
+            <div class="excel-formula-text">=XLOOKUP(A2,BonusTable!A:A,BonusTable!B:B,"Not found",0)</div>
+          </div>
+          <div class="excel-grid2">
+            <div class="excel-cell excel-corner"></div><div class="excel-cell excel-col">A</div><div class="excel-cell excel-col">B</div><div class="excel-cell excel-col">C</div><div class="excel-cell excel-col">D</div>
+            <div class="excel-cell excel-row">1</div><div class="excel-cell excel-head">Emp ID</div><div class="excel-cell excel-head">Name</div><div class="excel-cell excel-head">Salary</div><div class="excel-cell excel-head">Bonus %</div>
+            <div class="excel-cell excel-row">2</div><div class="excel-cell excel-lookup">EMP-041</div><div class="excel-cell">Sarah Chen</div><div class="excel-cell">£52,000</div><div class="excel-cell excel-selected excel-return">12%</div>
+            <div class="excel-cell excel-row">3</div><div class="excel-cell">EMP-087</div><div class="excel-cell">James Ward</div><div class="excel-cell">£48,500</div><div class="excel-cell excel-return">18%</div>
+            <div class="excel-cell excel-row">4</div><div class="excel-cell">EMP-112</div><div class="excel-cell">Priya Patel</div><div class="excel-cell">£44,000</div><div class="excel-cell excel-return">8%</div>
+          </div>
         </div>
+        <div class="excel-fix"><strong>Lookup path:</strong> A2 → BonusTable!A:A → return BonusTable!B:B. Drag D2 down to fill the column.</div>
       </div>
     </div>
   </div>
@@ -321,47 +362,59 @@ Data is on sheet [name]. Keep any existing IFERROR wrapper.</pre>
   <!-- Tab: debug -->
   <div class="before-after ba-panel" id="ba-debug">
     <div class="ba-col before" style="border-color:#f4ae8c">
-      <div class="ba-header" style="background:#fdf4ef;color:#8a4a25;border-bottom:1px solid #f4d0b8"><i class="ti ti-unlink" style="font-size:14px;color:#e07850"></i> Before — lookup key format doesn't match table</div>
-      <div class="ba-body">
-        <div class="lk-wrap">
-          <svg class="lk-svg" viewBox="0 0 400 155" xmlns="http://www.w3.org/2000/svg">
-            <rect class="lk-box miss" x="14" y="36" width="160" height="96" rx="10"/>
-            <text class="lk-lbl" x="94" y="62" text-anchor="middle" fill="#e07850">Lookup key</text>
-            <text class="lk-sub" x="94" y="86" text-anchor="middle" fill="#e07850">1041  (Number)</text>
-            <text class="lk-sub" x="94" y="106" text-anchor="middle" fill="#e07850">1087  (Number)</text>
-            <text class="lk-sub" x="94" y="122" text-anchor="middle" fill="#e07850">1112  (Number)</text>
-            <rect class="lk-box tgt" x="226" y="36" width="160" height="96" rx="10"/>
-            <text class="lk-lbl" x="306" y="62" text-anchor="middle">BonusTable</text>
-            <text class="lk-sub" x="306" y="86" text-anchor="middle">"EMP-1041" (Text)</text>
-            <text class="lk-sub" x="306" y="106" text-anchor="middle">"EMP-1087" (Text)</text>
-            <text class="lk-sub" x="306" y="122" text-anchor="middle">"EMP-1112" (Text)</text>
-            <path class="lk-arrow miss" d="M 174 84 L 226 84" marker-end="url(#lm)"/>
-            <text class="lk-sub" x="200" y="72" text-anchor="middle" fill="#e07850" font-weight="700">#N/A</text>
-          </svg>
-          <div class="lk-caption">
-            1041 (number) ≠ "EMP-1041" (text) — different format, not just different type
-            <div class="sub">The ID exists in BonusTable but the lookup key doesn't include the "EMP-" prefix</div>
+      <div class="ba-header" style="background:#fdf4ef;color:#6a3515;border-bottom:1px solid #f4d0b8"><i class="ti ti-alert-circle" style="font-size:14px;color:#e07850"></i> Before — lookup value format does not match the table</div>
+      <div class="ba-body" style="padding:10px">
+        <div class="excel-shot">
+          <div class="excel-tabs"><span class="excel-tab">Staff</span></div>
+          <div class="excel-formula-bar">
+            <div class="excel-namebox">D2</div>
+            <div class="excel-fx">fx</div>
+            <div class="excel-formula-text">=XLOOKUP(A2,BonusTable!A:A,BonusTable!B:B)</div>
+          </div>
+          <div class="excel-grid-small">
+            <div class="excel-cell excel-corner"></div><div class="excel-cell excel-col">A</div><div class="excel-cell excel-col">D</div>
+            <div class="excel-cell excel-row">1</div><div class="excel-cell excel-head">Lookup ID</div><div class="excel-cell excel-head">Result</div>
+            <div class="excel-cell excel-row">2</div><div class="excel-cell excel-lookup">1041</div><div class="excel-cell excel-bad">#N/A</div>
+            <div class="excel-cell excel-row">3</div><div class="excel-cell">1087</div><div class="excel-cell excel-bad">#N/A</div>
+            <div class="excel-cell excel-row">4</div><div class="excel-cell">1112</div><div class="excel-cell excel-bad">#N/A</div>
           </div>
         </div>
+
+        <div class="excel-shot" style="margin-top:10px">
+          <div class="excel-tabs"><span class="excel-tab">BonusTable</span></div>
+          <div class="excel-grid-small">
+            <div class="excel-cell excel-corner"></div><div class="excel-cell excel-col">A</div><div class="excel-cell excel-col">B</div>
+            <div class="excel-cell excel-row">1</div><div class="excel-cell excel-head">Emp ID</div><div class="excel-cell excel-head">Bonus %</div>
+            <div class="excel-cell excel-row">2</div><div class="excel-cell excel-inserted">EMP-1041</div><div class="excel-cell">12%</div>
+            <div class="excel-cell excel-row">3</div><div class="excel-cell">EMP-1087</div><div class="excel-cell">18%</div>
+            <div class="excel-cell excel-row">4</div><div class="excel-cell">EMP-1112</div><div class="excel-cell">8%</div>
+          </div>
+        </div>
+        <div class="excel-note"><strong>Mismatch:</strong> Staff stores <strong>1041</strong>; BonusTable stores <strong>EMP-1041</strong>. The IDs are different formats, so XLOOKUP cannot match them.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude spots the mismatch and fixes it</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Lookup value</th><th>Fix applied</th><th>BonusTable match</th><th>Result</th></tr>
-          <tr><td>1041</td><td class="link-cell">"EMP-"&amp;TEXT(A2,"0")</td><td>"EMP-1041"</td><td class="ok-cell">12% ✓</td></tr>
-          <tr><td>1087</td><td class="link-cell">"EMP-"&amp;TEXT(A3,"0")</td><td>"EMP-1087"</td><td class="ok-cell">18% ✓</td></tr>
-          <tr><td>1112</td><td class="link-cell">"EMP-"&amp;TEXT(A4,"0")</td><td>"EMP-1112"</td><td class="ok-cell">8% ✓</td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's fix</div>
-          <pre>Cause: col A stores numbers (1041), BonusTable stores "EMP-1041" text.
-Fix: prefix the lookup value to match table format.
-=XLOOKUP("EMP-"&TEXT(A2,"0"), BonusTable!$A:$A, BonusTable!$C:$C, "Not found")
-All 3 rows now resolve correctly. ✓</pre>
+
+    <div class="ba-col after" style="border-color:#3047a6">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — normalize the key before XLOOKUP</div>
+      <div class="ba-body" style="padding:10px">
+        <div class="excel-shot">
+          <div class="excel-tabs"><span class="excel-tab">Staff</span></div>
+          <div class="excel-formula-bar">
+            <div class="excel-namebox">D2</div>
+            <div class="excel-fx">fx</div>
+            <div class="excel-formula-text">=XLOOKUP("EMP-"&TEXT(A2,"0"),BonusTable!A:A,BonusTable!B:B,"Not found")</div>
+          </div>
+          <div class="excel-grid2">
+            <div class="excel-cell excel-corner"></div><div class="excel-cell excel-col">A</div><div class="excel-cell excel-col">B</div><div class="excel-cell excel-col">C</div><div class="excel-cell excel-col">D</div>
+            <div class="excel-cell excel-row">1</div><div class="excel-cell excel-head">Lookup ID</div><div class="excel-cell excel-head">Normalized key</div><div class="excel-cell excel-head">Match</div><div class="excel-cell excel-head">Result</div>
+            <div class="excel-cell excel-row">2</div><div class="excel-cell">1041</div><div class="excel-cell excel-lookup">EMP-1041</div><div class="excel-cell">EMP-1041</div><div class="excel-cell excel-return">12%</div>
+            <div class="excel-cell excel-row">3</div><div class="excel-cell">1087</div><div class="excel-cell excel-lookup">EMP-1087</div><div class="excel-cell">EMP-1087</div><div class="excel-cell excel-return">18%</div>
+            <div class="excel-cell excel-row">4</div><div class="excel-cell">1112</div><div class="excel-cell excel-lookup">EMP-1112</div><div class="excel-cell">EMP-1112</div><div class="excel-cell excel-return">8%</div>
+          </div>
         </div>
+        <div class="excel-fix"><strong>Fix:</strong> prefix the numeric ID with <code>EMP-</code> before looking it up. All three rows now resolve correctly.</div>
       </div>
     </div>
   </div>
@@ -369,37 +422,46 @@ All 3 rows now resolve correctly. ✓</pre>
   <!-- Tab: convert -->
   <div class="before-after ba-panel" id="ba-convert">
     <div class="ba-col before" style="border-color:#f4ae8c">
-      <div class="ba-header" style="background:#fdf4ef;color:#8a4a25;border-bottom:1px solid #f4d0b8"><i class="ti ti-column-insert-right" style="font-size:14px;color:#e07850"></i> Before — column inserted, VLOOKUP index now wrong</div>
-      <div class="ba-body">
-        <div class="lk-wrap">
-          <table class="lk-table">
-            <tr><th>Col A</th><th>Col B</th><th style="background:#fdf4ef;color:#e07850;font-weight:700">Col C (inserted)</th><th>Col D</th><th>VLOOKUP "col 3"</th></tr>
-            <tr><td>EMP-041</td><td>Sarah Chen</td><td style="color:#e07850;font-weight:600">Finance</td><td>£52,000</td><td style="color:#e07850;font-weight:700">Returns "Finance" ✗</td></tr>
-            <tr><td>EMP-087</td><td>James Ward</td><td style="color:#e07850;font-weight:600">Sales</td><td>£48,500</td><td style="color:#e07850;font-weight:700">Returns "Sales" ✗</td></tr>
-          </table>
-          <div class="lk-caption">
-            VLOOKUP(…, 3, FALSE) — hardcoded "3" now points to col C (Dept) not col D (Salary)
-            <div class="sub">Every column insert silently shifts the return value</div>
+      <div class="ba-header" style="background:#fdf4ef;color:#6a3515;border-bottom:1px solid #f4d0b8"><i class="ti ti-columns" style="font-size:14px;color:#e07850"></i> Before — inserted column breaks VLOOKUP's hardcoded index</div>
+      <div class="ba-body" style="padding:10px">
+        <div class="excel-shot">
+          <div class="excel-tabs"><span class="excel-tab">Staff</span></div>
+          <div class="excel-formula-bar">
+            <div class="excel-namebox">E2</div>
+            <div class="excel-fx">fx</div>
+            <div class="excel-formula-text">=IFERROR(VLOOKUP(A2,Staff!A:C,3,FALSE),"—")</div>
+          </div>
+          <div class="excel-grid2">
+            <div class="excel-cell excel-corner"></div><div class="excel-cell excel-col">A</div><div class="excel-cell excel-col">B</div><div class="excel-cell excel-col excel-inserted">C</div><div class="excel-cell excel-col">D</div>
+            <div class="excel-cell excel-row">1</div><div class="excel-cell excel-head">Emp ID</div><div class="excel-cell excel-head">Name</div><div class="excel-cell excel-head excel-inserted">Dept (inserted)</div><div class="excel-cell excel-head">Salary</div>
+            <div class="excel-cell excel-row">2</div><div class="excel-cell">EMP-041</div><div class="excel-cell">Sarah Chen</div><div class="excel-cell excel-inserted">Finance</div><div class="excel-cell">£52,000</div>
+            <div class="excel-cell excel-row">3</div><div class="excel-cell">EMP-087</div><div class="excel-cell">James Ward</div><div class="excel-cell excel-inserted">Sales</div><div class="excel-cell">£48,500</div>
           </div>
         </div>
+        <div class="excel-note"><strong>Problem:</strong> VLOOKUP still asks for column <strong>3</strong>. After inserting Dept in column C, index 3 now returns Dept instead of Salary.</div>
       </div>
     </div>
+
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude converts to XLOOKUP with direct reference</div>
-      <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Col A</th><th>Col B</th><th>Col C (inserted)</th><th>Col D</th><th>XLOOKUP result</th></tr>
-          <tr><td>EMP-041</td><td>Sarah Chen</td><td class="hl">Finance</td><td>£52,000</td><td class="ok-cell">£52,000 ✓</td></tr>
-          <tr><td>EMP-087</td><td>James Ward</td><td class="hl">Sales</td><td>£48,500</td><td class="ok-cell">£48,500 ✓</td></tr>
-        </table>
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's conversion</div>
-          <pre>Old: =IFERROR(VLOOKUP(A2, Staff!A:C, 3, FALSE), "—")
-New: =XLOOKUP(A2, Staff!A:A, Staff!D:D, "—", 0)
-Direct column reference — inserting cols never breaks it.
-IFERROR removed: handled by 4th XLOOKUP argument. ✓</pre>
+
+    <div class="ba-col after" style="border-color:#3047a6">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — XLOOKUP points directly to the Salary column</div>
+      <div class="ba-body" style="padding:10px">
+        <div class="excel-shot">
+          <div class="excel-tabs"><span class="excel-tab">Staff</span></div>
+          <div class="excel-formula-bar">
+            <div class="excel-namebox">E2</div>
+            <div class="excel-fx">fx</div>
+            <div class="excel-formula-text">=XLOOKUP(A2,Staff!A:A,Staff!D:D,"—",0)</div>
+          </div>
+          <div class="excel-grid2">
+            <div class="excel-cell excel-corner"></div><div class="excel-cell excel-col">A</div><div class="excel-cell excel-col">B</div><div class="excel-cell excel-col excel-inserted">C</div><div class="excel-cell excel-col">D</div>
+            <div class="excel-cell excel-row">1</div><div class="excel-cell excel-head">Emp ID</div><div class="excel-cell excel-head">Name</div><div class="excel-cell excel-head excel-inserted">Dept</div><div class="excel-cell excel-head">Salary</div>
+            <div class="excel-cell excel-row">2</div><div class="excel-cell excel-lookup">EMP-041</div><div class="excel-cell">Sarah Chen</div><div class="excel-cell excel-inserted">Finance</div><div class="excel-cell excel-selected excel-return">£52,000</div>
+            <div class="excel-cell excel-row">3</div><div class="excel-cell">EMP-087</div><div class="excel-cell">James Ward</div><div class="excel-cell excel-inserted">Sales</div><div class="excel-cell excel-return">£48,500</div>
+          </div>
         </div>
+        <div class="excel-fix"><strong>Why it is safer:</strong> XLOOKUP references the return column directly, so inserting a new column does not silently shift the result.</div>
       </div>
     </div>
   </div>
@@ -462,7 +524,7 @@ IFERROR removed: handled by 4th XLOOKUP argument. ✓</pre>
     <div class="faq-title" aria-hidden="true">Frequently asked questions</div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Is XLOOKUP better than VLOOKUP? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes. XLOOKUP improves on VLOOKUP in several important ways: it uses a direct range reference instead of a fragile column index number, it can look left, it has a built-in argument for handling missing values, and its match modes are clearer. XLOOKUP is the recommended replacement wherever Excel 365 or Excel 2019+ is available.</div>
+      <div class="faq-a">Yes. XLOOKUP improves on VLOOKUP in several important ways: it uses a direct range reference instead of a fragile column index number, it can look left, it has a built-in argument for handling missing values, and its match modes are clearer. XLOOKUP is the recommended replacement wherever Microsoft 365 or Excel 2021+ is available.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Why is my XLOOKUP returning #N/A? <i class="ti ti-chevron-down"></i></div>
