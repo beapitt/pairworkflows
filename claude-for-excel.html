@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><link rel="icon" type="image/png" href="/favicon.png">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Claude for Excel: How to Use Claude AI for Formulas, Errors & Reports</title>
+<meta name="description" content="How to use Claude AI in Excel — fix formulas, debug errors, clean data, build financial models. Install the add-in or use Claude via web. Free workflows included.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.pairworkflows.com/claude-for-excel.html">
+<meta property="og:title" content="Claude for Excel: How to Use Claude AI for Formulas, Errors & Reports">
+<meta property="og:description" content="Fix formulas, debug errors, clean data, build financial models. Claude AI inside Excel or via web — free workflows included.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.pairworkflows.com/claude-for-excel.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="/global-fix.css">
+<link rel="stylesheet" href="styles.css">
+<script defer src="/_vercel/insights/script.js"></script>
+
+<!-- WebPage structured data -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","name":"Claude for Excel: How to Use Claude AI for Formulas, Errors & Reports","description":"How to use Claude AI in Excel — fix formulas, debug errors, clean data, build financial models.","url":"https://www.pairworkflows.com/claude-for-excel.html","publisher":{"@type":"Organization","name":"PairWorkflows","url":"https://www.pairworkflows.com"}}
+</script>
+
+<!-- FAQ structured data -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Is Claude for Excel free?","acceptedAnswer":{"@type":"Answer","text":"The add-in itself is free to install from Microsoft AppSource. However, it requires a paid Claude subscription (Pro, Max, Team, or Enterprise) to use. The Free plan does not include add-in access. You can still use Claude with Excel for free by pasting your data into claude.ai on the free tier — just with lower usage limits. Check claude.ai/pricing for current plans and pricing."}},
+{"@type":"Question","name":"How do I install Claude for Excel?","acceptedAnswer":{"@type":"Answer","text":"In Excel, go to Insert → Get Add-ins → search 'Claude by Anthropic' → click Add. Sign in with your Claude account in the sidebar. The add-in works on Excel for Windows, Mac, iPad, and Excel for the web."}},
+{"@type":"Question","name":"Can Claude write Excel formulas?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can describe what you need in plain English — Claude writes the formula, explains what each part does, and can insert it directly into your workbook when using the add-in. Via the web, Claude writes the formula and you paste it into Excel."}},
+{"@type":"Question","name":"Can Claude fix broken Excel formulas?","acceptedAnswer":{"@type":"Answer","text":"Yes. Paste any formula that returns #REF!, #N/A, #VALUE!, or a wrong result — Claude diagnoses the root cause, explains why it fails, and gives you the corrected version. The add-in can trace cell dependencies across tabs to find indirect errors."}},
+{"@type":"Question","name":"Claude for Excel vs Copilot: what is the difference?","acceptedAnswer":{"@type":"Answer","text":"Copilot is built into the Excel ribbon as part of a separate Microsoft 365 Copilot licence. Claude runs as a sidebar add-in included with your existing Claude subscription — no additional Microsoft licence required. Copilot has deeper native access to the Excel grid. Claude provides cell-level citations on every explanation and connects to financial data sources like S&P Global, LSEG, and Daloopa. Some organisations use both. Check each vendor's pricing page for current costs."}},
+{"@type":"Question","name":"Can I use Claude with Excel without the add-in?","acceptedAnswer":{"@type":"Answer","text":"Yes. Upload an .xlsx file on claude.ai, or paste your data and formulas into the chat. Claude can also create and modify Excel files directly in the conversation. The difference is that the add-in operates inside your open workbook, while Claude on the web works with uploaded or newly created files."}}
+]}
+</script>
+
+<style>
+*{box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#fafafa;color:#111827;margin:0}
+
+/* Hero */
+.pillar-hero{background:#fafafa;padding:3.5rem 1.5rem 2.5rem;text-align:center;border-bottom:1px solid #f0f0f0}
+.pillar-hero .eyebrow{font-size:12px;font-weight:600;color:#1d9e75;text-transform:uppercase;letter-spacing:1px;margin-bottom:.75rem;display:block}
+.pillar-hero h1{font-size:clamp(24px,3.5vw,36px);font-weight:800;color:#111827;margin:0 0 .75rem;letter-spacing:-.5px;line-height:1.2}
+.pillar-hero p{font-size:15px;color:#6b7280;max-width:560px;margin:0 auto 1.5rem;line-height:1.65}
+.hero-cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.hero-cta a{padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;transition:all .15s}
+.cta-primary{background:#1d9e75;color:#fff}
+.cta-primary:hover{background:#178a66}
+.cta-secondary{background:#fff;color:#1d9e75;border:1.5px solid #1d9e75}
+.cta-secondary:hover{background:#f0fdf4}
+
+/* Sections */
+.pillar-section{max-width:760px;margin:0 auto;padding:2.5rem 1.5rem}
+.pillar-section h2{font-size:clamp(18px,2.5vw,22px);font-weight:700;color:#111827;margin:0 0 1rem;letter-spacing:-.3px}
+.pillar-section p{font-size:14.5px;color:#374151;line-height:1.7;margin:0 0 1rem}
+
+/* Capability cards */
+.cap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:1.25rem 0}
+.cap-card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:1rem 1.25rem;text-decoration:none;color:inherit;transition:all .15s}
+.cap-card:hover{border-color:#1d9e75;box-shadow:0 2px 8px rgba(29,158,117,.08)}
+.cap-card .cap-icon{font-size:20px;color:#1d9e75;margin-bottom:.5rem;display:block}
+.cap-card h3{font-size:14px;font-weight:600;color:#111827;margin:0 0 .3rem}
+.cap-card p{font-size:12.5px;color:#6b7280;margin:0;line-height:1.5}
+
+/* Install steps */
+.install-steps{counter-reset:step;list-style:none;padding:0;margin:1rem 0}
+.install-steps li{counter-increment:step;padding:10px 0 10px 40px;position:relative;font-size:14px;color:#374151;line-height:1.6;border-bottom:1px solid #f3f4f6}
+.install-steps li:last-child{border:none}
+.install-steps li::before{content:counter(step);position:absolute;left:0;top:10px;width:26px;height:26px;background:#1d9e75;color:#fff;border-radius:50%;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.install-steps code{background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:12.5px;font-family:'JetBrains Mono',monospace}
+
+/* Comparison table */
+.cmp-table{width:100%;border-collapse:collapse;font-size:13px;margin:1.25rem 0}
+.cmp-table th{background:#f8f9fa;color:#374151;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em;padding:10px 14px;text-align:left;border-bottom:2px solid #e5e7eb}
+.cmp-table td{padding:9px 14px;border-bottom:1px solid #f3f4f6;color:#374151;line-height:1.5}
+.cmp-table td:first-child{font-weight:500;color:#111827}
+.cmp-table .yes{color:#059669;font-weight:600}
+.cmp-table .no{color:#9ca3af}
+.cmp-table .note{color:#6b7280;font-size:12px}
+
+/* Formula examples */
+.fx-card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:1rem 1.25rem;margin:1rem 0}
+.fx-card h3{font-size:14px;font-weight:600;color:#111827;margin:0 0 .4rem}
+.fx-card .problem{font-size:13px;color:#dc2626;margin:0 0 .4rem;font-weight:500}
+.fx-card .solution{font-size:13px;color:#059669;margin:0 0 .4rem;font-weight:500}
+.fx-card .link{font-size:12.5px;color:#1d9e75;text-decoration:none;font-weight:500}
+.fx-card .link:hover{text-decoration:underline}
+
+/* Workflow directory links */
+.wf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin:1.25rem 0}
+.wf-card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:1rem 1.25rem;text-decoration:none;color:inherit;transition:all .15s}
+.wf-card:hover{border-color:#1d9e75;box-shadow:0 2px 8px rgba(29,158,117,.08)}
+.wf-card h3{font-size:14px;font-weight:600;color:#111827;margin:0 0 .3rem}
+.wf-card p{font-size:12.5px;color:#6b7280;margin:0;line-height:1.5}
+.wf-card .arrow{font-size:12px;color:#9ca3af;margin-top:.5rem;display:block}
+
+/* FAQ */
+.faq-section{max-width:760px;margin:0 auto;padding:2rem 1.5rem 3rem}
+.faq-item{border-bottom:1px solid #f0f0f0;padding:1rem 0}
+.faq-q{font-size:14.5px;font-weight:600;color:#111827;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-q::after{content:'+';font-size:18px;color:#9ca3af;flex-shrink:0;transition:transform .2s}
+.faq-q.open::after{transform:rotate(45deg)}
+.faq-a{font-size:13.5px;color:#6b7280;line-height:1.7;max-height:0;overflow:hidden;transition:max-height .3s ease}
+.faq-a.show{max-height:500px;padding-top:.75rem}
+
+/* Divider */
+.section-divider{border:none;border-top:1px solid #f0f0f0;margin:0}
+
+/* Responsive */
+@media(max-width:600px){
+  .pillar-hero{padding:2rem 1.25rem 1.5rem}
+  .cap-grid{grid-template-columns:1fr}
+  .wf-grid{grid-template-columns:1fr}
+  .cmp-table{font-size:12px}
+  .cmp-table th,.cmp-table td{padding:7px 10px}
+}
+</style>
+</head>
+<body>
+
+<div id="navbar-placeholder"></div>
+<script src="/navbar.js"></script>
+
+<!-- HERO -->
+<div class="pillar-hero">
+  <span class="eyebrow">Excel + Claude AI</span>
+  <h1>Claude for Excel: How to Use Claude AI for Formulas, Errors & Reports</h1>
+  <p>Fix broken formulas, debug errors, clean imported data, and build financial models — with Claude AI inside Excel or via the web.</p>
+  <div class="hero-cta">
+    <a href="/claude-excel-workflows.html" class="cta-primary">Browse Excel Workflows</a>
+    <a href="/prompt-generator-excel.html" class="cta-secondary">Excel Prompt Generator</a>
+  </div>
+</div>
+
+<!-- WHAT IS CLAUDE FOR EXCEL -->
+<div class="pillar-section">
+  <h2>What Is Claude for Excel?</h2>
+  <p>Claude for Excel is Anthropic's official add-in that puts Claude AI directly inside Microsoft Excel as a sidebar panel. Instead of switching to a browser, you chat with Claude while your workbook is open — Claude reads your data, traces formula dependencies across tabs, and edits cells directly with cell-level citations so you can see exactly what it touched and why.</p>
+  <p>The add-in works on Excel for Windows, Mac, iPad, and Excel for the web. It requires a paid Claude subscription (Pro, Max, Team, or Enterprise).</p>
+  <p>You don't need the add-in to use Claude with Excel. On <a href="https://claude.ai" style="color:#1d9e75">claude.ai</a>, you can upload .xlsx files, and Claude can also create and modify Excel files directly in the chat. The difference is that the add-in operates inside your open workbook, while Claude on the web works with uploaded or newly created files. PairWorkflows' <a href="/prompt-generator-excel.html" style="color:#1d9e75">prompt templates</a> work with either approach.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- WHAT CAN CLAUDE DO -->
+<div class="pillar-section">
+  <h2>What Can Claude Do in Excel?</h2>
+  <p>Claude handles the problems that actually slow you down — not basic SUM formulas, but the real issues that take 30 minutes to debug or an hour to build from scratch.</p>
+  <div class="cap-grid">
+    <a href="/excel-formulas-claude.html" class="cap-card">
+      <span class="cap-icon"><i class="ti ti-math-function"></i></span>
+      <h3>Write & explain formulas</h3>
+      <p>XLOOKUP, SUMIFS, INDEX/MATCH, nested IFs, LAMBDA — describe what you need, Claude writes and explains it.</p>
+    </a>
+    <a href="/excel-errors-claude.html" class="cap-card">
+      <span class="cap-icon"><i class="ti ti-bug"></i></span>
+      <h3>Fix formula errors</h3>
+      <p>#REF!, #N/A, #VALUE!, circular references — paste the broken formula, get the fix and the root cause.</p>
+    </a>
+    <a href="/excel-data-cleaning-claude.html" class="cap-card">
+      <span class="cap-icon"><i class="ti ti-wash-dry-flat"></i></span>
+      <h3>Clean messy data</h3>
+      <p>Trailing spaces, mixed formats, text-as-numbers, duplicate rows — Claude identifies and fixes all of them.</p>
+    </a>
+    <a href="/excel-finance-models-claude.html" class="cap-card">
+      <span class="cap-icon"><i class="ti ti-chart-bar"></i></span>
+      <h3>Build financial models</h3>
+      <p>Budget variance, cash flow forecasts, depreciation schedules, 3-statement models — with formulas that reconcile.</p>
+    </a>
+    <a href="/excel-reports-claude.html" class="cap-card">
+      <span class="cap-icon"><i class="ti ti-report"></i></span>
+      <h3>Create dynamic reports</h3>
+      <p>Pivot tables, KPI dashboards, rolling forecasts — replace hardcoded monthly reports with formula-driven templates.</p>
+    </a>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- HOW TO INSTALL -->
+<div class="pillar-section">
+  <h2>How to Install Claude for Excel</h2>
+  <p>The add-in works on Excel for Windows, Mac, iPad, and Excel for the web. It requires a paid Claude subscription (Pro, Max, Team, or Enterprise).</p>
+  <ol class="install-steps">
+    <li>Open Excel → go to <strong>Insert</strong> → <strong>Get Add-ins</strong></li>
+    <li>Search for <strong>"Claude by Anthropic"</strong> → click <strong>Add</strong></li>
+    <li>Sign in with your Claude account in the sidebar that appears</li>
+  </ol>
+  <p style="font-size:13px;color:#6b7280">The add-in itself is free to install from Microsoft AppSource. Usage consumes your Claude plan's limits — complex workbook interactions can use limits faster than regular chat. Check <a href="https://claude.ai/pricing" style="color:#1d9e75" rel="nofollow">claude.ai/pricing</a> for current plan details and pricing.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- ADD-IN VS WEB -->
+<div class="pillar-section">
+  <h2>Claude for Excel Add-In vs Claude Web</h2>
+  <p>Two ways to use Claude with Excel — the add-in works inside your open workbook, while Claude on the web works with uploaded or newly created files.</p>
+  <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+  <table class="cmp-table">
+    <tr><th></th><th>Add-in (sidebar)</th><th>Claude Web / Chat</th></tr>
+    <tr><td>Reads your workbook</td><td class="yes">Yes — all tabs, formulas, names</td><td class="note">Upload .xlsx or paste data</td></tr>
+    <tr><td>Edits cells directly</td><td class="yes">Yes — inside the open workbook</td><td class="note">Creates/modifies .xlsx files in chat</td></tr>
+    <tr><td>Cell-level citations</td><td class="yes">Yes — shows exactly what changed</td><td class="no">Not available</td></tr>
+    <tr><td>Requires paid plan</td><td class="yes">Pro or higher</td><td class="note">Free plan for basic use</td></tr>
+    <tr><td>Platforms</td><td>Windows, Mac, iPad, Excel Web</td><td>Any browser</td></tr>
+    <tr><td>Shared context (PPT/Word)</td><td class="yes">Yes — since May 2026</td><td class="no">Not available</td></tr>
+    <tr><td>MCP data connectors</td><td class="yes">S&P Global, LSEG, Daloopa</td><td class="no">Not in Excel context</td></tr>
+  </table>
+  </div>
+  <p style="font-size:13px;color:#6b7280;margin-top:.75rem">Most PairWorkflows users work via the web — paste the problem, get the formula, paste it back into Excel. The add-in makes this faster but isn't required.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- PRACTICAL FORMULA EXAMPLES -->
+<div class="pillar-section">
+  <h2>Claude Excel Formulas: Real Problems, Real Fixes</h2>
+  <p>These aren't <code>=SUM(A1:A10)</code> examples. These are the problems that actually waste your time.</p>
+
+  <div class="fx-card">
+    <h3>SUMIFS returns 0 even though data clearly matches</h3>
+    <p class="problem">Problem: criteria range is 98 rows, sum range is 99 rows — Excel rejects mismatched ranges silently.</p>
+    <p class="solution">Fix: Claude identifies the row mismatch and rewrites with aligned ranges → returns £5,100.</p>
+    <a href="/claude-excel-sumifs.html" class="link">See the full SUMIFS workflow →</a>
+  </div>
+
+  <div class="fx-card">
+    <h3>XLOOKUP returns #N/A — value clearly exists in the table</h3>
+    <p class="problem">Problem: lookup key is number 1041, table stores it as text "EMP-1041" — different format, not just type.</p>
+    <p class="solution">Fix: Claude spots the format mismatch and wraps the lookup with TEXT() to normalise → matched.</p>
+    <a href="/claude-excel-xlookup.html" class="link">See the full XLOOKUP workflow →</a>
+  </div>
+
+  <div class="fx-card">
+    <h3>Circular reference error with no obvious loop</h3>
+    <p class="problem">Problem: D4 depends on E4 which depends on F4 which depends on D4 — a 3-cell indirect loop.</p>
+    <p class="solution">Fix: Claude traces the dependency chain, identifies the cycle, and anchors F4 to a fixed input.</p>
+    <a href="/claude-excel-circular-reference.html" class="link">See the full circular reference workflow →</a>
+  </div>
+
+  <div class="fx-card">
+    <h3>Inherited nested formula — nobody knows what it does</h3>
+    <p class="problem">Problem: =IFERROR(INDEX(Sales!$C$2:$C$500,MATCH(1,(Sales!$A$2:$A$500=A2)*(Sales!$B$2:$B$500=B2),0)),"")</p>
+    <p class="solution">Fix: Claude decomposes it layer by layer — IFERROR → INDEX → MATCH — and documents the risk (row 500 cap).</p>
+    <a href="/claude-excel-explain-formulas.html" class="link">See the full formula explanation workflow →</a>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- WHEN MOST USEFUL -->
+<div class="pillar-section">
+  <h2>When Claude for Excel Is Most Useful</h2>
+  <p>Claude adds the most value when the problem is hard to Google — situations where the fix depends on your specific data, not a generic tutorial.</p>
+  <p>Debugging a formula that works on some rows but fails on others. Cleaning an import where dates, currencies, and IDs are formatted inconsistently. Reviewing someone else's financial model to understand what each formula actually does. Building a SUMIFS or XLOOKUP from a plain-English description of what you need. Converting a static monthly report into a formula-driven template that updates automatically.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- WHEN TO VERIFY -->
+<div class="pillar-section">
+  <h2>When You Should Still Verify Manually</h2>
+  <p>Claude is a reasoning tool, not an auditor. Always check the output before relying on it for decisions that matter.</p>
+  <p>Financial models that go to a board or lender — verify every formula against your source data. Payroll calculations where an error means someone gets paid wrong. Tax returns and regulatory filings. Any output where the cost of being wrong is higher than the cost of checking. Reconciliations where the balances must match to the penny.</p>
+  <p style="font-size:13px;color:#6b7280">Claude gets the formula right most of the time. The question isn't whether it's smart enough — it's whether the stakes justify a manual check. For high-stakes outputs, always verify.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- WORKFLOWS -->
+<div class="pillar-section">
+  <h2>Practical Excel + Claude Workflows</h2>
+  <p>Each workflow gives you the prompt to copy, shows the Before and After, and explains the fix — ready to use in 5 minutes.</p>
+  <div class="wf-grid">
+    <a href="/excel-errors-claude.html" class="wf-card">
+      <h3>Fix Excel Errors</h3>
+      <p>#REF!, #N/A, #VALUE!, circular references — diagnose and fix the root cause, not just the symptom.</p>
+      <span class="arrow">Browse workflows →</span>
+    </a>
+    <a href="/excel-formulas-claude.html" class="wf-card">
+      <h3>Formulas & Functions</h3>
+      <p>SUMIFS, XLOOKUP, IF/IFS, LAMBDA — build, debug, or convert formulas with Claude.</p>
+      <span class="arrow">Browse workflows →</span>
+    </a>
+    <a href="/excel-data-cleaning-claude.html" class="wf-card">
+      <h3>Data Cleaning</h3>
+      <p>Standardise formats, remove duplicates, split columns, fix imported data.</p>
+      <span class="arrow">Browse workflows →</span>
+    </a>
+    <a href="/excel-finance-models-claude.html" class="wf-card">
+      <h3>Finance Models</h3>
+      <p>Cash flow, depreciation, loan amortization, budget variance, KPI dashboards.</p>
+      <span class="arrow">Browse workflows →</span>
+    </a>
+    <a href="/excel-reports-claude.html" class="wf-card">
+      <h3>Dynamic Reports</h3>
+      <p>Pivot tables, rolling forecasts, 3-statement models — formula-driven, not hardcoded.</p>
+      <span class="arrow">Browse workflows →</span>
+    </a>
+    <a href="/claude-excel-workflows.html" class="wf-card">
+      <h3>All Excel Workflows</h3>
+      <p>Every Excel + Claude workflow on PairWorkflows — browse the full directory.</p>
+      <span class="arrow">See all →</span>
+    </a>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- FAQ -->
+<div class="faq-section">
+  <h2 style="font-size:clamp(18px,2.5vw,22px);font-weight:700;color:#111827;margin:0 0 1.25rem">Frequently Asked Questions</h2>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('show')">Is Claude for Excel free?</div>
+    <div class="faq-a">The add-in itself is free to install from Microsoft AppSource. However, it requires a paid Claude subscription (Pro, Max, Team, or Enterprise) to use. The Free plan does not include add-in access. You can still use Claude with Excel for free by pasting your data into <a href="https://claude.ai" style="color:#1d9e75">claude.ai</a> on the free tier — just with lower usage limits. Check <a href="https://claude.ai/pricing" style="color:#1d9e75">claude.ai/pricing</a> for current plans and pricing.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('show')">How do I install Claude for Excel?</div>
+    <div class="faq-a">In Excel, go to Insert → Get Add-ins → search "Claude by Anthropic" → click Add. Sign in with your Claude account in the sidebar. The add-in works on Excel for Windows, Mac, iPad, and Excel for the web.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('show')">Can Claude write Excel formulas?</div>
+    <div class="faq-a">Yes. Describe what you need in plain English — Claude writes the formula, explains each part, and can insert it directly into your workbook with the add-in. Via the web, Claude writes the formula and you paste it into Excel. See <a href="/excel-formulas-claude.html" style="color:#1d9e75">formula workflows</a> for real examples.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('show')">Can Claude fix broken Excel formulas?</div>
+    <div class="faq-a">Yes. Paste any formula that returns #REF!, #N/A, #VALUE!, or a wrong result — Claude diagnoses the root cause, explains why it fails, and gives you the corrected version. The add-in can trace cell dependencies across tabs to find indirect errors. See <a href="/excel-errors-claude.html" style="color:#1d9e75">error-fixing workflows</a> for real examples.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('show')">Claude for Excel vs Copilot: what's the difference?</div>
+    <div class="faq-a">Copilot is built into the Excel ribbon as part of a separate Microsoft 365 Copilot licence. Claude runs as a sidebar add-in included with your existing Claude subscription — no additional Microsoft licence required. Copilot has deeper native access to the Excel grid. Claude provides cell-level citations on every explanation and connects to financial data sources like S&P Global, LSEG, and Daloopa. Some organisations use both. Check each vendor's pricing page for current costs.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('show')">Can I use Claude with Excel without the add-in?</div>
+    <div class="faq-a">Yes. Upload an .xlsx file on <a href="https://claude.ai" style="color:#1d9e75">claude.ai</a>, or paste your data and formulas into the chat. Claude can also create and modify Excel files directly in the conversation. The difference is that the add-in operates inside your open workbook, while Claude on the web works with uploaded or newly created files. PairWorkflows' <a href="/prompt-generator-excel.html" style="color:#1d9e75">prompt templates</a> are designed for this web-based workflow.</div>
+  </div>
+</div>
+
+<div id="footer-placeholder"></div>
+<script src="/footer.js"></script>
+
+</body>
+</html>
