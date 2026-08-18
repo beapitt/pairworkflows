@@ -142,8 +142,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
 @media(max-width:640px){
   .hero h1{font-size:24px}
-  .diag-row{grid-template-columns:1fr 1fr;gap:8px}
-  .diag-example{display:none}
+  .diag-row{grid-template-columns:1fr;gap:6px}
   .related-grid{grid-template-columns:1fr}
   .page{padding:1.5rem 1rem 3rem}
 }
@@ -239,9 +238,9 @@ Output:
 
 Cost Centre: [e.g. Operations]
 GL Account: [e.g. 6100 — Gross Pay]
-Payroll system total: [e.g. £57,800]
-GL posted amount: [e.g. £55,300]
-Variance: [e.g. -£2,500 (GL understated)]
+Payroll system total: [e.g. £60,000]
+GL posted amount: [e.g. £55,000]
+Variance: [e.g. -£5,000 (GL understated)]
 
 Other accounts showing movement in the same period:
 [Paste any other GL postings for this cost centre this month]
@@ -292,7 +291,7 @@ Output:
   <!-- BEFORE / AFTER VISUAL DYNAMIC -->
 
   <!-- BA: Recon -->
-  <div class="before-after ba-panel on" id="ba-recon">
+  <div class="ba-panel on" id="ba-recon">
     <div class="ba-col before">
       <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — payroll and GL totals disagree, but account context is missing</div>
       <div class="ba-body">
@@ -359,7 +358,7 @@ Do not post the journal until the underlying GL detail confirms the coding error
   </div>
 
   <!-- BA: Variance -->
-  <div class="before-after ba-panel" id="ba-variance">
+  <div class="ba-panel" id="ba-variance">
     <div class="ba-col before">
       <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — £5,000 variance is visible only at account total level</div>
       <div class="ba-body">
@@ -421,7 +420,7 @@ The correcting journal's credit account cannot be inferred safely from this exce
   </div>
 
   <!-- BA: Employee -->
-  <div class="before-after ba-panel" id="ba-employee">
+  <div class="ba-panel" id="ba-employee">
     <div class="ba-col before">
       <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — employee-level rows are mixed with no exception status</div>
       <div class="ba-body">

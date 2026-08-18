@@ -140,8 +140,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .search-box input::placeholder{color:rgba(255,255,255,.35)}
 @media(max-width:640px){
   .hero h1{font-size:24px}
-  .diag-row{grid-template-columns:1fr 1fr;gap:8px}
-  .diag-example{display:none}
+  .diag-row{grid-template-columns:1fr;gap:6px}
   .related-grid{grid-template-columns:1fr}
   .page{padding:1.5rem 1rem 3rem}
 }
@@ -298,7 +297,7 @@ Instructions:
   <!-- BEFORE / AFTER VISUAL DYNAMIC -->
 
   <!-- BA: Build -->
-  <div class="before-after ba-panel on" id="ba-build">
+  <div class="ba-panel on" id="ba-build">
     <div class="ba-col before">
       <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — static budget repeats assumptions and has no rolling horizon</div>
       <div class="ba-body">
@@ -368,7 +367,7 @@ Forecast 12M totals sum only the 12 active forecast months. ✓</pre>
   </div>
 
   <!-- BA: Seasonal -->
-  <div class="before-after ba-panel" id="ba-seasonal">
+  <div class="ba-panel" id="ba-seasonal">
     <div class="ba-col before">
       <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — monthly revenue shares exist, but no normalized index is used</div>
       <div class="ba-body">
@@ -433,7 +432,7 @@ Do not multiply by a growth factor twice.</pre>
   </div>
 
   <!-- BA: Update -->
-  <div class="before-after ba-panel" id="ba-update">
+  <div class="ba-panel" id="ba-update">
     <div class="ba-col before">
       <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — June has closed but still occupies the first forecast slot</div>
       <div class="ba-body">
