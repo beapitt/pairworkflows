@@ -49,14 +49,13 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint a:hover{text-decoration:underline}
 
 /* ── BEFORE / AFTER VISUAL ── */
-.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
 .ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
 .ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
 .ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
 .ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
-.ba-body{padding:14px}
+.ba-body{padding:14px;overflow-x:auto}
 .xl-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
 .xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
 .xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
@@ -66,7 +65,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
 .xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
 .ba-panel{display:none;margin-bottom:1.75rem}
-.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
+.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:start}
 .ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
 .claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
@@ -159,9 +158,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
 @media(max-width:640px){
   .hero h1{font-size:24px}
-  .before-after{grid-template-columns:1fr;gap:8px}
   .ba-panel.on{grid-template-columns:1fr;gap:8px}
-  .ba-arrow{transform:rotate(90deg);padding:4px 0}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr 1fr;gap:8px}
   .diag-example{display:none}
@@ -346,8 +343,8 @@ All 3 assets stop at salvage. Yr 6+ depr = £0. ✓</pre>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th>Year</th><th>SLN</th><th>DDB</th><th>SYD</th><th>DDB vs SLN (EBIT)</th></tr>
-          <tr><td>1</td><td>£7,200</td><td class="err-cell">£16,000</td><td class="err-cell">£12,000</td><td class="err-cell">−£8,800</td></tr>
-          <tr><td>2</td><td>£7,200</td><td class="err-cell">£9,600</td><td class="err-cell">£9,600</td><td class="err-cell">−£2,400</td></tr>
+          <tr><td>1</td><td>£7,200</td><td>£16,000</td><td>£12,000</td><td class="err-cell">−£8,800</td></tr>
+          <tr><td>2</td><td>£7,200</td><td>£9,600</td><td>£9,600</td><td class="err-cell">−£2,400</td></tr>
           <tr><td>3</td><td>£7,200</td><td>£5,760</td><td>£7,200</td><td class="ok-cell">+£1,440</td></tr>
           <tr><td>4</td><td>£7,200</td><td class="ok-cell">£3,456</td><td class="ok-cell">£4,800</td><td class="ok-cell">+£3,744</td></tr>
           <tr><td>5</td><td>£7,200</td><td class="ok-cell">£1,184</td><td class="ok-cell">£2,400</td><td class="ok-cell">+£6,016</td></tr>
@@ -370,12 +367,12 @@ All 3 total £36,000 over asset life. ✓</pre>
       <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — full year claimed despite a half-year convention</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Asset</th><th>Cost</th><th>In-Service</th><th>Life</th><th>Full Yr Depr</th><th>Yr 1 Claimed</th><th>Correct?</th></tr>
-          <tr><td>Forklift</td><td>£24,000</td><td>03 Jan</td><td>6yr</td><td>£3,333</td><td class="err-cell">£3,333</td><td class="err-cell">✗</td></tr>
-          <tr><td>Racking</td><td>£18,000</td><td class="err-cell">01 Oct</td><td>5yr</td><td>£3,600</td><td class="err-cell">£3,600</td><td class="err-cell">✗</td></tr>
-          <tr><td>Server</td><td>£12,000</td><td class="err-cell">15 Aug</td><td>3yr</td><td>£4,000</td><td class="err-cell">£4,000</td><td class="err-cell">✗</td></tr>
-          <tr><td>Van</td><td>£28,000</td><td class="err-cell">30 Nov</td><td>4yr</td><td>£7,000</td><td class="err-cell">£7,000</td><td class="err-cell">✗</td></tr>
-          <tr class="section-row"><td colspan="5">Total Yr 1 before convention</td><td class="err-cell">£17,933</td><td class="err-cell">All 4 need 50%</td></tr>
+          <tr><th>Asset</th><th>Cost</th><th>Salvage</th><th>In-Service</th><th>Life</th><th>Full Yr Depr</th><th>Yr 1 Claimed</th><th>Correct?</th></tr>
+          <tr><td>Forklift</td><td>£24,000</td><td>£4,000</td><td class="err-cell">03 Jan</td><td>6yr</td><td>£3,333</td><td class="err-cell">£3,333</td><td class="err-cell">✗</td></tr>
+          <tr><td>Racking</td><td>£18,000</td><td>£0</td><td class="err-cell">01 Oct</td><td>5yr</td><td>£3,600</td><td class="err-cell">£3,600</td><td class="err-cell">✗</td></tr>
+          <tr><td>Server</td><td>£12,000</td><td>£0</td><td class="err-cell">15 Aug</td><td>3yr</td><td>£4,000</td><td class="err-cell">£4,000</td><td class="err-cell">✗</td></tr>
+          <tr><td>Van</td><td>£28,000</td><td>£0</td><td class="err-cell">30 Nov</td><td>4yr</td><td>£7,000</td><td class="err-cell">£7,000</td><td class="err-cell">✗</td></tr>
+          <tr class="section-row"><td colspan="6">Total Yr 1 before convention</td><td class="err-cell">£17,933</td><td class="err-cell">All 4 need 50%</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
           Half-year convention: 50% of a full year in the year of acquisition, regardless of acquisition date
@@ -388,12 +385,12 @@ All 3 total £36,000 over asset life. ✓</pre>
       <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude applies half-year convention correctly</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Asset</th><th>Cost</th><th>In-Service</th><th>Full Yr</th><th>Factor</th><th>Yr 1 Depr</th><th>Corrected by</th></tr>
-          <tr><td>Forklift</td><td>£24,000</td><td>03 Jan</td><td>£3,333</td><td class="link-cell">50%</td><td class="ok-cell">£1,666.50 ✓</td><td class="ok-cell">−£1,666.50</td></tr>
-          <tr><td>Racking</td><td>£18,000</td><td>01 Oct</td><td>£3,600</td><td class="link-cell">50%</td><td class="ok-cell">£1,800 ✓</td><td class="ok-cell">−£1,800</td></tr>
-          <tr><td>Server</td><td>£12,000</td><td>15 Aug</td><td>£4,000</td><td class="link-cell">50%</td><td class="ok-cell">£2,000 ✓</td><td class="ok-cell">−£2,000</td></tr>
-          <tr><td>Van</td><td>£28,000</td><td>30 Nov</td><td>£7,000</td><td class="link-cell">50%</td><td class="ok-cell">£3,500 ✓</td><td class="ok-cell">−£3,500</td></tr>
-          <tr class="section-row"><td colspan="5">Total Yr 1 after half-year convention</td><td class="ok-cell">£8,966.50</td><td class="ok-cell">−£8,966.50</td></tr>
+          <tr><th>Asset</th><th>Cost</th><th>Salvage</th><th>In-Service</th><th>Full Yr</th><th>Factor</th><th>Yr 1 Depr</th><th>Corrected by</th></tr>
+          <tr><td>Forklift</td><td>£24,000</td><td>£4,000</td><td>03 Jan</td><td>£3,333</td><td class="link-cell">50%</td><td class="ok-cell">£1,666.50 ✓</td><td class="ok-cell">−£1,666.50</td></tr>
+          <tr><td>Racking</td><td>£18,000</td><td>£0</td><td>01 Oct</td><td>£3,600</td><td class="link-cell">50%</td><td class="ok-cell">£1,800 ✓</td><td class="ok-cell">−£1,800</td></tr>
+          <tr><td>Server</td><td>£12,000</td><td>£0</td><td>15 Aug</td><td>£4,000</td><td class="link-cell">50%</td><td class="ok-cell">£2,000 ✓</td><td class="ok-cell">−£2,000</td></tr>
+          <tr><td>Van</td><td>£28,000</td><td>£0</td><td>30 Nov</td><td>£7,000</td><td class="link-cell">50%</td><td class="ok-cell">£3,500 ✓</td><td class="ok-cell">−£3,500</td></tr>
+          <tr class="section-row"><td colspan="6">Total Yr 1 after half-year convention</td><td class="ok-cell">£8,966.50</td><td class="ok-cell">−£8,966.50</td></tr>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's proration formula</div>
@@ -410,12 +407,12 @@ Yr1 Depr = SLN(Cost,Salvage,Life) × 0.5
     <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Why depreciation schedules break — common errors</div>
     <div class="diag-row">
       <div class="diag-cause">No salvage check</div>
-      <div class="diag-example">NBV drops below salvage value because the formula <span class="bad">doesn't stop</span> at zero</div>
+      <div class="diag-example">NBV drops below salvage value because the formula <span class="bad">doesn't stop</span> at the salvage value</div>
       <div class="diag-badge badge-red">Most common</div>
     </div>
     <div class="diag-row">
       <div class="diag-cause">Blank salvage values</div>
-      <div class="diag-example">Cell left empty instead of <span class="good">0</span> → causes #VALUE! errors in SLN()</div>
+      <div class="diag-example">Blank cell is silently treated as <span class="bad">0</span> by SLN() → implicit wrong salvage assumption</div>
       <div class="diag-badge badge-yellow">Easy fix</div>
     </div>
     <div class="diag-row">

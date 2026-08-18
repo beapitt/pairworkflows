@@ -41,14 +41,14 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
 .prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
 .prompt-hint a:hover{text-decoration:underline}
-.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
+.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:start}
 .ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
 .ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
 .ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
 .ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
-.ba-body{padding:14px}
+.ba-body{padding:14px;overflow-x:auto}
 .xl-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
 .xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
 .xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
@@ -58,7 +58,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
 .xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
 .ba-panel{display:none;margin-bottom:1.75rem}
-.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
+.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:start}
 .ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
 .claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
@@ -115,10 +115,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   .hero h1{font-size:24px}
   .before-after{grid-template-columns:1fr;gap:8px}
   .ba-panel.on{grid-template-columns:1fr;gap:8px}
-  .ba-arrow{transform:rotate(90deg);padding:4px 0}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
-  .diag-row{grid-template-columns:1fr 1fr;gap:8px}
-  .diag-example{display:none}
+  .diag-row{grid-template-columns:1fr;gap:4px}
   .related-grid{grid-template-columns:1fr}
   .page{padding:1.5rem 1rem 3rem}
 }
@@ -214,13 +212,16 @@ apply every time I import this data.</pre>
     <div class="ba-col before" style="border-color:#4a3f35">
       <div class="ba-header" style="background:#1e1c1a;color:#a09890;border-bottom:1px solid #2a2826"><i class="ti ti-database-import" style="font-size:14px;color:#b85c3c"></i> Before — CRM export pasted, 5 silent issues</div>
       <div class="ba-body" style="padding:12px">
-        <div class="dirty-dump"><span class="head">Name              Inv.Date      Amount         Region</span><span class="issue">smith, john </span>    <span class="issue">'15/01/2026</span>   <span class="issue">"£ 4,250.00"</span>   <span class="clean">North</span>
-<span class="issue">JONES, MARY</span>     <span class="issue">'28/02/2026</span>   <span class="issue">"£ 7,800.00"</span>   <span class="clean">South</span>
-<span class="issue"> Clark, Peter</span>   <span class="issue">'05/03/2026</span>   <span class="issue">"£12,100.00"</span>  <span class="clean">North</span>
-<span class="clean">Davis, Emma</span>     <span class="clean">10/03/2026</span>    <span class="issue">"£ 3,400.00"</span>   <span class="clean">East</span></div>
-        <div class="dirty-caption">
+        <table class="xl-table">
+          <tr><th>Name</th><th>Inv. Date</th><th>Amount</th><th>Region</th></tr>
+          <tr><td class="err-cell">smith, john&nbsp;</td><td class="err-cell">'15/01/2026</td><td class="err-cell">"£ 4,250.00"</td><td class="ok-cell">North</td></tr>
+          <tr><td class="err-cell">JONES, MARY</td><td class="err-cell">'28/02/2026</td><td class="err-cell">"£ 7,800.00"</td><td class="ok-cell">South</td></tr>
+          <tr><td class="err-cell">&nbsp;Clark, Peter</td><td class="err-cell">'05/03/2026</td><td class="err-cell">"£12,100.00"</td><td class="ok-cell">North</td></tr>
+          <tr><td class="ok-cell">Davis, Emma</td><td class="ok-cell">10/03/2026</td><td class="err-cell">"£ 3,400.00"</td><td class="ok-cell">East</td></tr>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
           5 issues: wrong case · trailing spaces · leading spaces · text dates · £-prefixed amounts
-          <div class="sub">SUMIFS returns 0, dates sort alphabetically, names break lookups</div>
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">SUMIFS returns 0, dates sort alphabetically, names break lookups</div>
         </div>
       </div>
     </div>
@@ -270,7 +271,7 @@ Date column now sorts chronologically. ✓</pre>
         <table class="xl-table">
           <tr><th>Raw (col A)</th><th>Cleaned (col B) =TRIM(PROPER(A2))</th><th>XLOOKUP on col B</th><th>Amount returned</th></tr>
           <tr><td class="err-cell">"  smith, john "</td><td class="ok-cell">Smith, John</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£4,250</td></tr>
-          <tr><td class="err-cell">"JONES, MARY"</td><td class="ok-cell">Jones, Mary</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£7,800</td></tr>
+          <tr><td>"JONES, MARY"</td><td class="ok-cell">Jones, Mary</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£7,800</td></tr>
           <tr><td class="err-cell">" Clark, Peter"</td><td class="ok-cell">Clark, Peter</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£12,100</td></tr>
           <tr><td>"Davis, Emma"</td><td class="ok-cell">Davis, Emma</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£3,400</td></tr>
         </table>
@@ -301,6 +302,10 @@ All 4 XLOOKUP calls now resolve. Total: £27,550 ✓</pre>
           The same cleaning logic has to be rebuilt for every new import.
           <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ A reusable helper-column template makes each rule explicit and auditable.</div>
         </div>
+        <table class="xl-table" style="margin-top:10px">
+          <tr><th>Name</th><th>Inv. Date</th><th>Amount</th><th>Region</th></tr>
+          <tr><td>Wilson, Anna</td><td>22/03/2026</td><td>£5,600.00</td><td class="err-cell">— blank —</td></tr>
+        </table>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
@@ -313,6 +318,10 @@ All 4 XLOOKUP calls now resolve. Total: £27,550 ✓</pre>
           <tr><td>Real Date</td><td class="link-cell">=DATEVALUE(B2)</td><td class="ok-cell">Excel date value ✓</td></tr>
           <tr><td>Real Amount</td><td class="link-cell">=VALUE(SUBSTITUTE(SUBSTITUTE(C2,"£","")," ",""))</td><td class="ok-cell">Numeric amount ✓</td></tr>
           <tr><td>Missing Check</td><td class="link-cell">=IF(E2="","⚠ Missing","")</td><td class="ok-cell">Exception flagged ✓</td></tr>
+        </table>
+        <table class="xl-table" style="margin-top:10px">
+          <tr><th>Name</th><th>Region (col D)</th><th>Missing Check (col H)</th></tr>
+          <tr><td>Wilson, Anna</td><td class="err-cell">— blank —</td><td class="err-cell">⚠ Missing</td></tr>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's template — 4 pre-built helper columns</div>

@@ -56,6 +56,18 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .xl-table .elim-cell{color:#dc2626;font-weight:600;background:#fef2f2}
 .xl-table .consol-cell{color:#1f4e79;font-weight:700;background:#e8f0fe}
 .xl-table .total-cell{color:#276221;font-weight:700;background:#e2efda}
+table.me-table{width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:12px}
+table.me-table th{background:#f1f5f9;color:#64748b;font-weight:600;text-align:left;border:1px solid #e2e8f0}
+table.me-table td{border:1px solid #e2e8f0;color:#374151}
+table.me-table .naive{color:#dc2626;font-weight:700;text-decoration:underline;background:#fef2f2}
+table.me-table tr.subtotal td{background:#f8fafc;font-weight:700}
+.interco-note{font-size:9.5px;font-weight:500;color:#9ca3af}
+table.me-table .elim-col{background:#fff7ed;color:#c2410c;font-weight:600}
+table.me-table .consol-col{background:#f0fdf4;color:#065f46;font-weight:700}
+.currency-badge{display:inline-block;font-size:9px;font-weight:700;padding:1px 6px;border-radius:10px;margin-left:4px;vertical-align:middle}
+.badge-gbp{background:#e8f0fe;color:#1f4e79}
+.badge-eur{background:#fef3c7;color:#92400e}
+.badge-mix{background:#fee2e2;color:#dc2626}
 .ba-panel{display:none;margin-bottom:1.75rem}
 .ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
 .ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
@@ -108,9 +120,9 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 @media(max-width:640px){
   .hero h1{font-size:24px}
   .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-panel.on{grid-template-columns:1fr}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
-  .diag-row{grid-template-columns:1fr 1fr;gap:8px}
-  .diag-example{display:none}
+  .diag-row{grid-template-columns:1fr;gap:4px}
   .related-grid{grid-template-columns:1fr}
   .page{padding:1.5rem 1rem 3rem}
 }
@@ -287,13 +299,15 @@ Please:
           <tr><td>COGS</td><td>£480,000</td><td>£490,000</td><td class="elim-col">−£150,000</td><td class="consol-col">£820,000</td></tr>
           <tr class="subtotal"><td>Gross Profit</td><td>£720,000</td><td>£310,000</td><td class="elim-col">£0</td><td class="consol-col">£1,030,000</td></tr>
           <tr><td>OpEx</td><td>£320,000</td><td>£140,000</td><td class="elim-col">£0</td><td class="consol-col">£460,000</td></tr>
+          <tr class="subtotal"><td>Op. Income</td><td>£400,000</td><td>£170,000</td><td class="elim-col">£0</td><td class="consol-col">£570,000</td></tr>
+          <tr><td>Interest/Tax/Other</td><td>£120,000</td><td>£50,000</td><td class="elim-col">£0</td><td class="consol-col">£170,000</td></tr>
           <tr class="subtotal"><td>Net Income</td><td>£280,000</td><td>£120,000</td><td class="elim-col">£0</td><td class="consol-col">£400,000</td></tr>
         </table>
         <div class="claude-fix" style="margin:10px 14px">
           <div class="claude-fix-label">Claude's output</div>
           <pre>Elim. Revenue: −£150,000 (A's interco sale)
 Elim. COGS:    −£150,000 (B's interco cost)
-Net elimination: £0 · Consol. Net Income unchanged. ✓</pre>
+Net elimination: £0 · Op. Income £570,000 − Interest/Tax/Other £170,000 = Net Income £400,000 ✓</pre>
         </div>
       </div>
     </div>
@@ -306,15 +320,15 @@ Net elimination: £0 · Consol. Net Income unchanged. ✓</pre>
       <div class="ba-body" style="padding:0">
         <table class="me-table">
           <tr><th>Line Item</th><th>Entity A <span class="currency-badge badge-gbp">GBP</span></th><th>Entity B <span class="currency-badge badge-eur">EUR</span></th><th><span class="currency-badge badge-mix">GBP+EUR?</span> Total</th></tr>
-          <tr><td>Revenue</td><td>£1,200,000</td><td style="color:#1e40af;font-weight:600">€950,000</td><td class="naive" style="color:#dc2626">2,150,000 ✗</td></tr>
-          <tr><td>COGS</td><td>£480,000</td><td style="color:#1e40af;font-weight:600">€380,000</td><td class="naive" style="color:#dc2626">860,000 ✗</td></tr>
+          <tr><td>Revenue<span class="interco-note" style="margin-left:6px">← €100k interco</span></td><td>£1,200,000</td><td style="color:#1e40af;font-weight:600">€950,000</td><td class="naive" style="color:#dc2626">2,150,000 ✗</td></tr>
+          <tr><td>COGS<span class="interco-note" style="margin-left:6px">← €100k interco</span></td><td>£480,000</td><td style="color:#1e40af;font-weight:600">€380,000</td><td class="naive" style="color:#dc2626">860,000 ✗</td></tr>
           <tr class="subtotal"><td>Gross Profit</td><td>£720,000</td><td style="color:#1e40af;font-weight:600">€570,000</td><td class="naive" style="color:#dc2626">1,290,000 ✗</td></tr>
           <tr><td>OpEx</td><td>£320,000</td><td style="color:#1e40af;font-weight:600">€210,000</td><td class="naive" style="color:#dc2626">530,000 ✗</td></tr>
           <tr class="subtotal"><td>Net Income</td><td>£280,000</td><td style="color:#1e40af;font-weight:600">€192,000</td><td class="naive" style="color:#dc2626">472,000 ✗</td></tr>
         </table>
         <div style="padding:10px 14px;background:#fffbeb;font-family:'JetBrains Mono',monospace;font-size:11px;color:#92400e;border-top:1px solid #fde68a">
           Rate: 1 EUR = 0.86 GBP — Entity B must be converted before summing
-          <div style="font-size:10px;color:#a16207;margin-top:3px">↑ Blue = EUR figures. Adding them to GBP gives a meaningless mixed-currency total.</div>
+          <div style="font-size:10px;color:#a16207;margin-top:3px">↑ Blue = EUR figures. Adding them to GBP gives a meaningless mixed-currency total. Intercompany: Entity A charges Entity B €100,000 for shared services (Revenue in A / COGS in B).</div>
         </div>
       </div>
     </div>
@@ -328,13 +342,15 @@ Net elimination: £0 · Consol. Net Income unchanged. ✓</pre>
           <tr><td>COGS</td><td>£480,000</td><td class="link-cell">£326,800</td><td class="elim-cell">−£86,000</td><td class="consol-cell">£720,800</td></tr>
           <tr><td>Gross Profit</td><td>£720,000</td><td class="link-cell">£490,200</td><td>£0</td><td class="total-cell">£1,210,200</td></tr>
           <tr><td>OpEx</td><td>£320,000</td><td class="link-cell">£180,600</td><td>£0</td><td class="consol-cell">£500,600</td></tr>
+          <tr><td>Op. Income</td><td>£400,000</td><td class="link-cell">£309,600</td><td>£0</td><td class="consol-cell">£709,600</td></tr>
+          <tr><td>Interest/Tax/Other</td><td>£120,000</td><td class="link-cell">£144,480</td><td>£0</td><td class="consol-cell">£264,480</td></tr>
           <tr><td>Net Income</td><td>£280,000</td><td class="link-cell">£165,120</td><td>£0</td><td class="total-cell">£445,120</td></tr>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's conversion</div>
           <pre>Entity B (GBP) = EUR × 0.86 avg period rate
 Interco elim. converted at same rate.
-All figures now in GBP before consolidation. ✓</pre>
+Op. Income £709,600 − Interest/Tax/Other £264,480 = Net Income £445,120 ✓</pre>
         </div>
       </div>
     </div>
@@ -390,7 +406,7 @@ Eliminations column balances after adjustment. ✓</pre>
     </div>
     <div class="diag-row">
       <div class="diag-cause">Intercompany imbalance</div>
-      <div class="diag-example">A records <span class="bad">£150k</span>, B records <span class="bad">£145k</span> → £5k hole in consolidated COGS</div>
+      <div class="diag-example">A records <span class="bad">£150k</span>, B records <span class="bad">£145k</span> → £5k hole in consolidated OpEx</div>
       <div class="diag-badge badge-yellow">Easy fix</div>
     </div>
     <div class="diag-row">
