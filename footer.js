@@ -12,13 +12,14 @@
   <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:1.5rem; margin-bottom:1.5rem">
 
     <div>
-      <strong style="display:block; font-size:12px; font-weight:600; color:#374151; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.6px">Excel Workflows</strong>
-      <a href="https://www.pairworkflows.com/claude-excel-workflows.html" style="display:block; font-size:13px; color:#6b7280; text-decoration:none; margin-bottom:0.4rem; transition:color .15s" onmouseover="this.style.color='#111827'" onmouseout="this.style.color='#6b7280'">All Excel Workflows</a>
-      <a href="https://www.pairworkflows.com/excel-errors-claude.html" style="display:block; font-size:13px; color:#6b7280; text-decoration:none; margin-bottom:0.4rem; transition:color .15s" onmouseover="this.style.color='#111827'" onmouseout="this.style.color='#6b7280'">Fix Excel Errors</a>
-      <a href="https://www.pairworkflows.com/excel-formulas-claude.html" style="display:block; font-size:13px; color:#6b7280; text-decoration:none; margin-bottom:0.4rem; transition:color .15s" onmouseover="this.style.color='#111827'" onmouseout="this.style.color='#6b7280'">Formulas &amp; Functions</a>
-      <a href="https://www.pairworkflows.com/excel-finance-models-claude.html" style="display:block; font-size:13px; color:#6b7280; text-decoration:none; margin-bottom:0.4rem; transition:color .15s" onmouseover="this.style.color='#111827'" onmouseout="this.style.color='#6b7280'">Finance Models</a>
-      <a href="https://www.pairworkflows.com/excel-data-cleaning-claude.html" style="display:block; font-size:13px; color:#6b7280; text-decoration:none; margin-bottom:0.4rem; transition:color .15s" onmouseover="this.style.color='#111827'" onmouseout="this.style.color='#6b7280'">Data Cleaning</a>
-    </div>
+  <strong style="display:block; font-size:12px; font-weight:600; color:#374151; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.6px">Excel Workflows</strong>
+  <a href="https://www.pairworkflows.com/claude-for-excel.html" style="display:block; font-size:13px; color:#6b7280; text-decoration:none; margin-bottom:0.4rem; transition:color .15s" onmouseover="this.style.color='#111827'" onmouseout="this.style.color='#6b7280'">Claude for Excel Guide</a>
+  <a href="https://www.pairworkflows.com/claude-excel-workflows.html" style="display:block; font-size:13px; color:#6b7280; text-decoration:none; margin-bottom:0.4rem; transition:color .15s" onmouseover="this.style.color='#111827'" onmouseout="this.style.color='#6b7280'">All Excel Workflows</a>
+  <a href="https://www.pairworkflows.com/excel-errors-claude.html" style="display:block; font-size:13px; color:#6b7280; text-decoration:none; margin-bottom:0.4rem; transition:color .15s" onmouseover="this.style.color='#111827'" onmouseout="this.style.color='#6b7280'">Fix Excel Errors</a>
+  <a href="https://www.pairworkflows.com/excel-formulas-claude.html" style="display:block; font-size:13px; color:#6b7280; text-decoration:none; margin-bottom:0.4rem; transition:color .15s" onmouseover="this.style.color='#111827'" onmouseout="this.style.color='#6b7280'">Formulas &amp; Functions</a>
+  <a href="https://www.pairworkflows.com/excel-finance-models-claude.html" style="display:block; font-size:13px; color:#6b7280; text-decoration:none; margin-bottom:0.4rem; transition:color .15s" onmouseover="this.style.color='#111827'" onmouseout="this.style.color='#6b7280'">Finance Models</a>
+  <a href="https://www.pairworkflows.com/excel-data-cleaning-claude.html" style="display:block; font-size:13px; color:#6b7280; text-decoration:none; margin-bottom:0.4rem; transition:color .15s" onmouseover="this.style.color='#111827'" onmouseout="this.style.color='#6b7280'">Data Cleaning</a>
+</div>
 
     <div>
       <strong style="display:block; font-size:12px; font-weight:600; color:#374151; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.6px">Prompt Tools</strong>
