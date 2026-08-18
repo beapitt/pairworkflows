@@ -42,7 +42,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
 .prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
 
-.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
+.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:start}
 .ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
@@ -51,7 +51,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
 .ba-body{padding:14px}
 .ba-panel{display:none;margin-bottom:1.75rem}
-.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
+.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:start}
 .ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
 
 .xl-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
@@ -143,8 +143,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
 .na-inspect{grid-template-columns:1fr}
 .na-mid{padding:6px 0}
-.diag-row{grid-template-columns:1fr 1fr;gap:8px}
-.diag-example{display:none}
+.diag-row{grid-template-columns:1fr;gap:6px}
 .related-grid{grid-template-columns:1fr}
 .page{padding:1.5rem 1rem 3rem}
 }
@@ -468,7 +467,7 @@ Known payroll total: £100,000 ✓
 
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I fix #N/A caused by trailing spaces? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Use <code>TRIM()</code> on the lookup value or clean the source data before performing the lookup.</div>
+      <div class="faq-a">Wrap your lookup value in the <code>TRIM()</code> function to remove leading and trailing spaces. For example, change <code>=VLOOKUP(A2, D:F, 2, FALSE)</code> to <code>=VLOOKUP(TRIM(A2), D:F, 2, FALSE)</code>.</div>
     </div>
 
     <div class="faq-item">

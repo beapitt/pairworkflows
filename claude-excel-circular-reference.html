@@ -49,7 +49,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint a:hover{text-decoration:underline}
 
 /* ── BEFORE / AFTER VISUAL ── */
-.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
+.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:start}
 .ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
@@ -65,8 +65,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .xl-table .hl{background:#fffbeb}
 .xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
 .xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
-.ba-panel{display:none;margin-bottom:1.75rem} .ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch} .ba-panel{display:none;margin-bottom:1.75rem}
-.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
+.ba-panel{display:none;margin-bottom:1.75rem}
+.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:start}
 .ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
 .claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
@@ -156,10 +156,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   .hero h1{font-size:24px}
   .before-after{grid-template-columns:1fr;gap:8px}
   .ba-panel.on{grid-template-columns:1fr;gap:8px}
-  .ba-arrow{transform:rotate(90deg);padding:4px 0}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
-  .diag-row{grid-template-columns:1fr 1fr;gap:8px}
-  .diag-example{display:none}
+  .diag-row{grid-template-columns:1fr;gap:6px}
   .related-grid{grid-template-columns:1fr}
   .page{padding:1.5rem 1rem 3rem}
 }
@@ -313,13 +311,13 @@ Each formula is supposed to [describe purpose]. Please trace where the loop clos
             </defs>
             <rect class="node-box loop" x="125" y="16" width="150" height="56" rx="10"/>
             <text class="node-label" x="200" y="42" text-anchor="middle" fill="#c23b75">D4</text>
-            <text class="node-sub" x="200" y="61" text-anchor="middle" fill="#8a2350">= E4 * 0.85</text>
+            <text class="node-sub" x="200" y="61" text-anchor="middle" fill="#8a2350">= F4 * 0.85</text>
             <rect class="node-box loop" x="18" y="178" width="150" height="56" rx="10"/>
             <text class="node-label" x="93" y="204" text-anchor="middle" fill="#c23b75">E4</text>
-            <text class="node-sub" x="93" y="223" text-anchor="middle" fill="#8a2350">= F4 + D4</text>
+            <text class="node-sub" x="93" y="223" text-anchor="middle" fill="#8a2350">= D4 * 0.85</text>
             <rect class="node-box loop" x="232" y="178" width="150" height="56" rx="10"/>
             <text class="node-label" x="307" y="204" text-anchor="middle" fill="#c23b75">F4</text>
-            <text class="node-sub" x="307" y="223" text-anchor="middle" fill="#8a2350">= D4 / 0.85</text>
+            <text class="node-sub" x="307" y="223" text-anchor="middle" fill="#8a2350">= E4 * 0.85</text>
             <path class="node-arrow bad" d="M 150 72 L 100 176"/>
             <path class="node-arrow bad" d="M 168 206 L 232 206"/>
             <path class="node-arrow bad" d="M 300 176 L 250 72"/>
@@ -346,20 +344,20 @@ Each formula is supposed to [describe purpose]. Please trace where the loop clos
             <text class="node-sub" x="93" y="63" text-anchor="middle">£84,000</text>
             <rect class="node-box fixed" x="18" y="132" width="112" height="56" rx="10"/>
             <text class="node-label" x="74" y="158" text-anchor="middle">F4</text>
-            <text class="node-sub" x="74" y="177" text-anchor="middle">£98,824</text>
+            <text class="node-sub" x="74" y="177" text-anchor="middle">£71,400</text>
             <rect class="node-box fixed" x="144" y="132" width="112" height="56" rx="10"/>
-            <text class="node-label" x="200" y="158" text-anchor="middle">E4</text>
-            <text class="node-sub" x="200" y="177" text-anchor="middle">£108,706</text>
+            <text class="node-label" x="200" y="158" text-anchor="middle">D4</text>
+            <text class="node-sub" x="200" y="177" text-anchor="middle">£60,690</text>
             <rect class="node-box fixed" x="270" y="132" width="112" height="56" rx="10"/>
-            <text class="node-label" x="326" y="158" text-anchor="middle">D4</text>
-            <text class="node-sub" x="326" y="177" text-anchor="middle">£92,400</text>
+            <text class="node-label" x="326" y="158" text-anchor="middle">E4</text>
+            <text class="node-sub" x="326" y="177" text-anchor="middle">£51,587</text>
             <path class="node-arrow good" d="M 74 74 L 74 130"/>
             <path class="node-arrow good" d="M 130 160 L 144 160"/>
             <path class="node-arrow good" d="M 256 160 L 270 160"/>
           </svg>
           <div class="fix-strip">
-            F4 now derives from fixed <strong>B4</strong>, not D4 — no cycle.
-            <div style="font-size:11.5px;color:#9ca9bd;margin-top:5px;line-height:1.5">F4=B4/0.85=98,824 · E4=F4×1.10=108,706 · D4=E4×0.85=<span class="res">92,400 ✓</span></div>
+            F4 now derives from fixed <strong>B4</strong> (still ×0.85), not E4 — no cycle.
+            <div style="font-size:11.5px;color:#9ca9bd;margin-top:5px;line-height:1.5">F4=B4×0.85=71,400 · D4=F4×0.85=60,690 · E4=D4×0.85=<span class="res">51,587 ✓</span></div>
           </div>
         </div>
       </div>

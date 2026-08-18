@@ -46,7 +46,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint a:hover{text-decoration:underline}
 
 /* ── BEFORE / AFTER VISUAL ── */
-.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
+.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:start}
 .ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
@@ -61,7 +61,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
 .xl-table .hl{background:#fffbeb}
 .ba-panel{display:none;margin-bottom:1.75rem}
-.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
+.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:start}
 .ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
 .claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
@@ -152,10 +152,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   .hero h1{font-size:24px}
   .before-after{grid-template-columns:1fr;gap:8px}
   .ba-panel.on{grid-template-columns:1fr;gap:8px}
-  .ba-arrow{transform:rotate(90deg);padding:4px 0}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
-  .diag-row{grid-template-columns:1fr 1fr;gap:8px}
-  .diag-example{display:none}
+  .diag-row{grid-template-columns:1fr;gap:6px}
   .related-grid{grid-template-columns:1fr}
   .page{padding:1.5rem 1rem 3rem}
 }
@@ -210,7 +208,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 Product is 'Widget Pro', and Date is between 1 Jan 2026 and 31 Mar 2026"]
 
 My data is on sheet [name]. Column structure:
-- Sum range: column E (Revenue)
+- Sum range: column D (Revenue)
 - Criteria 1: column A (Region)
 - Criteria 2: column B (Product)
 - Criteria 3: column C (Date)
@@ -286,11 +284,11 @@ Sum range is column E, Region is column A, data from row 2 to 500.</pre>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's formula</div>
-          <pre>=SUMIFS($E$2:$E$500,
+          <pre>=SUMIFS($D$2:$D$500,
   $A$2:$A$500,"North",
-  $C$2:$C$500,"Widget Pro",
-  $D$2:$D$500,">="&DATE(2026,1,1),
-  $D$2:$D$500,"<="&DATE(2026,3,31))
+  $B$2:$B$500,"Widget Pro",
+  $C$2:$C$500,">="&DATE(2026,1,1),
+  $C$2:$C$500,"<="&DATE(2026,3,31))
 Result: £1,200 + £2,100 + £1,800 = £5,100 ✓</pre>
         </div>
       </div>
@@ -303,7 +301,8 @@ Result: £1,200 + £2,100 + £1,800 = £5,100 ✓</pre>
       <div class="ba-header" style="background:#fef3e2;color:#7a5a10;border-bottom:1px solid #d7cdb0"><i class="ti ti-ruler-off" style="font-size:14px"></i> Before — ranges have different sizes → #VALUE!</div>
       <div class="ba-body">
         <div class="crit-wrap">
-          <div style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#25313c;padding:4px 0;line-height:1.6;margin-bottom:8px">=SUMIFS( <strong>D2:D100</strong>, <strong>A2:A99</strong>, "North", <strong>B2:B100</strong>, "Widget Pro" )</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#25313c;padding:4px 0;line-height:1.6;margin-bottom:8px">F2: =SUMIFS( <strong>D2:D100</strong>, <strong>A2:A99</strong>, "North", <strong>B2:B100</strong>, "Widget Pro" )</div>
+          <div class="range-bar"><span class="range-seg range-bad">F2 result</span><span class="chip chip-err">#VALUE!</span></div>
           <div class="range-bar"><span class="range-seg range-ok">D2:D100</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#087e7a">99 rows</span></div>
           <div class="range-bar"><span class="range-seg range-bad">A2:A99</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#b91c1c">98 rows ✗</span></div>
           <div class="range-bar"><span class="range-seg range-ok">B2:B100</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#087e7a">99 rows</span></div>
@@ -439,7 +438,7 @@ Total: £6,240 ✓</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can SUMIFS handle OR conditions? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Not in a single formula. Write two separate SUMIFS and add them with <code>+</code>: <code>=SUMIFS(E:E,A:A,"North")+SUMIFS(E:E,A:A,"South")</code>. Ask Claude for the OR prompt above and it will write this for you.</div>
+      <div class="faq-a">SUMIFS combines its criteria with AND, so the clearest way to handle OR is to add separate SUMIFS together with <code>+</code>: <code>=SUMIFS(E:E,A:A,"North")+SUMIFS(E:E,A:A,"South")</code>. In current Excel you can also use an array constant for a single compact formula: <code>=SUM(SUMIFS(E:E,A:A,{"North","South"}))</code>. Ask Claude for the OR prompt above and it will write either version for you.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I use date ranges in SUMIFS? <i class="ti ti-chevron-down"></i></div>
