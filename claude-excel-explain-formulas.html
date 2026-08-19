@@ -280,6 +280,12 @@ Also flag:
 - version-specific behavior (for example legacy array entry)
 - risks if I change ranges, criteria, or referenced sheets.
 
+For every Excel error or version-specific behavior you mention, explain the
+exact formula operation that causes it. Distinguish a failed comparison that
+returns FALSE from a true Excel error such as #N/A, #VALUE!, or #REF!.
+Do not describe a single-cell result as a multi-cell array formula, and avoid
+absolute version-specific claims unless the behavior is guaranteed.
+
 Do not invent workbook facts that are not supported by the formula or context.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
@@ -295,7 +301,12 @@ Do not invent workbook facts that are not supported by the formula or context.</
 4. What happens when new rows are added below row 500?
 5. Which errors could IFERROR(...,"") hide besides a missing match?
 
-Please distinguish formula behavior from assumptions about the workbook data.</pre>
+Please distinguish formula behavior from assumptions about the workbook data.
+For every error you mention, identify the exact part of the formula that
+produces that error. Do not treat a text/number comparison mismatch as
+#VALUE! unless this exact formula operation would actually produce #VALUE!.
+Do not treat renaming a worksheet as a broken-reference case unless Excel
+would actually fail to update the reference.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Send this right after the first explanation — specific questions catch the risks a general summary misses.</p>
@@ -313,6 +324,12 @@ Include:
 - that IFERROR returns a blank for any error, not only "not found"
 - the fixed row-500 limit
 - any Excel-version requirement for this array-style MATCH
+
+For every error or version-specific behavior you mention, describe only what
+this exact formula can support. Distinguish failed comparisons from true Excel
+errors, do not present worksheet renaming as a normal #REF! cause, and avoid
+absolute claims about what older Excel versions will display if the formula is
+not entered as required.
 
 Do not state workbook facts that cannot be proven from the formula/context;
 label those as assumptions.</pre>
