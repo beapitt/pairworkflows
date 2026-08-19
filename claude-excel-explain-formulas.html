@@ -204,10 +204,9 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   .hero h1{font-size:24px}
   .before-after{grid-template-columns:1fr;gap:8px}
   .ba-panel.on{grid-template-columns:1fr;gap:8px}
-  .ba-arrow{transform:rotate(90deg);padding:4px 0}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
-  .diag-row{grid-template-columns:1fr 1fr;gap:8px}
-  .diag-example{display:none}
+  .diag-row{grid-template-columns:1fr;gap:6px}
+  .diag-example{display:flex}
   .related-grid{grid-template-columns:1fr}
   .page{padding:1.5rem 1rem 3rem}
 }
@@ -305,7 +304,7 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
       <div class="ba-header" style="background:#30343b;color:#e5e7eb;border-bottom:1px solid #4a4650"><i class="ti ti-code" style="font-size:14px;color:#9b93e0"></i> Before — complex formula in C2, no explanation</div>
       <div class="ba-body" style="padding:10px">
         <div class="excel-shot">
-          <div class="excel-tabs"><span class="excel-tab">Sales</span></div>
+          <div class="excel-tabs"><span class="excel-tab">Summary</span></div>
           <div class="excel-formula-bar">
             <div class="excel-namebox">C2</div>
             <div class="excel-fx">fx</div>
@@ -319,7 +318,7 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
           </div>
         </div>
         <div class="bp-caption">
-          C2 works, but the formula bar gives no plain-English explanation.
+          Summary!C2 works, but the formula bar gives no plain-English explanation.
           <div class="sub">Three nested functions + ranges capped at row 500.</div>
         </div>
       </div>
@@ -329,7 +328,7 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
       <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — same formula, explained like an Excel audit</div>
       <div class="ba-body" style="padding:10px">
         <div class="excel-shot">
-          <div class="excel-tabs"><span class="excel-tab">Sales</span></div>
+          <div class="excel-tabs"><span class="excel-tab">Summary</span></div>
           <div class="excel-formula-bar">
             <div class="excel-namebox">C2</div>
             <div class="excel-fx">fx</div>
@@ -350,31 +349,41 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
   <!-- Tab: followup -->
   <div class="before-after ba-panel" id="ba-followup">
     <div class="ba-col before" style="border-color:#9b93e0">
-      <div class="ba-header" style="background:#f0eef8;color:#3a3470;border-bottom:1px solid #d0cce8"><i class="ti ti-help-circle" style="font-size:14px;color:#4f46a5"></i> Before — risks not documented in the workbook</div>
+      <div class="ba-header" style="background:#f0eef8;color:#3a3470;border-bottom:1px solid #d0cce8"><i class="ti ti-help-circle" style="font-size:14px;color:#4f46a5"></i> Before — formula works, edge cases are unknown</div>
       <div class="ba-body" style="padding:10px">
-        <table class="risk-table">
-          <tr><th>Question</th><th>Current answer</th><th>Risk</th></tr>
-          <tr><td>A2 not found?</td><td>Unknown</td><td>?</td></tr>
-          <tr><td>Extend to row 1000?</td><td>Unknown</td><td>?</td></tr>
-          <tr><td>Rows added after 500?</td><td>Unknown</td><td>?</td></tr>
-        </table>
+        <div class="excel-shot">
+          <div class="excel-tabs"><span class="excel-tab">Summary</span></div>
+          <div class="excel-formula-bar">
+            <div class="excel-namebox">C2</div>
+            <div class="excel-fx">fx</div>
+            <div class="excel-formula-text">=IFERROR(INDEX(Sales!$C$2:$C$500,MATCH(1,(Sales!$A$2:$A$500=A2)*(Sales!$B$2:$B$500=B2),0)),"")</div>
+          </div>
+          <div class="excel-grid">
+            <div class="excel-cell excel-corner"></div><div class="excel-cell excel-col">A</div><div class="excel-cell excel-col">B</div><div class="excel-cell excel-col">C</div><div class="excel-cell excel-col">D</div>
+            <div class="excel-cell excel-row">1</div><div class="excel-cell excel-head">Region</div><div class="excel-cell excel-head">Rep</div><div class="excel-cell excel-head">Revenue</div><div class="excel-cell excel-head">Check</div>
+            <div class="excel-cell excel-row">2</div><div class="excel-cell excel-ref-a">North</div><div class="excel-cell excel-ref-b">Taylor</div><div class="excel-cell excel-selected">£24,600</div><div class="excel-cell">Works now</div>
+          </div>
+        </div>
         <div class="bp-caption">
-          The formula currently works, but the workbook does not explain its edge cases.
-          <div class="sub">Targeted follow-up questions reveal what is safe to change.</div>
+          The current row returns a result, but nothing in the workbook shows what happens when the lookup fails or the Sales sheet grows.
+          <div class="sub">The fixed ranges all end at row 500.</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after" style="border-color:#4f46a5">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — each risk has a concrete answer</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — risks documented as a formula audit</div>
       <div class="ba-body" style="padding:10px">
-        <table class="risk-table">
-          <tr><th>Question</th><th>What the formula does</th><th>Risk</th></tr>
-          <tr><td>A2 not found?</td><td class="risk-ok">Returns ""</td><td class="risk-ok">Safe ✓</td></tr>
-          <tr><td>Extend to row 1000?</td><td>Update the 3 source ranges</td><td class="risk-ok">Safe if consistent ✓</td></tr>
-          <tr><td>Rows added after 500?</td><td class="risk-warn">Ignored</td><td class="risk-warn">Silent omission ⚠</td></tr>
-        </table>
-        <div class="explain-risk"><strong>Action:</strong> extend the three ranges together, or replace them with an Excel Table / dynamic range so new rows are included automatically.</div>
+        <div class="excel-shot">
+          <div class="excel-tabs"><span class="excel-tab">Formula Audit</span></div>
+          <table class="risk-table">
+            <tr><th>Question</th><th>Verified behavior</th><th>Risk</th></tr>
+            <tr><td>A2 not found?</td><td class="risk-ok">IFERROR returns ""</td><td class="risk-ok">No visible error ✓</td></tr>
+            <tr><td>Extend to row 1000?</td><td>Change C, A and B source ranges to row 1000</td><td class="risk-ok">Safe if all 3 match ✓</td></tr>
+            <tr><td>Rows added after 500?</td><td class="risk-warn">Current formula ignores them</td><td class="risk-warn">Silent omission ⚠</td></tr>
+          </table>
+        </div>
+        <div class="explain-risk"><strong>Action:</strong> extend all three source ranges together, or convert the Sales data to an Excel Table so new rows are included automatically.</div>
       </div>
     </div>
   </div>
@@ -385,7 +394,7 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
       <div class="ba-header" style="background:#30343b;color:#e5e7eb;border-bottom:1px solid #4a4650"><i class="ti ti-message-off" style="font-size:14px;color:#f2a66f"></i> Before — C2 has no note or handover context</div>
       <div class="ba-body" style="padding:10px">
         <div class="excel-shot">
-          <div class="excel-tabs"><span class="excel-tab">Sales</span></div>
+          <div class="excel-tabs"><span class="excel-tab">Summary</span></div>
           <div class="excel-formula-bar">
             <div class="excel-namebox">C2</div>
             <div class="excel-fx">fx</div>
@@ -398,7 +407,7 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
           </div>
         </div>
         <div class="bp-caption">
-          C2 contains business logic, but there is no note explaining what it does.
+          Summary!C2 contains business logic, but there is no note explaining what it does.
           <div class="sub">The next person has to reverse-engineer the formula from scratch.</div>
         </div>
       </div>
@@ -408,7 +417,7 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
       <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — same cell with a clear Excel note</div>
       <div class="ba-body" style="padding:10px">
         <div class="excel-shot">
-          <div class="excel-tabs"><span class="excel-tab">Sales</span></div>
+          <div class="excel-tabs"><span class="excel-tab">Summary</span></div>
           <div class="excel-formula-bar">
             <div class="excel-namebox">C2</div>
             <div class="excel-fx">fx</div>
@@ -420,7 +429,7 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
             <div class="excel-cell excel-row">2</div><div class="excel-cell">North</div><div class="excel-cell">Taylor</div><div class="excel-cell excel-selected excel-comment-cell">£24,600</div><div class="excel-cell">Active</div>
           </div>
         </div>
-        <div class="excel-comment"><strong>C2 — Note</strong><br>Returns Sales revenue where Region = A2 and Rep = B2. Returns blank if no match. Source ranges currently stop at row 500, so extend them if the Sales sheet grows.</div>
+        <div class="excel-comment"><strong>Summary!C2 — Note</strong><br>Returns revenue from the Sales sheet where Region = Summary!A2 and Rep = Summary!B2. Returns blank if no match. Source ranges currently stop at row 500, so extend all three ranges together if the Sales sheet grows.</div>
       </div>
     </div>
   </div>
