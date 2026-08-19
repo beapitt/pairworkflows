@@ -6,7 +6,7 @@
 <title>IF and IFS Formulas in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to write IF, IFS, and nested IF formulas in Excel with Claude AI for multiple conditions, grading scales, bonus tiers, payroll rules, and more.">
 <link rel="canonical" href="https://www.pairworkflows.com/claude-excel-if-ifs.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between IF and IFS in Excel?","acceptedAnswer":{"@type":"Answer","text":"IF is a traditional function that can be nested to handle multiple conditions, while IFS allows you to test multiple conditions without nesting, making the formula much cleaner and easier to read."}},{"@type":"Question","name":"How many IF statements can you nest in Excel?","acceptedAnswer":{"@type":"Answer","text":"Excel technically allows up to 64 nested IF statements, but it is highly recommended to avoid this as it makes the formula nearly impossible to debug or maintain. Use IFS, VLOOKUP, or XLOOKUP instead."}},{"@type":"Question","name":"How do I build a bonus tier calculation in Excel?","acceptedAnswer":{"@type":"Answer","text":"You can build a bonus tier calculation using an IFS function or a VLOOKUP/XLOOKUP table. Use IFS if your tiers are simple ranges, or a lookup table if your tiers change frequently."}},{"@type":"Question","name":"Does IFS have a built-in else condition?","acceptedAnswer":{"@type":"Answer","text":"No. IFS has no built-in else like nested IF does. To handle values that match none of your conditions, add TRUE and a default result as the final pair — without it, IFS returns an error if nothing matches."}},{"@type":"Question","name":"Which Excel versions support IFS?","acceptedAnswer":{"@type":"Answer","text":"IFS is available in Excel 365 and Excel 2019 or later. On Excel 2016 or older, you need nested IF instead — tell Claude your version and it will write the right one."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between IF and IFS in Excel?","acceptedAnswer":{"@type":"Answer","text":"IF is a traditional function that can be nested to handle multiple conditions, while IFS allows you to test multiple conditions without nesting, making the formula much cleaner and easier to read."}},{"@type":"Question","name":"How many IF statements can you nest in Excel?","acceptedAnswer":{"@type":"Answer","text":"Excel allows formulas to nest functions up to 64 levels, but deeply nested IF formulas quickly become difficult to debug and maintain. Use IFS, VLOOKUP, or XLOOKUP instead."}},{"@type":"Question","name":"How do I build a bonus tier calculation in Excel?","acceptedAnswer":{"@type":"Answer","text":"You can build a bonus tier calculation using an IFS function or a VLOOKUP/XLOOKUP table. Use IFS if your tiers are simple ranges, or a lookup table if your tiers change frequently."}},{"@type":"Question","name":"Does IFS have a built-in else condition?","acceptedAnswer":{"@type":"Answer","text":"No. IFS has no built-in else argument. To handle values that match none of your conditions, add TRUE and a default result as the final pair. If every logical test is FALSE and there is no default pair, IFS returns #N/A."}},{"@type":"Question","name":"Which Excel versions support IFS?","acceptedAnswer":{"@type":"Answer","text":"IFS is available in Microsoft 365 and Excel 2019, 2021 and 2024. It is not available in Excel 2016, so use nested IF there."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -156,6 +156,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .excel-window{min-width:500px}
   .diag-row{grid-template-columns:1fr;gap:6px}
+  .diag-example{display:flex}
   .related-grid{grid-template-columns:1fr}
   .page{padding:1.5rem 1rem 3rem}
 }
@@ -206,17 +207,18 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
     <div id="p-build" class="panel on">
       <div class="prompt-box">
-        <pre>I need an IF or IFS formula in Excel. The value being tested is in cell B2.
+        <pre>I need an IF or IFS formula in Excel. The score being tested is in cell B2.
+Valid scores are numbers from 0 to 100.
 
 Here's the logic:
-- 90 or above → "A"
-- 80 or above → "B"
-- 70 or above → "C"
-- Below 70 → "Fail"
+- 90 to 100 → "A"
+- 80 to 89.999... → "B"
+- 70 to 79.999... → "C"
+- 0 to 69.999... → "Fail"
 
-I'm using Excel [365 / 2019 / 2016]. Please write the formula using IFS if
-possible, otherwise nested IF. Also include a default case for unexpected
-values.</pre>
+I'm using Excel [Microsoft 365 / Excel 2024 / Excel 2021 / Excel 2019 / Excel 2016].
+Please use IFS if my version supports it; otherwise use nested IF.
+Return "Invalid" for blanks, text, negative numbers, or scores above 100.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Replace the logic and cell reference with your own. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
@@ -229,7 +231,10 @@ values.</pre>
 
 When the value in the test cell is [value], it returns [wrong result]
 instead of [expected result].
-Please find the error and give me the corrected formula.</pre>
+I'm using Excel [Microsoft 365 / Excel 2024 / Excel 2021 / Excel 2019 / Excel 2016].
+
+Please identify the logic error, explain why it happens, and give me a
+corrected formula that works in my Excel version.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Wrong results at a boundary value (e.g. exactly 80) almost always mean a &gt; vs &gt;= mistake.</p>
@@ -237,8 +242,8 @@ Please find the error and give me the corrected formula.</pre>
 
     <div id="p-bonus" class="panel">
       <div class="prompt-box">
-        <pre>I need an IF formula for bonus calculation. Performance score is in C2 and
-base salary is in D2.
+        <pre>I need an IF or IFS formula for bonus calculation. Performance score is in
+C2 and base salary is in D2. Valid scores are whole numbers from 1 to 5.
 
 Rules:
 - Score 5 → 20% of salary
@@ -246,7 +251,9 @@ Rules:
 - Score 3 → 5% of salary
 - Score 1 or 2 → no bonus
 
-Please write the formula that calculates the bonus amount.</pre>
+I'm using Excel [Microsoft 365 / Excel 2024 / Excel 2021 / Excel 2019 / Excel 2016].
+Please calculate the bonus amount and return "CHECK SCORE" if C2 is blank,
+text, outside 1–5, or not a whole number.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Swap in your own score-to-percentage rules — Claude keeps the structure, you change the numbers.</p>
@@ -264,34 +271,34 @@ Please write the formula that calculates the bonus amount.</pre>
           <div class="excel-top">Microsoft Excel</div>
           <div class="excel-formula">
             <div class="excel-name">C2</div><div class="excel-fx">fx</div>
-            <div class="excel-formula-text">=IF(B2&gt;=90,"A",IF(B2&gt;=80,"B",IF(B2&gt;=70,"C",IF(B2&lt;70,"Fail","—"))))</div>
+            <div class="excel-formula-text">=IF(B2&gt;=90,"A",IF(B2&gt;=80,"B",IF(B2&gt;=70,"C","Fail")))</div>
           </div>
           <div class="excel-grid cols-4">
             <div class="xcell xcorner"></div><div class="xcell xcol">A</div><div class="xcell xcol">B</div><div class="xcell xcol">C</div><div class="xcell xcol">D</div>
             <div class="xcell xrow">1</div><div class="xcell xhead">Student</div><div class="xcell xhead">Score</div><div class="xcell xhead">Grade formula</div><div class="xcell xhead">Result</div>
-            <div class="xcell xrow">2</div><div class="xcell">A. Morris</div><div class="xcell">94</div><div class="xcell xselected xformula">=IF(B2&gt;=90,"A",IF(B2&gt;=80,"B",IF(B2&gt;=70,"C",IF(B2&lt;70,"Fail","—"))))</div><div class="xcell">A</div>
+            <div class="xcell xrow">2</div><div class="xcell">A. Morris</div><div class="xcell">94</div><div class="xcell xselected xformula">=IF(B2&gt;=90,"A",IF(B2&gt;=80,"B",IF(B2&gt;=70,"C","Fail")))</div><div class="xcell">A</div>
             <div class="xcell xrow">3</div><div class="xcell">B. Chen</div><div class="xcell">83</div><div class="xcell xmuted">filled down</div><div class="xcell">B</div>
             <div class="xcell xrow">4</div><div class="xcell">C. Singh</div><div class="xcell">71</div><div class="xcell xmuted">filled down</div><div class="xcell">C</div>
             <div class="xcell xrow">5</div><div class="xcell">D. Okafor</div><div class="xcell">58</div><div class="xcell xmuted">filled down</div><div class="xcell">Fail</div>
           </div>
         </div>
-        <div class="excel-note bad">The formula works, but four nested IFs make the grading logic difficult to scan and extend.</div>
+        <div class="excel-note bad">The nested IF grades valid numeric scores correctly, but it has no explicit validation for blanks, text, negative scores, or values above 100.</div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — same logic with IFS</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — cleaner IFS plus input validation</div>
       <div class="ba-body">
         <div class="excel-window">
           <div class="excel-top">Microsoft Excel</div>
           <div class="excel-formula">
             <div class="excel-name">C2</div><div class="excel-fx">fx</div>
-            <div class="excel-formula-text">=IFS(B2&gt;=90,"A",B2&gt;=80,"B",B2&gt;=70,"C",TRUE,"Fail")</div>
+            <div class="excel-formula-text">=IF(OR(NOT(ISNUMBER(B2)),B2&lt;0,B2&gt;100),"Invalid",IFS(B2&gt;=90,"A",B2&gt;=80,"B",B2&gt;=70,"C",TRUE,"Fail"))</div>
           </div>
           <div class="excel-grid cols-4">
             <div class="xcell xcorner"></div><div class="xcell xcol">A</div><div class="xcell xcol">B</div><div class="xcell xcol">C</div><div class="xcell xcol">D</div>
             <div class="xcell xrow">1</div><div class="xcell xhead">Student</div><div class="xcell xhead">Score</div><div class="xcell xhead">IFS formula</div><div class="xcell xhead">Grade</div>
-            <div class="xcell xrow">2</div><div class="xcell">A. Morris</div><div class="xcell">94</div><div class="xcell xselected xformula">=IFS(B2&gt;=90,"A",B2&gt;=80,"B",B2&gt;=70,"C",TRUE,"Fail")</div><div class="xcell xok">A</div>
+            <div class="xcell xrow">2</div><div class="xcell">A. Morris</div><div class="xcell">94</div><div class="xcell xselected xformula">=IF(OR(NOT(ISNUMBER(B2)),B2&lt;0,B2&gt;100),"Invalid",IFS(B2&gt;=90,"A",B2&gt;=80,"B",B2&gt;=70,"C",TRUE,"Fail"))</div><div class="xcell xok">A</div>
             <div class="xcell xrow">3</div><div class="xcell">B. Chen</div><div class="xcell">83</div><div class="xcell xmuted">filled down</div><div class="xcell xok">B</div>
             <div class="xcell xrow">4</div><div class="xcell">C. Singh</div><div class="xcell">71</div><div class="xcell xmuted">filled down</div><div class="xcell xok">C</div>
             <div class="xcell xrow">5</div><div class="xcell">D. Okafor</div><div class="xcell">58</div><div class="xcell xmuted">filled down</div><div class="xcell xok">Fail</div>
@@ -299,8 +306,10 @@ Please write the formula that calculates the bonus amount.</pre>
         </div>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's formula</div>
-          <pre>=IFS(B2&gt;=90,"A", B2&gt;=80,"B", B2&gt;=70,"C", TRUE,"Fail")
-Add an A+ tier by inserting B2&gt;=95,"A+" before the 90-point test.</pre>
+          <pre>=IF(OR(NOT(ISNUMBER(B2)),B2&lt;0,B2&gt;100),"Invalid",
+   IFS(B2&gt;=90,"A",B2&gt;=80,"B",B2&gt;=70,"C",TRUE,"Fail"))
+
+Valid range: 0–100. Unexpected inputs are flagged instead of silently graded.</pre>
         </div>
       </div>
     </div>
@@ -332,13 +341,13 @@ Add an A+ tier by inserting B2&gt;=95,"A+" before the 90-point test.</pre>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — boundaries use &gt;=</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — same nested IF, corrected boundaries</div>
       <div class="ba-body">
         <div class="excel-window">
           <div class="excel-top">Microsoft Excel</div>
           <div class="excel-formula">
             <div class="excel-name">C3</div><div class="excel-fx">fx</div>
-            <div class="excel-formula-text">=IFS(B3&gt;=90,"A",B3&gt;=80,"B",B3&gt;=70,"C",TRUE,"Fail")</div>
+            <div class="excel-formula-text">=IF(B3&gt;=90,"A",IF(B3&gt;=80,"B",IF(B3&gt;=70,"C","Fail")))</div>
           </div>
           <div class="excel-grid cols-4">
             <div class="xcell xcorner"></div><div class="xcell xcol">A</div><div class="xcell xcol">B</div><div class="xcell xcol">C</div><div class="xcell xcol">D</div>
@@ -352,8 +361,9 @@ Add an A+ tier by inserting B2&gt;=95,"A+" before the 90-point test.</pre>
         </div>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's fix</div>
-          <pre>=IFS(B3&gt;=90,"A", B3&gt;=80,"B", B3&gt;=70,"C", TRUE,"Fail")
-The three cutoff values now return A, B and C correctly.</pre>
+          <pre>=IF(B3&gt;=90,"A",IF(B3&gt;=80,"B",IF(B3&gt;=70,"C","Fail")))
+Only the boundary operators changed: &gt; became &gt;=.
+90 → A · 80 → B · 70 → C ✓</pre>
         </div>
       </div>
     </div>
@@ -380,7 +390,7 @@ The three cutoff values now return A, B and C correctly.</pre>
             <div class="xcell xrow">6</div><div class="xcell">Evans, P.</div><div class="xcell">Sales</div><div class="xcell">1</div><div class="xcell">£44,500</div><div class="xcell">0%</div><div class="xcell xerror">Manual</div>
           </div>
         </div>
-        <div class="excel-note bad">Column F has no formula, so the payout must be calculated manually every pay cycle.</div>
+        <div class="excel-note bad">Column F has no formula, so payouts are calculated manually and invalid performance scores are not automatically flagged.</div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
@@ -391,7 +401,7 @@ The three cutoff values now return A, B and C correctly.</pre>
           <div class="excel-top">Microsoft Excel</div>
           <div class="excel-formula">
             <div class="excel-name">F2</div><div class="excel-fx">fx</div>
-            <div class="excel-formula-text">=IFS(C2=5,D2*0.2,C2=4,D2*0.1,C2=3,D2*0.05,TRUE,0)</div>
+            <div class="excel-formula-text">=IF(OR(NOT(ISNUMBER(C2)),C2&lt;1,C2&gt;5,C2&lt;&gt;INT(C2)),"CHECK SCORE",IFS(C2=5,D2*20%,C2=4,D2*10%,C2=3,D2*5%,TRUE,0))</div>
           </div>
           <div class="excel-grid cols-5">
             <div class="xcell xcorner"></div><div class="xcell xcol">A</div><div class="xcell xcol">C</div><div class="xcell xcol">D</div><div class="xcell xcol">E</div><div class="xcell xcol">F</div>
@@ -406,8 +416,11 @@ The three cutoff values now return A, B and C correctly.</pre>
         </div>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's formula — F2</div>
-          <pre>=IFS(C2=5,D2*0.2, C2=4,D2*0.1, C2=3,D2*0.05, TRUE,0)
-Fill down through F6. £9,600 + £5,200 + £1,900 = £16,700.</pre>
+          <pre>=IF(OR(NOT(ISNUMBER(C2)),C2&lt;1,C2&gt;5,C2&lt;&gt;INT(C2)),"CHECK SCORE",
+   IFS(C2=5,D2*20%,C2=4,D2*10%,C2=3,D2*5%,TRUE,0))
+
+Fill down through F6.
+£9,600 + £5,200 + £1,900 + £0 + £0 = £16,700 ✓</pre>
         </div>
       </div>
     </div>
@@ -423,7 +436,7 @@ Fill down through F6. £9,600 + £5,200 + £1,900 = £16,700.</pre>
     </div>
     <div class="diag-row">
       <div class="diag-cause">Missing default case</div>
-      <div class="diag-example">IFS with no <span class="bad">TRUE,"—"</span> pair returns an error on unmatched values</div>
+      <div class="diag-example">IFS with no final default can return <span class="bad">#N/A</span> when every logical test is FALSE</div>
       <div class="diag-badge badge-red">Most common</div>
     </div>
     <div class="diag-row">
@@ -433,7 +446,7 @@ Fill down through F6. £9,600 + £5,200 + £1,900 = £16,700.</pre>
     </div>
     <div class="diag-row">
       <div class="diag-cause">IFS on old Excel</div>
-      <div class="diag-example">IFS needs Excel 365/2019+ — <span class="good">nested IF</span> is the fallback on 2016</div>
+      <div class="diag-example">IFS is supported in Microsoft 365 and Excel 2019, 2021 and 2024 — <span class="good">nested IF</span> is the fallback on Excel 2016</div>
       <div class="diag-badge badge-yellow">Invisible</div>
     </div>
   </div>
@@ -448,7 +461,7 @@ Fill down through F6. £9,600 + £5,200 + £1,900 = £16,700.</pre>
     </div>
     <div class="step">
       <div class="step-n">2</div>
-      <div class="step-body"><h3>Tell Claude your Excel version and the cell to test</h3><p>IFS only works in Excel 365 and 2019+. Also specify exactly which cell contains the value being tested — for example "the score is in B2" — so the formula is ready to paste directly.</p></div>
+      <div class="step-body"><h3>Tell Claude your Excel version and the cell to test</h3><p>IFS is available in Microsoft 365 and Excel 2019, 2021 and 2024. Also specify exactly which cell contains the value being tested — for example "the score is in B2" — so the formula is ready to paste directly.</p></div>
     </div>
     <div class="step">
       <div class="step-n">3</div>
@@ -460,7 +473,7 @@ Fill down through F6. £9,600 + £5,200 + £1,900 = £16,700.</pre>
     </div>
     <div class="step">
       <div class="step-n">5</div>
-      <div class="step-body"><h3>Add a safety net for unexpected values</h3><p>Make sure the formula handles edge cases — empty cells, text in a number column, values outside the expected range. Ask Claude for a final <code>TRUE, "—"</code> default case or an IFERROR wrapper.</p></div>
+      <div class="step-body"><h3>Add a safety net for unexpected values</h3><p>Make sure the formula handles edge cases explicitly — blank cells, text in a numeric field, and values outside the valid range. Use validation tests and a final default result where appropriate; do not use <code>IFERROR</code> merely to hide a logic or input error.</p></div>
     </div>
     <div class="warn"><strong>Multiple errors?</strong> If you have several IF-related issues in one sheet, fix them one at a time. After each fix, re-check the results — Excel sometimes reveals a second problem only after the first one is resolved.</div>
   </div>
@@ -474,7 +487,7 @@ Fill down through F6. £9,600 + £5,200 + £1,900 = £16,700.</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How many IF statements can you nest in Excel? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Excel technically allows up to 64 nested IF statements, but it is highly recommended to avoid this as it makes the formula nearly impossible to debug or maintain. Use IFS, VLOOKUP, or XLOOKUP instead.</div>
+      <div class="faq-a">Excel allows formulas to nest functions up to 64 levels, but deeply nested IF formulas quickly become difficult to debug and maintain. Use IFS, VLOOKUP, or XLOOKUP instead.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I build a bonus tier calculation in Excel? <i class="ti ti-chevron-down"></i></div>
@@ -482,11 +495,11 @@ Fill down through F6. £9,600 + £5,200 + £1,900 = £16,700.</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Does IFS have a built-in else condition? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">No. IFS has no built-in "else" like nested IF does. To handle values that match none of your conditions, add <code>TRUE, "—"</code> as the final pair — without it, IFS returns an error if nothing matches.</div>
+      <div class="faq-a">No. IFS has no built-in "else" argument. To handle values that match none of your conditions, add <code>TRUE,"—"</code> (or another default result) as the final pair. If every logical test is FALSE and there is no default pair, IFS returns <code>#N/A</code>.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Which Excel versions support IFS? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">IFS is available in Excel 365 and Excel 2019 or later. On Excel 2016 or older, you need nested IF instead — tell Claude which version you're using and it will write the right formula automatically.</div>
+      <div class="faq-a">IFS is available in Microsoft 365 and Excel 2019, 2021 and 2024. It is not available in Excel 2016, so use nested IF there — tell Claude which version you're using so the formula stays compatible.</div>
     </div>
   </div>
 
