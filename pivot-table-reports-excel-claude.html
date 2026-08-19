@@ -6,7 +6,7 @@
 <title>How to Create a Pivot Table in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to create Pivot Table reports in Excel with Claude AI, including field placement, calculated fields, date grouping, and slicer setup.">
 <link rel="canonical" href="https://www.pairworkflows.com/pivot-table-reports-excel-claude.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude build the actual pivot table inside Excel for me?","acceptedAnswer":{"@type":"Answer","text":"Claude cannot interact with Excel directly. What it produces is a complete layout specification: which fields go in Rows, Columns, Values, and Filters; what calculated fields to add; and how to group dates. You then build the table from those instructions, which takes about two minutes."}},{"@type":"Question","name":"What data format does Claude need for pivot table design?","acceptedAnswer":{"@type":"Answer","text":"Claude needs a flat table — one row per transaction or record, with consistent column headers. Merged cells, subtotal rows, and blank header columns will cause problems. Describe any structural issues in the prompt and Claude will suggest a cleaning step first."}},{"@type":"Question","name":"How do I add a calculated field like gross margin % to a pivot table?","acceptedAnswer":{"@type":"Answer","text":"Ask Claude to include it in the prompt. Claude writes the exact formula to enter in the PivotTable Analyze tab → Fields, Items & Sets → Calculated Field dialog, so you are not guessing at the syntax."}},{"@type":"Question","name":"My pivot table shows (blank) rows — how do I fix this?","acceptedAnswer":{"@type":"Answer","text":"Blank rows usually mean the source data has empty cells in the field you put in Rows. Ask Claude to identify which column is causing the blanks and suggest a fix — typically a find-and-replace or a helper column that fills missing values before the pivot is built."}},{"@type":"Question","name":"Can I use Claude to redesign an existing pivot table report?","acceptedAnswer":{"@type":"Answer","text":"Yes. Describe the current layout and what is wrong with it — too many rows, wrong grouping, a missing metric — and Claude will specify a revised structure. Paste a sample of the underlying data so Claude can reference the actual column names."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude build the actual pivot table inside Excel for me?","acceptedAnswer":{"@type":"Answer","text":"It depends on the Claude environment. In a normal chat, Claude can analyse pasted data and supported XLSX uploads when spreadsheet analysis is enabled. Claude for Excel can work directly in supported Excel environments. In all cases, verify field placement, source ranges, calculated metrics, and totals before relying on the report."}},{"@type":"Question","name":"What data format does Claude need for pivot table design?","acceptedAnswer":{"@type":"Answer","text":"Claude needs a flat table — one row per transaction or record, with consistent column headers. Merged cells, subtotal rows, and blank header columns will cause problems. Describe any structural issues in the prompt and Claude will suggest a cleaning step first."}},{"@type":"Question","name":"How do I add a calculated field like gross margin % to a pivot table?","acceptedAnswer":{"@type":"Answer","text":"Ask Claude to include it in the prompt. For a supported classic non-OLAP PivotTable, Claude can propose the field-name formula for PivotTable Analyze → Fields, Items & Sets → Calculated Field. For Data Model/OLAP PivotTables, use the appropriate measure/calculation method instead."}},{"@type":"Question","name":"My pivot table shows (blank) rows — how do I fix this?","acceptedAnswer":{"@type":"Answer","text":"A “(blank)” PivotTable item often indicates empty source values in that field, but confirm the source data and refresh state before assuming that is the only cause. Ask Claude to identify which column is causing the blanks and suggest a fix — typically a find-and-replace or a helper column that fills missing values before the pivot is built."}},{"@type":"Question","name":"Can I use Claude to redesign an existing pivot table report?","acceptedAnswer":{"@type":"Answer","text":"Yes. Describe the current layout and what is wrong with it — too many rows, wrong grouping, a missing metric — and Claude will specify a revised structure. Paste a sample of the underlying data so Claude can reference the actual column names."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -141,8 +141,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   .ba-panel.on{grid-template-columns:1fr;gap:8px}
   .excel-grid{min-width:500px}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
-  .diag-row{grid-template-columns:1fr 1fr;gap:8px}
-  .diag-example{display:none}
+  .diag-row{grid-template-columns:1fr;gap:6px}
+  .diag-example{display:flex}
   .related-grid{grid-template-columns:1fr}
   .page{padding:1.5rem 1rem 3rem}
 }
@@ -176,7 +176,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
     <h1>How to Create a Pivot Table in Excel with Claude AI</h1>
-    <p class="hero-sub">Describe your data and reporting goal — Claude specifies the exact pivot table layout: which fields go in Rows, Columns, Values, and Filters; calculated field formulas; date grouping steps; and a suggested slicer. Build it in Excel in under 5 minutes.</p>
+    <p class="hero-sub">Describe your data, Excel version, PivotTable source type, and reporting goal. Claude can then propose a field layout, grouping steps, calculated-field or measure approach, and validation checks that you can apply and verify in Excel.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -192,7 +192,13 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
     <div id="p-design" class="panel on">
       <div class="prompt-box">
-        <pre>I need to build a pivot table report in Excel.
+        <pre>I need to build a PivotTable report in Excel.
+
+EXCEL VERSION:
+[Microsoft 365 / Excel 2024 / 2021 / 2019 / 2016]
+
+PIVOTTABLE SOURCE TYPE:
+[worksheet table/range / Data Model / external OLAP source / not sure]
 
 MY DATA (paste 5–10 rows including headers):
 [Paste your header row and sample rows here]
@@ -222,14 +228,21 @@ Rules:
 - For each Values field, specify: summarisation type (Sum/Count/Average)
   and number format (Currency, Percentage 1dp, etc.).
 - For date grouping: give exact steps (right-click → Group → level).
-- Write the exact calculated field formula for the Calculated Field dialog.
+- If I ask for a calculated metric, first decide whether I need:
+  a classic PivotTable Calculated Field, a source helper column, or a
+  Data Model/Power Pivot measure.
+- Do not give Calculated Field menu steps if my PivotTable source does not
+  support classic calculated fields.
+- For ratios, explain whether the required business result is a ratio of
+  aggregated totals or an aggregation of row-level ratios.
 
 Output:
 1. Pivot layout specification (Rows / Columns / Values / Filters)
 2. Step-by-step Excel setup instructions
-3. Calculated field formulas (if applicable)
+3. Calculated field / helper-column / measure recommendation, with formula if applicable
 4. Recommended sort order and number format for each Values field
-5. One suggested slicer for interactive filtering</pre>
+5. Date-grouping and slicer instructions, if supported
+6. At least one control calculation I can use to verify the PivotTable result</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Paste your real column headers and sample rows — Claude uses your actual column names in the instructions. Works in <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
@@ -237,21 +250,32 @@ Output:
 
     <div id="p-calcfield" class="panel">
       <div class="prompt-box">
-        <pre>I need to add a calculated field to an existing pivot table in Excel.
+        <pre>I need to add a calculated metric to an existing PivotTable in Excel.
 
-My pivot table Values fields are:
+Excel version:
+[Microsoft 365 / Excel 2024 / 2021 / 2019 / 2016]
+
+PivotTable source:
+[worksheet table/range / Data Model / external OLAP / not sure]
+
+Underlying source fields available:
+[e.g. Revenue, COGS, Order ID]
+
+Current Values area:
 [e.g. Sum of Revenue, Sum of COGS, Count of Orders]
 
 The metric I want to add:
 [e.g. "Gross Margin % = (Revenue − COGS) / Revenue"]
 
-Please write the exact formula to enter in:
-PivotTable Analyze → Fields, Items & Sets → Calculated Field
+Please tell me first whether this PivotTable supports a classic Calculated Field.
 
-Also tell me:
-- Whether this metric is safe to implement as a calculated field
-  (some ratios give wrong results when Excel aggregates before dividing)
-- If it's not safe, suggest the alternative (helper column in source data)</pre>
+Then tell me:
+- Whether the business metric should be calculated from aggregated field totals
+  or from row-level values
+- Whether a classic Calculated Field gives the correct subtotal/grand-total behavior
+- The exact formula and menu path if a classic Calculated Field is appropriate
+- Otherwise, whether I should use a source helper column or a Data Model/Power Pivot measure
+- One numeric test I can use to verify the Grand Total</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Calculated field syntax is different from regular Excel formulas — Claude writes it correctly for the dialog.</p>
@@ -265,17 +289,22 @@ Problem: [describe what you see — e.g. "(blank) rows appearing",
 "can't group dates by month", "grand total is wrong",
 "calculated field shows wrong %"]
 
+Excel version: [version]
+PivotTable source: [worksheet table/range / Data Model / external source / not sure]
 My source data columns: [list them]
 The field causing the issue: [e.g. "Date column", "Category column"]
 Sample of the raw data for that column: [paste a few values]
+What I already tried: [refresh / regroup / changed source / nothing]
 
 Please:
-1. Identify the most likely cause
-2. Give me the exact fix — formula, setting, or data change needed
-3. Tell me how to verify the fix worked</pre>
+1. List the plausible causes supported by the evidence I provided
+2. Tell me what to check first before changing data
+3. Give the exact fix only after stating the assumption it depends on
+4. Tell me whether I must refresh the PivotTable or change its source
+5. Give me a verification check so I can confirm the fix worked</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">The most common causes: dates stored as text, inconsistent category labels, subtotal rows in source data.</p>
+      <p class="prompt-hint">Useful evidence to include: real date values vs text, blank cells, trailing spaces/aliases, subtotal rows, source type, and whether Refresh changes the result.</p>
     </div>
   </div>
 
@@ -332,6 +361,7 @@ Please:
             </table>
           </div>
         </div>
+        <div class="sheet-note good">The PivotTable values shown here are illustrative. The page does not show the full 480-row source, so the £ totals and GM% cells cannot be independently reconciled from this example alone. Verify at least one region/category against source Revenue and COGS totals.</div>
         <div class="pivot-fields">
           <div class="pivot-field-box"><strong>Rows</strong><span class="pivot-field-chip">Region</span></div>
           <div class="pivot-field-box"><strong>Columns</strong><span class="pivot-field-chip">Category</span></div>
@@ -339,10 +369,18 @@ Please:
           <div class="pivot-field-box"><strong>Filters / grouping</strong><span class="pivot-field-chip">Date → Quarter</span></div>
         </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Calculated field</div>
+          <div class="claude-fix-label">Classic PivotTable calculated field — if supported</div>
           <pre>Name: GM_Pct
 Formula: =(Revenue-COGS)/Revenue
 Format: Percentage, 1 decimal place
+
+Why it works for this metric:
+the calculated field uses the aggregated Revenue and COGS
+for each PivotTable cell, then divides.
+
+If the PivotTable uses the Data Model / OLAP source,
+use the appropriate measure approach instead.
+
 Slicer: Region or Quarter ✓</pre>
         </div>
       </div>
@@ -352,12 +390,12 @@ Slicer: Region or Quarter ✓</pre>
   <!-- Tab: calcfield -->
   <div class="before-after ba-panel" id="ba-calcfield">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — averaging percentages produces the wrong total</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — averaging row-level percentages produces the wrong total</div>
       <div class="ba-body">
         <div class="excel-window">
           <div class="excel-ribbon"><strong>Excel</strong><span>PivotTable Analyze</span><span>Field Settings</span></div>
           <div class="formula-row">
-            <div class="name-box">E5</div><div class="fx-box">fx</div><div class="formula-input">Average of Row GM%</div>
+            <div class="name-box">E5</div><div class="fx-box">fx</div><div class="formula-input">Average of source helper column Row GM%</div>
           </div>
           <div class="sheet-scroll">
             <table class="excel-grid">
@@ -372,14 +410,14 @@ Slicer: Region or Quarter ✓</pre>
             </table>
           </div>
         </div>
-        <div class="sheet-note bad">42.5% is the simple average of 55% and 30%. But the correct weighted margin is (£600k−£315k) ÷ £600k = 47.5%.</div>
+        <div class="sheet-note bad">42.5% is the simple average of the two displayed row-level percentages. For this business metric, the required Grand Total is the ratio of aggregated totals: (£600k−£315k) ÷ £600k = 47.5%.</div>
       </div>
     </div>
 
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
 
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — calculated field uses Revenue and COGS totals</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — classic calculated field produces ratio of aggregated totals</div>
       <div class="ba-body">
         <div class="excel-window">
           <div class="excel-ribbon"><strong>Excel</strong><span>PivotTable Analyze</span><span>Fields, Items & Sets</span><span>Calculated Field</span></div>
@@ -404,7 +442,11 @@ Slicer: Region or Quarter ✓</pre>
           <pre>Gross profit = £600,000 − £315,000 = £285,000
 GM % = £285,000 / £600,000 = 47.5% ✓
 
-Do not use Average of row-level GM% for this total.</pre>
+For this metric, do not use Average of a row-level GM% helper column as the Grand Total.
+Classic calculated fields operate on summed underlying fields, which is why
+=(Revenue-COGS)/Revenue produces 47.5% here.
+
+If the PivotTable is Data Model / OLAP-based, use a measure instead.</pre>
         </div>
       </div>
     </div>
@@ -413,7 +455,7 @@ Do not use Average of row-level GM% for this total.</pre>
   <!-- Tab: debug -->
   <div class="before-after ba-panel" id="ba-debug">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — inconsistent Region values split the pivot</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — spaces, aliases and blanks split the Region field</div>
       <div class="ba-body">
         <div class="excel-window">
           <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Data</span><span>PivotTable</span></div>
@@ -427,7 +469,7 @@ Do not use Average of row-level GM% for this total.</pre>
               <tbody>
                 <tr><th class="row-num">1</th><td class="header-cell">Region</td><td class="header-cell">Revenue</td><td class="header-cell">Pivot row</td></tr>
                 <tr><th class="row-num">2</th><td>North</td><td>£312,400</td><td>North</td></tr>
-                <tr><th class="row-num">3</th><td class="bad">NORTH</td><td>£84,200</td><td class="bad">NORTH</td></tr>
+                <tr><th class="row-num">3</th><td class="bad">North&nbsp;</td><td>£84,200</td><td class="bad">North&nbsp;</td></tr>
                 <tr><th class="row-num">4</th><td class="error-selected">north region</td><td>£28,100</td><td class="bad">north region</td></tr>
                 <tr><th class="row-num">5</th><td class="bad">(blank)</td><td>£14,600</td><td class="bad">(blank)</td></tr>
                 <tr><th class="row-num">6</th><td>South</td><td>£274,100</td><td>South</td></tr>
@@ -435,7 +477,7 @@ Do not use Average of row-level GM% for this total.</pre>
             </table>
           </div>
         </div>
-        <div class="sheet-note bad">North-related revenue is split across three labels. The blank £14,600 cannot safely be assigned to North unless another field proves that mapping.</div>
+        <div class="sheet-note bad">North-related revenue is split by an extra-space label and an alias. The blank £14,600 cannot safely be assigned to North unless another field proves that mapping.</div>
       </div>
     </div>
 
@@ -448,7 +490,7 @@ Do not use Average of row-level GM% for this total.</pre>
           <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data</span></div>
           <div class="formula-row">
             <div class="name-box">C2</div><div class="fx-box">fx</div>
-            <div class="formula-input">=IF(TRIM(A2)="","Unknown",IF(ISNUMBER(SEARCH("north",A2)),"North",PROPER(TRIM(A2))))</div>
+            <div class="formula-input">=IF(TRIM(A2)="","Unknown",IF(OR(LOWER(TRIM(A2))="north",LOWER(TRIM(A2))="north region"),"North",PROPER(TRIM(A2))))</div>
           </div>
           <div class="sheet-scroll">
             <table class="excel-grid">
@@ -457,7 +499,7 @@ Do not use Average of row-level GM% for this total.</pre>
               <tbody>
                 <tr><th class="row-num">1</th><td class="header-cell">Region raw</td><td class="header-cell">Revenue</td><td class="header-cell">Region clean</td><td class="header-cell">Pivot result</td></tr>
                 <tr><th class="row-num">2</th><td>North</td><td>£312,400</td><td class="selected good">North</td><td rowspan="3" class="good" style="vertical-align:middle">North<br>£424,700</td></tr>
-                <tr><th class="row-num">3</th><td>NORTH</td><td>£84,200</td><td class="good">North</td></tr>
+                <tr><th class="row-num">3</th><td>North&nbsp;</td><td>£84,200</td><td class="good">North</td></tr>
                 <tr><th class="row-num">4</th><td>north region</td><td>£28,100</td><td class="good">North</td></tr>
                 <tr><th class="row-num">5</th><td>(blank)</td><td>£14,600</td><td class="manual-cell">Unknown</td><td class="manual-cell">Unknown £14,600</td></tr>
                 <tr><th class="row-num">6</th><td>South</td><td>£274,100</td><td class="good">South</td><td class="good">South £274,100</td></tr>
@@ -468,15 +510,17 @@ Do not use Average of row-level GM% for this total.</pre>
         <div class="claude-fix">
           <div class="claude-fix-label">Safe cleaning logic</div>
           <pre>=IF(TRIM(A2)="","Unknown",
-   IF(ISNUMBER(SEARCH("north",A2)),
+   IF(OR(LOWER(TRIM(A2))="north",
+         LOWER(TRIM(A2))="north region"),
       "North",
       PROPER(TRIM(A2))))
 
 North total:
 £312,400 + £84,200 + £28,100 = £424,700 ✓
 
+The explicit mapping avoids accidentally classifying unrelated labels such as "Northwest".
 Blank stays Unknown until you have evidence for its region.
-Refresh the pivot after filling the helper column.</pre>
+Refresh the PivotTable after filling the helper column.</pre>
         </div>
       </div>
     </div>
@@ -484,16 +528,16 @@ Refresh the pivot after filling the helper column.</pre>
 
   <!-- DIAGNOSIS TABLE -->
   <div class="diag-card">
-    <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Why pivot tables break — the 4 most common causes</div>
+    <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Four common reasons a PivotTable result looks wrong</div>
     <div class="diag-row">
       <div class="diag-cause">Dates stored as text</div>
       <div class="diag-example">No <span class="bad">Group by Month</span> option → all dates appear individually in rows</div>
-      <div class="diag-badge badge-red">Most common</div>
+      <div class="diag-badge badge-red">High risk</div>
     </div>
     <div class="diag-row">
       <div class="diag-cause">Inconsistent labels</div>
-      <div class="diag-example"><span class="bad">"North"</span> and <span class="bad">"NORTH"</span> → two separate pivot rows instead of one</div>
-      <div class="diag-badge badge-red">Most common</div>
+      <div class="diag-example"><span class="bad">"North "</span> and <span class="bad">"north region"</span> can create separate items unless you standardise or explicitly map them</div>
+      <div class="diag-badge badge-red">High risk</div>
     </div>
     <div class="diag-row">
       <div class="diag-cause">Subtotals in source data</div>
@@ -516,7 +560,7 @@ Refresh the pivot after filling the helper column.</pre>
       <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Create pivot table reports with Claude — 4 steps</div>
       <div class="step">
         <div class="step-n">1</div>
-        <div class="step-body"><h3>Clean your source data before running the prompt</h3><p>Remove subtotal rows, unmerge header cells, and give every column a unique name. Check that date columns are formatted as dates in Excel (not "General" or "Text") — a date stored as text cannot be grouped by month or quarter. Fix these first or the pivot will produce wrong results regardless of what Claude specifies.</p></div>
+        <div class="step-body"><h3>Clean your source data before running the prompt</h3><p>Remove subtotal rows, unmerge header cells, and give every column a unique name. Check that date cells contain real Excel date serial values, not text that merely looks like a date. Number formatting alone does not convert text into a real date, and text dates can prevent reliable date grouping. Fix these first or the pivot will produce wrong results regardless of what Claude specifies.</p></div>
       </div>
       <div class="step">
         <div class="step-n">2</div>
@@ -524,13 +568,13 @@ Refresh the pivot after filling the helper column.</pre>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>State your reporting goal, not your technical requirements</h3><p>"Revenue by region and category with gross margin, filtered to current year" is enough. Claude translates that into field placement, summarisation type, number format, and sort order. You don't need to know in advance which area each field goes into.</p></div>
+        <div class="step-body"><h3>State your reporting goal, not your technical requirements</h3><p>"Revenue by region and category with gross margin, filtered to current year" is a useful goal, but also provide the actual headers, source type, and any business definition that is not obvious from the column names. Claude can then propose field placement, summarisation, number formats, and sort order for you to verify.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
-        <div class="step-body"><h3>Verify calculated fields at the total row, not individual rows</h3><p>Percentage calculated fields (GM%, conversion rate, margin) must be checked at the Grand Total level. If the Grand Total GM% is clearly wrong — say, 0% or 200% — the formula is being applied to individual rows before summing. Use the Calculated Field debug prompt above to fix it, or move the metric to a helper column in the source data.</p></div>
+        <div class="step-body"><h3>Verify calculated fields at the total row, not individual rows</h3><p>Validate percentage metrics at both detail and Grand Total level. First decide what the business definition requires: a ratio of aggregated totals, an average of row-level ratios, or something else. A classic calculated field uses aggregated underlying fields; a source helper column is aggregated according to its Value Field Settings; a Data Model PivotTable may require a measure.</p></div>
       </div>
-      <div class="tip"><strong>Tip:</strong> Use <code>=TRIM(PROPER(A2))</code> for case and stray spaces only. It will turn "NORTH" into "North", but it will not turn "north region" into "North". For aliases or extra words, use an explicit mapping rule or lookup table.</div>
+      <div class="tip"><strong>Tip:</strong> <code>TRIM</code> handles ordinary extra spaces, while <code>PROPER</code> only changes presentation case. For aliases such as "north region" → "North", use an explicit mapping rule or lookup table rather than a broad substring test that could also catch unrelated labels.</div>
     </div>
   </div>
 
@@ -540,15 +584,15 @@ Refresh the pivot after filling the helper column.</pre>
       <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Add calculated fields — 3 steps</div>
       <div class="step">
         <div class="step-n">1</div>
-        <div class="step-body"><h3>Click inside the Pivot Table</h3><p>Ensure the PivotTable Analyze tab appears in the ribbon menu.</p></div>
+        <div class="step-body"><h3>Confirm the PivotTable source type</h3><p>Classic calculated fields are available for supported non-OLAP PivotTables. If the PivotTable uses the Data Model or an OLAP source, use the appropriate measure/calculation workflow instead of assuming the Calculated Field command is available.</p></div>
       </div>
       <div class="step">
         <div class="step-n">2</div>
-        <div class="step-body"><h3>Open the Calculated Field dialog</h3><p>Navigate to <strong>Fields, Items & Sets</strong> > <strong>Calculated Field</strong>.</p></div>
+        <div class="step-body"><h3>Open Calculated Field only when supported</h3><p>For a classic supported PivotTable, use <strong>PivotTable Analyze → Fields, Items &amp; Sets → Calculated Field</strong>. If that command is unavailable because of the source type, do not force this method.</p></div>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Paste Claude's exact formula</h3><p>Enter a name for your new field, paste the exact formula provided by Claude into the formula bar, and click OK. Excel will add it to your Values area automatically.</p></div>
+        <div class="step-body"><h3>Enter the formula and verify the total</h3><p>Use source field names—not worksheet cell references—in the formula. After adding the metric, independently calculate one subtotal and the Grand Total from the underlying fields to confirm the PivotTable behavior matches the business definition.</p></div>
       </div>
     </div>
   </div>
@@ -577,7 +621,7 @@ Refresh the pivot after filling the helper column.</pre>
   <div class="faq-section">
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can Claude build the actual pivot table inside Excel for me? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Claude cannot interact with Excel directly. What it produces is a complete layout specification — which fields go in Rows, Columns, Values, and Filters; what calculated fields to add; and how to group dates. You build the table from those instructions, which takes about two minutes once you know exactly where everything goes.</div>
+      <div class="faq-a">It depends on how you are using Claude. In a normal chat, you can paste data or upload supported XLSX files when spreadsheet analysis is enabled and use Claude for layout/formula guidance. Claude for Excel can also work directly in supported Excel environments. In either case, verify field placement, source ranges, calculated metrics, and totals before relying on the report.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What data format does Claude need for pivot table design? <i class="ti ti-chevron-down"></i></div>
@@ -585,11 +629,11 @@ Refresh the pivot after filling the helper column.</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I add a calculated field like gross margin % to a pivot table? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Use the Calculated Field tab above. Claude writes the exact formula for the <code>PivotTable Analyze → Fields, Items &amp; Sets → Calculated Field</code> dialog. It also flags when a percentage metric is unsafe as a calculated field — because Excel applies the formula to individual rows before aggregating, which produces wrong totals.</div>
+      <div class="faq-a">Use the Calculated Field tab above. Claude writes the exact formula for the <code>PivotTable Analyze → Fields, Items &amp; Sets → Calculated Field</code> dialog. For classic non-OLAP PivotTables, calculated fields operate on aggregated underlying fields. Claude should first determine whether that behavior matches your metric and whether the PivotTable source supports classic calculated fields; Data Model/OLAP PivotTables may require a measure instead.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">My pivot table shows (blank) rows — how do I fix this? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Blank rows mean the source data has empty cells in the field you put in Rows. Use the Debug tab above — paste a sample of the column causing the issue and Claude identifies the fix, typically a find-and-replace or a helper column that fills missing values before the pivot is built.</div>
+      <div class="faq-a">A “(blank)” item often indicates blank source values in that field, but confirm the source and refresh state before assuming that is the only cause. Use the Debug tab above — paste a sample of the column causing the issue and Claude identifies the fix, typically a find-and-replace or a helper column that fills missing values before the pivot is built.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can I use Claude to redesign an existing pivot table report? <i class="ti ti-chevron-down"></i></div>
