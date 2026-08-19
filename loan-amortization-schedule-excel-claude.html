@@ -6,7 +6,7 @@
 <title>Loan Amortization Schedule in Excel Using Claude AI — PairWorkflows</title>
 <meta name="description" content="Generate a full loan amortization schedule in Excel using Claude AI or Gemini AI. See principal, interest, and remaining balance for every payment period.">
 <link rel="canonical" href="https://www.pairworkflows.com/loan-amortization-schedule-excel-claude.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude handle variable interest rates in an amortization schedule?","acceptedAnswer":{"@type":"Answer","text":"Yes, if you provide both the rate schedule and the loan's payment-reset rule. Some contracts recalculate payment at a reset; others keep payment fixed, use caps/floors, or create a different maturity/balloon effect. Claude should follow the supplied contract mechanics rather than assume a universal reset rule."}},{"@type":"Question","name":"How does Claude calculate the monthly payment amount?","acceptedAnswer":{"@type":"Answer","text":"For a regular fixed-rate annuity, Excel's PMT function uses the periodic rate, number of periods, present value, optional future value and payment timing. The periodic rate must be derived from the rate convention in the agreement; annual-rate/12 is appropriate only for a compatible nominal monthly convention."}},{"@type":"Question","name":"Can I model extra principal payments or lump-sum prepayments?","acceptedAnswer":{"@type":"Answer","text":"Yes. Supply the prepayment dates/periods, amounts, timing within the payment cycle, any penalties, and whether the lender shortens the term or recasts payments. Interest savings should be measured against a baseline schedule built from identical loan assumptions."}},{"@type":"Question","name":"Will the schedule work for quarterly or annual payment frequencies?","acceptedAnswer":{"@type":"Answer","text":"Yes, but the periodic-rate conversion still depends on the quoted rate convention. For example, a 6% nominal annual rate convertible quarterly corresponds to 1.5% per quarter and 20 payments over five years; an effective annual rate requires a different periodic-rate conversion."}},{"@type":"Question","name":"How do I verify Claude's amortization output?","acceptedAnswer":{"@type":"Answer","text":"Use Excel formulas for the schedule and check first-period interest, Payment = Principal + Interest, principal reconciliation, rate/reset timing and ending balance. The ending balance should equal the contractual residual or balloon, which is zero only for a fully amortising loan. Do not treat manually calculated chat totals as verified unless the formulas were actually executed."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude handle variable interest rates in an amortization schedule?","acceptedAnswer":{"@type":"Answer","text":"Yes, if you provide both the rate schedule and the loan's payment-reset rule. Some contracts recalculate payment at a reset; others keep payment fixed, use caps/floors, or create a different maturity/balloon effect. Claude should follow the supplied contract mechanics rather than assume a universal reset rule."}},{"@type":"Question","name":"How does Claude calculate the monthly payment amount?","acceptedAnswer":{"@type":"Answer","text":"For a regular fixed-rate annuity, Excel's PMT function uses the periodic rate, number of periods, present value, optional future value and payment timing. The periodic rate must be derived from the rate convention in the agreement; annual-rate/12 is appropriate only for a compatible nominal monthly convention."}},{"@type":"Question","name":"Can I model extra principal payments or lump-sum prepayments?","acceptedAnswer":{"@type":"Answer","text":"Yes. Supply the prepayment dates/periods, amounts, timing within the payment cycle, any penalties, and whether the lender shortens the term or recasts payments. Interest savings should be measured against a baseline schedule built from identical loan assumptions."}},{"@type":"Question","name":"Will the schedule work for quarterly or annual payment frequencies?","acceptedAnswer":{"@type":"Answer","text":"Yes, but the periodic-rate conversion still depends on the quoted rate convention. For example, a 6% nominal annual rate convertible quarterly corresponds to 1.5% per quarter and 20 payments over five years; an effective annual rate requires a different periodic-rate conversion."}},{"@type":"Question","name":"How do I verify Claude's amortization output?","acceptedAnswer":{"@type":"Answer","text":"Use Excel formulas for the schedule and independent controls for first-period interest, payment composition, principal reconciliation, prepayment/reset timing and ending balance. The model must preserve any contractual balloon/residual rather than forcing zero. Do not treat manually calculated chat totals as verified unless the formulas were actually executed."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -218,6 +218,12 @@ LOAN CONTRACT INPUTS
 - Fees included in financed principal: [amount or none]
 - Day-count / irregular first period rule: [state if applicable; otherwise regular equal periods]
 
+MODEL STRUCTURE
+Use ONE shared Inputs block (or one Inputs sheet) for all schedules and summaries.
+Do not duplicate the same loan inputs across multiple sheets.
+If you use named ranges, prefer workbook-level names so every schedule and summary
+references the same source inputs.
+
 CALCULATION AND VERIFICATION RULES
 1. Use Excel formulas as the calculation engine. Do not manually calculate a long
    multi-period amortization schedule in prose.
@@ -234,33 +240,42 @@ CALCULATION AND VERIFICATION RULES
 7. Keep rate units and period units consistent. State the sign convention once.
 8. For a regular fixed-rate annuity, use Excel:
    =-PMT(PeriodicRate,NumberOfPayments,Principal,-Balloon,PaymentType)
+   Do not hard-code 0 as future value when Balloon is a supplied input.
 9. Build each row from Opening Balance:
    Interest = Opening Balance × Periodic Rate
    Scheduled Principal = Payment - Interest
-   Closing Balance = Opening Balance - Scheduled Principal
-10. If contract payments are rounded to cents, cap the final payment so the schedule
-    does not overpay the loan. Do not force the ending balance to zero if the contract
-    specifies a balloon/residual.
-11. Do not invent fees, compounding, rate basis, payment timing, day-count conventions
+   Maximum Principal Reduction = MAX(0,Opening Balance-Balloon)
+   Actual Principal = MIN(Scheduled Principal,Maximum Principal Reduction)
+   Closing Balance = Opening Balance - Actual Principal
+10. Do not allow Closing Balance to fall below the contractual Balloon/Residual.
+    If Balloon = 0, the schedule may amortize to zero.
+11. If contract payments are rounded to cents, cap the final payment so the schedule
+    reaches the contractual Balloon/Residual without overpaying.
+12. Do not invent fees, compounding, rate basis, payment timing, day-count conventions
     or other contract terms. If a required input is missing, return INPUT NEEDED.
-12. Never label numerical totals as verified merely because the formulas appear logical.
+13. Never label numerical totals as verified merely because the formulas appear logical.
     If the formulas have not actually been executed in Excel or another calculation
     environment, label numerical totals UNVERIFIED and provide the formulas instead.
 
-CONTROL FORMULAS
+INDEPENDENT CONTROL FORMULAS
+Controls must test the model; do not rely only on a formula that has already forced
+the result with MAX/MIN.
+Include:
 - first-period interest recomputation
 - Payment = Principal + Interest for each regular period
 - sum of principal = Principal - Balloon
 - final balance = contractual Balloon/Residual
-- no negative closing balance
+- maximum principal reduction not exceeded in any row
+- no unexplained gap between expected and actual ending balance
 - row count = contractual number of payments
 
 OUTPUT
-1. Assumptions block
+1. Assumptions / Inputs block
 2. Excel column structure:
    Period | Payment Date | Opening Balance | Payment | Principal | Interest | Closing Balance
 3. Exact Excel formulas for Periods 1 and 2 and the final-period cap
-4. Control formulas and summary formulas for total cash payments, total interest and total principal
+4. Independent control formulas and summary formulas for total cash payments,
+   total interest and total principal
 5. If you actually execute the formulas, you may also show verified numerical results.
    Otherwise do not manually simulate all periods in prose.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
@@ -291,10 +306,21 @@ EXTRA PRINCIPAL PAYMENTS
 Period or Date | Amount
 [paste rows]
 
+MODEL STRUCTURE
+Use ONE shared Inputs block (or one Inputs sheet) for:
+- loan terms
+- balloon/residual
+- prepayment amounts/rules
+- baseline schedule
+- prepayment schedule
+- summary
+If you use named ranges, prefer workbook-level names so Baseline, Prepay and Summary
+all reference the same inputs.
+
 CALCULATION AND VERIFICATION RULES
 1. Use Excel formulas as the calculation engine. Do NOT manually calculate multi-period
    balances, cumulative interest or payoff timing in prose.
-2. Build TWO complete Excel schedules from identical base assumptions:
+2. Build TWO complete Excel schedules from identical shared inputs:
    - Baseline with no extra payments
    - Prepayment scenario
 3. Build every period sequentially. Do not skip blocks of periods or reconstruct later
@@ -303,45 +329,57 @@ CALCULATION AND VERIFICATION RULES
 5. Follow the supplied prepayment treatment exactly:
    - Under Treatment A, keep the original contractual PMT fixed and shorten the term.
    - Under Treatment B, recalculate PMT only after the prepayment using remaining balance,
-     current applicable rate, remaining contractual periods, balloon and payment timing.
+     current applicable rate, remaining contractual periods, Balloon and payment timing.
    - Under Treatment C, follow the rule I supply.
 6. Apply each extra payment at the exact timing I supply. Do not assume every contract
    applies a prepayment after the scheduled payment.
-7. Apply extra principal only once and never beyond the outstanding principal.
-8. Cap the final scheduled/extra principal so Closing Balance cannot become negative.
-9. Payoff Period = the first period in which the capped final payment reduces Closing Balance
-   to the contractual residual. The prior period must still have a positive balance.
+7. Apply extra principal only once and never reduce Closing Balance below Balloon/Residual.
+8. Scheduled principal must be capped at:
+   MAX(0,Opening Balance-Balloon)
+   and extra principal must be capped at the remaining reducible principal after the
+   scheduled principal is applied.
+9. Payoff Period = the first period in which Closing Balance equals the contractual
+   Balloon/Residual within the defined rounding tolerance.
+   The prior period must have Closing Balance greater than Balloon/Residual.
 10. Derive Baseline Total Interest and Prepayment Total Interest by summing the completed
     Excel schedules. Do not estimate them independently.
 11. Interest Saved = Baseline Total Interest - Prepayment Total Interest.
     Show prepayment fees separately. Net Financing-Cost Saving = Interest Saved - Fees.
 12. Do not invent rates, fees, lender rules, dates or contract conventions.
-    If formulas have not actually been executed in a calculation environment, label all
+13. If formulas have not actually been executed in a calculation environment, label all
     numerical totals UNVERIFIED rather than estimating them.
 
+INDEPENDENT CONTROL FORMULAS
+Include formulas that verify:
+- baseline principal reconciliation = Principal - Balloon
+- prepayment principal reconciliation = Principal - Balloon
+- Closing Balance never falls below Balloon/Residual
+- Scheduled Principal + Extra Principal never exceeds Opening Balance - Balloon
+- each requested extra payment appears in the correct Period/Date and correct amount
+  (subject only to an explicit contractual cap or an already-reached residual balance)
+- no extra payment appears in any unrequested period/date
+- payoff period is the first row at Balloon/Residual
+- the row immediately before payoff is above Balloon/Residual
+- total interest in each schedule comes from SUM of schedule interest
+- Interest Saved comes only from the two schedule totals
+
 OUTPUT
-1. Excel structure and formulas for the complete baseline schedule
-2. Excel structure and formulas for the complete prepayment schedule
-3. Exact formulas for:
+1. Shared Inputs structure
+2. Excel structure and formulas for the complete baseline schedule
+3. Excel structure and formulas for the complete prepayment schedule
+4. Exact formulas for:
    - Period 1
    - a normal period
    - each prepayment period
-   - the final payoff period
-4. Control formulas for:
-   - baseline principal reconciliation
-   - prepayment principal reconciliation
-   - no negative balance
-   - extra payments applied once
-   - payoff period
-   - total interest in each schedule
-   - interest saved
-5. Comparison formulas for payoff period/date, total interest, interest saved, fees and
+   - the final payoff/residual period
+5. Independent control formulas for all checks above
+6. Comparison formulas for payoff period/date, total interest, interest saved, fees and
    net financing-cost saving
-6. Do not manually simulate all periods in prose. If you execute the formulas, you may
+7. Do not manually simulate all periods in prose. If you execute the formulas, you may
    show verified numerical results; otherwise return formulas and UNVERIFIED totals only.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Use this to build a formula-driven baseline and prepayment schedule. Let Excel calculate the balances and savings; do not rely on manually simulated totals from chat.</p>
+      <p class="prompt-hint">Use one shared Inputs block for both schedules. Let Excel calculate balances and savings, and verify each requested prepayment by period/date and amount.</p>
     </div>
 
     <div id="p-variable" class="panel">
@@ -368,6 +406,11 @@ Choose/provide the actual rule:
  B = payment stays fixed and maturity/balloon changes
  C = payment cap/floor or other rule — describe]
 
+MODEL STRUCTURE
+Use ONE shared Inputs block (or one Inputs sheet) for the base loan terms, Balloon,
+rate-reset schedule and payment-reset rule. If you use named ranges, prefer workbook-level
+names so the full schedule and reset summary reference the same source inputs.
+
 CALCULATION AND VERIFICATION RULES
 1. Use Excel formulas as the calculation engine. Do not manually simulate the full
    variable-rate schedule in prose.
@@ -385,33 +428,37 @@ CALCULATION AND VERIFICATION RULES
 7. Do not interpolate, forecast or invent a missing future floating rate. Use only a
    user-supplied scenario/rate and label it as an assumption.
 8. Keep a Rate Applied column in every row so each reset can be audited.
-9. At every reset, add controls:
-   - prior Closing Balance = new Opening Balance
-   - new rate starts in the correct period
-   - payment follows the supplied reset rule
-   - remaining-period count is correct under Rule A
-10. Derive summary totals from the completed Excel schedule, not from separate manual arithmetic.
-11. Final balance must match the contractual balloon/residual; do not force zero when the
+9. Do not allow scheduled principal to reduce Closing Balance below Balloon/Residual.
+10. At every reset, add independent controls:
+    - prior Closing Balance = new Opening Balance
+    - new rate starts in the correct period/date
+    - payment follows the supplied reset rule
+    - remaining-period count is correct under Rule A
+    - principal reduction does not breach Balloon/Residual
+11. Derive summary totals from the completed Excel schedule, not from separate manual arithmetic.
+12. Final balance must match the contractual Balloon/Residual; do not force zero when the
     contract specifies otherwise.
-12. If formulas have not actually been executed in Excel or another calculation environment,
+13. If formulas have not actually been executed in Excel or another calculation environment,
     do not claim numerical totals are verified. Return the formulas and label totals UNVERIFIED.
 
 OUTPUT
-1. Excel schedule structure:
+1. Shared Inputs structure
+2. Excel schedule structure:
    Period | Date | Opening Balance | Rate Applied | Payment |
    Interest | Principal | Closing Balance
-2. Exact Excel formulas for:
+3. Exact Excel formulas for:
    - Period 1
    - one normal pre-reset period
    - the first reset period
    - one post-reset period
-   - final period
-3. Reset-summary table driven from schedule formulas
-4. Control formulas for reset timing, balance continuity, remaining periods and final balance
-5. Do not manually simulate all periods in prose. Show numerical totals only if actually executed.</pre>
+   - final Balloon/Residual period
+4. Reset-summary table driven from schedule formulas
+5. Independent control formulas for reset timing, balance continuity, remaining periods,
+   Balloon/Residual protection and final balance
+6. Do not manually simulate all periods in prose. Show numerical totals only if actually executed.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Use the payment-reset rule from the actual loan agreement. Claude should build the Excel formulas; the schedule itself should be calculated and controlled in Excel.</p>
+      <p class="prompt-hint">Use one shared Inputs block plus the actual reset rule from the loan agreement. Claude should build the Excel formulas; Excel should calculate and independently control the schedule.</p>
     </div>
   </div>
 
@@ -603,7 +650,7 @@ Ending balance at Period 60 = £0.00 ✓</pre>
     </div>
     <div class="step">
       <div class="step-n">4</div>
-      <div class="step-body"><h3>Let Excel calculate; use controls to verify</h3><p>Recompute at least: (1) first-period interest from opening balance and periodic rate; (2) Payment = Principal + Interest; (3) sum of principal reconciles to principal less any contractual balloon; (4) final balance matches the contractual residual. Passing these controls is necessary, but also verify rate timing, dates, fees and prepayment/reset rules.</p></div>
+      <div class="step-body"><h3>Let Excel calculate; use controls to verify</h3><p>Recompute at least: (1) first-period interest from opening balance and periodic rate; (2) Payment = Principal + Interest; (3) sum of principal reconciles to principal less any contractual balloon; (4) final balance matches the contractual residual. Controls should be independent of the formulas they test. Also verify rate timing, dates, fees, prepayment/reset rules and any contractual balloon/residual.</p></div>
     </div>
   </div>
 
@@ -628,7 +675,7 @@ Ending balance at Period 60 = £0.00 ✓</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I verify Claude's amortization output? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Use Excel formulas for the schedule and check first-period interest, Payment = Principal + Interest, principal reconciliation, rate/reset timing and ending balance. The ending balance should equal the contractual residual or balloon, which is zero only for a fully amortising loan. Do not treat manually calculated chat totals as verified unless the formulas were actually executed.</div>
+      <div class="faq-a">Use Excel formulas for the schedule and independent controls for first-period interest, payment composition, principal reconciliation, prepayment/reset timing and ending balance. The model must preserve any contractual balloon/residual rather than forcing zero. Do not treat manually calculated chat totals as verified unless the formulas were actually executed.</div>
     </div>
   </div>
 
