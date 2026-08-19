@@ -280,11 +280,20 @@ Also flag:
 - version-specific behavior (for example legacy array entry)
 - risks if I change ranges, criteria, or referenced sheets.
 
-For every Excel error or version-specific behavior you mention, explain the
-exact formula operation that causes it. Distinguish a failed comparison that
-returns FALSE from a true Excel error such as #N/A, #VALUE!, or #REF!.
-Do not describe a single-cell result as a multi-cell array formula, and avoid
-absolute version-specific claims unless the behavior is guaranteed.
+Treat a behavior as certain only if it follows directly from the formula syntax
+or from documented, consistent Excel behavior.
+
+For each risk or error, label it as:
+- Certain
+- Conditional
+- Cannot determine from the information provided
+
+If the exact outcome depends on Excel version, workbook structure, or the
+specific edit being made, say so explicitly. Do not choose one plausible
+outcome or error type and present it as certain.
+
+If you cannot determine the exact mechanism confidently, stop at the
+uncertainty instead of speculating.
 
 Do not invent workbook facts that are not supported by the formula or context.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
