@@ -234,7 +234,13 @@ Review this process and tell me:
 6. Whether any report labels/categories (for example Region) also need to expand dynamically when new source values appear
 
 Do not turn a human-judgment step into a formula unless I give you an explicit rule.
-If I currently "delete" rows, prefer a non-destructive filtered output unless deletion is truly required.</pre>
+If I currently "delete" rows, prefer a non-destructive filtered output unless deletion is truly required.
+
+Keep the answer concise and limited to the six requested items.
+Stay within Excel formulas and Tables unless I explicitly ask for another approach.
+Do not recommend Power Query, VBA, macros, Office Scripts, dashboards, or external automation.
+Do not invent business rules, filters, status logic, date logic, historical-comparison logic, or reporting definitions that I have not provided.
+If a required rule is missing, write "Rule required" and state the missing rule in one sentence instead of making an assumption.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Start here before writing any formulas. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
@@ -262,7 +268,14 @@ Please give me:
 3. A fallback formula if I cannot use an Excel Table
 4. A validation check I can run against one known region total
 5. Any data-type issue (e.g. Revenue stored as text) that would make the result wrong
-6. If new regions can appear, an optional formula to generate the region list dynamically in supported Excel versions, plus a fallback for older versions.</pre>
+6. If new regions can appear, an optional formula to generate the region list dynamically in supported Excel versions, plus a fallback for older versions.
+
+Use only the criteria explicitly stated above.
+Do not add filters or conditions that are not part of the manual step.
+Do not assume that Status, dates, or any other source column should affect the calculation.
+Prefer the simplest correct formula and do not add alternative methods beyond the six requested items.
+If you give a dynamic spilled Region list, make sure the Revenue output also expands for newly added regions rather than relying on a fixed set of filled-down formulas.
+Keep the answer concise.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Use this once you know which single step you want to automate first.</p>
@@ -286,7 +299,11 @@ Write a short maintenance guide for a "Documentation" tab that explains:
 5. What to check if totals are blank, zero, or wrong
 6. What to do if a new Region appears in the source but is not listed in Summary!A5:A7
 
-Do not invent workbook steps that are not stated above.</pre>
+Document only the workbook structure and maintenance tasks stated above.
+Do not redesign the model, introduce new formulas, or propose alternative architectures.
+Do not invent refresh steps, validation rules, ownership, frequencies, business rules, or source-cleaning procedures that are not stated above.
+If required information is missing, write "[define this]" instead of filling it in yourself.
+Keep the guide short and practical.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Run this last, once the model works, so the next person can maintain it without you.</p>
@@ -359,7 +376,7 @@ Do not invent workbook steps that are not stated above.</pre>
 Keep manual:
 • Exception review / sign-off
 
-The distinction is based on whether the step is rule-based or needs human judgment. ✓</pre>
+If a rule is missing, flag it instead of inventing one. ✓</pre>
         </div>
       </div>
     </div>
@@ -570,11 +587,11 @@ Validate at least one region total against the source before going live. ✓</pr
     </div>
     <div class="step">
       <div class="step-n">2</div>
-      <div class="step-body"><h3>Show Claude the source and output structure</h3><p>Describe your source data — columns, location, update frequency — and the final report — what it shows and who uses it. Paste small samples of both if possible. The more specific, the better the formulas.</p></div>
+      <div class="step-body"><h3>Show Claude the source and output structure</h3><p>Describe your source data — columns, location, update frequency — and the final report — what it shows and who uses it. Paste small samples of both if possible. Be specific about the facts Claude may use, and explicitly state any criteria it must not infer.</p></div>
     </div>
     <div class="step">
       <div class="step-n">3</div>
-      <div class="step-body"><h3>Let Claude analyse what can be automated</h3><p>Use Claude to propose which steps are rule-based and which should remain manual, then review that classification yourself. Human judgment cannot be inferred reliably unless you give Claude an explicit decision rule.</p></div>
+      <div class="step-body"><h3>Let Claude analyse what can be automated</h3><p>Use Claude to separate rule-based steps from steps that should remain manual, then review that classification yourself. If a required business rule is missing, Claude should flag it rather than infer one.</p></div>
     </div>
     <div class="step">
       <div class="step-n">4</div>
