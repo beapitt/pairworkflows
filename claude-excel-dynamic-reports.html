@@ -6,7 +6,7 @@
 <title>Dynamic Excel Reports with Claude AI — PairWorkflows</title>
 <meta name="description" content="Use Claude AI to replace manual copy-paste Excel reports with formula-driven models using SUMIFS, XLOOKUP, and FILTER that update automatically.">
 <link rel="canonical" href="https://www.pairworkflows.com/claude-excel-dynamic-reports.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I automate a monthly report in Excel?","acceptedAnswer":{"@type":"Answer","text":"You can automate reports by replacing static numbers with dynamic formulas like SUMIFS, XLOOKUP, and FILTER that pull data from a standardized raw data sheet. Claude AI can write these formulas once you describe your manual process."}},{"@type":"Question","name":"How do I make an Excel report update automatically?","acceptedAnswer":{"@type":"Answer","text":"Structure your source data as a clean table with no merged cells, then use dynamic formulas to reference that data. When you paste new data into the source sheet, your report formulas calculate the new results instantly."}},{"@type":"Question","name":"What formulas replace manual copy-paste in Excel?","acceptedAnswer":{"@type":"Answer","text":"Functions like SUMIFS, COUNTIFS, XLOOKUP, FILTER, and UNIQUE are the primary tools to replace manual copy-paste, allowing you to aggregate and retrieve data dynamically based on the criteria you define."}},{"@type":"Question","name":"Can Claude automate every step of my monthly report?","acceptedAnswer":{"@type":"Answer","text":"No. Claude will flag steps that still need human judgment — unusual exceptions, manual sign-offs, and decisions that depend on context formulas can't read. Those steps should stay manual."}},{"@type":"Question","name":"What's the difference between SUMIFS and FILTER for dynamic reports?","acceptedAnswer":{"@type":"Answer","text":"SUMIFS aggregates numbers that meet criteria and works in every modern Excel version (2007 and later). FILTER returns the actual matching rows and is only available in Excel 365 — useful when you need the underlying records, not just a total."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I automate a monthly report in Excel?","acceptedAnswer":{"@type":"Answer","text":"You can automate reports by replacing static numbers with dynamic formulas like SUMIFS, XLOOKUP, and FILTER that pull data from a standardized raw data sheet. Claude AI can write these formulas once you describe your manual process."}},{"@type":"Question","name":"How do I make an Excel report update automatically?","acceptedAnswer":{"@type":"Answer","text":"Structure your source data as a clean table with no merged cells, then use dynamic formulas to reference that data. When you paste new data into the source sheet, your report formulas calculate the new results instantly."}},{"@type":"Question","name":"What formulas replace manual copy-paste in Excel?","acceptedAnswer":{"@type":"Answer","text":"Functions like SUMIFS, COUNTIFS, XLOOKUP, FILTER, and UNIQUE are the primary tools to replace manual copy-paste, allowing you to aggregate and retrieve data dynamically based on the criteria you define."}},{"@type":"Question","name":"Can Claude automate every step of my monthly report?","acceptedAnswer":{"@type":"Answer","text":"Not safely by default. Ask Claude to separate rule-based steps from steps that need human judgment, such as unusual exceptions, sign-offs, or context-dependent decisions, and review that classification yourself before automating consequential steps."}},{"@type":"Question","name":"What's the difference between SUMIFS and FILTER for dynamic reports?","acceptedAnswer":{"@type":"Answer","text":"SUMIFS aggregates numbers that meet criteria and is supported in current desktop Excel versions including Microsoft 365, Excel 2024, 2021, 2019, and 2016. FILTER returns the matching rows and is available in Microsoft 365, Excel 2024, and Excel 2021; it is not available in Excel 2019 or Excel 2016."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -198,7 +198,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
     <h1>Build Dynamic Excel Reports with Claude AI</h1>
-    <p class="hero-sub">Stop rebuilding the same report by hand every month. Describe your manual copy-paste process to Claude and get back the exact SUMIFS, XLOOKUP, and FILTER formulas that turn a fragile, hand-built report into a model that updates the moment you paste new data.</p>
+    <p class="hero-sub">Stop rebuilding the same report by hand every month. Describe your manual process, source structure, and expected outputs to Claude, then use it to draft SUMIFS, XLOOKUP, FILTER, or Table-based formulas that you can verify against known totals before replacing the manual report.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -221,13 +221,19 @@ export into a summary table", "delete rows where Status = Closed"]
 
 Source data has these columns: [list them]
 The final report shows: [describe output]
+Excel version: [Microsoft 365 / 2024 / 2021 / 2019 / 2016]
+Known control total or sample result I can use to validate the new model:
+[enter one if available]
 
 Review this process and tell me:
-1. Which steps can be replaced with formulas
-2. The best formula approach for each (SUMIFS, XLOOKUP, FILTER, etc.)
-3. What changes I need in the source data structure
+1. Which steps are genuinely rule-based and can be replaced with formulas
+2. The best formula/table approach for each and why
+3. What source-data changes are required before formulas are safe
+4. Which functions are compatible with my Excel version
+5. How I should validate each replacement against the current manual result
 
-Flag any step that should stay manual because it needs human judgment.</pre>
+Do not turn a human-judgment step into a formula unless I give you an explicit rule.
+If I currently "delete" rows, prefer a non-destructive filtered output unless deletion is truly required.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Start here before writing any formulas. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
@@ -236,15 +242,25 @@ Flag any step that should stay manual because it needs human judgment.</pre>
     <div id="p-replace" class="panel">
       <div class="prompt-box">
         <pre>I want to replace this manual step with a formula:
-"[describe the step — e.g. I copy total revenue by region from the raw
-data into a summary table]"
+"I copy total revenue by region from the raw data into a summary table."
 
-Source data is on sheet "Raw_Data", columns A to F, starting row 2.
-Column A = Region and column E = Revenue.
-Output should go to sheet "Summary", cell C5, and Summary!A5 contains
-the region name to total.
+Source sheet: Raw_Data
+Headers are in row 1.
+Column A header = Region
+Column E header = Revenue
+Summary!A5 contains the region to total.
+Output formula starts in Summary!C5 and will be filled down.
 
-Write the best formula for this and explain what each part does.</pre>
+The number of source rows changes every month.
+I want the source converted to an Excel Table named RawData if that is
+the safer design.
+
+Please give me:
+1. The recommended formula for Summary!C5
+2. The exact Table setup required, including the expected header names
+3. A fallback formula if I cannot use an Excel Table
+4. A validation check I can run against one known region total
+5. Any data-type issue (e.g. Revenue stored as text) that would make the result wrong.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Use this once you know which single step you want to automate first.</p>
@@ -252,13 +268,22 @@ Write the best formula for this and explain what each part does.</pre>
 
     <div id="p-doc" class="panel">
       <div class="prompt-box">
-        <pre>The report is now formula-based. Write a clear maintenance guide that
-explains:
-1. What to paste each month and where
-2. What the main formulas do
-3. What to check if something looks wrong
+        <pre>The report is now formula-based.
 
-Keep it short enough to paste into a "Documentation" tab in the workbook.</pre>
+Workbook structure:
+- Source sheet/table: Raw_Data / RawData
+- Summary formula starts at Summary!C5
+- Summary!A5:A7 contains region names
+- Main formula: =SUMIFS(RawData[Revenue],RawData[Region],A5)
+
+Write a short maintenance guide for a "Documentation" tab that explains:
+1. How to replace the monthly source data without leaving old rows behind
+2. Which headers/table name must not change
+3. What Summary!C5:C7 does
+4. How to verify row count and one control total after each import
+5. What to check if totals are blank, zero, or wrong
+
+Do not invent workbook steps that are not stated above.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Run this last, once the model works, so the next person can maintain it without you.</p>
@@ -285,7 +310,7 @@ Keep it short enough to paste into a "Documentation" tab in the workbook.</pre>
               <tbody>
                 <tr><th class="row-num">1</th><td class="header-cell">Task</td><td class="header-cell">Source</td><td class="header-cell">Current method</td><td class="header-cell">Problem</td></tr>
                 <tr><th class="row-num">2</th><td>Revenue by region</td><td>Raw_Data</td><td class="hardcoded">Copy / paste totals</td><td>Repeats monthly</td></tr>
-                <tr><th class="row-num">3</th><td>Closed records</td><td>Raw_Data</td><td class="hardcoded">Delete rows manually</td><td>Easy to miss one</td></tr>
+                <tr><th class="row-num">3</th><td>Exclude Closed records</td><td>Raw_Data</td><td class="hardcoded">Delete rows manually</td><td>Destructive / easy to miss one</td></tr>
                 <tr><th class="row-num">4</th><td>Exception review</td><td>Summary</td><td class="manual-cell">Manager judgment</td><td>Needs context</td></tr>
                 <tr><th class="row-num">5</th><td>Regional total</td><td>Summary</td><td class="error-selected">24,500 typed</td><td>No source link</td></tr>
               </tbody>
@@ -315,7 +340,7 @@ Keep it short enough to paste into a "Documentation" tab in the workbook.</pre>
               <tbody>
                 <tr><th class="row-num">1</th><td class="header-cell">Task</td><td class="header-cell">Keep?</td><td class="header-cell">Replacement</td><td class="header-cell">Why</td></tr>
                 <tr><th class="row-num">2</th><td>Revenue by region</td><td class="result-ok">Automate</td><td class="selected formula-cell">SUMIFS</td><td>Repeatable criteria</td></tr>
-                <tr><th class="row-num">3</th><td>Closed records</td><td class="result-ok">Automate</td><td class="formula-cell">FILTER</td><td>Rule-based</td></tr>
+                <tr><th class="row-num">3</th><td>Exclude Closed records</td><td class="result-ok">Automate</td><td class="formula-cell">FILTER / Table filter</td><td>Non-destructive rule</td></tr>
                 <tr><th class="row-num">4</th><td>Exception review</td><td class="manual-cell">Keep manual</td><td class="manual-cell">Human review</td><td>Needs judgment</td></tr>
               </tbody>
             </table>
@@ -326,7 +351,7 @@ Keep it short enough to paste into a "Documentation" tab in the workbook.</pre>
           <div class="claude-fix-label">Claude's plan</div>
           <pre>Automate:
 • Revenue by region → SUMIFS
-• Closed-row output → FILTER
+• Exclude Closed records → FILTER (or a Table/filter view), keeping Raw_Data intact
 
 Keep manual:
 • Exception review / sign-off
@@ -369,13 +394,13 @@ The distinction is based on whether the step is rule-based or needs human judgme
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
 
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — SUMIFS links Summary to Raw_Data</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Excel Table + SUMIFS links Summary to Raw_Data</div>
       <div class="ba-body">
         <div class="excel-window">
           <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Insert</span><span>Formulas</span></div>
           <div class="formula-row">
             <div class="name-box">C5</div><div class="fx-box">fx</div>
-            <div class="formula-input">=SUMIFS(Raw_Data!$E:$E,Raw_Data!$A:$A,A5)</div>
+            <div class="formula-input">=SUMIFS(RawData[Revenue],RawData[Region],A5)</div>
           </div>
           <div class="sheet-scroll">
             <table class="excel-grid">
@@ -391,15 +416,26 @@ The distinction is based on whether the step is rule-based or needs human judgme
           </div>
           <div class="sheet-tabs"><span class="sheet-tab">Raw_Data</span><span class="sheet-tab active">Summary</span></div>
         </div>
+        <div class="sheet-note good">The £24,500 / £18,200 / £31,750 figures are example outputs. Their arithmetic cannot be verified from this page because the underlying Raw_Data rows are not shown; compare at least one region with a known source total.</div>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's formula</div>
-          <pre>=SUMIFS(Raw_Data!$E:$E,
-        Raw_Data!$A:$A,
+          <pre>Recommended:
+=SUMIFS(RawData[Revenue],
+        RawData[Region],
         A5)
 
+Setup:
+• Convert Raw_Data source to an Excel Table (Ctrl+T)
+• Name the table RawData
+• Keep headers exactly Region and Revenue
+
 Copy C5 down to C7.
-Each row uses its region in column A.
-Paste a new export into Raw_Data → Summary recalculates automatically. ✓</pre>
+Structured references expand with the table as rows are added.
+
+Fallback without a Table:
+=SUMIFS(Raw_Data!$E:$E,Raw_Data!$A:$A,A5)
+
+Validate at least one region total against the source before going live. ✓</pre>
         </div>
       </div>
     </div>
@@ -443,7 +479,7 @@ Paste a new export into Raw_Data → Summary recalculates automatically. ✓</pr
           <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Review</span><span>View</span></div>
           <div class="formula-row">
             <div class="name-box">B2</div><div class="fx-box">fx</div>
-            <div class="formula-input">Paste new export into Raw_Data starting at A2. Keep the header row unchanged.</div>
+            <div class="formula-input">Replace the rows inside table RawData; keep the table name and headers unchanged.</div>
           </div>
           <div class="sheet-scroll">
             <table class="excel-grid">
@@ -451,9 +487,11 @@ Paste a new export into Raw_Data → Summary recalculates automatically. ✓</pr
               <thead><tr><th class="corner"></th><th>A</th><th>B</th></tr></thead>
               <tbody>
                 <tr><th class="row-num">1</th><td class="header-cell">Maintenance item</td><td class="header-cell">Instruction</td></tr>
-                <tr><th class="row-num">2</th><td>Monthly data</td><td class="selected doc-cell">Paste export into Raw_Data starting at A2; do not rename headers.</td></tr>
-                <tr><th class="row-num">3</th><td>Summary!C5:C7</td><td class="doc-cell">SUMIFS totals Revenue by the region listed in column A.</td></tr>
-                <tr><th class="row-num">4</th><td>If totals look wrong</td><td class="doc-cell">Check region names, Revenue column E, and blank/extra rows in Raw_Data.</td></tr>
+                <tr><th class="row-num">2</th><td>Monthly data</td><td class="selected doc-cell">Replace all data rows in table RawData; do not leave prior-month rows below the new import.</td></tr>
+                <tr><th class="row-num">3</th><td>Keep unchanged</td><td class="doc-cell">Table name RawData; headers Region and Revenue.</td></tr>
+                <tr><th class="row-num">4</th><td>Summary!C5:C7</td><td class="doc-cell">SUMIFS totals RawData[Revenue] for the region listed in Summary column A.</td></tr>
+                <tr><th class="row-num">5</th><td>After import</td><td class="doc-cell">Verify source row count and one known regional control total.</td></tr>
+                <tr><th class="row-num">6</th><td>If totals look wrong</td><td class="doc-cell">Check table headers/name, region spelling, Revenue data type, and stale/extra source rows.</td></tr>
               </tbody>
             </table>
           </div>
@@ -462,14 +500,19 @@ Paste a new export into Raw_Data → Summary recalculates automatically. ✓</pr
         <div class="claude-fix">
           <div class="claude-fix-label">Maintenance guide</div>
           <pre>1. Monthly input
-   Paste new data into Raw_Data from row 2.
+   Replace the data rows inside Excel Table RawData.
+   Remove any leftover prior-month rows; keep the headers.
 
 2. Main formula
-   Summary!C5:C7 uses SUMIFS by Region.
+   Summary!C5:C7 uses:
+   =SUMIFS(RawData[Revenue],RawData[Region],A5)
 
-3. Troubleshooting
-   Check headers, region spelling, and confirm Region is still
-   column A and Revenue is still column E in Raw_Data. ✓</pre>
+3. Validation
+   Check RawData row count and one known regional control total.
+
+4. Troubleshooting
+   Check table name/headers, region spelling, Revenue is numeric,
+   and no stale rows remain from the prior import. ✓</pre>
         </div>
       </div>
     </div>
@@ -489,8 +532,8 @@ Paste a new export into Raw_Data → Summary recalculates automatically. ✓</pr
       <div class="diag-badge badge-red">Most common</div>
     </div>
     <div class="diag-row">
-      <div class="diag-cause">New rows break totals</div>
-      <div class="diag-example">A new region or product line isn't in the <span class="bad">hardcoded list</span></div>
+      <div class="diag-cause">Source range does not expand</div>
+      <div class="diag-example">Fixed ranges can miss <span class="bad">new source rows</span> — an Excel Table with <span class="good">structured references</span> expands with the data</div>
       <div class="diag-badge badge-yellow">Easy fix</div>
     </div>
     <div class="diag-row">
@@ -514,7 +557,7 @@ Paste a new export into Raw_Data → Summary recalculates automatically. ✓</pr
     </div>
     <div class="step">
       <div class="step-n">3</div>
-      <div class="step-body"><h3>Let Claude analyse what can be automated</h3><p>Claude tells you which manual steps can be replaced with formulas and which ones still need human judgment. Review the analysis before building anything — this shapes the whole approach.</p></div>
+      <div class="step-body"><h3>Let Claude analyse what can be automated</h3><p>Use Claude to propose which steps are rule-based and which should remain manual, then review that classification yourself. Human judgment cannot be inferred reliably unless you give Claude an explicit decision rule.</p></div>
     </div>
     <div class="step">
       <div class="step-n">4</div>
@@ -522,7 +565,7 @@ Paste a new export into Raw_Data → Summary recalculates automatically. ✓</pr
     </div>
     <div class="step">
       <div class="step-n">5</div>
-      <div class="step-body"><h3>Standardise the source data and document the model</h3><p>Dynamic reports need clean, consistent source data — ask Claude for the ideal table structure. Once everything works, ask Claude to write a short maintenance guide and save it inside the workbook.</p></div>
+      <div class="step-body"><h3>Standardise the source data and document the model</h3><p>Dynamic reports need clean, consistent source data. Prefer an Excel Table when monthly row counts change, because structured references adjust as rows are added or removed. Once the model matches historical control totals, use Claude to draft a maintenance guide and verify it against the actual workbook structure.</p></div>
     </div>
     <div class="tip"><strong>Test before going live:</strong> Run the completed model against at least two months of real historical data before using it live. This catches edge cases — extra regions, missing data, unusual values — that single-month testing misses.</div>
   </div>
@@ -536,7 +579,7 @@ Paste a new export into Raw_Data → Summary recalculates automatically. ✓</pr
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I make an Excel report update automatically? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Structure your source data as a clean table — no merged cells, consistent column names — then use dynamic formulas to reference that data. When you paste new data into the source sheet, your report formulas calculate the new results instantly.</div>
+      <div class="faq-a">Structure the source as an Excel Table with stable headers, then reference its columns with formulas such as SUMIFS. Structured references adjust when rows are added or removed. When replacing a monthly import, make sure old rows are not left behind and verify that calculation mode is automatic before trusting the refreshed report.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What formulas replace manual copy-paste in Excel? <i class="ti ti-chevron-down"></i></div>
@@ -544,11 +587,11 @@ Paste a new export into Raw_Data → Summary recalculates automatically. ✓</pr
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can Claude automate every step of my monthly report? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">No — and it will tell you so. Claude flags steps that still need human judgment, such as unusual exceptions, manual sign-offs, or decisions that depend on context a formula can't read. Those steps should stay manual.</div>
+      <div class="faq-a">Not safely by default. Ask Claude to separate rule-based steps from steps that need human judgment, such as unusual exceptions, sign-offs, or context-dependent decisions. Review that classification yourself before automating anything consequential.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What's the difference between SUMIFS and FILTER for dynamic reports? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a"><code>SUMIFS</code> aggregates numbers that meet criteria and works in every modern Excel version (2007 and later). <code>FILTER</code> returns the actual matching rows and is only available in Excel 365 — useful when you need the underlying records, not just a total. Tell Claude your Excel version and it will pick the right one.</div>
+      <div class="faq-a"><code>SUMIFS</code> aggregates numbers that meet criteria and works in every modern Excel version (2007 and later). <code>FILTER</code> returns the matching rows and is available in Microsoft 365, Excel 2024, and Excel 2021. It is not available in Excel 2019/2016, so tell Claude your Excel version before it proposes a dynamic-array solution.</div>
     </div>
   </div>
 
