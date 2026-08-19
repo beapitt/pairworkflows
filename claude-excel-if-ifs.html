@@ -253,7 +253,11 @@ Rules:
 
 I'm using Excel [Microsoft 365 / Excel 2024 / Excel 2021 / Excel 2019 / Excel 2016].
 Please calculate the bonus amount and return "CHECK SCORE" if C2 is blank,
-text, outside 1–5, or not a whole number.</pre>
+text, outside 1–5, or not a whole number.
+
+Make sure the validation does not evaluate numeric functions such as INT, MOD,
+or arithmetic comparisons on text or blank inputs before confirming that C2
+contains a number.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Swap in your own score-to-percentage rules — Claude keeps the structure, you change the numbers.</p>
@@ -401,7 +405,7 @@ Only the boundary operators changed: &gt; became &gt;=.
           <div class="excel-top">Microsoft Excel</div>
           <div class="excel-formula">
             <div class="excel-name">F2</div><div class="excel-fx">fx</div>
-            <div class="excel-formula-text">=IF(OR(NOT(ISNUMBER(C2)),C2&lt;1,C2&gt;5,C2&lt;&gt;INT(C2)),"CHECK SCORE",IFS(C2=5,D2*20%,C2=4,D2*10%,C2=3,D2*5%,TRUE,0))</div>
+            <div class="excel-formula-text">=IF(NOT(ISNUMBER(C2)),"CHECK SCORE",IF(OR(C2&lt;1,C2&gt;5,C2&lt;&gt;INT(C2)),"CHECK SCORE",IFS(C2=5,D2*20%,C2=4,D2*10%,C2=3,D2*5%,TRUE,0)))</div>
           </div>
           <div class="excel-grid cols-5">
             <div class="xcell xcorner"></div><div class="xcell xcol">A</div><div class="xcell xcol">C</div><div class="xcell xcol">D</div><div class="xcell xcol">E</div><div class="xcell xcol">F</div>
@@ -416,8 +420,9 @@ Only the boundary operators changed: &gt; became &gt;=.
         </div>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's formula — F2</div>
-          <pre>=IF(OR(NOT(ISNUMBER(C2)),C2&lt;1,C2&gt;5,C2&lt;&gt;INT(C2)),"CHECK SCORE",
-   IFS(C2=5,D2*20%,C2=4,D2*10%,C2=3,D2*5%,TRUE,0))
+          <pre>=IF(NOT(ISNUMBER(C2)),"CHECK SCORE",
+   IF(OR(C2&lt;1,C2&gt;5,C2&lt;&gt;INT(C2)),"CHECK SCORE",
+      IFS(C2=5,D2*20%,C2=4,D2*10%,C2=3,D2*5%,TRUE,0)))
 
 Fill down through F6.
 £9,600 + £5,200 + £1,900 + £0 + £0 = £16,700 ✓</pre>
