@@ -6,7 +6,7 @@
 <title>Payroll Reconciliation in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to reconcile payroll totals to the general ledger in Excel with Claude AI, identify variances, and verify payroll balances before closing the period.">
 <link rel="canonical" href="https://www.pairworkflows.com/payroll-reconciliation-excel-claude.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is payroll reconciliation and why does it matter for month-end close?","acceptedAnswer":{"@type":"Answer","text":"Payroll reconciliation is the process of verifying that payroll costs and related amounts recorded in the general ledger agree to the payroll register or payroll-system output for the same period — including gross pay, employer taxes, and benefits. Without it, the salary line on your P&L can carry errors for weeks before anyone notices."}},{"@type":"Question","name":"Can Claude reconcile payroll across multiple pay frequencies in one pass?","acceptedAnswer":{"@type":"Answer","text":"Yes. If you run weekly payroll for hourly workers and monthly payroll for salaried staff, include both datasets and specify which cost centre or GL account each feeds into. Claude can reconcile the datasets separately and produce a combined comparison against the GL when the pay frequencies, periods, cost centres, and account mappings are clearly identified."}},{"@type":"Question","name":"What causes most payroll-to-GL variances?","acceptedAnswer":{"@type":"Answer","text":"The three most common causes are: a payroll run posted to the wrong accounting period; employer tax or benefit costs coded to the wrong GL account; and a manual journal that adjusted gross pay without a matching payroll entry. The reconciliation template surfaces all three."}},{"@type":"Question","name":"Does Claude work with exports from ADP, Workday, or SAP?","acceptedAnswer":{"@type":"Answer","text":"Claude works with whatever data you paste into the prompt or upload as a file. Most payroll and ERP systems export to CSV or Excel. Clean the export to match the column layout in the prompt and Claude handles the rest."}},{"@type":"Question","name":"How do I handle mid-month pay adjustments or off-cycle runs?","acceptedAnswer":{"@type":"Answer","text":"Include them as separate rows in your payroll extract with a Pay Type of 'Off-cycle'. The prompt instructs Claude to list them in a dedicated section at the bottom of the output so reviewers can find them without searching the main table."}},{"@type":"Question","name":"Can I use this to check individual employee records?","acceptedAnswer":{"@type":"Answer","text":"The prompt is designed for cost-centre or department-level reconciliation. For employee-level checking, change the grouping instruction from 'by Cost Centre and GL Account' to 'by Employee ID and GL Account'. Everything else stays the same."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is payroll reconciliation and why does it matter for month-end close?","acceptedAnswer":{"@type":"Answer","text":"Payroll reconciliation is the process of verifying that payroll costs and related amounts recorded in the general ledger agree to the payroll register or payroll-system output for the same period — including gross pay, employer taxes, and benefits. Without it, the salary line on your P&L can carry errors for weeks before anyone notices."}},{"@type":"Question","name":"Can Claude reconcile payroll across multiple pay frequencies in one pass?","acceptedAnswer":{"@type":"Answer","text":"Yes, if each pay frequency/run is tied to the correct accounting period and account mapping. Reconcile the runs separately first, then combine only control totals that belong to the same reconciliation period."}},{"@type":"Question","name":"What causes most payroll-to-GL variances?","acceptedAnswer":{"@type":"Answer","text":"Examples include wrong-period postings, account mapping/reclassification issues, off-cycle runs not reflected in the GL, and manual journals without corresponding payroll detail. The reconciliation can surface these patterns but does not prove the cause by itself."}},{"@type":"Question","name":"Does Claude work with exports from ADP, Workday, or SAP?","acceptedAnswer":{"@type":"Answer","text":"Claude can analyse data you paste and, in supported environments, spreadsheet files you upload. For payroll data, follow your organisation's approved Claude/data-handling policy and minimise personal information before sharing. Then map the export columns explicitly rather than assuming Claude will infer the structure correctly."}},{"@type":"Question","name":"How do I handle mid-month pay adjustments or off-cycle runs?","acceptedAnswer":{"@type":"Answer","text":"Include them as separate rows in your payroll extract with a Pay Type of 'Off-cycle'. The prompt instructs Claude to list them in a dedicated section at the bottom of the output so reviewers can find them without searching the main table."}},{"@type":"Question","name":"Can I use this to check individual employee records?","acceptedAnswer":{"@type":"Answer","text":"The prompt is designed for cost-centre or department-level reconciliation. For employee-level checking, change the grouping instruction from 'by Cost Centre and GL Account' to 'by Employee ID and GL Account'. Everything else stays the same."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -143,6 +143,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 @media(max-width:640px){
   .hero h1{font-size:24px}
   .diag-row{grid-template-columns:1fr;gap:6px}
+  .diag-example{display:flex}
   .related-grid{grid-template-columns:1fr}
   .page{padding:1.5rem 1rem 3rem}
 }
@@ -177,7 +178,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Finance</div>
     <h1>How to Reconcile Payroll in Excel with Claude AI</h1>
-    <p class="hero-sub">Paste your payroll export and GL extract into Claude and get back a line-by-line reconciliation — matched items confirmed, variances flagged with probable cause, off-cycle items listed separately, and a sign-off summary ready for month-end close.</p>
+    <p class="hero-sub">Provide Claude with payroll and GL data that your organisation allows you to process, then use it to draft a reconciliation by cost centre/account, surface exceptions and off-cycle items, and produce control totals for review. Treat the result as an investigation aid, not an automatic sign-off.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -194,38 +195,57 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
     <!-- Panel: Recon -->
     <div id="p-recon" class="panel on">
       <div class="prompt-box">
-        <pre>PAYROLL SYSTEM TOTALS (aggregated by Cost Centre and GL Account):
-[Paste your payroll data here — columns: Cost Centre | GL Account | Pay Type | Amount]
+        <pre>PAYROLL SYSTEM TOTALS
+Required columns:
+Cost Centre | Payroll GL Code | Pay Type | Run ID | Amount
+[Paste payroll rows here]
 
-GENERAL LEDGER POSTINGS (for the same period):
-[Paste your GL extract here — columns: Journal Ref | Cost Centre | GL Account | Description | Amount]
+GENERAL LEDGER POSTINGS — SAME ACCOUNTING PERIOD
+Required columns:
+Journal Ref | Cost Centre | GL Account | Description | Amount
+[Paste GL rows here]
 
-GL ACCOUNT CODE MAPPING (only if payroll uses different codes from GL):
-[e.g. "6100-WAGES" in payroll = "6100" in GL — leave blank if codes match]
+ACCOUNT MAPPING
+[Map each Payroll GL Code / Pay Type to the GL Account that should receive it.
+If codes already match, state "same codes". Do not infer mappings from descriptions.]
 
-RECONCILIATION SETTINGS:
-- Tolerance: £[e.g. 0.50] — differences within this amount = MATCH
-- Group by: Cost Centre and GL Account
-- Period: [e.g. June 2025]
+RECONCILIATION SETTINGS
+- Accounting period: [e.g. June 2025]
+- Currency / units: [e.g. GBP]
+- Sign convention: [state whether payroll/GL expense amounts are positive or negative]
+- Absolute tolerance: £[e.g. 0.50]
+- Grouping key: Cost Centre + mapped GL Account
+- Off-cycle runs should be: [included in the period total / excluded because posted next period]
+  and identify them by Run ID / Pay Type.
 
 Rules:
-- Match payroll totals to GL postings by Cost Centre AND GL Account.
-  Do not match across accounts.
-- Variance = GL Posted minus Payroll Total. Negative = GL understated.
-- Payroll line with no GL match → MISSING FROM GL
-- GL entry with no payroll match → UNMATCHED GL ENTRY
-- Equal-and-opposite variances across accounts (e.g. 6100 is -£2,500
-  and 6200 is +£2,500) → flag as PROBABLE MISCODING, not two issues.
-- List all off-cycle pay items in a separate section at the bottom.
-- Do NOT invent figures or infer what the correct amount should be.
+1. Aggregate payroll by Cost Centre + mapped GL Account before comparing with GL.
+   Pay Type may be shown as detail, but do not split the reconciliation by Pay Type unless
+   the account mapping requires separate GL accounts.
+2. Aggregate all GL journal lines by the same Cost Centre + GL Account key.
+3. Variance = GL Posted − Payroll Total, using the stated sign convention.
+4. Status = MATCH only when ABS(Variance) <= tolerance.
+5. Payroll key with no GL amount → MISSING FROM GL.
+6. GL key with no mapped payroll amount → UNMATCHED GL ENTRY.
+7. Equal-and-opposite variances are only a CANDIDATE reclassification/miscoding pattern.
+   Flag them for investigation; do not conclude miscoding without journal detail.
+8. Count off-cycle rows once only. If you list them separately for review, state whether
+   they are already included in Payroll Total so the summary is not double-counted.
+9. Do not infer a journal entry, correct account, accounting period, or cause without evidence.
+10. Recalculate source control totals independently before presenting the result.
 
 Output:
-1. Reconciliation table: Cost Centre | GL Account | Pay Type |
-   Payroll Total | GL Posted | Variance | Status
-2. Equal-and-opposite variance summary (if any)
-3. Off-cycle items list
-4. Sign-off summary: Total payroll | Total GL | Net variance |
-   Number of unreconciled items</pre>
+1. Reconciliation table:
+   Cost Centre | GL Account | Payroll Total | GL Posted | Variance | Status | Evidence/notes
+2. Pay Type / Run ID detail for exception rows only
+3. Candidate equal-and-opposite patterns, clearly labelled "investigate"
+4. Off-cycle review list with an "included in total? yes/no" column
+5. Control summary calculated from the original source data:
+   Payroll source total | GL source total | Net variance |
+   Number of payroll grouping keys | Number of GL grouping keys |
+   Number of keys outside tolerance
+
+Do not call this a final sign-off. A reviewer must confirm exceptions and control totals.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Replace all bracketed sections with your real data. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
@@ -245,13 +265,16 @@ Variance: [e.g. -£5,000 (GL understated)]
 Other accounts showing movement in the same period:
 [Paste any other GL postings for this cost centre this month]
 
-Please identify the most likely cause of this variance from this list:
-1. Payroll run posted to wrong accounting period
-2. Cost coded to wrong GL account (look for equal-and-opposite on other accounts)
-3. Off-cycle run not journalised
-4. Manual journal adjustment without matching payroll entry
+Please investigate this variance without assuming the cause.
 
-Tell me what journal entry would correct it if it is a miscoding.</pre>
+1. Recalculate the variance from the figures I supplied.
+2. List the plausible explanations supported by the evidence.
+3. Tell me what additional payroll run / journal / period detail would confirm or reject each explanation.
+4. If an equal-and-opposite amount appears in another account, label it only as a candidate reclassification until the journal detail proves it.
+5. Do not propose a correcting journal entry unless the source journal, intended GL account,
+   accounting period and debit/credit direction are all evidenced in the data I provide.
+6. If the evidence is sufficient for a reclassification, show the proposed entry separately
+   and label it "review before posting".</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Use this after spotting a VARIANCE in the main reconciliation output.</p>
@@ -260,28 +283,41 @@ Tell me what journal entry would correct it if it is a miscoding.</pre>
     <!-- Panel: Employee -->
     <div id="p-employee" class="panel">
       <div class="prompt-box">
-        <pre>I need to reconcile payroll at the individual employee level.
+        <pre>I need to reconcile payroll at employee level only if my GL contains employee-level identifiers.
 
-PAYROLL EXTRACT (columns: Employee ID | Name | Cost Centre |
-GL Account | Gross Pay | Employer NIC | Pension | Net Pay):
-[Paste your employee-level payroll data here]
+PRIVACY / DATA MINIMISATION
+Use Employee ID only. Do not include employee names, addresses, bank details, tax IDs,
+national insurance/social-security numbers, or other unnecessary personal data.
 
-GL POSTINGS FOR THE SAME PERIOD (columns: Journal Ref |
-Employee ID | GL Account | Amount):
-[Paste your GL extract here]
+PAYROLL EXTRACT
+Columns: Employee ID | Cost Centre | Payroll GL Code | Gross Pay |
+Employer Tax | Pension/Benefits | Net Pay
+[Paste only the fields required for this check]
 
-Rules:
-- Match by Employee ID and GL Account.
-- Flag employees where payroll gross pay ≠ GL posting for that employee.
-- List employees with no GL match separately (MISSING FROM GL).
-- List GL entries with no employee match separately (UNMATCHED GL).
-- Do NOT invent amounts or infer corrections.
+GL POSTINGS FOR THE SAME PERIOD
+Columns: Journal Ref | Employee ID (if genuinely present) | GL Account | Amount
+[Paste GL rows]
+
+First determine whether the GL is actually granular enough for employee-level matching.
+If Employee ID is absent or one GL line aggregates multiple employees, stop and say that
+an employee-level reconciliation cannot be proven from this GL extract.
+
+If employee-level IDs do exist:
+- Map Payroll GL Code to GL Account explicitly.
+- Aggregate multiple payroll or GL rows by Employee ID + mapped GL Account before comparing.
+- Do not reuse or double-count lines.
+- Variance = GL − Payroll using the stated sign convention.
+- Apply tolerance: £[amount].
+- Missing payroll-side counterpart → UNMATCHED GL.
+- Missing GL-side counterpart → MISSING FROM GL.
+- Do not infer corrections or causes from the amount alone.
 
 Output:
-1. Employee reconciliation table with variance column
+1. Employee ID + GL Account reconciliation table
 2. Missing from GL list
 3. Unmatched GL list
-4. Summary totals</pre>
+4. Source control totals and exception count
+5. Any limitation caused by aggregation or missing identifiers</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">For cost-centre level reconciliation use the Full reconciliation tab above.</p>
@@ -319,19 +355,19 @@ Output:
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
 
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — equal-and-opposite variances are paired as probable miscoding</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — equal-and-opposite variances are flagged as a candidate reclassification</div>
       <div class="ba-body">
         <div class="excel-window">
           <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Conditional Formatting</span></div>
-          <div class="formula-row"><div class="name-box">G2</div><div class="fx-box">fx</div><div class="formula-input">=IF(ABS(F2)&lt;=$J$1,"MATCH","INVESTIGATE")</div></div>
+          <div class="formula-row"><div class="name-box">G2</div><div class="fx-box">fx</div><div class="formula-input">=IF(ABS(F2)&lt;=$J$1,"MATCH","INVESTIGATE")  // J1 = absolute tolerance</div></div>
           <div class="sheet-scroll">
             <table class="excel-grid">
               <colgroup><col style="width:34px"><col style="width:120px"><col style="width:105px"><col style="width:145px"><col style="width:105px"><col style="width:105px"><col style="width:95px"><col style="width:155px"></colgroup>
               <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th></tr></thead>
               <tbody>
                 <tr><th class="row-num">1</th><td class="header-cell">Cost Centre</td><td class="header-cell">GL Acct</td><td class="header-cell">Pay Type</td><td class="header-cell">Payroll</td><td class="header-cell">GL</td><td class="header-cell">Variance</td><td class="header-cell">Status</td></tr>
-                <tr><th class="row-num">2</th><td>Operations</td><td>6100</td><td>Gross Pay</td><td>£57,800</td><td>£55,300</td><td class="selected variance">−£2,500</td><td class="miscoding">Probable miscoding</td></tr>
-                <tr><th class="row-num">3</th><td>Operations</td><td>6200</td><td>Employer NIC</td><td>£19,460</td><td>£21,960</td><td class="variance">+£2,500</td><td class="miscoding">Paired variance</td></tr>
+                <tr><th class="row-num">2</th><td>Operations</td><td>6100</td><td>Gross Pay</td><td>£57,800</td><td>£55,300</td><td class="selected variance">−£2,500</td><td class="miscoding">Investigate pairing</td></tr>
+                <tr><th class="row-num">3</th><td>Operations</td><td>6200</td><td>Employer NIC</td><td>£19,460</td><td>£21,960</td><td class="variance">+£2,500</td><td class="miscoding">Candidate opposite</td></tr>
                 <tr><th class="row-num">4</th><td class="subtotal">Operations total</td><td></td><td></td><td class="subtotal">£77,260</td><td class="subtotal">£77,260</td><td class="subtotal match">£0</td><td class="subtotal match">Total reconciles</td></tr>
               </tbody>
             </table>
@@ -345,13 +381,14 @@ Output:
 6200 Employer NIC:   £21,960 − £19,460 = +£2,500
 Net variance:                              £0
 
-Pattern → probable reclassification / miscoding.
+Pattern → candidate reclassification / miscoding only.
 
-If evidence confirms £2,500 was posted to 6200 instead of 6100:
+Only if the underlying journal proves £2,500 was posted to 6200 instead of 6100:
+Proposed reclass for review:
 Dr 6100 Gross Pay       £2,500
-Cr 6200 Employer NIC    £2,500 ✓
+Cr 6200 Employer NIC    £2,500
 
-Do not post the journal until the underlying GL detail confirms the coding error.</pre>
+Do not post from the variance pattern alone. ✓</pre>
         </div>
       </div>
     </div>
@@ -383,7 +420,7 @@ Do not post the journal until the underlying GL detail confirms the coding error
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
 
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — drill-down ties the variance to an unposted off-cycle run</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — detailed Run ID evidence identifies the missing off-cycle posting</div>
       <div class="ba-body">
         <div class="excel-window">
           <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Data</span><span>Sort & Filter</span></div>
@@ -412,7 +449,7 @@ Payroll £5,000 ↔ no GL posting = missing from GL
 Account variance:
 £55,000 GL − £60,000 payroll = −£5,000 ✓
 
-This identifies the missing posting.
+Within this example, the Run ID detail identifies the missing payroll-side posting.
 The correcting journal's credit account cannot be inferred safely from this excerpt; use the payroll journal / clearing-account detail before posting.</pre>
         </div>
       </div>
@@ -452,7 +489,7 @@ The correcting journal's credit account cannot be inferred safely from this exce
       <div class="ba-body">
         <div class="excel-window">
           <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Filter</span></div>
-          <div class="formula-row"><div class="name-box">F3</div><div class="fx-box">fx</div><div class="formula-input">=IF(E3="","MISSING FROM GL",E3-D3)</div></div>
+          <div class="formula-row"><div class="name-box">F3</div><div class="fx-box">fx</div><div class="formula-input">=IF(E3="","",E3-D3)</div></div>
           <div class="sheet-scroll">
             <table class="excel-grid">
               <colgroup><col style="width:34px"><col style="width:105px"><col style="width:120px"><col style="width:105px"><col style="width:110px"><col style="width:110px"><col style="width:95px"><col style="width:150px"></colgroup>
@@ -470,13 +507,22 @@ The correcting journal's credit account cannot be inferred safely from this exce
         </div>
         <div class="claude-fix">
           <div class="claude-fix-label">Exception logic</div>
-          <pre>EMP-041: £3,500 − £3,500 → matched
+          <pre>Variance formula keeps numeric variance separate:
+=IF(E3="","",E3-D3)
+
+Status formula can then test missing GL vs tolerance.
+
+EMP-041: £3,500 − £3,500 → matched
 EMP-042: no GL row for Employee ID + 6100 → Missing from GL
 EMP-043: £2,800 − £2,800 → matched
 EMP-091: £3,200 GL − £3,250 payroll = −£50 → variance
 
-Sample shown: 4 employees, 2 exceptions.
-No unsupported claim about hundreds of other employees. ✓</pre>
+Sample totals:
+Payroll £13,750
+GL £9,500
+Net variance = £9,500 − £13,750 = −£4,250
+
+Shown sample: 4 employees, 2 exceptions. ✓</pre>
         </div>
       </div>
     </div>
@@ -484,16 +530,16 @@ No unsupported claim about hundreds of other employees. ✓</pre>
 
   <!-- DIAGNOSIS TABLE -->
   <div class="diag-card">
-    <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> The 4 most common payroll-to-GL variance causes</div>
+    <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Four payroll-to-GL variance patterns worth investigating</div>
     <div class="diag-row">
       <div class="diag-cause">GL miscoding</div>
-      <div class="diag-example">Cost posted to <span class="bad">wrong GL account</span> → equal-and-opposite variance across two accounts</div>
-      <div class="diag-badge badge-red">Most common</div>
+      <div class="diag-example">Equal-and-opposite variance across two accounts can indicate a <span class="bad">possible reclassification</span> — verify journal detail before concluding miscoding</div>
+      <div class="diag-badge badge-red">High risk</div>
     </div>
     <div class="diag-row">
       <div class="diag-cause">Wrong period posting</div>
       <div class="diag-example">Payroll run <span class="bad">posted in Month 7</span> but belongs in Month 6 → timing difference</div>
-      <div class="diag-badge badge-red">Most common</div>
+      <div class="diag-badge badge-red">High risk</div>
     </div>
     <div class="diag-row">
       <div class="diag-cause">Off-cycle not journalised</div>
@@ -520,17 +566,17 @@ No unsupported claim about hundreds of other employees. ✓</pre>
       </div>
       <div class="step">
         <div class="step-n">2</div>
-        <div class="step-body"><h3>Export the matching GL postings for the same period</h3><p>From your accounting system, extract all journal lines posted to payroll GL accounts (typically 6100–6399 or equivalent) for the period. Include Journal Ref, Cost Centre, GL Account, Description, and Amount. If your payroll and GL use different account codes, prepare a mapping table.</p></div>
+        <div class="step-body"><h3>Export the matching GL postings for the same period</h3><p>From your accounting system, extract all journal lines posted to the payroll-related GL accounts defined in your own chart of accounts for the period. Include Journal Ref, Cost Centre, GL Account, Description, and Amount. If your payroll and GL use different account codes, prepare a mapping table.</p></div>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Paste both datasets into the prompt and set your tolerance</h3><p>A tolerance of £0.50 handles rounding differences between systems without flagging them as real variances. Set it to £0.00 if you need exact matching. Specify the period clearly — Claude uses it in the sign-off summary header.</p></div>
+        <div class="step-body"><h3>Paste both datasets into the prompt and set your tolerance</h3><p>Use the tolerance approved by your reconciliation policy. Set it to £0.00 when exact agreement is required; do not choose £0.50 merely because it appears in the example. Specify the period clearly — Claude uses it in the sign-off summary header.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
-        <div class="step-body"><h3>Check equal-and-opposite variances first</h3><p>When one account is short by exactly the amount another is over, the total payroll cost is correct but the expense split by type is wrong. This is a GL miscoding — one correcting journal fixes both variances simultaneously. The prompt asks Claude to flag equal-and-opposite patterns as <code>PROBABLE MISCODING</code>; verify the underlying GL detail before posting a reclassification.</p></div>
+        <div class="step-body"><h3>Check equal-and-opposite variances first</h3><p>When one account is short by exactly the amount another is over, the pattern can indicate a reclassification issue, but it does not prove one. Check the source journal, account mapping and payroll run before deciding whether any correcting entry is needed.</p></div>
       </div>
-      <div class="tip"><strong>Tip:</strong> Run payroll reconciliation before bank reconciliation, not after. Confirming that GL postings are correct first makes the bank rec faster — you're only checking that net pay cleared the account, not hunting for coding errors at the same time.</div>
+      <div class="tip"><strong>Tip:</strong> Coordinate payroll-to-GL and bank reconciliation according to your close process. They test different assertions: payroll-to-GL checks accounting classification/completeness, while the bank reconciliation checks cash clearing and other bank-side exceptions.</div>
     </div>
   </div>
 
@@ -553,7 +599,7 @@ No unsupported claim about hundreds of other employees. ✓</pre>
       </div>
       <div class="step">
         <div class="step-n">4</div>
-        <div class="step-body"><h3>Post the correcting journal</h3><p>Use Claude's diagnosis as an investigation aid. Confirm the source payroll journal, period, accounts, and supporting detail before posting any reclass, accrual, or missing entry in your ERP system.</p></div>
+        <div class="step-body"><h3>Document the confirmed correction</h3><p>Use Claude's diagnosis as an investigation aid. Only after the source payroll journal, period, accounts and supporting detail prove the cause should you prepare any reclass, accrual or missing entry for your normal review/approval process.</p></div>
       </div>
     </div>
   </div>
@@ -565,19 +611,19 @@ No unsupported claim about hundreds of other employees. ✓</pre>
       <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Reconcile at the employee level — 4 steps</div>
       <div class="step">
         <div class="step-n">1</div>
-        <div class="step-body"><h3>Export raw payroll data per employee</h3><p>Export a detailed payroll register showing Gross Pay, Deductions, and Net Pay tagged with the unique Employee ID.</p></div>
+        <div class="step-body"><h3>Export raw payroll data per employee</h3><p>Export only the payroll fields required for the check, using Employee ID rather than employee name. Avoid unnecessary personal data such as bank details, tax IDs or addresses.</p></div>
       </div>
       <div class="step">
         <div class="step-n">2</div>
-        <div class="step-body"><h3>Ensure GL report includes Employee ID tags</h3><p>Your GL entries must have the Employee ID mapped in a subledger or reference field. Without this, line-by-line employee matching is impossible.</p></div>
+        <div class="step-body"><h3>Ensure GL report includes Employee ID tags</h3><p>Check whether the GL genuinely contains Employee ID at line level. If the journal aggregates several employees into one posting, employee-level matching cannot be proven from that GL extract; reconcile at the available aggregation level instead.</p></div>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Run the strict Employee ID matching prompt</h3><p>Paste both datasets into Claude using the Employee-level prompt. Claude strictly links the records by ID and Account to identify missing or mismatched figures.</p></div>
+        <div class="step-body"><h3>Run the strict Employee ID matching prompt</h3><p>Paste both datasets into Claude using the Employee-level prompt. If both datasets are employee-granular, aggregate by Employee ID + mapped GL Account and compare those totals. If the granularity differs, stop rather than forcing a match.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
-        <div class="step-body"><h3>Follow up on orphaned records</h3><p>Investigate the exceptions list. Orphaned records often reveal terminated employees paid in error, new hires missing from GL allocation, or manual paychecks circumventing normal systems.</p></div>
+        <div class="step-body"><h3>Follow up on orphaned records</h3><p>Investigate the exceptions list. Investigate orphaned records without assuming the cause. They may reflect timing, aggregation, mapping, an omitted journal or another data-quality/control issue.</p></div>
       </div>
     </div>
   </div>
@@ -591,23 +637,23 @@ No unsupported claim about hundreds of other employees. ✓</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can Claude reconcile payroll across multiple pay frequencies in one pass? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes. If you run weekly payroll for hourly workers and monthly payroll for salaried staff, include both datasets and specify which cost centre or GL account each feeds into. Claude reconciles them separately and then produces a combined total for comparison against your GL.</div>
+      <div class="faq-a">Yes, if the pay periods and GL posting periods are clearly separated. Reconcile each frequency/run to the appropriate accounting period and account mapping first, then combine only the control totals that belong to the same reconciliation period.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Does Claude work with exports from ADP, Workday, or SAP? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Claude works with whatever data you paste into the prompt or upload as a file. Most payroll and ERP systems export to CSV or Excel. Clean the export to match the column layout in the prompt and Claude handles the rest.</div>
+      <div class="faq-a">Claude can analyse data you paste and, in supported environments, spreadsheet files you upload. For payroll data, follow your organisation's approved Claude/data-handling policy and minimise personal information before sharing. Then map the export columns explicitly rather than assuming Claude will infer the structure correctly.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I handle mid-month pay adjustments or off-cycle runs? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Include them as separate rows in your payroll extract with a Pay Type of "Off-cycle". The prompt instructs Claude to list them in a dedicated section at the bottom of the output so reviewers can find them without searching the main reconciliation table.</div>
+      <div class="faq-a">Identify off-cycle runs separately by Run ID / Pay Type and state whether they belong in the current accounting period. If they are listed separately for review, keep an "included in payroll total?" flag so they are not counted twice in the reconciliation summary.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can I use this to check individual employee records? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">The main prompt is designed for cost-centre level reconciliation. Use the Employee-level check tab above for individual records — it matches by Employee ID and GL Account instead of by cost centre.</div>
+      <div class="faq-a">Use employee-level matching only when both payroll and GL extracts genuinely contain employee-level identifiers. If the GL is aggregated, reconcile at the available cost-centre/account or journal level instead. Use Employee ID only and minimise unnecessary personal data.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What causes most payroll-to-GL variances? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">The three most common causes are: a payroll run posted to the wrong accounting period; employer tax or benefit costs coded to the wrong GL account; and a manual journal that adjusted gross pay without a matching payroll entry. The equal-and-opposite check in the prompt catches miscoding automatically.</div>
+      <div class="faq-a">Examples worth investigating include wrong-period postings, account mapping/reclassification issues, off-cycle runs not reflected in the GL, and manual journals without corresponding payroll detail. Equal-and-opposite variances are only a signal to investigate, not proof of miscoding.</div>
     </div>
   </div>
 
