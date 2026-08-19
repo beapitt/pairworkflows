@@ -6,7 +6,7 @@
 <title>Excel #REF! Error: How to Fix It with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to fix #REF! errors in Excel with Claude AI by finding broken references, identifying the cause, and correcting the formula.">
 <link rel="canonical" href="https://www.pairworkflows.com/claude-excel-ref-errors.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What causes a #REF! error in Excel?","acceptedAnswer":{"@type":"Answer","text":"A #REF! error appears when a formula references a cell, range, or sheet that no longer exists. The three most common causes are deleting a row or column that a formula pointed to, removing a sheet that contained data used by cross-sheet formulas, and pasting data over a range that another formula depended on."}},{"@type":"Question","name":"How do I fix #REF! after deleting a column?","acceptedAnswer":{"@type":"Answer","text":"First try pressing Ctrl+Z to undo the deletion — this restores the column and all formula references instantly. If undo is no longer available, click the cell showing #REF!, copy the formula from the formula bar, and paste it into Claude along with a description of what the formula was supposed to calculate and which column was deleted. Claude will reconstruct the correct reference."}},{"@type":"Question","name":"Can I recover the original formula after a #REF! error?","acceptedAnswer":{"@type":"Answer","text":"Excel does not store the original cell address once it has been replaced with #REF!. If you cannot undo the change with Ctrl+Z, the original reference is permanently lost from the formula bar. However, Claude can reconstruct the correct formula if you describe what the formula was supposed to calculate and what changed in the sheet structure."}},{"@type":"Question","name":"What's the fastest way to find every #REF! error in a sheet?","acceptedAnswer":{"@type":"Answer","text":"Press Ctrl+F and search for #REF! to locate every broken cell at once. Note how many cells are affected before you start fixing — a single deleted column can trigger dozens of cascading errors across dependent formulas."}},{"@type":"Question","name":"What if fixing one #REF! error still leaves others?","acceptedAnswer":{"@type":"Answer","text":"One deletion often breaks multiple formulas across a sheet. Paste all the broken formulas into Claude at once along with what changed, and it can fix the entire batch in a single response instead of one at a time. Then run Ctrl+F again to confirm none remain."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What causes a #REF! error in Excel?","acceptedAnswer":{"@type":"Answer","text":"A #REF! error appears when a formula references a cell, range, or sheet that no longer exists. Common causes include deleting a row or column that a formula pointed to, removing a sheet used by a cross-sheet formula, and copying a relative formula to a position where one of its references would fall outside the worksheet."}},{"@type":"Question","name":"How do I fix #REF! after deleting a column?","acceptedAnswer":{"@type":"Answer","text":"First try pressing Ctrl+Z to undo the deletion — this restores the column and all formula references instantly. If undo is no longer available, click the cell showing #REF!, copy the formula from the formula bar, and paste it into Claude along with a description of what the formula was supposed to calculate and which column was deleted. Claude will reconstruct the correct reference."}},{"@type":"Question","name":"Can I recover the original formula after a #REF! error?","acceptedAnswer":{"@type":"Answer","text":"Excel does not store the original cell address once it has been replaced with #REF!. If you cannot undo the change with Ctrl+Z, the original reference is permanently lost from the formula bar. However, Claude can reconstruct the correct formula if you describe what the formula was supposed to calculate and what changed in the sheet structure."}},{"@type":"Question","name":"What's the fastest way to find every #REF! error in a sheet?","acceptedAnswer":{"@type":"Answer","text":"Press Ctrl+F and search for #REF! to locate every broken cell at once. Note how many cells are affected before you start fixing — a single deleted column can trigger dozens of cascading errors across dependent formulas."}},{"@type":"Question","name":"What if fixing one #REF! error still leaves others?","acceptedAnswer":{"@type":"Answer","text":"One deletion often breaks multiple formulas across a sheet. Paste all the broken formulas into Claude at once along with what changed, and it can fix the entire batch in a single response instead of one at a time. Then run Ctrl+F again to confirm none remain."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -73,26 +73,34 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
 
 
-/* ── REF ERRORS — dependency map ── */
-.ref-wrap{padding:10px 10px 12px;display:flex;flex-direction:column;align-items:center}
-.ref-svg{width:100%;max-width:none;height:auto;display:block}
-.ref-box{fill:#fff;stroke:#94a3b8;stroke-width:1.5;rx:10}
-.ref-box.ok{fill:#eef1fa;stroke:#3157d5;stroke-width:2}
-.ref-box.broken{fill:#fef8ec;stroke:#e8a317;stroke-width:2.5;stroke-dasharray:6 3}
-.ref-box.fixed{fill:#eef1fa;stroke:#3157d5;stroke-width:2}
-.ref-lbl{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;fill:#1e293b}
-.ref-sub{font-family:'JetBrains Mono',monospace;font-size:11.5px;fill:#475569}
-.ref-arrow{fill:none;stroke:#94a3b8;stroke-width:1.8}
-.ref-arrow.live{stroke:#3157d5;stroke-width:2}
-.ref-arrow.dead{stroke:#e8a317;stroke-width:2.5;stroke-dasharray:7 4}
-.ref-badge{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;fill:#e8a317}
-.ref-caption{margin-top:12px;padding:10px 12px;background:#fef8ec;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#92610b;width:100%;box-sizing:border-box;line-height:1.5}
-.ref-caption .sub{font-size:11px;color:#a99f88;margin-top:4px;font-family:inherit}
-.ref-caption.good{background:#eef1fa;color:#1e3a7a}
-.ref-caption.good .sub{color:#6b7a94}
-.ref-fix{margin-top:12px;padding:12px 14px;background:#1e2d4d;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.5;color:#c5d0e6;width:100%;box-sizing:border-box}
-.ref-fix .res{color:#5b9bf5;font-weight:700}
-.ref-fix .sub{font-size:11.5px;color:#7b8aa6;margin-top:5px;line-height:1.5}
+/* ── REF ERRORS — Excel worksheet visual ── */
+.xl-window{border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;background:#fff}
+.xl-formula{display:grid;grid-template-columns:52px 1fr;border-bottom:1px solid #cbd5e1;background:#f8fafc;min-width:560px}
+.xl-namebox{padding:7px 8px;border-right:1px solid #cbd5e1;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#334155;text-align:center;background:#fff}
+.xl-fx{padding:7px 10px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#1f2937;white-space:normal;word-break:break-word;line-height:1.5}
+.xl-grid-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.xl-grid{border-collapse:collapse;min-width:560px;width:100%;table-layout:fixed;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.xl-grid th,.xl-grid td{border-right:1px solid #d8dee6;border-bottom:1px solid #d8dee6;height:31px;padding:5px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.xl-grid thead th{height:27px;background:#f3f4f6;color:#64748b;font-size:10.5px;font-weight:600;text-align:center;padding:3px 6px}
+.xl-grid .corner{width:38px;background:#eef1f4}
+.xl-grid .rownum{width:38px;background:#f3f4f6;color:#64748b;text-align:center;font-size:10.5px;font-weight:500;padding:3px 4px}
+.xl-grid .hdr{background:#eaf2f8;color:#1f2937;font-weight:700}
+.xl-grid .money{text-align:right}
+.xl-grid .selected{position:relative;outline:2px solid #217346;outline-offset:-2px;background:#fff}
+.xl-grid .selected::after{content:'';position:absolute;width:5px;height:5px;background:#217346;right:-1px;bottom:-1px}
+.xl-grid .badref{background:#fff1f2;color:#b91c1c;font-weight:700}
+.xl-grid .goodref{background:#ecfdf5;color:#047857;font-weight:700}
+.xl-grid .deleted{background:#fff7ed;color:#c2410c;font-style:italic}
+.xl-grid .muted{color:#94a3b8}
+.xl-grid .sheetcell{background:#eef2ff;color:#3730a3;font-weight:600}
+.xl-tabsbar{display:flex;gap:4px;align-items:end;padding:6px 8px 0;background:#f3f4f6;border-top:1px solid #d8dee6;min-width:560px}
+.xl-sheet-tab{padding:5px 12px 6px;background:#fff;border:1px solid #cbd5e1;border-bottom:none;border-radius:5px 5px 0 0;font-size:10.5px;color:#475569}
+.xl-sheet-tab.active{color:#166534;font-weight:700;border-top:2px solid #217346;padding-top:4px}
+.xl-note{margin-top:10px;padding:10px 12px;border-radius:7px;font-size:11.5px;line-height:1.55}
+.xl-note.bad{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}
+.xl-note.good{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46}
+.xl-note code{font-family:'JetBrains Mono',monospace;font-size:11.5px}
+
 
 /* ── DIAGNOSIS TABLE ── */
 .diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
@@ -262,167 +270,149 @@ recreate the sheet?</pre>
 
   <!-- Tab: diagnose -->
   <div class="before-after ba-panel on" id="ba-diagnose">
-    <div class="ba-col before" style="border-color:#e8d8a0">
-      <div class="ba-header" style="background:#fef8ec;color:#92610b;border-bottom:1px solid #e8d8a0"><i class="ti ti-link-off" style="font-size:14px"></i> Before — column deleted, reference broken</div>
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-triangle" style="font-size:14px"></i> Before — Revenue column deleted, Total formula is broken</div>
       <div class="ba-body">
-        <div class="ref-wrap">
-          <svg class="ref-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <marker id="rl" markerWidth="10" markerHeight="10" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7" fill="none" stroke="#3157d5" stroke-width="2"/></marker>
-              <marker id="rd" markerWidth="10" markerHeight="10" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7" fill="none" stroke="#e8a317" stroke-width="2"/></marker>
-            </defs>
-            <rect class="ref-box ok" x="14" y="76" width="110" height="52" rx="10"/>
-            <text class="ref-lbl" x="69" y="100" text-anchor="middle">C2:D20</text>
-            <text class="ref-sub" x="69" y="118" text-anchor="middle">valid range</text>
-            <rect class="ref-box broken" x="155" y="76" width="110" height="52" rx="10"/>
-            <text class="ref-lbl" x="210" y="100" text-anchor="middle" fill="#e8a317">#REF!</text>
-            <text class="ref-sub" x="210" y="118" text-anchor="middle" fill="#b8860b">col C deleted</text>
-            <rect class="ref-box ok" x="296" y="76" width="90" height="52" rx="10"/>
-            <text class="ref-lbl" x="341" y="100" text-anchor="middle">E5</text>
-            <text class="ref-sub" x="341" y="118" text-anchor="middle">=SUM(…)</text>
-            <path class="ref-arrow live" d="M 124 102 L 155 102" marker-end="url(#rl)"/>
-            <path class="ref-arrow dead" d="M 265 102 L 296 102" marker-end="url(#rd)"/>
-            <text class="ref-badge" x="210" y="62" text-anchor="middle">✗ BROKEN LINK</text>
-          </svg>
-          <div class="ref-caption">
-            =SUM(#REF!:D20) — the deleted column's boundary has been replaced by #REF!
-            <div class="sub">Excel replaces the missing column reference with #REF! — you can't tell which column it used to be</div>
+        <div class="xl-window">
+          <div class="xl-formula"><div class="xl-namebox">D5</div><div class="xl-fx">fx&nbsp;&nbsp;=SUM(#REF!)</div></div>
+          <div class="xl-grid-wrap">
+            <table class="xl-grid">
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+              <tbody>
+                <tr><th class="rownum">1</th><td class="hdr">Date</td><td class="hdr">Region</td><td class="hdr">Rep</td><td class="hdr">Total</td></tr>
+                <tr><th class="rownum">2</th><td>1-Aug</td><td>East</td><td>Lee</td><td></td></tr>
+                <tr><th class="rownum">3</th><td>2-Aug</td><td>West</td><td>Kim</td><td></td></tr>
+                <tr><th class="rownum">4</th><td>3-Aug</td><td>East</td><td>Singh</td><td></td></tr>
+                <tr><th class="rownum">5</th><td>4-Aug</td><td>North</td><td>Diaz</td><td class="selected badref">#REF!</td></tr>
+                <tr><th class="rownum">6</th><td>5-Aug</td><td>South</td><td>Kim</td><td></td></tr>
+                <tr><th class="rownum">7</th><td>6-Aug</td><td>East</td><td>Lee</td><td></td></tr>
+                <tr><th class="rownum">8</th><td>7-Aug</td><td>West</td><td>Diaz</td><td></td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
+        <div class="xl-note bad">The original Revenue column D was deleted. Excel shifted the Total column left to D and replaced its deleted source range with <code>#REF!</code>.</div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after" style="border-color:#3157d5">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — link restored, formula recalculates</div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Revenue restored and formula repaired</div>
       <div class="ba-body">
-        <div class="ref-wrap">
-          <svg class="ref-svg" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
-            <rect class="ref-box fixed" x="40" y="55" width="130" height="52" rx="10"/>
-            <text class="ref-lbl" x="105" y="79" text-anchor="middle">D2:D20</text>
-            <text class="ref-sub" x="105" y="97" text-anchor="middle">19 rows</text>
-            <rect class="ref-box fixed" x="230" y="55" width="130" height="52" rx="10"/>
-            <text class="ref-lbl" x="295" y="79" text-anchor="middle">E5</text>
-            <text class="ref-sub" x="295" y="97" text-anchor="middle">=SUM(D2:D20)</text>
-            <path class="ref-arrow live" d="M 170 81 L 230 81" marker-end="url(#rl)"/>
-          </svg>
-          <div class="ref-fix">
-            Fix: <strong>=SUM(D2:D20)</strong> → valid range restored <span class="res">✓</span>
-            <div class="sub">Reference reconstructed — formula recalculates correctly.</div>
+        <div class="xl-window">
+          <div class="xl-formula"><div class="xl-namebox">E5</div><div class="xl-fx">fx&nbsp;&nbsp;=SUM(D2:D8)</div></div>
+          <div class="xl-grid-wrap">
+            <table class="xl-grid">
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead>
+              <tbody>
+                <tr><th class="rownum">1</th><td class="hdr">Date</td><td class="hdr">Region</td><td class="hdr">Rep</td><td class="hdr">Revenue</td><td class="hdr">Total</td></tr>
+                <tr><th class="rownum">2</th><td>1-Aug</td><td>East</td><td>Lee</td><td class="money">1,250</td><td></td></tr>
+                <tr><th class="rownum">3</th><td>2-Aug</td><td>West</td><td>Kim</td><td class="money">980</td><td></td></tr>
+                <tr><th class="rownum">4</th><td>3-Aug</td><td>East</td><td>Singh</td><td class="money">1,430</td><td></td></tr>
+                <tr><th class="rownum">5</th><td>4-Aug</td><td>North</td><td>Diaz</td><td class="money">1,120</td><td class="selected goodref">7,860</td></tr>
+                <tr><th class="rownum">6</th><td>5-Aug</td><td>South</td><td>Kim</td><td class="money">860</td><td></td></tr>
+                <tr><th class="rownum">7</th><td>6-Aug</td><td>East</td><td>Lee</td><td class="money">1,050</td><td></td></tr>
+                <tr><th class="rownum">8</th><td>7-Aug</td><td>West</td><td>Diaz</td><td class="money">1,170</td><td></td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
+        <div class="xl-note good">After restoring the Revenue data from backup, the intended formula is <code>=SUM(D2:D8)</code>. Check: 1,250 + 980 + 1,430 + 1,120 + 860 + 1,050 + 1,170 = <strong>7,860</strong>.</div>
       </div>
     </div>
   </div>
 
   <!-- Tab: cascade -->
   <div class="before-after ba-panel" id="ba-cascade">
-    <div class="ba-col before" style="border-color:#e8d8a0">
-      <div class="ba-header" style="background:#fef8ec;color:#92610b;border-bottom:1px solid #e8d8a0"><i class="ti ti-link-off" style="font-size:14px"></i> Before — one deletion broke 3 formulas</div>
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-triangle" style="font-size:14px"></i> Before — one deleted column broke three summaries</div>
       <div class="ba-body">
-        <div class="ref-wrap">
-          <svg class="ref-svg" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
-      <rect class="ref-box broken" x="14" y="80" width="140" height="52" rx="10"/>
-      <text class="ref-lbl" x="84" y="104" text-anchor="middle" fill="#e8a317">Deleted column</text>
-     <text class="ref-sub" x="84" y="122" text-anchor="middle" fill="#b8860b">#REF!</text>
-
-    <rect class="ref-box ok" x="210" y="18" width="178" height="48" rx="10"/>
-    <text class="ref-lbl" x="299" y="38" text-anchor="middle" font-size="11.5">E5 =SUM(D2:#REF!)</text>
-   <text class="ref-sub" x="299" y="55" text-anchor="middle">#REF!</text>
-
-   <rect class="ref-box ok" x="210" y="82" width="178" height="52" rx="10"/>
-   <text class="ref-lbl" x="299" y="101" text-anchor="middle" font-size="11">F5 =AVERAGE(</text>
-   <text class="ref-lbl" x="299" y="116" text-anchor="middle" font-size="11">#REF!:D20)</text>
-   <text class="ref-sub" x="299" y="130" text-anchor="middle">#REF!</text>
-
-   <rect class="ref-box ok" x="210" y="150" width="178" height="48" rx="10"/>
-   <text class="ref-lbl" x="299" y="170" text-anchor="middle" font-size="11.5">G5 =MAX(#REF!)</text>
-   <text class="ref-sub" x="299" y="187" text-anchor="middle">#REF!</text>
-
-  <path class="ref-arrow dead" d="M 154 94 L 210 42" marker-end="url(#rd)"/>
-  <path class="ref-arrow dead" d="M 154 106 L 210 108" marker-end="url(#rd)"/>
-  <path class="ref-arrow dead" d="M 154 118 L 210 174" marker-end="url(#rd)"/>
-  </svg>
- <div class="ref-caption">
-            One column deleted → all 3 downstream formulas broken simultaneously
-            <div class="sub">Paste all broken formulas to Claude in one message — it fixes all at once</div>
+        <div class="xl-window">
+          <div class="xl-formula"><div class="xl-namebox">D5</div><div class="xl-fx">fx&nbsp;&nbsp;=SUM(#REF!)</div></div>
+          <div class="xl-grid-wrap">
+            <table class="xl-grid">
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr></thead>
+              <tbody>
+                <tr><th class="rownum">1</th><td class="hdr">Date</td><td class="hdr">Region</td><td class="hdr">Rep</td><td class="hdr">Total</td><td class="hdr">Average</td><td class="hdr">Max</td></tr>
+                <tr><th class="rownum">2</th><td>1-Aug</td><td>East</td><td>Lee</td><td></td><td></td><td></td></tr>
+                <tr><th class="rownum">3</th><td>2-Aug</td><td>West</td><td>Kim</td><td></td><td></td><td></td></tr>
+                <tr><th class="rownum">4</th><td>3-Aug</td><td>East</td><td>Singh</td><td></td><td></td><td></td></tr>
+                <tr><th class="rownum">5</th><td>4-Aug</td><td>North</td><td>Diaz</td><td class="selected badref">#REF!</td><td class="badref">#REF!</td><td class="badref">#REF!</td></tr>
+                <tr><th class="rownum">6</th><td>5-Aug</td><td>South</td><td>Kim</td><td></td><td></td><td></td></tr>
+                <tr><th class="rownum">7</th><td>6-Aug</td><td>East</td><td>Lee</td><td></td><td></td><td></td></tr>
+                <tr><th class="rownum">8</th><td>7-Aug</td><td>West</td><td>Diaz</td><td></td><td></td><td></td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
+        <div class="xl-note bad"><code>D5 =SUM(#REF!)</code><br><code>E5 =AVERAGE(#REF!)</code><br><code>F5 =MAX(#REF!)</code><br>All three formulas lost the same deleted Revenue range.</div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after" style="border-color:#3157d5">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — all 3 repaired in one response</div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — all three repaired against D2:D8</div>
       <div class="ba-body">
-        <div class="ref-wrap">
-          <svg class="ref-svg" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
-            <rect class="ref-box fixed" x="14" y="80" width="140" height="52" rx="10"/>
-            <text class="ref-lbl" x="84" y="104" text-anchor="middle">D2:D20</text>
-            <text class="ref-sub" x="84" y="122" text-anchor="middle">valid range</text>
-            <rect class="ref-box fixed" x="218" y="18" width="170" height="44" rx="10"/>
-            <text class="ref-lbl" x="303" y="38" text-anchor="middle" font-size="12">E5 =SUM(D2:D20)</text>
-            <text class="ref-sub" x="303" y="53" text-anchor="middle" fill="#3157d5">✓</text>
-            <rect class="ref-box fixed" x="218" y="82" width="170" height="44" rx="10"/>
-            <text class="ref-lbl" x="303" y="102" text-anchor="middle" font-size="12">F5 =AVERAGE(D2:D20)</text>
-            <text class="ref-sub" x="303" y="117" text-anchor="middle" fill="#3157d5">✓</text>
-            <rect class="ref-box fixed" x="218" y="146" width="170" height="44" rx="10"/>
-            <text class="ref-lbl" x="303" y="166" text-anchor="middle" font-size="12">G5 =MAX(D2:D20)</text>
-            <text class="ref-sub" x="303" y="181" text-anchor="middle" fill="#3157d5">✓</text>
-            <path class="ref-arrow live" d="M 154 94 L 218 40" marker-end="url(#rl)"/>
-            <path class="ref-arrow live" d="M 154 106 L 218 104" marker-end="url(#rl)"/>
-            <path class="ref-arrow live" d="M 154 118 L 218 168" marker-end="url(#rl)"/>
-          </svg>
-          <div class="ref-fix">
-            All 3 formulas repaired — broken column reference removed from each.
-            <div class="sub">E5: =SUM(D2:D20) · F5: =AVERAGE(D2:D20) · G5: =MAX(D2:D20) <span class="res">✓</span></div>
+        <div class="xl-window">
+          <div class="xl-formula"><div class="xl-namebox">E5</div><div class="xl-fx">fx&nbsp;&nbsp;=SUM(D2:D8)</div></div>
+          <div class="xl-grid-wrap">
+            <table class="xl-grid">
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th></tr></thead>
+              <tbody>
+                <tr><th class="rownum">1</th><td class="hdr">Date</td><td class="hdr">Region</td><td class="hdr">Rep</td><td class="hdr">Revenue</td><td class="hdr">Total</td><td class="hdr">Average</td><td class="hdr">Max</td></tr>
+                <tr><th class="rownum">2</th><td>1-Aug</td><td>East</td><td>Lee</td><td class="money">1,250</td><td></td><td></td><td></td></tr>
+                <tr><th class="rownum">3</th><td>2-Aug</td><td>West</td><td>Kim</td><td class="money">980</td><td></td><td></td><td></td></tr>
+                <tr><th class="rownum">4</th><td>3-Aug</td><td>East</td><td>Singh</td><td class="money">1,430</td><td></td><td></td><td></td></tr>
+                <tr><th class="rownum">5</th><td>4-Aug</td><td>North</td><td>Diaz</td><td class="money">1,120</td><td class="selected goodref">7,860</td><td class="goodref">1,122.86</td><td class="goodref">1,430</td></tr>
+                <tr><th class="rownum">6</th><td>5-Aug</td><td>South</td><td>Kim</td><td class="money">860</td><td></td><td></td><td></td></tr>
+                <tr><th class="rownum">7</th><td>6-Aug</td><td>East</td><td>Lee</td><td class="money">1,050</td><td></td><td></td><td></td></tr>
+                <tr><th class="rownum">8</th><td>7-Aug</td><td>West</td><td>Diaz</td><td class="money">1,170</td><td></td><td></td><td></td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
+        <div class="xl-note good"><code>E5 =SUM(D2:D8)</code> → 7,860<br><code>F5 =AVERAGE(D2:D8)</code> → 1,122.86<br><code>G5 =MAX(D2:D8)</code> → 1,430</div>
       </div>
     </div>
   </div>
 
   <!-- Tab: crosssheet -->
   <div class="before-after ba-panel" id="ba-crosssheet">
-    <div class="ba-col before" style="border-color:#e8d8a0">
-      <div class="ba-header" style="background:#fef8ec;color:#92610b;border-bottom:1px solid #e8d8a0"><i class="ti ti-file-off" style="font-size:14px"></i> Before — "Budget" sheet deleted, cross-sheet link broken</div>
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-file-off" style="font-size:14px"></i> Before — Summary!H5 lost Budget!C5</div>
       <div class="ba-body">
-        <div class="ref-wrap">
-          <svg class="ref-svg" viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg">
-            <rect class="ref-box ok" x="14" y="74" width="140" height="62" rx="10"/>
-            <text class="ref-lbl" x="84" y="96" text-anchor="middle" font-size="13">Summary sheet</text>
-            <text class="ref-sub" x="84" y="117" text-anchor="middle">H5 =IFERROR(…)</text>
-            <rect class="ref-box broken" x="226" y="74" width="160" height="62" rx="10"/>
-            <text class="ref-lbl" x="306" y="96" text-anchor="middle" fill="#e8a317">Budget sheet</text>
-            <text class="ref-sub" x="306" y="117" text-anchor="middle" fill="#b8860b">DELETED ✗</text>
-            <path class="ref-arrow dead" d="M 154 105 L 226 105" marker-end="url(#rd)"/>
-            <text class="ref-badge" x="190" y="66" text-anchor="middle">✗ BROKEN</text>
-            <text class="ref-sub" x="200" y="176" text-anchor="middle" font-size="12" fill="#475569">=IFERROR(D5*#REF!C5, 0)</text>
-          </svg>
-          <div class="ref-caption">
-            The deleted sheet reference is replaced with #REF! in dependent formulas
-            <div class="sub">Use workbook context, backups/version history, or Claude to identify the intended source before rewriting the formula</div>
+        <div class="xl-window">
+          <div class="xl-formula"><div class="xl-namebox">H5</div><div class="xl-fx">fx&nbsp;&nbsp;=D5*#REF!C5</div></div>
+          <div class="xl-grid-wrap">
+            <table class="xl-grid">
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th></tr></thead>
+              <tbody>
+                <tr><th class="rownum">1</th><td class="hdr">Item</td><td class="hdr">Owner</td><td class="hdr">Units</td><td class="hdr">Base Cost</td><td class="hdr">Q1</td><td class="hdr">Q2</td><td class="hdr">Q3</td><td class="hdr">Budgeted</td></tr>
+                <tr><th class="rownum">5</th><td>Campaign A</td><td>Maya</td><td>12</td><td class="money">850</td><td></td><td></td><td></td><td class="selected badref">#REF!</td></tr>
+              </tbody>
+            </table>
           </div>
+          <div class="xl-tabsbar"><span class="xl-sheet-tab active">Summary</span><span class="xl-sheet-tab deleted">Budget — deleted</span></div>
         </div>
+        <div class="xl-note bad">The local reference <code>D5</code> still exists, but Excel replaced the deleted sheet name with <code>#REF!</code>. The intended external cell must be confirmed before repair.</div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
-    <div class="ba-col after" style="border-color:#3157d5">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — intended cross-sheet source restored</div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Budget!C5 restored and H5 recalculates</div>
       <div class="ba-body">
-        <div class="ref-wrap">
-          <svg class="ref-svg" viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg">
-            <rect class="ref-box fixed" x="14" y="55" width="140" height="62" rx="10"/>
-            <text class="ref-lbl" x="84" y="77" text-anchor="middle" font-size="13">Summary sheet</text>
-            <text class="ref-sub" x="84" y="98" text-anchor="middle">H5 =IFERROR(…)</text>
-            <rect class="ref-box fixed" x="226" y="55" width="160" height="62" rx="10"/>
-            <text class="ref-lbl" x="306" y="77" text-anchor="middle" font-size="13">Budget sheet</text>
-            <text class="ref-sub" x="306" y="98" text-anchor="middle">C5</text>
-            <path class="ref-arrow live" d="M 154 86 L 226 86" marker-end="url(#rl)"/>
-          </svg>
-          <div class="ref-fix">
-            Fix: <strong>=IFERROR(D5*Budget!C5, 0)</strong> → valid cross-sheet reference restored <span class="res">✓</span>
-            <div class="sub">After confirming the intended source, recreate/restore the Budget sheet or point the formula to the correct replacement cell.</div>
+        <div class="xl-window">
+          <div class="xl-formula"><div class="xl-namebox">H5</div><div class="xl-fx">fx&nbsp;&nbsp;=D5*Budget!C5</div></div>
+          <div class="xl-grid-wrap">
+            <table class="xl-grid">
+              <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th></tr></thead>
+              <tbody>
+                <tr><th class="rownum">1</th><td class="hdr">Item</td><td class="hdr">Owner</td><td class="hdr">Units</td><td class="hdr">Base Cost</td><td class="hdr">Q1</td><td class="hdr">Q2</td><td class="hdr">Q3</td><td class="hdr">Budgeted</td></tr>
+                <tr><th class="rownum">5</th><td>Campaign A</td><td>Maya</td><td>12</td><td class="money">850</td><td></td><td></td><td></td><td class="selected goodref">1,020</td></tr>
+              </tbody>
+            </table>
           </div>
+          <div class="xl-tabsbar"><span class="xl-sheet-tab active">Summary</span><span class="xl-sheet-tab active">Budget</span></div>
         </div>
+        <div class="xl-note good">After confirming <code>Budget!C5 = 1.2</code>, the repaired formula is <code>=D5*Budget!C5</code>. Check: <code>850 × 1.2 = 1,020</code>.</div>
       </div>
     </div>
   </div>
@@ -441,9 +431,9 @@ recreate the sheet?</pre>
       <div class="diag-badge badge-red">Most common</div>
     </div>
     <div class="diag-row">
-      <div class="diag-cause">Copy-paste overwrite</div>
-      <div class="diag-example">A formula was pasted into a cell <span class="bad">another formula depended on</span>, wiping the source</div>
-      <div class="diag-badge badge-yellow">Easy fix</div>
+      <div class="diag-cause">Invalid copied reference</div>
+      <div class="diag-example">A relative formula is copied where its reference would move <span class="bad">outside the worksheet</span> → <span class="good">#REF!</span></div>
+      <div class="diag-badge badge-yellow">Check formula</div>
     </div>
     <div class="diag-row">
       <div class="diag-cause">Cascading breaks</div>
@@ -484,7 +474,7 @@ recreate the sheet?</pre>
   <div class="faq-section">
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What causes a #REF! error in Excel? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">A #REF! error appears when a formula references a cell, range, or sheet that no longer exists. The three most common causes are deleting a row or column that a formula pointed to, removing a sheet that contained data used by cross-sheet formulas, and pasting data over a range that another formula depended on.</div>
+      <div class="faq-a">A #REF! error appears when a formula references a cell, range, or sheet that no longer exists. Common causes include deleting a row or column that a formula pointed to, removing a sheet used by a cross-sheet formula, and copying a relative formula to a position where one of its references would fall outside the worksheet.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I fix #REF! after deleting a column? <i class="ti ti-chevron-down"></i></div>
