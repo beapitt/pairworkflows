@@ -6,7 +6,7 @@
 <title>CapEx Planning in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to build a CapEx plan in Excel with Claude AI to track project costs, approvals, spend phasing, and depreciation impact.">
 <link rel="canonical" href="https://www.pairworkflows.com/capex-planning-excel-claude.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between CapEx and OpEx in Excel planning?","acceptedAnswer":{"@type":"Answer","text":"CapEx (capital expenditure) is spending on long-term assets like equipment, vehicles, or property that get capitalised on the balance sheet and depreciated over time. OpEx (operating expenditure) is day-to-day spending that hits the income statement immediately. This template handles CapEx only — each project is tracked as an asset with a useful life and depreciation schedule."}},{"@type":"Question","name":"Can Claude phase CapEx spending across multiple months?","acceptedAnswer":{"@type":"Answer","text":"Yes. If you provide monthly timing, the prompt can place spend directly into those months. If you provide only quarterly percentages, the amount should remain unallocated within that quarter until you specify the monthly split, rather than inventing cash timing."}},{"@type":"Question","name":"How does this template connect to depreciation?","acceptedAnswer":{"@type":"Answer","text":"The template includes an estimated annual depreciation column for each project based on the cost, salvage value, and useful life you provide. For the full depreciation schedule with monthly granularity and multiple methods, use this alongside the fixed asset depreciation course."}},{"@type":"Question","name":"Should I include projects that haven't been approved yet?","acceptedAnswer":{"@type":"Answer","text":"Yes. The template includes an Approval Status column so you can track proposed, submitted, approved, and rejected projects in one view. This gives leadership a complete picture of the CapEx pipeline, not just committed spend."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between CapEx and OpEx in Excel planning?","acceptedAnswer":{"@type":"Answer","text":"CapEx planning tracks expenditure that an organisation's accounting policy expects may qualify for capitalisation, while OpEx is expensed under the applicable policy. Classification depends on the underlying facts and accounting framework, so this workflow does not decide CapEx versus OpEx from a project name."}},{"@type":"Question","name":"Can Claude phase CapEx spending across multiple months?","acceptedAnswer":{"@type":"Answer","text":"Yes. If you provide monthly timing, the prompt can place spend directly into those months. If you provide only quarterly percentages, the amount should remain unallocated within that quarter until you specify the monthly split, rather than inventing cash timing."}},{"@type":"Question","name":"How does this template connect to depreciation?","acceptedAnswer":{"@type":"Answer","text":"The template can calculate estimated full-year straight-line depreciation from capitalisable basis, residual value, and useful life when those inputs are supplied. Period depreciation also requires an in-service or available-for-use date and the applicable accounting convention."}},{"@type":"Question","name":"Should I include projects that haven't been approved yet?","acceptedAnswer":{"@type":"Answer","text":"Yes, if your planning process includes pipeline projects. Track Proposed, Submitted, Approved and Rejected separately, and define what Approved means before treating approved project cost as committed spend."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -167,6 +167,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 @media(max-width:640px){
   .hero h1{font-size:24px}
   .diag-row{grid-template-columns:1fr;gap:6px}
+  .diag-example{display:flex}
   .related-grid{grid-template-columns:1fr}
   .page{padding:1.5rem 1rem 3rem}
 }
@@ -201,7 +202,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
     <h1>How to Build a CapEx Plan in Excel with Claude AI</h1>
-    <p class="hero-sub">Paste your list of capital projects into Claude and get back a structured Excel template with project tracking, approval status, spend phasing by month, and straight-line depreciation — all formula-driven and ready to paste.</p>
+    <p class="hero-sub">Provide Claude with your project list, approval rules, spend timing, and accounting assumptions, then use it to draft an auditable CapEx register, phasing schedule, and status summary. Keep cash timing, approval status, capitalisation treatment, and depreciation timing as separate controls rather than assuming they are the same thing.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -218,29 +219,68 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
     <!-- Panel: Build -->
     <div id="p-build" class="panel on">
       <div class="prompt-box">
-        <pre>I need a capital expenditure (CapEx) planning template in Excel.
-Below is my list of proposed and approved projects.
+        <pre>I need a capital expenditure planning template in Excel.
 
-PROJECT LIST (columns: Project Name, Category, Estimated Cost,
-Salvage Value, Useful Life in years, Spend Timing, Approval Status):
-[Paste your project data here]
+MODEL SETTINGS
+- Planning period: [e.g. Jan–Dec 2027 / fiscal year dates]
+- Currency / units: [e.g. GBP]
+- Approval statuses allowed: Proposed | Submitted | Approved | Rejected
+- "Approved" means: [approved budget / authorised project / committed spend — define]
+- Accounting framework / internal capitalisation policy: [state it or "not supplied"]
 
-Requirements:
-- Create a project register table with columns: Project Name, Category,
-  Estimated Cost, Salvage Value, Useful Life, Annual Depreciation
-  (straight-line), Approval Status.
-- The Approval Status column should use data validation with four options:
-  Proposed, Submitted, Approved, Rejected.
-- Add conditional formatting: green for Approved, blue for Submitted,
-  yellow for Proposed, red for Rejected.
-- Include summary rows using SUMIFS:
-  • Total Approved CapEx (sum of Estimated Cost where Status = Approved)
-  • Total Pipeline CapEx (Submitted + Proposed)
-  • Total Annual Depreciation (Approved projects only)
-  • Breakdown by Category (Approved only)
-- Do NOT invent project costs, categories, or timing I haven't provided.
-- Do NOT change my approval statuses or reclassify any project.
-- Format the output as tab-separated tables I can paste into Excel.</pre>
+PROJECT LIST
+Columns:
+Project ID | Project Name | Category | Estimated Project Cost |
+Capitalisable Basis (if known) | Residual/Salvage Value |
+Useful Life (years) | Expected In-Service / Available-for-Use Date |
+Spend Timing | Approval Status
+[Paste project rows]
+
+Rules:
+1. Do NOT decide whether a cost qualifies for capitalisation. If Capitalisable Basis
+   or accounting treatment is unknown, flag "Accounting treatment to confirm".
+2. Do NOT treat Approval Status as proof that spend is contractually committed unless
+   I explicitly define Approved that way.
+3. Keep these concepts separate:
+   - Estimated Project Cost
+   - Capitalisable Basis
+   - Cash / spend phasing
+   - Approval Status
+   - In-Service / Available-for-Use Date
+   - Depreciation start
+4. Create an Excel Table named CapExRegister.
+5. Use data validation for Approval Status with only:
+   Proposed, Submitted, Approved, Rejected.
+6. Add conditional formatting by status.
+7. If Capitalisable Basis, residual value and useful life are supplied and straight-line
+   is my approved planning method, calculate ESTIMATED FULL-YEAR depreciation:
+   =(CapitalisableBasis-ResidualValue)/UsefulLife
+   This is a planning estimate only; do not treat it as current-period depreciation.
+8. Do not start period depreciation merely because cash was spent or the project was approved.
+   Use the supplied in-service / available-for-use date and accounting policy.
+9. If depreciation inputs are missing, return "INPUT NEEDED" instead of assuming zero.
+10. Add control checks:
+   - Estimated Cost >= 0
+   - Capitalisable Basis >= Residual Value
+   - Useful Life > 0 when depreciation is calculated
+   - every status is from the approved list
+   - Project ID is unique
+11. Summary outputs:
+   - Approved project cost
+   - Submitted + Proposed pipeline
+   - Rejected project cost shown separately
+   - Approved estimated full-year depreciation only where inputs are complete
+   - Approved project cost by Category
+12. Do not invent costs, dates, categories, useful lives, residual values,
+   capitalisation decisions or approval statuses.
+
+OUTPUT
+1. CapExRegister layout
+2. Exact Excel formulas / structured references
+3. Data-validation and conditional-formatting instructions
+4. Summary formulas
+5. Validation / exception list
+Use tab-separated tables suitable for Excel.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Paste your project list where indicated. Works in <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
@@ -249,27 +289,41 @@ Requirements:
     <!-- Panel: Phase -->
     <div id="p-phase" class="panel">
       <div class="prompt-box">
-        <pre>I need a spend-phasing section added to my CapEx plan. Each project
-should have its total estimated cost distributed across the months
-when cash will actually be spent.
+        <pre>I need a spend-phasing section added to my CapEx plan.
 
-PROJECT LIST WITH SPEND TIMING:
-[Paste: Project Name, Estimated Cost, Spend Timing
- e.g. "Warehouse roof | 320,000 | 50% Q2, 50% Q3"
-      "CNC machine    | 185,000 | 100% Aug"
-      "ERP upgrade    | 450,000 | 25% Q1, 25% Q2, 50% Q3"]
+PHASING BASIS
+- Period/month headers: [e.g. Jan–Dec 2027 or Jul 2027–Jun 2028]
+- Amount being phased: [Estimated Project Cost / approved budget / committed cash spend]
+- Timing basis: [cash payment / invoice / accrual / other — state explicitly]
+
+PROJECT LIST
+Project ID | Project Name | Amount to Phase | Spend Timing
+[Paste rows, e.g.
+ P001 | Warehouse roof | 320000 | 50% Q2, 50% Q3
+ P002 | CNC machine    | 185000 | 100% Aug
+ P003 | ERP upgrade    | 450000 | 25% Q1, 25% Q2, 50% Q3]
 
 Requirements:
-- Create a 12-month grid (Jan–Dec) with one row per project.
-- If I provide exact monthly percentages, use them exactly.
-- If I provide only a quarterly percentage (for example 50% Q2), do NOT invent
-  which month receives the spend. Put the quarterly amount in a clearly labelled
-  "Unallocated within Q2" row or ask me for a monthly split before allocating it.
-- Add a monthly total row at the bottom summing all allocated project spend per month.
-- Add an Unallocated by Quarter row so quarterly-only amounts remain visible.
-- Add a cumulative allocated spend row below the monthly total.
-- Do NOT smooth or spread quarterly amounts evenly unless I explicitly instruct you to.
-- Format as a tab-separated table ready to paste into Excel.</pre>
+1. Build one row per Project ID across the exact 12 month headers I provide.
+2. If exact monthly amounts or percentages are supplied, use them exactly.
+3. If only quarterly timing is supplied, do NOT invent a monthly split.
+   Keep the amount in separate "Unallocated within Qx" columns/rows.
+4. Do not allocate spend outside the planning period without flagging it.
+5. For every project calculate:
+   Allocated Monthly Spend
+   + Unallocated Quarterly Spend
+   + Outside-Period Spend (if any)
+   = Amount to Phase
+6. Add a PHASING CHECK:
+   = Amount to Phase - Allocated - Unallocated - OutsidePeriod
+   It must equal 0 within the stated rounding tolerance.
+7. If supplied percentages do not total 100%, flag the difference instead of normalising them.
+8. Add monthly allocated totals and quarter-unallocated totals.
+9. Add cumulative ALLOCATED spend only; do not mix unallocated quarterly amounts into
+   a monthly cumulative cash curve.
+10. Do not smooth quarterly amounts unless I explicitly tell you to.
+
+Output exact formulas and a tab-separated table suitable for Excel.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Use monthly percentages when you need exact cash timing. If you provide only a quarterly percentage, keep it unallocated within that quarter until you define the monthly split.</p>
@@ -278,23 +332,27 @@ Requirements:
     <!-- Panel: Summary -->
     <div id="p-summary" class="panel">
       <div class="prompt-box">
-        <pre>I need a summary table for my CapEx plan, broken down by category
-and approval status.
+        <pre>I need a category-by-approval-status summary from my Excel Table named CapExRegister.
 
-My CapEx register has these columns:
-Project Name | Category | Estimated Cost | Approval Status
+Required CapExRegister columns:
+Project ID | Category | Estimated Project Cost | Approval Status
+[Paste sample rows if needed]
 
-[Paste your project rows here]
+Summary layout:
+Category | Approved | Submitted | Proposed | Rejected | Grand Total
 
-Please produce:
-1. A summary table: one row per category, with columns for
-   Approved total, Submitted total, Proposed total, Rejected total,
-   and Grand Total.
-2. A SUMIFS formula for each cell so I can update the register
-   and have the summary recalculate automatically.
-3. A single-row totals line at the bottom.
+Requirements:
+1. Use structured-reference SUMIFS formulas against CapExRegister.
+2. Do not hard-code category names inside every formula; reference the row's Category cell.
+3. Do not infer that Approved = committed unless my definition of Approved explicitly says so.
+4. Grand Total must equal the sum of the four status columns for each category.
+5. Add a totals row and a control:
+   Summary Grand Total = SUM(CapExRegister[Estimated Project Cost]).
+6. If blank/invalid statuses exist, show an "Unclassified / invalid status" control amount
+   rather than silently excluding them.
+7. Keep rejected projects visible but separate from active pipeline.
 
-Format as tab-separated, ready to paste into Excel.</pre>
+Provide the exact Excel formulas and tab-separated summary layout.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Run this after building the register — the SUMIFS formulas reference your project data directly.</p>
@@ -326,24 +384,24 @@ Format as tab-separated, ready to paste into Excel.</pre>
           </div>
           <div class="sheet-tabs"><span class="sheet-tab active">Project List</span><span class="sheet-tab">Summary</span><span class="sheet-tab">Spend Phasing</span></div>
         </div>
-        <div class="sheet-note bad">£955,000 mixes approved and pipeline projects. There is no depreciation formula, approval control, or committed-vs-pipeline view.</div>
+        <div class="sheet-note bad">£955,000 mixes projects at different approval stages. There is no controlled status list, capitalisation-basis check, in-service date, or distinction between project cost, cash timing and depreciation timing.</div>
       </div>
     </div>
 
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
 
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — register separates committed spend, pipeline and depreciation impact</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — register separates approval status, pipeline and depreciation inputs</div>
       <div class="ba-body">
         <div class="excel-window">
           <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Data Validation</span><span>Conditional Formatting</span></div>
-          <div class="formula-row"><div class="name-box">G2</div><div class="fx-box">fx</div><div class="formula-input">=(C2-D2)/E2</div></div>
+          <div class="formula-row"><div class="name-box">G2</div><div class="fx-box">fx</div><div class="formula-input">=IF(OR(C2="",D2="",E2<=0),"INPUT NEEDED",(C2-D2)/E2)</div></div>
           <div class="sheet-scroll">
             <table class="excel-grid">
               <colgroup><col style="width:34px"><col style="width:175px"><col style="width:120px"><col style="width:110px"><col style="width:105px"><col style="width:95px"><col style="width:115px"><col style="width:120px"></colgroup>
               <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th></tr></thead>
               <tbody>
-                <tr><th class="row-num">1</th><td class="header-cell">Project</td><td class="header-cell">Category</td><td class="header-cell">Cost</td><td class="header-cell">Salvage</td><td class="header-cell">Life</td><td class="header-cell">Status</td><td class="header-cell">Annual Depr.</td></tr>
+                <tr><th class="row-num">1</th><td class="header-cell">Project</td><td class="header-cell">Category</td><td class="header-cell">Cost</td><td class="header-cell">Salvage</td><td class="header-cell">Life</td><td class="header-cell">Status</td><td class="header-cell">Est. Full-Year Depr.</td></tr>
                 <tr><th class="row-num">2</th><td>Warehouse roof</td><td>Facilities</td><td>£320,000</td><td>£0</td><td>20</td><td class="approved">Approved</td><td class="selected formula-cell">£16,000</td></tr>
                 <tr><th class="row-num">3</th><td>CNC machine</td><td>Equipment</td><td>£185,000</td><td>£15,000</td><td>10</td><td class="approved">Approved</td><td class="formula-cell">£17,000</td></tr>
                 <tr><th class="row-num">4</th><td>ERP upgrade</td><td>IT / Software</td><td>£450,000</td><td>£0</td><td>7</td><td class="proposed">Proposed</td><td class="formula-cell">£64,286</td></tr>
@@ -356,15 +414,21 @@ Format as tab-separated, ready to paste into Excel.</pre>
         </div>
         <div class="claude-fix">
           <div class="claude-fix-label">Verified register formulas</div>
-          <pre>Annual depreciation:
-=(Cost-Salvage)/UsefulLife
+          <pre>Estimated full-year straight-line depreciation:
+=(CapitalisableBasis-ResidualValue)/UsefulLife
+
+The visual assumes Capitalisable Basis = shown Cost for these examples.
+Do not make that assumption in a real workbook unless accounting policy confirms it.
 
 Warehouse roof: (320,000−0)/20 = £16,000
 CNC machine: (185,000−15,000)/10 = £17,000
 ERP upgrade: (450,000−0)/7 = £64,285.71 ≈ £64,286
 
 Approved CapEx = £320,000 + £185,000 = £505,000
-Approved annual depreciation = £16,000 + £17,000 = £33,000 ✓</pre>
+Approved estimated full-year depreciation = £16,000 + £17,000 = £33,000
+
+This is not the current-period depreciation charge unless the in-service date
+and depreciation convention support a full year. ✓</pre>
         </div>
       </div>
     </div>
@@ -433,7 +497,13 @@ ERP upgrade:
 Again: do not invent monthly dates.
 
 Allocated now: £185,000
-Still unallocated within quarters: £770,000 ✓</pre>
+Still unallocated within quarters: £770,000
+Total to phase: £955,000
+
+Control:
+£955,000 − £185,000 − £770,000 = £0 ✓
+
+Do not include the £770,000 in a monthly cumulative cash curve until month timing is known.</pre>
         </div>
       </div>
     </div>
@@ -462,18 +532,18 @@ Still unallocated within quarters: £770,000 ✓</pre>
             </table>
           </div>
         </div>
-        <div class="sheet-note bad">The register answers “which projects exist?” but not “how much is committed, awaiting approval, proposed, or rejected by category?”</div>
+        <div class="sheet-note bad">The register answers “which projects exist?” but not “how much is approved, awaiting approval, proposed, or rejected by category?”</div>
       </div>
     </div>
 
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
 
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — SUMIFS matrix exposes committed and pipeline CapEx</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — SUMIFS matrix exposes approved and pipeline CapEx</div>
       <div class="ba-body">
         <div class="excel-window">
           <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>SUMIFS</span></div>
-          <div class="formula-row"><div class="name-box">B2</div><div class="fx-box">fx</div><div class="formula-input">=SUMIFS(Register!$D:$D,Register!$A:$A,$A2,Register!$C:$C,B$1)</div></div>
+          <div class="formula-row"><div class="name-box">B2</div><div class="fx-box">fx</div><div class="formula-input">=SUMIFS(CapExRegister[Estimated Project Cost],CapExRegister[Category],$A2,CapExRegister[Approval Status],B$1)</div></div>
           <div class="sheet-scroll">
             <table class="excel-grid">
               <colgroup><col style="width:34px"><col style="width:150px"><col style="width:115px"><col style="width:115px"><col style="width:115px"><col style="width:115px"><col style="width:115px"></colgroup>
@@ -490,7 +560,7 @@ Still unallocated within quarters: £770,000 ✓</pre>
         </div>
         <div class="claude-fix">
           <div class="claude-fix-label">Management view</div>
-          <pre>Committed Approved CapEx = £505,000
+          <pre>Approved project cost = £505,000
 Active pipeline = Submitted + Proposed
                 = £90,000 + £450,000
                 = £540,000
@@ -498,7 +568,8 @@ Active pipeline = Submitted + Proposed
 Rejected = £120,000
 Grand project universe = £1,165,000 ✓
 
-SUMIFS keeps the matrix live as project statuses change.</pre>
+Structured-reference SUMIFS keeps the matrix live as register rows/statuses change.
+Add a control for blank/invalid statuses so nothing disappears silently. ✓</pre>
         </div>
       </div>
     </div>
@@ -506,25 +577,25 @@ SUMIFS keeps the matrix live as project statuses change.</pre>
 
   <!-- DIAGNOSIS TABLE -->
   <div class="diag-card">
-    <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Common CapEx planning mistakes — and how to avoid them</div>
+    <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Four CapEx planning controls worth checking</div>
     <div class="diag-row">
       <div class="diag-cause">No spend phasing</div>
       <div class="diag-example">Total cost in one cell → <span class="bad">wrong cash timing</span> in cash flow forecast</div>
-      <div class="diag-badge badge-red">Most common</div>
+      <div class="diag-badge badge-red">High risk</div>
     </div>
     <div class="diag-row">
       <div class="diag-cause">Depreciation inputs missing</div>
-      <div class="diag-example">Missing <span class="bad">salvage value</span> and <span class="bad">useful life</span> → depreciation can't be calculated</div>
-      <div class="diag-badge badge-red">Most common</div>
+      <div class="diag-example">Missing <span class="bad">capitalisable basis / residual value / useful life / in-service date</span> → depreciation timing or amount cannot be supported</div>
+      <div class="diag-badge badge-red">High risk</div>
     </div>
     <div class="diag-row">
       <div class="diag-cause">No status filter on totals</div>
-      <div class="diag-example">SUM includes <span class="bad">Proposed</span> items → committed spend is overstated</div>
+      <div class="diag-example">SUM includes <span class="bad">Proposed</span> items → Approved-only total is overstated</div>
       <div class="diag-badge badge-yellow">Easy fix</div>
     </div>
     <div class="diag-row">
       <div class="diag-cause">Missing pipeline projects</div>
-      <div class="diag-example">Only <span class="bad">Approved</span> projects tracked → board can't see full CapEx picture</div>
+      <div class="diag-example">Only <span class="bad">Approved</span> projects tracked → proposed/submitted pipeline is invisible</div>
       <div class="diag-badge badge-yellow">Invisible</div>
     </div>
   </div>
@@ -538,19 +609,19 @@ SUMIFS keeps the matrix live as project statuses change.</pre>
       <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a CapEx register with Claude — 4 steps</div>
       <div class="step">
         <div class="step-n">1</div>
-        <div class="step-body"><h3>List projects and assign categories</h3><p>Provide a raw list of projects with common categories (Facilities, Equipment, Vehicles, IT/Software, Leasehold Improvements). Categories allow Claude to build SUMIFS-based subtotals later.</p></div>
+        <div class="step-body"><h3>List projects and assign categories</h3><p>Provide your organisation's project categories or approved category list. Do not ask Claude to decide whether a project qualifies as CapEx from its name alone; accounting classification follows your policy and the underlying facts.</p></div>
       </div>
       <div class="step">
         <div class="step-n">2</div>
-        <div class="step-body"><h3>Include salvage values and useful lives</h3><p>Even rough estimates matter. Claude calculates indicative annual depreciation for each project so leadership can see the ongoing P&amp;L impact alongside the cash outlay. Use <code>0</code> for salvage value if the asset will be fully written off.</p></div>
+        <div class="step-body"><h3>Include salvage values and useful lives</h3><p>Provide capitalisable basis, residual value, useful life and expected in-service date only when supported by your accounting policy or asset assumptions. Use <code>0</code> residual value only when that is an intentional assumption, not as a default invented by Claude.</p></div>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Set the approval status for each project</h3><p>Use four stages: Proposed, Submitted, Approved, Rejected. Claude handles the initial data structure so you can easily track state changes.</p></div>
+        <div class="step-body"><h3>Set the approval status for each project</h3><p>Use the controlled status list Proposed, Submitted, Approved, Rejected unless your own governance uses different states. Define what "Approved" means so it is not confused with legally committed spend.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
-        <div class="step-body"><h3>Implement SUMIFS for filtered totals</h3><p>Paste Claude's formula output. It filters totals by status automatically, showing both committed spend (Approved) and the full pipeline (Submitted + Proposed) in one view.</p></div>
+        <div class="step-body"><h3>Implement SUMIFS for filtered totals</h3><p>Use structured-reference SUMIFS formulas so status totals update with the Excel Table. Show Approved, active pipeline and Rejected separately, plus a control for blank or invalid statuses.</p></div>
       </div>
       <div class="tip"><strong>Tip:</strong> If you manage CapEx across multiple entities, build each entity's plan separately using this prompt, then consolidate using the <a href="/multi-entity-financials-excel-claude.html" style="color:#92400e;font-weight:600">multi-entity consolidation workflow</a>.</div>
     </div>
@@ -563,11 +634,11 @@ SUMIFS keeps the matrix live as project statuses change.</pre>
       <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Distribute project costs accurately — 4 steps</div>
       <div class="step">
         <div class="step-n">1</div>
-        <div class="step-body"><h3>Export your base project list</h3><p>Copy only the Project Name and Estimated Cost from your main register. Do not clutter the prompt with depreciation or category data.</p></div>
+        <div class="step-body"><h3>Export your base project list</h3><p>Include Project ID, Project Name, the exact amount to phase, and the timing basis. Project ID prevents duplicate names from being confused; depreciation data is not needed for cash phasing.</p></div>
       </div>
       <div class="step">
         <div class="step-n">2</div>
-        <div class="step-body"><h3>Define the phasing logic</h3><p>Capital projects rarely pay out in a single lump sum. State exactly when cash will leave the business using percentages (e.g., "50% Q2, 50% Q3" or "25% Jan, 75% Feb").</p></div>
+        <div class="step-body"><h3>Define the phasing logic</h3><p>State the timing you actually know and whether the schedule represents cash payment, invoice/accrual timing, or another basis. Do not convert quarter-level timing into monthly cash timing without evidence.</p></div>
       </div>
       <div class="step">
         <div class="step-n">3</div>
@@ -575,7 +646,7 @@ SUMIFS keeps the matrix live as project statuses change.</pre>
       </div>
       <div class="step">
         <div class="step-n">4</div>
-        <div class="step-body"><h3>Sum columns for cash flow reporting</h3><p>Paste the matrix back into your workbook. Add a Total row at the bottom summing each month to feed your Treasury or Cash Flow Dashboard directly.</p></div>
+        <div class="step-body"><h3>Sum columns for cash flow reporting</h3><p>Before using the schedule in a cash forecast, verify each project's Allocated + Unallocated + Outside-Period amount equals the amount to phase. Only month-allocated spend should feed a monthly cash curve.</p></div>
       </div>
     </div>
   </div>
@@ -591,15 +662,15 @@ SUMIFS keeps the matrix live as project statuses change.</pre>
       </div>
       <div class="step">
         <div class="step-n">2</div>
-        <div class="step-body"><h3>Feed the layout to Claude</h3><p>Provide Claude with your column headers and a snippet of the data. Tell it you want a Category vs. Status matrix.</p></div>
+        <div class="step-body"><h3>Feed the layout to Claude</h3><p>Provide the exact Excel Table name and column headers. A small sample is enough to design the formulas, but totals must reference the complete CapExRegister table.</p></div>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Copy the SUMIFS matrix</h3><p>Claude will output a clean table with pre-written `SUMIFS` formulas that cross-reference Category and Status.</p></div>
+        <div class="step-body"><h3>Copy the SUMIFS matrix</h3><p>Use structured-reference <code>SUMIFS</code> formulas that reference the row category and status header, plus a control for blank/invalid statuses.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
-        <div class="step-body"><h3>Paste into a presentation tab</h3><p>Place this summary on a new tab designed for printing or PDF export. As you update project statuses in the main register, this executive view will update instantly.</p></div>
+        <div class="step-body"><h3>Paste into a presentation tab</h3><p>Place the summary on a separate tab and verify the grand total ties back to CapExRegister. Because formulas reference the Excel Table, valid status/category changes will recalculate the summary.</p></div>
       </div>
     </div>
   </div>
@@ -609,19 +680,19 @@ SUMIFS keeps the matrix live as project statuses change.</pre>
   <div class="faq-section">
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What is the difference between CapEx and OpEx in Excel planning? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">CapEx (capital expenditure) is spending on long-term assets — equipment, vehicles, property — that gets capitalised on the balance sheet and depreciated over time. OpEx (operating expenditure) hits the income statement immediately. This template handles CapEx only: each project is tracked as an asset with a useful life and a depreciation schedule.</div>
+      <div class="faq-a">CapEx planning tracks expenditure that your accounting policy expects may qualify for capitalisation; OpEx is expensed under the applicable policy. Classification depends on the nature of the cost and accounting framework, so this workflow does not decide CapEx vs OpEx from a project name. It tracks the capitalisable basis and depreciation assumptions only when you supply/confirm them.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can Claude phase CapEx spending across multiple months? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes. The Phase spend prompt uses exact monthly timing where you provide it. Quarter-only percentages should remain unallocated within the relevant quarter until you specify the month-level split; this avoids inventing cash timing.</div>
+      <div class="faq-a">Yes. Use exact monthly timing only where supplied. Quarter-only percentages remain unallocated within the quarter until a monthly split is known, and each project should have a phasing check proving Allocated + Unallocated + Outside-Period equals the amount being phased.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How does this template connect to depreciation? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">The template includes an annual depreciation column per project using straight-line: (Cost − Salvage) / Useful Life. For a full monthly depreciation schedule with multiple methods, pair this with the <a href="/fixed-asset-depreciation-excel-claude.html">fixed asset depreciation workflow</a>.</div>
+      <div class="faq-a">The register can calculate estimated full-year straight-line depreciation as (Capitalisable Basis − Residual Value) / Useful Life when those inputs are supplied. Period depreciation also needs an in-service / available-for-use date and your accounting convention; cash-spend timing alone does not determine the depreciation start. For monthly schedules, use the <a href="/fixed-asset-depreciation-excel-claude.html">fixed asset depreciation workflow</a>.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Should I include projects that haven't been approved yet? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes. The Approval Status column tracks Proposed, Submitted, Approved, and Rejected projects in one view. SUMIFS totals filter by status automatically, so leadership sees both committed spend and the full pipeline — not just what's already signed off.</div>
+      <div class="faq-a">Yes, if your planning process includes pipeline projects. Keep Proposed, Submitted, Approved and Rejected separate so Approved project cost is not mixed with pipeline or rejected items. Define what Approved means in your governance before treating it as committed spend.</div>
     </div>
   </div>
 
