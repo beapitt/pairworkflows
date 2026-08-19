@@ -6,7 +6,7 @@
 <title>Bank Reconciliation in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to reconcile a bank statement against your general ledger in Excel with Claude AI, match transactions, and flag discrepancies.">
 <link rel="canonical" href="https://www.pairworkflows.com/bank-reconciliation-excel-claude.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude read my Excel bank statement directly?","acceptedAnswer":{"@type":"Answer","text":"Claude may support spreadsheet file uploads depending on the plan and current product features. If file upload is unavailable, paste the relevant columns as text. For best results, provide only the rows and columns needed for the reconciliation."}},{"@type":"Question","name":"How does Claude match bank transactions to ledger entries?","acceptedAnswer":{"@type":"Answer","text":"Claude compares rows across two datasets using the matching criteria you specify — typically date, amount, and reference number. It flags exact matches, partial matches (e.g. same amount but different date), and completely unmatched items on both sides."}},{"@type":"Question","name":"Will Claude invent matches that don't exist?","acceptedAnswer":{"@type":"Answer","text":"Not if your prompt includes anti-hallucination guardrails. The prompt in this workflow explicitly instructs Claude to flag unmatched items rather than forcing a match. Always verify the output against your source data."}},{"@type":"Question","name":"Can I use this for multi-currency bank reconciliation?","acceptedAnswer":{"@type":"Answer","text":"Yes. Add a Currency column to both datasets and include the exchange rate in your prompt. Ask Claude to convert all amounts to your reporting currency before matching."}},{"@type":"Question","name":"How often should I run this reconciliation?","acceptedAnswer":{"@type":"Answer","text":"Most finance teams reconcile monthly at minimum. Weekly reconciliation catches errors faster and makes month-end close significantly smoother. The template Claude builds works for any frequency."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude read my Excel bank statement directly?","acceptedAnswer":{"@type":"Answer","text":"Claude may support spreadsheet file uploads depending on the plan and current product features. If file upload is unavailable, paste the relevant columns as text. For best results, provide only the rows and columns needed for the reconciliation."}},{"@type":"Question","name":"How does Claude match bank transactions to ledger entries?","acceptedAnswer":{"@type":"Answer","text":"Claude compares rows across two datasets using the matching criteria you specify — typically date, amount, and reference number. It flags exact matches, partial matches (e.g. same amount but different date), and completely unmatched items on both sides."}},{"@type":"Question","name":"Will Claude invent matches that don't exist?","acceptedAnswer":{"@type":"Answer","text":"No prompt can guarantee error-free AI matching. Use explicit one-to-one row IDs, evidence and ambiguity rules, then verify every proposed match and the control totals against the original source data."}},{"@type":"Question","name":"Can I use this for multi-currency bank reconciliation?","acceptedAnswer":{"@type":"Answer","text":"Yes, but provide the approved FX basis explicitly. Keep original currency, rate, converted amount and ledger booked reporting-currency amount visible, and investigate conversion differences before deciding on any accounting entry."}},{"@type":"Question","name":"How often should I run this reconciliation?","acceptedAnswer":{"@type":"Answer","text":"Reconciliation frequency depends on transaction volume, risk, controls and close policy. Many organisations reconcile at least as part of month-end, while higher-risk or high-volume accounts may be reconciled more frequently."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -170,8 +170,8 @@ section { margin-bottom: 2rem; }
 @media(max-width:640px){
   .hero h1{font-size:24px}
   .hero h2 {font-size: 20px;}
-  .diag-row{grid-template-columns:1fr 1fr;gap:8px}
-  .diag-example{display:none}
+  .diag-row{grid-template-columns:1fr;gap:6px}
+  .diag-example{display:flex}
   .related-grid{grid-template-columns:1fr}
   .page{padding:1.5rem 1rem 3rem}
 }
@@ -207,7 +207,7 @@ section { margin-bottom: 2rem; }
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
     <h1>How to Do Bank Reconciliation in Excel with Claude AI</h1>
     <h2>Reconcile bank transactions step by step</h2>
-    <p class="hero-sub">Paste your bank statement and general ledger into Claude with the prompt below. It matches transactions by date and amount, flags partial matches, and lists every unmatched item — no forced matches, no invented entries.</p>
+    <p class="hero-sub">Provide the bank statement and cash-ledger rows to Claude and use it to generate candidate matches, exceptions, and an Excel-ready reconciliation schedule. The workflow below requires one-to-one matching evidence and keeps ambiguous items unmatched for human review.</p>
   </section>
 
   <!-- PROMPT SELECTOR -->
@@ -224,30 +224,63 @@ section { margin-bottom: 2rem; }
     <!-- Panel: Full Reconciliation -->
     <div id="p-recon" class="panel on">
       <div class="prompt-box">
-        <pre>I need to reconcile a bank statement against a general ledger cash account in Excel.
+        <pre>I need to reconcile a bank statement against a general-ledger cash account in Excel.
 
-BANK STATEMENT (columns: Date, Reference, Description, Amount):
-[Paste your bank statement rows here]
+Add a unique row ID to every pasted row before matching:
+- Bank rows: B001, B002, B003...
+- Ledger rows: L001, L002, L003...
 
-GENERAL LEDGER — CASH ACCOUNT (columns: Date, GL Ref, Description, Amount):
-[Paste your ledger rows here]
+BANK STATEMENT
+Columns: Bank Row ID | Date | Reference | Description | Amount
+[Paste rows here]
 
-Rules:
-- Match transactions by date and amount first. Use reference and description as secondary confirmation only.
-- Dates are in DD/MM/YYYY format. Amounts use negative for outflows, positive for inflows.
-- If a bank item matches a ledger item exactly (same date and amount), mark it "Matched".
-- If a bank item matches a ledger item on date but the amounts differ, mark it "Partial" and show the difference.
-- If a bank item has no corresponding ledger entry at all, mark it "Unmatched (Bank only)".
-- If a ledger item has no corresponding bank entry, mark it "Unmatched (Ledger only)".
-- Do NOT invent or force matches. Do NOT fabricate amounts. If something doesn't match, flag it.
-- Do NOT assume timing differences resolve themselves — list every discrepancy.
+GENERAL LEDGER — CASH ACCOUNT
+Columns: Ledger Row ID | Date | GL Ref | Description | Amount
+[Paste rows here]
 
-Output:
-1. A reconciliation table: Date | Bank Ref | Bank Amt | Ledger Amt | Difference | Status
-2. A separate list of all unmatched items (bank-only and ledger-only)
-3. A summary: Bank total, Ledger total, Total matched, Total unmatched, Net difference
+Matching policy:
+- Dates are DD/MM/YYYY and must be real dates or unambiguous date text.
+- Amounts use negative for outflows and positive for inflows.
+- Exact match: same signed amount AND sufficient identifying evidence
+  (prefer matching reference; otherwise use date + amount + description evidence).
+- Do NOT treat "same date but different amount" as a match by itself.
+- Do NOT reuse a Bank Row ID or Ledger Row ID in more than one one-to-one match.
+- If duplicate date+amount candidates exist, mark them "Ambiguous" unless reference/
+  description evidence identifies one unique counterpart.
+- If I want a timing window or amount tolerance, use ONLY the values I explicitly give:
+  Date tolerance: [0 days unless I specify otherwise]
+  Amount tolerance: [0.00 unless I specify otherwise]
+- Do not create one-to-many or many-to-one matches unless I explicitly ask for split/
+  combined transaction matching and provide the business rule.
+- Never invent a reference, date, description, amount, FX rate, fee, or missing row.
+- Keep uncertain items unmatched/ambiguous and explain why.
 
-Format the output as an Excel-ready table I can paste directly into a spreadsheet.</pre>
+For every proposed match, show the evidence used.
+
+Output 1 — one-to-one reconciliation table:
+Bank Row ID | Ledger Row ID | Bank Date | Ledger Date | Bank Ref | GL Ref |
+Bank Amount | Ledger Amount | Difference | Status | Match evidence
+
+Allowed Status values:
+Matched | Ambiguous | Unmatched (Bank only) | Unmatched (Ledger only)
+
+Output 2 — exception lists:
+- all Ambiguous candidates
+- all Bank-only rows
+- all Ledger-only rows
+
+Output 3 — control totals calculated from the ORIGINAL datasets, not from the matched table:
+- Bank source total
+- Ledger source total
+- Bank source total minus Ledger source total
+- number of Bank source rows
+- number of Ledger source rows
+- number of one-to-one Matched pairs
+
+Before giving the final result, check that no Bank Row ID or Ledger Row ID has been used twice.
+
+Format the tables as tab-separated text I can paste into Excel.
+Do not recommend posting journal entries from this output; reconciliation exceptions require review first.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Replace the bracketed sections with your real data. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a> or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
@@ -266,10 +299,17 @@ Here are 3 sample rows from my bank statement:
 Here are the corresponding rows from my general ledger:
 [paste rows]
 
-Please identify what's causing the mismatch and tell me exactly what to fix before I re-run the reconciliation.</pre>
+Please:
+1. Compare the raw values and data types before assuming the cause.
+2. List the plausible causes supported by these samples.
+3. Give the exact Excel test/formula I can use to confirm the cause.
+4. Only then give the cleaning fix.
+5. Tell me how to verify that the cleaned values truly match.
+
+Do not assume a formatting issue merely because two displayed values look similar.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Common causes: date format mismatch, sign convention difference, or extra spaces. Claude spots these immediately.</p>
+      <p class="prompt-hint">Include the raw cell values, signs and date types. A displayed date/amount can look identical while the underlying Excel value differs.</p>
     </div>
 
     <!-- Panel: Multi-currency -->
@@ -277,18 +317,34 @@ Please identify what's causing the mismatch and tell me exactly what to fix befo
       <div class="prompt-box">
         <pre>I need to reconcile a multi-currency bank statement against my general ledger.
 
-Bank statement currency: [e.g. USD]
 Reporting currency: [e.g. GBP]
-Exchange rate to use: [e.g. 1 USD = 0.79 GBP — or: use the rate in column E]
+Approved FX basis for this reconciliation:
+[e.g. transaction-specific rate in column E / booked GBP amount / policy rate supplied below]
+Rounding tolerance permitted by policy: [e.g. £0.01, or 0 if none]
 
-BANK STATEMENT (Date, Reference, Description, Amount USD):
-[Paste bank statement rows]
+BANK STATEMENT
+Columns: Bank Row ID | Date | Reference | Currency | Original Amount | FX Rate (if supplied)
+[Paste rows]
 
-GENERAL LEDGER — CASH ACCOUNT (Date, GL Ref, Description, Amount GBP):
-[Paste ledger rows]
+GENERAL LEDGER — CASH ACCOUNT
+Columns: Ledger Row ID | Date | GL Ref | Currency | Original Amount | Booked Reporting-Currency Amount (if available)
+[Paste rows]
 
-Convert all bank amounts to GBP using the exchange rate above before matching.
-Apply the same matching rules: Matched / Partial / Unmatched. Flag every discrepancy.</pre>
+Rules:
+- Prefer reconciling to the actual booked reporting-currency amount when it is supplied.
+- Use only the FX rate/basis I provide; do not look up, estimate, average, or invent a rate.
+- State the conversion direction explicitly before calculating.
+- Round only at the precision I specify.
+- Keep original-currency amount, FX rate, converted amount and ledger booked amount in separate columns.
+- Use one-to-one row IDs; never reuse a bank or ledger row in multiple matches.
+- A conversion difference is an exception to investigate, not automatically an FX gain/loss journal.
+- Do not post or recommend a journal entry unless I separately provide the accounting policy and ask for one.
+
+Output:
+Bank Row ID | Ledger Row ID | Currency | Original Bank Amount | FX Rate |
+Converted Bank Amount | Ledger Booked Amount | Difference | Status | Evidence
+
+Then list all ambiguous and unmatched rows separately and reconcile the source control totals.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Add a Currency column to both datasets if you have multiple currencies in one statement.</p>
@@ -319,14 +375,14 @@ Apply the same matching rules: Matched / Partial / Unmatched. Flag every discrep
           </div>
           <div class="sheet-tabs"><span class="sheet-tab active">Bank</span><span class="sheet-tab">Ledger</span><span class="sheet-tab">Reconciliation</span></div>
         </div>
-        <div class="sheet-note bad">Ledger contains −£12,500 for TXN-4401 and +£8,700 for TXN-4410. TXN-4415 has no ledger row. Without a reconciliation table, the £50 partial difference and bank-only item are hidden.</div>
+        <div class="sheet-note bad">Assign unique row IDs before matching. Ledger contains −£12,500 for TXN-4401 and +£8,700 for TXN-4410. TXN-4415 has no ledger row. Without a reconciliation table, the £50 partial difference and bank-only item are hidden.</div>
       </div>
     </div>
 
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
 
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — one reconciliation sheet shows exact, partial and unmatched items</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — one reconciliation sheet separates matched, amount-exception and unmatched items</div>
       <div class="ba-body">
         <div class="excel-window">
           <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data</span></div>
@@ -338,7 +394,7 @@ Apply the same matching rules: Matched / Partial / Unmatched. Flag every discrep
               <tbody>
                 <tr><th class="row-num">1</th><td class="header-cell">Date</td><td class="header-cell">Bank Ref</td><td class="header-cell">Bank Amt</td><td class="header-cell">Ledger Amt</td><td class="header-cell">Difference</td><td class="header-cell">Status</td></tr>
                 <tr><th class="row-num">2</th><td>01/06/2025</td><td>TXN-4401</td><td>−£12,500</td><td>−£12,500</td><td>£0</td><td class="matched">Matched</td></tr>
-                <tr><th class="row-num">3</th><td>05/06/2025</td><td>TXN-4410</td><td>+£8,750</td><td>+£8,700</td><td class="selected partial">+£50</td><td class="partial">Partial</td></tr>
+                <tr><th class="row-num">3</th><td>05/06/2025</td><td>TXN-4410</td><td>+£8,750</td><td>+£8,700</td><td class="selected partial">+£50</td><td class="partial">Amount exception</td></tr>
                 <tr><th class="row-num">4</th><td>07/06/2025</td><td>TXN-4415</td><td>−£1,980</td><td class="muted">—</td><td class="muted">—</td><td class="unmatched">Bank only</td></tr>
               </tbody>
             </table>
@@ -348,10 +404,10 @@ Apply the same matching rules: Matched / Partial / Unmatched. Flag every discrep
         <div class="claude-fix">
           <div class="claude-fix-label">Reconciliation result</div>
           <pre>TXN-4401 → exact match, difference £0
-TXN-4410 → partial match, bank £8,750 vs ledger £8,700, difference +£50
+TXN-4410 → same reference identifies the related entries, but amounts differ: bank £8,750 vs ledger £8,700, exception +£50
 TXN-4415 → unmatched bank item, −£1,980
 
-Do not combine the £50 partial variance and £1,980 bank-only item into one generic "net difference".
+Do not combine the £50 amount exception and £1,980 bank-only item into one generic "net difference".
 They are different exception types and should be investigated separately. ✓</pre>
         </div>
       </div>
@@ -389,7 +445,7 @@ They are different exception types and should be investigated separately. ✓</p
       <div class="ba-body">
         <div class="excel-window">
           <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Number</span></div>
-          <div class="formula-row"><div class="name-box">C3</div><div class="fx-box">fx</div><div class="formula-input">=DATE(LEFT(B3,4),MID(B3,6,2),RIGHT(B3,2))</div></div>
+          <div class="formula-row"><div class="name-box">C3</div><div class="fx-box">fx</div><div class="formula-input">=DATE(VALUE(LEFT(B3,4)),VALUE(MID(B3,6,2)),VALUE(RIGHT(B3,2)))</div></div>
           <div class="sheet-scroll">
             <table class="excel-grid">
               <colgroup><col style="width:34px"><col style="width:105px"><col style="width:145px"><col style="width:145px"><col style="width:115px"><col style="width:120px"></colgroup>
@@ -406,9 +462,9 @@ They are different exception types and should be investigated separately. ✓</p
           <div class="claude-fix-label">Correct date fix</div>
           <pre>If B3 contains ISO text "2025-06-01":
 
-=DATE(LEFT(B3,4),MID(B3,6,2),RIGHT(B3,2))
+=DATE(VALUE(LEFT(B3,4)),VALUE(MID(B3,6,2)),VALUE(RIGHT(B3,2)))
 
-This creates a real Excel date value.
+This parses fixed-position ISO text (YYYY-MM-DD) into numeric year/month/day arguments and returns a real Excel date serial.
 Then apply DD/MM/YYYY as the display format.
 
 Formatting alone changes appearance, not the underlying data type. ✓</pre>
@@ -469,8 +525,8 @@ Formatting alone changes appearance, not the underlying data type. ✓</pre>
 Bank conversion:
 $1,000 × 0.79 = £790.00 ✓
 
-Only after conversion should £790 be compared with the GBP ledger amount.
-For real reconciliations, use the transaction-specific or policy-approved FX rate supplied in your data.</pre>
+Only after applying the explicitly supplied conversion basis should £790 be compared with the GBP ledger booked amount.
+For real reconciliations, retain the original amount, rate and converted amount for auditability; use the transaction-specific or policy-approved basis supplied in your data and apply only an explicitly defined rounding tolerance.</pre>
         </div>
       </div>
     </div>
@@ -478,20 +534,20 @@ For real reconciliations, use the transaction-specific or policy-approved FX rat
 
   <!-- DIAGNOSIS TABLE -->
   <section class="diag-card">
-    <div class="diag-header"><h2><i class="ti ti-zoom-question" style="font-size:15px"></i> Why reconciliations fail — the 4 most common causes</h2></div>
+    <div class="diag-header"><h2><i class="ti ti-zoom-question" style="font-size:15px"></i> Four reasons a reconciliation can produce false matches or exceptions</h2></div>
     <div class="diag-row">
       <div class="diag-cause">Date format mismatch</div>
       <div class="diag-example">One side is a real Excel date, the other is <span class="bad">text</span> → values may look alike but fail exact matching</div>
-      <div class="diag-badge badge-red">Most common</div>
+      <div class="diag-badge badge-red">High risk</div>
     </div>
     <div class="diag-row">
       <div class="diag-cause">Sign convention differs</div>
       <div class="diag-example">Bank: <span class="bad">-12,500</span> · Ledger: <span class="bad">12,500</span> → amounts never match</div>
-      <div class="diag-badge badge-red">Most common</div>
+      <div class="diag-badge badge-red">High risk</div>
     </div>
     <div class="diag-row">
       <div class="diag-cause">Duplicate date+amount pairs</div>
-      <div class="diag-example">Two rows with same date &amp; amount → Claude matches to wrong entry</div>
+      <div class="diag-example">Two rows share date &amp; amount → a matcher can choose the <span class="bad">wrong counterpart</span> unless row IDs/reference evidence enforce one-to-one matching</div>
       <div class="diag-badge badge-yellow">Easy fix</div>
     </div>
     <div class="diag-row">
@@ -509,25 +565,25 @@ For real reconciliations, use the transaction-specific or policy-approved FX rat
       <div class="steps-title"><h2><i class="ti ti-list-check" style="color:#1d9e75"></i> Run a bank reconciliation with Claude — 5 steps</h2></div>
       <div class="step">
         <div class="step-n">1</div>
-        <div class="step-body"><h3>Export both datasets to Excel or CSV</h3><p>Export your bank statement and general ledger cash account. Keep only individual transaction rows — delete summary rows, running balances, and any bank export headers that span multiple columns.</p></div>
+        <div class="step-body"><h3>Export both datasets to Excel or CSV</h3><p>Export your bank statement and general-ledger cash account. Preserve the original exports, then create a working copy containing individual transaction rows only. Exclude running balances, subtotals and report headers from the matching dataset rather than deleting the only source copy.</p></div>
       </div>
       <div class="step">
         <div class="step-n">2</div>
-        <div class="step-body"><h3>Align date formats and sign conventions</h3><p>Both datasets must use the same date format (e.g. DD/MM/YYYY). Amounts must follow the same sign convention: negative for outflows, positive for inflows. Fix this in Excel before pasting into Claude.</p></div>
+        <div class="step-body"><h3>Align date formats and sign conventions</h3><p>Confirm both datasets use compatible underlying date values—not merely the same display format—and align sign conventions before matching. Document whether outflows are negative and inflows positive, then verify a few known transactions in Excel.</p></div>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Paste both datasets into the prompt</h3><p>Use the Full Reconciliation prompt above. Paste your bank rows where indicated and your ledger rows below. Include column headers so Claude understands the structure.</p></div>
+        <div class="step-body"><h3>Paste both datasets into the prompt</h3><p>Use the Full Reconciliation prompt above. Include headers and unique Bank/Ledger Row IDs so every proposed one-to-one match can be traced back to exactly one source row.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
-        <div class="step-body"><h3>Review every Partial and Unmatched item</h3><p>Claude's output is a starting point, not a final answer. Every Partial match needs a root-cause investigation — timing difference, bank fee, or data entry error. Every Unmatched item on the bank side needs a journal entry or explanation.</p></div>
+        <div class="step-body"><h3>Review every Partial and Unmatched item</h3><p>Claude's output is a starting point, not a final answer. Every amount exception or unmatched item needs a root-cause review. It may reflect timing, fees, an entry error, a split/combined transaction, or another valid cause. Do not assume an unmatched bank item automatically requires a journal entry.</p></div>
       </div>
       <div class="step">
         <div class="step-n">5</div>
         <div class="step-body"><h3>Paste the reconciliation table into Excel</h3><p>Claude formats the output as a tab-separated table ready to paste into Excel. Apply <code>Ctrl+Shift+L</code> to add filters, then sort by Status to group all Partial and Unmatched items at the top.</p></div>
       </div>
-      <div class="tip"><strong>Tip:</strong> If all your items show Unmatched, the most likely cause is a date format mismatch. Tell Claude "dates in my bank export are MM/DD/YYYY and in my ledger they are DD/MM/YYYY" — it will normalise before matching.</div>
+      <div class="tip"><strong>Tip:</strong> If many items unexpectedly show Unmatched, inspect the underlying date types, sign conventions, amount data types and row identifiers first. Do not normalise dates by guesswork when formats such as 03/04/2026 are ambiguous.</div>
     </section>
   </div>
 
@@ -549,7 +605,7 @@ For real reconciliations, use the transaction-specific or policy-approved FX rat
       </div>
       <div class="step">
         <div class="step-n">4</div>
-        <div class="step-body"><h3>Apply the fix in Excel before re-running</h3><p>Apply Claude's recommended formula (like <code>TRIM()</code> or <code>DATEVALUE()</code>) to clean the raw column in Excel, then re-paste the clean dataset for the full reconciliation.</p></div>
+        <div class="step-body"><h3>Apply the fix in Excel before re-running</h3><p>Apply any cleaning formula in a helper column first and verify known rows before replacing source values. For fixed ISO text such as YYYY-MM-DD, a DATE/LEFT/MID/RIGHT construction avoids locale ambiguity; DATEVALUE can depend on system date settings.</p></div>
       </div>
     </section>
   </div>
@@ -564,15 +620,15 @@ For real reconciliations, use the transaction-specific or policy-approved FX rat
       </div>
       <div class="step">
         <div class="step-n">2</div>
-        <div class="step-body"><h3>Define your exchange rates</h3><p>Determine the exchange rate for the period. You can either provide a fixed static rate in the prompt, or point Claude to an FX column in your pasted data.</p></div>
+        <div class="step-body"><h3>Define your exchange rates</h3><p>Use the transaction-specific or policy-approved FX basis required by your accounting process. Provide that rate/booked reporting-currency amount explicitly; do not ask Claude to estimate or source a rate implicitly.</p></div>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Run the multi-currency prompt</h3><p>Paste your data using the prompt above. Claude will multiply or divide the bank amounts by the given rate to standardize them to your ledger's base reporting currency.</p></div>
+        <div class="step-body"><h3>Run the multi-currency prompt</h3><p>Paste your data using the prompt above. Require Claude to state whether the quoted rate means reporting currency per 1 unit of foreign currency or the inverse before multiplying/dividing, and retain the rate used beside every converted amount.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
-        <div class="step-body"><h3>Account for FX variance (Partial Matches)</h3><p>Because bank FX rates fluctuate daily, converted amounts rarely match to the penny. Claude will flag these as "Partial" matches; standard procedure is to post the minor variance to a dedicated FX Gain/Loss account.</p></div>
+        <div class="step-body"><h3>Account for FX variance (Partial Matches)</h3><p>Compare the converted bank amount with the ledger's booked reporting-currency amount using only the tolerance permitted by your policy. A difference may have several causes; investigate it before deciding whether any FX gain/loss or other journal entry is appropriate.</p></div>
       </div>
     </section>
   </div>
@@ -586,19 +642,19 @@ For real reconciliations, use the transaction-specific or policy-approved FX rat
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How does Claude match bank transactions to ledger entries? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Claude uses date and amount as the primary matching key. Reference numbers and descriptions are used as secondary confirmation. The prompt instructs Claude not to force matches — if two rows don't meet the matching criteria, they're flagged separately.</div>
+      <div class="faq-a">Use Claude to propose one-to-one candidate matches from the criteria you provide. The revised prompt requires unique row IDs, signed amounts, reference/description evidence, and prevents reuse of the same source row. Duplicate or uncertain candidates remain ambiguous rather than being forced into a match.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Will Claude invent matches that don't exist? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Not with this prompt. The guardrail line "Do NOT invent or force matches" is critical — it tells Claude to flag discrepancies rather than resolve them. Always verify the output against your source data before posting any adjusting entries.</div>
+      <div class="faq-a">No prompt can guarantee that an AI will never make a matching mistake. This workflow reduces the risk by requiring source row IDs, explicit evidence, one-to-one usage checks and ambiguous/unmatched statuses. Always reconcile Claude's output back to the original bank and ledger rows before posting adjustments.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can I use this for multi-currency bank reconciliation? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes — use the Multi-currency prompt tab above. Add a Currency column to both datasets and specify the exchange rate in the prompt. Claude converts all amounts to your reporting currency before matching.</div>
+      <div class="faq-a">Yes, if you provide the approved FX basis. Keep original currency, rate, converted amount and ledger booked reporting-currency amount visible. Claude should use only the rate/basis you supply and should not automatically treat a conversion difference as an FX journal entry.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How often should I run this reconciliation? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Most finance teams reconcile monthly at minimum. Weekly reconciliation catches errors faster and makes month-end close significantly smoother. If you're building a broader close process, see the <a href="/month-end-close-excel-claude.html">month-end close checklist workflow</a>.</div>
+      <div class="faq-a">Set the frequency according to transaction volume, risk and your accounting-control policy. Bank accounts are commonly included in month-end controls, while higher-volume or higher-risk accounts may need more frequent reconciliation. If you're building a broader close process, see the <a href="/month-end-close-excel-claude.html">month-end close checklist workflow</a>.</div>
     </div>
   </section>
 
