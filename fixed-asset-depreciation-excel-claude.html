@@ -6,7 +6,7 @@
 <title>Depreciation Formula in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to calculate depreciation in Excel with Claude AI using straight-line, declining balance and SYD formulas, plus automatic NBV tracking.">
 <link rel="canonical" href="https://www.pairworkflows.com/fixed-asset-depreciation-excel-claude.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Which Excel function does Claude use for straight-line depreciation?","acceptedAnswer":{"@type":"Answer","text":"Claude uses Excel's built-in SLN function, which takes three arguments: cost, salvage value, and useful life. The formula is =SLN(cost, salvage, life). Claude can also build the calculation manually as (Cost - Salvage) / Life if you prefer to see the logic explicitly."}},{"@type":"Question","name":"Can Claude handle mid-year asset additions in a depreciation schedule?","acceptedAnswer":{"@type":"Answer","text":"Yes. Include the in-service date for each asset and tell Claude your convention — half-year, mid-month, or exact-day. Claude will prorate the first-year and last-year depreciation accordingly."}},{"@type":"Question","name":"What is the difference between SLN, DDB, and SYD in Excel?","acceptedAnswer":{"@type":"Answer","text":"SLN spreads the depreciable amount equally over the useful life. DDB (double declining balance) front-loads depreciation by applying a fixed rate to the declining book value. SYD (sum of years' digits) also front-loads but less aggressively than DDB. Claude can build schedules using any of these methods."}},{"@type":"Question","name":"How do I handle fully depreciated assets in the template?","acceptedAnswer":{"@type":"Answer","text":"The prompt instructs Claude to add a check that stops depreciation once net book value reaches the salvage value. Fully depreciated assets remain in the register with zero annual depreciation and an NBV equal to salvage."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Which Excel function does Claude use for straight-line depreciation?","acceptedAnswer":{"@type":"Answer","text":"Claude uses Excel's built-in SLN function, which takes three arguments: cost, salvage value, and useful life. The formula is =SLN(cost, salvage, life). Claude can also build the calculation manually as (Cost - Salvage) / Life if you prefer to see the logic explicitly."}},{"@type":"Question","name":"Can Claude handle mid-year asset additions in a depreciation schedule?","acceptedAnswer":{"@type":"Answer","text":"Yes, if you provide the in-service/available-for-use date and the exact proration rules. Claude can calculate the schedule, but labels such as half-year, mid-month or exact-day are not sufficient on their own when policies differ. Verify that cumulative depreciation still stops at the residual value."}},{"@type":"Question","name":"What is the difference between SLN, DDB, and SYD in Excel?","acceptedAnswer":{"@type":"Answer","text":"SLN returns straight-line depreciation for one period. DDB calculates accelerated depreciation for a specified period using a declining-balance factor (2 by default), while SYD uses the sum-of-years' digits method. Their period patterns differ, so verify each function with the supplied life, residual value, period and DDB factor rather than assuming identical behaviour."}},{"@type":"Question","name":"How do I handle fully depreciated assets in the template?","acceptedAnswer":{"@type":"Answer","text":"Use a remaining-depreciable-amount control so depreciation cannot push NBV below residual value. Once that remaining amount is zero, later periods should show zero depreciation; keep the asset in the register until your disposal/retirement process says otherwise."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -160,8 +160,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   .hero h1{font-size:24px}
   .ba-panel.on{grid-template-columns:1fr;gap:8px}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
-  .diag-row{grid-template-columns:1fr 1fr;gap:8px}
-  .diag-example{display:none}
+  .diag-row{grid-template-columns:1fr;gap:6px}
+  .diag-example{display:flex}
   .related-grid{grid-template-columns:1fr}
   .page{padding:1.5rem 1rem 3rem}
 }
@@ -195,7 +195,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
    <h1>How to Calculate Depreciation in Excel with Claude AI</h1>
-    <p class="hero-sub">Convert your basic asset register into a complete Excel depreciation schedule using straight-line, declining balance, and SYD formulas, with automatic net book value (NBV) tracking.</p>
+    <p class="hero-sub">Provide Claude with a controlled asset register, depreciation policy, in-service dates, opening accumulated depreciation and reporting period, then use it to draft an auditable Excel depreciation schedule. The workflow separates Excel formula mechanics from the accounting policy you have actually approved.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -212,24 +212,67 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
     <div id="p-build" class="panel on">
       <div class="prompt-box">
         <pre>ROLE
-You are a senior accountant building a fixed asset depreciation schedule in Excel.
+You are helping me build an auditable fixed-asset depreciation schedule in Excel.
 
-OBJECTIVE
-Convert the provided asset register into a complete depreciation schedule.
-Calculate Annual Depreciation, Accumulated Depreciation, and Net Book Value (NBV).
+REPORTING SETTINGS
+- Reporting period / year end: [e.g. year ended 31 Dec 2026]
+- Currency / units: [e.g. GBP]
+- Depreciation start policy: [state when depreciation begins, e.g. in-service / available-for-use]
+- Proration convention: [none / half-year / mid-month / exact-day / other]
+- Rounding policy: [e.g. calculate at full precision, display 2 decimals]
 
 ASSET REGISTER
-[Paste your columns: Asset Name, Cost, Salvage Value, Useful Life, Method]
+Provide one row per asset:
+Asset ID | Asset Name | Depreciable Cost/Basis | Residual/Salvage Value |
+Useful Life | Method | In-Service Date |
+Opening Accumulated Depreciation | Opening NBV
+[Paste rows]
 
-CONSTRAINTS
-- Use Excel built-in functions: =SLN(), =DDB(), =SYD() based on the specified method.
-- Add a formula check so NBV never goes below salvage value. Once fully depreciated, annual depreciation must be 0.
-- Include a total row summing annual depreciation across all assets.
-- Do NOT invent data. Only use what I have provided.
-- Write formulas explicitly so I can audit them.
+Rules:
+1. Do not choose or change the depreciation method, useful life, residual value,
+   depreciable basis, in-service date or proration convention.
+   If an input is missing, return "INPUT NEEDED".
+2. Validate:
+   - Asset ID unique
+   - Cost/Basis >= Residual Value
+   - Useful Life > 0
+   - Opening NBV = Cost/Basis - Opening Accumulated Depreciation, unless I provide
+     a documented adjustment/impairment/revaluation basis
+   - Opening NBV >= Residual Value unless an explained exception is supplied
+3. Use the Excel function matching the supplied method:
+   - SLN(cost,salvage,life)
+   - DDB(cost,salvage,life,period,[factor])
+   - SYD(cost,salvage,life,period)
+   Use life and period in the same units.
+4. For DDB, use factor = 2 only when my method is genuinely double-declining balance.
+   Do not switch automatically to straight-line. If I request a switch-to-SLN approach,
+   flag VDB as the Excel function designed for that behaviour.
+5. Never request a depreciation period outside the asset's defined schedule.
+6. Period depreciation must not reduce NBV below Residual/Salvage Value.
+   Use a cap based on Remaining Depreciable Amount:
+   =MAX(0,MIN(MethodDepreciation,PriorNBV-ResidualValue))
+7. Accumulated Depreciation:
+   = Opening Accumulated Depreciation + depreciation recognised in schedule periods
+8. NBV:
+   = Cost/Basis - Accumulated Depreciation
+9. Do not call an asset "fully depreciated" merely because the nominal useful-life year
+   has been reached; confirm Remaining Depreciable Amount = 0 (subject to residual value).
+10. Calculate at full precision and round only display/output according to my rounding policy.
+11. Add controls:
+   - NBV never below residual value
+   - accumulated depreciation never above Cost/Basis - Residual Value
+   - opening + current depreciation ties to closing accumulated depreciation
+   - closing NBV ties to Cost/Basis - closing accumulated depreciation
+12. Do not invent accounting policy, impairment, disposal, revaluation or tax depreciation.
 
 OUTPUT
-- A single tab-separated table ready to paste directly into Excel.</pre>
+1. Asset validation exceptions
+2. Depreciation schedule
+3. Exact Excel formulas
+4. Period depreciation total
+5. NBV / accumulated-depreciation control checks
+
+Use tab-separated tables suitable for Excel.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Replace the bracketed section with your real data. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
@@ -237,19 +280,37 @@ OUTPUT
 
     <div id="p-method" class="panel">
       <div class="prompt-box">
-        <pre>I need to compare different depreciation methods for an asset to see the impact on my P&L.
+        <pre>I need to compare Excel depreciation calculations for one asset.
+This is a scenario comparison only — do not recommend which accounting method I should adopt.
 
-ASSET DETAILS:
-Cost: [e.g. 40,000]
-Salvage Value: [e.g. 4,000]
+ASSET DETAILS
+Cost / Depreciable Basis: [e.g. 40,000]
+Residual/Salvage Value: [e.g. 4,000]
 Useful Life: [e.g. 5 years]
+Period unit: [years / months]
+DDB factor: [e.g. 2]
+Proration: [none for this comparison unless stated]
 
-Please generate a year-by-year comparison table showing the annual depreciation expense for:
-1. Straight-Line (SLN)
-2. Double Declining Balance (DDB)
-3. Sum-of-Years' Digits (SYD)
+Compare:
+1. SLN
+2. DDB using the supplied factor
+3. SYD
 
-Include a total row to confirm all methods depreciate the exact same amount over the asset's life. Provide the exact Excel formulas used for Year 1 of each method.</pre>
+Requirements:
+- Show every period from 1 through Useful Life.
+- Use the exact Excel formulas for every method and Year/Period 1.
+- Show annual/period depreciation, accumulated depreciation and ending NBV.
+- Verify each method independently against its Excel-function behaviour.
+- Do not assume methods must have identical period patterns.
+- Add a control showing each method's ending NBV and cumulative depreciation.
+- If a method does not reach the intended residual value under the specified settings,
+  flag the result rather than forcing a final depreciation amount.
+- For DDB, do not silently switch to straight-line; mention VDB only if I explicitly
+  want a declining-balance method that can switch to straight-line.
+- Show P&L timing difference versus SLN as:
+  EBIT impact = SLN depreciation - comparison-method depreciation
+  (negative = lower EBIT than SLN; positive = higher EBIT than SLN).
+- Do not use this comparison to select accounting policy for me.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Use this to visualize how different methods front-load expense before committing to a policy.</p>
@@ -257,15 +318,39 @@ Include a total row to confirm all methods depreciate the exact same amount over
 
     <div id="p-prorate" class="panel">
       <div class="prompt-box">
-        <pre>My fixed asset schedule needs to account for mid-year additions.
+        <pre>My fixed-asset schedule needs proration for additions placed in service during the reporting year.
 
-Here is my asset register with in-service dates:
-[Paste your columns: Asset Name, Cost, Salvage, Life, Method, In-Service Date]
+REPORTING SETTINGS
+- Financial year start: [date]
+- Financial year end: [date]
+- Approved depreciation-start rule: [e.g. in-service / available-for-use date]
+- Convention: [Half-year / Mid-month / Exact-day / other]
+- Exact convention definition:
+  [For example, if "mid-month", state whether a half-month is taken in the
+   placement month and how the disposal/last period is treated.]
+- Exact-day day-count basis: [actual days / 365 / 366 / other]
+- Rounding: calculate at full precision, display [e.g. 2] decimals
 
-Convention to use: [Half-year / Mid-month / Exact-day]
-Financial year end: [e.g. 31 December]
+ASSET REGISTER
+Asset ID | Asset Name | Cost/Basis | Residual Value | Useful Life |
+Method | In-Service Date
+[Paste rows]
 
-Please calculate the prorated depreciation for the first year of each asset based on the convention specified. Show the formula logic you used to calculate the proration factor.</pre>
+Requirements:
+1. Do not infer the convention definition from its name alone.
+2. Confirm each In-Service Date falls in or before the reporting period.
+3. Calculate full-period method depreciation first at full precision.
+4. Apply the supplied proration convention only where it is compatible with the
+   selected depreciation method/policy.
+5. Show the exact proration factor and formula for each asset.
+6. Do not round full-year depreciation before multiplying by the proration factor.
+7. Show first-period depreciation and remaining depreciable amount.
+8. Explain how the convention affects the final depreciation period so cumulative
+   depreciation does not exceed Cost/Basis - Residual Value.
+9. Do not invent tax conventions or assume half-year/mid-month treatment is required
+   by financial-reporting rules.
+
+Output a tab-separated schedule plus control totals.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Use this when your accounting policy requires a stated proration convention for additions during the year.</p>
@@ -299,12 +384,12 @@ Please calculate the prorated depreciation for the first year of each asset base
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — complete schedule, NBV never below salvage</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — schedule caps depreciation at remaining depreciable amount</div>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th>Asset</th><th>Year</th><th>Ann. Depr</th><th>Accum. Depr</th><th>NBV</th><th>Status</th></tr>
           <tr><td>CNC Machine</td><td>1</td><td class="link-cell">=SLN(40000,4000,5)</td><td>£7,200</td><td>£32,800</td><td></td></tr>
-          <tr><td>CNC Machine</td><td>5</td><td class="link-cell">=IF(NBV&gt;Salv,...)</td><td>£36,000</td><td class="ok-cell">£4,000</td><td class="ok-cell">Fully depr.</td></tr>
+          <tr><td>CNC Machine</td><td>5</td><td class="link-cell">=MAX(0,MIN(MethodDepr,PriorNBV-Salvage))</td><td>£36,000</td><td class="ok-cell">£4,000</td><td class="ok-cell">Residual reached</td></tr>
           <tr><td>CNC Machine</td><td>6</td><td class="ok-cell">£0</td><td>£36,000</td><td class="ok-cell">£4,000 ✓</td><td class="ok-cell">Stopped ✓</td></tr>
           <tr><td>Delivery Van</td><td>1</td><td class="link-cell">=DDB(28000,3000,4,1)</td><td>£14,000</td><td>£14,000</td><td></td></tr>
           <tr><td>Server Rack</td><td>1</td><td class="link-cell">=SLN(12000,0,3)</td><td>£4,000</td><td>£8,000</td><td></td></tr>
@@ -312,9 +397,14 @@ Please calculate the prorated depreciation for the first year of each asset base
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's guardrail (every asset)</div>
-          <pre>=IF(Prior_NBV>Salvage,
-  MIN(Method_Depr, Prior_NBV-Salvage), 0)
-All 3 assets stop at salvage. Yr 6+ depr = £0. ✓</pre>
+          <pre>=MAX(0,MIN(Method_Depr,Prior_NBV-Salvage))
+
+Control:
+Closing NBV = Cost - Closing Accumulated Depreciation
+Closing NBV >= Salvage / Residual Value
+
+Do not call DDB/SYD for periods outside the defined schedule.
+The shown assets stop once remaining depreciable amount reaches £0. ✓</pre>
         </div>
       </div>
     </div>
@@ -333,7 +423,7 @@ All 3 assets stop at salvage. Yr 6+ depr = £0. ✓</pre>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
           CNC Machine: £40,000 cost · £4,000 salvage · 5yr life
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ DDB front-loads expense — lowers early-year EBIT significantly</div>
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ In this example DDB records more depreciation than SLN in early years, so EBIT is lower in those periods</div>
         </div>
       </div>
     </div>
@@ -355,7 +445,8 @@ All 3 assets stop at salvage. Yr 6+ depr = £0. ✓</pre>
           <pre>SLN: =SLN(40000,4000,5)   → £7,200/yr flat
 DDB: =DDB(40000,4000,5,1) → £16,000 Yr 1
 SYD: =SYD(40000,4000,5,1) → £12,000 Yr 1
-All 3 total £36,000 over asset life. ✓</pre>
+In this specific example, all three functions finish at £4,000 residual value
+and cumulative depreciation is £36,000. Verify this independently for other inputs. ✓</pre>
         </div>
       </div>
     </div>
@@ -368,35 +459,43 @@ All 3 total £36,000 over asset life. ✓</pre>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th>Asset</th><th>Cost</th><th>Salvage</th><th>In-Service</th><th>Life</th><th>Full Yr Depr</th><th>Yr 1 Claimed</th><th>Correct?</th></tr>
-          <tr><td>Forklift</td><td>£24,000</td><td>£4,000</td><td class="err-cell">03 Jan</td><td>6yr</td><td>£3,333</td><td class="err-cell">£3,333</td><td class="err-cell">✗</td></tr>
+          <tr><td>Forklift</td><td>£24,000</td><td>£4,000</td><td class="err-cell">03 Jan</td><td>6yr</td><td>£3,333.33</td><td class="err-cell">£3,333.33</td><td class="err-cell">✗</td></tr>
           <tr><td>Racking</td><td>£18,000</td><td>£0</td><td class="err-cell">01 Oct</td><td>5yr</td><td>£3,600</td><td class="err-cell">£3,600</td><td class="err-cell">✗</td></tr>
           <tr><td>Server</td><td>£12,000</td><td>£0</td><td class="err-cell">15 Aug</td><td>3yr</td><td>£4,000</td><td class="err-cell">£4,000</td><td class="err-cell">✗</td></tr>
           <tr><td>Van</td><td>£28,000</td><td>£0</td><td class="err-cell">30 Nov</td><td>4yr</td><td>£7,000</td><td class="err-cell">£7,000</td><td class="err-cell">✗</td></tr>
-          <tr class="section-row"><td colspan="6">Total Yr 1 before convention</td><td class="err-cell">£17,933</td><td class="err-cell">All 4 need 50%</td></tr>
+          <tr class="section-row"><td colspan="6">Total full-year depreciation before convention</td><td class="err-cell">£17,933.33</td><td class="err-cell">Example policy applies 50%</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          Half-year convention: 50% of a full year in the year of acquisition, regardless of acquisition date
+          Example assumption only: this supplied half-year convention applies 50% of full-period depreciation to each addition in Year 1
           <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Apply the selected convention consistently to every addition in this example</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude applies half-year convention correctly</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — supplied half-year convention is applied at full precision</div>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th>Asset</th><th>Cost</th><th>Salvage</th><th>In-Service</th><th>Full Yr</th><th>Factor</th><th>Yr 1 Depr</th><th>Corrected by</th></tr>
-          <tr><td>Forklift</td><td>£24,000</td><td>£4,000</td><td>03 Jan</td><td>£3,333</td><td class="link-cell">50%</td><td class="ok-cell">£1,666.50 ✓</td><td class="ok-cell">−£1,666.50</td></tr>
+          <tr><td>Forklift</td><td>£24,000</td><td>£4,000</td><td>03 Jan</td><td>£3,333.33</td><td class="link-cell">50%</td><td class="ok-cell">£1,666.67 ✓</td><td class="ok-cell">−£1,666.67</td></tr>
           <tr><td>Racking</td><td>£18,000</td><td>£0</td><td>01 Oct</td><td>£3,600</td><td class="link-cell">50%</td><td class="ok-cell">£1,800 ✓</td><td class="ok-cell">−£1,800</td></tr>
           <tr><td>Server</td><td>£12,000</td><td>£0</td><td>15 Aug</td><td>£4,000</td><td class="link-cell">50%</td><td class="ok-cell">£2,000 ✓</td><td class="ok-cell">−£2,000</td></tr>
           <tr><td>Van</td><td>£28,000</td><td>£0</td><td>30 Nov</td><td>£7,000</td><td class="link-cell">50%</td><td class="ok-cell">£3,500 ✓</td><td class="ok-cell">−£3,500</td></tr>
-          <tr class="section-row"><td colspan="6">Total Yr 1 after half-year convention</td><td class="ok-cell">£8,966.50</td><td class="ok-cell">−£8,966.50</td></tr>
+          <tr class="section-row"><td colspan="6">Total Yr 1 after half-year convention</td><td class="ok-cell">£8,966.67</td><td class="ok-cell">−£8,966.66*</td></tr>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's proration formula</div>
-          <pre>Factor = 0.5 for every addition under this half-year convention
-Yr1 Depr = SLN(Cost,Salvage,Life) × 0.5
-£17,933.00 − £8,966.50 = £8,966.50 reduction. ✓</pre>
+          <pre>Example policy: Factor = 0.5 for every shown addition.
+
+Forklift:
+Full precision = (£24,000-£4,000)/6 = £3,333.333...
+Yr 1 = £3,333.333... × 0.5 = £1,666.666... → £1,666.67 display
+
+Full-year total at full precision = £17,933.333...
+Yr 1 total = £8,966.666... → £8,966.67 display
+
+*Displayed "reduction" can differ by £0.01 if subtracting rounded display values.
+Use unrounded formulas for accounting totals. ✓</pre>
         </div>
       </div>
     </div>
@@ -408,7 +507,7 @@ Yr1 Depr = SLN(Cost,Salvage,Life) × 0.5
     <div class="diag-row">
       <div class="diag-cause">No salvage check</div>
       <div class="diag-example">NBV drops below salvage value because the formula <span class="bad">doesn't stop</span> at the salvage value</div>
-      <div class="diag-badge badge-red">Most common</div>
+      <div class="diag-badge badge-red">High risk</div>
     </div>
     <div class="diag-row">
       <div class="diag-cause">Blank salvage values</div>
@@ -417,13 +516,13 @@ Yr1 Depr = SLN(Cost,Salvage,Life) × 0.5
     </div>
     <div class="diag-row">
       <div class="diag-cause">Wrong proration</div>
-      <div class="diag-example">Taking a full year's expense for an asset bought in <span class="bad">December</span></div>
+      <div class="diag-example">Applying a full period when the supplied policy requires <span class="bad">proration from the in-service/available-for-use rule</span></div>
       <div class="diag-badge badge-red">Compliance risk</div>
     </div>
     <div class="diag-row">
       <div class="diag-cause">Hardcoded maths</div>
-      <div class="diag-example">Using <span class="bad">=(Cost-Salvage)/Life</span> instead of <span class="good">=SLN()</span> making it harder to read</div>
-      <div class="diag-badge badge-yellow">Style issue</div>
+      <div class="diag-example">Hardcoded depreciation amounts or undocumented manual overrides → <span class="bad">schedule cannot be traced back to approved inputs</span></div>
+      <div class="diag-badge badge-yellow">Audit risk</div>
     </div>
   </div>
 
@@ -433,19 +532,19 @@ Yr1 Depr = SLN(Cost,Salvage,Life) × 0.5
     <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a fixed asset template with Claude</div>
     <div class="step">
       <div class="step-n">1</div>
-      <div class="step-body"><h3>Prepare your base asset register</h3><p>Ensure you have at least these columns: Asset Name, Cost, Salvage Value (enter 0, do not leave blank), Useful Life (in years), and the chosen depreciation method (e.g., SLN for straight-line).</p></div>
+      <div class="step-body"><h3>Prepare your base asset register</h3><p>Include Asset ID, depreciable cost/basis, residual value, useful life, approved method, in-service date, opening accumulated depreciation and opening NBV. Enter residual value as 0 only when that is an intentional supported assumption; do not convert a missing value to zero.</p></div>
     </div>
     <div class="step">
       <div class="step-n">2</div>
-      <div class="step-body"><h3>Include in-service dates if proration is needed</h3><p>If you purchase assets mid-year, you must include the in-service date and decide on a convention (half-year, mid-month, or exact-day). Pass this to Claude using the 'Mid-year proration' prompt.</p></div>
+      <div class="step-body"><h3>Include in-service dates if proration is needed</h3><p>If period depreciation depends on timing, provide the in-service/available-for-use date and the exact convention your policy uses. "Half-year", "mid-month" and "exact-day" labels are not enough unless their calculation rules are defined.</p></div>
     </div>
     <div class="step">
       <div class="step-n">3</div>
-      <div class="step-body"><h3>Run the build prompt</h3><p>Paste your register into Claude using the 'Build from register' prompt. Claude will generate the structured table using built-in Excel functions like <code>=SLN()</code> or <code>=DDB()</code> instead of manual maths.</p></div>
+      <div class="step-body"><h3>Run the build prompt</h3><p>Use the Build prompt after validating the register. Claude should produce candidate Excel formulas using the method you supplied; verify the first asset under each method directly in Excel before filling the schedule down.</p></div>
     </div>
     <div class="step">
       <div class="step-n">4</div>
-      <div class="step-body"><h3>Verify the fully depreciated asset guardrail</h3><p>Look at an asset that has reached the end of its useful life. The annual depreciation for that year should be zero, and the Net Book Value (NBV) must equal the salvage value. If NBV is negative, the guardrail formula failed.</p></div>
+      <div class="step-body"><h3>Verify the fully depreciated asset guardrail</h3><p>Check an asset whose remaining depreciable amount has reached zero. Subsequent depreciation should be zero and NBV should not fall below residual value. The final year itself may still contain depreciation; do not assume "end of useful life" means the current year's charge is automatically zero.</p></div>
     </div>
   </div>
 
@@ -458,15 +557,15 @@ Yr1 Depr = SLN(Cost,Salvage,Life) × 0.5
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can Claude handle mid-year asset additions? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes. Include the in-service date for each asset and tell Claude your convention — half-year, mid-month, or exact-day. Claude will prorate the first-year and last-year depreciation accordingly.</div>
+      <div class="faq-a">Yes, if you provide the in-service/available-for-use date and the exact proration rules. Claude can calculate the schedule, but labels such as half-year, mid-month or exact-day are not sufficient on their own when policies differ. Verify that cumulative depreciation still stops at the residual value.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What is the difference between SLN, DDB, and SYD in Excel? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">SLN spreads the depreciable amount equally over the useful life. DDB (double declining balance) front-loads depreciation by applying a fixed rate to the declining book value. SYD (sum of years' digits) also front-loads but less aggressively than DDB. Claude can build schedules using any of these methods.</div>
+      <div class="faq-a">SLN returns straight-line depreciation for one period. DDB calculates accelerated depreciation for a specified period using a declining-balance factor (2 by default), while SYD uses the sum-of-years' digits method. Their period patterns differ, so verify each function with the supplied life, residual value, period and DDB factor rather than assuming identical behaviour.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I handle fully depreciated assets in the template? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">The prompt instructs Claude to add a check that stops depreciation once net book value reaches the salvage value. Fully depreciated assets remain in the register with zero annual depreciation and an NBV equal to salvage.</div>
+      <div class="faq-a">Use a remaining-depreciable-amount control so depreciation cannot push NBV below residual value. Once that remaining amount is zero, later periods should show zero depreciation; keep the asset in the register until your disposal/retirement process says otherwise.</div>
     </div>
   </div>
 
