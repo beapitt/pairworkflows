@@ -402,7 +402,7 @@ Effective Period/Date | Annual Rate or Index+Margin | Rate Convention
 
 PAYMENT RESET RULE FROM THE CONTRACT
 Choose/provide the actual rule:
-[A = recalculate PMT at each rate reset over remaining term
+[A = recalculate PMT only at each listed rate reset over the remaining contractual term
  B = payment stays fixed and maturity/balloon changes
  C = payment cap/floor or other rule — describe]
 
@@ -419,26 +419,38 @@ CALCULATION AND VERIFICATION RULES
 3. Keep full formula precision and round only displayed values.
 4. Convert each rate to the periodic rate according to its supplied convention.
 5. Apply a new rate beginning in the exact supplied effective period/date.
-6. Do not automatically recalculate PMT at a rate change:
-   - Under Rule A, recalculate payment at each reset using:
+6. Follow the supplied payment-reset rule exactly. Do not propose or implement alternative,
+   "more general", rolling or hypothetical payment mechanics unless I explicitly ask for them.
+7. Under Rule A:
+   - Recalculate PMT ONLY in a period explicitly listed as a rate-reset period.
+   - At that reset use:
      =-PMT(NewPeriodicRate,RemainingPeriods,OpeningBalance,-Balloon,PaymentType)
-   - Under Rule B, keep payment fixed and calculate the resulting contractual
-     maturity/balloon effect.
-   - Under Rule C, implement only the cap/floor/other mechanics I supply.
-7. Do not interpolate, forecast or invent a missing future floating rate. Use only a
-   user-supplied scenario/rate and label it as an assumption.
-8. Keep a Rate Applied column in every row so each reset can be audited.
-9. Do not allow scheduled principal to reduce Closing Balance below Balloon/Residual.
-10. At every reset, add independent controls:
+   - Between listed reset periods, carry forward the payment calculated at the most recent
+     reset unchanged.
+   - Never re-amortize or recalculate PMT every period.
+8. Under Rule B, keep payment fixed and calculate the resulting contractual
+   maturity/balloon effect.
+9. Under Rule C, implement only the cap/floor/other mechanics I supply.
+10. Do not interpolate, forecast or invent a missing future floating rate. Use only a
+    user-supplied scenario/rate and label it as an assumption.
+11. Keep a Rate Applied column in every row so each reset can be audited.
+12. Do not allow scheduled principal to reduce Closing Balance below Balloon/Residual.
+13. At every reset, add independent controls:
     - prior Closing Balance = new Opening Balance
     - new rate starts in the correct period/date
-    - payment follows the supplied reset rule
+    - reset PMT is calculated only in the reset period
+    - the same reset PMT is carried unchanged through subsequent non-reset periods
     - remaining-period count is correct under Rule A
     - principal reduction does not breach Balloon/Residual
-11. Derive summary totals from the completed Excel schedule, not from separate manual arithmetic.
-12. Final balance must match the contractual Balloon/Residual; do not force zero when the
+14. Control formulas must test the pre-cap/pre-floor calculation independently.
+    Do not use Closing Balance after MAX/MIN as the sole evidence that the
+    Balloon/Residual floor was respected.
+15. Principal reconciliation must equal Principal - Balloon, not Principal,
+    unless Balloon = 0.
+16. Derive summary totals from the completed Excel schedule, not from separate manual arithmetic.
+17. Final balance must match the contractual Balloon/Residual; do not force zero when the
     contract specifies otherwise.
-13. If formulas have not actually been executed in Excel or another calculation environment,
+18. If formulas have not actually been executed in Excel or another calculation environment,
     do not claim numerical totals are verified. Return the formulas and label totals UNVERIFIED.
 
 OUTPUT
@@ -450,15 +462,22 @@ OUTPUT
    - Period 1
    - one normal pre-reset period
    - the first reset period
-   - one post-reset period
+   - one post-reset NON-RESET period that must carry forward the reset PMT unchanged
    - final Balloon/Residual period
 4. Reset-summary table driven from schedule formulas
-5. Independent control formulas for reset timing, balance continuity, remaining periods,
-   Balloon/Residual protection and final balance
+5. Independent control formulas for:
+   - reset timing
+   - balance continuity
+   - remaining periods
+   - reset PMT
+   - unchanged PMT between reset periods
+   - pre-cap/pre-floor principal reduction
+   - Principal - Balloon reconciliation
+   - final balance
 6. Do not manually simulate all periods in prose. Show numerical totals only if actually executed.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Use one shared Inputs block plus the actual reset rule from the loan agreement. Claude should build the Excel formulas; Excel should calculate and independently control the schedule.</p>
+      <p class="prompt-hint">Use the exact reset rule from the loan agreement. Under Rule A, recalculate PMT only at listed reset periods and carry that payment unchanged until the next reset.</p>
     </div>
   </div>
 
@@ -646,7 +665,7 @@ Ending balance at Period 60 = £0.00 ✓</pre>
     </div>
     <div class="step">
       <div class="step-n">3</div>
-      <div class="step-body"><h3>Handle variable rates explicitly</h3><p>For rate resets, provide both the rate schedule and the contractual payment-reset rule. Recalculate PMT only when the agreement actually requires a remaining-term reset; otherwise model the stated cap, fixed payment, balloon or other mechanism.</p></div>
+      <div class="step-body"><h3>Handle variable rates explicitly</h3><p>For rate resets, provide both the rate schedule and the contractual payment-reset rule. Under Rule A, recalculate PMT only at an explicitly listed reset period and carry that payment unchanged until the next reset; do not re-amortize every period.</p></div>
     </div>
     <div class="step">
       <div class="step-n">4</div>
