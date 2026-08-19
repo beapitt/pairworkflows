@@ -316,12 +316,13 @@ Do not invent workbook facts that are not supported by the formula or context.</
 4. What happens when new rows are added below row 500?
 5. Which errors could IFERROR(...,"") hide besides a missing match?
 
-Please distinguish formula behavior from assumptions about the workbook data.
-For every error you mention, identify the exact part of the formula that
-produces that error. Do not treat a text/number comparison mismatch as
-#VALUE! unless this exact formula operation would actually produce #VALUE!.
-Do not treat renaming a worksheet as a broken-reference case unless Excel
-would actually fail to update the reference.</pre>
+For each answer, distinguish:
+- Certain behavior from the formula or documented Excel rules
+- Conditional behavior that depends on the exact edit, Excel version, or workbook structure
+- Anything that cannot be determined from the information provided
+
+Do not infer a specific Excel error or outcome when more than one result is possible.
+If the exact mechanism is uncertain, say so instead of choosing a plausible explanation.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Send this right after the first explanation — specific questions catch the risks a general summary misses.</p>
@@ -340,11 +341,14 @@ Include:
 - the fixed row-500 limit
 - any Excel-version requirement for this array-style MATCH
 
-For every error or version-specific behavior you mention, describe only what
-this exact formula can support. Distinguish failed comparisons from true Excel
-errors, do not present worksheet renaming as a normal #REF! cause, and avoid
-absolute claims about what older Excel versions will display if the formula is
-not entered as required.
+Only include technical behavior that is certain from the formula or from
+documented Excel rules.
+
+If a behavior depends on Excel version, workbook structure, or the exact edit
+being made, describe it as conditional instead of presenting one outcome as fact.
+
+Do not invent a specific error mechanism when the exact outcome cannot be
+determined confidently.
 
 Do not state workbook facts that cannot be proven from the formula/context;
 label those as assumptions.</pre>
