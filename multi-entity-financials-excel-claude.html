@@ -6,7 +6,7 @@
 <title>How to Consolidate Multi-Entity Financials in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to consolidate multi-entity financials in Excel with Claude AI, including subsidiary P&Ls, intercompany eliminations, and group-level reporting.">
 <link rel="canonical" href="https://www.pairworkflows.com/multi-entity-financials-excel-claude.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What are intercompany eliminations and why do they matter?","acceptedAnswer":{"@type":"Answer","text":"Intercompany eliminations remove transactions between entities within the same group — for example, one subsidiary selling services to another. Without eliminations, group revenue and expenses would be overstated because the same transaction appears in both entities' books."}},{"@type":"Question","name":"Can Claude handle currency conversion for foreign subsidiaries?","acceptedAnswer":{"@type":"Answer","text":"Yes. Include each entity's reporting currency and the exchange rate in your prompt. Claude adds a converted column for each entity before consolidating. You specify whether to use the closing rate for balance sheet items and the average rate for P&L items."}},{"@type":"Question","name":"How many entities can this template handle?","acceptedAnswer":{"@type":"Answer","text":"The structure works for any number of entities. For 2-5 entities, a single-sheet layout works well. For larger groups, Claude can structure the workbook with one tab per entity plus a consolidation tab that pulls from each."}},{"@type":"Question","name":"Does this produce a consolidated balance sheet or just a P&L?","acceptedAnswer":{"@type":"Answer","text":"The prompt focuses on the consolidated P&L because that is the most common Excel consolidation task. You can extend it to include a balance sheet by adding balance sheet line items and telling Claude to apply the same elimination logic to intercompany receivables and payables."}},{"@type":"Question","name":"Will Claude invent elimination entries I haven't provided?","acceptedAnswer":{"@type":"Answer","text":"No. The prompt explicitly instructs Claude to use only the intercompany transactions you list. If an imbalance exists between entities, Claude flags it rather than fabricating an offsetting entry."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What are intercompany eliminations and why do they matter?","acceptedAnswer":{"@type":"Answer","text":"In a full consolidation, intragroup balances, transactions, income and expenses are eliminated so the parent and subsidiaries are presented as a single economic entity. Some items can require additional treatment, including foreign-currency effects or unrealised profit."}},{"@type":"Question","name":"Can Claude handle currency conversion for foreign subsidiaries?","acceptedAnswer":{"@type":"Answer","text":"Claude can help apply currency translation calculations when you provide the authorised policy and rates. Do not assume one average rate is automatically appropriate for every P&L line, and use a separate workflow for balance-sheet and equity translation."}},{"@type":"Question","name":"How many entities can this template handle?","acceptedAnswer":{"@type":"Answer","text":"The structure can be adapted to different group sizes, but workbook design should scale with the number of entities, currencies, mappings and elimination types. Controlled source and mapping tables improve auditability."}},{"@type":"Question","name":"Does this produce a consolidated balance sheet or just a P&L?","acceptedAnswer":{"@type":"Answer","text":"This workflow focuses on a P&L consolidation working paper. A consolidated balance sheet requires additional logic for intercompany balances, FX translation, equity, investments and other consolidation adjustments."}},{"@type":"Question","name":"Will Claude invent elimination entries I haven't provided?","acceptedAnswer":{"@type":"Answer","text":"No prompt can guarantee that an AI never introduces an unsupported elimination. Require Interco IDs, both recorded amounts and source references, and verify every elimination against source evidence."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -40,7 +40,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
 .prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
 .prompt-hint a:hover{text-decoration:underline}
-.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
+.before-after{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:0;margin-bottom:1.75rem;align-items:start}
 .ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
@@ -69,7 +69,7 @@ table.me-table .consol-col{background:#f0fdf4;color:#065f46;font-weight:700}
 .badge-eur{background:#fef3c7;color:#92400e}
 .badge-mix{background:#fee2e2;color:#dc2626}
 .ba-panel{display:none;margin-bottom:1.75rem}
-.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
+.ba-panel.on{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:0;align-items:start}
 .ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
 .claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
@@ -123,6 +123,7 @@ table.me-table .consol-col{background:#f0fdf4;color:#065f46;font-weight:700}
   .ba-panel.on{grid-template-columns:1fr}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
   .diag-row{grid-template-columns:1fr;gap:4px}
+  .diag-example{display:flex}
   .related-grid{grid-template-columns:1fr}
   .page{padding:1.5rem 1rem 3rem}
 }
@@ -163,7 +164,7 @@ table.me-table td:first-child { padding-left: 10px !important; text-align: left 
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Finance</div>
     <h1>How to Consolidate Multi-Entity Financials in Excel with Claude AI</h1>
-    <p class="hero-sub">Paste individual entity P&Ls and your intercompany transactions into Claude. It builds a side-by-side consolidation with an eliminations column, flags any intercompany imbalances, and outputs a clean group-level report ready to paste into Excel.</p>
+    <p class="hero-sub">Provide Claude with mapped entity P&Ls, reporting-currency assumptions, and evidenced intercompany transactions, then use it to draft a side-by-side consolidation with explicit eliminations and control checks. Treat the output as a consolidation working paper to verify, not an automatic group sign-off.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -179,34 +180,65 @@ table.me-table td:first-child { padding-left: 10px !important; text-align: left 
 
     <div id="p-consol" class="panel on">
       <div class="prompt-box">
-        <pre>I need to consolidate the financial statements of multiple entities
-into a single group-level report in Excel.
+        <pre>I need to prepare a multi-entity P&L consolidation working paper in Excel.
 
-ENTITY P&L DATA (columns: Line Item, then one column per entity):
-[Paste your entity data here — use identical line-item names
- across all entities]
+CONSOLIDATION SCOPE
+- Reporting period: [e.g. month / quarter / year ended ...]
+- Group reporting currency: [e.g. GBP]
+- Entities included: [list]
+- Ownership / consolidation basis: [state which entities are subsidiaries included in full;
+  if this is only a management consolidation, say so]
+- Accounting / management reporting basis: [e.g. IFRS / local GAAP / management reporting]
 
-INTERCOMPANY TRANSACTIONS TO ELIMINATE:
-[List each transaction, e.g.:
- - Entity A charges Entity B £150,000 for manufacturing services
-   (Revenue in A, COGS in B)
- - Entity A charges Entity B £30,000 management fee
-   (Revenue in A, OpEx in B)]
+ENTITY P&L DATA
+Provide one mapped row per reporting line:
+Group Line ID | Group Line Item | Entity A | Entity B | [Entity C...]
+[Paste figures already translated into the GROUP reporting currency,
+or use the Multi-currency tab first.]
 
-Reporting currency: [e.g. GBP]
+SOURCE CONTROL TOTALS
+For each entity provide:
+Revenue | Operating Income | Net Income
+[or other agreed control totals so the mapped P&L can be tied back to source]
 
-Requirements:
-- Create a consolidation table: Line Item | Entity A | Entity B |
-  [Entity C if applicable] | Eliminations | Consolidated
-- Consolidated = sum of all entity columns plus Eliminations.
-- For each intercompany transaction, eliminate from both the revenue
-  and expense lines. Both sides must net to zero on Consolidated.
-- If both sides of an intercompany transaction do NOT match,
-  flag the imbalance — do NOT force the amounts to balance.
-- Include subtotal rows: Gross Profit, Operating Income, Net Income.
-- Do NOT invent intercompany transactions I haven't listed.
-- Do NOT fabricate entity-level figures.
-- Format as tab-separated table I can paste directly into Excel.</pre>
+INTERCOMPANY ELIMINATION INPUT
+Provide one row per evidenced intercompany item:
+Interco ID | Seller Entity | Buyer Entity | Seller P&L Line |
+Buyer P&L Line | Seller Amount in Group Currency |
+Buyer Amount in Group Currency | Source Ref / Invoice / Journal Ref
+[Paste rows]
+
+Rules:
+1. Do not infer line mappings from similar names. Use Group Line ID / mapping supplied.
+2. Do not invent intercompany transactions, amounts or counterparties.
+3. For each Interco ID, compare the seller and buyer amounts in GROUP currency.
+4. If the two recorded amounts differ, flag the item as UNRESOLVED INTERCO DIFFERENCE.
+   Do not force either side to equal the other and do not plug the difference.
+5. For a matched intragroup revenue/expense item, eliminate the evidenced seller income
+   and buyer expense from the appropriate consolidated lines.
+6. Do not assume every intercompany item has zero effect on consolidated Net Income.
+   Flag items involving inventory profit, asset transfers, dividends, financing,
+   tax effects or other special treatment for accounting-policy review.
+7. Consolidated line formula:
+   = SUM(Entity columns in group currency) + Elimination
+8. Recalculate subtotals from consolidated detail rather than hard-coding them.
+9. Add controls:
+   - each entity's mapped P&L ties to its source control totals
+   - total elimination entries reconcile to the intercompany schedule
+   - unresolved intercompany differences are listed separately
+   - consolidated Gross Profit / Operating Income / Net Income recalculate from detail
+10. Do not recommend or post entity adjusting journals. If books differ, show what evidence
+    is missing and which entity records need investigation.
+
+OUTPUT
+1. Entity mapping / source-control check
+2. Consolidation table
+3. Intercompany elimination schedule
+4. Unresolved differences list
+5. Consolidated subtotal formulas
+6. Audit/control checklist
+
+Use tab-separated tables suitable for Excel.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Use identical line-item names across all entities before pasting. Works in <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
@@ -214,56 +246,95 @@ Requirements:
 
     <div id="p-currency" class="panel">
       <div class="prompt-box">
-        <pre>I need to consolidate financials across entities that report in
-different currencies.
+        <pre>I need to translate foreign-entity P&Ls into the group presentation currency
+before consolidation.
 
-ENTITY P&L DATA:
-[Paste entity data — one column per entity, with line-item names]
+REPORTING SETTINGS
+- Group presentation currency: [e.g. GBP]
+- Reporting period: [dates]
+- Accounting / management reporting basis: [state]
+- Translation policy I am authorised to use: [state explicitly]
 
-CURRENCY DETAILS:
-- Group reporting currency: [e.g. GBP]
-- Entity A currency: [e.g. GBP] — no conversion needed
-- Entity B currency: [e.g. EUR] — average period rate: [e.g. 1 EUR = 0.86 GBP]
-- Entity C currency: [e.g. USD] — average period rate: [e.g. 1 USD = 0.79 GBP]
+ENTITY DATA
+For each entity provide:
+Entity | Functional / reporting currency | P&L line items | local-currency amounts
+[Paste data]
 
-INTERCOMPANY TRANSACTIONS:
-[List eliminations as above — state amounts in the currency of
- the entity that records them]
+FX INPUTS
+For each entity / line type provide the APPROVED translation rate or method:
+[Example only:
+ Entity B | EUR | transaction-date rates, or approved period-average approximation | ...]
+Do not look up, estimate, average or invent exchange rates.
 
 Requirements:
-- Add a GBP-converted column for each foreign entity before
-  consolidating (e.g. "Entity B (GBP)").
-- Use the average period rate for all P&L line items.
-- Consolidate using the converted columns, not the original
-  foreign-currency columns.
-- Apply the same elimination and imbalance-flagging rules
-  as the standard consolidation prompt.</pre>
+1. State the quote direction before calculating, e.g. 1 EUR = 0.86 GBP means:
+   GBP amount = EUR amount × 0.86.
+2. Translate income/expense items using the rate method I supply.
+   Do not automatically assume a single average rate is appropriate for every P&L line.
+3. If my policy uses an average rate as an approximation, label it as such and use only
+   the supplied approved rate.
+4. Keep local-currency amount, FX rate/method and group-currency amount in separate columns.
+5. Recalculate translated subtotals from translated detail.
+6. Intercompany items:
+   - translate both entities' recorded amounts into GROUP currency using their applicable
+     supplied rate/method
+   - compare the translated amounts
+   - flag any difference; do not force them to match
+7. Do not assume an FX difference on an intragroup monetary item disappears merely because
+   the underlying intragroup balance/income/expense is eliminated. Flag monetary-item FX
+   differences for accounting-policy review.
+8. Do not extend this P&L workflow to balance-sheet translation without separate instructions
+   for closing rates, equity/historical rates and translation differences.
+9. Show source-currency → group-currency control totals for every entity.
+
+OUTPUT
+- Translation table per foreign entity
+- FX assumptions/rates used
+- translated control totals
+- intercompany comparison in group currency
+- consolidation-ready P&L data
+- exceptions requiring review</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">For balance sheet consolidation, use the closing rate for assets and liabilities instead of the average rate.</p>
+      <p class="prompt-hint">Keep this tab focused on the P&amp;L. Balance-sheet translation needs its own policy for closing rates, equity/historical rates and translation differences; do not extend the P&amp;L logic mechanically.</p>
     </div>
 
     <div id="p-debug" class="panel">
       <div class="prompt-box">
-        <pre>I have an intercompany imbalance in my consolidation that I need
-to investigate.
+        <pre>I have an intercompany difference that I need to investigate.
 
-Transaction: [e.g. "Entity A charges Entity B for IT services"]
-Entity A records: [e.g. £150,000 Revenue]
-Entity B records: [e.g. £145,000 in OpEx]
-Imbalance: [e.g. £5,000]
+INTERCO ID / description:
+[ ]
+
+Entity A evidence:
+- Entity:
+- P&L line:
+- Amount in local currency:
+- Amount in group currency:
+- FX rate / method:
+- Period:
+- Invoice / journal / source reference:
+
+Entity B evidence:
+[same fields]
 
 Please:
-1. Identify the most likely cause of the £5,000 difference
-   (timing difference, FX rounding, invoice dispute, different
-   accounting period?)
-2. Tell me what adjusting entry would resolve it — and which
-   entity should post it
-3. Show me how the Eliminations column should look before and
-   after the correction</pre>
+1. Recalculate the difference in GROUP reporting currency.
+2. Do not assume the cause from the amount alone.
+3. Compare period, source reference, currency/rate, account mapping and recorded amount.
+4. List only explanations supported by the evidence, and separately list what evidence
+   is still needed to distinguish timing, FX, mapping, dispute or missing posting.
+5. Do NOT tell either entity to post an adjusting journal unless the source evidence and
+   accounting policy I provide demonstrate the correct period, account and debit/credit.
+6. Until resolved, keep the difference in an "Unresolved Intercompany Differences" schedule.
+7. Show the elimination only for the amounts actually supported by both sides; do not
+   create a balancing plug.
+8. If the item is an intragroup monetary balance in different functional currencies,
+   flag possible FX accounting consequences for specialist review rather than assuming
+   all currency effects eliminate.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Intercompany imbalances must be resolved before the consolidated report is signed off — Claude flags the likely cause.</p>
+      <p class="prompt-hint">Use this to investigate the evidence behind an intercompany difference. Claude should not choose a cause or adjusting journal from the variance amount alone.</p>
     </div>
   </div>
 
@@ -284,14 +355,14 @@ Please:
           <tr class="subtotal"><td>Net Income</td><td>£280,000</td><td>£120,000</td><td class="naive">£400,000</td></tr>
         </table>
         <div style="padding:10px 14px;background:#fff7ed;font-family:'JetBrains Mono',monospace;font-size:11px;color:#c2410c;border-top:2px solid #f97316">
-          ⊗ Revenue inflated £150k · COGS inflated £150k — same transaction counted twice
+          ⊗ Group Revenue and COGS each include £150k of intragroup activity before elimination
           <div style="font-size:10px;color:#fb923c;margin-top:3px">Underlined totals = figures that change after elimination</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after" style="border-color:#6ee7b7">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — elimination column removes interco, totals correct</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — evidenced intercompany revenue/cost is eliminated and subtotals recalculate</div>
       <div class="ba-body" style="padding:0">
         <table class="me-table">
           <tr><th>Line Item</th><th>Entity A</th><th>Entity B</th><th style="background:#fff7ed;color:#c2410c;border-left:2px solid #f97316">Elim.</th><th style="background:#f0fdf4;color:#065f46">Consol.</th></tr>
@@ -307,7 +378,14 @@ Please:
           <div class="claude-fix-label">Claude's output</div>
           <pre>Elim. Revenue: −£150,000 (A's interco sale)
 Elim. COGS:    −£150,000 (B's interco cost)
-Net elimination: £0 · Op. Income £570,000 − Interest/Tax/Other £170,000 = Net Income £400,000 ✓</pre>
+Matched service elimination:
+Revenue −£150,000
+COGS    −£150,000
+Net Income effect of this matched service elimination = £0
+
+Op. Income £570,000 − Interest/Tax/Other £170,000 = Net Income £400,000 ✓
+
+Do not generalise this zero-profit effect to every type of intercompany transaction.</pre>
         </div>
       </div>
     </div>
@@ -327,14 +405,14 @@ Net elimination: £0 · Op. Income £570,000 − Interest/Tax/Other £170,000 = 
           <tr class="subtotal"><td>Net Income</td><td>£280,000</td><td style="color:#1e40af;font-weight:600">€192,000</td><td class="naive" style="color:#dc2626">472,000 ✗</td></tr>
         </table>
         <div style="padding:10px 14px;background:#fffbeb;font-family:'JetBrains Mono',monospace;font-size:11px;color:#92400e;border-top:1px solid #fde68a">
-          Rate: 1 EUR = 0.86 GBP — Entity B must be converted before summing
+          Illustrative supplied rate: 1 EUR = 0.86 GBP — translate Entity B before group aggregation
           <div style="font-size:10px;color:#a16207;margin-top:3px">↑ Blue = EUR figures. Adding them to GBP gives a meaningless mixed-currency total. Intercompany: Entity A charges Entity B €100,000 for shared services (Revenue in A / COGS in B).</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude converts then consolidates</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — supplied FX method is applied before consolidation</div>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th>Line Item</th><th>Entity A (GBP)</th><th>Entity B (GBP)</th><th>Elim.</th><th>Consolidated</th></tr>
@@ -348,8 +426,12 @@ Net elimination: £0 · Op. Income £570,000 − Interest/Tax/Other £170,000 = 
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's conversion</div>
-          <pre>Entity B (GBP) = EUR × 0.86 avg period rate
-Interco elim. converted at same rate.
+          <pre>Example assumes an APPROVED 0.86 GBP/EUR rate for all shown Entity B P&L lines:
+Entity B (GBP) = EUR × 0.86
+
+This is an illustration, not a rule that one average rate is always valid.
+Translate each intercompany side using its applicable supplied method, then compare in GBP.
+
 Op. Income £709,600 − Interest/Tax/Other £264,480 = Net Income £445,120 ✓</pre>
         </div>
       </div>
@@ -368,24 +450,36 @@ Op. Income £709,600 − Interest/Tax/Other £264,480 = Net Income £445,120 ✓
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
           £5,000 imbalance on IT Services — cannot eliminate cleanly
-          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Likely: invoice timing difference or FX rounding</div>
+          <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">↑ Cause not established from amounts alone — inspect period, reference, FX and mapping evidence</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude identifies cause and adjusting entry</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — evidence gaps are isolated without inventing an adjusting entry</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Action</th><th>Entity</th><th>Dr</th><th>Cr</th><th>Amount</th></tr>
-          <tr><td>Accrual</td><td class="link-cell">Entity B</td><td>OpEx</td><td>Accruals</td><td class="ok-cell">£5,000</td></tr>
-          <tr><td>After adjustment</td><td>IT Services</td><td class="ok-cell">£150,000</td><td class="ok-cell">£150,000</td><td class="ok-cell">£0 ✓</td></tr>
+          <tr><th>Check</th><th>Entity A</th><th>Entity B</th><th>Result</th></tr>
+          <tr><td>Recorded amount</td><td>£150,000</td><td>£145,000</td><td class="err-cell">£5,000 unresolved</td></tr>
+          <tr><td>Period / source ref</td><td>Input needed</td><td>Input needed</td><td class="err-cell">Cannot diagnose yet</td></tr>
+          <tr><td>FX / mapping evidence</td><td>Input needed</td><td>Input needed</td><td class="err-cell">Review required</td></tr>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's diagnosis</div>
-          <pre>Cause: invoice not yet posted in Entity B's period.
-Fix: Entity B accrues £5,000 OpEx this period.
-Eliminations column balances after adjustment. ✓</pre>
+          <pre>Known:
+Entity A = £150,000
+Entity B = £145,000
+Difference = £5,000
+
+Not proven:
+• timing
+• FX
+• mapping
+• dispute
+• missing posting
+
+Keep £5,000 in Unresolved Intercompany Differences.
+Do not post or plug an adjustment until source evidence proves the treatment. ✓</pre>
         </div>
       </div>
     </div>
@@ -393,20 +487,20 @@ Eliminations column balances after adjustment. ✓</pre>
 
   <!-- DIAGNOSIS TABLE -->
   <div class="diag-card">
-    <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Why consolidations go wrong — the 4 most common mistakes</div>
+    <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Four consolidation controls worth checking</div>
     <div class="diag-row">
       <div class="diag-cause">Different line-item names</div>
       <div class="diag-example">Entity A: <span class="bad">"Revenue"</span> / Entity B: <span class="bad">"Sales"</span> → two rows in the consolidated P&L</div>
-      <div class="diag-badge badge-red">Most common</div>
+      <div class="diag-badge badge-red">High risk</div>
     </div>
     <div class="diag-row">
       <div class="diag-cause">Missing management fees</div>
-      <div class="diag-example">Management fees not listed → <span class="bad">OpEx overstated</span> at group level, silent inflation</div>
-      <div class="diag-badge badge-red">Most common</div>
+      <div class="diag-example">Missing evidenced intercompany item → <span class="bad">intragroup income/expense may remain in group results</span></div>
+      <div class="diag-badge badge-red">High risk</div>
     </div>
     <div class="diag-row">
       <div class="diag-cause">Intercompany imbalance</div>
-      <div class="diag-example">A records <span class="bad">£150k</span>, B records <span class="bad">£145k</span> → £5k hole in consolidated OpEx</div>
+      <div class="diag-example">A records <span class="bad">£150k</span>, B records <span class="bad">£145k</span> → £5k unresolved difference; do not plug it</div>
       <div class="diag-badge badge-yellow">Easy fix</div>
     </div>
     <div class="diag-row">
@@ -417,12 +511,12 @@ Eliminations column balances after adjustment. ✓</pre>
   </div>
 
   <!-- STEPS -->
-  <h1>How to Consolidate Multi-Entity Financials in Excel with Claude AI</h1>
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Consolidate multi-entity financials step by step</h2>
   <div class="steps-card">
     <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Consolidate multi-entity financials with Claude — 4 steps</div>
     <div class="step">
       <div class="step-n">1</div>
-      <div class="step-body"><h3>Standardise line-item names across all entities</h3><p>"Revenue", "Sales", "Turnover" — pick one and use it everywhere. Claude matches rows by exact line-item text. If the names differ even slightly, the consolidation produces duplicate rows instead of a clean sum. Do this in each entity's spreadsheet before copying data into the prompt.</p></div>
+      <div class="step-body"><h3>Standardise line-item names across all entities</h3><p>Map each local account/line to a controlled Group Line ID. Do not rename source accounting data merely to make the text match; preserve the source and perform the mapping in a separate table so each entity can still be tied back to its original P&amp;L.</p></div>
     </div>
     <div class="step">
       <div class="step-n">2</div>
@@ -430,13 +524,13 @@ Eliminations column balances after adjustment. ✓</pre>
     </div>
     <div class="step">
       <div class="step-n">3</div>
-      <div class="step-body"><h3>Verify both sides of each transaction match before prompting</h3><p>If Entity A records £150,000 of intercompany revenue but Entity B records only £145,000 of intercompany COGS, there's a £5,000 imbalance. You can either resolve it before prompting, or let Claude flag it using the Imbalance check prompt tab — Claude never silently forces a match.</p></div>
+      <div class="step-body"><h3>Verify both sides of each transaction match before prompting</h3><p>If Entity A records £150,000 and Entity B £145,000 in group currency, the £5,000 difference needs evidence-based investigation. The debug prompt should keep it unresolved until period, source reference, FX, mapping and accounting treatment establish the reason.</p></div>
     </div>
     <div class="step">
       <div class="step-n">4</div>
       <div class="step-body"><h3>For multi-currency groups, specify the translation rate per entity</h3><p>Use the average period rate for all P&L line items. The closing rate is for balance sheet items. State the rates explicitly in the prompt — Claude applies them to add a converted column per foreign entity before consolidating.</p></div>
     </div>
-    <div class="warn"><strong>Critical:</strong> The Consolidated column must equal the sum of all entity columns plus the Eliminations column. If it doesn't, there is a formula error or a missing elimination. Check the Net Income row first — a non-zero elimination row there usually means a management fee was missed.</div>
+    <div class="warn"><strong>Control:</strong> Every consolidated detail line should equal the sum of the translated entity columns plus the recorded elimination for that line, and each entity must tie back to its source controls. A difference does not identify its own cause: inspect mapping, FX, elimination schedules and subtotal formulas instead of assuming a particular missing transaction.</div>
   </div>
 
   <!-- FAQ -->
@@ -444,7 +538,7 @@ Eliminations column balances after adjustment. ✓</pre>
   <div class="faq-section">
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What are intercompany eliminations and why do they matter? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Intercompany eliminations remove transactions between entities within the same group — for example, one subsidiary selling services to another. Without eliminations, group revenue and expenses are overstated because the same transaction appears in both entities' books.</div>
+      <div class="faq-a">In a full consolidation, intragroup balances, transactions, income and expenses are eliminated so the group is presented as a single economic entity. The exact elimination can require additional treatment for items such as unrealised profit, financing or foreign-currency effects.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can Claude handle currency conversion for foreign subsidiaries? <i class="ti ti-chevron-down"></i></div>
@@ -452,7 +546,7 @@ Eliminations column balances after adjustment. ✓</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How many entities can this template handle? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">The structure works for any number of entities. For 2–5, a single-sheet layout works well. For larger groups, Claude can structure the workbook with one tab per entity plus a consolidation tab that pulls from each using 3D references.</div>
+      <div class="faq-a">The prompt can be adapted to different group sizes, but complexity rises with entities, currencies, mappings and elimination types. Prefer controlled source tables/mapping tables over fragile fixed layouts or broad 3D references when the workbook must remain auditable.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Does this produce a consolidated balance sheet or just a P&L? <i class="ti ti-chevron-down"></i></div>
@@ -460,7 +554,7 @@ Eliminations column balances after adjustment. ✓</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Will Claude invent elimination entries I haven't provided? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">No. The guardrail line "Do NOT invent intercompany transactions I haven't listed" is explicit. If an imbalance exists between entities, Claude flags it rather than fabricating an offsetting entry.</div>
+      <div class="faq-a">No prompt can guarantee that an AI never introduces an unsupported elimination. This workflow reduces the risk by requiring Interco IDs, both recorded amounts, source references and explicit controls; every proposed elimination still needs to be tied back to evidence.</div>
     </div>
   </div>
 
