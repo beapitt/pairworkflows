@@ -6,7 +6,7 @@
 <title>How to Clean Data in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to clean imported Excel data with Claude AI using TRIM, VALUE, PROPER and DATEVALUE to fix spaces, text numbers, dates and inconsistent formatting.">
 <link rel="canonical" href="https://www.pairworkflows.com/claude-excel-clean-data.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I remove trailing spaces in Excel?","acceptedAnswer":{"@type":"Answer","text":"Use the TRIM function, e.g. =TRIM(A2). It automatically removes all leading, trailing, and double spaces between words. If you still have invisible spaces after using TRIM, they might be non-printable characters — use =CLEAN(TRIM(A2)) to remove them."}},{"@type":"Question","name":"Why are my numbers stored as text in Excel?","acceptedAnswer":{"@type":"Answer","text":"When data is imported from external systems like CRMs or accounting software, numbers are often formatted with text characters or invisible apostrophes. Excel treats them as text, so math formulas and SUMIFS will ignore them or return 0. Use =VALUE() to convert them back to real numbers."}},{"@type":"Question","name":"How do I fix dates that won't sort in Excel?","acceptedAnswer":{"@type":"Answer","text":"If dates sort alphabetically instead of chronologically, Excel is treating them as text rather than serial date numbers. Fix this by applying =DATEVALUE() to the text dates, then formatting the result as a Date."}},{"@type":"Question","name":"What's the difference between TRIM and CLEAN in Excel?","acceptedAnswer":{"@type":"Answer","text":"TRIM removes leading, trailing, and double spaces. CLEAN removes non-printable characters — the hidden characters that appear when you import from legacy systems or mainframes. If TRIM alone doesn't fix a stubborn cell, try =CLEAN(TRIM(A2))."}},{"@type":"Question","name":"Can Claude clean my Excel data for me automatically?","acceptedAnswer":{"@type":"Answer","text":"This workflow uses Claude to diagnose a sample and return auditable Excel formulas. Whether Claude can directly create or modify a workbook depends on the Claude environment and tools you are using."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I remove trailing spaces in Excel?","acceptedAnswer":{"@type":"Answer","text":"Use =TRIM(A2) for ordinary spaces. It removes leading and trailing spaces and reduces repeated internal spaces to one. Imported data can also contain non-breaking spaces or other characters that TRIM does not remove; CLEAN removes certain non-printing ASCII characters, and stubborn character-160 spaces may need SUBSTITUTE."}},{"@type":"Question","name":"Why are my numbers stored as text in Excel?","acceptedAnswer":{"@type":"Answer","text":"When data is imported from external systems like CRMs or accounting software, numbers are often formatted with text characters or invisible apostrophes. Excel may treat imported amounts as text, which can cause arithmetic or aggregation formulas to ignore or mishandle them. VALUE converts text that Excel recognises as a number, but currency and decimal/thousands separators must match the locale or be normalised first."}},{"@type":"Question","name":"How do I fix dates that won't sort in Excel?","acceptedAnswer":{"@type":"Answer","text":"If the cells are confirmed as text dates, DATEVALUE can convert recognised date text to Excel serial dates. Its interpretation depends on system date settings, so verify ambiguous day/month formats before copying the formula down and then apply a Date number format."}},{"@type":"Question","name":"What's the difference between TRIM and CLEAN in Excel?","acceptedAnswer":{"@type":"Answer","text":"TRIM handles ordinary space characters. CLEAN removes the first 32 non-printing ASCII characters, but neither function removes every possible imported Unicode character. If TRIM/CLEAN does not fix the value, inspect the character and consider SUBSTITUTE, for example replacing CHAR(160) non-breaking spaces."}},{"@type":"Question","name":"Can Claude clean my Excel data for me automatically?","acceptedAnswer":{"@type":"Answer","text":"This workflow uses Claude to diagnose a sample and return auditable Excel formulas. Whether Claude can directly create or modify a workbook depends on the Claude environment and tools you are using."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -116,7 +116,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   .before-after{grid-template-columns:1fr;gap:8px}
   .ba-panel.on{grid-template-columns:1fr;gap:8px}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
-  .diag-row{grid-template-columns:1fr;gap:4px}
+  .diag-row{grid-template-columns:1fr;gap:6px}
+  .diag-example{display:flex}
   .related-grid{grid-template-columns:1fr}
   .page{padding:1.5rem 1rem 3rem}
 }
@@ -151,7 +152,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-droplet-half-2" style="font-size:12px"></i> Excel · Claude AI</div>
     <h1>How to Clean Imported Data in Excel with Claude AI</h1>
-    <p class="hero-sub">Every CRM, accounting, or HR export brings the same invisible problems — dates that won't sort, numbers stored as text, trailing spaces. Claude can't touch your spreadsheet directly, but paste a sample and it diagnoses exactly what's wrong and hands you the precise cleaning formula to fix it.</p>
+    <p class="hero-sub">Every CRM, accounting, or HR export brings the same invisible problems — dates that won't sort, numbers stored as text, trailing spaces. Paste a sample into Claude and use it to diagnose likely data-quality issues and generate auditable Excel cleaning formulas. Whether Claude can directly modify the workbook depends on the environment and tools you are using.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -174,7 +175,13 @@ This column should contain [dates / numbers / names / IDs]. The
 problem is [SUMIFS returns 0 / dates won't sort / duplicates not
 detected / COUNTIF gives wrong count].
 
-Diagnose the issue and give me the exact formula to fix it.</pre>
+Diagnose the issue from the sample and give me the safest helper-column formula to test.
+
+Please:
+- separate what is visible in the sample from assumptions
+- tell me if the fix depends on my Excel locale/date settings
+- flag characters that TRIM/CLEAN may not remove
+- preserve the original column and suggest a verification step before copying down.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Paste 5-10 real rows, not a description — Claude diagnoses from the actual text. Use with <a href="https://claude.ai" target="_blank">Claude</a>.</p>
@@ -183,10 +190,17 @@ Diagnose the issue and give me the exact formula to fix it.</pre>
     <div id="p-formula" class="panel">
       <div class="prompt-box">
         <pre>I have a column of [employee names / invoice amounts / dates] from
-[system name]. Common issues: trailing spaces and text formatting.
+[system name].
 
-Give me the best cleaning formula to use in a helper column next to
-the original data.</pre>
+Here are 5 sample values:
+[paste values]
+
+Expected cleaned output for at least one sample:
+[show expected value]
+
+Give me the safest cleaning formula to use in a helper column next to
+the original data. Explain any locale assumptions and how I should verify
+the result before copying the formula down.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Use once you already know roughly what's wrong and just need the right formula.</p>
@@ -195,10 +209,20 @@ the original data.</pre>
     <div id="p-template" class="panel">
       <div class="prompt-box">
         <pre>I import data monthly from [system name] with recurring issues:
-[list the problems].
+[list the problems]
 
-Create a complete reusable cleaning checklist and formula set I can
-apply every time I import this data.</pre>
+Column mapping:
+[list each source column and what it should contain]
+
+Create a reusable cleaning checklist and helper-column formula set.
+For each rule, include:
+- the exact source column it checks
+- the helper formula
+- one validation test
+- any locale or format dependency
+- what should happen if the source value is already clean.
+
+Do not overwrite the original imported columns.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Build this once per data source — future imports take minutes instead of hours.</p>
@@ -210,7 +234,7 @@ apply every time I import this data.</pre>
   <!-- Tab: diagnose -->
   <div class="before-after ba-panel on" id="ba-diagnose">
     <div class="ba-col before" style="border-color:#4a3f35">
-      <div class="ba-header" style="background:#1e1c1a;color:#a09890;border-bottom:1px solid #2a2826"><i class="ti ti-database-import" style="font-size:14px;color:#b85c3c"></i> Before — CRM export pasted, 5 silent issues</div>
+      <div class="ba-header" style="background:#1e1c1a;color:#a09890;border-bottom:1px solid #2a2826"><i class="ti ti-database-import" style="font-size:14px;color:#b85c3c"></i> Before — CRM export pasted, 4 recurring issue types</div>
       <div class="ba-body" style="padding:12px">
         <table class="xl-table">
           <tr><th>Name</th><th>Inv. Date</th><th>Amount</th><th>Region</th></tr>
@@ -220,26 +244,26 @@ apply every time I import this data.</pre>
           <tr><td class="ok-cell">Davis, Emma</td><td class="ok-cell">10/03/2026</td><td class="err-cell">"£ 3,400.00"</td><td class="ok-cell">East</td></tr>
         </table>
         <div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#dc2626">
-          5 issues: wrong case · trailing spaces · leading spaces · text dates · £-prefixed amounts
+          4 issue types: inconsistent case · leading/trailing spaces · text dates · text-formatted £ amounts
           <div style="font-size:10px;color:#9ca3af;margin-top:4px;font-family:inherit">SUMIFS returns 0, dates sort alphabetically, names break lookups</div>
         </div>
       </div>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude diagnoses all 5 issues with formula for each</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude diagnoses each issue type with a testable formula</div>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th>Column</th><th>Issue detected</th><th>Cleaning formula</th><th>Example result</th></tr>
-          <tr><td>Col A — Name</td><td class="err-cell">Trailing spaces + wrong case</td><td class="link-cell">=TRIM(PROPER(A2))</td><td class="ok-cell">Smith, John</td></tr>
-          <tr><td>Col B — Date</td><td class="err-cell">Apostrophe prefix → text</td><td class="link-cell">=DATEVALUE(B2)</td><td class="ok-cell">15/01/2026 (real date)</td></tr>
-          <tr><td>Col C — Amount</td><td class="err-cell">£ prefix + spaces → text</td><td class="link-cell">=VALUE(SUBSTITUTE(SUBSTITUTE(C2,"£","")," ",""))</td><td class="ok-cell">4250 (number)</td></tr>
+          <tr><td>Col A — Name</td><td class="err-cell">Leading/trailing spaces</td><td class="link-cell">=TRIM(A2)</td><td class="ok-cell">smith, john</td></tr>
+          <tr><td>Col B — Date</td><td class="err-cell">Text date</td><td class="link-cell">=DATEVALUE(B2)</td><td class="ok-cell">Real date if locale recognises DD/MM/YYYY</td></tr>
+          <tr><td>Col C — Amount</td><td class="err-cell">£ prefix + spaces → text</td><td class="link-cell">=VALUE(SUBSTITUTE(SUBSTITUTE(C2,"£","")," ",""))</td><td class="ok-cell">4250 if separators match Excel locale</td></tr>
           <tr><td>Col D — Region</td><td class="ok-cell">Clean — no fix needed</td><td>—</td><td class="ok-cell">North ✓</td></tr>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's diagnosis</div>
-          <pre>5 issues found across 3 columns.
-After cleaning: SUMIFS(C:C, A:A, "Smith, John") → £4,250 ✓
+          <pre>4 recurring issue types found across 3 columns.
+After cleaning helper columns: SUMIFS(CleanAmount, CleanName, "Smith, John") → £4,250 ✓
 Date column now sorts chronologically. ✓</pre>
         </div>
       </div>
@@ -269,7 +293,7 @@ Date column now sorts chronologically. ✓</pre>
       <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — helper column, all lookups resolve</div>
       <div class="ba-body">
         <table class="xl-table">
-          <tr><th>Raw (col A)</th><th>Cleaned (col B) =TRIM(PROPER(A2))</th><th>XLOOKUP on col B</th><th>Amount returned</th></tr>
+          <tr><th>Raw (col A)</th><th>Cleaned (col B)</th><th>XLOOKUP on col B</th><th>Amount returned</th></tr>
           <tr><td class="err-cell">"  smith, john "</td><td class="ok-cell">Smith, John</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£4,250</td></tr>
           <tr><td>"JONES, MARY"</td><td class="ok-cell">Jones, Mary</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£7,800</td></tr>
           <tr><td class="err-cell">" Clark, Peter"</td><td class="ok-cell">Clark, Peter</td><td class="ok-cell">Found ✓</td><td class="ok-cell">£12,100</td></tr>
@@ -277,10 +301,16 @@ Date column now sorts chronologically. ✓</pre>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's formula</div>
-          <pre>=TRIM(PROPER(A2))
-TRIM removes leading/trailing spaces.
-PROPER fixes case: "JONES, MARY" → "Jones, Mary".
-All 4 XLOOKUP calls now resolve. Total: £27,550 ✓</pre>
+          <pre>=TRIM(A2)
+
+Use PROPER only if title case is actually required:
+=PROPER(TRIM(A2))
+
+TRIM fixes the lookup-breaking spaces.
+Excel text matching is not case-sensitive, so PROPER is display standardisation,
+not the reason XLOOKUP starts working.
+
+£4,250 + £7,800 + £12,100 + £3,400 = £27,550 ✓</pre>
         </div>
       </div>
     </div>
@@ -314,10 +344,10 @@ All 4 XLOOKUP calls now resolve. Total: £27,550 ✓</pre>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th>Helper column</th><th>Rule</th><th>Result</th></tr>
-          <tr><td>Clean Name</td><td class="link-cell">=TRIM(PROPER(A2))</td><td class="ok-cell">Normalised text ✓</td></tr>
+          <tr><td>Clean Name</td><td class="link-cell">=TRIM(A2)</td><td class="ok-cell">Spaces removed ✓</td></tr>
           <tr><td>Real Date</td><td class="link-cell">=DATEVALUE(B2)</td><td class="ok-cell">Excel date value ✓</td></tr>
           <tr><td>Real Amount</td><td class="link-cell">=VALUE(SUBSTITUTE(SUBSTITUTE(C2,"£","")," ",""))</td><td class="ok-cell">Numeric amount ✓</td></tr>
-          <tr><td>Missing Check</td><td class="link-cell">=IF(E2="","⚠ Missing","")</td><td class="ok-cell">Exception flagged ✓</td></tr>
+          <tr><td>Missing Check</td><td class="link-cell">=IF(D2="","⚠ Missing","")</td><td class="ok-cell">Exception flagged ✓</td></tr>
         </table>
         <table class="xl-table" style="margin-top:10px">
           <tr><th>Name</th><th>Region (col D)</th><th>Missing Check (col H)</th></tr>
@@ -325,10 +355,10 @@ All 4 XLOOKUP calls now resolve. Total: £27,550 ✓</pre>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's template — 4 pre-built helper columns</div>
-          <pre>Col E: =TRIM(PROPER(A2))          ← clean names
+          <pre>Col E: =TRIM(A2)                  ← remove lookup-breaking spaces
 Col F: =DATEVALUE(B2)             ← real dates
 Col G: =VALUE(SUBSTITUTE(...))    ← real numbers
-Col H: =IF(E2="","⚠ Missing","") ← blank check
+Col H: =IF(D2="","⚠ Missing","") ← blank check
 Paste import → template auto-flags every issue. ✓</pre>
         </div>
       </div>
@@ -354,8 +384,8 @@ Paste import → template auto-flags every issue. ✓</pre>
       <div class="diag-badge badge-yellow">Easy fix</div>
     </div>
     <div class="diag-row">
-      <div class="diag-cause">Non-printable characters</div>
-      <div class="diag-example"><span class="bad">TRIM alone</span> doesn't fix it — need <span class="good">CLEAN(TRIM())</span></div>
+      <div class="diag-cause">Invisible / non-breaking spaces</div>
+      <div class="diag-example"><span class="bad">TRIM/CLEAN may not remove every imported space</span> — character 160 can require <span class="good">SUBSTITUTE(...,CHAR(160)," ")</span></div>
       <div class="diag-badge badge-yellow">Invisible</div>
     </div>
   </div>
@@ -366,7 +396,7 @@ Paste import → template auto-flags every issue. ✓</pre>
     <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Clean imported Excel data with Claude — 5 steps</div>
     <div class="step">
       <div class="step-n">1</div>
-      <div class="step-body"><h3>Diagnose the issue quickly</h3><p>Run a SUMIFS or COUNTIF on the imported data. If it returns 0 when matches exist, you have a formatting problem. Sort a date column — if it sorts alphabetically, the dates are text.</p></div>
+      <div class="step-body"><h3>Diagnose the issue quickly</h3><p>Use a known test such as SUMIFS, COUNTIF, XLOOKUP, sorting, or ISTEXT/ISNUMBER to confirm the symptom. A zero or failed match can have several causes, so treat it as evidence to investigate rather than proof of one specific formatting problem.</p></div>
     </div>
     <div class="step">
       <div class="step-n">2</div>
@@ -374,7 +404,7 @@ Paste import → template auto-flags every issue. ✓</pre>
     </div>
     <div class="step">
       <div class="step-n">3</div>
-      <div class="step-body"><h3>Get the exact fix</h3><p>Claude identifies the problem and gives you the cleaning formula for that column — <code>TRIM</code>, <code>VALUE</code>, <code>PROPER</code>, <code>DATEVALUE</code>, <code>CLEAN</code>, or a combination like <code>=TRIM(PROPER(A2))</code>.</p></div>
+      <div class="step-body"><h3>Get the exact fix</h3><p>Use Claude to propose the likely cause and a helper-column formula such as <code>TRIM</code>, <code>VALUE</code>, <code>DATEVALUE</code>, <code>CLEAN</code>, or <code>SUBSTITUTE</code>. Verify the result on known rows before copying down; locale-sensitive dates and numbers need extra checking.</p></div>
     </div>
     <div class="step">
       <div class="step-n">4</div>
@@ -392,19 +422,19 @@ Paste import → template auto-flags every issue. ✓</pre>
   <div class="faq-section">
   <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I remove trailing spaces in Excel? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Use the TRIM function, e.g. <code>=TRIM(A2)</code>. It automatically removes all leading, trailing, and double spaces between words. If you still have invisible spaces after using TRIM, they might be non-printable characters — use <code>=CLEAN(TRIM(A2))</code> to remove them.</div>
+      <div class="faq-a">Use <code>=TRIM(A2)</code> for ordinary ASCII spaces: it removes leading/trailing spaces and reduces repeated internal spaces to one. Imported data can also contain non-breaking spaces or other characters that TRIM does not remove; CLEAN removes certain non-printing ASCII characters, and stubborn character-160 spaces may need SUBSTITUTE.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Why are my numbers stored as text in Excel? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">When data is imported from external systems like CRMs or accounting software, numbers are often formatted with text characters or invisible apostrophes. Excel treats them as text, so math formulas and SUMIFS will ignore them or return 0. Use <code>=VALUE()</code> to convert them back to real numbers.</div>
+      <div class="faq-a">When data is imported from external systems like CRMs or accounting software, numbers are often formatted with text characters or invisible apostrophes. Excel may treat imported amounts as text, which can cause arithmetic or aggregation formulas to ignore or mishandle them. <code>VALUE()</code> converts text that Excel recognises as a number, but currency and decimal/thousands separators must match the locale or be normalised first.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I fix dates that won't sort in Excel? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">If dates sort alphabetically instead of chronologically, Excel is treating them as text rather than serial date numbers. Fix this by applying <code>=DATEVALUE()</code> to the text dates, then formatting the result as a Date.</div>
+      <div class="faq-a">If the cells are confirmed as text dates, <code>DATEVALUE()</code> can convert recognised date text to Excel serial dates. Its interpretation depends on system/Excel date settings, so verify ambiguous formats such as 03/04/2026 before copying the formula down, then apply a Date number format.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What's the difference between TRIM and CLEAN in Excel? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">TRIM removes leading, trailing, and double spaces. CLEAN removes non-printable characters — the hidden characters that appear when you import from legacy systems or mainframes. If TRIM alone doesn't fix a stubborn cell, try <code>=CLEAN(TRIM(A2))</code>.</div>
+      <div class="faq-a">TRIM handles ordinary space characters. CLEAN removes the first 32 non-printing ASCII characters, but neither function removes every possible imported Unicode character. If TRIM/CLEAN does not fix the value, inspect the character and consider SUBSTITUTE — for example replacing CHAR(160) non-breaking spaces.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can Claude clean my Excel data for me automatically? <i class="ti ti-chevron-down"></i></div>
