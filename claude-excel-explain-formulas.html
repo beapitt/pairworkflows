@@ -295,6 +295,12 @@ outcome or error type and present it as certain.
 If you cannot determine the exact mechanism confidently, stop at the
 uncertainty instead of speculating.
 
+Before labeling any workbook edit as Certain, verify that the claimed outcome
+follows from a documented Excel rule for that exact edit. In particular, do
+not assume that renaming a worksheet breaks references, and do not assume
+that mismatched range sizes always produce either a wrong value or an error.
+If multiple outcomes are possible, label the result Conditional.
+
 Do not invent workbook facts that are not supported by the formula or context.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
