@@ -6,7 +6,7 @@
 <title>12-Month Rolling Forecast in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to build a 12-month rolling forecast in Excel with Claude AI, replacing forecasts with actuals as each month closes and keeping the horizon updated.">
 <link rel="canonical" href="https://www.pairworkflows.com/rolling-forecast-excel-claude.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between a rolling forecast and an annual budget?","acceptedAnswer":{"@type":"Answer","text":"An annual budget is set once and stays fixed for the fiscal year. A rolling forecast is updated every month: the closed month moves into historical actuals, that month leaves the active forecast horizon, and a new period is added at the far end so the model continues to look 12 months ahead. This keeps planning current with business conditions."}},{"@type":"Question","name":"How many months should a rolling forecast cover?","acceptedAnswer":{"@type":"Answer","text":"Twelve months is the most common horizon. Some organisations use 18 months to ensure the forecast always spans at least one full fiscal year. The prompt in this workflow defaults to 12 but you can change it."}},{"@type":"Question","name":"Can Claude automatically pull actuals into the forecast each month?","acceptedAnswer":{"@type":"Answer","text":"Claude cannot connect to live data sources. It builds the Excel structure with clearly separated Actuals and Forecast columns. Each month, you paste updated actuals into the Actuals section and the formulas recalculate the remaining forecast periods automatically."}},{"@type":"Question","name":"How do I handle seasonality in a rolling forecast?","acceptedAnswer":{"@type":"Answer","text":"Include a seasonality index or monthly weighting in your input data. The prompt instructs Claude to apply seasonal adjustments to the base forecast so that Q4 revenue projections reflect your historical uplift rather than a flat monthly average."}},{"@type":"Question","name":"Does this replace a 3-statement financial model?","acceptedAnswer":{"@type":"Answer","text":"No. A rolling forecast focuses on the P&L and key operating metrics. A 3-statement model links the income statement, balance sheet, and cash flow statement. They serve different purposes and can complement each other."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between a rolling forecast and an annual budget?","acceptedAnswer":{"@type":"Answer","text":"An approved annual budget is typically preserved as a fixed baseline for variance reporting, while a rolling forecast is updated periodically. In this monthly workflow: the closed month moves into historical actuals, that month leaves the active forecast horizon, and a new period is added at the far end so the model continues to look 12 months ahead. This keeps planning current with business conditions."}},{"@type":"Question","name":"How many months should a rolling forecast cover?","acceptedAnswer":{"@type":"Answer","text":"This workflow uses a constant 12-month forward horizon. Other planning processes may use a different horizon; if you change it, update the month-count and total-range controls accordingly."}},{"@type":"Question","name":"Can Claude automatically pull actuals into the forecast each month?","acceptedAnswer":{"@type":"Answer","text":"This workflow does not assume a live-data connection. Use the data-access method supported by your Claude/Excel environment, but preserve prior forecast versions and verify the actuals, formula changes, and forecast horizon each month."}},{"@type":"Question","name":"How do I handle seasonality in a rolling forecast?","acceptedAnswer":{"@type":"Answer","text":"Include a seasonality index or monthly weighting in your input data. The prompt instructs Claude to apply seasonal adjustments to the base forecast so that Q4 revenue projections reflect your historical uplift rather than a flat monthly average."}},{"@type":"Question","name":"Does this replace a 3-statement financial model?","acceptedAnswer":{"@type":"Answer","text":"No. A rolling forecast focuses on the P&L and key operating metrics. A 3-statement model links the income statement, balance sheet, and cash flow statement. They serve different purposes and can complement each other."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -141,6 +141,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 @media(max-width:640px){
   .hero h1{font-size:24px}
   .diag-row{grid-template-columns:1fr;gap:6px}
+  .diag-example{display:flex}
   .related-grid{grid-template-columns:1fr}
   .page{padding:1.5rem 1rem 3rem}
 }
@@ -175,7 +176,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Finance</div>
     <h1>How to Build a 12-Month Rolling Forecast in Excel with Claude AI</h1>
-    <p class="hero-sub">Paste your historical actuals and growth assumptions into Claude. It builds a 12-month rolling model where actuals replace forecasts as each month closes — always looking exactly 12 months ahead, driven by formulas not hard-coded numbers.</p>
+    <p class="hero-sub">Provide Claude with reconciled historical actuals, explicit forecast drivers, and your current forecast layout, then use it to draft a formula-driven 12-month rolling forecast. Each close should preserve the prior forecast for variance analysis, move the closed month to actuals, and add one new far-end forecast month.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -194,37 +195,67 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
       <div class="prompt-box">
         <pre>I need a rolling 12-month forecast model in Excel.
 
-HISTORICAL ACTUALS (columns: Line Item, then one column per closed month):
-[Paste your actuals here — at least 3 months, preferably 6–12]
+MODEL SETTINGS
+- Currency / units: [e.g. GBP £000]
+- Last closed actual month: [e.g. June 2025]
+- First open forecast month: [e.g. July 2025]
+- Active horizon required: exactly 12 future months
+- Sign convention: [e.g. revenue positive, costs positive and subtracted]
+- Forecast version/date: [e.g. July 2025 forecast]
 
-FORECAST ASSUMPTIONS:
-- Revenue growth: [e.g. 2% month-over-month]
-- COGS as % of revenue: [e.g. 40%]
-- OpEx monthly escalation: [e.g. 0.5% per month]
-- Seasonality index (optional): [e.g. Jan=0.85, Feb=0.90, ..., Dec=1.20]
-- One-off items (optional): [e.g. Sep: £50,000 relocation cost in OpEx]
+HISTORICAL ACTUALS
+Columns: Line Item | [one column per CLOSED month]
+[Paste reconciled actuals here — include the most recent closed month]
 
-First open forecast month: [e.g. July 2025]
+FORECAST DRIVERS
+For each material line item, tell me the driver rather than guessing:
+- Revenue: [e.g. 2% MoM / units × price / other]
+- COGS: [e.g. 40% of revenue]
+- OpEx: [e.g. 0.5% MoM, or line-specific drivers]
+- Headcount / payroll: [if applicable]
+- Seasonality: [none / monthly index on Assumptions tab]
+- One-offs: [month | line item | amount | add/subtract | recurring? no]
+- Other material lines: [state driver or "hold flat"]
 
 MODEL DEFINITION
-- Keep historical actuals in an Actuals section to the left.
-- Keep a separate ACTIVE FORECAST HORIZON containing exactly 12 future months,
-  starting with the first open forecast month.
-- When a month closes, move its final actual into the Actuals section, remove that
-  month from the active forecast horizon, and append one new forecast month at the
-  far right. The active forecast horizon must remain exactly 12 months.
+1. Preserve historical actuals as values; do not overwrite prior closed months.
+2. Keep an ACTIVE FORECAST HORIZON containing exactly 12 future months,
+   beginning with the first open forecast month.
+3. Keep a separate "Prior Forecast" snapshot or version before replacing a forecast
+   month with actuals, so forecast-vs-actual variance can still be measured.
+4. When a month closes:
+   - record the final reconciled actual,
+   - remove that month from the active forecast horizon,
+   - append one new month at the far end,
+   - retain exactly 12 future forecast months.
 
-Requirements:
-- Use formulas referencing an Assumptions tab — do not hard-code recurring forecast drivers.
-- Revenue formula must use one clearly defined base and apply growth only once.
-- If seasonality is used, reference the month-specific index from the Assumptions tab.
-- Add one-off items only in the specified month as explicit overrides/additions.
-- Include subtotal rows: Gross Profit and Operating Income.
-- Include Net Income only if I provide all required below-operating-income assumptions
-  (for example interest and tax). Otherwise stop at Operating Income rather than inventing inputs.
-- Add a Forecast 12M Total column that sums only the 12 active forecast months.
-- Do NOT invent figures or assumptions I haven't provided.
-- Format as tab-separated tables ready to paste into Excel, with formulas written out.</pre>
+FORECAST RULES
+- Put recurring assumptions in an Assumptions area/tab and link forecast formulas to them.
+- Do not hard-code recurring forecast outputs.
+- Define the Revenue base explicitly and apply growth only once.
+- If seasonality is used, explain whether it is applied to an annual base, a deseasonalised
+  monthly base, or another base. Do not multiply by a seasonality factor twice.
+- One-offs must be separate explicit additions/overrides and must not automatically roll forward.
+- Include Gross Profit and Operating Income.
+- Include Net Income only if I provide every required below-operating-income driver.
+- Add Forecast 12M Total using only the 12 active forecast months.
+- Add validation rows/checks:
+  a) active forecast month count = 12
+  b) first forecast month = month after last closed actual
+  c) no overlap between Actuals and Active Forecast
+  d) one-offs occur only in specified periods
+  e) Forecast 12M Total range contains exactly 12 month columns
+- Do not invent assumptions or infer missing business drivers from a few historical rows.
+- If a required driver is missing, list it before creating that forecast line.
+
+OUTPUT
+1. Proposed Assumptions layout
+2. Actuals + Active Forecast layout
+3. Explicit Excel formulas for the first 2 forecast months and formula pattern thereafter
+4. Forecast 12M Total formulas
+5. Monthly roll-forward procedure
+6. Validation checks
+Use tab-separated tables suitable for Excel.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Paste your real actuals and assumptions. Works in <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
@@ -233,31 +264,38 @@ Requirements:
     <!-- Panel: Seasonal -->
     <div id="p-seasonal" class="panel">
       <div class="prompt-box">
-        <pre>I need to add a seasonality index to my rolling forecast model.
+        <pre>I need to add seasonality to my rolling revenue forecast without changing the annual base unintentionally.
 
 BASE-YEAR ANNUAL REVENUE: [e.g. £600,000]
 
-Historical monthly revenue split as % of annual revenue:
+Historical monthly revenue shares:
 Jan: [%] Feb: [%] Mar: [%] Apr: [%] May: [%] Jun: [%]
 Jul: [%] Aug: [%] Sep: [%] Oct: [%] Nov: [%] Dec: [%]
 
-Forecast growth assumption:
-[e.g. 2% month-over-month, or leave blank if growth is already built into my base forecast]
+How these shares were calculated:
+[one representative year / average of several years / other]
+
+Growth treatment in my current forecast:
+[growth NOT yet applied / growth already embedded / not sure]
 
 Requirements:
-- First verify that the 12 monthly shares total approximately 100%.
-- Convert each monthly share into a normalized seasonality index:
-  SeasonIndex = MonthlyShare / (1/12) = MonthlyShare × 12
-  so the average index across the 12 months is 1.0.
-- Define BaseMonthlyRevenue = BaseYearAnnualRevenue / 12.
-- If growth is NOT already embedded elsewhere, use:
-  Forecast = BaseMonthlyRevenue × SeasonIndex × (1 + GrowthRate)^n
-  where n = 0 for the first forecast month, 1 for the next month, etc.
-- If my existing base forecast already includes growth, do NOT multiply by growth again;
-  apply only the seasonality adjustment.
-- Put the seasonality index on a separate Assumptions tab.
-- Write the exact Excel formula for each forecast revenue cell.
-- Do not invent missing monthly shares or growth assumptions.</pre>
+1. Check that all 12 shares are present and calculate their actual sum.
+2. Do not merely assume the shares total exactly 100%.
+3. Normalize them so the 12 seasonality indices average exactly 1.0:
+   NormalizedShare = MonthlyShare / SUM(All12MonthlyShares)
+   SeasonIndex = NormalizedShare × 12
+4. Verify SUM(12 normalized shares) = 100% and AVERAGE(12 indices) = 1.0
+   within a stated rounding tolerance.
+5. Define BaseMonthlyRevenue = BaseYearAnnualRevenue / 12 only if this annual base
+   is the intended forecast base.
+6. If growth is not embedded elsewhere, state exactly how growth interacts with seasonality.
+   Do not apply both a growing monthly base and a second growth factor to the same forecast.
+7. If growth is already embedded in a deseasonalised base forecast, apply only the
+   normalized seasonality factor.
+8. Put the raw shares, normalized shares and seasonality indices on Assumptions.
+9. Give exact Excel formulas and an annual-control check showing that seasonality alone
+   redistributes revenue across months rather than creating/destroying annual revenue.
+10. Do not invent missing monthly shares or a growth method.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Use this after building the base model — add it as a separate tab so your assumptions stay organised.</p>
@@ -269,25 +307,38 @@ Requirements:
         <pre>I need to roll my 12-month forecast forward after month-end close.
 
 Month just closed: [e.g. June 2025]
-Final actual figures for that month:
-[Paste: Revenue, COGS, OpEx, and any other line items]
+Final reconciled actual figures:
+[Paste the closed-month line items]
 
 Current ACTIVE FORECAST HORIZON:
 [e.g. June 2025 through May 2026]
 
-New far-end forecast month to add:
+Current forecast values for the month that just closed:
+[Paste them, so I can retain forecast-vs-actual variance]
+
+New far-end forecast month:
 [e.g. June 2026]
 
+Current far-end assumptions / formulas:
+[Paste the prior far-end month formulas and relevant assumption rows]
+
 Instructions:
-1. Move the closed month's final actuals into the historical Actuals section.
-2. Remove that closed month from the ACTIVE FORECAST HORIZON.
-3. Append the new far-end forecast month using the same linked assumptions,
-   growth logic, seasonality logic, and one-off rules as the existing forecast.
-4. Confirm that the ACTIVE FORECAST HORIZON still contains exactly 12 future months.
-5. Update the Forecast 12M Total so it sums only those 12 active forecast months.
-6. Show me only the changed cells / formulas and the new 12-month horizon —
-   do not reprint the entire model.
-7. Do not overwrite historical actuals or invent assumptions.</pre>
+1. First confirm that the closed month is the first month of the current active horizon.
+   If it is not, stop and flag the timeline inconsistency.
+2. Preserve the closed month's PRIOR FORECAST as a snapshot/version for variance analysis.
+3. Record the final reconciled actual in the Actuals section without changing earlier actuals.
+4. Remove the closed month from ACTIVE FORECAST only after the prior forecast is preserved.
+5. Append the new far-end month. Copy formula logic only where the driver is genuinely recurring.
+   Do NOT carry forward expired one-offs, temporary overrides, promotions or dated assumptions.
+6. Re-evaluate seasonality using the new calendar month.
+7. Confirm the new ACTIVE FORECAST contains exactly 12 future months with no gaps/duplicates.
+8. Update Forecast 12M Total to those 12 columns only.
+9. Show:
+   - prior forecast vs actual variance for the closed month,
+   - changed cells/formulas,
+   - the new first and last forecast months,
+   - validation checks.
+10. Do not overwrite history, silently change assumptions, or invent a new far-end driver.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Run this after month-end close: the closed month moves to Actuals, one new far-end month is appended, and the active forecast stays at 12 future months.</p>
@@ -319,7 +370,7 @@ Instructions:
           </div>
           <div class="sheet-tabs"><span class="sheet-tab active">Annual Budget</span><span class="sheet-tab">Actuals</span><span class="sheet-tab">Assumptions</span></div>
         </div>
-        <div class="sheet-note bad">The sheet is a static annual budget: no first-open-month marker, no 12-month forward horizon, and recurring forecast drivers are embedded as numbers.</div>
+        <div class="sheet-note bad">The sheet is a static annual budget: no first-open-month marker, no 12-month forward horizon, no prior-forecast snapshot, and recurring forecast drivers are embedded as numbers.</div>
       </div>
     </div>
 
@@ -360,7 +411,15 @@ Jul COGS = £520.2k × 40% = £208.08k
 Jul OpEx = £225.0k × 1.005 = £226.125k
 
 Sep OpEx includes the explicit £50k one-off.
-Forecast 12M totals sum only the 12 active forecast months. ✓</pre>
+Forecast 12M totals sum only the 12 active forecast months.
+
+Control checks:
+• Last actual = Jun
+• First forecast = Jul
+• Active forecast count = 12
+• No Actual/Forecast overlap ✓
+
+The shown values are illustrative and follow the stated drivers.</pre>
         </div>
       </div>
     </div>
@@ -386,7 +445,7 @@ Forecast 12M totals sum only the 12 active forecast months. ✓</pre>
             </table>
           </div>
         </div>
-        <div class="sheet-note bad">A monthly share is not itself the seasonality index. It must be normalized against an average month (8.333% of annual revenue).</div>
+        <div class="sheet-note bad">A monthly share is not itself the seasonality index. Use all 12 months and normalize against their actual total first; simply multiplying by 12 is exact only when the 12 raw shares sum to exactly 100%.</div>
       </div>
     </div>
 
@@ -397,7 +456,7 @@ Forecast 12M totals sum only the 12 active forecast months. ✓</pre>
       <div class="ba-body">
         <div class="excel-window">
           <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Assumptions</span></div>
-          <div class="formula-row"><div class="name-box">G3</div><div class="fx-box">fx</div><div class="formula-input">=G2*12</div></div>
+          <div class="formula-row"><div class="name-box">G3</div><div class="fx-box">fx</div><div class="formula-input">=G2/SUM($B$2:$M$2)*12</div></div>
           <div class="sheet-scroll">
             <table class="excel-grid">
               <colgroup><col style="width:34px"><col style="width:145px"><col style="width:95px"><col style="width:95px"><col style="width:95px"><col style="width:95px"><col style="width:95px"><col style="width:95px"><col style="width:130px"></colgroup>
@@ -416,16 +475,22 @@ Forecast 12M totals sum only the 12 active forecast months. ✓</pre>
           <div class="claude-fix-label">Seasonality math</div>
           <pre>Average monthly share = 1/12 = 8.333%
 
-Jul index = 7.0% × 12 = 0.84
-Dec index = 12.5% × 12 = 1.50
+If the complete 12-month raw shares sum to exactly 100%:
+Jul index = 7.0% / 100% × 12 = 0.84
+Dec index = 12.5% / 100% × 12 = 1.50
+
+General formula:
+=MonthlyShare / SUM(All12Shares) * 12
 
 With £600k base-year annual revenue:
 Base month = £600k / 12 = £50k
 Jul = £50k × 0.84 = £42k
 Dec = £50k × 1.50 = £75k ✓
 
+Control: average of all 12 normalized indices must equal 1.0.
+
 If the base forecast already contains growth, apply seasonality only.
-Do not multiply by a growth factor twice.</pre>
+Do not multiply by a growth factor twice. ✓</pre>
         </div>
       </div>
     </div>
@@ -458,11 +523,11 @@ Do not multiply by a growth factor twice.</pre>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
 
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — June moves to Actuals and a new June forecast is appended at the far end</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — prior June forecast is retained, June actual closes, and a new far-end month is added</div>
       <div class="ba-body">
         <div class="excel-window">
           <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Trace Precedents</span></div>
-          <div class="formula-row"><div class="name-box">E2</div><div class="fx-box">fx</div><div class="formula-input">=PriorMonthRevenue*(1+Growth)*SeasonalityAdjustment</div></div>
+          <div class="formula-row"><div class="name-box">F2</div><div class="fx-box">fx</div><div class="formula-input">=E2*(1+Assumptions!F$2)  /* example recurring-growth pattern */</div></div>
           <div class="sheet-scroll">
             <table class="excel-grid">
               <colgroup><col style="width:34px"><col style="width:145px"><col style="width:105px"><col style="width:105px"><col style="width:105px"><col style="width:125px"><col style="width:145px"><col style="width:130px"></colgroup>
@@ -478,15 +543,20 @@ Do not multiply by a growth factor twice.</pre>
         </div>
         <div class="claude-fix">
           <div class="claude-fix-label">Monthly roll-forward</div>
-          <pre>Before close:
+          <pre>Prior June forecast = £42k
+Final June actual   = £44k
+Forecast variance   = £44k − £42k = +£2k
+
+Before close:
 Active forecast = Jun 2025 → May 2026 (12 months)
 
 After June closes:
 June 2025 actual moves to history.
 Active forecast = Jul 2025 → Jun 2026 (12 months)
 
-The new June 2026 formula inherits the same assumptions.
-Historical June actual is not overwritten.
+The new June 2026 formula uses recurring drivers only.
+Expired one-offs / dated overrides must not be copied blindly.
+Historical June actual and the prior June forecast snapshot are both retained.
 Forecast 12M Total sums Jul 2025 through Jun 2026 only. ✓</pre>
         </div>
       </div>
@@ -495,16 +565,16 @@ Forecast 12M Total sums Jul 2025 through Jun 2026 only. ✓</pre>
 
   <!-- DIAGNOSIS TABLE -->
   <div class="diag-card">
-    <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Why rolling forecasts break — the 4 most common mistakes</div>
+    <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Four rolling-forecast design problems worth checking</div>
     <div class="diag-row">
       <div class="diag-cause">Hard-coded forecasts</div>
       <div class="diag-example">Forecast cells contain <span class="bad">fixed numbers</span> not formulas → can't update assumptions centrally</div>
-      <div class="diag-badge badge-red">Most common</div>
+      <div class="diag-badge badge-red">High risk</div>
     </div>
     <div class="diag-row">
       <div class="diag-cause">No assumptions tab</div>
       <div class="diag-example">Growth rate <span class="bad">embedded in each cell</span> → must change 36 cells to update one assumption</div>
-      <div class="diag-badge badge-red">Most common</div>
+      <div class="diag-badge badge-red">High risk</div>
     </div>
     <div class="diag-row">
       <div class="diag-cause">Flat monthly forecast</div>
@@ -513,7 +583,7 @@ Forecast 12M Total sums Jul 2025 through Jun 2026 only. ✓</pre>
     </div>
     <div class="diag-row">
       <div class="diag-cause">One-offs spread across months</div>
-      <div class="diag-example">Relocation cost <span class="bad">averaged across year</span> instead of <span class="good">hard-coded in September</span></div>
+      <div class="diag-example">Relocation cost <span class="bad">spread or rolled forward</span> instead of recorded as a <span class="good">dated one-off assumption</span></div>
       <div class="diag-badge badge-yellow">Invisible</div>
     </div>
   </div>
@@ -527,7 +597,7 @@ Forecast 12M Total sums Jul 2025 through Jun 2026 only. ✓</pre>
       <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a 12-month rolling forecast with Claude — 4 steps</div>
       <div class="step">
         <div class="step-n">1</div>
-        <div class="step-body"><h3>Provide at least 3 months of closed actuals</h3><p>Six to twelve months is ideal — it lets Claude see trends and seasonality in your data. The more history you provide, the better Claude can structure the actual-to-forecast transition and calibrate growth rates against real performance.</p></div>
+        <div class="step-body"><h3>Provide at least 3 months of closed actuals</h3><p>Provide enough closed history to support the drivers you intend to use. A few months may show recent run-rate, but seasonality normally requires a fuller annual pattern and often multiple comparable periods. Do not let Claude infer a growth assumption automatically from a short sample unless that is explicitly your chosen method.</p></div>
       </div>
       <div class="step">
         <div class="step-n">2</div>
@@ -535,13 +605,13 @@ Forecast 12M Total sums Jul 2025 through Jun 2026 only. ✓</pre>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Put all assumptions on a separate tab</h3><p>The prompt instructs Claude to reference an Assumptions tab for every forecast driver. Change one growth rate and every future month recalculates. Without this, you'd need to edit 36+ cells to update a single assumption across 12 months.</p></div>
+        <div class="step-body"><h3>Put all assumptions on a separate tab</h3><p>The prompt instructs Claude to reference an Assumptions tab for every forecast driver. Central assumptions let future formulas recalculate consistently and make each forecast driver auditable instead of embedding the same input in many cells.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
         <div class="step-body"><h3>Update monthly using the Update with actuals prompt</h3><p>At the end of each month, use the third tab prompt above. Paste the closed actuals; Claude can identify the cells to move into history and provide the new far-end forecast formulas while keeping the active horizon at 12 future months.</p></div>
       </div>
-      <div class="tip"><strong>Tip:</strong> Keep the rolling forecast alongside your static annual budget — not instead of it. Use the annual budget for board reporting and compensation benchmarks, the rolling forecast for operational decisions. Run the <a href="/build-budget-variance-analysis-report-excel-claude.html" style="color:#92400e;font-weight:600">budget variance report</a> against both to see which is tracking reality more closely.</div>
+      <div class="tip"><strong>Tip:</strong> If your organisation keeps an approved annual budget, preserve it as a separate baseline rather than overwriting it with each rolling forecast. This lets you compare Actual vs Budget and Actual vs Forecast without losing the original plan.</div>
     </div>
   </div>
 
@@ -552,11 +622,11 @@ Forecast 12M Total sums Jul 2025 through Jun 2026 only. ✓</pre>
       <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Add a seasonality index to your forecast — 4 steps</div>
       <div class="step">
         <div class="step-n">1</div>
-        <div class="step-body"><h3>Extract historical monthly data</h3><p>Gather 2-3 years of historical revenue data to find a reliable pattern of monthly fluctuations.</p></div>
+        <div class="step-body"><h3>Extract historical monthly data</h3><p>Use enough comparable historical periods to support a seasonal pattern, and remove/flag structural breaks or unusual one-offs before calculating monthly shares. The appropriate history depends on the business.</p></div>
       </div>
       <div class="step">
         <div class="step-n">2</div>
-        <div class="step-body"><h3>Calculate the monthly weighting</h3><p>Feed the data into Claude to convert the monthly splits into a base 1.0 index (e.g., if August is slow, it might be 0.8; if December is busy, it might be 1.5).</p></div>
+        <div class="step-body"><h3>Calculate the monthly weighting</h3><p>Calculate each monthly share, normalize the 12 shares to 100%, then convert them to an index whose 12-month average is 1.0. Verify both control totals before using the index.</p></div>
       </div>
       <div class="step">
         <div class="step-n">3</div>
@@ -564,7 +634,7 @@ Forecast 12M Total sums Jul 2025 through Jun 2026 only. ✓</pre>
       </div>
       <div class="step">
         <div class="step-n">4</div>
-        <div class="step-body"><h3>Apply the index to rolling formulas</h3><p>Multiply your base growth projections by the specific month's seasonality index to reflect realistic cash flow peaks and valleys.</p></div>
+        <div class="step-body"><h3>Apply the index to rolling formulas</h3><p>Apply the index to a clearly defined revenue base only once. Confirm whether growth is already embedded in that base so seasonality does not accidentally compound growth twice.</p></div>
       </div>
     </div>
   </div>
@@ -576,19 +646,19 @@ Forecast 12M Total sums Jul 2025 through Jun 2026 only. ✓</pre>
       <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Update model with closed actuals — 4 steps</div>
       <div class="step">
         <div class="step-n">1</div>
-        <div class="step-body"><h3>Finalise month-end close</h3><p>Ensure that all general ledger numbers are final and locked before importing them to overwrite your forecast data.</p></div>
+        <div class="step-body"><h3>Finalise month-end close</h3><p>Use final reconciled actuals for the closed month and preserve the prior forecast/version before changing the active forecast horizon.</p></div>
       </div>
       <div class="step">
         <div class="step-n">2</div>
-        <div class="step-body"><h3>Run the Update prompt</h3><p>Provide Claude with the finalized actuals to ensure formulas update precisely without manual column-dragging errors.</p></div>
+        <div class="step-body"><h3>Run the Update prompt</h3><p>Provide the final actuals, the current active horizon, the prior forecast for the closed month, and the far-end formulas/assumptions. Claude should identify proposed changes; verify them before applying them in Excel.</p></div>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Paste actuals over old forecast</h3><p>Move the just-closed month out of the active forecast horizon into the historical Actuals section, preserving the final actual values.</p></div>
+        <div class="step-body"><h3>Close the month without losing the forecast</h3><p>Store the prior forecast snapshot for variance analysis, record the final actual, then remove that month from the active forecast horizon.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
-        <div class="step-body"><h3>Append the new far-end month</h3><p>Append the new far-end forecast formula column so the active horizon again contains exactly 12 future months.</p></div>
+        <div class="step-body"><h3>Append the new far-end month</h3><p>Append the new far-end month using only valid recurring drivers, then check for expired one-offs, date-specific assumptions, missing months, duplicates and the 12-month total range.</p></div>
       </div>
     </div>
   </div>
@@ -598,19 +668,19 @@ Forecast 12M Total sums Jul 2025 through Jun 2026 only. ✓</pre>
   <div class="faq-section">
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What is the difference between a rolling forecast and an annual budget? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">An annual budget is set once and stays fixed for the fiscal year. A rolling forecast is updated every month: the closed month moves into historical actuals, that month leaves the active forecast horizon, and a new period is added at the far end so the model continues to look 12 months ahead. This keeps planning current with business conditions rather than locked to assumptions made 10 months ago.</div>
+      <div class="faq-a">An approved annual budget is typically preserved as a fixed baseline for variance reporting, while a rolling forecast is updated periodically. In this monthly workflow: the closed month moves into historical actuals, that month leaves the active forecast horizon, and a new period is added at the far end so the model continues to look 12 months ahead. This keeps planning current with business conditions rather than locked to assumptions made 10 months ago.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How many months should a rolling forecast cover? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Twelve months is the most common horizon. Some organisations use 18 months to ensure the forecast always spans at least one full fiscal year. The prompt defaults to 12 but you can change the horizon in the requirements section.</div>
+      <div class="faq-a">This workflow uses a constant 12-month forward horizon. Other organisations may choose 13, 18 or another horizon based on their planning cycle; if you change it, update the month-count and total-range validation checks as well.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can Claude automatically pull actuals into the forecast each month? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Claude cannot connect to live data sources. It builds the Excel structure with clearly separated Actuals and Forecast columns. Each month, paste the closed month into the Actuals section, roll the active forecast forward by one month, and append a new far-end forecast period using the same linked assumptions. Use the Update with actuals prompt tab above to guide this process.</div>
+      <div class="faq-a">The workflow does not assume an automatic live-data connection. Depending on your Claude/Excel environment, you may work from pasted data, uploaded workbooks, or supported Excel integrations. In every case, use final reconciled actuals, preserve the prior forecast version, and verify the changed formulas and horizon before relying on the update.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I handle seasonality in a rolling forecast? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Use the Add seasonality prompt tab above. Provide your historical monthly revenue split as percentages of annual revenue. Claude converts them into a seasonality index and applies it to the base forecast so Q4 projections reflect your historical uplift rather than a flat monthly average.</div>
+      <div class="faq-a">Use the Add seasonality prompt tab above. Provide all 12 historical monthly shares. Normalize them against their actual 12-month sum, verify the normalized shares total 100% and the seasonality indices average 1.0, then apply the index once to a clearly defined forecast base.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Does this replace a 3-statement financial model? <i class="ti ti-chevron-down"></i></div>
