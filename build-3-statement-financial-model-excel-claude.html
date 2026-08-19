@@ -6,7 +6,7 @@
 <title>How to Build a 3-Statement Model in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to build a linked 3-statement financial model in Excel with Claude AI, connecting the income statement, balance sheet, and cash flow with formulas.">
 <link rel="canonical" href="https://www.pairworkflows.com/build-3-statement-financial-model-excel-claude.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What links the three financial statements together?","acceptedAnswer":{"@type":"Answer","text":"Net income from the income statement is the starting point for the cash flow statement (indirect method) and contributes to the retained earnings roll-forward on the balance sheet, together with dividends or distributions where applicable. Changes in balance sheet working capital items feed the operating section of the cash flow statement. CapEx on the cash flow statement increases PP&E on the balance sheet. The ending cash balance on the cash flow statement must equal cash on the balance sheet."}},{"@type":"Question","name":"Can Claude build a 3-statement model from scratch without historical data?","acceptedAnswer":{"@type":"Answer","text":"Claude can build the model structure and formulas without historical data, but the output will be a blank template. For a working model, provide at least one year of historical financials so Claude can populate the base period and project forward from real numbers."}},{"@type":"Question","name":"How does Claude handle the balance sheet check?","acceptedAnswer":{"@type":"Answer","text":"The prompt instructs Claude to add a balance check row that calculates Total Assets minus Total Liabilities and Equity. If this row shows anything other than zero, the model has a linkage error. This is the single most important integrity check in any 3-statement model."}},{"@type":"Question","name":"Should I use the direct or indirect method for the cash flow statement?","acceptedAnswer":{"@type":"Answer","text":"The indirect method is standard for financial modelling because it starts with net income and adjusts for non-cash items and working capital changes. The prompt in this workflow uses the indirect method."}},{"@type":"Question","name":"Can I extend this to a 5-year projection?","acceptedAnswer":{"@type":"Answer","text":"Yes. The prompt defaults to a 3-year projection but you can change the horizon. Provide your growth and margin assumptions for each year, and Claude will extend the model accordingly."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What links the three financial statements together?","acceptedAnswer":{"@type":"Answer","text":"Net income from the income statement is the starting point for the cash flow statement (indirect method) and contributes to the retained earnings roll-forward on the balance sheet, together with dividends or distributions where applicable. Changes in balance sheet working capital items feed the operating section of the cash flow statement. CapEx on the cash flow statement increases PP&E on the balance sheet. The ending cash balance on the cash flow statement must equal cash on the balance sheet."}},{"@type":"Question","name":"Can Claude build a 3-statement model from scratch without historical data?","acceptedAnswer":{"@type":"Answer","text":"Claude can build the model structure and formulas without historical data, but the output will be a blank template. A base historical period can anchor the first forecast, but some drivers and validation checks are stronger with multiple historical periods. At minimum, provide a complete historical income statement and a balance sheet that already balances, plus all assumptions required for the forecast schedules."}},{"@type":"Question","name":"How does Claude handle the balance sheet check?","acceptedAnswer":{"@type":"Answer","text":"The prompt instructs Claude to add a balance check row that calculates Total Assets minus Total Liabilities and Equity. The check should be zero within the model's stated rounding tolerance. A non-zero value means the statements are internally inconsistent and the affected links or roll-forwards need to be traced."}},{"@type":"Question","name":"Should I use the direct or indirect method for the cash flow statement?","acceptedAnswer":{"@type":"Answer","text":"This workflow uses the indirect method, which starts with net income and adjusts for non-cash items and changes in operating assets/liabilities."}},{"@type":"Question","name":"Can I extend this to a 5-year projection?","acceptedAnswer":{"@type":"Answer","text":"Yes. The prompt defaults to a 3-year projection but you can change the horizon. Provide your growth and margin assumptions for each year, and Claude will extend the model accordingly."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -164,8 +164,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
 @media(max-width:640px){
   .hero h1{font-size:24px}
-  .diag-row{grid-template-columns:1fr 1fr;gap:8px}
-  .diag-example{display:none}
+  .diag-row{grid-template-columns:1fr;gap:6px}
+  .diag-example{display:flex}
   .related-grid{grid-template-columns:1fr}
   .page{padding:1.5rem 1rem 3rem}
 }
@@ -200,7 +200,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
    <h1>How to Build a 3-Statement Model in Excel with Claude AI</h1>
-   <p class="hero-sub">Paste one year of historical financials and your assumptions into Claude. It builds the income statement, balance sheet, and cash flow statement — fully linked, with a Balance Check row so you can verify every connection.</p>
+   <p class="hero-sub">Provide Claude with a complete historical base period, forecast assumptions, and model conventions, then use it to draft a linked income statement, balance sheet, cash flow statement, and supporting roll-forwards. Reconcile the historical period and validate every forecast year before relying on the model.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -218,51 +218,100 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
     <div id="p-build" class="panel on">
       <div class="prompt-box">
         <pre>ROLE
-You are a senior FP&A analyst building an Excel financial model.
+You are helping me build an auditable 3-statement Excel model.
 
 OBJECTIVE
-Build a fully linked 3-statement financial model: Income Statement, Balance Sheet,
-and Cash Flow Statement (indirect method). One base year of actuals, projected
-forward [3] years.
+Draft a fully linked Income Statement, Balance Sheet and Cash Flow Statement
+(indirect method) using one historical base year and [3] forecast years.
 
-HISTORICAL DATA — BASE YEAR (FY [year])
+EXCEL / MODEL CONVENTIONS
+- Excel version: [Microsoft 365 / 2024 / 2021 / 2019 / 2016]
+- Currency / units: [e.g. GBP £000]
+- Forecast years: [e.g. FY25E–FY27E]
+- Sign convention: [state whether expenses/outflows are positive or negative]
+- Dividends/distributions policy: [amount / payout ratio / none]
+- Minimum cash / revolver rule, if any: [describe or "none"]
+- Circularity: do NOT use iterative calculation unless I explicitly ask for it.
+
+HISTORICAL BASE YEAR — FY [year]
 
 Income Statement:
-[Paste: Revenue, COGS, OpEx excl. D&A, Depreciation & Amortisation,
- Interest Expense, Tax Rate]
+[Revenue, COGS, operating expenses excluding D&amp;A, D&amp;A,
+ interest expense, other income/expense, tax expense, net income]
 
-Balance Sheet (as of [date]):
-[Paste: Cash, Accounts Receivable, Inventory, Other Current Assets, PP&E (net),
- Total Assets, Accounts Payable, Accrued Liabilities, Current Debt,
- Long-Term Debt, Retained Earnings, Total Equity]
+Balance Sheet:
+[Cash, Accounts Receivable, Inventory, Other Current Assets,
+ Gross PP&amp;E or Net PP&amp;E, any accumulated depreciation if separately available,
+ Other Assets, Accounts Payable, Accrued Liabilities, Other Current Liabilities,
+ Current Debt, Long-Term Debt, Other Liabilities,
+ Share Capital / APIC or equivalent, Retained Earnings,
+ Other Equity, Total Assets, Total Liabilities, Total Equity]
 
-PROJECTION ASSUMPTIONS
-- Revenue growth: [e.g. 10% per year]
-- COGS as % of revenue: [e.g. 40%]
-- OpEx (excl. D&A) growth: [e.g. 5% per year]
-- CapEx per year: [e.g. $200,000]
-- Depreciation: straight-line on net PP&E over [X] years
-- DSO (days sales outstanding): [e.g. 45 days]
-- DPO (days payable outstanding): [e.g. 30 days]
-- Inventory days: [e.g. 60 days]
-- Debt repayment: [e.g. $50,000 per year]
-- Interest rate on debt: [e.g. 5%]
-- Tax rate: [e.g. 25%]
+Important:
+- The historical Balance Sheet must already balance.
+- If any listed line does not exist, write "not applicable"; do not invent it.
+- If I provide Net PP&amp;E only, do not pretend you have a full fixed-asset schedule.
 
-CONSTRAINTS
-- Net Income must flow: IS → Retained Earnings (BS) → starting line of CFS.
-- Working capital changes (ΔAR, ΔAP, ΔInventory) must link BS movements to CFS.
-- CapEx on CFS must increase PP&E on BS. D&A must flow IS → CFS add-back → BS.
-- Ending Cash on CFS must equal Cash on BS.
-- Add a Balance Check row: Total Assets − (Total Liabilities + Equity) = 0.
-- Use beginning-of-period debt for interest expense — no circular references.
-- All projection cells must use formulas, not hard-coded numbers.
-- Do NOT invent financial data or assumptions I haven't provided.
+FORECAST ASSUMPTIONS
+- Revenue growth: [by year]
+- COGS / gross-margin assumption: [by year]
+- OpEx excluding D&amp;A: [growth or % revenue]
+- CapEx: [by year]
+- Depreciation method: [existing asset base + new CapEx convention; useful life; timing]
+- DSO / AR driver: [e.g. AR = Revenue × DSO / days in year]
+- Inventory-days driver: [state whether based on COGS]
+- DPO / AP driver: [state whether based on COGS]
+- Drivers for Other Current Assets / Accrued Liabilities / Other Current Liabilities:
+  [provide formulas/assumptions or say "hold flat"]
+- Debt opening balance, repayments, new borrowing and interest rate: [by year]
+- Interest convention: [beginning debt / average debt / other]
+- Tax assumption: [tax rate + treatment of losses / NOLs if relevant]
+- Dividends/distributions: [by year]
 
-OUTPUT FORMAT
-- Three sections: Income Statement, Balance Sheet, Cash Flow Statement.
-- Write formulas explicitly (e.g. =B3*1.10) so I can audit the logic.
-- Tab-separated tables, ready to paste into Excel.</pre>
+REQUIRED MODEL LOGIC
+1. Income Statement:
+   Revenue → operating profit → interest/other items → pre-tax income → tax → Net Income.
+2. Retained Earnings:
+   Ending RE = Beginning RE + Net Income − Dividends/Distributions
+   (plus/minus any other explicitly provided RE adjustments).
+3. Working capital:
+   Forecast AR / Inventory / AP and every other driven WC balance on the BS.
+   CFS uses period-over-period changes with the correct cash-flow sign.
+4. PP&amp;E:
+   Ending Net PP&amp;E = Beginning Net PP&amp;E + CapEx − D&amp;A
+   only if that simplified roll-forward is consistent with the data I supplied.
+5. Debt:
+   Ending Debt = Beginning Debt + New Borrowing − Repayment.
+   Do not let repayment exceed available debt unless I explicitly provide refinancing.
+6. Interest:
+   Use my stated convention. If I choose beginning debt, keep it non-circular.
+7. Cash Flow Statement:
+   CFO + CFI + CFF reconcile Beginning Cash to Ending Cash.
+   BS Cash must link to CFS Ending Cash.
+8. Balance Check:
+   Total Assets − Total Liabilities − Total Equity.
+   Show the check in every period and flag any non-zero amount above my rounding tolerance:
+   [e.g. £1 in model units].
+
+VALIDATION BEFORE OUTPUT
+- Confirm the historical BS balances before forecasting.
+- Confirm historical Net Income agrees with the IS data I supplied.
+- Do not plug an unexplained number into Cash, Other Assets, Debt or Equity just to force balance.
+- Do not invent missing assumptions.
+- If an input is insufficient to build a valid formula, stop and list exactly what is missing.
+- Distinguish assumptions from formulas and historical hardcodes.
+
+OUTPUT
+1. Assumptions section
+2. Income Statement
+3. Balance Sheet
+4. Cash Flow Statement
+5. Supporting schedules needed for working capital, PP&amp;E and debt
+6. Balance Check and cash reconciliation
+7. Explicit Excel formulas using the cell layout you propose
+8. A short audit checklist with at least one independent check per schedule
+
+Use tab-separated tables suitable for pasting into Excel.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Replace all bracketed sections with your real data. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
@@ -279,8 +328,15 @@ Here are the relevant rows from my model:
 [Paste: Total Assets row, Total Liabilities + Equity row, Balance Check row,
  and the Net Income, Retained Earnings, and Ending Cash rows]
 
-Please identify which linkage is broken and give me the corrected formula.
-Do not rebuild the entire model — only fix the specific broken connection.</pre>
+Please:
+1. Recalculate the Balance Check from the rows I provide.
+2. Trace whether the variance first appears in Assets, Liabilities, Equity or Cash.
+3. Compare the variance with the relevant roll-forward movements, but do not assume
+   a matching amount proves causation.
+4. State which additional rows/cell formulas you need if the evidence is insufficient.
+5. Only when the broken link is demonstrated, give the corrected formula.
+
+Do not rebuild the entire model and do not force the Balance Check to zero with a plug.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">A non-zero Balance Check means the model is not internally consistent; a broken linkage, omitted roll-forward item, or sign/formula error is a common cause.</p>
@@ -301,9 +357,24 @@ New assumptions for years 4 and 5:
 - Debt repayment: [e.g. same as current]
 - All other assumptions: same as year 3 unless I specify otherwise
 
-Please add two new columns to each statement, following exactly the same
-formula logic as the existing projection columns. Write explicit formulas
-I can paste into Excel.</pre>
+Please extend the model by two forecast years using the same row structure and
+supporting schedules.
+
+Before writing formulas:
+- identify the last existing forecast column and the two new year headers
+- list every schedule that must extend (working capital, PP&amp;E, debt, interest,
+  taxes, retained earnings and cash)
+- flag any assumption that cannot safely be copied from Year 3
+
+Then write the exact formulas for the two new columns, preserving relative/absolute
+references correctly.
+
+Validation:
+- retained earnings roll-forward must continue
+- debt cannot go below zero unless the model explicitly allows it
+- BS Cash must equal CFS Ending Cash
+- Balance Check must remain within the stated rounding tolerance
+- do not hard-code a forecast output merely to make the model balance.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Provide the full assumption set for the new years — vague inputs produce vague projections.</p>
@@ -339,7 +410,7 @@ I can paste into Excel.</pre>
           </div>
           <div class="sheet-tabs"><span class="sheet-tab">IS</span><span class="sheet-tab active">BS</span><span class="sheet-tab">CFS</span><span class="sheet-tab">Assumptions</span></div>
         </div>
-        <div class="sheet-note bad">Scenario changes cannot propagate because Cash, PP&amp;E and Retained Earnings are hardcoded instead of rolling forward from CFS / CapEx / Net Income.</div>
+        <div class="sheet-note bad">Scenario changes cannot propagate because Cash, PP&amp;E and Retained Earnings are hardcoded instead of rolling forward from CFS / CapEx / Net Income. The example values are illustrative; the page does not contain enough underlying schedules to independently derive FY25 cash or PP&amp;E.</div>
       </div>
     </div>
 
@@ -391,7 +462,7 @@ Net income does not simply "flow into retained earnings" if dividends/distributi
   <!-- Tab: Debug -->
   <div class="ba-panel" id="ba-debug">
     <div class="ba-col before">
-      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — balance check is −£8,000; cash link is the broken connection</div>
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — £8,000 cash mismatch is the demonstrated source of the imbalance</div>
       <div class="ba-body">
         <div class="excel-window">
           <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Trace Precedents</span></div>
@@ -411,7 +482,7 @@ Net income does not simply "flow into retained earnings" if dividends/distributi
             </table>
           </div>
         </div>
-        <div class="sheet-note bad">The £8,000 imbalance exactly matches the difference between CFS Ending Cash (£268,000) and BS Cash (£260,000). This is a coherent diagnostic trail; the original example was not.</div>
+        <div class="sheet-note bad">Here the diagnostic is demonstrated, not guessed: Total Assets are £8,000 low and BS Cash is exactly £8,000 below CFS Ending Cash. Correcting that specific cash link raises Assets by £8,000 and closes the check.</div>
       </div>
     </div>
 
@@ -467,11 +538,11 @@ Balance Check: £1,980,000 − £1,980,000 = £0 ✓</pre>
               <colgroup><col style="width:34px"><col style="width:165px"><col style="width:110px"><col style="width:110px"><col style="width:110px"><col style="width:110px"></colgroup>
               <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead>
               <tbody>
-                <tr><th class="row-num">1</th><td class="header-cell">Assumption / Output</td><td class="header-cell">FY24A</td><td class="header-cell">FY25E</td><td class="header-cell">FY26E</td><td class="header-cell">FY27E</td></tr>
-                <tr><th class="row-num">2</th><td>Revenue Growth</td><td>—</td><td class="assumption">10%</td><td class="assumption">10%</td><td class="error-selected">—</td></tr>
-                <tr><th class="row-num">3</th><td>CapEx</td><td>—</td><td>£200k</td><td>£200k</td><td class="bad">—</td></tr>
-                <tr><th class="row-num">4</th><td>Debt Repayment</td><td>—</td><td>£50k</td><td>£50k</td><td class="bad">—</td></tr>
-                <tr><th class="row-num">5</th><td>Revenue</td><td>£1.00m</td><td>£1.10m</td><td>£1.21m</td><td class="bad">No formula</td></tr>
+                <tr><th class="row-num">1</th><td class="header-cell">Assumption / Output</td><td class="header-cell">FY25E</td><td class="header-cell">FY26E</td><td class="header-cell">FY27E</td><td class="header-cell">FY28E</td></tr>
+                <tr><th class="row-num">2</th><td>Revenue Growth</td><td class="assumption">10%</td><td class="assumption">10%</td><td class="assumption">10%</td><td class="error-selected">—</td></tr>
+                <tr><th class="row-num">3</th><td>CapEx</td><td>£200k</td><td>£200k</td><td>£200k</td><td class="bad">—</td></tr>
+                <tr><th class="row-num">4</th><td>Debt Repayment</td><td>£50k</td><td>£50k</td><td>£50k</td><td class="bad">—</td></tr>
+                <tr><th class="row-num">5</th><td>Revenue</td><td>£1.100m</td><td>£1.210m</td><td>£1.331m</td><td class="bad">No FY28 formula</td></tr>
                 <tr><th class="row-num">6</th><td>Balance Check</td><td>£0</td><td>£0</td><td>£0</td><td class="bad">—</td></tr>
               </tbody>
             </table>
@@ -488,17 +559,17 @@ Balance Check: £1,980,000 − £1,980,000 = £0 ✓</pre>
       <div class="ba-body">
         <div class="excel-window">
           <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Trace Dependents</span></div>
-          <div class="formula-row"><div class="name-box">E5</div><div class="fx-box">fx</div><div class="formula-input">=D5*(1+E2)</div></div>
+          <div class="formula-row"><div class="name-box">D5</div><div class="fx-box">fx</div><div class="formula-input">=C5*(1+D2)</div></div>
           <div class="sheet-scroll">
             <table class="excel-grid">
               <colgroup><col style="width:34px"><col style="width:165px"><col style="width:110px"><col style="width:110px"><col style="width:110px"><col style="width:110px"></colgroup>
               <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead>
               <tbody>
-                <tr><th class="row-num">1</th><td class="header-cell">Assumption / Output</td><td class="header-cell">FY26E</td><td class="header-cell">FY27E</td><td class="header-cell">FY28E</td><td class="header-cell">Formula pattern</td></tr>
-                <tr><th class="row-num">2</th><td>Revenue Growth</td><td class="locked">10%</td><td class="assumption">8%</td><td class="assumption">8%</td><td>New assumption</td></tr>
+                <tr><th class="row-num">1</th><td class="header-cell">Assumption / Output</td><td class="header-cell">FY27E</td><td class="header-cell">FY28E</td><td class="header-cell">FY29E</td><td class="header-cell">Formula pattern</td></tr>
+                <tr><th class="row-num">2</th><td>Revenue Growth</td><td class="locked">10%</td><td class="assumption">8%</td><td class="assumption">8%</td><td>Years 4–5 assumption</td></tr>
                 <tr><th class="row-num">3</th><td>CapEx</td><td class="locked">£200k</td><td class="assumption">£250k</td><td class="assumption">£250k</td><td>New assumption</td></tr>
                 <tr><th class="row-num">4</th><td>Debt Repayment</td><td class="locked">£50k</td><td>£50k</td><td>£50k</td><td>Same as Year 3</td></tr>
-                <tr><th class="row-num">5</th><td>Revenue</td><td class="locked">£1.210m</td><td class="selected formula-cell">£1.3068m</td><td class="formula-cell">£1.4113m</td><td>=PriorRevenue*(1+Growth)</td></tr>
+                <tr><th class="row-num">5</th><td>Revenue</td><td class="locked">£1.3310m</td><td class="selected formula-cell">£1.4375m</td><td class="formula-cell">£1.5525m</td><td>=PriorRevenue*(1+Growth)</td></tr>
                 <tr><th class="row-num">6</th><td>Net PP&amp;E</td><td class="locked">linked</td><td class="formula-cell">Prior + CapEx − D&amp;A</td><td class="formula-cell">Prior + CapEx − D&amp;A</td><td>Roll-forward</td></tr>
                 <tr><th class="row-num">7</th><td>BS Cash</td><td class="locked">=CFS</td><td class="formula-cell">=CFS Ending Cash</td><td class="formula-cell">=CFS Ending Cash</td><td>Cross-statement link</td></tr>
                 <tr><th class="row-num">8</th><td>Balance Check</td><td class="good">£0</td><td class="good">£0</td><td class="good">£0</td><td>Must stay zero</td></tr>
@@ -508,8 +579,8 @@ Balance Check: £1,980,000 − £1,980,000 = £0 ✓</pre>
         </div>
         <div class="claude-fix">
           <div class="claude-fix-label">Extension verification</div>
-          <pre>FY27 Revenue = £1.2100m × 1.08 = £1.3068m
-FY28 Revenue = £1.3068m × 1.08 = £1.411344m ≈ £1.4113m ✓
+          <pre>FY28 Revenue = £1.3310m × 1.08 = £1.43748m ≈ £1.4375m
+FY29 Revenue = £1.43748m × 1.08 = £1.5524784m ≈ £1.5525m ✓
 
 But the extension is only valid if every linked schedule also continues:
 working capital, debt, interest, CapEx, D&A, PP&E, cash and retained earnings.
@@ -522,16 +593,16 @@ Balance Check must remain £0 in every added year.</pre>
 
   <!-- DIAGNOSIS TABLE -->
   <div class="diag-card">
-    <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Why the balance sheet doesn't balance — the 4 most common breaks</div>
+    <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Four common linkage breaks to investigate when the balance sheet does not balance</div>
     <div class="diag-row">
       <div class="diag-cause">Missing RE link</div>
       <div class="diag-example">Retained Earnings roll-forward omits <span class="bad">Net Income or dividends/distributions</span> → equity is wrong</div>
-      <div class="diag-badge badge-red">Most common</div>
+      <div class="diag-badge badge-red">High risk</div>
     </div>
     <div class="diag-row">
-      <div class="diag-cause">Cash not plugged</div>
+      <div class="diag-cause">Cash link broken</div>
       <div class="diag-example">BS Cash ≠ CFS Ending Cash → <span class="bad">hardcoded / broken link</span> instead of <span class="good">=CFS ending cash</span></div>
-      <div class="diag-badge badge-red">Most common</div>
+      <div class="diag-badge badge-red">High risk</div>
     </div>
     <div class="diag-row">
       <div class="diag-cause">CapEx not on BS</div>
@@ -540,7 +611,7 @@ Balance Check must remain £0 in every added year.</pre>
     </div>
     <div class="diag-row">
       <div class="diag-cause">D&amp;A lumped in OpEx</div>
-      <div class="diag-example">D&amp;A must be separate — it flows IS → <span class="good">CFS add-back</span> → BS accumulated depreciation</div>
+      <div class="diag-example">D&amp;A should be separately traceable — it is an IS expense, a non-cash CFS add-back, and reduces the PP&amp;E carrying amount / increases accumulated depreciation when that schedule is modelled</div>
       <div class="diag-badge badge-yellow">Invisible</div>
     </div>
   </div>
@@ -554,11 +625,11 @@ Balance Check must remain £0 in every added year.</pre>
       <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a 3-statement model with Claude — 5 steps</div>
       <div class="step">
         <div class="step-n">1</div>
-        <div class="step-body"><h3>Separate D&amp;A from other OpEx</h3><p>Non-negotiable. Depreciation &amp; Amortisation must be its own line item because it flows three ways: expense on the income statement, non-cash add-back on the cash flow statement, and accumulated depreciation on the balance sheet. Lumping it into OpEx breaks two linkages simultaneously.</p></div>
+        <div class="step-body"><h3>Separate D&amp;A from other OpEx</h3><p>Keep D&amp;A separately traceable from cash operating expenses. It is an income-statement expense and a non-cash add-back on the indirect CFS; the fixed-asset schedule must also reflect depreciation in PP&amp;E / accumulated depreciation where applicable.</p></div>
       </div>
       <div class="step">
         <div class="step-n">2</div>
-        <div class="step-body"><h3>Prepare a complete historical balance sheet</h3><p>At minimum: Cash, AR, Inventory, PP&amp;E (net), AP, Accrued Liabilities, Debt (current + long-term), and Retained Earnings. Every working capital line becomes a cash flow adjustment — a missing line means a missing link and a balance sheet that won't balance.</p></div>
+        <div class="step-body"><h3>Prepare a complete historical balance sheet</h3><p>Start from a complete historical balance sheet that already balances, including all material asset, liability and equity lines—not only selected working-capital accounts. Any forecast balance driven by operations should have an explicit roll-forward or assumption and a corresponding CFS treatment where applicable.</p></div>
       </div>
       <div class="step">
         <div class="step-n">3</div>
@@ -566,13 +637,13 @@ Balance Check must remain £0 in every added year.</pre>
       </div>
       <div class="step">
         <div class="step-n">4</div>
-        <div class="step-body"><h3>Run the prompt and check the Balance Check row first</h3><p>Before reading any other output, look at the Balance Check row for every projection year. It must show 0. Any non-zero value means a linkage is broken — use the Debug prompt above to isolate it before reviewing the rest of the model.</p></div>
+        <div class="step-body"><h3>Run the prompt and check the Balance Check row first</h3><p>Check the Balance Check in every historical and forecast period. It should be zero within the model's stated rounding tolerance. A non-zero amount signals inconsistency, but the variance itself does not identify the cause; trace the affected roll-forwards before changing formulas.</p></div>
       </div>
       <div class="step">
         <div class="step-n">5</div>
-        <div class="step-body"><h3>Put all assumptions on a separate tab</h3><p>Every forecast cell should reference an Assumptions tab, not a hard-coded number. Change one growth rate and the entire three-statement model recalculates. This is the difference between a model built once and a model used every month.</p></div>
+        <div class="step-body"><h3>Put all assumptions on a separate tab</h3><p>Keep forecast assumptions in a clearly separated assumptions area and link forecast formulas to them. Historical actuals remain hardcoded inputs; forecast outputs should be formula-driven except where an explicit forecast assumption itself is the intended hardcode.</p></div>
       </div>
-      <div class="warn"><strong>Circular reference trap:</strong> If interest expense depends on average debt, and debt depends on cash, and cash depends on interest expense — the model loops. The prompt instructs Claude to use beginning-of-period debt for interest calculations, which breaks the circle cleanly.</div>
+      <div class="warn"><strong>Circular reference trap:</strong> If interest expense depends on average debt, and debt depends on cash, and cash depends on interest expense — the model loops. This workflow defaults to beginning-of-period debt for interest to avoid that circularity. Excel can support intentional iterative calculation, but only use it when the model is deliberately designed and controlled for iteration.</div>
     </div>
   </div>
 
@@ -591,7 +662,7 @@ Balance Check must remain £0 in every added year.</pre>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Paste specific rows to Claude</h3><p>Use the debug prompt and paste ONLY the rows involved in the break (Assets, L+E, Net Income, Retained Earnings, Ending Cash). Giving Claude the entire model context for one broken formula leads to confusion.</p></div>
+        <div class="step-body"><h3>Paste specific rows to Claude</h3><p>Use the debug prompt with the affected period plus enough supporting roll-forward rows and formulas to prove the break. Do not dump the whole workbook, but do not omit a schedule merely because you assume it is unrelated.</p></div>
       </div>
     </div>
   </div>
@@ -603,11 +674,11 @@ Balance Check must remain £0 in every added year.</pre>
       <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Extend projection timeline — 3 steps</div>
       <div class="step">
         <div class="step-n">1</div>
-        <div class="step-body"><h3>Define the new timeframe</h3><p>Decide if you are adding 2 or 5 more years. Expanding too far out makes assumptions highly speculative.</p></div>
+        <div class="step-body"><h3>Define the new timeframe</h3><p>Define the exact additional forecast years and label the last existing forecast column before extending formulas.</p></div>
       </div>
       <div class="step">
         <div class="step-n">2</div>
-        <div class="step-body"><h3>Set explicit forward assumptions</h3><p>Growth rates tend to flatten in outer years. Specify exactly what happens to margins, CapEx, and debt schedules for the new years.</p></div>
+        <div class="step-body"><h3>Set explicit forward assumptions</h3><p>Specify exactly what happens to growth, margins, working-capital drivers, CapEx, depreciation, taxes, debt, interest and distributions in the added years; do not silently carry Year 3 assumptions forward.</p></div>
       </div>
       <div class="step">
         <div class="step-n">3</div>
@@ -625,19 +696,19 @@ Balance Check must remain £0 in every added year.</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can Claude build this without historical data? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">It can build the structure and formulas, but the output is a blank template. For a working model, provide at least one year of historical financials so Claude can populate the base period and project forward from real numbers.</div>
+      <div class="faq-a">It can build the structure and formulas, but the output is a blank template. A base historical period can anchor the first forecast, but some drivers and validation checks are stronger with multiple historical periods. At minimum, provide a complete historical income statement and a balance sheet that already balances, plus all assumptions required for the forecast schedules.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How does the Balance Check row work? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Claude adds a row that calculates Total Assets minus Total Liabilities and Equity. If it shows anything other than zero, there is a linkage error somewhere in the model. This is the single most important integrity check — fix it before trusting any other output.</div>
+      <div class="faq-a">Claude adds a row that calculates Total Assets minus Total Liabilities and Equity. It should be zero within the model's stated rounding tolerance. A non-zero result means the statements are not internally consistent, but it does not identify the cause by itself; trace the relevant roll-forwards and links before changing formulas.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Direct or indirect method for the cash flow statement? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Indirect. It starts with net income and adjusts for non-cash items and working capital changes. This is the standard for financial modelling. The direct method is occasionally used for management reporting but is rarely seen in Excel models.</div>
+      <div class="faq-a">This workflow uses the indirect method: start with Net Income and adjust for non-cash items and changes in operating assets/liabilities. Use the direct method only if that is what your reporting/model objective requires; the two methods differ in presentation of operating cash flows.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can I extend this to a 5-year projection? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes — use the Extend tab above. Change the horizon in the prompt, provide your assumptions for each additional year, and Claude adds the new columns following the same formula logic. Treat projections beyond 3 years as directional rather than precise.</div>
+      <div class="faq-a">Yes — use the Extend tab above. Change the horizon in the prompt, provide your assumptions for each additional year, and Claude adds the new columns following the same formula logic. Validate each added year and document which assumptions are explicitly new versus carried forward.</div>
     </div>
   </div>
 
