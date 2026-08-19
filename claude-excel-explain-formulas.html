@@ -6,7 +6,7 @@
 <title>Explain Excel Formulas with Claude AI — PairWorkflows</title>
 <meta name="description" content="Use Claude AI to break down complex Excel formulas step by step, understand inherited logic, identify fragile references, and document how each formula works.">
 <link rel="canonical" href="https://www.pairworkflows.com/claude-excel-explain-formulas.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I understand a complex Excel formula someone else wrote?","acceptedAnswer":{"@type":"Answer","text":"Paste the formula into Claude AI and ask it to break it down layer by layer, explaining each function and its purpose within the overall calculation."}},{"@type":"Question","name":"How do I document Excel formulas for handover?","acceptedAnswer":{"@type":"Answer","text":"Ask Claude to write a plain-English explanation of the formula, then copy this text into a cell comment or a dedicated DOCUMENTATION sheet within your workbook so the next user understands your logic."}},{"@type":"Question","name":"Can AI explain nested IF formulas?","acceptedAnswer":{"@type":"Answer","text":"Yes. Claude is very effective at parsing nested IF statements, clarifying the logic of each condition and highlighting potential errors or improvements."}},{"@type":"Question","name":"What should I copy when asking Claude to explain a formula?","acceptedAnswer":{"@type":"Answer","text":"Copy the formula directly from the formula bar, not the cell — the cell usually shows the result, not the actual formula. Include the sheet name, cell address, and a short description of the workbook."}},{"@type":"Question","name":"Is it safe to change a formula Claude has explained?","acceptedAnswer":{"@type":"Answer","text":"Understanding a formula is not the same as knowing every downstream effect of changing it. Ask Claude specifically what would break before editing anything, and check for dependent cells first."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I understand a complex Excel formula someone else wrote?","acceptedAnswer":{"@type":"Answer","text":"Paste the formula into Claude AI and ask it to break it down layer by layer, explaining each function and its purpose within the overall calculation."}},{"@type":"Question","name":"How do I document Excel formulas for handover?","acceptedAnswer":{"@type":"Answer","text":"Ask Claude to write a plain-English explanation of the formula, then copy this text into a cell comment or a dedicated DOCUMENTATION sheet within your workbook so the next user understands your logic."}},{"@type":"Question","name":"Can AI explain nested IF formulas?","acceptedAnswer":{"@type":"Answer","text":"Yes. Claude is very effective at parsing nested IF statements, clarifying the logic of each condition and highlighting potential errors or improvements."}},{"@type":"Question","name":"What should I copy when asking Claude to explain a formula?","acceptedAnswer":{"@type":"Answer","text":"Copy the formula directly from the formula bar, not the cell — the cell usually shows the result, not the actual formula. Include the sheet name, cell address, and a short description of the workbook."}},{"@type":"Question","name":"Is it safe to change a formula Claude has explained?","acceptedAnswer":{"@type":"Answer","text":"Understanding a formula is not the same as knowing every downstream effect of changing it. Claude can reason about dependencies you provide, but it cannot infer unseen workbook dependencies. Check dependent cells and cross-sheet references in Excel before editing."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -267,8 +267,20 @@ The workbook is used for [brief description, e.g. monthly sales reporting].
 The sheets referenced contain [short description].
 
 Please explain this formula layer by layer, starting from the outermost
-function. Tell me what each part does, what it returns, and any risks if
-I change something.</pre>
+function. Tell me what each part does and what the formula is designed to
+return.
+
+Separate:
+- behavior that is certain from the formula itself
+- assumptions that depend on workbook data I have not provided
+
+Also flag:
+- errors that IFERROR may be hiding
+- whether duplicate matches would change the result
+- version-specific behavior (for example legacy array entry)
+- risks if I change ranges, criteria, or referenced sheets.
+
+Do not invent workbook facts that are not supported by the formula or context.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Copy the formula from the formula bar, not the cell value. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
@@ -276,10 +288,14 @@ I change something.</pre>
 
     <div id="p-followup" class="panel">
       <div class="prompt-box">
-        <pre>Based on your explanation:
-1. What happens if the lookup value in A2 doesn't exist in the data?
-2. Is it safe to extend the ranges to row 1000?
-3. What happens when new rows are added below row 500?</pre>
+        <pre>Based on your explanation of this exact formula:
+1. What happens if no Sales row matches both Region in A2 and Rep in B2?
+2. What happens if more than one Sales row matches that same Region + Rep?
+3. Is it safe to extend all three source ranges to row 1000?
+4. What happens when new rows are added below row 500?
+5. Which errors could IFERROR(...,"") hide besides a missing match?
+
+Please distinguish formula behavior from assumptions about the workbook data.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Send this right after the first explanation — specific questions catch the risks a general summary misses.</p>
@@ -288,8 +304,18 @@ I change something.</pre>
     <div id="p-doc" class="panel">
       <div class="prompt-box">
         <pre>Please write a clear, plain-English documentation paragraph for this
-formula that a non-technical colleague could understand. Include what it
-calculates, what inputs it needs, and any known risks or fragile parts.</pre>
+formula that a non-technical colleague could understand.
+
+Include:
+- what the formula is designed to return
+- the input cells and source ranges it uses
+- that MATCH returns the first matching position if duplicates exist
+- that IFERROR returns a blank for any error, not only "not found"
+- the fixed row-500 limit
+- any Excel-version requirement for this array-style MATCH
+
+Do not state workbook facts that cannot be proven from the formula/context;
+label those as assumptions.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Paste the result into a cell comment or a dedicated Documentation sheet in the workbook.</p>
@@ -318,7 +344,7 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
           </div>
         </div>
         <div class="bp-caption">
-          Summary!C2 works, but the formula bar gives no plain-English explanation.
+          Summary!C2 currently displays £24,600 in this example, but the formula bar alone cannot prove that value is correct without the matching Sales source row.
           <div class="sub">Three nested functions + ranges capped at row 500.</div>
         </div>
       </div>
@@ -336,12 +362,12 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
           </div>
         </div>
         <div class="explain-list">
-          <div class="explain-row"><div class="explain-key" style="color:#3730a3">IFERROR</div><div class="explain-desc">If the lookup fails, return a blank string instead of an error.</div></div>
+          <div class="explain-row"><div class="explain-key" style="color:#3730a3">IFERROR</div><div class="explain-desc">If any error is produced by the INDEX/MATCH expression, return a blank string. This can hide a missing match, but also errors such as #REF! or #VALUE!.</div></div>
           <div class="explain-row"><div class="explain-key" style="color:#c2410c">INDEX</div><div class="explain-desc">Return the Revenue value from <strong>Sales!C2:C500</strong>.</div></div>
-          <div class="explain-row"><div class="explain-key" style="color:#0f766e">MATCH</div><div class="explain-desc">Find the row where <strong>Region = A2</strong> AND <strong>Rep = B2</strong>.</div></div>
+          <div class="explain-row"><div class="explain-key" style="color:#0f766e">MATCH</div><div class="explain-desc">Find the first position where <strong>Region = A2</strong> AND <strong>Rep = B2</strong>. If duplicate combinations exist, later matches are ignored.</div></div>
           <div class="explain-row"><div class="explain-key">A2 / B2</div><div class="explain-desc">These are the two criteria used to identify the correct sales row.</div></div>
         </div>
-        <div class="explain-risk"><strong>Risk:</strong> all three source ranges stop at row 500. New data below row 500 will be ignored unless the ranges are extended or made dynamic.</div>
+        <div class="explain-risk"><strong>Risks:</strong> all three source ranges stop at row 500, duplicate Region + Rep combinations return only the first match, and IFERROR can hide errors other than "not found".</div>
       </div>
     </div>
   </div>
@@ -377,13 +403,15 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
         <div class="excel-shot">
           <div class="excel-tabs"><span class="excel-tab">Formula Audit</span></div>
           <table class="risk-table">
-            <tr><th>Question</th><th>Verified behavior</th><th>Risk</th></tr>
-            <tr><td>A2 not found?</td><td class="risk-ok">IFERROR returns ""</td><td class="risk-ok">No visible error ✓</td></tr>
-            <tr><td>Extend to row 1000?</td><td>Change C, A and B source ranges to row 1000</td><td class="risk-ok">Safe if all 3 match ✓</td></tr>
-            <tr><td>Rows added after 500?</td><td class="risk-warn">Current formula ignores them</td><td class="risk-warn">Silent omission ⚠</td></tr>
+            <tr><th>Question</th><th>Formula behavior</th><th>Risk</th></tr>
+            <tr><td>No Region + Rep match?</td><td> MATCH returns #N/A, then IFERROR returns ""</td><td class="risk-warn">Blank can hide the missing match ⚠</td></tr>
+            <tr><td>Duplicate Region + Rep?</td><td>MATCH(...,0) returns the first matching position</td><td class="risk-warn">Later matching rows are ignored ⚠</td></tr>
+            <tr><td>Extend to row 1000?</td><td>Extend Sales!A, B and C ranges to the same row</td><td class="risk-ok">Structurally safe if all 3 stay aligned ✓</td></tr>
+            <tr><td>Rows added after 500?</td><td class="risk-warn">Current fixed ranges ignore them</td><td class="risk-warn">Silent omission ⚠</td></tr>
+            <tr><td>Other errors?</td><td>IFERROR also catches #REF!, #VALUE!, #NAME?, #NUM!, #DIV/0! and #NULL!</td><td class="risk-warn">A blank may mask a structural error ⚠</td></tr>
           </table>
         </div>
-        <div class="explain-risk"><strong>Action:</strong> extend all three source ranges together, or convert the Sales data to an Excel Table so new rows are included automatically.</div>
+        <div class="explain-risk"><strong>Action:</strong> first verify that Region + Rep is intended to be unique. Then either extend all three source ranges together or convert Sales to an Excel Table with structured references so source ranges adjust as rows are added.</div>
       </div>
     </div>
   </div>
@@ -429,7 +457,7 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
             <div class="excel-cell excel-row">2</div><div class="excel-cell">North</div><div class="excel-cell">Taylor</div><div class="excel-cell excel-selected excel-comment-cell">£24,600</div><div class="excel-cell">Active</div>
           </div>
         </div>
-        <div class="excel-comment"><strong>Summary!C2 — Note</strong><br>Returns revenue from the Sales sheet where Region = Summary!A2 and Rep = Summary!B2. Returns blank if no match. Source ranges currently stop at row 500, so extend all three ranges together if the Sales sheet grows.</div>
+        <div class="excel-comment"><strong>Summary!C2 — Note</strong><br>Designed to return the first Sales!C value whose Region matches Summary!A2 and Rep matches Summary!B2. If the INDEX/MATCH expression produces any error, IFERROR displays a blank, so a blank does not prove the only problem is "no match". Duplicate Region + Rep combinations return the first match only. Source ranges stop at row 500. In legacy Excel versions, this array-style MATCH may require Ctrl+Shift+Enter.</div>
       </div>
     </div>
   </div>
@@ -443,9 +471,9 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
       <div class="diag-badge badge-red">Most common</div>
     </div>
     <div class="diag-row">
-      <div class="diag-cause">Nested, unlabeled layers</div>
-      <div class="diag-example">IFERROR wrapping INDEX wrapping MATCH — <span class="bad">no clear starting point</span></div>
-      <div class="diag-badge badge-red">Most common</div>
+      <div class="diag-cause">Duplicate lookup keys</div>
+      <div class="diag-example">Two rows share the same Region + Rep — MATCH returns the <span class="bad">first match only</span></div>
+      <div class="diag-badge badge-red">Logic risk</div>
     </div>
     <div class="diag-row">
       <div class="diag-cause">Hardcoded ranges</div>
@@ -453,9 +481,9 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
       <div class="diag-badge badge-yellow">Easy fix</div>
     </div>
     <div class="diag-row">
-      <div class="diag-cause">Legacy array formulas</div>
-      <div class="diag-example">MATCH(1,(...)*(...),0) needs <span class="good">Ctrl+Shift+Enter</span> in older Excel</div>
-      <div class="diag-badge badge-yellow">Invisible</div>
+      <div class="diag-cause">Legacy array entry</div>
+      <div class="diag-example">This array-style MATCH can require <span class="good">Ctrl+Shift+Enter</span> in non-dynamic-array Excel; current Microsoft 365 versions can use Enter</div>
+      <div class="diag-badge badge-yellow">Version-specific</div>
     </div>
   </div>
 
@@ -473,7 +501,7 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
     </div>
     <div class="step">
       <div class="step-n">3</div>
-      <div class="step-body"><h3>Paste into Claude and read the layer-by-layer explanation</h3><p>Give Claude the formula plus context, and ask it to start from the outermost function. Read every layer, not just the summary — this is where you catch the risky parts.</p></div>
+      <div class="step-body"><h3>Paste into Claude and read the layer-by-layer explanation</h3><p>Give Claude the formula plus context and ask it to separate what is certain from the formula from what depends on workbook data it cannot see. Read every layer, not just the summary — this is where you catch hidden assumptions.</p></div>
     </div>
     <div class="step">
       <div class="step-n">4</div>
@@ -481,7 +509,7 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
     </div>
     <div class="step">
       <div class="step-n">5</div>
-      <div class="step-body"><h3>Write the documentation and check safety before changing anything</h3><p>Ask Claude for a plain-English paragraph for a <code>DOCUMENTATION</code> sheet or cell comment. Before editing the formula or its inputs, ask what the downstream consequences would be.</p></div>
+      <div class="step-body"><h3>Write the documentation and check safety before changing anything</h3><p>Ask Claude for a plain-English paragraph for a <code>DOCUMENTATION</code> sheet or cell note. Before editing, use Excel's dependency tools or inspect dependent formulas as well: Claude cannot know downstream workbook effects unless you provide those formulas or workbook context.</p></div>
     </div>
     <div class="tip"><strong>Two passes work better than one:</strong> If Claude's first explanation is still confusing, ask it to explain the formula as if you're a non-Excel user, then ask a second time for the technical detail. Two passes at different levels of detail almost always give you a complete picture.</div>
   </div>
@@ -507,7 +535,7 @@ calculates, what inputs it needs, and any known risks or fragile parts.</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Is it safe to change a formula Claude has explained? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Understanding a formula is not the same as knowing every downstream effect of changing it. Ask Claude specifically what would break before editing anything, and check for dependent cells and cross-sheet references first.</div>
+      <div class="faq-a">Understanding a formula is not the same as knowing every downstream effect of changing it. Claude can reason about dependencies you provide, but it cannot infer unseen workbook dependencies. Check dependent cells and cross-sheet references in Excel before editing.</div>
     </div>
   </div>
 
