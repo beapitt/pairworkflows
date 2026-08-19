@@ -6,7 +6,7 @@
 <title>Month-End Close Checklist in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to build a month-end close checklist in Excel with Claude AI to track tasks, owners, deadlines, and completion status.">
 <link rel="canonical" href="https://www.pairworkflows.com/month-end-close-excel-claude.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What tasks should a month-end close checklist include?","acceptedAnswer":{"@type":"Answer","text":"A typical checklist covers bank reconciliation, accounts receivable and payable reviews, accrual entries, intercompany eliminations, fixed asset depreciation, revenue recognition, trial balance review, and financial statement preparation. The exact list depends on your organisation's complexity."}},{"@type":"Question","name":"Can Claude generate the close checklist from my company's existing process?","acceptedAnswer":{"@type":"Answer","text":"Yes. Paste your current close steps into the prompt and Claude will restructure them into a trackable Excel checklist with columns for owner, deadline, status, and notes. It will not invent steps you did not provide."}},{"@type":"Question","name":"How do I track completion percentage automatically in Excel?","acceptedAnswer":{"@type":"Answer","text":"Claude builds a COUNTIF-based formula that counts rows marked Complete and divides by total tasks. This updates in real time as your team changes each task's status."}},{"@type":"Question","name":"Does this replace close management software?","acceptedAnswer":{"@type":"Answer","text":"No. This is for teams that manage the close in spreadsheets and need a faster way to build and maintain the checklist. If you use dedicated close software, this template can complement it as a lightweight backup or secondary tracker."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What tasks should a month-end close checklist include?","acceptedAnswer":{"@type":"Answer","text":"A typical checklist covers bank reconciliation, accounts receivable and payable reviews, accrual entries, intercompany eliminations, fixed asset depreciation, revenue recognition, trial balance review, and financial statement preparation. The exact list depends on your organisation's complexity."}},{"@type":"Question","name":"Can Claude generate the close checklist from my company's existing process?","acceptedAnswer":{"@type":"Answer","text":"Provide your current task IDs, tasks, owners, deadline offsets and dependencies. Claude can restructure them into a trackable Excel checklist, but missing inputs should be flagged rather than guessed and the output should be reviewed before use."}},{"@type":"Question","name":"How do I track completion percentage automatically in Excel?","acceptedAnswer":{"@type":"Answer","text":"Use a COUNTIF-based numerator for Complete and a denominator that counts only nonblank task rows. Structured references keep the ranges aligned as the Excel Table changes."}},{"@type":"Question","name":"Does this replace close management software?","acceptedAnswer":{"@type":"Answer","text":"No. This is for teams that manage the close in spreadsheets and need a faster way to build and maintain the checklist. If you use dedicated close software, this template can complement it as a lightweight backup or secondary tracker."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -139,6 +139,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 @media(max-width:640px){
   .hero h1{font-size:24px}
   .diag-row{grid-template-columns:1fr;gap:6px}
+  .diag-example{display:flex}
   .related-grid{grid-template-columns:1fr}
   .page{padding:1.5rem 1rem 3rem}
 }
@@ -173,7 +174,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Finance</div>
     <h1>How to Build a Month-End Close Checklist in Excel with Claude AI</h1>
-    <p class="hero-sub">Paste your close tasks into Claude and get back a structured Excel tracker with owner assignments, WORKDAY deadline formulas, status dropdowns, and a COUNTIF completion percentage — no VBA, no macros.</p>
+    <p class="hero-sub">Provide Claude with your close tasks, owners, deadline offsets, dependencies, holiday calendar, and status rules, then use it to draft an auditable Excel close tracker. The workflow keeps deadlines formula-driven, completion metrics traceable, and missing ownership/timing inputs visible instead of inventing them.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -191,31 +192,62 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
     <div id="p-build" class="panel on">
       <div class="prompt-box">
         <pre>ROLE
-You are a financial controller designing a robust month-end close tracker in Excel.
+You are helping me design an auditable month-end close tracker in Excel.
 
-OBJECTIVE
-Create a checklist that tracks our close process end-to-end.
+CLOSE SETTINGS
+- Close period: [e.g. July 2026]
+- Close anchor date: [e.g. 31/07/2026]
+- Standard weekend: [Saturday/Sunday / other]
+- Holiday dates to exclude: [paste dates or "none"]
+- Status list: Not Started | In Progress | Pending | Complete
 
-CLOSE TASKS (paste one per line):
-[Paste your task list here]
+CLOSE TASK INPUT
+Provide one row per task:
+Task ID | Task | Owner | Business-Day Offset | Dependency Task IDs | Notes
+[Paste rows]
 
-CONSTRAINTS
-- Create an Excel table with these columns:
-  #, Task, Owner, Deadline, Status, Notes
-- Status column: Data Validation dropdown with exactly these four options:
-  Not Started / In Progress / Pending / Complete
-- Add a cell at the top where I enter the actual Month-End Date.
-  All deadline cells must use =WORKDAY(MonthEndDate, n) formulas
-  referencing that cell — not hardcoded dates.
-- Add a summary area above the table using COUNTIF:
-  Total tasks, Tasks Complete, % Complete (Complete/Total).
-- Add a second summary table: completion count by Owner.
-- Do NOT use VBA or macros — formulas and data validation only.
-- Do NOT invent tasks I haven't listed.
+Rules:
+1. Do not invent an Owner, offset, dependency or task.
+   If any required field is missing, return "INPUT NEEDED" for that field.
+2. Create an Excel Table named CloseTasks with columns:
+   Task ID | Task | Owner | Business-Day Offset | Deadline |
+   Dependency Task IDs | Status | Blocker / Notes
+3. Task ID must be unique.
+4. Status must use Data Validation with exactly:
+   Not Started, In Progress, Pending, Complete.
+5. Deadline:
+   - If weekend is Saturday/Sunday, use WORKDAY with the supplied holiday range:
+     =WORKDAY(CloseAnchorDate,[@[Business-Day Offset]],HolidayRange)
+   - If I use a non-standard weekend, use WORKDAY.INTL and state the weekend argument.
+   - Do not invent holiday dates.
+6. Do not infer task sequence from task names. Use only the Dependency Task IDs I supply.
+7. Add validation checks:
+   - blank Owner
+   - blank Business-Day Offset
+   - duplicate Task ID
+   - invalid Status
+   - dependency ID not found in Task ID list
+8. Add summary formulas using structured references:
+   Total Tasks = COUNTIF(CloseTasks[Task],"<>")
+   Complete = COUNTIF(CloseTasks[Status],"Complete")
+   % Complete = IF(TotalTasks=0,0,Complete/TotalTasks)
+   Open = TotalTasks-Complete
+9. Do not count blank placeholder rows as tasks.
+10. Add an owner summary using CloseTasks structured references:
+    Assigned | Complete | Open | % Complete.
+11. Keep "Pending" as an open status. Do not assume it means blocked unless Notes/Dependency says so.
+12. Do not use VBA or macros.
+13. Do not describe the tracker as final sign-off: completion status still requires reviewer evidence.
 
 OUTPUT
-- Tab-separated table ready to paste into Excel.
-- Brief setup notes for Data Validation and Conditional Formatting.</pre>
+1. CloseTasks table
+2. Exact formulas
+3. Data Validation setup
+4. Owner summary formulas
+5. Validation/exception checks
+6. Short monthly rollover procedure explaining how to preserve the prior close record before resetting statuses
+
+Use tab-separated tables suitable for Excel.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Replace the bracketed section with your task list. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
@@ -224,19 +256,33 @@ OUTPUT
     <!-- Panel: Owner -->
     <div id="p-owner" class="panel">
       <div class="prompt-box">
-        <pre>I have a month-end close checklist in Excel. I need to add an
-owner summary section that shows, for each team member:
-- How many tasks are assigned to them
-- How many are Complete
-- How many are still open (Not Started + In Progress + Pending)
-- Their completion percentage
+        <pre>I have an Excel Table named CloseTasks.
 
-My Status column is column E. My Owner column is column C.
-Tasks start on row 2. I have [X] tasks total.
+Relevant columns:
+CloseTasks[Task]
+CloseTasks[Owner]
+CloseTasks[Status]
 
-Please write the COUNTIFS formulas for each metric.
-List each owner on a separate row.
-Format as a tab-separated table I can paste into Excel.</pre>
+Owner list:
+[paste the exact owners to include, or tell me my Excel version if you want
+a dynamic UNIQUE-based owner list where supported]
+
+For each listed owner, calculate:
+- Assigned tasks
+- Complete tasks
+- Open tasks
+- Completion %
+
+Rules:
+- Assigned = COUNTIFS(Owner, owner, Task, "<>")
+- Complete = COUNTIFS(Owner, owner, Status, "Complete", Task, "<>")
+- Open = Assigned - Complete
+- % Complete = IF(Assigned=0,0,Complete/Assigned)
+- Do not treat blank task rows as assigned work.
+- Do not infer that a person with open tasks is "causing" the close delay.
+  Only flag an overdue/blocking issue if deadline/dependency evidence supports it.
+
+Use structured-reference formulas and a tab-separated output.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Adjust column letters and row numbers to match your actual spreadsheet layout.</p>
@@ -245,19 +291,34 @@ Format as a tab-separated table I can paste into Excel.</pre>
     <!-- Panel: Debug -->
     <div id="p-debug" class="panel">
       <div class="prompt-box">
-        <pre>My month-end close checklist has a COUNTIF formula for % complete
-but it's showing 0% even though some tasks are marked Complete.
+        <pre>My month-end close tracker has a completion formula that looks wrong.
 
-My formula: [paste your current formula]
-Status column: [e.g. column E, rows 2 to 25]
-Status dropdown options: Not Started / In Progress / Pending / Complete
+Current formula:
+[paste formula]
 
-Please identify why the formula isn't counting and give me the
-corrected version. Check for: exact text match, extra spaces,
-wrong range reference.</pre>
+Relevant sample rows:
+Task | Status
+[paste several rows, including a row you believe should count as Complete]
+
+Expected result:
+[e.g. 3 complete out of 8 nonblank tasks = 37.5%]
+
+Please:
+1. Recalculate the expected numerator and denominator from the sample.
+2. Inspect the actual criteria/ranges before assuming the cause.
+3. Check for:
+   - different status labels
+   - leading/trailing spaces or non-printing characters
+   - numerator/denominator using different row ranges
+   - blank task rows included in the denominator
+   - formula pointing at the wrong column/table
+4. If legacy status labels such as "Done" exist, do not silently remap them.
+   Show the proposed mapping and ask me to confirm it before normalising history.
+5. Give the corrected formula using CloseTasks structured references where possible.
+6. Give one control formula for Total Tasks and one for Complete tasks so I can verify % Complete independently.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">The most common cause is a text mismatch — "Done" vs "Complete" breaks COUNTIF instantly.</p>
+      <p class="prompt-hint">Paste both the formula and sample Task/Status rows. A wrong percentage can come from the criterion, the range, legacy text, or an incorrect denominator.</p>
     </div>
   </div>
 
@@ -286,7 +347,7 @@ wrong range reference.</pre>
             </table>
           </div>
         </div>
-        <div class="sheet-note bad">Status text is inconsistent, owners are incomplete, and deadlines are descriptions rather than formulas tied to the actual month-end date.</div>
+        <div class="sheet-note bad">Status text is inconsistent, owners/offsets are incomplete, and deadlines are descriptions rather than formulas tied to a close anchor date plus the organisation's holiday calendar.</div>
       </div>
     </div>
 
@@ -297,7 +358,7 @@ wrong range reference.</pre>
       <div class="ba-body">
         <div class="excel-window">
           <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data Validation</span></div>
-          <div class="formula-row"><div class="name-box">E4</div><div class="fx-box">fx</div><div class="formula-input">=WORKDAY($B$1,D4)</div></div>
+          <div class="formula-row"><div class="name-box">E4</div><div class="fx-box">fx</div><div class="formula-input">=WORKDAY($B$1,D4,$J$2:$J$10)</div></div>
           <div class="sheet-scroll">
             <table class="excel-grid">
               <colgroup><col style="width:34px"><col style="width:60px"><col style="width:190px"><col style="width:125px"><col style="width:85px"><col style="width:125px"><col style="width:120px"><col style="width:135px"></colgroup>
@@ -316,17 +377,22 @@ wrong range reference.</pre>
         </div>
         <div class="claude-fix">
           <div class="claude-fix-label">Live formulas</div>
-          <pre>Deadline:
-=WORKDAY($B$1,D3)
+          <pre>Deadline (standard Sat/Sun weekend):
+=WORKDAY($B$1,D3,$J$2:$J$10)
+where J2:J10 contains supplied holiday dates.
 
 % Complete:
-=COUNTIF(F3:F7,"Complete")/COUNTA(B3:B7)
+=IF(COUNTIF(CloseTasks[Task],"<>")=0,0,
+ COUNTIF(CloseTasks[Status],"Complete")/
+ COUNTIF(CloseTasks[Task],"<>"))
 
 2 Complete / 5 tasks = 40% ✓
 
-With Month-End = 31/07/2026:
+With Month-End = 31/07/2026 and no holiday in the interval:
 WORKDAY(+1) = 03/08/2026
-WORKDAY(+4) = 06/08/2026 ✓</pre>
+WORKDAY(+4) = 06/08/2026 ✓
+
+If a supplied holiday falls in the interval, WORKDAY moves the deadline accordingly.</pre>
         </div>
       </div>
     </div>
@@ -363,11 +429,11 @@ WORKDAY(+4) = 06/08/2026 ✓</pre>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
 
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — owner summary exposes assigned work, open items and completion rate</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — owner summary shows workload without assigning blame</div>
       <div class="ba-body">
         <div class="excel-window">
           <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>COUNTIFS</span></div>
-          <div class="formula-row"><div class="name-box">C3</div><div class="fx-box">fx</div><div class="formula-input">=COUNTIFS($B$2:$B$7,A3,$C$2:$C$7,"Complete")</div></div>
+          <div class="formula-row"><div class="name-box">C3</div><div class="fx-box">fx</div><div class="formula-input">=COUNTIFS(CloseTasks[Owner],A3,CloseTasks[Status],"Complete",CloseTasks[Task],"<>")</div></div>
           <div class="sheet-scroll">
             <table class="excel-grid">
               <colgroup><col style="width:34px"><col style="width:140px"><col style="width:110px"><col style="width:110px"><col style="width:110px"><col style="width:120px"><col style="width:140px"></colgroup>
@@ -375,8 +441,8 @@ WORKDAY(+4) = 06/08/2026 ✓</pre>
               <tbody>
                 <tr><th class="row-num">1</th><td class="header-cell">Owner</td><td class="header-cell">Assigned</td><td class="header-cell">Complete</td><td class="header-cell">Open</td><td class="header-cell">% Complete</td><td class="header-cell">Attention</td></tr>
                 <tr><th class="row-num">2</th><td>J. Patel</td><td>2</td><td class="complete">2</td><td>0</td><td class="complete">100%</td><td></td></tr>
-                <tr><th class="row-num">3</th><td class="selected">M. Chen</td><td>3</td><td>1</td><td class="pending">2</td><td class="pending">33.3%</td><td class="blocker">2 tasks still open</td></tr>
-                <tr><th class="row-num">4</th><td>S. Okafor</td><td>1</td><td>0</td><td class="notstarted">1</td><td class="notstarted">0%</td><td class="blocker">Pending</td></tr>
+                <tr><th class="row-num">3</th><td class="selected">M. Chen</td><td>3</td><td>1</td><td class="pending">2</td><td class="pending">33.3%</td><td class="blocker">2 open — review deadlines</td></tr>
+                <tr><th class="row-num">4</th><td>S. Okafor</td><td>1</td><td>0</td><td class="notstarted">1</td><td class="notstarted">0%</td><td class="blocker">1 open — review status</td></tr>
                 <tr><th class="row-num">5</th><td class="subtotal">Total</td><td class="subtotal">6</td><td class="subtotal">3</td><td class="subtotal">3</td><td class="subtotal">50%</td><td></td></tr>
               </tbody>
             </table>
@@ -385,10 +451,12 @@ WORKDAY(+4) = 06/08/2026 ✓</pre>
         <div class="claude-fix">
           <div class="claude-fix-label">Owner formulas</div>
           <pre>Assigned:
-=COUNTIF(OwnerRange,A2)
+=COUNTIFS(CloseTasks[Owner],A2,CloseTasks[Task],"<>")
 
 Complete:
-=COUNTIFS(OwnerRange,A2,StatusRange,"Complete")
+=COUNTIFS(CloseTasks[Owner],A2,
+          CloseTasks[Status],"Complete",
+          CloseTasks[Task],"<>")
 
 Open:
 =Assigned-Complete
@@ -425,44 +493,52 @@ M. Chen: 1 / 3 = 33.3% complete; 2 open ✓</pre>
             </table>
           </div>
         </div>
-        <div class="sheet-note bad">Only one of four rows matches the exact criterion "Complete". “Done” is different text, and “Complete ” contains a trailing space.</div>
+        <div class="sheet-note bad">Only one raw row exactly matches "Complete"; "Complete " can be safely trimmed, while "Done" is a different business label and should not be reclassified without confirming what it meant historically.</div>
       </div>
     </div>
 
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
 
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — statuses are normalised and Data Validation prevents drift</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — legacy statuses are audited before controlled values are enforced</div>
       <div class="ba-body">
         <div class="excel-window">
           <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data Validation</span></div>
-          <div class="formula-row"><div class="name-box">C2</div><div class="fx-box">fx</div><div class="formula-input">=IF(TRIM(B2)="Done","Complete",TRIM(B2))</div></div>
+          <div class="formula-row"><div class="name-box">C2</div><div class="fx-box">fx</div><div class="formula-input">=TRIM(B2)</div></div>
           <div class="sheet-scroll">
             <table class="excel-grid">
               <colgroup><col style="width:34px"><col style="width:170px"><col style="width:145px"><col style="width:145px"><col style="width:145px"></colgroup>
               <thead><tr><th class="corner"></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
               <tbody>
                 <tr><th class="row-num">1</th><td class="header-cell">Task</td><td class="header-cell">Raw Status</td><td class="header-cell">Clean Status</td><td class="header-cell">COUNTIF</td></tr>
-                <tr><th class="row-num">2</th><td>Bank rec</td><td>Done</td><td class="selected complete">Complete</td><td>Counted</td></tr>
+                <tr><th class="row-num">2</th><td>Bank rec</td><td>Done</td><td class="selected pending">Done — review mapping</td><td>Not counted yet</td></tr>
                 <tr><th class="row-num">3</th><td>AP review</td><td>Complete␠</td><td class="complete">Complete</td><td>Counted</td></tr>
                 <tr><th class="row-num">4</th><td>Accruals</td><td>In Progress</td><td class="progress">In Progress</td><td>Not complete</td></tr>
                 <tr><th class="row-num">5</th><td>Depreciation</td><td>Complete</td><td class="complete">Complete</td><td>Counted</td></tr>
-                <tr><th class="row-num">6</th><td class="subtotal">% Complete</td><td></td><td></td><td class="subtotal good">75%</td></tr>
+                <tr><th class="row-num">6</th><td class="subtotal">% Complete</td><td></td><td></td><td class="subtotal good">50% confirmed</td></tr>
               </tbody>
             </table>
           </div>
         </div>
         <div class="claude-fix">
           <div class="claude-fix-label">Corrected logic</div>
-          <pre>Clean legacy values first:
-=IF(TRIM(B2)="Done","Complete",TRIM(B2))
+          <pre>First remove accidental spaces:
+=TRIM(B2)
 
-Then enforce Data Validation:
+"Complete " becomes "Complete".
+"Done" remains "Done" until you confirm that legacy "Done"
+really means the current status "Complete".
+
+Confirmed Complete rows in this example:
+AP review + Depreciation = 2 of 4 = 50%
+
+After you confirm any legacy mapping, normalise the data,
+then enforce Data Validation:
 Not Started / In Progress / Pending / Complete
 
-Final:
-=COUNTIF(C2:C5,"Complete")/COUNTA(A2:A5)
-=3/4 = 75% ✓</pre>
+Final structured formula:
+=COUNTIF(CloseTasks[Status],"Complete")/
+ COUNTIF(CloseTasks[Task],"<>")</pre>
         </div>
       </div>
     </div>
@@ -474,16 +550,16 @@ Final:
     <div class="diag-row">
       <div class="diag-cause">Free-text status</div>
       <div class="diag-example"><span class="bad">"Done"</span> or trailing spaces vs <span class="good">"Complete"</span> → those rows are not counted</div>
-      <div class="diag-badge badge-red">Most common</div>
+      <div class="diag-badge badge-red">High risk</div>
     </div>
     <div class="diag-row">
       <div class="diag-cause">Hardcoded deadlines</div>
-      <div class="diag-example">Fixed dates → <span class="bad">manual edit every month</span> instead of <span class="good">=WORKDAY()</span></div>
+      <div class="diag-example">Fixed dates → <span class="bad">manual edit every month</span>; WORKDAY should also reference supplied holidays when they affect close deadlines</div>
       <div class="diag-badge badge-red">Efficiency loss</div>
     </div>
     <div class="diag-row">
       <div class="diag-cause">No owner column</div>
-      <div class="diag-example">Tasks assigned to <span class="bad">"Team"</span> → no accountability, delays compound</div>
+      <div class="diag-example">Blank or ambiguous owner → <span class="bad">responsibility cannot be traced</span>; use the owner convention defined by your close process</div>
       <div class="diag-badge badge-yellow">Easy fix</div>
     </div>
     <div class="diag-row">
@@ -502,11 +578,11 @@ Final:
       <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a month-end close checklist with Claude — 4 steps</div>
       <div class="step">
         <div class="step-n">1</div>
-        <div class="step-body"><h3>Sequence tasks by dependency</h3><p>Order your close tasks by dependency before pasting into the prompt. Bank reconciliation must come before accruals. Fixed asset depreciation must come before the trial balance. Claude builds the checklist in the order you give — it won't reorder tasks without being asked.</p></div>
+        <div class="step-body"><h3>Sequence tasks by dependency</h3><p>Provide explicit Task IDs and dependency IDs from your own close process. Do not assume universal sequencing from task names: the correct order depends on your systems, accounting process and review controls. Claude should preserve the dependencies you supply rather than inventing them.</p></div>
       </div>
       <div class="step">
         <div class="step-n">2</div>
-        <div class="step-body"><h3>Assign named owners, not team names</h3><p>Write "J. Patel" not "Accounting team". Named ownership creates accountability and enables the per-owner COUNTIFS summary. Claude generates that summary table automatically when owners are specific.</p></div>
+        <div class="step-body"><h3>Assign named owners, not team names</h3><p>Use the ownership convention your organisation actually uses—an individual, role, or controlled team queue—and keep it consistent. Do not let Claude replace a missing owner with a guessed person. Consistent owner values enable the COUNTIFS summary.</p></div>
       </div>
       <div class="step">
         <div class="step-n">3</div>
@@ -514,7 +590,7 @@ Final:
       </div>
       <div class="step">
         <div class="step-n">4</div>
-        <div class="step-body"><h3>Enter the Month-End Date once and let WORKDAY do the rest</h3><p>Claude creates a single input cell for the Month-End Date. All deadline cells reference it with <code>=WORKDAY(MonthEndDate, n)</code>. Change one date at the start of each month and every deadline updates automatically.</p></div>
+        <div class="step-body"><h3>Enter the Month-End Date once and let WORKDAY do the rest</h3><p>Use one close-anchor date plus an explicit business-day offset per task. For a standard Saturday/Sunday weekend, use <code>WORKDAY</code> with the supplied holiday range; use <code>WORKDAY.INTL</code> if your weekend pattern differs. Verify the first few dates each period.</p></div>
       </div>
       <div class="tip"><strong>Tip:</strong> Add Conditional Formatting to the Status column — green fill for Complete, yellow for In Progress, red for Not Started — so the tracker reads at a glance without opening filters.</div>
     </div>
@@ -527,7 +603,7 @@ Final:
       <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Track workload by team member — 4 steps</div>
       <div class="step">
         <div class="step-n">1</div>
-        <div class="step-body"><h3>Isolate individual owner names</h3><p>Ensure each task row contains a clear individual identifier in the Owner column rather than shared aliases.</p></div>
+        <div class="step-body"><h3>Isolate individual owner names</h3><p>Use a consistent owner identifier for each task. If your process assigns work to roles or shared queues rather than individuals, preserve that model instead of inventing personal ownership.</p></div>
       </div>
       <div class="step">
         <div class="step-n">2</div>
@@ -539,7 +615,7 @@ Final:
       </div>
       <div class="step">
         <div class="step-n">4</div>
-        <div class="step-body"><h3>Review bottlenecks before sign-off</h3><p>Scan the completion column to identify which team members are holding up the final closing sequence.</p></div>
+        <div class="step-body"><h3>Review bottlenecks before sign-off</h3><p>Review open tasks together with deadlines, dependencies and blockers. An owner's open-task count alone does not prove that person is delaying the close.</p></div>
       </div>
     </div>
   </div>
@@ -551,11 +627,11 @@ Final:
       <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Troubleshoot broken summary formulas — 3 steps</div>
       <div class="step">
         <div class="step-n">1</div>
-        <div class="step-body"><h3>Inspect text formatting</h3><p>Check if your status cells contain hidden trailing spaces or alternative strings like "Done" instead of "Complete".</p></div>
+        <div class="step-body"><h3>Inspect text formatting</h3><p>Check for leading/trailing spaces, non-printing characters, alternative legacy status labels, blank task rows, and mismatched numerator/denominator ranges.</p></div>
       </div>
       <div class="step">
         <div class="step-n">2</div>
-        <div class="step-body"><h3>Enforce Data Validation dropdowns</h3><p>Lock down input options to restrict team members from entering custom text values that invalidate formula logic.</p></div>
+        <div class="step-body"><h3>Enforce Data Validation dropdowns</h3><p>After cleaning and confirming any legacy mappings, apply Data Validation with an appropriate error-alert setting so new entries use the controlled status list.</p></div>
       </div>
       <div class="step">
         <div class="step-n">3</div>
@@ -573,11 +649,11 @@ Final:
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can Claude generate the checklist from my existing process? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes. Paste your current close steps into the prompt and Claude restructures them into a trackable Excel table with owner, deadline, status, and notes columns. The guardrail line "Do NOT invent tasks I haven't listed" ensures Claude doesn't add steps that don't apply to your organisation.</div>
+      <div class="faq-a">Yes. Provide your existing task IDs, tasks, owners, offsets and dependencies. Claude can restructure those inputs into a tracker, but review the output: a prompt cannot guarantee that an AI never adds or alters something. Missing owner/timing inputs should be flagged rather than guessed.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I track completion percentage automatically in Excel? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Claude builds a <code>COUNTIF</code>-based formula that counts rows marked "Complete" and divides by total tasks. This updates in real time as your team changes each task's status. The formula only works if status values match exactly — use Data Validation dropdowns to enforce consistency.</div>
+      <div class="faq-a">Use a <code>COUNTIF</code>-based numerator for "Complete" and a denominator that counts only nonblank Task rows. Structured references keep the ranges aligned as the Excel Table changes. Data Validation reduces new status drift, but legacy values should be reviewed before remapping them.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Does this replace close management software? <i class="ti ti-chevron-down"></i></div>
