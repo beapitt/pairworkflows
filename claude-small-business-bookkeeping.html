@@ -40,7 +40,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
 .prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
 .prompt-hint a:hover{text-decoration:underline}
-.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:stretch}
+.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:1.75rem;align-items:start}
 .ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
 .ba-col.before{border-color:#fca5a5}
 .ba-col.after{border-color:#6ee7b7}
@@ -55,7 +55,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
 .xl-table .warn-cell{color:#b45309;font-weight:700;background:#fffbeb}
 .ba-panel{display:none;margin-bottom:1.75rem}
-.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
+.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:start}
 .ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
 .claude-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
 .claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
@@ -108,9 +108,9 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 @media(max-width:640px){
   .hero h1{font-size:24px}
   .before-after{grid-template-columns:1fr;gap:8px}
+  .ba-panel.on{grid-template-columns:1fr}
   .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
-  .diag-row{grid-template-columns:1fr 1fr;gap:8px}
-  .diag-example{display:none}
+  .diag-row{grid-template-columns:1fr;gap:4px}
   .related-grid{grid-template-columns:1fr}
   .page{padding:1.5rem 1rem 3rem}
 }
@@ -323,7 +323,7 @@ Net (excl. review):     $6,516.60 ✓</pre>
         <table class="xl-table">
           <tr><th>Invoice #</th><th>Client</th><th>Due Date</th><th>Amount</th><th>Days Out</th><th>Status</th></tr>
           <tr><td>INV-041</td><td>Acme Co.</td><td>15/07</td><td>$2,400</td><td class="err-cell">61 days</td><td class="err-cell">🔴 Seriously overdue</td></tr>
-          <tr><td>INV-042</td><td>Blue Fin</td><td>28/07</td><td>$1,800</td><td class="err-cell">48 days</td><td class="err-cell">🔴 Seriously overdue</td></tr>
+          <tr><td>INV-042</td><td>Blue Fin</td><td>28/07</td><td>$1,800</td><td class="err-cell">48 days</td><td class="err-cell">🔴 Overdue</td></tr>
           <tr><td>INV-043</td><td>Acme Co.</td><td>09/08</td><td>$3,100</td><td class="err-cell">36 days</td><td class="err-cell">🔴 Overdue</td></tr>
           <tr><td>INV-044</td><td>Nord Ltd</td><td>17/08</td><td>$950</td><td>28 days</td><td class="ok-cell">🟡 Due soon</td></tr>
           <tr><td>INV-045</td><td>Blue Fin</td><td>24/08</td><td>$2,200</td><td>21 days</td><td class="ok-cell">🟢 Current</td></tr>
@@ -370,7 +370,7 @@ Total overdue:       $7,300.00 (3 invoices)
           <tr><td>Software & Subs</td><td>$103</td><td>$103</td><td>—</td></tr>
           <tr><td><strong>Total Expenses</strong></td><td><strong>$1,483</strong></td><td class="err-cell"><strong>$2,883</strong></td><td class="err-cell">+$1,400</td></tr>
           <tr class="section-row"><td><strong>Net Profit</strong></td><td class="ok-cell"><strong>$6,517</strong></td><td class="ok-cell"><strong>$6,717</strong></td><td class="ok-cell">+$200</td></tr>
-          <tr><td>Net Margin</td><td class="ok-cell">81.5%</td><td class="ok-cell">69.9%</td><td class="err-cell">−11.6pp</td></tr>
+          <tr><td>Net Margin</td><td class="ok-cell">81.5%</td><td class="ok-cell">70.0%</td><td class="err-cell">−11.5pp</td></tr>
         </table>
         <div class="claude-fix">
           <div class="claude-fix-label">Claude's P&L insight</div>
