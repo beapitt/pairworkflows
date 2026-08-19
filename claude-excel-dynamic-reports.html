@@ -162,8 +162,8 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
 @media(max-width:640px){
   .hero h1{font-size:24px}
-  .diag-row{grid-template-columns:1fr 1fr;gap:8px}
-  .diag-example{display:none}
+  .diag-row{grid-template-columns:1fr;gap:6px}
+  .diag-example{display:flex}
   .related-grid{grid-template-columns:1fr}
   .page{padding:1.5rem 1rem 3rem}
 }
@@ -240,7 +240,9 @@ Flag any step that should stay manual because it needs human judgment.</pre>
 data into a summary table]"
 
 Source data is on sheet "Raw_Data", columns A to F, starting row 2.
-Output should go to sheet "Summary", cell C5.
+Column A = Region and column E = Revenue.
+Output should go to sheet "Summary", cell C5, and Summary!A5 contains
+the region name to total.
 
 Write the best formula for this and explain what each part does.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
@@ -303,8 +305,8 @@ Keep it short enough to paste into a "Documentation" tab in the workbook.</pre>
         <div class="excel-window">
           <div class="excel-ribbon"><strong>Excel</strong><span>Home</span><span>Formulas</span><span>Data</span></div>
           <div class="formula-row">
-            <div class="name-box">D2</div><div class="fx-box">fx</div>
-            <div class="formula-input">=SUMIFS(Raw_Data!$E:$E,Raw_Data!$A:$A,A2)</div>
+            <div class="name-box">C2</div><div class="fx-box">fx</div>
+            <div class="formula-input">SUMIFS → build the live formula in Summary!C5:C7</div>
           </div>
           <div class="sheet-scroll">
             <table class="excel-grid">
@@ -466,8 +468,8 @@ Paste a new export into Raw_Data → Summary recalculates automatically. ✓</pr
    Summary!C5:C7 uses SUMIFS by Region.
 
 3. Troubleshooting
-   Check headers, region spelling, Revenue in column E,
-   and whether new rows were pasted inside the source range. ✓</pre>
+   Check headers, region spelling, and confirm Region is still
+   column A and Revenue is still column E in Raw_Data. ✓</pre>
         </div>
       </div>
     </div>
