@@ -66,7 +66,29 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 .claude-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
 .claude-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
 
-.na-wrap{padding:10px 10px 12px;display:flex;flex-direction:column;align-items:stretch}
+
+/* ── EXCEL WORKSHEET VISUALS ── */
+.excel-shell{border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;background:#fff;min-width:520px;font-family:'JetBrains Mono',monospace}
+.excel-toolbar{display:grid;grid-template-columns:58px 1fr;border-bottom:1px solid #cbd5e1;background:#f8fafc;min-height:32px}
+.excel-namebox{display:flex;align-items:center;justify-content:center;border-right:1px solid #cbd5e1;font-size:11px;color:#475569;background:#f1f5f9}
+.excel-formula{display:flex;align-items:center;gap:8px;padding:6px 10px;font-size:11.5px;color:#1f2937;white-space:normal;overflow-wrap:anywhere}
+.excel-fx{font-family:'Inter',sans-serif;font-style:italic;color:#64748b;font-weight:600;flex-shrink:0}
+.excel-grid{display:grid;grid-template-columns:38px 1.25fr 1fr .22fr 1.25fr 1fr}
+.excel-cell{min-height:29px;padding:6px 8px;border-right:1px solid #dbe2ea;border-bottom:1px solid #dbe2ea;font-size:11.5px;color:#334155;background:#fff;display:flex;align-items:center}
+.excel-cell.colhead,.excel-cell.rowhead,.excel-cell.corner{background:#f1f5f9;color:#64748b;justify-content:center;font-size:10.5px;font-weight:600}
+.excel-cell.hdr{background:#e2e8f0;font-weight:700;color:#334155}
+.excel-cell.blank{background:#fafafa}
+.excel-cell.selected{position:relative;background:#f0fdf4;box-shadow:inset 0 0 0 2px #16a34a;z-index:1}
+.excel-cell.bad{background:#fef2f2;color:#dc2626;font-weight:700}
+.excel-cell.good{background:#f0fdf4;color:#15803d;font-weight:700}
+.excel-cell.textval{color:#7e22ce}
+.excel-note{margin-top:10px;border-radius:7px;padding:9px 11px;font-size:11.5px;line-height:1.55;font-family:'JetBrains Mono',monospace}
+.excel-note.badnote{background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
+.excel-note.goodnote{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}
+.excel-note strong{font-weight:700}
+.ba-body{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+.na-wrap{padding:10px 10px 12px;display:flex;flex-direction:column;align-items:flex-start}
 .na-inspect{display:grid;grid-template-columns:1fr auto 1fr;gap:0;width:100%}
 .na-col{background:#fff;border-radius:8px;padding:12px}
 .na-col.src{border:2px solid #36b7b4}
@@ -217,168 +239,139 @@ Please identify why the match is failing and give me the corrected formula.</pre
   </div>
 
   <div class="before-after ba-panel on" id="ba-diagnose">
-    <div class="ba-col before" style="border-color:#d8b4e2">
-      <div class="ba-header" style="background:#fce4f0;color:#5c1d6b;border-bottom:1px solid #d8b4e2">
-        Before — values look identical but LEN() differs
-      </div>
+    <div class="ba-col before">
+      <div class="ba-header err">Before — hidden spaces make visible matches return #N/A</div>
       <div class="ba-body">
-        <div class="na-wrap">
-          <div class="na-inspect">
-            <div class="na-col lkp">
-              <div class="na-col-head">Lookup value (col A)</div>
-              <div class="na-row"><span class="val">"Smith, John<span class="na-hl"> </span>"</span><span class="len fail">LEN 12</span></div>
-              <div class="na-row"><span class="val">"Jones,<span class="na-hl">  </span>Mary"</span><span class="len fail">LEN 12</span></div>
-              <div class="na-row"><span class="val">"<span class="na-hl"> </span>Clark, Peter"</span><span class="len fail">LEN 13</span></div>
-              <div class="na-row"><span class="val">"Davis, Emma"</span><span class="len match">LEN 11</span></div>
-            </div>
-
-            <div class="na-mid">≠</div>
-
-            <div class="na-col src">
-              <div class="na-col-head">Table value (col D)</div>
-              <div class="na-row"><span class="val">"Smith, John"</span><span class="len match">LEN 11</span></div>
-              <div class="na-row"><span class="val">"Jones, Mary"</span><span class="len match">LEN 11</span></div>
-              <div class="na-row"><span class="val">"Clark, Peter"</span><span class="len match">LEN 12</span></div>
-              <div class="na-row"><span class="val">"Davis, Emma"</span><span class="len match">LEN 11</span></div>
-            </div>
+        <div class="excel-shell">
+          <div class="excel-toolbar">
+            <div class="excel-namebox">B2</div>
+            <div class="excel-formula"><span class="excel-fx">fx</span>=XLOOKUP(A2,$D$2:$D$5,$E$2:$E$5)</div>
           </div>
-
-          <div class="na-caption">
-            Highlighted = invisible extra characters that break the lookup
-            <div class="sub">Trailing space · double space · leading space — all return #N/A</div>
+          <div class="excel-grid">
+            <div class="excel-cell corner"></div><div class="excel-cell colhead">A</div><div class="excel-cell colhead">B</div><div class="excel-cell colhead">C</div><div class="excel-cell colhead">D</div><div class="excel-cell colhead">E</div>
+            <div class="excel-cell rowhead">1</div><div class="excel-cell hdr">Lookup name</div><div class="excel-cell hdr">Revenue</div><div class="excel-cell blank"></div><div class="excel-cell hdr">Customer table</div><div class="excel-cell hdr">Revenue</div>
+            <div class="excel-cell rowhead">2</div><div class="excel-cell">Smith, John␠</div><div class="excel-cell bad selected">#N/A</div><div class="excel-cell blank"></div><div class="excel-cell">Smith, John</div><div class="excel-cell">£4,250</div>
+            <div class="excel-cell rowhead">3</div><div class="excel-cell">Jones,␠␠Mary</div><div class="excel-cell bad">#N/A</div><div class="excel-cell blank"></div><div class="excel-cell">Jones, Mary</div><div class="excel-cell">£7,800</div>
+            <div class="excel-cell rowhead">4</div><div class="excel-cell">␠Clark, Peter</div><div class="excel-cell bad">#N/A</div><div class="excel-cell blank"></div><div class="excel-cell">Clark, Peter</div><div class="excel-cell">£6,100</div>
+            <div class="excel-cell rowhead">5</div><div class="excel-cell">Davis, Emma</div><div class="excel-cell">£3,400</div><div class="excel-cell blank"></div><div class="excel-cell">Davis, Emma</div><div class="excel-cell">£3,400</div>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div class="ba-arrow">→</div>
-
-    <div class="ba-col after" style="border-color:#36b7b4">
-      <div class="ba-header fix">After — TRIM() normalizes, all 4 match</div>
-      <div class="ba-body">
-        <div class="na-wrap">
-          <div class="na-inspect">
-            <div class="na-col lkp">
-              <div class="na-col-head">TRIM(lookup)</div>
-              <div class="na-row"><span class="val">"Smith, John"</span><span class="len match">11</span></div>
-              <div class="na-row"><span class="val">"Jones, Mary"</span><span class="len match">11</span></div>
-              <div class="na-row"><span class="val">"Clark, Peter"</span><span class="len match">12</span></div>
-              <div class="na-row"><span class="val">"Davis, Emma"</span><span class="len match">11</span></div>
-            </div>
-
-            <div class="na-mid">=</div>
-
-            <div class="na-col src">
-              <div class="na-col-head">Table → Revenue</div>
-              <div class="na-row"><span class="val match">Found ✓</span><span class="len">£4,250</span></div>
-              <div class="na-row"><span class="val match">Found ✓</span><span class="len">£7,800</span></div>
-              <div class="na-row"><span class="val match">Found ✓</span><span class="len">£6,100</span></div>
-              <div class="na-row"><span class="val match">Found ✓</span><span class="len">£3,400</span></div>
-            </div>
-          </div>
-
-          <div class="na-fix">
-            <strong>=XLOOKUP(TRIM(A2), $D:$D, $E:$E, "Not found")</strong>
-            <div class="sub">All 4 resolved. Total: £4,250 + £7,800 + £6,100 + £3,400 = <span class="res">£21,550 ✓</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="before-after ba-panel" id="ba-type">
-    <div class="ba-col before" style="border-color:#d8b4e2">
-      <div class="ba-header" style="background:#fce4f0;color:#5c1d6b;border-bottom:1px solid #d8b4e2">
-        Before — IDs display identically but types don't match
-      </div>
-      <div class="ba-body">
-        <div class="na-wrap">
-          <div class="na-inspect">
-            <div class="na-col lkp">
-              <div class="na-col-head">Lookup ID (col A)</div>
-              <div class="na-row"><span class="val">1041</span><span class="type-badge type-num">NUMBER</span></div>
-              <div class="na-row"><span class="val">1087</span><span class="type-badge type-num">NUMBER</span></div>
-              <div class="na-row"><span class="val">1112</span><span class="type-badge type-num">NUMBER</span></div>
-              <div class="na-row"><span class="val">1203</span><span class="type-badge type-num">NUMBER</span></div>
-            </div>
-
-            <div class="na-mid">≠</div>
-
-            <div class="na-col src">
-              <div class="na-col-head">Table ID (col D)</div>
-              <div class="na-row"><span class="val">"1041"</span><span class="type-badge type-txt">TEXT</span></div>
-              <div class="na-row"><span class="val">"1087"</span><span class="type-badge type-txt">TEXT</span></div>
-              <div class="na-row"><span class="val">"1112"</span><span class="type-badge type-txt">TEXT</span></div>
-              <div class="na-row"><span class="val">"1203"</span><span class="type-badge type-txt">TEXT</span></div>
-            </div>
-          </div>
-
-          <div class="na-caption">
-            Number 1041 ≠ text "1041" — they display identically but Excel sees different types
-            <div class="sub">All 4 XLOOKUP calls return #N/A because of the type mismatch</div>
-          </div>
-        </div>
+        <div class="excel-note badnote"><strong>Why it fails:</strong> A2 has LEN 12 while D2 has LEN 11. The extra trailing space is invisible in the cell but makes the text different.</div>
       </div>
     </div>
 
     <div class="ba-arrow">→</div>
 
     <div class="ba-col after">
-      <div class="ba-header fix">After — TEXT() converts number to text, all IDs match</div>
+      <div class="ba-header fix">After — TRIM() normalizes the lookup value</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Lookup ID</th><th>TEXT() result</th><th>Table ID</th><th>XLOOKUP</th><th>Salary</th></tr>
-          <tr><td>1041</td><td>"1041"</td><td>"1041"</td><td class="ok-cell">Found ✓</td><td>£48,000</td></tr>
-          <tr><td>1087</td><td>"1087"</td><td>"1087"</td><td class="ok-cell">Found ✓</td><td>£52,000</td></tr>
-          <tr><td>1112</td><td>"1112"</td><td>"1112"</td><td class="ok-cell">Found ✓</td><td>£38,000</td></tr>
-          <tr><td>1203</td><td>"1203"</td><td>"1203"</td><td class="ok-cell">Found ✓</td><td>£44,500</td></tr>
-        </table>
-
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's fix</div>
-          <pre>=XLOOKUP(TEXT(A2,"0"), $D:$D, $E:$E, "Not found")
-TEXT(A2,"0") converts number 1041 → text "1041".
-Alternative: convert column D with VALUE().</pre>
+        <div class="excel-shell">
+          <div class="excel-toolbar">
+            <div class="excel-namebox">B2</div>
+            <div class="excel-formula"><span class="excel-fx">fx</span>=XLOOKUP(TRIM(A2),$D$2:$D$5,$E$2:$E$5)</div>
+          </div>
+          <div class="excel-grid">
+            <div class="excel-cell corner"></div><div class="excel-cell colhead">A</div><div class="excel-cell colhead">B</div><div class="excel-cell colhead">C</div><div class="excel-cell colhead">D</div><div class="excel-cell colhead">E</div>
+            <div class="excel-cell rowhead">1</div><div class="excel-cell hdr">Lookup name</div><div class="excel-cell hdr">Revenue</div><div class="excel-cell blank"></div><div class="excel-cell hdr">Customer table</div><div class="excel-cell hdr">Revenue</div>
+            <div class="excel-cell rowhead">2</div><div class="excel-cell">Smith, John␠</div><div class="excel-cell good selected">£4,250</div><div class="excel-cell blank"></div><div class="excel-cell">Smith, John</div><div class="excel-cell">£4,250</div>
+            <div class="excel-cell rowhead">3</div><div class="excel-cell">Jones,␠␠Mary</div><div class="excel-cell good">£7,800</div><div class="excel-cell blank"></div><div class="excel-cell">Jones, Mary</div><div class="excel-cell">£7,800</div>
+            <div class="excel-cell rowhead">4</div><div class="excel-cell">␠Clark, Peter</div><div class="excel-cell good">£6,100</div><div class="excel-cell blank"></div><div class="excel-cell">Clark, Peter</div><div class="excel-cell">£6,100</div>
+            <div class="excel-cell rowhead">5</div><div class="excel-cell">Davis, Emma</div><div class="excel-cell good">£3,400</div><div class="excel-cell blank"></div><div class="excel-cell">Davis, Emma</div><div class="excel-cell">£3,400</div>
+          </div>
         </div>
+        <div class="excel-note goodnote"><strong>Verified:</strong> TRIM removes leading/trailing spaces and collapses repeated internal spaces. All four names now match; total returned revenue = £21,550.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="before-after ba-panel" id="ba-type">
+    <div class="ba-col before">
+      <div class="ba-header err">Before — numeric lookup IDs do not match text IDs</div>
+      <div class="ba-body">
+        <div class="excel-shell">
+          <div class="excel-toolbar">
+            <div class="excel-namebox">B2</div>
+            <div class="excel-formula"><span class="excel-fx">fx</span>=XLOOKUP(A2,$D$2:$D$5,$E$2:$E$5)</div>
+          </div>
+          <div class="excel-grid">
+            <div class="excel-cell corner"></div><div class="excel-cell colhead">A</div><div class="excel-cell colhead">B</div><div class="excel-cell colhead">C</div><div class="excel-cell colhead">D</div><div class="excel-cell colhead">E</div>
+            <div class="excel-cell rowhead">1</div><div class="excel-cell hdr">Lookup ID</div><div class="excel-cell hdr">Salary</div><div class="excel-cell blank"></div><div class="excel-cell hdr">Payroll ID</div><div class="excel-cell hdr">Salary</div>
+            <div class="excel-cell rowhead">2</div><div class="excel-cell">1041</div><div class="excel-cell bad selected">#N/A</div><div class="excel-cell blank"></div><div class="excel-cell textval">'1041</div><div class="excel-cell">£48,000</div>
+            <div class="excel-cell rowhead">3</div><div class="excel-cell">1087</div><div class="excel-cell bad">#N/A</div><div class="excel-cell blank"></div><div class="excel-cell textval">'1087</div><div class="excel-cell">£52,000</div>
+            <div class="excel-cell rowhead">4</div><div class="excel-cell">1112</div><div class="excel-cell bad">#N/A</div><div class="excel-cell blank"></div><div class="excel-cell textval">'1112</div><div class="excel-cell">£38,000</div>
+            <div class="excel-cell rowhead">5</div><div class="excel-cell">1203</div><div class="excel-cell bad">#N/A</div><div class="excel-cell blank"></div><div class="excel-cell textval">'1203</div><div class="excel-cell">£44,500</div>
+          </div>
+        </div>
+        <div class="excel-note badnote"><strong>Why it fails:</strong> A2 is the number 1041; D2 stores text "1041". They look the same on screen but XLOOKUP exact matching treats the types as different.</div>
+      </div>
+    </div>
+
+    <div class="ba-arrow">→</div>
+
+    <div class="ba-col after">
+      <div class="ba-header fix">After — TEXT() converts the lookup ID to the stored type</div>
+      <div class="ba-body">
+        <div class="excel-shell">
+          <div class="excel-toolbar">
+            <div class="excel-namebox">B2</div>
+            <div class="excel-formula"><span class="excel-fx">fx</span>=XLOOKUP(TEXT(A2,"0"),$D$2:$D$5,$E$2:$E$5)</div>
+          </div>
+          <div class="excel-grid">
+            <div class="excel-cell corner"></div><div class="excel-cell colhead">A</div><div class="excel-cell colhead">B</div><div class="excel-cell colhead">C</div><div class="excel-cell colhead">D</div><div class="excel-cell colhead">E</div>
+            <div class="excel-cell rowhead">1</div><div class="excel-cell hdr">Lookup ID</div><div class="excel-cell hdr">Salary</div><div class="excel-cell blank"></div><div class="excel-cell hdr">Payroll ID</div><div class="excel-cell hdr">Salary</div>
+            <div class="excel-cell rowhead">2</div><div class="excel-cell">1041</div><div class="excel-cell good selected">£48,000</div><div class="excel-cell blank"></div><div class="excel-cell textval">'1041</div><div class="excel-cell">£48,000</div>
+            <div class="excel-cell rowhead">3</div><div class="excel-cell">1087</div><div class="excel-cell good">£52,000</div><div class="excel-cell blank"></div><div class="excel-cell textval">'1087</div><div class="excel-cell">£52,000</div>
+            <div class="excel-cell rowhead">4</div><div class="excel-cell">1112</div><div class="excel-cell good">£38,000</div><div class="excel-cell blank"></div><div class="excel-cell textval">'1112</div><div class="excel-cell">£38,000</div>
+            <div class="excel-cell rowhead">5</div><div class="excel-cell">1203</div><div class="excel-cell good">£44,500</div><div class="excel-cell blank"></div><div class="excel-cell textval">'1203</div><div class="excel-cell">£44,500</div>
+          </div>
+        </div>
+        <div class="excel-note goodnote"><strong>Verified:</strong> TEXT(A2,"0") converts numeric 1041 to text "1041", so the exact match succeeds. An alternative is to convert the source IDs in column D to numbers with VALUE().</div>
       </div>
     </div>
   </div>
 
   <div class="before-after ba-panel" id="ba-wrap">
     <div class="ba-col before">
-      <div class="ba-header err">Before — formula correct, but missing values break the report</div>
+      <div class="ba-header err">Before — valid lookup, but genuinely missing IDs propagate #N/A</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Employee</th><th>ID</th><th>In payroll table?</th><th>XLOOKUP</th><th>Report</th></tr>
-          <tr><td>Smith, John</td><td>1041</td><td>Yes</td><td>£48,000</td><td>No issue</td></tr>
-          <tr><td>Jones, Mary</td><td>1087</td><td>Yes</td><td>£52,000</td><td>No issue</td></tr>
-          <tr><td>New hire</td><td>1301</td><td>Not yet added</td><td class="err-cell">#N/A</td><td class="err-cell">SUM breaks</td></tr>
-          <tr><td>Contractor</td><td>1405</td><td>Different table</td><td class="err-cell">#N/A</td><td class="err-cell">SUM breaks</td></tr>
-        </table>
+        <div class="excel-shell">
+          <div class="excel-toolbar">
+            <div class="excel-namebox">B4</div>
+            <div class="excel-formula"><span class="excel-fx">fx</span>=XLOOKUP(TEXT(A4,"0"),$D$2:$D$3,$E$2:$E$3)</div>
+          </div>
+          <div class="excel-grid">
+            <div class="excel-cell corner"></div><div class="excel-cell colhead">A</div><div class="excel-cell colhead">B</div><div class="excel-cell colhead">C</div><div class="excel-cell colhead">D</div><div class="excel-cell colhead">E</div>
+            <div class="excel-cell rowhead">1</div><div class="excel-cell hdr">Employee ID</div><div class="excel-cell hdr">Salary</div><div class="excel-cell blank"></div><div class="excel-cell hdr">Payroll ID</div><div class="excel-cell hdr">Salary</div>
+            <div class="excel-cell rowhead">2</div><div class="excel-cell">1041</div><div class="excel-cell">£48,000</div><div class="excel-cell blank"></div><div class="excel-cell textval">'1041</div><div class="excel-cell">£48,000</div>
+            <div class="excel-cell rowhead">3</div><div class="excel-cell">1087</div><div class="excel-cell">£52,000</div><div class="excel-cell blank"></div><div class="excel-cell textval">'1087</div><div class="excel-cell">£52,000</div>
+            <div class="excel-cell rowhead">4</div><div class="excel-cell">1301</div><div class="excel-cell bad selected">#N/A</div><div class="excel-cell blank"></div><div class="excel-cell blank"></div><div class="excel-cell blank"></div>
+            <div class="excel-cell rowhead">5</div><div class="excel-cell">1405</div><div class="excel-cell bad">#N/A</div><div class="excel-cell blank"></div><div class="excel-cell blank"></div><div class="excel-cell blank"></div>
+          </div>
+        </div>
+        <div class="excel-note badnote"><strong>Expected missing values:</strong> IDs 1301 and 1405 are not in the payroll lookup range. A downstream <code>=SUM(B2:B5)</code> therefore also returns #N/A.</div>
       </div>
     </div>
 
     <div class="ba-arrow">→</div>
 
     <div class="ba-col after">
-      <div class="ba-header fix">After — IFERROR handles missing, SUM works again</div>
+      <div class="ba-header fix">After — IFERROR returns a dash while valid salaries stay numeric</div>
       <div class="ba-body">
-        <table class="xl-table">
-          <tr><th>Employee</th><th>ID</th><th>In table?</th><th>IFERROR result</th><th>SUM impact</th></tr>
-          <tr><td>Smith, John</td><td>1041</td><td>Yes</td><td>£48,000</td><td>Included ✓</td></tr>
-          <tr><td>Jones, Mary</td><td>1087</td><td>Yes</td><td>£52,000</td><td>Included ✓</td></tr>
-          <tr><td>New hire</td><td>1301</td><td>Not yet</td><td>—</td><td>Excluded cleanly ✓</td></tr>
-          <tr><td>Contractor</td><td>1405</td><td>Different table</td><td>—</td><td>Excluded cleanly ✓</td></tr>
-          <tr class="section-row"><td colspan="3">SUM of salary column</td><td>£100,000 ✓</td><td>No longer breaks</td></tr>
-        </table>
-
-        <div class="claude-fix">
-          <div class="claude-fix-label">Claude's formula</div>
-          <pre>=IFERROR(XLOOKUP(TEXT(A2,"0"), $D:$D, $E:$E), "—")
-"—" is ignored by SUM and AVERAGE.
-Known payroll total: £100,000 ✓
-2 employees remain visible for manual review.</pre>
+        <div class="excel-shell">
+          <div class="excel-toolbar">
+            <div class="excel-namebox">B4</div>
+            <div class="excel-formula"><span class="excel-fx">fx</span>=IFERROR(XLOOKUP(TEXT(A4,"0"),$D$2:$D$3,$E$2:$E$3),"—")</div>
+          </div>
+          <div class="excel-grid">
+            <div class="excel-cell corner"></div><div class="excel-cell colhead">A</div><div class="excel-cell colhead">B</div><div class="excel-cell colhead">C</div><div class="excel-cell colhead">D</div><div class="excel-cell colhead">E</div>
+            <div class="excel-cell rowhead">1</div><div class="excel-cell hdr">Employee ID</div><div class="excel-cell hdr">Salary</div><div class="excel-cell blank"></div><div class="excel-cell hdr">Payroll ID</div><div class="excel-cell hdr">Salary</div>
+            <div class="excel-cell rowhead">2</div><div class="excel-cell">1041</div><div class="excel-cell good">£48,000</div><div class="excel-cell blank"></div><div class="excel-cell textval">'1041</div><div class="excel-cell">£48,000</div>
+            <div class="excel-cell rowhead">3</div><div class="excel-cell">1087</div><div class="excel-cell good">£52,000</div><div class="excel-cell blank"></div><div class="excel-cell textval">'1087</div><div class="excel-cell">£52,000</div>
+            <div class="excel-cell rowhead">4</div><div class="excel-cell">1301</div><div class="excel-cell selected">—</div><div class="excel-cell blank"></div><div class="excel-cell blank"></div><div class="excel-cell blank"></div>
+            <div class="excel-cell rowhead">5</div><div class="excel-cell">1405</div><div class="excel-cell">—</div><div class="excel-cell blank"></div><div class="excel-cell blank"></div><div class="excel-cell blank"></div>
+          </div>
         </div>
+        <div class="excel-note goodnote"><strong>Verified:</strong> text values "—" are ignored by SUM, so <code>=SUM(B2:B5)</code> returns £100,000 while the two missing IDs remain visible for review.</div>
       </div>
     </div>
   </div>
