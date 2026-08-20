@@ -213,16 +213,39 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
     <div id="p-build" class="panel on">
       <div class="prompt-box">
         <pre>I want to create a reusable LAMBDA function in Microsoft 365 or Excel 2024.
-Here is the calculation I repeat constantly:
-[describe in plain English — e.g. "Calculate bonus from salary and a whole-number
-performance score from 1 to 5: 5 = 20%, 4 = 10%, 3 = 5%, 1 or 2 = 0%"]
 
-Please write:
-1. The LAMBDA formula with clear parameter names
-2. Input validation for values outside the valid range or wrong data types
-3. An inline test formula I can paste into one cell and run immediately
-4. The exact LAMBDA definition to paste into Name Manager
-5. One example of how to call the named function after registration</pre>
+Here is the calculation I repeat:
+[describe the calculation and all rules in plain English]
+
+Inputs:
+[list each input and what it represents]
+
+Valid input rules:
+[list any required ranges, whole-number requirements, allowed values, or other validation rules]
+
+For invalid inputs:
+[state what the function should return, or write "recommend an appropriate validation result"]
+
+EXCEL RELIABILITY RULES:
+- Do not invent workbook facts, business rules, inputs, or expected behavior not stated here.
+- If required information is missing, say exactly what is missing instead of guessing.
+- Do not rely on uncertain Excel evaluation behavior or short-circuit assumptions. Structure formulas so unsafe operations are reached only after required type checks.
+- Preserve existing behavior unless I explicitly ask you to change it.
+- Verify the final formula against every sample input and expected result I provide.
+- Check only edge cases relevant to the stated requirements.
+- Flag Excel-version compatibility when relevant; do not guess version support.
+
+Build rule:
+Implement every stated validation rule and no others. If numeric operations such as INT() could error on text input, use a separate type-validation gate before those operations.
+
+Please:
+1. Write the LAMBDA formula with clear parameter names.
+2. Do not invent business rules that I have not provided.
+3. Add only the input validation described above.
+4. Give me an inline test formula that invokes the LAMBDA definition directly and can run before Name Manager registration.
+5. Show the expected result of that test and verify the calculation.
+6. Give me the exact LAMBDA definition to paste into Name Manager.
+7. Give me one example of how to call the named function after registration.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Describe the logic in plain English — no need to know LAMBDA syntax yourself. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
@@ -230,22 +253,49 @@ Please write:
 
     <div id="p-debug" class="panel">
       <div class="prompt-box">
-        <pre>My LAMBDA function is returning an error or the wrong result.
+        <pre>My Excel LAMBDA function is returning an error or the wrong result.
 
-LAMBDA definition:
-[paste the definition from Name Manager]
+Excel version:
+[Microsoft 365 / Excel 2024]
 
-Call used in the sheet:
-[paste the call — e.g. =NET_MARGIN(B2,C2)]
+Function name:
+[enter the function name]
+
+LAMBDA definition from Name Manager:
+[paste the exact definition]
+
+Worksheet call:
+[paste the exact call]
 
 Actual input values:
-[list the values and what each cell represents]
+[list each value and what it represents]
+
+Actual result or Excel error:
+[paste the result or exact error]
 
 Expected result:
-[expected result]
+[enter the expected result]
 
-Please identify whether the problem is in the LAMBDA definition, parameter
-order, or the call, explain why, and give me the corrected definition/call.</pre>
+EXCEL RELIABILITY RULES:
+- Do not invent workbook facts, business rules, inputs, or expected behavior not stated here.
+- If required information is missing, say exactly what is missing instead of guessing.
+- Do not rely on uncertain Excel evaluation behavior or short-circuit assumptions.
+- Preserve existing behavior unless I explicitly ask you to change it.
+- Verify the final formula against every sample input and expected result I provide.
+- Check only edge cases relevant to the stated requirements.
+- Flag Excel-version compatibility when relevant; do not guess version support.
+
+Debugging rule:
+Identify the cause before changing the formula. Do not fix behavior that was not reported as broken.
+
+Please:
+1. State what the current LAMBDA definition does.
+2. Check the definition, parameter order, worksheet call, and supplied input values.
+3. Identify the exact cause if it can be determined from the information provided.
+4. If it cannot be determined with certainty, say what information is missing instead of guessing.
+5. Verify the expected result mathematically.
+6. Give only the correction that is actually required.
+7. State clearly whether the LAMBDA definition itself needs to change.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Include the actual call and inputs, not just the LAMBDA definition — errors often depend on what's passed in.</p>
@@ -253,16 +303,47 @@ order, or the call, explain why, and give me the corrected definition/call.</pre
 
     <div id="p-convert" class="panel">
       <div class="prompt-box">
-        <pre>Here is a formula I use in many cells:
-[paste formula]
+        <pre>Here is an Excel formula I use in many cells:
 
-Convert it into a reusable LAMBDA function with a clear name and
-descriptive parameter names. Preserve the current formula behavior, including
-its edge-case handling. Include:
-1. The LAMBDA definition
-2. An inline test using sample values
-3. The Name Manager registration steps
-4. An example call using worksheet cells.</pre>
+[paste the exact formula]
+
+Excel version:
+[Microsoft 365 / Excel 2024]
+
+The formula is currently in:
+[cell, e.g. D2]
+
+The referenced cells/ranges mean:
+[list each important reference and what it represents]
+
+Sample values and expected result:
+[provide at least one concrete test case]
+
+Convert this formula into a reusable LAMBDA function with a clear name.
+
+EXCEL RELIABILITY RULES:
+- Do not invent workbook facts, business rules, inputs, or expected behavior not stated here.
+- If required information is missing, say exactly what is missing instead of guessing.
+- Do not rely on uncertain Excel evaluation behavior or short-circuit assumptions.
+- Preserve existing behavior unless I explicitly ask you to change it.
+- Verify the final formula against every sample input and expected result I provide.
+- Check only edge cases relevant to the stated requirements.
+- Flag Excel-version compatibility when relevant; do not guess version support.
+
+Conversion rule:
+The LAMBDA must preserve the original formula's behavior exactly, including existing errors and edge cases. Do not add validation or change behavior unless explicitly asked.
+
+Please:
+1. State briefly what the original formula does.
+2. Decide which worksheet references should become LAMBDA parameters.
+3. Use clear parameter names based only on the information provided.
+4. Give the exact LAMBDA definition to paste into Name Manager.
+5. Give an inline test formula using the supplied sample values.
+6. The inline test must invoke the LAMBDA definition directly and must work BEFORE the function is registered in Name Manager. Do not use the named function for this test.
+7. Verify that the inline test matches the expected result.
+8. Give an example worksheet call after registration.
+9. Confirm that the converted LAMBDA preserves the original formula's stated edge-case behavior.
+10. Do not add extra validation or error handling that is not present in the original formula.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Good for cleaning up a workbook where the same complex formula is copied across dozens of cells.</p>
@@ -331,16 +412,17 @@ its edge-case handling. Include:
         <div class="claude-fix">
           <div class="claude-fix-label">Name Manager — BONUS</div>
           <pre>=LAMBDA(score,salary,
-  IF(OR(NOT(ISNUMBER(score)),score<1,score>5,score<>INT(score),
-        NOT(ISNUMBER(salary)),salary<0),
+  IF(OR(NOT(ISNUMBER(score)),NOT(ISNUMBER(salary))),
      "CHECK INPUT",
-     IFS(score=5,salary*20%,
-         score=4,salary*10%,
-         score=3,salary*5%,
-         TRUE,0)))
+     IF(OR(score<1,score>5,score<>INT(score),salary<0),
+        "CHECK INPUT",
+        IFS(score=5,salary*20%,
+            score=4,salary*10%,
+            score=3,salary*5%,
+            TRUE,0))))
 
 Inline test:
-=LAMBDA(score,salary,IF(OR(NOT(ISNUMBER(score)),score<1,score>5,score<>INT(score),NOT(ISNUMBER(salary)),salary<0),"CHECK INPUT",IFS(score=5,salary*20%,score=4,salary*10%,score=3,salary*5%,TRUE,0)))(5,48000)
+=LAMBDA(score,salary,IF(OR(NOT(ISNUMBER(score)),NOT(ISNUMBER(salary))),"CHECK INPUT",IF(OR(score<1,score>5,score<>INT(score),salary<0),"CHECK INPUT",IFS(score=5,salary*20%,score=4,salary*10%,score=3,salary*5%,TRUE,0))))(5,48000)
 → £9,600 ✓</pre>
         </div>
       </div>
