@@ -183,7 +183,8 @@ Please tell me:
 6. What I must confirm before deleting anything
 
 Do not declare a row "safe to delete" from the sample alone if the business rule is not explicit.
-Do not automatically exclude timestamps, row IDs, or generated keys: explain whether they are identifiers, audit fields, or part of the actual business key.</pre>
+Do not automatically exclude timestamps, row IDs, or generated keys: explain whether they are identifiers, audit fields, or part of the actual business key.
+Do not infer what an ID or timestamp represents beyond what the column name and sample prove, and avoid absolute statements such as "never part of the key" unless that follows from an explicit business rule.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Paste real headers and rows — Claude uses your actual column names in the answer. Works in <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
@@ -210,7 +211,11 @@ Please give me:
 1. The sort order to apply BEFORE running Data → Remove Duplicates so the row I want to keep ends up first
 2. The exact columns to check in the Remove Duplicates dialog
 3. A COUNTIFS helper formula to apply AFTER the sort, so occurrence 1 is the row that would be kept and occurrences 2+ are the rows that would be removed
-4. A warning if my chosen sort field has ties, blanks, or text-formatted dates/numbers that could make the sort unreliable</pre>
+4. A warning if my chosen sort field has ties, blanks, or text-formatted dates/numbers that could make the sort unreliable
+
+Use the minimum sort needed to guarantee that the desired row appears first for each duplicate key. Do not add sort levels unless they are required for the keep rule or to resolve ties.
+Do not infer that a lower/higher ID is the original record unless that rule is explicitly stated. If a deterministic tie-break is needed, propose it as an option that requires confirmation.
+For text-formatted dates or numbers, distinguish visual clues from reliable tests such as ISNUMBER().</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Excel always keeps the first occurrence — sorting first lets you control which row that is.</p>
@@ -235,7 +240,8 @@ Please write me:
 State exactly which worksheet columns each COUNTIFS range refers to and make all expanding ranges the same size.
 
 Also tell me what to check in rows marked DELETE before removing them — especially whether excluded columns contain data that differs from the kept row.
-If the current row order matters, say so explicitly.</pre>
+If the current row order matters, say so explicitly.
+Do not call a flagged row "safe to delete" solely because the visible sample columns match. State that deletion is only justified after confirming all relevant excluded columns and the business rule.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
       <p class="prompt-hint">Never run Remove Duplicates on your only copy. Work on a duplicate sheet or paste the result into a new workbook first.</p>
