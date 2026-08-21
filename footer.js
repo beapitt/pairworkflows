@@ -18,6 +18,7 @@
   <a href="https://www.pairworkflows.com/excel-formulas.html" style="display:block; font-size:13px; color:#6b7280; text-decoration:none; margin-bottom:0.4rem; transition:color .15s" onmouseover="this.style.color='#111827'" onmouseout="this.style.color='#6b7280'">Formulas &amp; Functions</a>
   <a href="https://www.pairworkflows.com/excel-finance-models.html" style="display:block; font-size:13px; color:#6b7280; text-decoration:none; margin-bottom:0.4rem; transition:color .15s" onmouseover="this.style.color='#111827'" onmouseout="this.style.color='#6b7280'">Finance Models</a>
   <a href="https://www.pairworkflows.com/excel-data-cleaning.html" style="display:block; font-size:13px; color:#6b7280; text-decoration:none; margin-bottom:0.4rem; transition:color .15s" onmouseover="this.style.color='#111827'" onmouseout="this.style.color='#6b7280'">Data Cleaning</a>
+  <a href="https://www.pairworkflows.com/excel-reports.html" style="display:block; font-size:13px; color:#6b7280; text-decoration:none; margin-bottom:0.4rem; transition:color .15s" onmouseover="this.style.color='#111827'" onmouseout="this.style.color='#6b7280'">Dynamic Reports</a>
 </div>
 
     <div>
