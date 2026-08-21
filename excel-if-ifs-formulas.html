@@ -181,7 +181,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-excel.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
 
@@ -189,9 +189,9 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eyebrow"><i class="ti ti-code" style="font-size:12px"></i> Excel · Claude AI</div>
+    <div class="hero-eyebrow"><i class="ti ti-code" style="font-size:12px"></i> Excel · ChatGPT</div>
     <h1>Write IF, IFS and Nested IF Formulas in Excel with ChatGPT</h1>
-    <p class="hero-sub">Grading scales, bonus tiers, payroll rules — they all start the same way: "if this, then that". Describe your logic as a plain list and Claude writes a clean IF or IFS formula, chooses the right function for your Excel version, and adds the default case most people forget.</p>
+    <p class="hero-sub">Grading scales, bonus tiers, payroll rules — they all start the same way: "if this, then that". Describe your logic as a plain list and ChatGPT writes a clean IF or IFS formula, chooses the right function for your Excel version, and adds the default case most people forget.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -221,7 +221,7 @@ Please use IFS if my version supports it; otherwise use nested IF.
 Return "Invalid" for blanks, text, negative numbers, or scores above 100.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Replace the logic and cell reference with your own. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+      <p class="prompt-hint">Replace the logic and cell reference with your own, then paste the prompt into <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
     </div>
 
     <div id="p-debug" class="panel">
@@ -260,7 +260,7 @@ or arithmetic comparisons on text or blank inputs before confirming that C2
 contains a number.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Swap in your own score-to-percentage rules — Claude keeps the structure, you change the numbers.</p>
+      <p class="prompt-hint">Swap in your own score-to-percentage rules — ChatGPT keeps the structure, you change the numbers.</p>
     </div>
   </div>
 
@@ -309,7 +309,7 @@ contains a number.</pre>
           </div>
         </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's formula</div>
+          <div class="claude-fix-label">ChatGPT's formula</div>
           <pre>=IF(OR(NOT(ISNUMBER(B2)),B2&lt;0,B2&gt;100),"Invalid",
    IFS(B2&gt;=90,"A",B2&gt;=80,"B",B2&gt;=70,"C",TRUE,"Fail"))
 
@@ -364,7 +364,7 @@ Valid range: 0–100. Unexpected inputs are flagged instead of silently graded.<
           </div>
         </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's fix</div>
+          <div class="claude-fix-label">ChatGPT's fix</div>
           <pre>=IF(B3&gt;=90,"A",IF(B3&gt;=80,"B",IF(B3&gt;=70,"C","Fail")))
 Only the boundary operators changed: &gt; became &gt;=.
 90 → A · 80 → B · 70 → C ✓</pre>
@@ -419,7 +419,7 @@ Only the boundary operators changed: &gt; became &gt;=.
           </div>
         </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's formula — F2</div>
+          <div class="claude-fix-label">ChatGPT's formula — F2</div>
           <pre>=IF(NOT(ISNUMBER(C2)),"CHECK SCORE",
    IF(OR(C2&lt;1,C2&gt;5,C2&lt;&gt;INT(C2)),"CHECK SCORE",
       IFS(C2=5,D2*20%,C2=4,D2*10%,C2=3,D2*5%,TRUE,0)))
@@ -459,18 +459,18 @@ Fill down through F6.
   <!-- STEPS -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">How to build IF and IFS formulas step by step</h2>
   <div class="steps-card">
-    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Write and test an IF or IFS formula with Claude — 5 steps</div>
+    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Write and test an IF or IFS formula with ChatGPT — 5 steps</div>
     <div class="step">
       <div class="step-n">1</div>
-      <div class="step-body"><h3>Write the logic as a simple list first</h3><p>Before opening Claude, list your conditions clearly — 90 or above → A, 80 or above → B, and so on. This list becomes your prompt. The clearer the list, the better the formula.</p></div>
+      <div class="step-body"><h3>Write the logic as a simple list first</h3><p>Before opening ChatGPT, list your conditions clearly — 90 or above → A, 80 or above → B, and so on. This list becomes your prompt. The clearer the list, the better the formula.</p></div>
     </div>
     <div class="step">
       <div class="step-n">2</div>
-      <div class="step-body"><h3>Tell Claude your Excel version and the cell to test</h3><p>IFS is available in Microsoft 365 and Excel 2019, 2021 and 2024. Also specify exactly which cell contains the value being tested — for example "the score is in B2" — so the formula is ready to paste directly.</p></div>
+      <div class="step-body"><h3>Tell ChatGPT your Excel version and the cell to test</h3><p>IFS is available in Microsoft 365 and Excel 2019, 2021 and 2024. Also specify exactly which cell contains the value being tested — for example "the score is in B2" — so the formula is ready to paste directly.</p></div>
     </div>
     <div class="step">
       <div class="step-n">3</div>
-      <div class="step-body"><h3>Read the explanation, not just the formula</h3><p>Claude explains each condition in plain English alongside the formula. Read it — this is the best way to catch a logic error like a <code>&gt;</code> that should be <code>&gt;=</code> before it spreads across your data.</p></div>
+      <div class="step-body"><h3>Read the explanation, not just the formula</h3><p>ChatGPT explains each condition in plain English alongside the formula. Read it — this is the best way to catch a logic error like a <code>&gt;</code> that should be <code>&gt;=</code> before it spreads across your data.</p></div>
     </div>
     <div class="step">
       <div class="step-n">4</div>
@@ -504,7 +504,7 @@ Fill down through F6.
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Which Excel versions support IFS? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">IFS is available in Microsoft 365 and Excel 2019, 2021 and 2024. It is not available in Excel 2016, so use nested IF there — tell Claude which version you're using so the formula stays compatible.</div>
+      <div class="faq-a">IFS is available in Microsoft 365 and Excel 2019, 2021 and 2024. It is not available in Excel 2016, so use nested IF there — tell ChatGPT which version you're using so the formula stays compatible.</div>
     </div>
   </div>
 
@@ -525,7 +525,7 @@ Fill down through F6.
     </a>
     <a href="/explain-excel-formulas.html" class="related-link">
       <strong>Understand and Document Inherited Formulas</strong>
-      <span>Get Claude to explain complex formulas layer by layer.</span>
+      <span>Get ChatGPT to explain complex formulas layer by layer.</span>
     </a>
   </div>
 

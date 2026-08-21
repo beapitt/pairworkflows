@@ -6,7 +6,7 @@
 <title>How to Build a 12-Month Rolling Forecast in Excel — PairWorkflows</title>
 <meta name="description" content="Build a 12-month rolling forecast in Excel with ChatGPT. Replace forecasts with actuals as each month closes and keep the forecast horizon updated.">
 <link rel="canonical" href="https://www.pairworkflows.com/rolling-forecast-excel.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between a rolling forecast and an annual budget?","acceptedAnswer":{"@type":"Answer","text":"An approved annual budget is typically preserved as a fixed baseline for variance reporting, while a rolling forecast is updated periodically. In this monthly workflow: the closed month moves into historical actuals, that month leaves the active forecast horizon, and a new period is added at the far end so the model continues to look 12 months ahead. This keeps planning current with business conditions."}},{"@type":"Question","name":"How many months should a rolling forecast cover?","acceptedAnswer":{"@type":"Answer","text":"This workflow uses a constant 12-month forward horizon. Other planning processes may use a different horizon; if you change it, update the month-count and total-range controls accordingly."}},{"@type":"Question","name":"Can Claude automatically pull actuals into the forecast each month?","acceptedAnswer":{"@type":"Answer","text":"This workflow does not assume a live-data connection. Use the data-access method supported by your Claude/Excel environment, but preserve prior forecast versions and verify the actuals, formula changes, and forecast horizon each month."}},{"@type":"Question","name":"How do I handle seasonality in a rolling forecast?","acceptedAnswer":{"@type":"Answer","text":"Include a seasonality index or monthly weighting in your input data. The prompt instructs Claude to apply seasonal adjustments to the base forecast so that Q4 revenue projections reflect your historical uplift rather than a flat monthly average."}},{"@type":"Question","name":"Does this replace a 3-statement financial model?","acceptedAnswer":{"@type":"Answer","text":"No. A rolling forecast focuses on the P&L and key operating metrics. A 3-statement model links the income statement, balance sheet, and cash flow statement. They serve different purposes and can complement each other."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between a rolling forecast and an annual budget?","acceptedAnswer":{"@type":"Answer","text":"An approved annual budget is typically preserved as a fixed baseline for variance reporting, while a rolling forecast is updated periodically. In this monthly workflow: the closed month moves into historical actuals, that month leaves the active forecast horizon, and a new period is added at the far end so the model continues to look 12 months ahead. This keeps planning current with business conditions."}},{"@type":"Question","name":"How many months should a rolling forecast cover?","acceptedAnswer":{"@type":"Answer","text":"This workflow uses a constant 12-month forward horizon. Other planning processes may use a different horizon; if you change it, update the month-count and total-range controls accordingly."}},{"@type":"Question","name":"Can ChatGPT automatically pull actuals into the forecast each month?","acceptedAnswer":{"@type":"Answer","text":"This workflow does not assume a live-data connection. Paste or upload your actuals into ChatGPT depending on what your interface supports, but preserve prior forecast versions and verify the actuals, formula changes, and forecast horizon each month."}},{"@type":"Question","name":"How do I handle seasonality in a rolling forecast?","acceptedAnswer":{"@type":"Answer","text":"Include a seasonality index or monthly weighting in your input data. The prompt instructs ChatGPT to apply seasonal adjustments to the base forecast so that Q4 revenue projections reflect your historical uplift rather than a flat monthly average."}},{"@type":"Question","name":"Does this replace a 3-statement financial model?","acceptedAnswer":{"@type":"Answer","text":"No. A rolling forecast focuses on the P&L and key operating metrics. A 3-statement model links the income statement, balance sheet, and cash flow statement. They serve different purposes and can complement each other."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -166,7 +166,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-excel.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
 
@@ -176,7 +176,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Finance</div>
     <h1>How to Build a 12-Month Rolling Forecast in Excel with ChatGPT</h1>
-    <p class="hero-sub">Provide Claude with reconciled historical actuals, explicit forecast drivers, and your current forecast layout, then use it to draft a formula-driven 12-month rolling forecast. Each close should preserve the prior forecast for variance analysis, move the closed month to actuals, and add one new far-end forecast month.</p>
+    <p class="hero-sub">Provide ChatGPT with reconciled historical actuals, explicit forecast drivers, and your current forecast layout, then use it to draft a formula-driven 12-month rolling forecast. Each close should preserve the prior forecast for variance analysis, move the closed month to actuals, and add one new far-end forecast month.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -258,7 +258,7 @@ OUTPUT
 Use tab-separated tables suitable for Excel.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Paste your real actuals and assumptions. Works in <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+      <p class="prompt-hint">Paste your real actuals and assumptions. Works in <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
     </div>
 
     <!-- Panel: Seasonal -->
@@ -594,22 +594,22 @@ Forecast 12M Total sums Jul 2025 through Jun 2026 only. ✓</pre>
   <div class="steps-panel on" id="steps-build">
     <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Build a rolling forecast step by step</h2>
     <div class="steps-card">
-      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a 12-month rolling forecast with Claude — 4 steps</div>
+      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a 12-month rolling forecast with ChatGPT — 4 steps</div>
       <div class="step">
         <div class="step-n">1</div>
-        <div class="step-body"><h3>Provide at least 3 months of closed actuals</h3><p>Provide enough closed history to support the drivers you intend to use. A few months may show recent run-rate, but seasonality normally requires a fuller annual pattern and often multiple comparable periods. Do not let Claude infer a growth assumption automatically from a short sample unless that is explicitly your chosen method.</p></div>
+        <div class="step-body"><h3>Provide at least 3 months of closed actuals</h3><p>Provide enough closed history to support the drivers you intend to use. A few months may show recent run-rate, but seasonality normally requires a fuller annual pattern and often multiple comparable periods. Do not let ChatGPT infer a growth assumption automatically from a short sample unless that is explicitly your chosen method.</p></div>
       </div>
       <div class="step">
         <div class="step-n">2</div>
-        <div class="step-body"><h3>State specific growth and cost assumptions</h3><p>"Revenue grows 2% per month" is actionable. "Revenue will increase" is not. Claude builds formulas from numbers — vague inputs produce vague models. Include COGS as a % of revenue, OpEx escalation rate, and any planned headcount changes with their hire months.</p></div>
+        <div class="step-body"><h3>State specific growth and cost assumptions</h3><p>"Revenue grows 2% per month" is actionable. "Revenue will increase" is not. ChatGPT builds formulas from numbers — vague inputs produce vague models. Include COGS as a % of revenue, OpEx escalation rate, and any planned headcount changes with their hire months.</p></div>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Put all assumptions on a separate tab</h3><p>The prompt instructs Claude to reference an Assumptions tab for every forecast driver. Central assumptions let future formulas recalculate consistently and make each forecast driver auditable instead of embedding the same input in many cells.</p></div>
+        <div class="step-body"><h3>Put all assumptions on a separate tab</h3><p>The prompt instructs ChatGPT to reference an Assumptions tab for every forecast driver. Central assumptions let future formulas recalculate consistently and make each forecast driver auditable instead of embedding the same input in many cells.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
-        <div class="step-body"><h3>Update monthly using the Update with actuals prompt</h3><p>At the end of each month, use the third tab prompt above. Paste the closed actuals; Claude can identify the cells to move into history and provide the new far-end forecast formulas while keeping the active horizon at 12 future months.</p></div>
+        <div class="step-body"><h3>Update monthly using the Update with actuals prompt</h3><p>At the end of each month, use the third tab prompt above. Paste the closed actuals; ChatGPT can identify the cells to move into history and provide the new far-end forecast formulas while keeping the active horizon at 12 future months.</p></div>
       </div>
       <div class="tip"><strong>Tip:</strong> If your organisation keeps an approved annual budget, preserve it as a separate baseline rather than overwriting it with each rolling forecast. This lets you compare Actual vs Budget and Actual vs Forecast without losing the original plan.</div>
     </div>
@@ -650,7 +650,7 @@ Forecast 12M Total sums Jul 2025 through Jun 2026 only. ✓</pre>
       </div>
       <div class="step">
         <div class="step-n">2</div>
-        <div class="step-body"><h3>Run the Update prompt</h3><p>Provide the final actuals, the current active horizon, the prior forecast for the closed month, and the far-end formulas/assumptions. Claude should identify proposed changes; verify them before applying them in Excel.</p></div>
+        <div class="step-body"><h3>Run the Update prompt</h3><p>Provide the final actuals, the current active horizon, the prior forecast for the closed month, and the far-end formulas/assumptions. ChatGPT should identify proposed changes; verify them before applying them in Excel.</p></div>
       </div>
       <div class="step">
         <div class="step-n">3</div>
@@ -675,8 +675,8 @@ Forecast 12M Total sums Jul 2025 through Jun 2026 only. ✓</pre>
       <div class="faq-a">This workflow uses a constant 12-month forward horizon. Other organisations may choose 13, 18 or another horizon based on their planning cycle; if you change it, update the month-count and total-range validation checks as well.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can Claude automatically pull actuals into the forecast each month? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">The workflow does not assume an automatic live-data connection. Depending on your Claude/Excel environment, you may work from pasted data, uploaded workbooks, or supported Excel integrations. In every case, use final reconciled actuals, preserve the prior forecast version, and verify the changed formulas and horizon before relying on the update.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can ChatGPT automatically pull actuals into the forecast each month? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">The workflow does not assume an automatic live-data connection. Paste or upload your actuals into ChatGPT depending on what your interface supports. In every case, use final reconciled actuals, preserve the prior forecast version, and verify the changed formulas and horizon before relying on the update.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I handle seasonality in a rolling forecast? <i class="ti ti-chevron-down"></i></div>
@@ -691,7 +691,7 @@ Forecast 12M Total sums Jul 2025 through Jun 2026 only. ✓</pre>
   <!-- RELATED -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Related Excel workflows</h2>
   <div class="related-grid">
-    <a href="/cash-flow-dashboard-excel-claude.html" class="related-link">
+    <a href="/automate-cash-flow-dashboard-excel.html" class="related-link">
       <strong>Automate a Cash Flow Dashboard in Excel</strong>
       <span>Feed rolling forecast outputs into a live cash monitoring dashboard.</span>
     </a>

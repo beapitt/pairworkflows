@@ -6,7 +6,7 @@
 <title>How to Build a Financial KPI Dashboard in Excel — PairWorkflows</title>
 <meta name="description" content="Build a financial KPI dashboard in Excel with ChatGPT using margins, liquidity ratios, DSO, DPO, status flags, and trend tracking.">
 <link rel="canonical" href="https://www.pairworkflows.com/build-financial-kpi-dashboard-excel.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Which financial KPIs should a dashboard include?","acceptedAnswer":{"@type":"Answer","text":"Start with the metrics your leadership actually reviews. Common ones include gross margin, operating margin, EBITDA margin, current ratio, quick ratio, DSO (days sales outstanding), DPO (days payable outstanding), and revenue growth rate. The prompt in this course lets you specify exactly which KPIs to include — Claude does not add extras you haven't asked for."}},{"@type":"Question","name":"Can Claude calculate KPIs directly from raw financial statements?","acceptedAnswer":{"@type":"Answer","text":"Yes. Paste your income statement and balance sheet data, tell Claude which KPIs to calculate and their formulas, and Claude produces a dashboard with the computed values. It uses only the data you provide and writes out each formula so you can verify the logic."}},{"@type":"Question","name":"What do the RAG status colours mean in a KPI dashboard?","acceptedAnswer":{"@type":"Answer","text":"RAG stands for Red, Amber, Green. Green means the KPI is within target. Amber means it is approaching a threshold and needs attention. Red means it has breached the threshold and requires action. You define the thresholds — Claude applies conditional formatting based on your rules."}},{"@type":"Question","name":"How often should a financial KPI dashboard be updated?","acceptedAnswer":{"@type":"Answer","text":"Monthly is standard for most finance teams, aligned with the month-end close. Some KPIs like DSO and cash position benefit from weekly updates. The dashboard structure Claude builds works for any frequency — you simply paste updated figures into the input cells."}},{"@type":"Question","name":"Can I track KPI trends over multiple periods?","acceptedAnswer":{"@type":"Answer","text":"Yes. The prompt asks Claude to include period-over-period change columns showing both the absolute change and the percentage movement. This makes it easy to spot trends — a margin that dropped 0.5% this month isn't alarming, but a margin that has dropped 0.5% every month for six months is."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Which financial KPIs should a dashboard include?","acceptedAnswer":{"@type":"Answer","text":"Start with the metrics your leadership actually reviews. Common ones include gross margin, operating margin, EBITDA margin, current ratio, quick ratio, DSO (days sales outstanding), DPO (days payable outstanding), and revenue growth rate. The prompt in this course lets you specify exactly which KPIs to include — ChatGPT does not add extras you haven't asked for."}},{"@type":"Question","name":"Can ChatGPT calculate KPIs directly from raw financial statements?","acceptedAnswer":{"@type":"Answer","text":"Yes. Paste your income statement and balance sheet data, tell ChatGPT which KPIs to calculate and their formulas, and ChatGPT produces a dashboard with the computed values. It uses only the data you provide and writes out each formula so you can verify the logic."}},{"@type":"Question","name":"What do the RAG status colours mean in a KPI dashboard?","acceptedAnswer":{"@type":"Answer","text":"RAG stands for Red, Amber, Green. Green means the KPI is within target. Amber means it is approaching a threshold and needs attention. Red means it has breached the threshold and requires action. You define the thresholds — ChatGPT applies conditional formatting based on your rules."}},{"@type":"Question","name":"How often should a financial KPI dashboard be updated?","acceptedAnswer":{"@type":"Answer","text":"Monthly is standard for most finance teams, aligned with the month-end close. Some KPIs like DSO and cash position benefit from weekly updates. The dashboard structure ChatGPT builds works for any frequency — you simply paste updated figures into the input cells."}},{"@type":"Question","name":"Can I track KPI trends over multiple periods?","acceptedAnswer":{"@type":"Answer","text":"Yes. The prompt asks ChatGPT to include period-over-period change columns showing both the absolute change and the percentage movement. This makes it easy to spot trends — a margin that dropped 0.5% this month isn't alarming, but a margin that has dropped 0.5% every month for six months is."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -188,7 +188,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-excel.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
 
@@ -196,9 +196,9 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eyebrow"><i class="ti ti-gauge" style="font-size:12px"></i> Excel · Claude AI</div>
+    <div class="hero-eyebrow"><i class="ti ti-gauge" style="font-size:12px"></i> Excel · ChatGPT</div>
     <h1>How to Build a Financial KPI Dashboard in Excel with ChatGPT</h1>
-    <p class="hero-sub">Paste your income statement and balance sheet into Claude and get back a computed KPI dashboard — profitability, liquidity, and efficiency metrics with RAG status flags and period-over-period trends.</p>
+    <p class="hero-sub">Paste your income statement and balance sheet into ChatGPT and get back a computed KPI dashboard — profitability, liquidity, and efficiency metrics with RAG status flags and period-over-period trends.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -263,7 +263,7 @@ OUTPUT FORMAT
   item per period — so I can update monthly by changing just the input cells.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Replace all bracketed sections with your real data. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+      <p class="prompt-hint">Replace all bracketed sections with your real data, then paste the prompt into <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
     </div>
 
     <div id="p-thresholds" class="panel">
@@ -443,7 +443,7 @@ Quarterly DPO = 102,000/340,000 × 90 = 27.0 days ✓</pre>
           <div class="claude-fix">
             <div class="claude-fix-label">Threshold logic</div>
             <pre>The thresholds shown here are example user-defined rules for this visual.
-Claude should apply the rules you provide, not generic industry benchmarks.
+ChatGPT should apply the rules you provide, not generic industry benchmarks.
 
 Example for EBITDA Margin:
 =IF(C4>=18%,"Green",IF(C4>=16%,"Amber","Red"))
@@ -543,28 +543,28 @@ Flag: "Trending — watch" even before a hard RAG breach. ✓</pre>
   <!-- STEPS -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Build the Financial KPI Dashboard Step by Step</h2>
   <div class="steps-card">
-    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a financial KPI dashboard with Claude — 5 steps</div>
+    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a financial KPI dashboard with ChatGPT — 5 steps</div>
     <div class="step">
       <div class="step-n">1</div>
-      <div class="step-body"><h3>Pick your KPIs deliberately</h3><p>A dashboard with 25 metrics is a spreadsheet with a green header. Pick 6-10 KPIs that your leadership actually reviews. The prompt lets you specify exactly which ones — Claude doesn't add extras.</p></div>
+      <div class="step-body"><h3>Pick your KPIs deliberately</h3><p>A dashboard with 25 metrics is a spreadsheet with a green header. Pick 6-10 KPIs that your leadership actually reviews. The prompt lets you specify exactly which ones — ChatGPT doesn't add extras.</p></div>
     </div>
     <div class="step">
       <div class="step-n">2</div>
-      <div class="step-body"><h3>Provide at least two periods of data</h3><p>One period gives you a snapshot. Two periods give you a trend. The Change column only works if Claude has a prior period to compare against.</p></div>
+      <div class="step-body"><h3>Provide at least two periods of data</h3><p>One period gives you a snapshot. Two periods give you a trend. The Change column only works if ChatGPT has a prior period to compare against.</p></div>
     </div>
     <div class="step">
       <div class="step-n">3</div>
-      <div class="step-body"><h3>Define your thresholds — not someone else's</h3><p>A "good" gross margin depends entirely on your industry. SaaS companies run 70-80%. Manufacturing might be 25-35%. Tell Claude <em>your</em> targets: <code>Gross Margin ≥ 60%</code>, <code>DSO ≤ 45 days</code>.</p></div>
+      <div class="step-body"><h3>Define your thresholds — not someone else's</h3><p>A "good" gross margin depends entirely on your industry. SaaS companies run 70-80%. Manufacturing might be 25-35%. Tell ChatGPT <em>your</em> targets: <code>Gross Margin ≥ 60%</code>, <code>DSO ≤ 45 days</code>.</p></div>
     </div>
     <div class="step">
       <div class="step-n">4</div>
-      <div class="step-body"><h3>Decide on RAG rules: two-tier or three-tier</h3><p>Two-tier: Green (on target) and Red (off target). Three-tier adds Amber for "approaching the threshold." If you want three tiers, tell Claude the buffer.</p></div>
+      <div class="step-body"><h3>Decide on RAG rules: two-tier or three-tier</h3><p>Two-tier: Green (on target) and Red (off target). Three-tier adds Amber for "approaching the threshold." If you want three tiers, tell ChatGPT the buffer.</p></div>
     </div>
     <div class="step">
       <div class="step-n">5</div>
-      <div class="step-body"><h3>Structure your input as a dedicated Data tab</h3><p>Every KPI formula should reference that tab. Each month, update just the Data tab and every KPI, trend, and RAG status recalculates instantly. Ask Claude to build this structure.</p></div>
+      <div class="step-body"><h3>Structure your input as a dedicated Data tab</h3><p>Every KPI formula should reference that tab. Each month, update just the Data tab and every KPI, trend, and RAG status recalculates instantly. Ask ChatGPT to build this structure.</p></div>
     </div>
-    <div class="warn"><strong>Common mistake:</strong> Using DSO calculated from total revenue rather than credit sales. If any portion of your revenue is cash at point of sale, DSO based on total revenue will look artificially low — tell Claude which revenue figure to use. Also: RAG thresholds in this workflow are always <em>yours</em> — a "good" EBITDA margin for a SaaS business (25–35%) is very different from a distributor (3–6%). Do not treat the examples above as universal benchmarks.</div>
+    <div class="warn"><strong>Common mistake:</strong> Using DSO calculated from total revenue rather than credit sales. If any portion of your revenue is cash at point of sale, DSO based on total revenue will look artificially low — tell ChatGPT which revenue figure to use. Also: RAG thresholds in this workflow are always <em>yours</em> — a "good" EBITDA margin for a SaaS business (25–35%) is very different from a distributor (3–6%). Do not treat the examples above as universal benchmarks.</div>
   </div>
 
   <!-- FAQ -->
@@ -572,23 +572,23 @@ Flag: "Trending — watch" even before a hard RAG breach. ✓</pre>
   <div class="faq-section">
    <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Which financial KPIs should a dashboard include? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Start with the metrics your leadership actually reviews. Common ones include gross margin, operating margin, EBITDA margin, current ratio, quick ratio, DSO (days sales outstanding), DPO (days payable outstanding), and revenue growth rate. The prompt in this course lets you specify exactly which KPIs to include — Claude does not add extras you haven't asked for.</div>
+      <div class="faq-a">Start with the metrics your leadership actually reviews. Common ones include gross margin, operating margin, EBITDA margin, current ratio, quick ratio, DSO (days sales outstanding), DPO (days payable outstanding), and revenue growth rate. The prompt in this course lets you specify exactly which KPIs to include — ChatGPT does not add extras you haven't asked for.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can Claude calculate KPIs directly from raw financial statements? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes. Paste your income statement and balance sheet data, tell Claude which KPIs to calculate and their formulas, and Claude produces a dashboard with the computed values. It uses only the data you provide and writes out each formula so you can verify the logic.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can ChatGPT calculate KPIs directly from raw financial statements? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Yes. Paste your income statement and balance sheet data, tell ChatGPT which KPIs to calculate and their formulas, and ChatGPT produces a dashboard with the computed values. It uses only the data you provide and writes out each formula so you can verify the logic.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What do the RAG status colours mean in a KPI dashboard? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">RAG stands for Red, Amber, Green. Green means the KPI is within target. Amber means it is approaching a threshold and needs attention. Red means it has breached the threshold and requires action. You define the thresholds — Claude applies conditional formatting based on your rules.</div>
+      <div class="faq-a">RAG stands for Red, Amber, Green. Green means the KPI is within target. Amber means it is approaching a threshold and needs attention. Red means it has breached the threshold and requires action. You define the thresholds — ChatGPT applies conditional formatting based on your rules.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How often should a financial KPI dashboard be updated? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Monthly is standard for most finance teams, aligned with the month-end close. Some KPIs like DSO and cash position benefit from weekly updates. The dashboard structure Claude builds works for any frequency — you simply paste updated figures into the input cells.</div>
+      <div class="faq-a">Monthly is standard for most finance teams, aligned with the month-end close. Some KPIs like DSO and cash position benefit from weekly updates. The dashboard structure ChatGPT builds works for any frequency — you simply paste updated figures into the input cells.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can I track KPI trends over multiple periods? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes. The prompt asks Claude to include period-over-period change columns showing both the absolute change and the percentage movement. This makes it easy to spot trends — a margin that dropped 0.5% this month isn't alarming, but a margin that has dropped 0.5% every month for six months is.</div>
+      <div class="faq-a">Yes. The prompt asks ChatGPT to include period-over-period change columns showing both the absolute change and the percentage movement. This makes it easy to spot trends — a margin that dropped 0.5% this month isn't alarming, but a margin that has dropped 0.5% every month for six months is.</div>
     </div>
   </div>
 

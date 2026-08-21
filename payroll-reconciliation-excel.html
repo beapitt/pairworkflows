@@ -6,7 +6,7 @@
 <title>Payroll Reconciliation in Excel: Step-by-Step Guide — PairWorkflows</title>
 <meta name="description" content="Reconcile payroll totals to the general ledger in Excel with ChatGPT. Identify variances, trace mismatches, and verify balances before closing the period.">
 <link rel="canonical" href="https://www.pairworkflows.com/payroll-reconciliation-excel.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is payroll reconciliation and why does it matter for month-end close?","acceptedAnswer":{"@type":"Answer","text":"Payroll reconciliation is the process of verifying that payroll costs and related amounts recorded in the general ledger agree to the payroll register or payroll-system output for the same period — including gross pay, employer taxes, and benefits. Without it, the salary line on your P&L can carry errors for weeks before anyone notices."}},{"@type":"Question","name":"Can Claude reconcile payroll across multiple pay frequencies in one pass?","acceptedAnswer":{"@type":"Answer","text":"Yes, if each pay frequency/run is tied to the correct accounting period and account mapping. Reconcile the runs separately first, then combine only control totals that belong to the same reconciliation period."}},{"@type":"Question","name":"What causes most payroll-to-GL variances?","acceptedAnswer":{"@type":"Answer","text":"Examples include wrong-period postings, account mapping/reclassification issues, off-cycle runs not reflected in the GL, and manual journals without corresponding payroll detail. The reconciliation can surface these patterns but does not prove the cause by itself."}},{"@type":"Question","name":"Does Claude work with exports from ADP, Workday, or SAP?","acceptedAnswer":{"@type":"Answer","text":"Claude can analyse data you paste and, in supported environments, spreadsheet files you upload. For payroll data, follow your organisation's approved Claude/data-handling policy and minimise personal information before sharing. Then map the export columns explicitly rather than assuming Claude will infer the structure correctly."}},{"@type":"Question","name":"How do I handle mid-month pay adjustments or off-cycle runs?","acceptedAnswer":{"@type":"Answer","text":"Include them as separate rows in your payroll extract with a Pay Type of 'Off-cycle'. The prompt instructs Claude to list them in a dedicated section at the bottom of the output so reviewers can find them without searching the main table."}},{"@type":"Question","name":"Can I use this to check individual employee records?","acceptedAnswer":{"@type":"Answer","text":"The prompt is designed for cost-centre or department-level reconciliation. For employee-level checking, change the grouping instruction from 'by Cost Centre and GL Account' to 'by Employee ID and GL Account'. Everything else stays the same."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is payroll reconciliation and why does it matter for month-end close?","acceptedAnswer":{"@type":"Answer","text":"Payroll reconciliation is the process of verifying that payroll costs and related amounts recorded in the general ledger agree to the payroll register or payroll-system output for the same period — including gross pay, employer taxes, and benefits. Without it, the salary line on your P&L can carry errors for weeks before anyone notices."}},{"@type":"Question","name":"Can ChatGPT reconcile payroll across multiple pay frequencies in one pass?","acceptedAnswer":{"@type":"Answer","text":"Yes, if each pay frequency/run is tied to the correct accounting period and account mapping. Reconcile the runs separately first, then combine only control totals that belong to the same reconciliation period."}},{"@type":"Question","name":"What causes most payroll-to-GL variances?","acceptedAnswer":{"@type":"Answer","text":"Examples include wrong-period postings, account mapping/reclassification issues, off-cycle runs not reflected in the GL, and manual journals without corresponding payroll detail. The reconciliation can surface these patterns but does not prove the cause by itself."}},{"@type":"Question","name":"Does ChatGPT work with exports from ADP, Workday, or SAP?","acceptedAnswer":{"@type":"Answer","text":"ChatGPT can analyse data you paste and, in supported environments, spreadsheet files you upload. For payroll data, follow your organisation's approved ChatGPT/data-handling policy and minimise personal information before sharing. Then map the export columns explicitly rather than assuming ChatGPT will infer the structure correctly."}},{"@type":"Question","name":"How do I handle mid-month pay adjustments or off-cycle runs?","acceptedAnswer":{"@type":"Answer","text":"Include them as separate rows in your payroll extract with a Pay Type of 'Off-cycle'. The prompt instructs ChatGPT to list them in a dedicated section at the bottom of the output so reviewers can find them without searching the main table."}},{"@type":"Question","name":"Can I use this to check individual employee records?","acceptedAnswer":{"@type":"Answer","text":"The prompt is designed for cost-centre or department-level reconciliation. For employee-level checking, change the grouping instruction from 'by Cost Centre and GL Account' to 'by Employee ID and GL Account'. Everything else stays the same."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -168,7 +168,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-excel.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
 
@@ -178,7 +178,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Finance</div>
     <h1>How to Reconcile Payroll in Excel with ChatGPT</h1>
-    <p class="hero-sub">Provide Claude with payroll and GL data that your organisation allows you to process, then use it to draft a reconciliation by cost centre/account, surface exceptions and off-cycle items, and produce control totals for review. Treat the result as an investigation aid, not an automatic sign-off.</p>
+    <p class="hero-sub">Provide ChatGPT with payroll and GL data that your organisation allows you to process, then use it to draft a reconciliation by cost centre/account, surface exceptions and off-cycle items, and produce control totals for review. Treat the result as an investigation aid, not an automatic sign-off.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -248,7 +248,7 @@ Output:
 Do not call this a final sign-off. A reviewer must confirm exceptions and control totals.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Replace all bracketed sections with your real data. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+      <p class="prompt-hint">Replace all bracketed sections with your real data, then paste the prompt into <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
     </div>
 
     <!-- Panel: Variance -->
@@ -559,7 +559,7 @@ Shown sample: 4 employees, 2 exceptions. ✓</pre>
   <div class="steps-panel on" id="steps-recon">
     <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Payroll reconciliation process step by step</h2>
     <div class="steps-card">
-      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Run a payroll reconciliation with Claude — 4 steps</div>
+      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Run a payroll reconciliation with ChatGPT — 4 steps</div>
       <div class="step">
         <div class="step-n">1</div>
         <div class="step-body"><h3>Export payroll totals by cost centre and GL account</h3><p>From your payroll system, export a summary by cost centre and pay type — not individual employee rows. You need: Cost Centre, GL Account, Pay Type (Gross Pay / Employer NIC / Pension), and Amount. Most payroll systems have a cost analysis or cost centre summary report for this.</p></div>
@@ -570,7 +570,7 @@ Shown sample: 4 employees, 2 exceptions. ✓</pre>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Paste both datasets into the prompt and set your tolerance</h3><p>Use the tolerance approved by your reconciliation policy. Set it to £0.00 when exact agreement is required; do not choose £0.50 merely because it appears in the example. Specify the period clearly — Claude uses it in the sign-off summary header.</p></div>
+        <div class="step-body"><h3>Paste both datasets into the prompt and set your tolerance</h3><p>Use the tolerance approved by your reconciliation policy. Set it to £0.00 when exact agreement is required; do not choose £0.50 merely because it appears in the example. Specify the period clearly — ChatGPT uses it in the sign-off summary header.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
@@ -595,11 +595,11 @@ Shown sample: 4 employees, 2 exceptions. ✓</pre>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Provide Claude with the details</h3><p>Use the Variance prompt and supply the payroll total, GL total, and the detailed GL rows. Claude checks against common issues like missing journals, wrong period postings, or manual adjustments.</p></div>
+        <div class="step-body"><h3>Provide ChatGPT with the details</h3><p>Use the Variance prompt and supply the payroll total, GL total, and the detailed GL rows. ChatGPT checks against common issues like missing journals, wrong period postings, or manual adjustments.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
-        <div class="step-body"><h3>Document the confirmed correction</h3><p>Use Claude's diagnosis as an investigation aid. Only after the source payroll journal, period, accounts and supporting detail prove the cause should you prepare any reclass, accrual or missing entry for your normal review/approval process.</p></div>
+        <div class="step-body"><h3>Document the confirmed correction</h3><p>Use ChatGPT's diagnosis as an investigation aid. Only after the source payroll journal, period, accounts and supporting detail prove the cause should you prepare any reclass, accrual or missing entry for your normal review/approval process.</p></div>
       </div>
     </div>
   </div>
@@ -619,7 +619,7 @@ Shown sample: 4 employees, 2 exceptions. ✓</pre>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Run the strict Employee ID matching prompt</h3><p>Paste both datasets into Claude using the Employee-level prompt. If both datasets are employee-granular, aggregate by Employee ID + mapped GL Account and compare those totals. If the granularity differs, stop rather than forcing a match.</p></div>
+        <div class="step-body"><h3>Run the strict Employee ID matching prompt</h3><p>Paste both datasets into ChatGPT using the Employee-level prompt. If both datasets are employee-granular, aggregate by Employee ID + mapped GL Account and compare those totals. If the granularity differs, stop rather than forcing a match.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
@@ -636,12 +636,12 @@ Shown sample: 4 employees, 2 exceptions. ✓</pre>
       <div class="faq-a">Payroll reconciliation verifies that payroll costs and related amounts in the general ledger agree to the payroll register or payroll-system output for the same period — including gross pay, employer taxes, and benefits. Without it, the salary line on your P&amp;L can carry errors for weeks before anyone notices.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can Claude reconcile payroll across multiple pay frequencies in one pass? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can ChatGPT reconcile payroll across multiple pay frequencies in one pass? <i class="ti ti-chevron-down"></i></div>
       <div class="faq-a">Yes, if the pay periods and GL posting periods are clearly separated. Reconcile each frequency/run to the appropriate accounting period and account mapping first, then combine only the control totals that belong to the same reconciliation period.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Does Claude work with exports from ADP, Workday, or SAP? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Claude can analyse data you paste and, in supported environments, spreadsheet files you upload. For payroll data, follow your organisation's approved Claude/data-handling policy and minimise personal information before sharing. Then map the export columns explicitly rather than assuming Claude will infer the structure correctly.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Does ChatGPT work with exports from ADP, Workday, or SAP? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">ChatGPT can analyse data you paste and, in supported environments, spreadsheet files you upload. For payroll data, follow your organisation's approved ChatGPT/data-handling policy and minimise personal information before sharing. Then map the export columns explicitly rather than assuming ChatGPT will infer the structure correctly.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I handle mid-month pay adjustments or off-cycle runs? <i class="ti ti-chevron-down"></i></div>

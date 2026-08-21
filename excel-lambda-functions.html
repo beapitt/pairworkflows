@@ -185,7 +185,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-excel.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
 
@@ -193,10 +193,10 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eyebrow"><i class="ti ti-function" style="font-size:12px"></i> Excel · Claude AI</div>
+    <div class="hero-eyebrow"><i class="ti ti-function" style="font-size:12px"></i> Excel · ChatGPT</div>
     <h1>How to Create Excel LAMBDA Functions with ChatGPT</h1>
 
-    <p class="hero-sub">Stop copying the same formula into cell after cell. Describe the calculation you repeat constantly and Claude writes the full LAMBDA function — clear parameter names, a test formula, and the exact text to paste into Name Manager. Microsoft 365 or Excel 2024.</p>
+    <p class="hero-sub">Stop copying the same formula into cell after cell. Describe the calculation you repeat constantly and ChatGPT writes the full LAMBDA function — clear parameter names, a test formula, and the exact text to paste into Name Manager. Microsoft 365 or Excel 2024.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -248,7 +248,7 @@ Please:
 7. Give me one example of how to call the named function after registration.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Describe the logic in plain English — no need to know LAMBDA syntax yourself. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+      <p class="prompt-hint">Describe the logic in plain English — no need to know LAMBDA syntax yourself. Paste the prompt into <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
     </div>
 
     <div id="p-debug" class="panel">
@@ -482,7 +482,7 @@ Inline test:
           </div>
         </div>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's fix</div>
+          <div class="claude-fix-label">ChatGPT's fix</div>
           <pre>Definition:
 =LAMBDA(revenue,costs,
   IF(revenue=0,0,(revenue-costs)/revenue))
@@ -600,11 +600,11 @@ every call uses the same logic. ✓</pre>
     </div>
     <div class="step">
       <div class="step-n">2</div>
-      <div class="step-body"><h3>Describe it clearly to Claude</h3><p>Explain the logic in plain English: "Calculate net margin as revenue minus costs divided by revenue. Return 0 if revenue is zero." Claude translates this into correct LAMBDA syntax with named parameters.</p></div>
+      <div class="step-body"><h3>Describe it clearly to ChatGPT</h3><p>Explain the logic in plain English: "Calculate net margin as revenue minus costs divided by revenue. Return 0 if revenue is zero." ChatGPT translates this into correct LAMBDA syntax with named parameters.</p></div>
     </div>
     <div class="step">
       <div class="step-n">3</div>
-      <div class="step-body"><h3>Test before registering</h3><p>Test the LAMBDA in a cell by invoking it immediately, for example <code>=LAMBDA(x,x+1)(1)</code>. A bare LAMBDA definition entered in a cell without a call returns <code>#CALC!</code>. If the result is wrong, send Claude the definition, call, inputs, actual result and expected result.</p></div>
+      <div class="step-body"><h3>Test before registering</h3><p>Test the LAMBDA in a cell by invoking it immediately, for example <code>=LAMBDA(x,x+1)(1)</code>. A bare LAMBDA definition entered in a cell without a call returns <code>#CALC!</code>. If the result is wrong, send ChatGPT the definition, call, inputs, actual result and expected result.</p></div>
     </div>
     <div class="step">
       <div class="step-n">4</div>
@@ -638,7 +638,7 @@ every call uses the same logic. ✓</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can LAMBDA be combined with other Excel 365 functions? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes — LAMBDA is often combined with <code>LET</code>, which lets you define named variables inside a formula. This keeps multi-step calculations readable even as the logic grows more complex. Ask Claude to use LET if the formula body is getting long.</div>
+      <div class="faq-a">Yes — LAMBDA is often combined with <code>LET</code>, which lets you define named variables inside a formula. This keeps multi-step calculations readable even as the logic grows more complex. Ask ChatGPT to use LET if the formula body is getting long.</div>
     </div>
   </div>
 
@@ -647,7 +647,7 @@ every call uses the same logic. ✓</pre>
   <div class="related-grid">
     <a href="/excel-if-ifs-formulas.html" class="related-link">
       <strong>Write Clean IF and IFS Formulas</strong>
-      <span>Simplify complex conditional logic with Claude.</span>
+      <span>Simplify complex conditional logic with ChatGPT.</span>
     </a>
     <a href="/xlookup-not-working.html" class="related-link">
       <strong>Write an XLOOKUP Formula</strong>
@@ -657,7 +657,7 @@ every call uses the same logic. ✓</pre>
       <strong>Understand and Document Inherited Formulas</strong>
       <span>Master complex inherited worksheets before touching them.</span>
     </a>
-    <a href="/claude-excel-sheets-finance-formulas.html" class="related-link">
+    <a href="/excel-workflows.html" class="related-link">
       <strong>Excel and Google Sheets Formulas for Finance</strong>
       <span>Write, debug, and convert formulas for either tool.</span>
     </a>

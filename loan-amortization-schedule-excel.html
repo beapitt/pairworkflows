@@ -6,7 +6,7 @@
 <title>How to Build a Loan Amortization Schedule in Excel — PairWorkflows</title>
 <meta name="description" content="Build a loan amortization schedule in Excel with ChatGPT showing principal, interest, payment amount, and remaining balance for every payment period.">
 <link rel="canonical" href="https://www.pairworkflows.com/loan-amortization-schedule-excel.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude handle variable interest rates in an amortization schedule?","acceptedAnswer":{"@type":"Answer","text":"Yes, if you provide both the rate schedule and the loan's payment-reset rule. Some contracts recalculate payment at a reset; others keep payment fixed, use caps/floors, or create a different maturity/balloon effect. Claude should follow the supplied contract mechanics rather than assume a universal reset rule."}},{"@type":"Question","name":"How does Claude calculate the monthly payment amount?","acceptedAnswer":{"@type":"Answer","text":"For a regular fixed-rate annuity, Excel's PMT function uses the periodic rate, number of periods, present value, optional future value and payment timing. The periodic rate must be derived from the rate convention in the agreement; annual-rate/12 is appropriate only for a compatible nominal monthly convention."}},{"@type":"Question","name":"Can I model extra principal payments or lump-sum prepayments?","acceptedAnswer":{"@type":"Answer","text":"Yes. Supply the prepayment dates/periods, amounts, timing within the payment cycle, any penalties, and whether the lender shortens the term or recasts payments. Interest savings should be measured against a baseline schedule built from identical loan assumptions."}},{"@type":"Question","name":"Will the schedule work for quarterly or annual payment frequencies?","acceptedAnswer":{"@type":"Answer","text":"Yes, but the periodic-rate conversion still depends on the quoted rate convention. For example, a 6% nominal annual rate convertible quarterly corresponds to 1.5% per quarter and 20 payments over five years; an effective annual rate requires a different periodic-rate conversion."}},{"@type":"Question","name":"How do I verify Claude's amortization output?","acceptedAnswer":{"@type":"Answer","text":"Use Excel formulas for the schedule and independent controls for first-period interest, payment composition, principal reconciliation, prepayment/reset timing and ending balance. The model must preserve any contractual balloon/residual rather than forcing zero. Do not treat manually calculated chat totals as verified unless the formulas were actually executed."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can ChatGPT handle variable interest rates in an amortization schedule?","acceptedAnswer":{"@type":"Answer","text":"Yes, if you provide both the rate schedule and the loan's payment-reset rule. Some contracts recalculate payment at a reset; others keep payment fixed, use caps/floors, or create a different maturity/balloon effect. ChatGPT should follow the supplied contract mechanics rather than assume a universal reset rule."}},{"@type":"Question","name":"How does ChatGPT calculate the monthly payment amount?","acceptedAnswer":{"@type":"Answer","text":"For a regular fixed-rate annuity, Excel's PMT function uses the periodic rate, number of periods, present value, optional future value and payment timing. The periodic rate must be derived from the rate convention in the agreement; annual-rate/12 is appropriate only for a compatible nominal monthly convention."}},{"@type":"Question","name":"Can I model extra principal payments or lump-sum prepayments?","acceptedAnswer":{"@type":"Answer","text":"Yes. Supply the prepayment dates/periods, amounts, timing within the payment cycle, any penalties, and whether the lender shortens the term or recasts payments. Interest savings should be measured against a baseline schedule built from identical loan assumptions."}},{"@type":"Question","name":"Will the schedule work for quarterly or annual payment frequencies?","acceptedAnswer":{"@type":"Answer","text":"Yes, but the periodic-rate conversion still depends on the quoted rate convention. For example, a 6% nominal annual rate convertible quarterly corresponds to 1.5% per quarter and 20 payments over five years; an effective annual rate requires a different periodic-rate conversion."}},{"@type":"Question","name":"How do I verify ChatGPT's amortization output?","acceptedAnswer":{"@type":"Answer","text":"Use Excel formulas for the schedule and independent controls for first-period interest, payment composition, principal reconciliation, prepayment/reset timing and ending balance. The model must preserve any contractual balloon/residual rather than forcing zero. Do not treat manually calculated chat totals as verified unless the formulas were actually executed."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -177,7 +177,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-excel.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
 
@@ -185,9 +185,9 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
+    <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · ChatGPT</div>
    <h1>How to Build a Loan Amortization Schedule in Excel with ChatGPT</h1>
-    <p class="hero-sub">Provide Claude with the exact loan contract terms, rate convention, payment timing, fees/prepayment rules, and any reset schedule, then use it to draft an auditable Excel amortization schedule. Verify the payment, interest, principal and ending balance against Excel formulas before relying on the result.</p>
+    <p class="hero-sub">Provide ChatGPT with the exact loan contract terms, rate convention, payment timing, fees/prepayment rules, and any reset schedule, then use it to draft an auditable Excel amortization schedule. Verify the payment, interest, principal and ending balance against Excel formulas before relying on the result.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -280,7 +280,7 @@ OUTPUT
    Otherwise do not manually simulate all periods in prose.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Replace the bracketed values with your loan terms. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+      <p class="prompt-hint">Replace the bracketed values with your loan terms, then paste the prompt into <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
     </div>
 
     <div id="p-extra" class="panel">
@@ -654,7 +654,7 @@ Ending balance at Period 60 = £0.00 ✓</pre>
   <!-- STEPS -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Build Your Excel Amortization Schedule with ChatGPT</h2>
   <div class="steps-card">
-    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build the schedule with Claude</div>
+    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build the schedule with ChatGPT</div>
     <div class="step">
       <div class="step-n">1</div>
       <div class="step-body"><h3>Confirm the rate basis</h3><p>Identify exactly how the contract states the rate. For a nominal annual rate compounded monthly, 5%/12 is the monthly periodic rate. For an effective annual rate, use the equivalent periodic-rate conversion instead. Do not infer the convention from the percentage alone.</p></div>
@@ -677,11 +677,11 @@ Ending balance at Period 60 = £0.00 ✓</pre>
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Frequently asked questions</h2>
   <div class="faq-section">
   <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can Claude handle variable interest rates in an amortization schedule? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes, if you provide both the rate schedule and the loan's payment-reset rule. Some contracts recalculate payment at a reset; others keep payment fixed, use caps/floors, or create a different maturity/balloon effect. Claude should follow the supplied contract mechanics rather than assume a universal reset rule.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can ChatGPT handle variable interest rates in an amortization schedule? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Yes, if you provide both the rate schedule and the loan's payment-reset rule. Some contracts recalculate payment at a reset; others keep payment fixed, use caps/floors, or create a different maturity/balloon effect. ChatGPT should follow the supplied contract mechanics rather than assume a universal reset rule.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">How does Claude calculate the monthly payment amount? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-q" onclick="toggleFaq(this)">How does ChatGPT calculate the monthly payment amount? <i class="ti ti-chevron-down"></i></div>
       <div class="faq-a">For a regular fixed-rate annuity, Excel's PMT function uses the periodic rate, number of periods, present value, optional future value and payment timing. The periodic rate must be derived from the rate convention in the agreement; annual-rate/12 is appropriate only for a compatible nominal monthly convention.</div>
     </div>
     <div class="faq-item">
@@ -693,7 +693,7 @@ Ending balance at Period 60 = £0.00 ✓</pre>
       <div class="faq-a">Yes, but the periodic-rate conversion still depends on the quoted rate convention. For example, a 6% nominal annual rate convertible quarterly corresponds to 1.5% per quarter and 20 payments over five years; an effective annual rate requires a different periodic-rate conversion.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">How do I verify Claude's amortization output? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-q" onclick="toggleFaq(this)">How do I verify ChatGPT's amortization output? <i class="ti ti-chevron-down"></i></div>
       <div class="faq-a">Use Excel formulas for the schedule and independent controls for first-period interest, payment composition, principal reconciliation, prepayment/reset timing and ending balance. The model must preserve any contractual balloon/residual rather than forcing zero. Do not treat manually calculated chat totals as verified unless the formulas were actually executed.</div>
     </div>
   </div>
@@ -711,7 +711,7 @@ Ending balance at Period 60 = £0.00 ✓</pre>
     </a>
     <a href="/capex-planning-excel.html" class="related-link">
       <strong>Build a CapEx Planning Template</strong>
-      <span>Create a capital expenditure forecasting model in Excel with Claude AI.</span>
+      <span>Create a capital expenditure forecasting model in Excel with ChatGPT.</span>
     </a>
     <a href="/build-budget-variance-analysis-report-excel.html" class="related-link">
       <strong>Budget Variance Analysis Report</strong>

@@ -6,7 +6,7 @@
 <title>Month-End Close Checklist in Excel — PairWorkflows</title>
 <meta name="description" content="Build a month-end close checklist in Excel with ChatGPT to track accounting tasks, owners, deadlines, dependencies, and completion status.">
 <link rel="canonical" href="https://www.pairworkflows.com/month-end-close-excel.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What tasks should a month-end close checklist include?","acceptedAnswer":{"@type":"Answer","text":"A typical checklist covers bank reconciliation, accounts receivable and payable reviews, accrual entries, intercompany eliminations, fixed asset depreciation, revenue recognition, trial balance review, and financial statement preparation. The exact list depends on your organisation's complexity."}},{"@type":"Question","name":"Can Claude generate the close checklist from my company's existing process?","acceptedAnswer":{"@type":"Answer","text":"Provide your current task IDs, tasks, owners, deadline offsets and dependencies. Claude can restructure them into a trackable Excel checklist, but missing inputs should be flagged rather than guessed and the output should be reviewed before use."}},{"@type":"Question","name":"How do I track completion percentage automatically in Excel?","acceptedAnswer":{"@type":"Answer","text":"Use a COUNTIF-based numerator for Complete and a denominator that counts only nonblank task rows. Structured references keep the ranges aligned as the Excel Table changes."}},{"@type":"Question","name":"Does this replace close management software?","acceptedAnswer":{"@type":"Answer","text":"No. This is for teams that manage the close in spreadsheets and need a faster way to build and maintain the checklist. If you use dedicated close software, this template can complement it as a lightweight backup or secondary tracker."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What tasks should a month-end close checklist include?","acceptedAnswer":{"@type":"Answer","text":"A typical checklist covers bank reconciliation, accounts receivable and payable reviews, accrual entries, intercompany eliminations, fixed asset depreciation, revenue recognition, trial balance review, and financial statement preparation. The exact list depends on your organisation's complexity."}},{"@type":"Question","name":"Can ChatGPT generate the close checklist from my company's existing process?","acceptedAnswer":{"@type":"Answer","text":"Provide your current task IDs, tasks, owners, deadline offsets and dependencies. ChatGPT can restructure them into a trackable Excel checklist, but missing inputs should be flagged rather than guessed and the output should be reviewed before use."}},{"@type":"Question","name":"How do I track completion percentage automatically in Excel?","acceptedAnswer":{"@type":"Answer","text":"Use a COUNTIF-based numerator for Complete and a denominator that counts only nonblank task rows. Structured references keep the ranges aligned as the Excel Table changes."}},{"@type":"Question","name":"Does this replace close management software?","acceptedAnswer":{"@type":"Answer","text":"No. This is for teams that manage the close in spreadsheets and need a faster way to build and maintain the checklist. If you use dedicated close software, this template can complement it as a lightweight backup or secondary tracker."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -164,7 +164,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-excel.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
 
@@ -174,7 +174,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Finance</div>
     <h1>How to Build a Month-End Close Checklist in Excel with ChatGPT</h1>
-    <p class="hero-sub">Provide Claude with your close tasks, owners, deadline offsets, dependencies, holiday calendar, and status rules, then use it to draft an auditable Excel close tracker. The workflow keeps deadlines formula-driven, completion metrics traceable, and missing ownership/timing inputs visible instead of inventing them.</p>
+    <p class="hero-sub">Provide ChatGPT with your close tasks, owners, deadline offsets, dependencies, holiday calendar, and status rules, then use it to draft an auditable Excel close tracker. The workflow keeps deadlines formula-driven, completion metrics traceable, and missing ownership/timing inputs visible instead of inventing them.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -250,7 +250,7 @@ OUTPUT
 Use tab-separated tables suitable for Excel.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Replace the bracketed section with your task list. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+      <p class="prompt-hint">Replace the bracketed section with your task list, then paste the prompt into <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
     </div>
 
     <!-- Panel: Owner -->
@@ -575,14 +575,14 @@ Final structured formula:
   <div class="steps-panel on" id="steps-build">
     <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Build a month-end close checklist step by step</h2>
     <div class="steps-card">
-      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a month-end close checklist with Claude — 4 steps</div>
+      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a month-end close checklist with ChatGPT — 4 steps</div>
       <div class="step">
         <div class="step-n">1</div>
-        <div class="step-body"><h3>Sequence tasks by dependency</h3><p>Provide explicit Task IDs and dependency IDs from your own close process. Do not assume universal sequencing from task names: the correct order depends on your systems, accounting process and review controls. Claude should preserve the dependencies you supply rather than inventing them.</p></div>
+        <div class="step-body"><h3>Sequence tasks by dependency</h3><p>Provide explicit Task IDs and dependency IDs from your own close process. Do not assume universal sequencing from task names: the correct order depends on your systems, accounting process and review controls. ChatGPT should preserve the dependencies you supply rather than inventing them.</p></div>
       </div>
       <div class="step">
         <div class="step-n">2</div>
-        <div class="step-body"><h3>Assign named owners, not team names</h3><p>Use the ownership convention your organisation actually uses—an individual, role, or controlled team queue—and keep it consistent. Do not let Claude replace a missing owner with a guessed person. Consistent owner values enable the COUNTIFS summary.</p></div>
+        <div class="step-body"><h3>Assign named owners, not team names</h3><p>Use the ownership convention your organisation actually uses—an individual, role, or controlled team queue—and keep it consistent. Do not let ChatGPT replace a missing owner with a guessed person. Consistent owner values enable the COUNTIFS summary.</p></div>
       </div>
       <div class="step">
         <div class="step-n">3</div>
@@ -611,7 +611,7 @@ Final structured formula:
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Apply COUNTIFS syntax</h3><p>Use Claude's prompt output to dynamically count assigned tasks vs. completed ones based on matching text criteria.</p></div>
+        <div class="step-body"><h3>Apply COUNTIFS syntax</h3><p>Use ChatGPT's prompt output to dynamically count assigned tasks vs. completed ones based on matching text criteria.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
@@ -635,7 +635,7 @@ Final structured formula:
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Run the Debug prompt</h3><p>Paste your formula and sample rows into Claude to diagnose likely range mismatches, text mismatches, or quoting errors.</p></div>
+        <div class="step-body"><h3>Run the Debug prompt</h3><p>Paste your formula and sample rows into ChatGPT to diagnose likely range mismatches, text mismatches, or quoting errors.</p></div>
       </div>
     </div>
   </div>
@@ -645,11 +645,11 @@ Final structured formula:
   <div class="faq-section">
   <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What tasks should a month-end close checklist include? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">A typical checklist covers bank reconciliation, accounts receivable and payable reviews, accrual entries, intercompany eliminations, fixed asset depreciation, revenue recognition, trial balance review, and financial statement preparation. The exact list depends on your organisation's complexity — paste your own tasks into the prompt and Claude structures them without inventing extras.</div>
+      <div class="faq-a">A typical checklist covers bank reconciliation, accounts receivable and payable reviews, accrual entries, intercompany eliminations, fixed asset depreciation, revenue recognition, trial balance review, and financial statement preparation. The exact list depends on your organisation's complexity — paste your own tasks into the prompt and ChatGPT structures them without inventing extras.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can Claude generate the checklist from my existing process? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes. Provide your existing task IDs, tasks, owners, offsets and dependencies. Claude can restructure those inputs into a tracker, but review the output: a prompt cannot guarantee that an AI never adds or alters something. Missing owner/timing inputs should be flagged rather than guessed.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can ChatGPT generate the checklist from my existing process? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Yes. Provide your existing task IDs, tasks, owners, offsets and dependencies. ChatGPT can restructure those inputs into a tracker, but review the output: a prompt cannot guarantee that an AI never adds or alters something. Missing owner/timing inputs should be flagged rather than guessed.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I track completion percentage automatically in Excel? <i class="ti ti-chevron-down"></i></div>

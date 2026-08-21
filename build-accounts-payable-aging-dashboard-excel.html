@@ -6,7 +6,7 @@
 <title>How to Prepare an Accounts Payable Aging Report in Excel — PairWorkflows</title>
 <meta name="description" content="Build an accounts payable aging report in Excel with ChatGPT using aging buckets, DPO, early-payment discounts, and payment priority scoring.">
 <link rel="canonical" href="https://www.pairworkflows.com/build-accounts-payable-aging-dashboard-excel.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is an accounts payable aging report?","acceptedAnswer":{"@type":"Answer","text":"An AP aging report groups outstanding vendor invoices by how close they are to the due date or how far past due they are. Standard buckets are Current (not yet due), 1-30 days overdue, 31-60 days, 61-90 days, and 90+ days. It helps finance teams decide which invoices to pay first and identify overdue obligations that may damage vendor relationships."}},{"@type":"Question","name":"How is AP aging different from AR aging?","acceptedAnswer":{"@type":"Answer","text":"AR aging tracks what customers owe you. AP aging tracks what you owe vendors. The mechanics are similar — both use aging buckets based on due dates — but the priorities are opposite. AR aging asks who to chase for collection. AP aging asks who to pay first to protect relationships and avoid penalties."}},{"@type":"Question","name":"Can Claude calculate DPO from the AP data?","acceptedAnswer":{"@type":"Answer","text":"Yes. DPO (days payable outstanding) equals total accounts payable divided by average daily COGS for the period. You provide the COGS figure and the number of days. Claude computes DPO and can track it period over period. DPO feeds directly into your financial KPI dashboard."}},{"@type":"Question","name":"How do I handle early payment discounts in the AP aging tracker?","acceptedAnswer":{"@type":"Answer","text":"Include the discount terms in your invoice data — for example 2/10 Net 30 means a 2 percent discount if paid within 10 days. Claude adds a Discount Available column that flags invoices where the discount window is still open, plus the dollar value of the discount so you can prioritise accordingly."}},{"@type":"Question","name":"Should I pay the oldest invoices first?","acceptedAnswer":{"@type":"Answer","text":"Not necessarily. Payment priority depends on multiple factors: late payment penalties, early payment discounts available, vendor criticality, and cash position. The prompt in this course builds a priority score based on rules you define — not just age."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is an accounts payable aging report?","acceptedAnswer":{"@type":"Answer","text":"An AP aging report groups outstanding vendor invoices by how close they are to the due date or how far past due they are. Standard buckets are Current (not yet due), 1-30 days overdue, 31-60 days, 61-90 days, and 90+ days. It helps finance teams decide which invoices to pay first and identify overdue obligations that may damage vendor relationships."}},{"@type":"Question","name":"How is AP aging different from AR aging?","acceptedAnswer":{"@type":"Answer","text":"AR aging tracks what customers owe you. AP aging tracks what you owe vendors. The mechanics are similar — both use aging buckets based on due dates — but the priorities are opposite. AR aging asks who to chase for collection. AP aging asks who to pay first to protect relationships and avoid penalties."}},{"@type":"Question","name":"Can ChatGPT calculate DPO from the AP data?","acceptedAnswer":{"@type":"Answer","text":"Yes. DPO (days payable outstanding) equals total accounts payable divided by average daily COGS for the period. You provide the COGS figure and the number of days. ChatGPT computes DPO and can track it period over period. DPO feeds directly into your financial KPI dashboard."}},{"@type":"Question","name":"How do I handle early payment discounts in the AP aging tracker?","acceptedAnswer":{"@type":"Answer","text":"Include the discount terms in your invoice data — for example 2/10 Net 30 means a 2 percent discount if paid within 10 days. ChatGPT adds a Discount Available column that flags invoices where the discount window is still open, plus the dollar value of the discount so you can prioritise accordingly."}},{"@type":"Question","name":"Should I pay the oldest invoices first?","acceptedAnswer":{"@type":"Answer","text":"Not necessarily. Payment priority depends on multiple factors: late payment penalties, early payment discounts available, vendor criticality, and cash position. The prompt in this course builds a priority score based on rules you define — not just age."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -183,7 +183,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-excel.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
 
@@ -191,9 +191,9 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eyebrow"><i class="ti ti-truck-delivery" style="font-size:12px"></i> Excel · Claude AI</div>
+    <div class="hero-eyebrow"><i class="ti ti-truck-delivery" style="font-size:12px"></i> Excel · ChatGPT</div>
     <h1>How to Prepare an Accounts Payable Aging Report in Excel with ChatGPT</h1>
-    <p class="hero-sub">Paste your open vendor invoices into Claude and get back a full AP aging dashboard — vendor-level buckets, DPO, early-payment discount flags, and a payment priority score, all formula-driven.</p>
+    <p class="hero-sub">Paste your open vendor invoices into ChatGPT and get back a full AP aging dashboard — vendor-level buckets, DPO, early-payment discount flags, and a payment priority score, all formula-driven.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -260,7 +260,7 @@ OUTPUT FORMAT
 Format as tab-separated tables ready to paste into Excel.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Replace all bracketed sections with your real data. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+      <p class="prompt-hint">Replace all bracketed sections with your real data, then paste the prompt into <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
     </div>
 
     <div id="p-discount" class="panel">
@@ -337,7 +337,7 @@ Current. Explain the new priority for each invoice in one short phrase.</pre>
           <tr><td class="bar-cell"><span class="ap-bar-green"></span></td><td>Office Depot</td><td>OD-0044</td><td>$840</td><td style="color:#059669">26 days</td><td style="color:#059669">1–30</td><td style="color:#059669">🟢 Low</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's AP summary</div>
+          <div class="claude-fix-label">ChatGPT's AP summary</div>
           <pre>Total AP:     $115,140
 90+ days:      $67,500  ← pay immediately
 61–90 days:     $3,200
@@ -369,7 +369,7 @@ DPO = $115,140 ÷ ($820,000 ÷ 180) = 25.3 days ✓</pre>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude ranks open discount opportunities</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — ChatGPT ranks open discount opportunities</div>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th>Vendor</th><th>Amount</th><th>Disc Rate</th><th>Disc £</th><th>Days Left</th><th>Cash Used</th><th>Rank</th></tr>
@@ -379,7 +379,7 @@ DPO = $115,140 ÷ ($820,000 ÷ 180) = 25.3 days ✓</pre>
           <tr><td>Print Co</td><td>$3,200</td><td>2%</td><td class="err-cell">$64</td><td class="err-cell">Expired</td><td>—</td><td class="err-cell">Missed ✗</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's discount summary</div>
+          <div class="claude-fix-label">ChatGPT's discount summary</div>
           <pre>Available cash:    $40,000
 Pay Packaging Ltd: $14,210  saves $290 (2.0% eff. rate)
 Pay Nord Freight:   $9,062  saves $138 (1.5% eff. rate)
@@ -424,7 +424,7 @@ Priority: Packaging first (best rate), then Nord. ✓</pre>
           <tr><td>Print Co</td><td>$3,200</td><td>22 days</td><td>N</td><td class="ok-cell">🟢 Low</td><td>1–30 days, ≤$20k</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's priority rule</div>
+          <div class="claude-fix-label">ChatGPT's priority rule</div>
           <pre>IF Critical=Y AND NOT Current → High (regardless of age)
 IF Critical=N → apply standard age/amount rules
 3 High (all critical vendors) vs 1 High before.
@@ -462,7 +462,7 @@ Office Depot $840 correctly drops to Medium. ✓</pre>
   <!-- STEPS -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Build an accounts payable aging report step by step</h2>
   <div class="steps-card">
-    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build an AP aging dashboard with Claude — 5 steps</div>
+    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build an AP aging dashboard with ChatGPT — 5 steps</div>
     <div class="step">
       <div class="step-n">1</div>
       <div class="step-body"><h3>Include only open invoices</h3><p>Paid invoices inflate your AP total and create phantom overdue items. Filter before pasting. If partial payments exist, include only the remaining balance.</p></div>
@@ -473,15 +473,15 @@ Office Depot $840 correctly drops to Medium. ✓</pre>
     </div>
     <div class="step">
       <div class="step-n">3</div>
-      <div class="step-body"><h3>Specify the report date</h3><p>Claude calculates days overdue as <code>Report Date − Due Date</code>. Negative = not yet due = Current. State it clearly: <code>Report date: 11/07/2025</code>.</p></div>
+      <div class="step-body"><h3>Specify the report date</h3><p>ChatGPT calculates days overdue as <code>Report Date − Due Date</code>. Negative = not yet due = Current. State it clearly: <code>Report date: 11/07/2025</code>.</p></div>
     </div>
     <div class="step">
       <div class="step-n">4</div>
-      <div class="step-body"><h3>Provide COGS for the DPO calculation</h3><p>DPO = Total AP ÷ (COGS ÷ Days in period). Without COGS, Claude can't calculate DPO. Include the figure and the period length: <code>COGS for Q2 2025: $640,000 over 91 days</code>.</p></div>
+      <div class="step-body"><h3>Provide COGS for the DPO calculation</h3><p>DPO = Total AP ÷ (COGS ÷ Days in period). Without COGS, ChatGPT can't calculate DPO. Include the figure and the period length: <code>COGS for Q2 2025: $640,000 over 91 days</code>.</p></div>
     </div>
     <div class="step">
       <div class="step-n">5</div>
-      <div class="step-body"><h3>Flag critical vendors explicitly</h3><p>Add a "Critical Vendor" column (Y/N) so Claude can boost priority for sole-source suppliers, key logistics partners, or regulated service providers — regardless of the age of the invoice.</p></div>
+      <div class="step-body"><h3>Flag critical vendors explicitly</h3><p>Add a "Critical Vendor" column (Y/N) so ChatGPT can boost priority for sole-source suppliers, key logistics partners, or regulated service providers — regardless of the age of the invoice.</p></div>
     </div>
     <div class="warn"><strong>Common mistake:</strong> Treating all overdue invoices equally. A $67,500 invoice 92 days late to your sole raw material supplier is a crisis. A $800 office supply invoice 35 days late is an admin task. Priority should weight age, amount, and vendor criticality together.</div>
   </div>
@@ -498,12 +498,12 @@ Office Depot $840 correctly drops to Medium. ✓</pre>
       <div class="faq-a">AR aging tracks what customers owe you. AP aging tracks what you owe vendors. The mechanics are similar — both use aging buckets based on due dates — but the priorities are opposite. AR aging asks who to chase for collection. AP aging asks who to pay first to protect relationships and avoid penalties.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can Claude calculate DPO from the AP data? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes. DPO (days payable outstanding) equals total accounts payable divided by average daily COGS for the period. You provide the COGS figure and the number of days. Claude computes DPO and can track it period over period. DPO feeds directly into your financial KPI dashboard.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can ChatGPT calculate DPO from the AP data? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Yes. DPO (days payable outstanding) equals total accounts payable divided by average daily COGS for the period. You provide the COGS figure and the number of days. ChatGPT computes DPO and can track it period over period. DPO feeds directly into your financial KPI dashboard.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I handle early payment discounts in the AP aging tracker? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Include the discount terms in your invoice data — for example 2/10 Net 30 means a 2 percent discount if paid within 10 days. Claude adds a Discount Available column that flags invoices where the discount window is still open, plus the dollar value of the discount so you can prioritise accordingly.</div>
+      <div class="faq-a">Include the discount terms in your invoice data — for example 2/10 Net 30 means a 2 percent discount if paid within 10 days. ChatGPT adds a Discount Available column that flags invoices where the discount window is still open, plus the dollar value of the discount so you can prioritise accordingly.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Should I pay the oldest invoices first? <i class="ti ti-chevron-down"></i></div>

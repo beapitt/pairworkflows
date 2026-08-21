@@ -6,7 +6,7 @@
 <title>How to Remove Duplicates in Excel Safely — PairWorkflows</title>
 <meta name="description" content="Remove duplicates in Excel with ChatGPT without deleting valid rows. Identify duplicate keys, choose which record to keep, and verify before deletion.">
 <link rel="canonical" href="https://www.pairworkflows.com/remove-duplicates-excel.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I remove duplicates in Excel?","acceptedAnswer":{"@type":"Answer","text":"Go to Data → Remove Duplicates. Select the columns that together define a unique record — for example, Customer + Date, not just Customer alone. Excel keeps the first occurrence and deletes the rest. Always work on a copy of your data first — removing duplicates deletes data from the selected range, so keep a separate copy of the original first."}},{"@type":"Question","name":"How do I remove duplicates from a specific column in Excel?","acceptedAnswer":{"@type":"Answer","text":"In the Remove Duplicates dialog, uncheck all columns except the one you want to deduplicate. For example, to remove rows where the Email column repeats, uncheck everything and leave only Email checked. Excel keeps the first occurrence of each unique email."}},{"@type":"Question","name":"How do I keep the most recent duplicate instead of the first one?","acceptedAnswer":{"@type":"Answer","text":"Excel's Remove Duplicates always keeps the first row. To keep the most recent, sort your data by date descending before running Remove Duplicates. The most recent record will then appear first, so it will be the one kept."}},{"@type":"Question","name":"Can Claude remove duplicates from my Excel file directly?","acceptedAnswer":{"@type":"Answer","text":"Claude can work with XLSX files when the relevant file and code features are enabled, and Claude for Excel can work inside supported Excel environments. From pasted headers and sample rows, Claude can propose a duplicate key, sort rule, and COUNTIFS checks, but the user should confirm the business rule before destructive deletion. Whether Claude edits the workbook directly depends on the Claude environment being used."}},{"@type":"Question","name":"What is the COUNTIFS formula to find duplicates in Excel?","acceptedAnswer":{"@type":"Answer","text":"Use =COUNTIFS($A$2:$A2,A2,$B$2:$B2,B2) in a helper column. This counts how many times the combination of columns A and B has appeared up to the current row. Any value greater than 1 is a duplicate of a row seen earlier. Filter on >1 and review before deleting."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I remove duplicates in Excel?","acceptedAnswer":{"@type":"Answer","text":"Go to Data → Remove Duplicates. Select the columns that together define a unique record — for example, Customer + Date, not just Customer alone. Excel keeps the first occurrence and deletes the rest. Always work on a copy of your data first — removing duplicates deletes data from the selected range, so keep a separate copy of the original first."}},{"@type":"Question","name":"How do I remove duplicates from a specific column in Excel?","acceptedAnswer":{"@type":"Answer","text":"In the Remove Duplicates dialog, uncheck all columns except the one you want to deduplicate. For example, to remove rows where the Email column repeats, uncheck everything and leave only Email checked. Excel keeps the first occurrence of each unique email."}},{"@type":"Question","name":"How do I keep the most recent duplicate instead of the first one?","acceptedAnswer":{"@type":"Answer","text":"Excel's Remove Duplicates always keeps the first row. To keep the most recent, sort your data by date descending before running Remove Duplicates. The most recent record will then appear first, so it will be the one kept."}},{"@type":"Question","name":"Can ChatGPT remove duplicates from my Excel file directly?","acceptedAnswer":{"@type":"Answer","text":"Paste the relevant headers and sample rows into ChatGPT — it can propose a duplicate key, sort rule, and COUNTIFS checks, but confirm the business rule yourself before any destructive deletion. Whether ChatGPT can upload or edit the workbook directly depends on the tools and features available in the ChatGPT interface and plan you are using."}},{"@type":"Question","name":"What is the COUNTIFS formula to find duplicates in Excel?","acceptedAnswer":{"@type":"Answer","text":"Use =COUNTIFS($A$2:$A2,A2,$B$2:$B2,B2) in a helper column. This counts how many times the combination of columns A and B has appeared up to the current row. Any value greater than 1 is a duplicate of a row seen earlier. Filter on >1 and review before deleting."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -145,9 +145,9 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eyebrow"><i class="ti ti-copy-off" style="font-size:12px"></i> Excel · Claude AI</div>
+    <div class="hero-eyebrow"><i class="ti ti-copy-off" style="font-size:12px"></i> Excel · ChatGPT</div>
     <h1>How to Remove Duplicates in Excel Safely with ChatGPT</h1>
-    <p class="hero-sub">Excel's Remove Duplicates button deletes rows immediately and always keeps the first one. The hard part is deciding which columns define a duplicate, which record to keep, and whether a row is genuinely a duplicate or just looks like one. Paste your headers and a sample into Claude and get the exact column selection, sort order, and COUNTIFS formula to verify before you delete anything.</p>
+    <p class="hero-sub">Excel's Remove Duplicates button deletes rows immediately and always keeps the first one. The hard part is deciding which columns define a duplicate, which record to keep, and whether a row is genuinely a duplicate or just looks like one. Paste your headers and a sample into ChatGPT and get the exact column selection, sort order, and COUNTIFS formula to verify before you delete anything.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -187,7 +187,7 @@ Do not automatically exclude timestamps, row IDs, or generated keys: explain whe
 Do not infer what an ID or timestamp represents beyond what the column name and sample prove, and avoid absolute statements such as "never part of the key" unless that follows from an explicit business rule.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Paste real headers and rows — Claude uses your actual column names in the answer. Works in <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+      <p class="prompt-hint">Paste real headers and rows — ChatGPT uses your actual column names in the answer. Works in <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
     </div>
 
     <div id="p-keep" class="panel">
@@ -271,7 +271,7 @@ Do not call a flagged row "safe to delete" solely because the visible sample col
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude proposes a candidate duplicate key for confirmation</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — ChatGPT proposes a candidate duplicate key for confirmation</div>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th>Import Row ID</th><th>Customer</th><th>Product</th><th>Date</th><th>Amount</th><th>Dup check: Customer+Product+Date+Amount</th></tr>
@@ -282,7 +282,7 @@ Do not call a flagged row "safe to delete" solely because the visible sample col
           <tr><td>R-1301</td><td>Nord Ltd</td><td>Widget B</td><td>10/02/2026</td><td>£9,100</td><td class="err-cell">Candidate duplicate — REVIEW</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's column recommendation</div>
+          <div class="claude-fix-label">ChatGPT's column recommendation</div>
           <pre>Candidate key: Customer + Product + Date + Amount.
 Customer alone is clearly too broad in this sample.
 Import Row ID differs between otherwise identical rows, so treat it as an import/audit identifier unless your business rules say otherwise.
@@ -325,7 +325,7 @@ Confirm that those four fields really define one business record before deleting
           <tr class="del-row"><td>Nord Ltd</td><td>Widget B</td><td>10/01/2026</td><td>Draft</td><td>£9,100</td><td>deleted</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's sort + dedup instructions</div>
+          <div class="claude-fix-label">ChatGPT's sort + dedup instructions</div>
           <pre>Step 1: Sort by Last Updated → Z to A (newest first)
 Step 2: Data → Remove Duplicates → check Customer + Product
 Result in this sample: most recent row per Customer+Product is kept.
@@ -368,7 +368,7 @@ If Last Updated contains ties or text dates, add a deterministic secondary sort 
           <tr><td>Blue Fin</td><td>Widget A</td><td>22/03/2026</td><td>£2,800</td><td>—</td><td class="ok-cell">1 — keep</td><td class="ok-cell">KEEP</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's COUNTIFS formula (col F)</div>
+          <div class="claude-fix-label">ChatGPT's COUNTIFS formula (col F)</div>
           <pre>=COUNTIFS($A$2:$A2,A2,$B$2:$B2,B2,$C$2:$C2,C2,$D$2:$D2,D2)
 Returns 1 for first occurrence, 2+ for later occurrences.
 
@@ -428,7 +428,7 @@ Nord Ltd occurrence 2 has no differing Notes in this sample, but still review ex
       <div class="step-n">2</div>
       <div class="step-body">
         <h3>Use the identify prompt to choose the right columns</h3>
-        <p>Paste your headers, sample rows, and—if you know it—the business definition of a duplicate into Claude. Ask for a candidate key and the assumptions behind it. Claude can spot structural patterns, but a sample alone cannot prove the real-world business key. Using too few columns can delete valid rows; using too many can miss duplicates.</p>
+        <p>Paste your headers, sample rows, and—if you know it—the business definition of a duplicate into ChatGPT. Ask for a candidate key and the assumptions behind it. ChatGPT can spot structural patterns, but a sample alone cannot prove the real-world business key. Using too few columns can delete valid rows; using too many can miss duplicates.</p>
       </div>
     </div>
     <div class="step">
@@ -449,7 +449,7 @@ Nord Ltd occurrence 2 has no differing Notes in this sample, but still review ex
       <div class="step-n">5</div>
       <div class="step-body">
         <h3>Run Data → Remove Duplicates and verify the row count</h3>
-        <p>Go to <code>Data → Remove Duplicates</code>, check only the columns Claude identified, and click OK. Excel will tell you how many rows were removed and how many remain. Verify the message against the helper only if the helper uses the same duplicate-key columns and the same row order as the final Remove Duplicates operation. With the progressive COUNTIFS pattern on the final sorted data, <code>COUNTIF(helper_range,"&gt;1")</code> should equal the number of removed rows, while <code>COUNTIF(helper_range,1)</code> gives the expected remaining data rows.</p>
+        <p>Go to <code>Data → Remove Duplicates</code>, check only the columns ChatGPT identified, and click OK. Excel will tell you how many rows were removed and how many remain. Verify the message against the helper only if the helper uses the same duplicate-key columns and the same row order as the final Remove Duplicates operation. With the progressive COUNTIFS pattern on the final sorted data, <code>COUNTIF(helper_range,"&gt;1")</code> should equal the number of removed rows, while <code>COUNTIF(helper_range,1)</code> gives the expected remaining data rows.</p>
       </div>
     </div>
     <div class="warn"><strong>Important:</strong> Remove Duplicates deletes rows immediately. Undo may be available in the current editing session, but the safe approach is to keep a separate copy of the original data before removal. Always work on a copy, and always run the COUNTIFS check first.</div>
@@ -471,8 +471,8 @@ Nord Ltd occurrence 2 has no differing Notes in this sample, but still review ex
       <div class="faq-a">Excel's Remove Duplicates always keeps the first row it encounters. To keep the most recent record, sort your data by date descending before running Remove Duplicates — the newest record will appear first and will be the one kept. Use the "Choose which to keep" prompt above to get the exact sort instructions for your dataset.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can Claude remove duplicates from my Excel file directly? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Claude can work with XLSX files when the relevant file/code features are enabled, and Claude for Excel can work inside supported Excel environments. If you only paste headers and sample rows, use Claude to propose a duplicate key, sort rule, and verification formulas—but confirm the business rule yourself before destructive deletion. Whether Claude edits the workbook directly depends on the Claude environment you are using.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can ChatGPT remove duplicates from my Excel file directly? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Paste the relevant headers and sample rows into ChatGPT — it can propose a duplicate key, sort rule, and verification formulas, but confirm the business rule yourself before any destructive deletion. Whether ChatGPT can upload or edit the workbook directly depends on the tools and features available in the ChatGPT interface and plan you are using.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What is the COUNTIFS formula to find duplicates in Excel? <i class="ti ti-chevron-down"></i></div>

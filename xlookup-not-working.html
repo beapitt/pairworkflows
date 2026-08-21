@@ -6,7 +6,7 @@
 <title>XLOOKUP in Excel: Build and Fix Formulas — PairWorkflows</title>
 <meta name="description" content="Build and troubleshoot XLOOKUP formulas in Excel with ChatGPT. Fix #N/A errors, match-value problems, and convert older VLOOKUP formulas.">
 <link rel="canonical" href="https://www.pairworkflows.com/xlookup-not-working.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is XLOOKUP better than VLOOKUP?","acceptedAnswer":{"@type":"Answer","text":"Yes. XLOOKUP improves on VLOOKUP in several important ways: it uses a direct range reference instead of a fragile column index number, it can look left, it has a built-in argument for handling missing values, and its match modes are clearer. XLOOKUP is the recommended replacement wherever Microsoft 365 or Excel 2021+ is available."}},{"@type":"Question","name":"Why is my XLOOKUP returning #N/A?","acceptedAnswer":{"@type":"Answer","text":"Common causes include a lookup value that is genuinely missing, a data type mismatch between the lookup value and lookup column, trailing spaces or invisible characters, and inconsistent key formats such as 1041 versus EMP-1041. Paste the formula and a few sample rows into Claude to diagnose the mismatch."}},{"@type":"Question","name":"What Excel versions support XLOOKUP?","acceptedAnswer":{"@type":"Answer","text":"XLOOKUP is available in Microsoft 365, Excel 2021, and Excel 2024. It is not available in Excel 2019, 2016, or earlier. If you are on an older version, use INDEX/MATCH instead — it offers the same flexibility and works in every Excel version."}},{"@type":"Question","name":"Does XLOOKUP replace INDEX MATCH?","acceptedAnswer":{"@type":"Answer","text":"XLOOKUP and INDEX/MATCH solve the same problems, but XLOOKUP has simpler syntax and built-in error handling. If everyone on your team uses Microsoft 365, Excel 2021, or Excel 2024, XLOOKUP is the cleaner choice. If any colleagues use older versions, INDEX/MATCH is safer because it works everywhere."}},{"@type":"Question","name":"Can XLOOKUP return more than one column at once?","acceptedAnswer":{"@type":"Answer","text":"Yes. If you need multiple fields from the same lookup — for example both name and salary — describe that to Claude and it will write a single XLOOKUP that spills both results, instead of writing two separate formulas."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is XLOOKUP better than VLOOKUP?","acceptedAnswer":{"@type":"Answer","text":"Yes. XLOOKUP improves on VLOOKUP in several important ways: it uses a direct range reference instead of a fragile column index number, it can look left, it has a built-in argument for handling missing values, and its match modes are clearer. XLOOKUP is the recommended replacement wherever Microsoft 365 or Excel 2021+ is available."}},{"@type":"Question","name":"Why is my XLOOKUP returning #N/A?","acceptedAnswer":{"@type":"Answer","text":"Common causes include a lookup value that is genuinely missing, a data type mismatch between the lookup value and lookup column, trailing spaces or invisible characters, and inconsistent key formats such as 1041 versus EMP-1041. Paste the formula and a few sample rows into ChatGPT to diagnose the mismatch."}},{"@type":"Question","name":"What Excel versions support XLOOKUP?","acceptedAnswer":{"@type":"Answer","text":"XLOOKUP is available in Microsoft 365, Excel 2021, and Excel 2024. It is not available in Excel 2019, 2016, or earlier. If you are on an older version, use INDEX/MATCH instead — it offers the same flexibility and works in every Excel version."}},{"@type":"Question","name":"Does XLOOKUP replace INDEX MATCH?","acceptedAnswer":{"@type":"Answer","text":"XLOOKUP and INDEX/MATCH solve the same problems, but XLOOKUP has simpler syntax and built-in error handling. If everyone on your team uses Microsoft 365, Excel 2021, or Excel 2024, XLOOKUP is the cleaner choice. If any colleagues use older versions, INDEX/MATCH is safer because it works everywhere."}},{"@type":"Question","name":"Can XLOOKUP return more than one column at once?","acceptedAnswer":{"@type":"Answer","text":"Yes. If you need multiple fields from the same lookup — for example both name and salary — describe that to ChatGPT and it will write a single XLOOKUP that spills both results, instead of writing two separate formulas."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -241,7 +241,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-excel.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
 
@@ -249,9 +249,9 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
+    <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · ChatGPT</div>
     <h1>Build and Troubleshoot XLOOKUP Formulas with ChatGPT</h1>
-    <p class="hero-sub">XLOOKUP is the modern replacement for VLOOKUP — more flexible, easier to read, and available in Microsoft 365 and Excel 2021+. Describe what you want to look up and Claude writes the correct formula with the right match mode, or diagnoses a broken one in seconds.</p>
+    <p class="hero-sub">XLOOKUP is the modern replacement for VLOOKUP — more flexible, easier to read, and available in Microsoft 365 and Excel 2021+. Describe what you want to look up and ChatGPT writes the correct formula with the right match mode, or diagnoses a broken one in seconds.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -273,7 +273,7 @@ column/range]. Data is on sheet [name], rows 2 to [last row]. Please
 write the XLOOKUP and use its built-in [if_not_found] argument for missing values.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">One sentence is enough — Claude fills in the exact syntax and match mode. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+      <p class="prompt-hint">One sentence is enough — ChatGPT fills in the exact syntax and match mode. Paste the prompt into <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
     </div>
 
     <div id="p-debug" class="panel">
@@ -288,7 +288,7 @@ table. Here are 3 sample rows from the lookup column:
 Please identify why it's failing and give me the corrected formula.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Common causes include a missing value, data type mismatch, trailing spaces, or inconsistent key formats such as 1041 vs EMP-1041 — Claude can spot these from a few sample rows.</p>
+      <p class="prompt-hint">Common causes include a missing value, data type mismatch, trailing spaces, or inconsistent key formats such as 1041 vs EMP-1041 — ChatGPT can spot these from a few sample rows.</p>
     </div>
 
     <div id="p-convert" class="panel">
@@ -299,7 +299,7 @@ Please identify why it's failing and give me the corrected formula.</pre>
 Data is on sheet [name]. Keep any existing IFERROR wrapper.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Claude fixes the hardcoded column index numbers that break when columns are inserted or deleted.</p>
+      <p class="prompt-hint">ChatGPT fixes the hardcoded column index numbers that break when columns are inserted or deleted.</p>
     </div>
   </div>
 
@@ -495,28 +495,28 @@ Data is on sheet [name]. Keep any existing IFERROR wrapper.</pre>
   <!-- STEPS -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">How to build an XLOOKUP formula step by step</h2>
   <div class="steps-card">
-    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Write and test an XLOOKUP with Claude — 5 steps</div>
+    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Write and test an XLOOKUP with ChatGPT — 5 steps</div>
     <div class="step">
       <div class="step-n">1</div>
-      <div class="step-body"><h3>Clearly define what you need</h3><p>Tell Claude the lookup value, the column where it's located, and the column you want to return. One sentence is enough: "Look up employee ID in column A of the Staff sheet and return their salary from column D."</p></div>
+      <div class="step-body"><h3>Clearly define what you need</h3><p>Tell ChatGPT the lookup value, the column where it's located, and the column you want to return. One sentence is enough: "Look up employee ID in column A of the Staff sheet and return their salary from column D."</p></div>
     </div>
     <div class="step">
       <div class="step-n">2</div>
-      <div class="step-body"><h3>Provide the data location</h3><p>Specify the sheet name, the range, and whether the data has a fixed size or grows. Claude uses this to write references that won't break when rows are added.</p></div>
+      <div class="step-body"><h3>Provide the data location</h3><p>Specify the sheet name, the range, and whether the data has a fixed size or grows. ChatGPT uses this to write references that won't break when rows are added.</p></div>
     </div>
     <div class="step">
       <div class="step-n">3</div>
-      <div class="step-body"><h3>Get the formula with the right match mode</h3><p>Claude writes the full XLOOKUP and chooses the right match mode — exact match for IDs and codes, approximate for tiered pricing or grades, wildcard for partial text searches.</p></div>
+      <div class="step-body"><h3>Get the formula with the right match mode</h3><p>ChatGPT writes the full XLOOKUP and chooses the right match mode — exact match for IDs and codes, approximate for tiered pricing or grades, wildcard for partial text searches.</p></div>
     </div>
     <div class="step">
       <div class="step-n">4</div>
-      <div class="step-body"><h3>Test with a known value</h3><p>Always test with a value you know should work. If it returns <code>#N/A</code>, send Claude the formula and 3 sample rows. Check whether the value is missing, stored as a different data type, padded with spaces, or formatted with a different prefix/suffix.</p></div>
+      <div class="step-body"><h3>Test with a known value</h3><p>Always test with a value you know should work. If it returns <code>#N/A</code>, send ChatGPT the formula and 3 sample rows. Check whether the value is missing, stored as a different data type, padded with spaces, or formatted with a different prefix/suffix.</p></div>
     </div>
     <div class="step">
       <div class="step-n">5</div>
-      <div class="step-body"><h3>Add error handling and convert old VLOOKUPs</h3><p>Wrap the formula with <code>IFERROR</code> or use the built-in 4th argument for missing values. Then paste any existing VLOOKUPs into Claude to convert them cleanly — including fixing hardcoded column index numbers.</p></div>
+      <div class="step-body"><h3>Add error handling and convert old VLOOKUPs</h3><p>Wrap the formula with <code>IFERROR</code> or use the built-in 4th argument for missing values. Then paste any existing VLOOKUPs into ChatGPT to convert them cleanly — including fixing hardcoded column index numbers.</p></div>
     </div>
-    <div class="warn"><strong>Version check:</strong> XLOOKUP requires Microsoft 365, Excel 2021, or Excel 2024. It is not available in Excel 2019, 2016, or earlier. If you or your colleagues are on an older version, tell Claude and it will write INDEX/MATCH instead — same flexibility, works everywhere.</div>
+    <div class="warn"><strong>Version check:</strong> XLOOKUP requires Microsoft 365, Excel 2021, or Excel 2024. It is not available in Excel 2019, 2016, or earlier. If you or your colleagues are on an older version, tell ChatGPT and it will write INDEX/MATCH instead — same flexibility, works everywhere.</div>
   </div>
 
   <!-- FAQ -->
@@ -529,7 +529,7 @@ Data is on sheet [name]. Keep any existing IFERROR wrapper.</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Why is my XLOOKUP returning #N/A? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Common causes include a lookup value that is genuinely missing, a data type mismatch between the lookup value and lookup column, trailing spaces or invisible characters, and inconsistent key formats such as 1041 versus EMP-1041. Paste the formula and a few sample rows into Claude to diagnose the mismatch.</div>
+      <div class="faq-a">Common causes include a lookup value that is genuinely missing, a data type mismatch between the lookup value and lookup column, trailing spaces or invisible characters, and inconsistent key formats such as 1041 versus EMP-1041. Paste the formula and a few sample rows into ChatGPT to diagnose the mismatch.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What Excel versions support XLOOKUP? <i class="ti ti-chevron-down"></i></div>
@@ -541,7 +541,7 @@ Data is on sheet [name]. Keep any existing IFERROR wrapper.</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can XLOOKUP return more than one column at once? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes. If you need multiple fields from the same lookup — for example both name and salary — describe that to Claude and it will write a single XLOOKUP that spills both results, instead of writing two separate formulas.</div>
+      <div class="faq-a">Yes. If you need multiple fields from the same lookup — for example both name and salary — describe that to ChatGPT and it will write a single XLOOKUP that spills both results, instead of writing two separate formulas.</div>
     </div>
   </div>
 
@@ -550,18 +550,18 @@ Data is on sheet [name]. Keep any existing IFERROR wrapper.</pre>
   <div class="related-title" aria-hidden="true">Related Excel workflows</div>
   <div class="related-grid">
     <a href="/na-error-in-excel.html" class="related-link">
-      <strong>Fix #N/A Errors in Excel with Claude</strong>
+      <strong>Fix #N/A Errors in Excel with ChatGPT</strong>
       <span>Diagnose and fix every type of #N/A error in your lookup formulas.</span>
     </a>
     <a href="/excel-lambda-functions.html" class="related-link">
-      <strong>Write LAMBDA Functions in Excel with Claude</strong>
+      <strong>Write LAMBDA Functions in Excel with ChatGPT</strong>
       <span>Build reusable custom functions without VBA.</span>
     </a>
     <a href="/sumifs-not-working.html" class="related-link">
       <strong>Build Multi-Criteria SUMIFS Formulas</strong>
       <span>Aggregate data accurately based on multiple conditions.</span>
     </a>
-    <a href="/claude-excel-sheets-finance-formulas.html" class="related-link">
+    <a href="/excel-workflows.html" class="related-link">
       <strong>Excel and Google Sheets Formulas for Finance</strong>
       <span>Write, debug, and convert finance formulas between Excel and Sheets.</span>
     </a>

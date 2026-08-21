@@ -6,7 +6,7 @@
 <title>CapEx Planning in Excel: Build a Capital Expenditure Plan — PairWorkflows</title>
 <meta name="description" content="Build a CapEx plan in Excel with ChatGPT to track project costs, approvals, spend phasing, budgets, and depreciation impact.">
 <link rel="canonical" href="https://www.pairworkflows.com/capex-planning-excel.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between CapEx and OpEx in Excel planning?","acceptedAnswer":{"@type":"Answer","text":"CapEx planning tracks expenditure that an organisation's accounting policy expects may qualify for capitalisation, while OpEx is expensed under the applicable policy. Classification depends on the underlying facts and accounting framework, so this workflow does not decide CapEx versus OpEx from a project name."}},{"@type":"Question","name":"Can Claude phase CapEx spending across multiple months?","acceptedAnswer":{"@type":"Answer","text":"Yes. If you provide monthly timing, the prompt can place spend directly into those months. If you provide only quarterly percentages, the amount should remain unallocated within that quarter until you specify the monthly split, rather than inventing cash timing."}},{"@type":"Question","name":"How does this template connect to depreciation?","acceptedAnswer":{"@type":"Answer","text":"The template can calculate estimated full-year straight-line depreciation from capitalisable basis, residual value, and useful life when those inputs are supplied. Period depreciation also requires an in-service or available-for-use date and the applicable accounting convention."}},{"@type":"Question","name":"Should I include projects that haven't been approved yet?","acceptedAnswer":{"@type":"Answer","text":"Yes, if your planning process includes pipeline projects. Track Proposed, Submitted, Approved and Rejected separately, and define what Approved means before treating approved project cost as committed spend."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between CapEx and OpEx in Excel planning?","acceptedAnswer":{"@type":"Answer","text":"CapEx planning tracks expenditure that an organisation's accounting policy expects may qualify for capitalisation, while OpEx is expensed under the applicable policy. Classification depends on the underlying facts and accounting framework, so this workflow does not decide CapEx versus OpEx from a project name."}},{"@type":"Question","name":"Can ChatGPT phase CapEx spending across multiple months?","acceptedAnswer":{"@type":"Answer","text":"Yes. If you provide monthly timing, the prompt can place spend directly into those months. If you provide only quarterly percentages, the amount should remain unallocated within that quarter until you specify the monthly split, rather than inventing cash timing."}},{"@type":"Question","name":"How does this template connect to depreciation?","acceptedAnswer":{"@type":"Answer","text":"The template can calculate estimated full-year straight-line depreciation from capitalisable basis, residual value, and useful life when those inputs are supplied. Period depreciation also requires an in-service or available-for-use date and the applicable accounting convention."}},{"@type":"Question","name":"Should I include projects that haven't been approved yet?","acceptedAnswer":{"@type":"Answer","text":"Yes, if your planning process includes pipeline projects. Track Proposed, Submitted, Approved and Rejected separately, and define what Approved means before treating approved project cost as committed spend."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -192,7 +192,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-excel.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
 
@@ -200,9 +200,9 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
+    <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · ChatGPT</div>
     <h1>How to Build a CapEx Plan in Excel with ChatGPT</h1>
-    <p class="hero-sub">Provide Claude with your project list, approval rules, spend timing, and accounting assumptions, then use it to draft an auditable CapEx register, phasing schedule, and status summary. Keep cash timing, approval status, capitalisation treatment, and depreciation timing as separate controls rather than assuming they are the same thing.</p>
+    <p class="hero-sub">Provide ChatGPT with your project list, approval rules, spend timing, and accounting assumptions, then use it to draft an auditable CapEx register, phasing schedule, and status summary. Keep cash timing, approval status, capitalisation treatment, and depreciation timing as separate controls rather than assuming they are the same thing.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -283,7 +283,7 @@ OUTPUT
 Use tab-separated tables suitable for Excel.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Paste your project list where indicated. Works in <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+      <p class="prompt-hint">Paste your project list where indicated. Works in <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
     </div>
 
     <!-- Panel: Phase -->
@@ -606,14 +606,14 @@ Add a control for blank/invalid statuses so nothing disappears silently. ✓</pr
   <div class="steps-panel on" id="steps-build">
     <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Build a CapEx budget step by step</h2>
     <div class="steps-card">
-      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a CapEx register with Claude — 4 steps</div>
+      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a CapEx register with ChatGPT — 4 steps</div>
       <div class="step">
         <div class="step-n">1</div>
-        <div class="step-body"><h3>List projects and assign categories</h3><p>Provide your organisation's project categories or approved category list. Do not ask Claude to decide whether a project qualifies as CapEx from its name alone; accounting classification follows your policy and the underlying facts.</p></div>
+        <div class="step-body"><h3>List projects and assign categories</h3><p>Provide your organisation's project categories or approved category list. Do not ask ChatGPT to decide whether a project qualifies as CapEx from its name alone; accounting classification follows your policy and the underlying facts.</p></div>
       </div>
       <div class="step">
         <div class="step-n">2</div>
-        <div class="step-body"><h3>Include salvage values and useful lives</h3><p>Provide capitalisable basis, residual value, useful life and expected in-service date only when supported by your accounting policy or asset assumptions. Use <code>0</code> residual value only when that is an intentional assumption, not as a default invented by Claude.</p></div>
+        <div class="step-body"><h3>Include salvage values and useful lives</h3><p>Provide capitalisable basis, residual value, useful life and expected in-service date only when supported by your accounting policy or asset assumptions. Use <code>0</code> residual value only when that is an intentional assumption, not as a default invented by ChatGPT.</p></div>
       </div>
       <div class="step">
         <div class="step-n">3</div>
@@ -642,7 +642,7 @@ Add a control for blank/invalid statuses so nothing disappears silently. ✓</pr
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Prompt Claude to build the 12-month grid</h3><p>Run the Phase prompt. Exact monthly percentages can populate the 12-month matrix directly. Quarter-only percentages should remain visibly unallocated within that quarter until you provide a monthly split.</p></div>
+        <div class="step-body"><h3>Prompt ChatGPT to build the 12-month grid</h3><p>Run the Phase prompt. Exact monthly percentages can populate the 12-month matrix directly. Quarter-only percentages should remain visibly unallocated within that quarter until you provide a monthly split.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
@@ -662,7 +662,7 @@ Add a control for blank/invalid statuses so nothing disappears silently. ✓</pr
       </div>
       <div class="step">
         <div class="step-n">2</div>
-        <div class="step-body"><h3>Feed the layout to Claude</h3><p>Provide the exact Excel Table name and column headers. A small sample is enough to design the formulas, but totals must reference the complete CapExRegister table.</p></div>
+        <div class="step-body"><h3>Feed the layout to ChatGPT</h3><p>Provide the exact Excel Table name and column headers. A small sample is enough to design the formulas, but totals must reference the complete CapExRegister table.</p></div>
       </div>
       <div class="step">
         <div class="step-n">3</div>
@@ -683,7 +683,7 @@ Add a control for blank/invalid statuses so nothing disappears silently. ✓</pr
       <div class="faq-a">CapEx planning tracks expenditure that your accounting policy expects may qualify for capitalisation; OpEx is expensed under the applicable policy. Classification depends on the nature of the cost and accounting framework, so this workflow does not decide CapEx vs OpEx from a project name. It tracks the capitalisable basis and depreciation assumptions only when you supply/confirm them.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can Claude phase CapEx spending across multiple months? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can ChatGPT phase CapEx spending across multiple months? <i class="ti ti-chevron-down"></i></div>
       <div class="faq-a">Yes. Use exact monthly timing only where supplied. Quarter-only percentages remain unallocated within the quarter until a monthly split is known, and each project should have a phasing check proving Allocated + Unallocated + Outside-Period equals the amount being phased.</div>
     </div>
     <div class="faq-item">

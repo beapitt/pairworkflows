@@ -6,7 +6,7 @@
 <title>How to Consolidate Multi-Entity Financials in Excel — PairWorkflows</title>
 <meta name="description" content="Consolidate multi-entity financials in Excel with ChatGPT, including subsidiary P&Ls, intercompany eliminations, and group-level reporting.">
 <link rel="canonical" href="https://www.pairworkflows.com/multi-entity-financials-excel.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What are intercompany eliminations and why do they matter?","acceptedAnswer":{"@type":"Answer","text":"In a full consolidation, intragroup balances, transactions, income and expenses are eliminated so the parent and subsidiaries are presented as a single economic entity. Some items can require additional treatment, including foreign-currency effects or unrealised profit."}},{"@type":"Question","name":"Can Claude handle currency conversion for foreign subsidiaries?","acceptedAnswer":{"@type":"Answer","text":"Claude can help apply currency translation calculations when you provide the authorised policy and rates. Do not assume one average rate is automatically appropriate for every P&L line, and use a separate workflow for balance-sheet and equity translation."}},{"@type":"Question","name":"How many entities can this template handle?","acceptedAnswer":{"@type":"Answer","text":"The structure can be adapted to different group sizes, but workbook design should scale with the number of entities, currencies, mappings and elimination types. Controlled source and mapping tables improve auditability."}},{"@type":"Question","name":"Does this produce a consolidated balance sheet or just a P&L?","acceptedAnswer":{"@type":"Answer","text":"This workflow focuses on a P&L consolidation working paper. A consolidated balance sheet requires additional logic for intercompany balances, FX translation, equity, investments and other consolidation adjustments."}},{"@type":"Question","name":"Will Claude invent elimination entries I haven't provided?","acceptedAnswer":{"@type":"Answer","text":"No prompt can guarantee that an AI never introduces an unsupported elimination. Require Interco IDs, both recorded amounts and source references, and verify every elimination against source evidence."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What are intercompany eliminations and why do they matter?","acceptedAnswer":{"@type":"Answer","text":"In a full consolidation, intragroup balances, transactions, income and expenses are eliminated so the parent and subsidiaries are presented as a single economic entity. Some items can require additional treatment, including foreign-currency effects or unrealised profit."}},{"@type":"Question","name":"Can ChatGPT handle currency conversion for foreign subsidiaries?","acceptedAnswer":{"@type":"Answer","text":"ChatGPT can help apply currency translation calculations when you provide the authorised policy and rates. Do not assume one average rate is automatically appropriate for every P&L line, and use a separate workflow for balance-sheet and equity translation."}},{"@type":"Question","name":"How many entities can this template handle?","acceptedAnswer":{"@type":"Answer","text":"The structure can be adapted to different group sizes, but workbook design should scale with the number of entities, currencies, mappings and elimination types. Controlled source and mapping tables improve auditability."}},{"@type":"Question","name":"Does this produce a consolidated balance sheet or just a P&L?","acceptedAnswer":{"@type":"Answer","text":"This workflow focuses on a P&L consolidation working paper. A consolidated balance sheet requires additional logic for intercompany balances, FX translation, equity, investments and other consolidation adjustments."}},{"@type":"Question","name":"Will ChatGPT invent elimination entries I haven't provided?","acceptedAnswer":{"@type":"Answer","text":"No prompt can guarantee that an AI never introduces an unsupported elimination. Require Interco IDs, both recorded amounts and source references, and verify every elimination against source evidence."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -154,7 +154,7 @@ table.me-table td:first-child { padding-left: 10px !important; text-align: left 
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-excel.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
 
@@ -164,7 +164,7 @@ table.me-table td:first-child { padding-left: 10px !important; text-align: left 
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Finance</div>
     <h1>How to Consolidate Multi-Entity Financials in Excel with ChatGPT</h1>
-    <p class="hero-sub">Provide Claude with mapped entity P&Ls, reporting-currency assumptions, and evidenced intercompany transactions, then use it to draft a side-by-side consolidation with explicit eliminations and control checks. Treat the output as a consolidation working paper to verify, not an automatic group sign-off.</p>
+    <p class="hero-sub">Provide ChatGPT with mapped entity P&Ls, reporting-currency assumptions, and evidenced intercompany transactions, then use it to draft a side-by-side consolidation with explicit eliminations and control checks. Treat the output as a consolidation working paper to verify, not an automatic group sign-off.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -241,7 +241,7 @@ OUTPUT
 Use tab-separated tables suitable for Excel.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Use identical line-item names across all entities before pasting. Works in <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+      <p class="prompt-hint">Use identical line-item names across all entities before pasting. Works in <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
     </div>
 
     <div id="p-currency" class="panel">
@@ -334,7 +334,7 @@ Please:
    all currency effects eliminate.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Use this to investigate the evidence behind an intercompany difference. Claude should not choose a cause or adjusting journal from the variance amount alone.</p>
+      <p class="prompt-hint">Use this to investigate the evidence behind an intercompany difference. ChatGPT should not choose a cause or adjusting journal from the variance amount alone.</p>
     </div>
   </div>
 
@@ -375,7 +375,7 @@ Please:
           <tr class="subtotal"><td>Net Income</td><td>£280,000</td><td>£120,000</td><td class="elim-col">£0</td><td class="consol-col">£400,000</td></tr>
         </table>
         <div class="claude-fix" style="margin:10px 14px">
-          <div class="claude-fix-label">Claude's output</div>
+          <div class="claude-fix-label">ChatGPT's output</div>
           <pre>Elim. Revenue: −£150,000 (A's interco sale)
 Elim. COGS:    −£150,000 (B's interco cost)
 Matched service elimination:
@@ -425,7 +425,7 @@ Do not generalise this zero-profit effect to every type of intercompany transact
           <tr><td>Net Income</td><td>£280,000</td><td class="link-cell">£165,120</td><td>£0</td><td class="total-cell">£445,120</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's conversion</div>
+          <div class="claude-fix-label">ChatGPT's conversion</div>
           <pre>Example assumes an APPROVED 0.86 GBP/EUR rate for all shown Entity B P&L lines:
 Entity B (GBP) = EUR × 0.86
 
@@ -465,7 +465,7 @@ Op. Income £709,600 − Interest/Tax/Other £264,480 = Net Income £445,120 ✓
           <tr><td>FX / mapping evidence</td><td>Input needed</td><td>Input needed</td><td class="err-cell">Review required</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's diagnosis</div>
+          <div class="claude-fix-label">ChatGPT's diagnosis</div>
           <pre>Known:
 Entity A = £150,000
 Entity B = £145,000
@@ -513,7 +513,7 @@ Do not post or plug an adjustment until source evidence proves the treatment. �
   <!-- STEPS -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Consolidate multi-entity financials step by step</h2>
   <div class="steps-card">
-    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Consolidate multi-entity financials with Claude — 4 steps</div>
+    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Consolidate multi-entity financials with ChatGPT — 4 steps</div>
     <div class="step">
       <div class="step-n">1</div>
       <div class="step-body"><h3>Standardise line-item names across all entities</h3><p>Map each local account/line to a controlled Group Line ID. Do not rename source accounting data merely to make the text match; preserve the source and perform the mapping in a separate table so each entity can still be tied back to its original P&amp;L.</p></div>
@@ -528,7 +528,7 @@ Do not post or plug an adjustment until source evidence proves the treatment. �
     </div>
     <div class="step">
       <div class="step-n">4</div>
-      <div class="step-body"><h3>For multi-currency groups, specify the translation rate per entity</h3><p>Use the average period rate for all P&L line items. The closing rate is for balance sheet items. State the rates explicitly in the prompt — Claude applies them to add a converted column per foreign entity before consolidating.</p></div>
+      <div class="step-body"><h3>For multi-currency groups, specify the translation rate per entity</h3><p>Use the average period rate for all P&L line items. The closing rate is for balance sheet items. State the rates explicitly in the prompt — ChatGPT applies them to add a converted column per foreign entity before consolidating.</p></div>
     </div>
     <div class="warn"><strong>Control:</strong> Every consolidated detail line should equal the sum of the translated entity columns plus the recorded elimination for that line, and each entity must tie back to its source controls. A difference does not identify its own cause: inspect mapping, FX, elimination schedules and subtotal formulas instead of assuming a particular missing transaction.</div>
   </div>
@@ -541,8 +541,8 @@ Do not post or plug an adjustment until source evidence proves the treatment. �
       <div class="faq-a">In a full consolidation, intragroup balances, transactions, income and expenses are eliminated so the group is presented as a single economic entity. The exact elimination can require additional treatment for items such as unrealised profit, financing or foreign-currency effects.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can Claude handle currency conversion for foreign subsidiaries? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes. Use the Multi-currency prompt tab above. Include each entity's reporting currency and the exchange rate. Claude adds a converted column for each foreign entity before consolidating. Specify average period rate for P&L items and closing rate for balance sheet items.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can ChatGPT handle currency conversion for foreign subsidiaries? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Yes. Use the Multi-currency prompt tab above. Include each entity's reporting currency and the exchange rate. ChatGPT adds a converted column for each foreign entity before consolidating. Specify average period rate for P&L items and closing rate for balance sheet items.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How many entities can this template handle? <i class="ti ti-chevron-down"></i></div>
@@ -550,10 +550,10 @@ Do not post or plug an adjustment until source evidence proves the treatment. �
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Does this produce a consolidated balance sheet or just a P&L? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">The prompt focuses on the consolidated P&L — the most common Excel consolidation task. Extend it to a balance sheet by adding balance sheet line items and instructing Claude to apply elimination logic to intercompany receivables and payables.</div>
+      <div class="faq-a">The prompt focuses on the consolidated P&L — the most common Excel consolidation task. Extend it to a balance sheet by adding balance sheet line items and instructing ChatGPT to apply elimination logic to intercompany receivables and payables.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Will Claude invent elimination entries I haven't provided? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-q" onclick="toggleFaq(this)">Will ChatGPT invent elimination entries I haven't provided? <i class="ti ti-chevron-down"></i></div>
       <div class="faq-a">No prompt can guarantee that an AI never introduces an unsupported elimination. This workflow reduces the risk by requiring Interco IDs, both recorded amounts, source references and explicit controls; every proposed elimination still needs to be tied back to evidence.</div>
     </div>
   </div>

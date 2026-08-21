@@ -6,7 +6,7 @@
 <title>How to Create a Pivot Table in Excel — PairWorkflows</title>
 <meta name="description" content="Create Pivot Table reports in Excel with ChatGPT, including field placement, calculated fields, date grouping, filters, and slicer setup.">
 <link rel="canonical" href="https://www.pairworkflows.com/pivot-table-reports-excel.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude build the actual pivot table inside Excel for me?","acceptedAnswer":{"@type":"Answer","text":"It depends on the Claude environment. In a normal chat, Claude can analyse pasted data and supported XLSX uploads when spreadsheet analysis is enabled. Claude for Excel can work directly in supported Excel environments. In all cases, verify field placement, source ranges, calculated metrics, and totals before relying on the report."}},{"@type":"Question","name":"What data format does Claude need for pivot table design?","acceptedAnswer":{"@type":"Answer","text":"Claude needs a flat table — one row per transaction or record, with consistent column headers. Merged cells, subtotal rows, and blank header columns will cause problems. Describe any structural issues in the prompt and Claude will suggest a cleaning step first."}},{"@type":"Question","name":"How do I add a calculated field like gross margin % to a pivot table?","acceptedAnswer":{"@type":"Answer","text":"Ask Claude to include it in the prompt. For a supported classic non-OLAP PivotTable, Claude can propose the field-name formula for PivotTable Analyze → Fields, Items & Sets → Calculated Field. For Data Model/OLAP PivotTables, use the appropriate measure/calculation method instead."}},{"@type":"Question","name":"My pivot table shows (blank) rows — how do I fix this?","acceptedAnswer":{"@type":"Answer","text":"A “(blank)” PivotTable item often indicates empty source values in that field, but confirm the source data and refresh state before assuming that is the only cause. Ask Claude to identify which column is causing the blanks and suggest a fix — typically a find-and-replace or a helper column that fills missing values before the pivot is built."}},{"@type":"Question","name":"Can I use Claude to redesign an existing pivot table report?","acceptedAnswer":{"@type":"Answer","text":"Yes. Describe the current layout and what is wrong with it — too many rows, wrong grouping, a missing metric — and Claude will specify a revised structure. Paste a sample of the underlying data so Claude can reference the actual column names."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can ChatGPT build the actual pivot table inside Excel for me?","acceptedAnswer":{"@type":"Answer","text":"ChatGPT does not directly edit your Excel workbook. Paste your data, or upload a file if the ChatGPT interface and plan you are using supports it, and ChatGPT can propose the field layout and calculated-field formulas for you to build in Excel. In all cases, verify field placement, source ranges, calculated metrics, and totals before relying on the report."}},{"@type":"Question","name":"What data format does ChatGPT need for pivot table design?","acceptedAnswer":{"@type":"Answer","text":"ChatGPT needs a flat table — one row per transaction or record, with consistent column headers. Merged cells, subtotal rows, and blank header columns will cause problems. Describe any structural issues in the prompt and ChatGPT will suggest a cleaning step first."}},{"@type":"Question","name":"How do I add a calculated field like gross margin % to a pivot table?","acceptedAnswer":{"@type":"Answer","text":"Ask ChatGPT to include it in the prompt. For a supported classic non-OLAP PivotTable, ChatGPT can propose the field-name formula for PivotTable Analyze → Fields, Items & Sets → Calculated Field. For Data Model/OLAP PivotTables, use the appropriate measure/calculation method instead."}},{"@type":"Question","name":"My pivot table shows (blank) rows — how do I fix this?","acceptedAnswer":{"@type":"Answer","text":"A “(blank)” PivotTable item often indicates empty source values in that field, but confirm the source data and refresh state before assuming that is the only cause. Ask ChatGPT to identify which column is causing the blanks and suggest a fix — typically a find-and-replace or a helper column that fills missing values before the pivot is built."}},{"@type":"Question","name":"Can I use ChatGPT to redesign an existing pivot table report?","acceptedAnswer":{"@type":"Answer","text":"Yes. Describe the current layout and what is wrong with it — too many rows, wrong grouping, a missing metric — and ChatGPT will specify a revised structure. Paste a sample of the underlying data so ChatGPT can reference the actual column names."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -174,9 +174,9 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
+    <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · ChatGPT</div>
     <h1>How to Create a Pivot Table in Excel with ChatGPT</h1>
-    <p class="hero-sub">Describe your data, Excel version, PivotTable source type, and reporting goal. Claude can then propose a field layout, grouping steps, calculated-field or measure approach, and validation checks that you can apply and verify in Excel.</p>
+    <p class="hero-sub">Describe your data, Excel version, PivotTable source type, and reporting goal. ChatGPT can then propose a field layout, grouping steps, calculated-field or measure approach, and validation checks that you can apply and verify in Excel.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -245,7 +245,7 @@ Output:
 6. At least one control calculation I can use to verify the PivotTable result</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Paste your real column headers and sample rows — Claude uses your actual column names in the instructions. Works in <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+      <p class="prompt-hint">Paste your real column headers and sample rows — ChatGPT uses your actual column names in the instructions. Works in <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
     </div>
 
     <div id="p-calcfield" class="panel">
@@ -278,7 +278,7 @@ Then tell me:
 - One numeric test I can use to verify the Grand Total</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Calculated field syntax is different from regular Excel formulas — Claude writes it correctly for the dialog.</p>
+      <p class="prompt-hint">Calculated field syntax is different from regular Excel formulas — ChatGPT writes it correctly for the dialog.</p>
     </div>
 
     <div id="p-debug" class="panel">
@@ -557,18 +557,18 @@ Refresh the PivotTable after filling the helper column.</pre>
   <!-- Steps: design -->
   <div class="steps-panel on" id="steps-design">
     <div class="steps-card">
-      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Create pivot table reports with Claude — 4 steps</div>
+      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Create pivot table reports with ChatGPT — 4 steps</div>
       <div class="step">
         <div class="step-n">1</div>
-        <div class="step-body"><h3>Clean your source data before running the prompt</h3><p>Remove subtotal rows, unmerge header cells, and give every column a unique name. Check that date cells contain real Excel date serial values, not text that merely looks like a date. Number formatting alone does not convert text into a real date, and text dates can prevent reliable date grouping. Fix these first or the pivot will produce wrong results regardless of what Claude specifies.</p></div>
+        <div class="step-body"><h3>Clean your source data before running the prompt</h3><p>Remove subtotal rows, unmerge header cells, and give every column a unique name. Check that date cells contain real Excel date serial values, not text that merely looks like a date. Number formatting alone does not convert text into a real date, and text dates can prevent reliable date grouping. Fix these first or the pivot will produce wrong results regardless of what ChatGPT specifies.</p></div>
       </div>
       <div class="step">
         <div class="step-n">2</div>
-        <div class="step-body"><h3>Paste 5–10 rows of real data into the prompt</h3><p>Claude uses your actual column names in the layout instructions — "put <code>Region</code> in Rows, <code>Category</code> in Columns" — which is far easier to follow than generic instructions. A sample of 5–10 rows is enough; you don't need to paste the entire dataset.</p></div>
+        <div class="step-body"><h3>Paste 5–10 rows of real data into the prompt</h3><p>ChatGPT uses your actual column names in the layout instructions — "put <code>Region</code> in Rows, <code>Category</code> in Columns" — which is far easier to follow than generic instructions. A sample of 5–10 rows is enough; you don't need to paste the entire dataset.</p></div>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>State your reporting goal, not your technical requirements</h3><p>"Revenue by region and category with gross margin, filtered to current year" is a useful goal, but also provide the actual headers, source type, and any business definition that is not obvious from the column names. Claude can then propose field placement, summarisation, number formats, and sort order for you to verify.</p></div>
+        <div class="step-body"><h3>State your reporting goal, not your technical requirements</h3><p>"Revenue by region and category with gross margin, filtered to current year" is a useful goal, but also provide the actual headers, source type, and any business definition that is not obvious from the column names. ChatGPT can then propose field placement, summarisation, number formats, and sort order for you to verify.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
@@ -607,7 +607,7 @@ Refresh the PivotTable after filling the helper column.</pre>
       </div>
       <div class="step">
         <div class="step-n">2</div>
-        <div class="step-body"><h3>Query Claude with raw data</h3><p>Copy the prompt and provide Claude with a few raw data lines specifically for that problematic column.</p></div>
+        <div class="step-body"><h3>Query ChatGPT with raw data</h3><p>Copy the prompt and provide ChatGPT with a few raw data lines specifically for that problematic column.</p></div>
       </div>
       <div class="step">
         <div class="step-n">3</div>
@@ -620,24 +620,24 @@ Refresh the PivotTable after filling the helper column.</pre>
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Frequently asked questions</h2>
   <div class="faq-section">
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can Claude build the actual pivot table inside Excel for me? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">It depends on how you are using Claude. In a normal chat, you can paste data or upload supported XLSX files when spreadsheet analysis is enabled and use Claude for layout/formula guidance. Claude for Excel can also work directly in supported Excel environments. In either case, verify field placement, source ranges, calculated metrics, and totals before relying on the report.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can ChatGPT build the actual pivot table inside Excel for me? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">ChatGPT does not directly edit your Excel workbook. Paste your data, or upload a file if the ChatGPT interface and plan you are using supports it, and ChatGPT can propose the field layout and calculated-field formulas for you to build in Excel. In all cases, verify field placement, source ranges, calculated metrics, and totals before relying on the report.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">What data format does Claude need for pivot table design? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">A flat table — one row per transaction or record, with consistent column headers. Merged cells, subtotal rows, and blank header columns will cause problems. If your source data has any of these, describe them in the prompt and Claude will suggest a cleaning step before designing the pivot.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">What data format does ChatGPT need for pivot table design? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">A flat table — one row per transaction or record, with consistent column headers. Merged cells, subtotal rows, and blank header columns will cause problems. If your source data has any of these, describe them in the prompt and ChatGPT will suggest a cleaning step before designing the pivot.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I add a calculated field like gross margin % to a pivot table? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Use the Calculated Field tab above. Claude writes the exact formula for the <code>PivotTable Analyze → Fields, Items &amp; Sets → Calculated Field</code> dialog. For classic non-OLAP PivotTables, calculated fields operate on aggregated underlying fields. Claude should first determine whether that behavior matches your metric and whether the PivotTable source supports classic calculated fields; Data Model/OLAP PivotTables may require a measure instead.</div>
+      <div class="faq-a">Use the Calculated Field tab above. ChatGPT writes the exact formula for the <code>PivotTable Analyze → Fields, Items &amp; Sets → Calculated Field</code> dialog. For classic non-OLAP PivotTables, calculated fields operate on aggregated underlying fields. ChatGPT should first determine whether that behavior matches your metric and whether the PivotTable source supports classic calculated fields; Data Model/OLAP PivotTables may require a measure instead.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">My pivot table shows (blank) rows — how do I fix this? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">A “(blank)” item often indicates blank source values in that field, but confirm the source and refresh state before assuming that is the only cause. Use the Debug tab above — paste a sample of the column causing the issue and Claude identifies the fix, typically a find-and-replace or a helper column that fills missing values before the pivot is built.</div>
+      <div class="faq-a">A “(blank)” item often indicates blank source values in that field, but confirm the source and refresh state before assuming that is the only cause. Use the Debug tab above — paste a sample of the column causing the issue and ChatGPT identifies the fix, typically a find-and-replace or a helper column that fills missing values before the pivot is built.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can I use Claude to redesign an existing pivot table report? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes. Describe the current layout and what's wrong — too many rows, wrong grouping, a missing metric — and Claude specifies a revised structure. Paste a sample of the underlying data so Claude references your actual column names rather than working from a description alone.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can I use ChatGPT to redesign an existing pivot table report? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Yes. Describe the current layout and what's wrong — too many rows, wrong grouping, a missing metric — and ChatGPT specifies a revised structure. Paste a sample of the underlying data so ChatGPT references your actual column names rather than working from a description alone.</div>
     </div>
   </div>
 

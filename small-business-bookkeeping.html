@@ -6,7 +6,7 @@
 <title>Small Business Bookkeeping in Excel: Simple Setup Guide — PairWorkflows</title>
 <meta name="description" content="Set up small business bookkeeping in Excel with ChatGPT. Organize transactions, track invoices and expenses, and prepare a simple profit and loss report.">
 <link rel="canonical" href="https://www.pairworkflows.com/small-business-bookkeeping.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude replace my bookkeeper or accountant?","acceptedAnswer":{"@type":"Answer","text":"No. Claude can help draft classifications, formulas and summaries from supplied data, but ambiguous business purpose, accounting policy, tax treatment and final postings require human review and, where appropriate, professional advice."}},{"@type":"Question","name":"Which accounting software does this work with?","acceptedAnswer":{"@type":"Answer","text":"Claude can output a review table for spreadsheets. Any later import into accounting software should follow that product's required import format and use explicitly reviewed account/category mappings."}},{"@type":"Question","name":"My bank exports in CSV. Can I paste that directly?","acceptedAnswer":{"@type":"Answer","text":"You can paste a CSV extract. Keep a stable transaction identifier plus date, description and amount where available, preserve source values, and reconcile row count and signed amount totals after processing."}},{"@type":"Question","name":"Can Claude produce a profit and loss statement?","acceptedAnswer":{"@type":"Answer","text":"Claude can draft a P&L working paper from reviewed category totals. Bank transactions alone support a cash-basis or bank-activity summary unless the relevant accrual adjustments are also supplied."}},{"@type":"Question","name":"What if I mix personal and business spending on the same account?","acceptedAnswer":{"@type":"Answer","text":"Tell Claude that mixed personal and business transactions may exist. Ambiguous merchants should remain Uncategorized — Review until supporting context confirms the business purpose."}},{"@type":"Question","name":"Is this suitable for VAT or sales tax tracking?","acceptedAnswer":{"@type":"Answer","text":"Claude can apply a tax field or rate that you explicitly supply, but it should not infer VAT, sales-tax treatment, deductibility or exemptions from merchant descriptions alone."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can ChatGPT replace my bookkeeper or accountant?","acceptedAnswer":{"@type":"Answer","text":"No. ChatGPT can help draft classifications, formulas and summaries from supplied data, but ambiguous business purpose, accounting policy, tax treatment and final postings require human review and, where appropriate, professional advice."}},{"@type":"Question","name":"Which accounting software does this work with?","acceptedAnswer":{"@type":"Answer","text":"ChatGPT can output a review table for spreadsheets. Any later import into accounting software should follow that product's required import format and use explicitly reviewed account/category mappings."}},{"@type":"Question","name":"My bank exports in CSV. Can I paste that directly?","acceptedAnswer":{"@type":"Answer","text":"You can paste a CSV extract. Keep a stable transaction identifier plus date, description and amount where available, preserve source values, and reconcile row count and signed amount totals after processing."}},{"@type":"Question","name":"Can ChatGPT produce a profit and loss statement?","acceptedAnswer":{"@type":"Answer","text":"ChatGPT can draft a P&L working paper from reviewed category totals. Bank transactions alone support a cash-basis or bank-activity summary unless the relevant accrual adjustments are also supplied."}},{"@type":"Question","name":"What if I mix personal and business spending on the same account?","acceptedAnswer":{"@type":"Answer","text":"Tell ChatGPT that mixed personal and business transactions may exist. Ambiguous merchants should remain Uncategorized — Review until supporting context confirms the business purpose."}},{"@type":"Question","name":"Is this suitable for VAT or sales tax tracking?","acceptedAnswer":{"@type":"Answer","text":"ChatGPT can apply a tax field or rate that you explicitly supply, but it should not infer VAT, sales-tax treatment, deductibility or exemptions from merchant descriptions alone."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -163,7 +163,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 <noscript>
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-excel.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
 
@@ -171,9 +171,9 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eyebrow"><i class="ti ti-cash" style="font-size:12px"></i> Finance · Claude AI</div>
+    <div class="hero-eyebrow"><i class="ti ti-cash" style="font-size:12px"></i> Finance · ChatGPT</div>
     <h1>Small Business Bookkeeping in Excel with ChatGPT</h1>
-    <p class="hero-sub">Use Claude to draft a reviewable bookkeeping workbook from bank transactions, invoice data, and category totals. Ambiguous items stay flagged for human review, invoice status is calculated from actual due dates, and the P&L follows the accounting basis and category structure you provide.</p>
+    <p class="hero-sub">Use ChatGPT to draft a reviewable bookkeeping workbook from bank transactions, invoice data, and category totals. Ambiguous items stay flagged for human review, invoice status is calculated from actual due dates, and the P&L follows the accounting basis and category structure you provide.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -235,7 +235,7 @@ Date | Description | Amount | Category | Notes
 plus source-control checks and category summary.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Replace the generic categories with your approved account labels. Treat Claude's output as a review table before any accounting-software import or posting. Works in <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+      <p class="prompt-hint">Replace the generic categories with your approved account labels. Treat ChatGPT's output as a review table before any accounting-software import or posting. Works in <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
     </div>
 
     <div id="p-invoices" class="panel">
@@ -284,7 +284,7 @@ Days Outstanding | Days Past Due | Status
 plus summary and exact Excel formulas.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Use a fixed As-of Date so the same invoice file produces reproducible overdue calculations when you test it in Claude and Excel.</p>
+      <p class="prompt-hint">Use a fixed As-of Date so the same invoice file produces reproducible overdue calculations when you test it in ChatGPT and Excel.</p>
     </div>
 
     <div id="p-pl" class="panel">
@@ -365,7 +365,7 @@ A tab-separated P&L working paper plus formulas and control checks.</pre>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude categorizes with flags and summary</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — ChatGPT categorizes with flags and summary</div>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th>Date</th><th>Description</th><th>Amount</th><th>Category</th><th>Notes</th></tr>
@@ -378,7 +378,7 @@ A tab-separated P&L working paper plus formulas and control checks.</pre>
           <tr><td>28/07</td><td>STRIPE PAYOUT - CLIENT B</td><td class="ok-cell">+$3,800.00</td><td class="ok-cell">Income</td><td>High-value review</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's category summary</div>
+          <div class="claude-fix-label">ChatGPT's category summary</div>
           <pre>Income:                  $8,000.00
 Software & Subscriptions: $103.40
 Contractor Fees:           $950.00
@@ -424,7 +424,7 @@ Source control:
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude calculates days and flags overdue</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — ChatGPT calculates days and flags overdue</div>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th>Invoice #</th><th>Client</th><th>Due Date</th><th>Amount</th><th>Days Out</th><th>Days Past Due</th><th>Status</th></tr>
@@ -435,7 +435,7 @@ Source control:
           <tr><td>INV-045</td><td>Blue Fin</td><td>24/08</td><td>$2,200</td><td>21</td><td>0</td><td class="ok-cell">Current</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's AR summary</div>
+          <div class="claude-fix-label">ChatGPT's AR summary</div>
           <pre>Total outstanding:  $10,450.00
 Total overdue:       $7,300.00 (3 invoices)
 Acme Co.: 2 unpaid invoices ($5,500)
@@ -484,7 +484,7 @@ INV-043 = 6 days past due → Overdue ✓</pre>
           <tr><td>Net Margin</td><td class="ok-cell">81.5%</td><td class="ok-cell">70.0%</td><td class="err-cell">−11.5pp</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's P&L insight</div>
+          <div class="claude-fix-label">ChatGPT's P&L insight</div>
           <pre>Revenue increased $1,600.
 Net margin moved from 81.5% to 70.0% = −11.5pp.
 Contractor fees increased $1,450.
@@ -527,7 +527,7 @@ No COGS/direct-cost split is supplied here, so Gross Profit is intentionally omi
     <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Set up your AI bookkeeping workflow — 4 steps</div>
     <div class="step">
       <div class="step-n">1</div>
-      <div class="step-body"><h3>Match categories to your accounting software</h3><p>Replace the generic labels with the approved account/category names you actually use. Keep source Transaction IDs and amounts unchanged, and review Claude's category suggestion before any posting or software import; import formats and account mappings vary by system.</p></div>
+      <div class="step-body"><h3>Match categories to your accounting software</h3><p>Replace the generic labels with the approved account/category names you actually use. Keep source Transaction IDs and amounts unchanged, and review ChatGPT's category suggestion before any posting or software import; import formats and account mappings vary by system.</p></div>
     </div>
     <div class="step">
       <div class="step-n">2</div>
@@ -535,33 +535,33 @@ No COGS/direct-cost split is supplied here, so Gross Profit is intentionally omi
     </div>
     <div class="step">
       <div class="step-n">3</div>
-      <div class="step-body"><h3>Add a VAT or sales tax column if you need it</h3><p>Do not ask Claude to infer VAT, sales tax, deductibility or tax codes from merchant names. Add tax fields only when you provide the applicable tax treatment/rate from your accounting records or adviser, and keep uncertain rows flagged for review.</p></div>
+      <div class="step-body"><h3>Add a VAT or sales tax column if you need it</h3><p>Do not ask ChatGPT to infer VAT, sales tax, deductibility or tax codes from merchant names. Add tax fields only when you provide the applicable tax treatment/rate from your accounting records or adviser, and keep uncertain rows flagged for review.</p></div>
     </div>
     <div class="step">
       <div class="step-n">4</div>
       <div class="step-body"><h3>Run it monthly and build a year-to-date spreadsheet</h3><p>Store reviewed monthly data in a consistent Excel Table with stable Transaction IDs and category labels. Reconcile row count and signed source totals before appending each batch; then build year-to-date summaries from the reviewed table rather than from disconnected AI outputs.</p></div>
     </div>
-    <div class="warn"><strong>Important:</strong> Claude categorizes based on the transaction description text you provide — it doesn't know your business context the way you do. Always review the output before importing into your accounting software, especially for high-value or unusual transactions.</div>
+    <div class="warn"><strong>Important:</strong> ChatGPT categorizes based on the transaction description text you provide — it doesn't know your business context the way you do. Always review the output before importing into your accounting software, especially for high-value or unusual transactions.</div>
   </div>
 
   <!-- FAQ -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Frequently asked questions</h2>
   <div class="faq-section">
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can Claude replace my bookkeeper or accountant? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">No. Claude can help draft classifications, formulas and summaries from the data you provide, but ambiguous business purpose, accounting policy, tax treatment and final postings still require human review and, where appropriate, professional advice.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can ChatGPT replace my bookkeeper or accountant? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">No. ChatGPT can help draft classifications, formulas and summaries from the data you provide, but ambiguous business purpose, accounting policy, tax treatment and final postings still require human review and, where appropriate, professional advice.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Which accounting software does this work with? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Claude can output a plain review table for Excel or another spreadsheet. If you later import into accounting software, use that product's required import format and map the reviewed categories/account codes explicitly rather than assuming the AI table is directly import-ready.</div>
+      <div class="faq-a">ChatGPT can output a plain review table for Excel or another spreadsheet. If you later import into accounting software, use that product's required import format and map the reviewed categories/account codes explicitly rather than assuming the AI table is directly import-ready.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">My bank exports in CSV. Can I paste that directly? <i class="ti ti-chevron-down"></i></div>
       <div class="faq-a">You can paste a CSV extract, but keep a stable Transaction ID plus Date, Description and Amount where available. Preserve source values exactly and add control checks for row count and signed amount total so the AI output can be reconciled to the bank export.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can Claude produce a profit and loss statement? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Claude can draft a P&L working paper from reviewed category totals. Bank transactions alone normally support a cash-basis/bank-activity summary; an accrual-basis P&L also needs the relevant receivables, payables, accruals, deferrals, depreciation and other reviewed adjustments.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can ChatGPT produce a profit and loss statement? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">ChatGPT can draft a P&L working paper from reviewed category totals. Bank transactions alone normally support a cash-basis/bank-activity summary; an accrual-basis P&L also needs the relevant receivables, payables, accruals, deferrals, depreciation and other reviewed adjustments.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What if I mix personal and business spending on the same account? <i class="ti ti-chevron-down"></i></div>
@@ -569,7 +569,7 @@ No COGS/direct-cost split is supplied here, so Gross Profit is intentionally omi
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Is this suitable for VAT or sales tax tracking? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Claude can apply a tax field or rate that you explicitly supply, but it should not infer VAT/sales-tax treatment, deductibility or exemptions from a merchant description alone. Keep uncertain tax treatment outside automatic categorization and verify it against your records or adviser.</div>
+      <div class="faq-a">ChatGPT can apply a tax field or rate that you explicitly supply, but it should not infer VAT/sales-tax treatment, deductibility or exemptions from a merchant description alone. Keep uncertain tax treatment outside automatic categorization and verify it against your records or adviser.</div>
     </div>
   </div>
 
@@ -578,18 +578,18 @@ No COGS/direct-cost split is supplied here, so Gross Profit is intentionally omi
   <div class="related-grid">
     <a href="/claude-ai-receipt-scanner.html" class="related-link">
       <strong>AI Receipt Scanner &amp; Expense Tracker</strong>
-      <span>Turn Claude into a receipt scanner that captures expenses from photos and text.</span>
+      <span>Turn ChatGPT into a receipt scanner that captures expenses from photos and text.</span>
     </a>
     <a href="/claude-freelance-rate-calculator.html" class="related-link">
-      <strong>Calculate Your Freelance Rate with Claude AI</strong>
+      <strong>Calculate Your Freelance Rate with ChatGPT</strong>
       <span>Work out your minimum viable day rate based on your costs and income target.</span>
     </a>
     <a href="/claude-personal-finance-prompts.html" class="related-link">
-      <strong>Personal Finance &amp; Budgeting with Claude AI</strong>
+      <strong>Personal Finance &amp; Budgeting with ChatGPT</strong>
       <span>Manage personal spending alongside your business accounts with AI prompts.</span>
     </a>
     <a href="/bank-reconciliation-excel.html" class="related-link">
-      <strong>Bank Reconciliation in Excel with Claude AI</strong>
+      <strong>Bank Reconciliation in Excel with ChatGPT</strong>
       <span>Match your categorized transactions to your bank statement and flag every discrepancy.</span>
     </a>
   </div>

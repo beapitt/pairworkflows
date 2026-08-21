@@ -6,7 +6,7 @@
 <title>How to Diagnose and Clean Imported Data in Excel — PairWorkflows</title>
 <meta name="description" content="Diagnose imported Excel data with ChatGPT before cleaning it. Check cell types, blanks, dates, numbers, locale issues, and invisible characters.">
 <link rel="canonical" href="https://www.pairworkflows.com/clean-data-in-excel.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I remove trailing spaces in Excel?","acceptedAnswer":{"@type":"Answer","text":"Use =TRIM(A2) for ordinary spaces. It removes leading and trailing spaces and reduces repeated internal spaces to one. Imported data can also contain non-breaking spaces or other characters that TRIM does not remove; CLEAN removes certain non-printing ASCII characters, and stubborn character-160 spaces may need SUBSTITUTE."}},{"@type":"Question","name":"Why are my numbers stored as text in Excel?","acceptedAnswer":{"@type":"Answer","text":"When data is imported from external systems like CRMs or accounting software, numbers are often formatted with text characters or invisible apostrophes. Excel may treat imported amounts as text, which can cause arithmetic or aggregation formulas to ignore or mishandle them. VALUE converts text that Excel recognises as a number, but currency and decimal/thousands separators must match the locale or be normalised first."}},{"@type":"Question","name":"How do I fix dates that won't sort in Excel?","acceptedAnswer":{"@type":"Answer","text":"If the cells are confirmed as text dates, DATEVALUE can convert recognised date text to Excel serial dates. Its interpretation depends on system date settings, so verify ambiguous day/month formats before copying the formula down and then apply a Date number format."}},{"@type":"Question","name":"What's the difference between TRIM and CLEAN in Excel?","acceptedAnswer":{"@type":"Answer","text":"TRIM handles ordinary space characters. CLEAN removes the first 32 non-printing ASCII characters, but neither function removes every possible imported Unicode character. If TRIM/CLEAN does not fix the value, inspect the character and consider SUBSTITUTE, for example replacing CHAR(160) non-breaking spaces."}},{"@type":"Question","name":"Can Claude diagnose imported Excel data from a pasted sample?","acceptedAnswer":{"@type":"Answer","text":"Claude can identify visible patterns and suggest checks to run in Excel, but a plain-text paste does not preserve cell type, locale settings, number formats, or invisible-character metadata. Verify uncertain conditions in Excel before choosing a cleaning formula."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I remove trailing spaces in Excel?","acceptedAnswer":{"@type":"Answer","text":"Use =TRIM(A2) for ordinary spaces. It removes leading and trailing spaces and reduces repeated internal spaces to one. Imported data can also contain non-breaking spaces or other characters that TRIM does not remove; CLEAN removes certain non-printing ASCII characters, and stubborn character-160 spaces may need SUBSTITUTE."}},{"@type":"Question","name":"Why are my numbers stored as text in Excel?","acceptedAnswer":{"@type":"Answer","text":"When data is imported from external systems like CRMs or accounting software, numbers are often formatted with text characters or invisible apostrophes. Excel may treat imported amounts as text, which can cause arithmetic or aggregation formulas to ignore or mishandle them. VALUE converts text that Excel recognises as a number, but currency and decimal/thousands separators must match the locale or be normalised first."}},{"@type":"Question","name":"How do I fix dates that won't sort in Excel?","acceptedAnswer":{"@type":"Answer","text":"If the cells are confirmed as text dates, DATEVALUE can convert recognised date text to Excel serial dates. Its interpretation depends on system date settings, so verify ambiguous day/month formats before copying the formula down and then apply a Date number format."}},{"@type":"Question","name":"What's the difference between TRIM and CLEAN in Excel?","acceptedAnswer":{"@type":"Answer","text":"TRIM handles ordinary space characters. CLEAN removes the first 32 non-printing ASCII characters, but neither function removes every possible imported Unicode character. If TRIM/CLEAN does not fix the value, inspect the character and consider SUBSTITUTE, for example replacing CHAR(160) non-breaking spaces."}},{"@type":"Question","name":"Can ChatGPT diagnose imported Excel data from a pasted sample?","acceptedAnswer":{"@type":"Answer","text":"ChatGPT can identify visible patterns and suggest checks to run in Excel, but a plain-text paste does not preserve cell type, locale settings, number formats, or invisible-character metadata. Verify uncertain conditions in Excel before choosing a cleaning formula."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -142,7 +142,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-excel.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
 
@@ -150,9 +150,9 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eyebrow"><i class="ti ti-droplet-half-2" style="font-size:12px"></i> Excel · Claude AI</div>
+    <div class="hero-eyebrow"><i class="ti ti-droplet-half-2" style="font-size:12px"></i> Excel · ChatGPT</div>
     <h1>Diagnose Imported Excel Data Before Cleaning It with ChatGPT</h1>
-    <p class="hero-sub">Imported Excel data can look clean while hiding text dates, text-formatted amounts, blanks, or invisible characters. Paste a small sample into Claude to identify likely issue types and get targeted Excel checks first — then clean only after the problem is confirmed.</p>
+    <p class="hero-sub">Imported Excel data can look clean while hiding text dates, text-formatted amounts, blanks, or invisible characters. Paste a small sample into ChatGPT to identify likely issue types and get targeted Excel checks first — then clean only after the problem is confirmed.</p>
   </div>
 
   <!-- PROMPT -->
@@ -191,7 +191,7 @@ Rules:
 Your goal is only to identify the types of possible data-quality problems in each relevant column and tell me what I should verify in Excel before cleaning anything.</pre>
       <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
     </div>
-    <p class="prompt-hint">Paste a small real sample and include the column mapping. Claude should diagnose issue types and verification checks only — not clean the data yet. Use with <a href="https://claude.ai" target="_blank">Claude</a>.</p>
+    <p class="prompt-hint">Paste a small real sample and include the column mapping. ChatGPT should diagnose issue types and verification checks only — not clean the data yet. Use with <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
   </div>
 
   <!-- BEFORE / AFTER -->
@@ -214,7 +214,7 @@ Your goal is only to identify the types of possible data-quality problems in eac
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude turns the sample into checks to run in Excel</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — ChatGPT turns the sample into checks to run in Excel</div>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th>Column</th><th>Potential issue</th><th>Verify in Excel</th><th>What it confirms</th></tr>
@@ -261,11 +261,11 @@ Do not infer locale, cell type, or invisible characters from the paste alone.</p
   <div class="steps-card">
     <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Diagnose before cleaning — 5 steps</div>
     <div class="step"><div class="step-n">1</div><div class="step-body"><h3>Keep the original import unchanged</h3><p>Do not edit suspicious cells first. Preserve the raw data so every later check can be compared with the source.</p></div></div>
-    <div class="step"><div class="step-n">2</div><div class="step-body"><h3>Paste a small sample with headers</h3><p>Copy 5-10 representative rows and give Claude the exact column mapping. The paste is evidence of visible patterns, not proof of Excel cell types.</p></div></div>
-    <div class="step"><div class="step-n">3</div><div class="step-body"><h3>Ask Claude for diagnostic checks only</h3><p>Use the prompt above to identify potential issue types and simple checks such as <code>ISNUMBER</code>, <code>ISTEXT</code>, <code>LEN</code>, or <code>ISBLANK</code>.</p></div></div>
-    <div class="step"><div class="step-n">4</div><div class="step-body"><h3>Run the checks in Excel</h3><p>Confirm storage type, blanks, and other uncertain conditions in the workbook itself. Do not let Claude infer locale, date order, separators, or invisible characters from appearance alone.</p></div></div>
+    <div class="step"><div class="step-n">2</div><div class="step-body"><h3>Paste a small sample with headers</h3><p>Copy 5-10 representative rows and give ChatGPT the exact column mapping. The paste is evidence of visible patterns, not proof of Excel cell types.</p></div></div>
+    <div class="step"><div class="step-n">3</div><div class="step-body"><h3>Ask ChatGPT for diagnostic checks only</h3><p>Use the prompt above to identify potential issue types and simple checks such as <code>ISNUMBER</code>, <code>ISTEXT</code>, <code>LEN</code>, or <code>ISBLANK</code>.</p></div></div>
+    <div class="step"><div class="step-n">4</div><div class="step-body"><h3>Run the checks in Excel</h3><p>Confirm storage type, blanks, and other uncertain conditions in the workbook itself. Do not let ChatGPT infer locale, date order, separators, or invisible characters from appearance alone.</p></div></div>
     <div class="step"><div class="step-n">5</div><div class="step-body"><h3>Clean only after the issue is confirmed</h3><p>Once you know what Excel is actually storing, choose the appropriate helper-column cleaning method and validate it on known rows before applying it broadly.</p></div></div>
-    <div class="warn"><strong>Diagnosis first:</strong> A plain-text paste loses important Excel metadata. Treat Claude's output as a checklist of what to verify, not proof that a particular cleaning formula is safe.</div>
+    <div class="warn"><strong>Diagnosis first:</strong> A plain-text paste loses important Excel metadata. Treat ChatGPT's output as a checklist of what to verify, not proof that a particular cleaning formula is safe.</div>
   </div>
 
   <!-- FAQ -->
@@ -288,8 +288,8 @@ Do not infer locale, cell type, or invisible characters from the paste alone.</p
       <div class="faq-a">TRIM handles ordinary space characters. CLEAN removes the first 32 non-printing ASCII characters, but neither function removes every possible imported Unicode character. If TRIM/CLEAN does not fix the value, inspect the character and consider SUBSTITUTE — for example replacing CHAR(160) non-breaking spaces.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can Claude clean my Excel data for me automatically? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">This workflow uses Claude to diagnose a sample and return auditable Excel formulas. Whether Claude can directly create or modify a workbook depends on the Claude environment and tools you are using.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can ChatGPT clean my Excel data for me automatically? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">This workflow uses ChatGPT to diagnose a sample and return auditable Excel formulas. Whether ChatGPT can directly create or modify a workbook depends on the ChatGPT environment and tools you are using.</div>
     </div>
   </div>
 
@@ -306,7 +306,7 @@ Do not infer locale, cell type, or invisible characters from the paste alone.</p
     </a>
     <a href="/bank-reconciliation-excel.html" class="related-link">
       <strong>Automated Bank Reconciliation in Excel</strong>
-      <span>Use Claude to match transactions and find discrepancies instantly.</span>
+      <span>Use ChatGPT to match transactions and find discrepancies instantly.</span>
     </a>
     <a href="/automate-accounts-receivable-tracking-excel.html" class="related-link">
       <strong>Automate Accounts Receivable Tracking</strong>

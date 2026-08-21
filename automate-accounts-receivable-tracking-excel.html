@@ -6,7 +6,7 @@
 <title>Accounts Receivable Aging Report in Excel — PairWorkflows</title>
 <meta name="description" content="Build an accounts receivable aging tracker in Excel with ChatGPT using aging formulas, DSO calculations, overdue balances, and collection priority scoring.">
 <link rel="canonical" href="https://www.pairworkflows.com/automate-accounts-receivable-tracking-excel.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What are accounts receivable aging buckets?","acceptedAnswer":{"@type":"Answer","text":"Aging buckets group outstanding invoices by how many days past the due date they are. Standard buckets are Current (not yet due), 1-30 days overdue, 31-60 days, 61-90 days, and 90+ days. Each bucket carries a different collection risk — the older the invoice, the harder it is to collect."}},{"@type":"Question","name":"How does Claude calculate the aging for each invoice?","acceptedAnswer":{"@type":"Answer","text":"Claude subtracts the invoice due date from the report date you specify to get the days overdue. It then assigns each invoice to the appropriate aging bucket using IF or IFS logic. Invoices not yet due go into the Current bucket. The formula is written out so you can verify the logic."}},{"@type":"Question","name":"Can Claude calculate DSO from the AR data?","acceptedAnswer":{"@type":"Answer","text":"Yes. DSO (days sales outstanding) is calculated as total accounts receivable divided by the average daily credit sales for the period. You provide the revenue figure and the number of days in the period. Claude computes DSO and can track it period over period for trend analysis."}},{"@type":"Question","name":"How do I handle partially paid invoices in the aging tracker?","acceptedAnswer":{"@type":"Answer","text":"Include a Balance Outstanding column that reflects the remaining amount after partial payments. The aging calculation uses the balance outstanding, not the original invoice amount. This ensures the aging report shows what is actually owed, not what was originally billed."}},{"@type":"Question","name":"Does this tracker replace an ERP accounts receivable module?","acceptedAnswer":{"@type":"Answer","text":"No. This is for teams that manage AR in spreadsheets or need a supplementary view outside their ERP. If your ERP produces aging reports, this template can serve as a secondary analysis tool — for example, adding collection priority scoring or customer-level summaries the ERP doesn't provide."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What are accounts receivable aging buckets?","acceptedAnswer":{"@type":"Answer","text":"Aging buckets group outstanding invoices by how many days past the due date they are. Standard buckets are Current (not yet due), 1-30 days overdue, 31-60 days, 61-90 days, and 90+ days. Each bucket carries a different collection risk — the older the invoice, the harder it is to collect."}},{"@type":"Question","name":"How does ChatGPT calculate the aging for each invoice?","acceptedAnswer":{"@type":"Answer","text":"ChatGPT subtracts the invoice due date from the report date you specify to get the days overdue. It then assigns each invoice to the appropriate aging bucket using IF or IFS logic. Invoices not yet due go into the Current bucket. The formula is written out so you can verify the logic."}},{"@type":"Question","name":"Can ChatGPT calculate DSO from the AR data?","acceptedAnswer":{"@type":"Answer","text":"Yes. DSO (days sales outstanding) is calculated as total accounts receivable divided by the average daily credit sales for the period. You provide the revenue figure and the number of days in the period. ChatGPT computes DSO and can track it period over period for trend analysis."}},{"@type":"Question","name":"How do I handle partially paid invoices in the aging tracker?","acceptedAnswer":{"@type":"Answer","text":"Include a Balance Outstanding column that reflects the remaining amount after partial payments. The aging calculation uses the balance outstanding, not the original invoice amount. This ensures the aging report shows what is actually owed, not what was originally billed."}},{"@type":"Question","name":"Does this tracker replace an ERP accounts receivable module?","acceptedAnswer":{"@type":"Answer","text":"No. This is for teams that manage AR in spreadsheets or need a supplementary view outside their ERP. If your ERP produces aging reports, this template can serve as a secondary analysis tool — for example, adding collection priority scoring or customer-level summaries the ERP doesn't provide."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -180,7 +180,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-excel.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
 
@@ -188,9 +188,9 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eyebrow"><i class="ti ti-file-invoice" style="font-size:12px"></i> Excel · Claude AI</div>
+    <div class="hero-eyebrow"><i class="ti ti-file-invoice" style="font-size:12px"></i> Excel · ChatGPT</div>
     <h1>How to Build an Accounts Receivable Aging Tracker in Excel with ChatGPT</h1>
-    <p class="hero-sub">Paste your open invoice register into Claude and get back a full aging report in minutes — invoice-level buckets, customer summaries, DSO, and collection priority scoring, all built with formulas you can audit.</p>
+    <p class="hero-sub">Paste your open invoice register into ChatGPT and get back a full aging report in minutes — invoice-level buckets, customer summaries, DSO, and collection priority scoring, all built with formulas you can audit.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -251,7 +251,7 @@ OUTPUT FORMAT
 Format as tab-separated tables ready to paste into Excel.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Replace all bracketed sections with your real data. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+      <p class="prompt-hint">Replace all bracketed sections with your real data, then paste the prompt into <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
     </div>
 
     <div id="p-partial" class="panel">
@@ -317,7 +317,7 @@ change in days. Flag any period where DSO increased by more than [5] days.</pre>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after" style="border-color:#6ee7b7">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude ages from Due Date, correct buckets</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — ChatGPT ages from Due Date, correct buckets</div>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th>Customer</th><th>Invoice #</th><th>Due Date</th><th>Balance</th><th>Days Overdue</th><th>Bucket</th><th>Priority</th></tr>
@@ -327,7 +327,7 @@ change in days. Flag any period where DSO increased by more than [5] days.</pre>
           <tr><td>Bluewave Co</td><td>INV-1201</td><td>19/08/2026</td><td>$7,200</td><td class="ok-cell">Current</td><td class="ok-cell">Current</td><td class="ok-cell">🟢 Low</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's AR summary</div>
+          <div class="claude-fix-label">ChatGPT's AR summary</div>
           <pre>Total AR:    $98,700
 1–30 days:   $42,000  (Horizon — large balance, Medium)
 61–90 days:  $18,500
@@ -358,7 +358,7 @@ DSO = $98,700 ÷ ($540,000 ÷ 180) = 32.9 days ✓</pre>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude ages on balance outstanding only</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — ChatGPT ages on balance outstanding only</div>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th>Customer</th><th>Invoice #</th><th>Due Date</th><th>Original</th><th>Paid</th><th>Balance</th><th>Bucket</th><th>Priority</th></tr>
@@ -368,7 +368,7 @@ DSO = $98,700 ÷ ($540,000 ÷ 180) = 32.9 days ✓</pre>
           <tr><td>Bluewave Co</td><td>INV-1201</td><td>19/08/2026</td><td>$7,200</td><td>$0</td><td>$7,200</td><td class="ok-cell">Current</td><td class="ok-cell">🟢 Low</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's corrected AR</div>
+          <div class="claude-fix-label">ChatGPT's corrected AR</div>
           <pre>Balance = Original Amount − Amount Paid
 NordEx fully paid → removed from aging report
 True AR exposure: $34,700 (not $98,700)
@@ -399,7 +399,7 @@ Horizon drops from High to Low — $14k balance, 1–30 days ✓</pre>
     </div>
     <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
     <div class="ba-col after">
-      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — Claude builds DSO trend with flags</div>
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — ChatGPT builds DSO trend with flags</div>
       <div class="ba-body">
         <table class="xl-table">
           <tr><th>Period</th><th>Total AR</th><th>DSO</th><th>Δ Days</th><th>Flag</th></tr>
@@ -410,7 +410,7 @@ Horizon drops from High to Low — $14k balance, 1–30 days ✓</pre>
           <tr><td>Jun 2026</td><td>$98,700</td><td class="link-cell">5.5 days</td><td class="ok-cell">−0.7</td><td class="ok-cell">—</td></tr>
         </table>
         <div class="claude-fix">
-          <div class="claude-fix-label">Claude's DSO trend summary</div>
+          <div class="claude-fix-label">ChatGPT's DSO trend summary</div>
           <pre>Jun DSO = $98,700 ÷ ($540,000 ÷ 30) = 5.5 days
 Period range: 4.7 → 6.2 → 5.5 days
 No period exceeded the +5-day flag threshold.
@@ -448,10 +448,10 @@ Collections stable — no escalation needed. ✓</pre>
   <!-- STEPS -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Accounts receivable aging formulas and workflow</h2>
   <div class="steps-card">
-    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build an AR aging tracker with Claude — 5 steps</div>
+    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build an AR aging tracker with ChatGPT — 5 steps</div>
     <div class="step">
       <div class="step-n">1</div>
-      <div class="step-body"><h3>Use the due date, not the invoice date, for aging</h3><p>Aging measures how late a payment is — that's days past <em>due</em>, not days since invoicing. An invoice dated 1 January with Net 60 terms isn't overdue until 2 March. If you only have invoice dates, tell Claude your standard payment terms and it will calculate due dates.</p></div>
+      <div class="step-body"><h3>Use the due date, not the invoice date, for aging</h3><p>Aging measures how late a payment is — that's days past <em>due</em>, not days since invoicing. An invoice dated 1 January with Net 60 terms isn't overdue until 2 March. If you only have invoice dates, tell ChatGPT your standard payment terms and it will calculate due dates.</p></div>
     </div>
     <div class="step">
       <div class="step-n">2</div>
@@ -459,15 +459,15 @@ Collections stable — no escalation needed. ✓</pre>
     </div>
     <div class="step">
       <div class="step-n">3</div>
-      <div class="step-body"><h3>Exclude fully paid invoices before pasting</h3><p>A register with 500 paid invoices and 40 open ones forces Claude to sort through noise. Filter to open invoices only. Paid invoices belong in your bank reconciliation, not the AR tracker.</p></div>
+      <div class="step-body"><h3>Exclude fully paid invoices before pasting</h3><p>A register with 500 paid invoices and 40 open ones forces ChatGPT to sort through noise. Filter to open invoices only. Paid invoices belong in your bank reconciliation, not the AR tracker.</p></div>
     </div>
     <div class="step">
       <div class="step-n">4</div>
-      <div class="step-body"><h3>Specify the report date</h3><p>Claude calculates days overdue as <code>Report Date − Due Date</code>. If you don't specify a report date, the aging is anchored to nothing. State it clearly: <code>Report date: 11/07/2025</code>.</p></div>
+      <div class="step-body"><h3>Specify the report date</h3><p>ChatGPT calculates days overdue as <code>Report Date − Due Date</code>. If you don't specify a report date, the aging is anchored to nothing. State it clearly: <code>Report date: 11/07/2025</code>.</p></div>
     </div>
     <div class="step">
       <div class="step-n">5</div>
-      <div class="step-body"><h3>Provide credit sales for the DSO calculation</h3><p>DSO = Total AR ÷ (Credit Sales ÷ Days in Period). Without a revenue figure and period length, Claude can't compute it. Give both explicitly, and use credit sales rather than total revenue if a meaningful share of sales is cash.</p></div>
+      <div class="step-body"><h3>Provide credit sales for the DSO calculation</h3><p>DSO = Total AR ÷ (Credit Sales ÷ Days in Period). Without a revenue figure and period length, ChatGPT can't compute it. Give both explicitly, and use credit sales rather than total revenue if a meaningful share of sales is cash.</p></div>
     </div>
     <div class="warn"><strong>Common mistake:</strong> Aging invoices from the invoice date instead of the due date. A Net 60 invoice issued 45 days ago isn't overdue — it's Current. Aging from the invoice date would put it in the 31–60 bucket and trigger a false collection alert.</div>
   </div>
@@ -480,12 +480,12 @@ Collections stable — no escalation needed. ✓</pre>
       <div class="faq-a">Aging buckets group outstanding invoices by how many days past the due date they are. Standard buckets are Current (not yet due), 1–30 days overdue, 31–60 days, 61–90 days, and 90+ days. Each bucket carries a different collection risk — the older the invoice, the harder it is to collect.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">How does Claude calculate the aging for each invoice? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Claude subtracts the invoice due date from the report date you specify to get the days overdue. It then assigns each invoice to the appropriate aging bucket using IF or IFS logic. Invoices not yet due go into the Current bucket. The formula is written out so you can verify the logic.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">How does ChatGPT calculate the aging for each invoice? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">ChatGPT subtracts the invoice due date from the report date you specify to get the days overdue. It then assigns each invoice to the appropriate aging bucket using IF or IFS logic. Invoices not yet due go into the Current bucket. The formula is written out so you can verify the logic.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can Claude calculate DSO from the AR data? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes. DSO (days sales outstanding) is calculated as total accounts receivable divided by the average daily credit sales for the period. You provide the revenue figure and the number of days in the period. Claude computes DSO and can track it period over period for trend analysis.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can ChatGPT calculate DSO from the AR data? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Yes. DSO (days sales outstanding) is calculated as total accounts receivable divided by the average daily credit sales for the period. You provide the revenue figure and the number of days in the period. ChatGPT computes DSO and can track it period over period for trend analysis.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I handle partially paid invoices in the aging tracker? <i class="ti ti-chevron-down"></i></div>

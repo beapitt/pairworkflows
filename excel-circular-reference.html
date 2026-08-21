@@ -202,7 +202,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-excel.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
 
@@ -210,9 +210,9 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eyebrow"><i class="ti ti-rotate" style="font-size:12px"></i> Excel · Claude AI</div>
+    <div class="hero-eyebrow"><i class="ti ti-rotate" style="font-size:12px"></i> Excel · ChatGPT</div>
     <h1>How to Find and Fix Circular References in Excel with ChatGPT</h1>
-    <p class="hero-sub">A circular reference means a formula loops back to its own cell — directly, or through a chain of other formulas. Paste the flagged formula into Claude and it traces the chain, finds exactly where the loop closes, and gives you a fix that doesn't just mask the problem with iterative calculation.</p>
+    <p class="hero-sub">A circular reference means a formula loops back to its own cell — directly, or through a chain of other formulas. Paste the flagged formula into ChatGPT and it traces the chain, finds exactly where the loop closes, and gives you a fix that doesn't just mask the problem with iterative calculation.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -237,7 +237,7 @@ The cells it references are: [list cells and their formulas].
 Please identify where the circular loop closes and suggest how to rewrite the formula to break the loop without losing the calculation logic.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Start here the moment Excel flags a cell. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+      <p class="prompt-hint">Start here the moment Excel flags a cell, then paste the prompt into <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
     </div>
 
     <div id="p-indirect" class="panel">
@@ -452,7 +452,7 @@ Each formula is supposed to [describe purpose]. Please trace where the loop clos
   <!-- STEPS -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">How to find a circular reference step by step</h2>
   <div class="steps-card">
-    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Find and fix a circular reference with Claude — 5 steps</div>
+    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Find and fix a circular reference with ChatGPT — 5 steps</div>
     <div class="step">
       <div class="step-n">1</div>
       <div class="step-body"><h3>Find the circular reference</h3><p>Go to <code>Formulas → Error Checking → Circular References</code>. Excel shows the flagged cell. Click it — that's your starting point. Note the cell address.</p></div>
@@ -467,7 +467,7 @@ Each formula is supposed to [describe purpose]. Please trace where the loop clos
     </div>
     <div class="step">
       <div class="step-n">4</div>
-      <div class="step-body"><h3>Paste into Claude</h3><p>Share the formula from the flagged cell, the formulas from each cell in the chain, and what each one is supposed to calculate. Claude will identify where the loop closes and explain how to break it.</p></div>
+      <div class="step-body"><h3>Paste into ChatGPT</h3><p>Share the formula from the flagged cell, the formulas from each cell in the chain, and what each one is supposed to calculate. ChatGPT will identify where the loop closes and explain how to break it.</p></div>
     </div>
     <div class="step">
       <div class="step-n">5</div>
@@ -511,7 +511,7 @@ Each formula is supposed to [describe purpose]. Please trace where the loop clos
     </a>
     <a href="/explain-excel-formulas.html" class="related-link">
       <strong>Understand Inherited Formulas</strong>
-      <span>Use Claude to deconstruct complex formulas you didn't write.</span>
+      <span>Use ChatGPT to deconstruct complex formulas you didn't write.</span>
     </a>
     <a href="/na-error-in-excel.html" class="related-link">
       <strong>Fix #N/A Errors in VLOOKUP and XLOOKUP</strong>

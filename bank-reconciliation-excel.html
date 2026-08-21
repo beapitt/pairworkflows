@@ -6,7 +6,7 @@
 <title>Bank Reconciliation in Excel: Step-by-Step Guide — PairWorkflows</title>
 <meta name="description" content="Reconcile a bank statement against your general ledger in Excel with ChatGPT. Match transactions, identify discrepancies, and troubleshoot false mismatches.">
 <link rel="canonical" href="https://www.pairworkflows.com/bank-reconciliation-excel.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude read my Excel bank statement directly?","acceptedAnswer":{"@type":"Answer","text":"Claude may support spreadsheet file uploads depending on the plan and current product features. If file upload is unavailable, paste the relevant columns as text. For best results, provide only the rows and columns needed for the reconciliation."}},{"@type":"Question","name":"How does Claude match bank transactions to ledger entries?","acceptedAnswer":{"@type":"Answer","text":"Claude compares rows across two datasets using the matching criteria you specify — typically date, amount, and reference number. It flags exact matches, partial matches (e.g. same amount but different date), and completely unmatched items on both sides."}},{"@type":"Question","name":"Will Claude invent matches that don't exist?","acceptedAnswer":{"@type":"Answer","text":"No prompt can guarantee error-free AI matching. Use explicit one-to-one row IDs, evidence and ambiguity rules, then verify every proposed match and the control totals against the original source data."}},{"@type":"Question","name":"Can I use this for multi-currency bank reconciliation?","acceptedAnswer":{"@type":"Answer","text":"Yes, but provide the approved FX basis explicitly. Keep original currency, rate, converted amount and ledger booked reporting-currency amount visible, and investigate conversion differences before deciding on any accounting entry."}},{"@type":"Question","name":"How often should I run this reconciliation?","acceptedAnswer":{"@type":"Answer","text":"Reconciliation frequency depends on transaction volume, risk, controls and close policy. Many organisations reconcile at least as part of month-end, while higher-risk or high-volume accounts may be reconciled more frequently."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can ChatGPT read my Excel bank statement directly?","acceptedAnswer":{"@type":"Answer","text":"Upload a workbook only if the ChatGPT interface and plan you are using supports file uploads. Otherwise, paste the relevant columns as text into the prompt. For best results, provide only the rows and columns needed for the reconciliation."}},{"@type":"Question","name":"How does ChatGPT match bank transactions to ledger entries?","acceptedAnswer":{"@type":"Answer","text":"ChatGPT compares rows across two datasets using the matching criteria you specify — typically date, amount, and reference number. It flags exact matches, partial matches (e.g. same amount but different date), and completely unmatched items on both sides."}},{"@type":"Question","name":"Will ChatGPT invent matches that don't exist?","acceptedAnswer":{"@type":"Answer","text":"No prompt can guarantee error-free AI matching. Use explicit one-to-one row IDs, evidence and ambiguity rules, then verify every proposed match and the control totals against the original source data."}},{"@type":"Question","name":"Can I use this for multi-currency bank reconciliation?","acceptedAnswer":{"@type":"Answer","text":"Yes, but provide the approved FX basis explicitly. Keep original currency, rate, converted amount and ledger booked reporting-currency amount visible, and investigate conversion differences before deciding on any accounting entry."}},{"@type":"Question","name":"How often should I run this reconciliation?","acceptedAnswer":{"@type":"Answer","text":"Reconciliation frequency depends on transaction volume, risk, controls and close policy. Many organisations reconcile at least as part of month-end, while higher-risk or high-volume accounts may be reconciled more frequently."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -196,7 +196,7 @@ section { margin-bottom: 2rem; }
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-excel.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
 
@@ -204,10 +204,10 @@ section { margin-bottom: 2rem; }
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
+    <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · ChatGPT</div>
     <h1>How to Do Bank Reconciliation in Excel with ChatGPT</h1>
     <h2>Reconcile bank transactions step by step</h2>
-    <p class="hero-sub">Provide the bank statement and cash-ledger rows to Claude and use it to generate candidate matches, exceptions, and an Excel-ready reconciliation schedule. The workflow below requires one-to-one matching evidence and keeps ambiguous items unmatched for human review.</p>
+    <p class="hero-sub">Provide the bank statement and cash-ledger rows to ChatGPT and use it to generate candidate matches, exceptions, and an Excel-ready reconciliation schedule. The workflow below requires one-to-one matching evidence and keeps ambiguous items unmatched for human review.</p>
   </section>
 
   <!-- PROMPT SELECTOR -->
@@ -283,7 +283,7 @@ Format the tables as tab-separated text I can paste into Excel.
 Do not recommend posting journal entries from this output; reconciliation exceptions require review first.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Replace the bracketed sections with your real data. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a> or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+      <p class="prompt-hint">Replace the bracketed sections with your real data, then paste the prompt into <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
     </div>
 
     <!-- Panel: Debug -->
@@ -577,11 +577,11 @@ For real reconciliations, retain the original amount, rate and converted amount 
       </div>
       <div class="step">
         <div class="step-n">4</div>
-        <div class="step-body"><h3>Review every Partial and Unmatched item</h3><p>Claude's output is a starting point, not a final answer. Every amount exception or unmatched item needs a root-cause review. It may reflect timing, fees, an entry error, a split/combined transaction, or another valid cause. Do not assume an unmatched bank item automatically requires a journal entry.</p></div>
+        <div class="step-body"><h3>Review every Partial and Unmatched item</h3><p>ChatGPT's output is a starting point, not a final answer. Every amount exception or unmatched item needs a root-cause review. It may reflect timing, fees, an entry error, a split/combined transaction, or another valid cause. Do not assume an unmatched bank item automatically requires a journal entry.</p></div>
       </div>
       <div class="step">
         <div class="step-n">5</div>
-        <div class="step-body"><h3>Paste the reconciliation table into Excel</h3><p>Claude formats the output as a tab-separated table ready to paste into Excel. Apply <code>Ctrl+Shift+L</code> to add filters, then sort by Status to group all Partial and Unmatched items at the top.</p></div>
+        <div class="step-body"><h3>Paste the reconciliation table into Excel</h3><p>ChatGPT formats the output as a tab-separated table ready to paste into Excel. Apply <code>Ctrl+Shift+L</code> to add filters, then sort by Status to group all Partial and Unmatched items at the top.</p></div>
       </div>
       <div class="tip"><strong>Tip:</strong> If many items unexpectedly show Unmatched, inspect the underlying date types, sign conventions, amount data types and row identifiers first. Do not normalise dates by guesswork when formats such as 03/04/2026 are ambiguous.</div>
     </section>
@@ -601,7 +601,7 @@ For real reconciliations, retain the original amount, rate and converted amount 
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Query Claude for hidden formatting</h3><p>Paste the samples into Claude using the prompt above. Claude can help identify likely issues such as invisible characters, trailing spaces, differing sign conventions, or text-stored dates from the samples you provide.</p></div>
+        <div class="step-body"><h3>Query ChatGPT for hidden formatting</h3><p>Paste the samples into ChatGPT using the prompt above. ChatGPT can help identify likely issues such as invisible characters, trailing spaces, differing sign conventions, or text-stored dates from the samples you provide.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
@@ -620,11 +620,11 @@ For real reconciliations, retain the original amount, rate and converted amount 
       </div>
       <div class="step">
         <div class="step-n">2</div>
-        <div class="step-body"><h3>Define your exchange rates</h3><p>Use the transaction-specific or policy-approved FX basis required by your accounting process. Provide that rate/booked reporting-currency amount explicitly; do not ask Claude to estimate or source a rate implicitly.</p></div>
+        <div class="step-body"><h3>Define your exchange rates</h3><p>Use the transaction-specific or policy-approved FX basis required by your accounting process. Provide that rate/booked reporting-currency amount explicitly; do not ask ChatGPT to estimate or source a rate implicitly.</p></div>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Run the multi-currency prompt</h3><p>Paste your data using the prompt above. Require Claude to state whether the quoted rate means reporting currency per 1 unit of foreign currency or the inverse before multiplying/dividing, and retain the rate used beside every converted amount.</p></div>
+        <div class="step-body"><h3>Run the multi-currency prompt</h3><p>Paste your data using the prompt above. Require ChatGPT to state whether the quoted rate means reporting currency per 1 unit of foreign currency or the inverse before multiplying/dividing, and retain the rate used beside every converted amount.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
@@ -637,20 +637,20 @@ For real reconciliations, retain the original amount, rate and converted amount 
   <section class="faq-section">
     <div class="faq-title"><h2>Frequently asked questions</h2></div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can Claude read my Excel bank statement directly? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Claude may support spreadsheet file uploads depending on the plan and current product features. If file upload is unavailable, copy the relevant Excel columns and paste them as plain text into the prompt.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can ChatGPT read my Excel bank statement directly? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Upload a workbook only if the ChatGPT interface and plan you are using supports file uploads. Otherwise, copy the relevant Excel columns and paste them as plain text into the prompt.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">How does Claude match bank transactions to ledger entries? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Use Claude to propose one-to-one candidate matches from the criteria you provide. The revised prompt requires unique row IDs, signed amounts, reference/description evidence, and prevents reuse of the same source row. Duplicate or uncertain candidates remain ambiguous rather than being forced into a match.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">How does ChatGPT match bank transactions to ledger entries? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Use ChatGPT to propose one-to-one candidate matches from the criteria you provide. The revised prompt requires unique row IDs, signed amounts, reference/description evidence, and prevents reuse of the same source row. Duplicate or uncertain candidates remain ambiguous rather than being forced into a match.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Will Claude invent matches that don't exist? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">No prompt can guarantee that an AI will never make a matching mistake. This workflow reduces the risk by requiring source row IDs, explicit evidence, one-to-one usage checks and ambiguous/unmatched statuses. Always reconcile Claude's output back to the original bank and ledger rows before posting adjustments.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Will ChatGPT invent matches that don't exist? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">No prompt can guarantee that an AI will never make a matching mistake. This workflow reduces the risk by requiring source row IDs, explicit evidence, one-to-one usage checks and ambiguous/unmatched statuses. Always reconcile ChatGPT's output back to the original bank and ledger rows before posting adjustments.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can I use this for multi-currency bank reconciliation? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes, if you provide the approved FX basis. Keep original currency, rate, converted amount and ledger booked reporting-currency amount visible. Claude should use only the rate/basis you supply and should not automatically treat a conversion difference as an FX journal entry.</div>
+      <div class="faq-a">Yes, if you provide the approved FX basis. Keep original currency, rate, converted amount and ledger booked reporting-currency amount visible. ChatGPT should use only the rate/basis you supply and should not automatically treat a conversion difference as an FX journal entry.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How often should I run this reconciliation? <i class="ti ti-chevron-down"></i></div>
@@ -666,11 +666,11 @@ For real reconciliations, retain the original amount, rate and converted amount 
         <strong>Automate Your Month-End Close Checklist</strong>
         <span>Build a close checklist in Excel that tracks tasks, deadlines, and sign-offs automatically.</span>
       </a>
-      <a href="/accounts-payable-aging-excel-claude.html" class="related-link">
+      <a href="/build-accounts-payable-aging-dashboard-excel.html" class="related-link">
         <strong>Build an Accounts Payable Aging Dashboard</strong>
-        <span>Flag overdue invoices and build an AP aging summary with Claude in minutes.</span>
+        <span>Flag overdue invoices and build an AP aging summary with ChatGPT in minutes.</span>
       </a>
-      <a href="/accounts-receivable-excel-claude.html" class="related-link">
+      <a href="/automate-accounts-receivable-tracking-excel.html" class="related-link">
         <strong>Automate Accounts Receivable Tracking</strong>
         <span>Track outstanding invoices and calculate days outstanding without manual formulas.</span>
       </a>

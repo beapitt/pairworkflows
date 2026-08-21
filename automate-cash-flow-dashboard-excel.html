@@ -6,7 +6,7 @@
 <title>How to Build a Cash Flow Dashboard in Excel — PairWorkflows</title>
 <meta name="description" content="Build a weekly cash flow dashboard in Excel with ChatGPT using categorized transactions, weekly cash totals, closing balances, and cash runway calculations.">
 <link rel="canonical" href="https://www.pairworkflows.com/automate-cash-flow-dashboard-excel.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between a cash flow dashboard and a cash flow statement?","acceptedAnswer":{"@type":"Answer","text":"A cash flow statement is a formal financial report prepared monthly or quarterly under accounting standards. A cash flow dashboard is an operational tool — it shows where cash is right now, where it went this week, and how many weeks of runway remain. The dashboard updates as often as you paste in new data; the statement is prepared at period-end."}},{"@type":"Question","name":"Can Claude categorise bank transactions into operating, investing, and financing?","acceptedAnswer":{"@type":"Answer","text":"Yes, if the transaction descriptions are reasonably clear. The prompt instructs Claude to categorise each transaction and flag any it cannot classify with confidence. You review the flagged items and assign them manually — Claude never guesses silently."}},{"@type":"Question","name":"How do I calculate cash runway from this dashboard?","acceptedAnswer":{"@type":"Answer","text":"The dashboard includes a runway formula: current cash balance divided by average weekly net cash burn over the trailing period you specify (typically 4-8 weeks). This gives you estimated weeks of runway at the current burn rate."}},{"@type":"Question","name":"Should I use bank data or general ledger data as input?","acceptedAnswer":{"@type":"Answer","text":"Bank data shows actual cash movements and is better for operational dashboards. GL data may include accruals that haven't settled yet. For a cash-focused dashboard, bank transactions are the cleaner input. Make sure to reconcile against the GL periodically."}},{"@type":"Question","name":"How often should I update the cash flow dashboard?","acceptedAnswer":{"@type":"Answer","text":"Weekly is the most common cadence for operational cash management. Daily updates are useful during cash-constrained periods. Monthly is sufficient if the dashboard is used primarily for board reporting rather than day-to-day management."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between a cash flow dashboard and a cash flow statement?","acceptedAnswer":{"@type":"Answer","text":"A cash flow statement is a formal financial report prepared monthly or quarterly under accounting standards. A cash flow dashboard is an operational tool — it shows where cash is right now, where it went this week, and how many weeks of runway remain. The dashboard updates as often as you paste in new data; the statement is prepared at period-end."}},{"@type":"Question","name":"Can ChatGPT categorise bank transactions into operating, investing, and financing?","acceptedAnswer":{"@type":"Answer","text":"Yes, if the transaction descriptions are reasonably clear. The prompt instructs ChatGPT to categorise each transaction and flag any it cannot classify with confidence. You review the flagged items and assign them manually — ChatGPT never guesses silently."}},{"@type":"Question","name":"How do I calculate cash runway from this dashboard?","acceptedAnswer":{"@type":"Answer","text":"The dashboard includes a runway formula: current cash balance divided by average weekly net cash burn over the trailing period you specify (typically 4-8 weeks). This gives you estimated weeks of runway at the current burn rate."}},{"@type":"Question","name":"Should I use bank data or general ledger data as input?","acceptedAnswer":{"@type":"Answer","text":"Bank data shows actual cash movements and is better for operational dashboards. GL data may include accruals that haven't settled yet. For a cash-focused dashboard, bank transactions are the cleaner input. Make sure to reconcile against the GL periodically."}},{"@type":"Question","name":"How often should I update the cash flow dashboard?","acceptedAnswer":{"@type":"Answer","text":"Weekly is the most common cadence for operational cash management. Daily updates are useful during cash-constrained periods. Monthly is sufficient if the dashboard is used primarily for board reporting rather than day-to-day management."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -187,7 +187,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-excel.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
 
@@ -195,9 +195,9 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eyebrow"><i class="ti ti-cash" style="font-size:12px"></i> Excel · Claude AI</div>
+    <div class="hero-eyebrow"><i class="ti ti-cash" style="font-size:12px"></i> Excel · ChatGPT</div>
     <h1>How to Build a Weekly Cash Flow Dashboard in Excel with ChatGPT</h1>
-    <p class="hero-sub">Paste a raw bank transaction export into Claude and get back a categorised cash flow dashboard — operating, investing, and financing totals by week, plus a runway calculation, in minutes instead of hours.</p>
+    <p class="hero-sub">Paste a raw bank transaction export into ChatGPT and get back a categorised cash flow dashboard — operating, investing, and financing totals by week, plus a runway calculation, in minutes instead of hours.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -259,7 +259,7 @@ OUTPUT FORMAT
 Format as tab-separated tables I can paste directly into Excel.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Replace all bracketed sections with your real data. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+      <p class="prompt-hint">Replace all bracketed sections with your real data, then paste the prompt into <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
     </div>
 
     <div id="p-transfers" class="panel">
@@ -532,28 +532,28 @@ If the trailing average is zero or positive, return "Cash not currently burning"
   <!-- STEPS -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Build a cash flow dashboard step by step</h2>
   <div class="steps-card">
-    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a cash flow dashboard with Claude — 5 steps</div>
+    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a cash flow dashboard with ChatGPT — 5 steps</div>
     <div class="step">
       <div class="step-n">1</div>
-      <div class="step-body"><h3>Delete summary rows and running balances</h3><p>Bank exports often include "Opening Balance", "Closing Balance", and "Total Debits" rows. Delete them. Claude should see only individual transactions — one row, one cash movement.</p></div>
+      <div class="step-body"><h3>Delete summary rows and running balances</h3><p>Bank exports often include "Opening Balance", "Closing Balance", and "Total Debits" rows. Delete them. ChatGPT should see only individual transactions — one row, one cash movement.</p></div>
     </div>
     <div class="step">
       <div class="step-n">2</div>
-      <div class="step-body"><h3>Use a consistent sign convention</h3><p>Positive = cash in. Negative = cash out. If your bank uses separate debit and credit columns, consolidate into a single Amount column before pasting, and tell Claude which convention you're using.</p></div>
+      <div class="step-body"><h3>Use a consistent sign convention</h3><p>Positive = cash in. Negative = cash out. If your bank uses separate debit and credit columns, consolidate into a single Amount column before pasting, and tell ChatGPT which convention you're using.</p></div>
     </div>
     <div class="step">
       <div class="step-n">3</div>
-      <div class="step-body"><h3>Include the opening cash balance</h3><p>Claude needs a starting point. State it clearly: <code>Opening cash balance as of 01/06/2025: $500,000</code>. Without this, the Closing Balance row is meaningless.</p></div>
+      <div class="step-body"><h3>Include the opening cash balance</h3><p>ChatGPT needs a starting point. State it clearly: <code>Opening cash balance as of 01/06/2025: $500,000</code>. Without this, the Closing Balance row is meaningless.</p></div>
     </div>
     <div class="step">
       <div class="step-n">4</div>
-      <div class="step-body"><h3>Specify what "weekly" means to you</h3><p>Monday-to-Sunday or Monday-to-Friday? Some teams use the calendar week, others the working week. Tell Claude so the groupings match how your team already thinks about cash.</p></div>
+      <div class="step-body"><h3>Specify what "weekly" means to you</h3><p>Monday-to-Sunday or Monday-to-Friday? Some teams use the calendar week, others the working week. Tell ChatGPT so the groupings match how your team already thinks about cash.</p></div>
     </div>
     <div class="step">
       <div class="step-n">5</div>
       <div class="step-body"><h3>Flag internal transfers explicitly</h3><p>Movements between your own bank accounts are not real cash flow — they're a reclassification. Left uncategorised, they inflate both Operating Inflow and Outflow and distort your burn rate.</p></div>
     </div>
-    <div class="warn"><strong>Common mistake:</strong> Treating a transfer between your own accounts as a cash inflow. Moving $50,000 from savings to chequing is not operating cash — it's a reclassification. The prompt tells Claude to flag internal transfers separately so they don't inflate your operating receipts.</div>
+    <div class="warn"><strong>Common mistake:</strong> Treating a transfer between your own accounts as a cash inflow. Moving $50,000 from savings to chequing is not operating cash — it's a reclassification. The prompt tells ChatGPT to flag internal transfers separately so they don't inflate your operating receipts.</div>
   </div>
 
   <!-- FAQ -->
@@ -564,8 +564,8 @@ If the trailing average is zero or positive, return "Cash not currently burning"
       <div class="faq-a">A cash flow statement is a formal financial report prepared monthly or quarterly under accounting standards. A cash flow dashboard is an operational tool — it shows where cash is right now, where it went this week, and how many weeks of runway remain. The dashboard updates as often as you paste in new data; the statement is prepared at period-end.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can Claude categorise bank transactions into operating, investing, and financing? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes, if the transaction descriptions are reasonably clear. The prompt instructs Claude to categorise each transaction and flag any it cannot classify with confidence. You review the flagged items and assign them manually — Claude never guesses silently.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can ChatGPT categorise bank transactions into operating, investing, and financing? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Yes, if the transaction descriptions are reasonably clear. The prompt instructs ChatGPT to categorise each transaction and flag any it cannot classify with confidence. You review the flagged items and assign them manually — ChatGPT never guesses silently.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I calculate cash runway from this dashboard? <i class="ti ti-chevron-down"></i></div>

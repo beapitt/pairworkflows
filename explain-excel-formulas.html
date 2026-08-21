@@ -6,7 +6,7 @@
 <title>How to Understand Complex Excel Formulas — PairWorkflows</title>
 <meta name="description" content="Use ChatGPT to explain complex Excel formulas step by step, understand nested logic, identify fragile references, and document how formulas work.">
 <link rel="canonical" href="https://www.pairworkflows.com/explain-excel-formulas.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I understand a complex Excel formula someone else wrote?","acceptedAnswer":{"@type":"Answer","text":"Paste the formula into Claude AI and ask it to break it down layer by layer, explaining each function and its purpose within the overall calculation."}},{"@type":"Question","name":"How do I document Excel formulas for handover?","acceptedAnswer":{"@type":"Answer","text":"Ask Claude to write a plain-English explanation of the formula, then copy this text into a cell comment or a dedicated DOCUMENTATION sheet within your workbook so the next user understands your logic."}},{"@type":"Question","name":"Can AI explain nested IF formulas?","acceptedAnswer":{"@type":"Answer","text":"Yes. Claude is very effective at parsing nested IF statements, clarifying the logic of each condition and highlighting potential errors or improvements."}},{"@type":"Question","name":"What should I copy when asking Claude to explain a formula?","acceptedAnswer":{"@type":"Answer","text":"Copy the formula directly from the formula bar, not the cell — the cell usually shows the result, not the actual formula. Include the sheet name, cell address, and a short description of the workbook."}},{"@type":"Question","name":"Is it safe to change a formula Claude has explained?","acceptedAnswer":{"@type":"Answer","text":"Understanding a formula is not the same as knowing every downstream effect of changing it. Claude can reason about dependencies you provide, but it cannot infer unseen workbook dependencies. Check dependent cells and cross-sheet references in Excel before editing."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I understand a complex Excel formula someone else wrote?","acceptedAnswer":{"@type":"Answer","text":"Paste the formula into ChatGPT and ask it to break it down layer by layer, explaining each function and its purpose within the overall calculation."}},{"@type":"Question","name":"How do I document Excel formulas for handover?","acceptedAnswer":{"@type":"Answer","text":"Ask ChatGPT to write a plain-English explanation of the formula, then copy this text into a cell comment or a dedicated DOCUMENTATION sheet within your workbook so the next user understands your logic."}},{"@type":"Question","name":"Can AI explain nested IF formulas?","acceptedAnswer":{"@type":"Answer","text":"Yes. ChatGPT is very effective at parsing nested IF statements, clarifying the logic of each condition and highlighting potential errors or improvements."}},{"@type":"Question","name":"What should I copy when asking ChatGPT to explain a formula?","acceptedAnswer":{"@type":"Answer","text":"Copy the formula directly from the formula bar, not the cell — the cell usually shows the result, not the actual formula. Include the sheet name, cell address, and a short description of the workbook."}},{"@type":"Question","name":"Is it safe to change a formula ChatGPT has explained?","acceptedAnswer":{"@type":"Answer","text":"Understanding a formula is not the same as knowing every downstream effect of changing it. ChatGPT can reason about dependencies you provide, but it cannot infer unseen workbook dependencies. Check dependent cells and cross-sheet references in Excel before editing."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -231,7 +231,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-excel.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
 
@@ -239,9 +239,9 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eyebrow"><i class="ti ti-file-text" style="font-size:12px"></i> Excel · Claude AI</div>
+    <div class="hero-eyebrow"><i class="ti ti-file-text" style="font-size:12px"></i> Excel · ChatGPT</div>
     <h1>Explain Complex Excel Formulas Step by Step with ChatGPT</h1>
-    <p class="hero-sub">Inherited a workbook with a monster formula and no documentation? Paste it into Claude with a bit of context and get a layer-by-layer breakdown of what it does, which parts are fragile, and a plain-English explanation you can hand to a colleague.</p>
+    <p class="hero-sub">Inherited a workbook with a monster formula and no documentation? Paste it into ChatGPT with a bit of context and get a layer-by-layer breakdown of what it does, which parts are fragile, and a plain-English explanation you can hand to a colleague.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -304,7 +304,7 @@ If multiple outcomes are possible, label the result Conditional.
 Do not invent workbook facts that are not supported by the formula or context.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Copy the formula from the formula bar, not the cell value. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+      <p class="prompt-hint">Copy the formula from the formula bar, not the cell value, then paste it into <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
     </div>
 
     <div id="p-followup" class="panel">
@@ -533,21 +533,21 @@ label those as assumptions.</pre>
     </div>
     <div class="step">
       <div class="step-n">2</div>
-      <div class="step-body"><h3>Gather a bit of context</h3><p>Note the sheet name, the cell address, and what the cell appears to show. Also note any other sheet names mentioned in the formula — Claude needs to know what those sheets contain.</p></div>
+      <div class="step-body"><h3>Gather a bit of context</h3><p>Note the sheet name, the cell address, and what the cell appears to show. Also note any other sheet names mentioned in the formula — ChatGPT needs to know what those sheets contain.</p></div>
     </div>
     <div class="step">
       <div class="step-n">3</div>
-      <div class="step-body"><h3>Paste into Claude and read the layer-by-layer explanation</h3><p>Give Claude the formula plus context and ask it to separate what is certain from the formula from what depends on workbook data it cannot see. Read every layer, not just the summary — this is where you catch hidden assumptions.</p></div>
+      <div class="step-body"><h3>Paste into ChatGPT and read the layer-by-layer explanation</h3><p>Give ChatGPT the formula plus context and ask it to separate what is certain from the formula from what depends on workbook data it cannot see. Read every layer, not just the summary — this is where you catch hidden assumptions.</p></div>
     </div>
     <div class="step">
       <div class="step-n">4</div>
-      <div class="step-body"><h3>Ask targeted follow-up questions</h3><p>"What happens if the value in A2 isn't found?", "Can I extend the range to row 1000?", "What happens when new rows are added below row 500?" Claude answers each one in context of the actual formula.</p></div>
+      <div class="step-body"><h3>Ask targeted follow-up questions</h3><p>"What happens if the value in A2 isn't found?", "Can I extend the range to row 1000?", "What happens when new rows are added below row 500?" ChatGPT answers each one in context of the actual formula.</p></div>
     </div>
     <div class="step">
       <div class="step-n">5</div>
-      <div class="step-body"><h3>Write the documentation and check safety before changing anything</h3><p>Ask Claude for a plain-English paragraph for a <code>DOCUMENTATION</code> sheet or cell note. Before editing, use Excel's dependency tools or inspect dependent formulas as well: Claude cannot know downstream workbook effects unless you provide those formulas or workbook context.</p></div>
+      <div class="step-body"><h3>Write the documentation and check safety before changing anything</h3><p>Ask ChatGPT for a plain-English paragraph for a <code>DOCUMENTATION</code> sheet or cell note. Before editing, use Excel's dependency tools or inspect dependent formulas as well: ChatGPT cannot know downstream workbook effects unless you provide those formulas or workbook context.</p></div>
     </div>
-    <div class="tip"><strong>Two passes work better than one:</strong> If Claude's first explanation is still confusing, ask it to explain the formula as if you're a non-Excel user, then ask a second time for the technical detail. Two passes at different levels of detail almost always give you a complete picture.</div>
+    <div class="tip"><strong>Two passes work better than one:</strong> If ChatGPT's first explanation is still confusing, ask it to explain the formula as if you're a non-Excel user, then ask a second time for the technical detail. Two passes at different levels of detail almost always give you a complete picture.</div>
   </div>
 
   <!-- FAQ -->
@@ -555,23 +555,23 @@ label those as assumptions.</pre>
   <div class="faq-section">
   <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I understand a complex Excel formula someone else wrote? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Paste the formula into Claude and ask it to break it down layer by layer, explaining each function and its purpose within the overall calculation. Start from the outermost function and work inward.</div>
+      <div class="faq-a">Paste the formula into ChatGPT and ask it to break it down layer by layer, explaining each function and its purpose within the overall calculation. Start from the outermost function and work inward.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I document Excel formulas for handover? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Ask Claude to write a plain-English explanation of the formula, then copy this text into a cell comment or a dedicated <code>DOCUMENTATION</code> sheet within your workbook so the next user understands your logic.</div>
+      <div class="faq-a">Ask ChatGPT to write a plain-English explanation of the formula, then copy this text into a cell comment or a dedicated <code>DOCUMENTATION</code> sheet within your workbook so the next user understands your logic.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can AI explain nested IF formulas? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes — Claude is very effective at parsing nested IF statements, clarifying the logic of each condition and highlighting potential errors or improvements. For very deep nesting, ask Claude whether IFS would be cleaner.</div>
+      <div class="faq-a">Yes — ChatGPT is very effective at parsing nested IF statements, clarifying the logic of each condition and highlighting potential errors or improvements. For very deep nesting, ask ChatGPT whether IFS would be cleaner.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">What should I copy when asking Claude to explain a formula? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-q" onclick="toggleFaq(this)">What should I copy when asking ChatGPT to explain a formula? <i class="ti ti-chevron-down"></i></div>
       <div class="faq-a">Copy the formula directly from the formula bar, not the cell — the cell usually shows the result, not the actual formula. Include the sheet name, cell address, and a short description of what the workbook is used for.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Is it safe to change a formula Claude has explained? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Understanding a formula is not the same as knowing every downstream effect of changing it. Claude can reason about dependencies you provide, but it cannot infer unseen workbook dependencies. Check dependent cells and cross-sheet references in Excel before editing.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Is it safe to change a formula ChatGPT has explained? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Understanding a formula is not the same as knowing every downstream effect of changing it. ChatGPT can reason about dependencies you provide, but it cannot infer unseen workbook dependencies. Check dependent cells and cross-sheet references in Excel before editing.</div>
     </div>
   </div>
 
@@ -584,7 +584,7 @@ label those as assumptions.</pre>
     </a>
     <a href="/excel-if-ifs-formulas.html" class="related-link">
       <strong>Write Clean IF and IFS Formulas</strong>
-      <span>Simplify complex conditional logic with Claude.</span>
+      <span>Simplify complex conditional logic with ChatGPT.</span>
     </a>
     <a href="/excel-lambda-functions.html" class="related-link">
       <strong>Create Reusable LAMBDA Functions</strong>

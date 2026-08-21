@@ -6,7 +6,7 @@
 <title>How to Build a 3-Statement Financial Model in Excel — PairWorkflows</title>
 <meta name="description" content="Build a linked 3-statement financial model in Excel with ChatGPT, connecting the income statement, balance sheet, and cash flow with formulas.">
 <link rel="canonical" href="https://www.pairworkflows.com/build-3-statement-financial-model-excel.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What links the three financial statements together?","acceptedAnswer":{"@type":"Answer","text":"Net income from the income statement is the starting point for the cash flow statement (indirect method) and contributes to the retained earnings roll-forward on the balance sheet, together with dividends or distributions where applicable. Changes in balance sheet working capital items feed the operating section of the cash flow statement. CapEx on the cash flow statement increases PP&E on the balance sheet. The ending cash balance on the cash flow statement must equal cash on the balance sheet."}},{"@type":"Question","name":"Can Claude build a 3-statement model from scratch without historical data?","acceptedAnswer":{"@type":"Answer","text":"Claude can build the model structure and formulas without historical data, but the output will be a blank template. A base historical period can anchor the first forecast, but some drivers and validation checks are stronger with multiple historical periods. At minimum, provide a complete historical income statement and a balance sheet that already balances, plus all assumptions required for the forecast schedules."}},{"@type":"Question","name":"How does Claude handle the balance sheet check?","acceptedAnswer":{"@type":"Answer","text":"The prompt instructs Claude to add a balance check row that calculates Total Assets minus Total Liabilities and Equity. The check should be zero within the model's stated rounding tolerance. A non-zero value means the statements are internally inconsistent and the affected links or roll-forwards need to be traced."}},{"@type":"Question","name":"Should I use the direct or indirect method for the cash flow statement?","acceptedAnswer":{"@type":"Answer","text":"This workflow uses the indirect method, which starts with net income and adjusts for non-cash items and changes in operating assets/liabilities."}},{"@type":"Question","name":"Can I extend this to a 5-year projection?","acceptedAnswer":{"@type":"Answer","text":"Yes. The prompt defaults to a 3-year projection but you can change the horizon. Provide your growth and margin assumptions for each year, and Claude will extend the model accordingly."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What links the three financial statements together?","acceptedAnswer":{"@type":"Answer","text":"Net income from the income statement is the starting point for the cash flow statement (indirect method) and contributes to the retained earnings roll-forward on the balance sheet, together with dividends or distributions where applicable. Changes in balance sheet working capital items feed the operating section of the cash flow statement. CapEx on the cash flow statement increases PP&E on the balance sheet. The ending cash balance on the cash flow statement must equal cash on the balance sheet."}},{"@type":"Question","name":"Can ChatGPT build a 3-statement model from scratch without historical data?","acceptedAnswer":{"@type":"Answer","text":"ChatGPT can build the model structure and formulas without historical data, but the output will be a blank template. A base historical period can anchor the first forecast, but some drivers and validation checks are stronger with multiple historical periods. At minimum, provide a complete historical income statement and a balance sheet that already balances, plus all assumptions required for the forecast schedules."}},{"@type":"Question","name":"How does ChatGPT handle the balance sheet check?","acceptedAnswer":{"@type":"Answer","text":"The prompt instructs ChatGPT to add a balance check row that calculates Total Assets minus Total Liabilities and Equity. The check should be zero within the model's stated rounding tolerance. A non-zero value means the statements are internally inconsistent and the affected links or roll-forwards need to be traced."}},{"@type":"Question","name":"Should I use the direct or indirect method for the cash flow statement?","acceptedAnswer":{"@type":"Answer","text":"This workflow uses the indirect method, which starts with net income and adjusts for non-cash items and changes in operating assets/liabilities."}},{"@type":"Question","name":"Can I extend this to a 5-year projection?","acceptedAnswer":{"@type":"Answer","text":"Yes. The prompt defaults to a 3-year projection but you can change the horizon. Provide your growth and margin assumptions for each year, and ChatGPT will extend the model accordingly."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -190,7 +190,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-excel.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
 
@@ -198,9 +198,9 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
+    <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · ChatGPT</div>
    <h1>How to Build a 3-Statement Financial Model in Excel with ChatGPT</h1>
-   <p class="hero-sub">Provide Claude with a complete historical base period, forecast assumptions, and model conventions, then use it to draft a linked income statement, balance sheet, cash flow statement, and supporting roll-forwards. Reconcile the historical period and validate every forecast year before relying on the model.</p>
+   <p class="hero-sub">Provide ChatGPT with a complete historical base period, forecast assumptions, and model conventions, then use it to draft a linked income statement, balance sheet, cash flow statement, and supporting roll-forwards. Reconcile the historical period and validate every forecast year before relying on the model.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -314,7 +314,7 @@ OUTPUT
 Use tab-separated tables suitable for pasting into Excel.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Replace all bracketed sections with your real data. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+      <p class="prompt-hint">Replace all bracketed sections with your real data, then paste the prompt into <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
     </div>
 
     <!-- Panel: Balance check != 0 -->
@@ -622,7 +622,7 @@ Balance Check must remain £0 in every added year.</pre>
   <div class="steps-panel on" id="steps-build">
     <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Build a linked 3-statement model step by step</h2>
     <div class="steps-card">
-      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a 3-statement model with Claude — 5 steps</div>
+      <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a 3-statement model with ChatGPT — 5 steps</div>
       <div class="step">
         <div class="step-n">1</div>
         <div class="step-body"><h3>Separate D&amp;A from other OpEx</h3><p>Keep D&amp;A separately traceable from cash operating expenses. It is an income-statement expense and a non-cash add-back on the indirect CFS; the fixed-asset schedule must also reflect depreciation in PP&amp;E / accumulated depreciation where applicable.</p></div>
@@ -633,7 +633,7 @@ Balance Check must remain £0 in every added year.</pre>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>State assumptions as specific numbers</h3><p><code>Revenue grows 10% per year</code> is usable. "Revenue will increase" is not. Claude needs specific percentages, dollar amounts, and ratios to build formulas. Vague inputs produce vague models.</p></div>
+        <div class="step-body"><h3>State assumptions as specific numbers</h3><p><code>Revenue grows 10% per year</code> is usable. "Revenue will increase" is not. ChatGPT needs specific percentages, dollar amounts, and ratios to build formulas. Vague inputs produce vague models.</p></div>
       </div>
       <div class="step">
         <div class="step-n">4</div>
@@ -662,7 +662,7 @@ Balance Check must remain £0 in every added year.</pre>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Paste specific rows to Claude</h3><p>Use the debug prompt with the affected period plus enough supporting roll-forward rows and formulas to prove the break. Do not dump the whole workbook, but do not omit a schedule merely because you assume it is unrelated.</p></div>
+        <div class="step-body"><h3>Paste specific rows to ChatGPT</h3><p>Use the debug prompt with the affected period plus enough supporting roll-forward rows and formulas to prove the break. Do not dump the whole workbook, but do not omit a schedule merely because you assume it is unrelated.</p></div>
       </div>
     </div>
   </div>
@@ -682,7 +682,7 @@ Balance Check must remain £0 in every added year.</pre>
       </div>
       <div class="step">
         <div class="step-n">3</div>
-        <div class="step-body"><h3>Apply the new columns</h3><p>Paste Claude's new formula columns next to your existing ones. Verify the Balance Check row for the new years still equals 0 before saving.</p></div>
+        <div class="step-body"><h3>Apply the new columns</h3><p>Paste ChatGPT's new formula columns next to your existing ones. Verify the Balance Check row for the new years still equals 0 before saving.</p></div>
       </div>
     </div>
   </div>
@@ -695,12 +695,12 @@ Balance Check must remain £0 in every added year.</pre>
       <div class="faq-a">Net income is the starting point for the cash flow statement and contributes to the retained earnings roll-forward on the balance sheet, net of dividends or distributions where applicable. Working capital changes (ΔAR, ΔAP, ΔInventory) flow from the balance sheet to the operating section of the CFS. CapEx on the CFS increases PP&amp;E on the balance sheet. Ending cash on the CFS must equal cash on the balance sheet.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can Claude build this without historical data? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can ChatGPT build this without historical data? <i class="ti ti-chevron-down"></i></div>
       <div class="faq-a">It can build the structure and formulas, but the output is a blank template. A base historical period can anchor the first forecast, but some drivers and validation checks are stronger with multiple historical periods. At minimum, provide a complete historical income statement and a balance sheet that already balances, plus all assumptions required for the forecast schedules.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How does the Balance Check row work? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Claude adds a row that calculates Total Assets minus Total Liabilities and Equity. It should be zero within the model's stated rounding tolerance. A non-zero result means the statements are not internally consistent, but it does not identify the cause by itself; trace the relevant roll-forwards and links before changing formulas.</div>
+      <div class="faq-a">ChatGPT adds a row that calculates Total Assets minus Total Liabilities and Equity. It should be zero within the model's stated rounding tolerance. A non-zero result means the statements are not internally consistent, but it does not identify the cause by itself; trace the relevant roll-forwards and links before changing formulas.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Direct or indirect method for the cash flow statement? <i class="ti ti-chevron-down"></i></div>
@@ -708,7 +708,7 @@ Balance Check must remain £0 in every added year.</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can I extend this to a 5-year projection? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes — use the Extend tab above. Change the horizon in the prompt, provide your assumptions for each additional year, and Claude adds the new columns following the same formula logic. Validate each added year and document which assumptions are explicitly new versus carried forward.</div>
+      <div class="faq-a">Yes — use the Extend tab above. Change the horizon in the prompt, provide your assumptions for each additional year, and ChatGPT adds the new columns following the same formula logic. Validate each added year and document which assumptions are explicitly new versus carried forward.</div>
     </div>
   </div>
 
@@ -719,13 +719,13 @@ Balance Check must remain £0 in every added year.</pre>
       <strong>Create a Rolling Forecast Model</strong>
       <span>Build a month-by-month rolling forecast that updates automatically as actuals come in.</span>
     </a>
-    <a href="/cash-flow-dashboard-excel-claude.html" class="related-link">
+    <a href="/automate-cash-flow-dashboard-excel.html" class="related-link">
       <strong>Automate a Cash Flow Dashboard</strong>
       <span>Feed 3-statement outputs into a live cash monitoring dashboard in Excel.</span>
     </a>
     <a href="/multi-entity-financials-excel.html" class="related-link">
       <strong>Consolidate Multi-Entity Financials</strong>
-      <span>Build one model per entity and consolidate across the group with Claude.</span>
+      <span>Build one model per entity and consolidate across the group with ChatGPT.</span>
     </a>
     <a href="/build-budget-variance-analysis-report-excel.html" class="related-link">
       <strong>Budget Variance Analysis Report</strong>

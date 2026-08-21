@@ -6,7 +6,7 @@
 <title>Budget vs Actual Report in Excel: Variance Analysis — PairWorkflows</title>
 <meta name="description" content="Build a budget vs actual report in Excel with ChatGPT, including variance amount, variance percentage, threshold flags, and management commentary.">
 <link rel="canonical" href="https://www.pairworkflows.com/build-budget-variance-analysis-report-excel.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Should variance be calculated as Budget minus Actual or Actual minus Budget?","acceptedAnswer":{"@type":"Answer","text":"Convention varies. For revenue lines, Actual minus Budget is common so a positive number means favourable. For expense lines, Budget minus Actual is typical so under-spending shows as positive. The prompt asks you to specify your convention and Claude applies it consistently across all line items."}},{"@type":"Question","name":"What variance threshold should trigger a flag?","acceptedAnswer":{"@type":"Answer","text":"A common rule flags any line where the variance exceeds 5-10 percent or a fixed dollar amount like 5000. The right threshold depends on materiality for your business. The prompt lets you set both a percentage and an absolute amount, combined with AND or OR logic."}},{"@type":"Question","name":"Can Claude write the variance commentary for me?","acceptedAnswer":{"@type":"Answer","text":"Claude can draft commentary based on the numbers — for example noting that a line is 12 percent over budget. But meaningful explanations require business context only your team has. Use Claude's draft as a starting point, then add the real reasons."}},{"@type":"Question","name":"How do I handle budget variance for a partial period?","acceptedAnswer":{"@type":"Answer","text":"Compare year-to-date actuals against the YTD portion of the annual budget — not the full year. The prompt includes a reporting period field so Claude labels the report correctly and can prorate if needed."}},{"@type":"Question","name":"What is the difference between a favourable and unfavourable variance?","acceptedAnswer":{"@type":"Answer","text":"A favourable variance improves the bottom line — revenue above budget or expenses below budget. An unfavourable variance hurts the bottom line — revenue below budget or expenses above budget. The label depends on the line type, not just the sign of the number."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Should variance be calculated as Budget minus Actual or Actual minus Budget?","acceptedAnswer":{"@type":"Answer","text":"Convention varies. For revenue lines, Actual minus Budget is common so a positive number means favourable. For expense lines, Budget minus Actual is typical so under-spending shows as positive. The prompt asks you to specify your convention and ChatGPT applies it consistently across all line items."}},{"@type":"Question","name":"What variance threshold should trigger a flag?","acceptedAnswer":{"@type":"Answer","text":"A common rule flags any line where the variance exceeds 5-10 percent or a fixed dollar amount like 5000. The right threshold depends on materiality for your business. The prompt lets you set both a percentage and an absolute amount, combined with AND or OR logic."}},{"@type":"Question","name":"Can ChatGPT write the variance commentary for me?","acceptedAnswer":{"@type":"Answer","text":"ChatGPT can draft commentary based on the numbers — for example noting that a line is 12 percent over budget. But meaningful explanations require business context only your team has. Use ChatGPT's draft as a starting point, then add the real reasons."}},{"@type":"Question","name":"How do I handle budget variance for a partial period?","acceptedAnswer":{"@type":"Answer","text":"Compare year-to-date actuals against the YTD portion of the annual budget — not the full year. The prompt includes a reporting period field so ChatGPT labels the report correctly and can prorate if needed."}},{"@type":"Question","name":"What is the difference between a favourable and unfavourable variance?","acceptedAnswer":{"@type":"Answer","text":"A favourable variance improves the bottom line — revenue above budget or expenses below budget. An unfavourable variance hurts the bottom line — revenue below budget or expenses above budget. The label depends on the line type, not just the sign of the number."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -186,7 +186,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
 <a href="/ai-for-excel.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
-<a href="/claude-for-finance.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
+<a href="/claude-for-excel.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
 
@@ -194,9 +194,9 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eyebrow"><i class="ti ti-report-money" style="font-size:12px"></i> Excel · Claude AI</div>
+    <div class="hero-eyebrow"><i class="ti ti-report-money" style="font-size:12px"></i> Excel · ChatGPT</div>
     <h1>How to Build a Budget vs Actual Report in Excel with ChatGPT</h1>
-    <p class="hero-sub">Paste your budget and actuals into Claude and get back a formula-driven variance report — dollar and percentage variances, favourable/unfavourable labels, threshold flags, and a blank commentary column ready for your team.</p>
+    <p class="hero-sub">Paste your budget and actuals into ChatGPT and get back a formula-driven variance report — dollar and percentage variances, favourable/unfavourable labels, threshold flags, and a blank commentary column ready for your team.</p>
   </div>
 
   <!-- PROMPT SELECTOR -->
@@ -252,7 +252,7 @@ OUTPUT FORMAT
 - Formulas written explicitly (e.g. =C2-B2) so I can verify the logic.</pre>
         <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
       </div>
-      <p class="prompt-hint">Replace all bracketed sections with your real data. Paste into <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://chatgpt.com" target="_blank">ChatGPT</a>, or <a href="https://gemini.google.com" target="_blank">Gemini</a>.</p>
+      <p class="prompt-hint">Replace all bracketed sections with your real data, then paste the prompt into <a href="https://chatgpt.com" target="_blank">ChatGPT</a>.</p>
     </div>
 
     <div id="p-threshold" class="panel">
@@ -545,10 +545,10 @@ Use a non-linear budget profile for seasonal items instead of simple proration.<
   <!-- STEPS -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Build a budget vs actual report step by step</h2>
   <div class="steps-card">
-    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a budget variance report with Claude — 5 steps</div>
+    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build a budget variance report with ChatGPT — 5 steps</div>
     <div class="step">
       <div class="step-n">1</div>
-      <div class="step-body"><h3>Label each line as Revenue or Expense</h3><p>This is what makes the variance direction work. Revenue: Actual − Budget (positive = good). Expense: Budget − Actual (positive = good). Without the Type column, Claude has to guess.</p></div>
+      <div class="step-body"><h3>Label each line as Revenue or Expense</h3><p>This is what makes the variance direction work. Revenue: Actual − Budget (positive = good). Expense: Budget − Actual (positive = good). Without the Type column, ChatGPT has to guess.</p></div>
     </div>
     <div class="step">
       <div class="step-n">2</div>
@@ -560,11 +560,11 @@ Use a non-linear budget profile for seasonal items instead of simple proration.<
     </div>
     <div class="step">
       <div class="step-n">4</div>
-      <div class="step-body"><h3>Use consistent line-item names</h3><p>"Marketing" in budget and "Marketing Costs" in actuals creates a mismatch. Claude matches rows by exact text. Standardise before pasting.</p></div>
+      <div class="step-body"><h3>Use consistent line-item names</h3><p>"Marketing" in budget and "Marketing Costs" in actuals creates a mismatch. ChatGPT matches rows by exact text. Standardise before pasting.</p></div>
     </div>
     <div class="step">
       <div class="step-n">5</div>
-      <div class="step-body"><h3>Leave the commentary column blank</h3><p>The numbers come from formulas. The explanations come from your team — the people who know why a line went 30% over. Claude can draft placeholder commentary, but your team should own the real story.</p></div>
+      <div class="step-body"><h3>Leave the commentary column blank</h3><p>The numbers come from formulas. The explanations come from your team — the people who know why a line went 30% over. ChatGPT can draft placeholder commentary, but your team should own the real story.</p></div>
     </div>
     <div class="warn"><strong>Period mismatch trap:</strong> Comparing six months of actuals against an annual budget will show every expense line as "favourable" and every revenue line as "unfavourable" — because you're only halfway through. Always compare like-for-like periods.</div>
   </div>
@@ -574,19 +574,19 @@ Use a non-linear budget profile for seasonal items instead of simple proration.<
   <div class="faq-section">
   <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Should variance be calculated as Budget minus Actual or Actual minus Budget? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Convention varies. For revenue lines, Actual minus Budget is common so a positive number means favourable. For expense lines, Budget minus Actual is typical so under-spending shows as positive. The prompt asks you to specify your convention and Claude applies it consistently across all line items.</div>
+      <div class="faq-a">Convention varies. For revenue lines, Actual minus Budget is common so a positive number means favourable. For expense lines, Budget minus Actual is typical so under-spending shows as positive. The prompt asks you to specify your convention and ChatGPT applies it consistently across all line items.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What variance threshold should trigger a flag? <i class="ti ti-chevron-down"></i></div>
       <div class="faq-a">A common rule flags any line where the variance exceeds 5-10 percent or a fixed dollar amount like 5000. The right threshold depends on materiality for your business. The prompt lets you set both a percentage and an absolute amount, combined with AND or OR logic.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can Claude write the variance commentary for me? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Claude can draft commentary based on the numbers — for example noting that a line is 12 percent over budget. But meaningful explanations require business context only your team has. Use Claude's draft as a starting point, then add the real reasons.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can ChatGPT write the variance commentary for me? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">ChatGPT can draft commentary based on the numbers — for example noting that a line is 12 percent over budget. But meaningful explanations require business context only your team has. Use ChatGPT's draft as a starting point, then add the real reasons.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I handle budget variance for a partial period? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Compare year-to-date actuals against the YTD portion of the annual budget — not the full year. The prompt includes a reporting period field so Claude labels the report correctly and can prorate if needed.</div>
+      <div class="faq-a">Compare year-to-date actuals against the YTD portion of the annual budget — not the full year. The prompt includes a reporting period field so ChatGPT labels the report correctly and can prorate if needed.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What is the difference between a favourable and unfavourable variance? <i class="ti ti-chevron-down"></i></div>
