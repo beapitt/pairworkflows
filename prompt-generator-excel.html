@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Claude Prompt Generator for Excel & Google Sheets | Free Tool — PairWorkflows</title>
-<meta name="description" content="Free Claude prompt generator for Excel and Google Sheets. Describe your task and get a ready-to-use AI prompt in seconds. Works with Claude, ChatGPT and Gemini.">
+<title>Excel AI Prompt Generator — ChatGPT, Claude & Gemini | PairWorkflows</title>
+<meta name="description" content="Generate ready-to-use prompts for Excel and Google Sheets with ChatGPT, Claude and Gemini. Describe your task and create a structured prompt you can copy and use immediately.">
 <link rel="canonical" href="https://www.pairworkflows.com/prompt-generator-excel.html">
-<meta property="og:title" content="Claude Prompt Generator for Excel & Google Sheets | Free Tool — PairWorkflows">
-<meta property="og:description" content="Free Claude prompt generator for Excel and Google Sheets. Describe your task and get a ready-to-use AI prompt in seconds. Works with Claude, ChatGPT and Gemini.">
+<meta property="og:title" content="Excel AI Prompt Generator — ChatGPT, Claude & Gemini | PairWorkflows">
+<meta property="og:description" content="Generate ready-to-use prompts for Excel and Google Sheets with ChatGPT, Claude and Gemini. Describe your task and create a structured prompt you can copy and use immediately.">
 <meta property="og:url" content="https://www.pairworkflows.com/prompt-generator-excel.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PairWorkflows">
@@ -15,8 +15,8 @@
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "Claude Prompt Generator for Excel",
-  "description": "Free Claude prompt generator for Excel and Google Sheets. Describe your spreadsheet task and get a ready-to-use AI prompt in seconds. Works with Claude, ChatGPT and Gemini.",
+  "name": "Excel AI Prompt Generator",
+  "description": "Generate ready-to-use prompts for Excel and Google Sheets with ChatGPT, Claude and Gemini. Describe your spreadsheet task and create a structured prompt you can copy and use immediately.",
   "url": "https://www.pairworkflows.com/prompt-generator-excel.html",
   "applicationCategory": "ProductivityApplication",
   "operatingSystem": "Web",
@@ -187,32 +187,32 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#f8f9fa;color:#1a1a2e;
 
   <!-- HERO -->
   <section class="hero">
-    <h1>Claude Prompt Generator for Excel</h1>
-    <p>Generate ready-to-use prompts for Excel and Google Sheets with Claude, ChatGPT or Gemini.</p>
+    <h1>AI Prompt Generator for Excel</h1>
+    <p>Generate ready-to-use prompts for Excel and Google Sheets with ChatGPT, Claude or Gemini.</p>
   </section>
 
   <!-- GENERATOR CARD -->
   <div class="generator-card" id="builder">
-    <h2><i class="ti ti-wand" style="color:#1d9e75"></i> Generate a Claude Prompt for Your Excel Task</h2>
+    <h2><i class="ti ti-wand" style="color:#1d9e75"></i> Generate a Prompt for Your Excel Task</h2>
 
     <!-- AI SELECTOR -->
     <div>
       <label style="font-size:11px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:.6rem">Which AI are you using?</label>
       <div class="ai-selector" style="margin-bottom:0">
         <div class="ai-btn-wrap">
-          <button class="ai-btn active" onclick="selectAI(this,'claude')">Claude</button>
-          <div class="ai-tooltip">Preserves your workbook structure. Delivers formula immediately with IFERROR handling.</div>
+          <button class="ai-btn active" onclick="selectAI(this,'chatgpt')">ChatGPT</button>
+          <div class="ai-tooltip">Uses modern functions (XLOOKUP, LET). Checks assumptions before calculating.</div>
         </div>
         <div class="ai-btn-wrap">
-          <button class="ai-btn" onclick="selectAI(this,'chatgpt')">ChatGPT</button>
-          <div class="ai-tooltip">Uses modern functions (XLOOKUP, LET). Checks assumptions before calculating.</div>
+          <button class="ai-btn" onclick="selectAI(this,'claude')">Claude</button>
+          <div class="ai-tooltip">Preserves your workbook structure. Delivers formula immediately with IFERROR handling.</div>
         </div>
         <div class="ai-btn-wrap">
           <button class="ai-btn" onclick="selectAI(this,'gemini')">Gemini</button>
           <div class="ai-tooltip">Optimised for Google Sheets native functions. Verifies syntax and parentheses.</div>
         </div>
       </div>
-      <input type="hidden" id="b-ai" value="claude">
+      <input type="hidden" id="b-ai" value="chatgpt">
     </div>
 
     <div style="height:1px;background:#e5e7eb;margin:1.25rem 0"></div>
@@ -268,7 +268,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#f8f9fa;color:#1a1a2e;
 
     <!-- OUTPUT -->
     <div class="output-box" id="builderOutput">
-      <div class="output-label" id="outputAILabel">Your prompt — ready to copy into Claude</div>
+      <div class="output-label" id="outputAILabel">Your prompt — ready to copy into ChatGPT</div>
       <div class="output-text" id="builderOutputText"></div>
       <button class="btn-copy-output" onclick="copyBuilderOutput()"><i class="ti ti-copy"></i> <span id="copyOutputLabel">Copy Prompt</span></button>
     </div>
@@ -281,7 +281,7 @@ body{font-family:'Inter','Segoe UI',sans-serif;background:#f8f9fa;color:#1a1a2e;
   <div id="prompts">
     <div class="library-header">
       <h2>Ready-to-Copy Excel &amp; Google Sheets Prompts</h2>
-      <p>Replace everything in <strong>[SQUARE BRACKETS]</strong> with your own details, then paste into Claude, ChatGPT or Gemini.</p>
+      <p>Replace everything in <strong>[SQUARE BRACKETS]</strong> with your own details, then paste into ChatGPT, Claude or Gemini.</p>
     </div>
 
     <!-- CAT 1: FORMULAS & FUNCTIONS -->
@@ -934,32 +934,32 @@ Recommend the best combination of formulas (QUERY, SUMIF, SORT, LARGE, etc.) for
   <div class="faq-section">
     <h2>FAQ</h2>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can Claude write Excel formulas? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes. Describe what you want the formula to do, which cells or columns are involved, and which version of Excel you are using. Claude writes the formula and explains how it works.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can AI write Excel formulas? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Yes. ChatGPT, Claude and Gemini can generate Excel formulas when you provide the column structure, the result you need and your Excel version. Always test the formula with real data before using it in a live workbook.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Does this work with ChatGPT and Gemini too? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes. The prompts on this page work with Claude, ChatGPT, and Gemini. The generator adds a small optimisation layer depending on which AI you select, but the core prompt is the same for all three.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Does this work with ChatGPT, Claude and Gemini? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Yes. The builder supports ChatGPT, Claude and Gemini. Select the AI you want to use and the generated prompt will be adapted for that provider.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Does Claude work with Google Sheets? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes. Most Excel formulas work in Sheets with minor differences. Tell Claude you are using Google Sheets and it will adjust the syntax — for example using QUERY instead of Power Query, or ARRAYFORMULA where needed.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can I use these prompts with Google Sheets? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Yes. Many spreadsheet tasks work in both Excel and Google Sheets. Select the spreadsheet app where available and specify any functions or features that are unique to your environment.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can Claude debug broken formulas? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes. Paste the formula from your formula bar along with a description of what it should do and what error or wrong result you are getting. Claude identifies the most likely cause and gives you the corrected version.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can AI debug broken Excel formulas? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">Yes. Include the broken formula, the error or unexpected result, and a few representative rows. The AI can help identify likely causes and suggest a corrected formula, which you should verify in Excel.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can Claude write VBA macros? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes. Describe what you want the macro to do step by step. Claude writes the VBA code with comments explaining each section. Always test macros on a copy of your file first.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can AI write VBA macros? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">ChatGPT, Claude and Gemini can generate VBA code from a clear description of the task. Review and test generated macros in a copy of your workbook before using them on important data.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Does this work with Excel 2016 and 2019? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Yes, with some limitations. XLOOKUP and dynamic arrays require Excel 2019 or 365. LAMBDA functions require Excel 365 only. Tell Claude which version you are using and it will use compatible functions.</div>
+      <div class="faq-a">Yes, but you should specify your Excel version in the prompt. Newer functions such as XLOOKUP, FILTER and dynamic arrays are not available in every older Excel version.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Do I need a paid account to use these prompts? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">No. Every prompt on this page works on the free tier of Claude, ChatGPT, and Gemini. A paid plan gives higher usage limits but is not required.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">Do I need a paid AI account to use these prompts? <i class="ti ti-chevron-down"></i></div>
+      <div class="faq-a">No. You can use many of these prompts with free versions of ChatGPT, Claude or Gemini. File uploads, longer context and other advanced features may depend on the provider and plan you use.</div>
     </div>
   </div>
 
