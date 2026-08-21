@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>How to Find and Fix Circular References in Excel — PairWorkflows</title>
 <meta name="description" content="Learn how to find and fix circular references in Excel using Error Checking, Trace Precedents, and Claude AI to diagnose broken formula loops.">
-<link rel="canonical" href="https://www.pairworkflows.com/claude-excel-circular-reference.html">
+<link rel="canonical" href="https://www.pairworkflows.com/excel-circular-reference.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I find a circular reference in Excel?","acceptedAnswer":{"@type":"Answer","text":"Go to the Formulas tab, click Error Checking, and select Circular References. Excel will list the specific cell causing the loop."}},{"@type":"Question","name":"Why does Excel show a circular reference warning?","acceptedAnswer":{"@type":"Answer","text":"It means a formula references its own cell, either directly or indirectly, creating an infinite loop that Excel cannot calculate."}},{"@type":"Question","name":"Are circular references ever intentional in Excel?","acceptedAnswer":{"@type":"Answer","text":"Yes, they are used intentionally in financial modeling for 'iterative calculations' (e.g. calculating interest on a loan balance that includes interest), but this should only be done with extreme caution."}},{"@type":"Question","name":"What is the safest way to fix a circular reference?","acceptedAnswer":{"@type":"Answer","text":"Restructure the formula or use a helper cell so the loop no longer exists — for example, referencing a fixed input cell instead of a cell that depends on the result you are calculating."}},{"@type":"Question","name":"Should I enable iterative calculation to fix a circular reference?","acceptedAnswer":{"@type":"Answer","text":"Not as a quick fix. Iterative calculation forces the formula to recalculate a set number of times instead of solving the underlying problem — it hides the error rather than fixing it. It is only appropriate for genuinely intentional loops, like interest-on-interest calculations."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -505,19 +505,19 @@ Each formula is supposed to [describe purpose]. Please trace where the loop clos
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Related Excel workflows</h2>
   <div class="related-title" aria-hidden="true">Related Excel workflows</div>
   <div class="related-grid">
-    <a href="/claude-excel-ref-errors.html" class="related-link">
+    <a href="/ref-error-in-excel.html" class="related-link">
       <strong>Fix #REF! Errors in Excel</strong>
       <span>Trace broken cell, sheet, and range references and restore your formulas.</span>
     </a>
-    <a href="/claude-excel-explain-formulas.html" class="related-link">
+    <a href="/explain-excel-formulas.html" class="related-link">
       <strong>Understand Inherited Formulas</strong>
       <span>Use Claude to deconstruct complex formulas you didn't write.</span>
     </a>
-    <a href="/claude-excel-na-errors.html" class="related-link">
+    <a href="/na-error-in-excel.html" class="related-link">
       <strong>Fix #N/A Errors in VLOOKUP and XLOOKUP</strong>
       <span>Diagnose and fix #N/A errors caused by data mismatches and missing values.</span>
     </a>
-    <a href="/build-3-statement-financial-model-excel-claude.html" class="related-link">
+    <a href="/build-3-statement-financial-model-excel.html" class="related-link">
       <strong>Build a 3-Statement Financial Model</strong>
       <span>Avoid the interest-on-debt circularity trap when linking your statements.</span>
     </a>

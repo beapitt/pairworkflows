@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Depreciation Formula in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to calculate depreciation in Excel with Claude AI using straight-line, declining balance and SYD formulas, plus automatic NBV tracking.">
-<link rel="canonical" href="https://www.pairworkflows.com/fixed-asset-depreciation-excel-claude.html">
+<link rel="canonical" href="https://www.pairworkflows.com/fixed-asset-depreciation-excel.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Which Excel function does Claude use for straight-line depreciation?","acceptedAnswer":{"@type":"Answer","text":"Claude uses Excel's built-in SLN function, which takes three arguments: cost, salvage value, and useful life. The formula is =SLN(cost, salvage, life). Claude can also build the calculation manually as (Cost - Salvage) / Life if you prefer to see the logic explicitly."}},{"@type":"Question","name":"Can Claude handle mid-year asset additions in a depreciation schedule?","acceptedAnswer":{"@type":"Answer","text":"Yes, if you provide the in-service/available-for-use date and the exact proration rules. Claude can calculate the schedule, but labels such as half-year, mid-month or exact-day are not sufficient on their own when policies differ. Verify that cumulative depreciation still stops at the residual value."}},{"@type":"Question","name":"What is the difference between SLN, DDB, and SYD in Excel?","acceptedAnswer":{"@type":"Answer","text":"SLN returns straight-line depreciation for one period. DDB calculates accelerated depreciation for a specified period using a declining-balance factor (2 by default), while SYD uses the sum-of-years' digits method. Their period patterns differ, so verify each function with the supplied life, residual value, period and DDB factor rather than assuming identical behaviour."}},{"@type":"Question","name":"How do I handle fully depreciated assets in the template?","acceptedAnswer":{"@type":"Answer","text":"Use a remaining-depreciable-amount control so depreciation cannot push NBV below residual value. Once that remaining amount is zero, later periods should show zero depreciation; keep the asset in the register until your disposal/retirement process says otherwise."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -572,19 +572,19 @@ Use unrounded formulas for accounting totals. ✓</pre>
   <!-- RELATED -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Related Excel workflows</h2>
   <div class="related-grid">
-    <a href="/month-end-close-excel-claude.html" class="related-link">
+    <a href="/month-end-close-excel.html" class="related-link">
       <strong>Automate Month-End Close Checklist</strong>
       <span>Build a structured close checklist in Excel with dependencies and status tracking.</span>
     </a>
-    <a href="/capex-planning-excel-claude.html" class="related-link">
+    <a href="/capex-planning-excel.html" class="related-link">
       <strong>Build a CapEx Planning Template</strong>
       <span>Create a capital expenditure forecasting model in Excel with Claude AI.</span>
     </a>
-    <a href="/build-3-statement-financial-model-excel-claude.html" class="related-link">
+    <a href="/build-3-statement-financial-model-excel.html" class="related-link">
       <strong>Build a 3-Statement Financial Model</strong>
       <span>Connect the income statement, balance sheet, and cash flow in Excel.</span>
     </a>
-    <a href="/build-budget-variance-analysis-report-excel-claude.html" class="related-link">
+    <a href="/build-budget-variance-analysis-report-excel.html" class="related-link">
       <strong>Budget Variance Analysis Report</strong>
       <span>Compare actuals against budget and flag variances automatically.</span>
     </a>

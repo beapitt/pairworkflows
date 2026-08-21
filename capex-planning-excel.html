@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>CapEx Planning in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to build a CapEx plan in Excel with Claude AI to track project costs, approvals, spend phasing, and depreciation impact.">
-<link rel="canonical" href="https://www.pairworkflows.com/capex-planning-excel-claude.html">
+<link rel="canonical" href="https://www.pairworkflows.com/capex-planning-excel.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between CapEx and OpEx in Excel planning?","acceptedAnswer":{"@type":"Answer","text":"CapEx planning tracks expenditure that an organisation's accounting policy expects may qualify for capitalisation, while OpEx is expensed under the applicable policy. Classification depends on the underlying facts and accounting framework, so this workflow does not decide CapEx versus OpEx from a project name."}},{"@type":"Question","name":"Can Claude phase CapEx spending across multiple months?","acceptedAnswer":{"@type":"Answer","text":"Yes. If you provide monthly timing, the prompt can place spend directly into those months. If you provide only quarterly percentages, the amount should remain unallocated within that quarter until you specify the monthly split, rather than inventing cash timing."}},{"@type":"Question","name":"How does this template connect to depreciation?","acceptedAnswer":{"@type":"Answer","text":"The template can calculate estimated full-year straight-line depreciation from capitalisable basis, residual value, and useful life when those inputs are supplied. Period depreciation also requires an in-service or available-for-use date and the applicable accounting convention."}},{"@type":"Question","name":"Should I include projects that haven't been approved yet?","acceptedAnswer":{"@type":"Answer","text":"Yes, if your planning process includes pipeline projects. Track Proposed, Submitted, Approved and Rejected separately, and define what Approved means before treating approved project cost as committed spend."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -623,7 +623,7 @@ Add a control for blank/invalid statuses so nothing disappears silently. ✓</pr
         <div class="step-n">4</div>
         <div class="step-body"><h3>Implement SUMIFS for filtered totals</h3><p>Use structured-reference SUMIFS formulas so status totals update with the Excel Table. Show Approved, active pipeline and Rejected separately, plus a control for blank or invalid statuses.</p></div>
       </div>
-      <div class="tip"><strong>Tip:</strong> If you manage CapEx across multiple entities, build each entity's plan separately using this prompt, then consolidate using the <a href="/multi-entity-financials-excel-claude.html" style="color:#92400e;font-weight:600">multi-entity consolidation workflow</a>.</div>
+      <div class="tip"><strong>Tip:</strong> If you manage CapEx across multiple entities, build each entity's plan separately using this prompt, then consolidate using the <a href="/multi-entity-financials-excel.html" style="color:#92400e;font-weight:600">multi-entity consolidation workflow</a>.</div>
     </div>
   </div>
 
@@ -688,7 +688,7 @@ Add a control for blank/invalid statuses so nothing disappears silently. ✓</pr
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How does this template connect to depreciation? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">The register can calculate estimated full-year straight-line depreciation as (Capitalisable Basis − Residual Value) / Useful Life when those inputs are supplied. Period depreciation also needs an in-service / available-for-use date and your accounting convention; cash-spend timing alone does not determine the depreciation start. For monthly schedules, use the <a href="/fixed-asset-depreciation-excel-claude.html">fixed asset depreciation workflow</a>.</div>
+      <div class="faq-a">The register can calculate estimated full-year straight-line depreciation as (Capitalisable Basis − Residual Value) / Useful Life when those inputs are supplied. Period depreciation also needs an in-service / available-for-use date and your accounting convention; cash-spend timing alone does not determine the depreciation start. For monthly schedules, use the <a href="/fixed-asset-depreciation-excel.html">fixed asset depreciation workflow</a>.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Should I include projects that haven't been approved yet? <i class="ti ti-chevron-down"></i></div>
@@ -699,19 +699,19 @@ Add a control for blank/invalid statuses so nothing disappears silently. ✓</pr
   <!-- RELATED -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Related Excel workflows</h2>
   <div class="related-grid">
-    <a href="/fixed-asset-depreciation-excel-claude.html" class="related-link">
+    <a href="/fixed-asset-depreciation-excel.html" class="related-link">
       <strong>Fixed Asset Depreciation Schedule</strong>
       <span>Build a monthly depreciation schedule with straight-line, declining balance, and sum-of-years methods.</span>
     </a>
-    <a href="/build-3-statement-financial-model-excel-claude.html" class="related-link">
+    <a href="/build-3-statement-financial-model-excel.html" class="related-link">
       <strong>3-Statement Financial Model</strong>
       <span>Connect your CapEx plan to a fully linked income statement, balance sheet, and cash flow statement.</span>
     </a>
-    <a href="/multi-entity-financials-excel-claude.html" class="related-link">
+    <a href="/multi-entity-financials-excel.html" class="related-link">
       <strong>Multi-Entity Financial Consolidation</strong>
       <span>Consolidate CapEx plans across multiple entities into a single group view.</span>
     </a>
-    <a href="/automate-cash-flow-dashboard-excel-claude.html" class="related-link">
+    <a href="/automate-cash-flow-dashboard-excel.html" class="related-link">
       <strong>Cash Flow Dashboard</strong>
       <span>Feed your spend-phasing output into a live monthly cash flow dashboard.</span>
     </a>

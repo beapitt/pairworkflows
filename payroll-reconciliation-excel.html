@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Payroll Reconciliation in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to reconcile payroll totals to the general ledger in Excel with Claude AI, identify variances, and verify payroll balances before closing the period.">
-<link rel="canonical" href="https://www.pairworkflows.com/payroll-reconciliation-excel-claude.html">
+<link rel="canonical" href="https://www.pairworkflows.com/payroll-reconciliation-excel.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is payroll reconciliation and why does it matter for month-end close?","acceptedAnswer":{"@type":"Answer","text":"Payroll reconciliation is the process of verifying that payroll costs and related amounts recorded in the general ledger agree to the payroll register or payroll-system output for the same period — including gross pay, employer taxes, and benefits. Without it, the salary line on your P&L can carry errors for weeks before anyone notices."}},{"@type":"Question","name":"Can Claude reconcile payroll across multiple pay frequencies in one pass?","acceptedAnswer":{"@type":"Answer","text":"Yes, if each pay frequency/run is tied to the correct accounting period and account mapping. Reconcile the runs separately first, then combine only control totals that belong to the same reconciliation period."}},{"@type":"Question","name":"What causes most payroll-to-GL variances?","acceptedAnswer":{"@type":"Answer","text":"Examples include wrong-period postings, account mapping/reclassification issues, off-cycle runs not reflected in the GL, and manual journals without corresponding payroll detail. The reconciliation can surface these patterns but does not prove the cause by itself."}},{"@type":"Question","name":"Does Claude work with exports from ADP, Workday, or SAP?","acceptedAnswer":{"@type":"Answer","text":"Claude can analyse data you paste and, in supported environments, spreadsheet files you upload. For payroll data, follow your organisation's approved Claude/data-handling policy and minimise personal information before sharing. Then map the export columns explicitly rather than assuming Claude will infer the structure correctly."}},{"@type":"Question","name":"How do I handle mid-month pay adjustments or off-cycle runs?","acceptedAnswer":{"@type":"Answer","text":"Include them as separate rows in your payroll extract with a Pay Type of 'Off-cycle'. The prompt instructs Claude to list them in a dedicated section at the bottom of the output so reviewers can find them without searching the main table."}},{"@type":"Question","name":"Can I use this to check individual employee records?","acceptedAnswer":{"@type":"Answer","text":"The prompt is designed for cost-centre or department-level reconciliation. For employee-level checking, change the grouping instruction from 'by Cost Centre and GL Account' to 'by Employee ID and GL Account'. Everything else stays the same."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -660,19 +660,19 @@ Shown sample: 4 employees, 2 exceptions. ✓</pre>
   <!-- RELATED -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Related Excel workflows</h2>
   <div class="related-grid">
-    <a href="/claude-excel-if-ifs.html" class="related-link">
+    <a href="/excel-if-ifs-formulas.html" class="related-link">
       <strong>IF and IFS Formulas for HR and Payroll in Excel</strong>
       <span>Write clean conditional formulas for pay banding, grading, and threshold checks.</span>
     </a>
-    <a href="/bank-reconciliation-excel-claude.html" class="related-link">
+    <a href="/bank-reconciliation-excel.html" class="related-link">
       <strong>Automated Bank Reconciliation in Excel</strong>
       <span>Confirm net pay cleared the bank account — the final step in the payroll audit trail.</span>
     </a>
-    <a href="/month-end-close-excel-claude.html" class="related-link">
+    <a href="/month-end-close-excel.html" class="related-link">
       <strong>Month End Close Checklist in Excel</strong>
       <span>Build a structured close tracker with owner assignments and WORKDAY deadline formulas.</span>
     </a>
-    <a href="/build-3-statement-financial-model-excel-claude.html" class="related-link">
+    <a href="/build-3-statement-financial-model-excel.html" class="related-link">
       <strong>3-Statement Financial Model</strong>
       <span>Connect reconciled payroll costs to a linked income statement, balance sheet, and cash flow.</span>
     </a>

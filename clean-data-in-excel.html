@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Diagnose Imported Excel Data with Claude AI — PairWorkflows</title>
 <meta name="description" content="Diagnose imported Excel data with Claude AI before cleaning it. Identify likely issues, verify cell types and blanks in Excel, and avoid unsafe assumptions about dates, numbers, locale, or invisible characters.">
-<link rel="canonical" href="https://www.pairworkflows.com/claude-excel-clean-data.html">
+<link rel="canonical" href="https://www.pairworkflows.com/clean-data-in-excel.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I remove trailing spaces in Excel?","acceptedAnswer":{"@type":"Answer","text":"Use =TRIM(A2) for ordinary spaces. It removes leading and trailing spaces and reduces repeated internal spaces to one. Imported data can also contain non-breaking spaces or other characters that TRIM does not remove; CLEAN removes certain non-printing ASCII characters, and stubborn character-160 spaces may need SUBSTITUTE."}},{"@type":"Question","name":"Why are my numbers stored as text in Excel?","acceptedAnswer":{"@type":"Answer","text":"When data is imported from external systems like CRMs or accounting software, numbers are often formatted with text characters or invisible apostrophes. Excel may treat imported amounts as text, which can cause arithmetic or aggregation formulas to ignore or mishandle them. VALUE converts text that Excel recognises as a number, but currency and decimal/thousands separators must match the locale or be normalised first."}},{"@type":"Question","name":"How do I fix dates that won't sort in Excel?","acceptedAnswer":{"@type":"Answer","text":"If the cells are confirmed as text dates, DATEVALUE can convert recognised date text to Excel serial dates. Its interpretation depends on system date settings, so verify ambiguous day/month formats before copying the formula down and then apply a Date number format."}},{"@type":"Question","name":"What's the difference between TRIM and CLEAN in Excel?","acceptedAnswer":{"@type":"Answer","text":"TRIM handles ordinary space characters. CLEAN removes the first 32 non-printing ASCII characters, but neither function removes every possible imported Unicode character. If TRIM/CLEAN does not fix the value, inspect the character and consider SUBSTITUTE, for example replacing CHAR(160) non-breaking spaces."}},{"@type":"Question","name":"Can Claude diagnose imported Excel data from a pasted sample?","acceptedAnswer":{"@type":"Answer","text":"Claude can identify visible patterns and suggest checks to run in Excel, but a plain-text paste does not preserve cell type, locale settings, number formats, or invisible-character metadata. Verify uncertain conditions in Excel before choosing a cleaning formula."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -296,19 +296,19 @@ Do not infer locale, cell type, or invisible characters from the paste alone.</p
   <!-- RELATED -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Related Excel workflows</h2>
   <div class="related-grid">
-    <a href="/claude-excel-na-errors.html" class="related-link">
+    <a href="/na-error-in-excel.html" class="related-link">
       <strong>Fix #N/A Errors in VLOOKUP and XLOOKUP</strong>
       <span>Diagnose and fix #N/A errors caused by data mismatches and trailing spaces.</span>
     </a>
-    <a href="/claude-excel-dynamic-reports.html" class="related-link">
+    <a href="/dynamic-reports-excel.html" class="related-link">
       <strong>Convert Manual Reports into Dynamic Models</strong>
       <span>Replace static data with formulas that update automatically.</span>
     </a>
-    <a href="/bank-reconciliation-excel-claude.html" class="related-link">
+    <a href="/bank-reconciliation-excel.html" class="related-link">
       <strong>Automated Bank Reconciliation in Excel</strong>
       <span>Use Claude to match transactions and find discrepancies instantly.</span>
     </a>
-    <a href="/automate-accounts-receivable-tracking-excel-claude.html" class="related-link">
+    <a href="/automate-accounts-receivable-tracking-excel.html" class="related-link">
       <strong>Automate Accounts Receivable Tracking</strong>
       <span>Build a live AR aging view that flags overdue invoices automatically.</span>
     </a>

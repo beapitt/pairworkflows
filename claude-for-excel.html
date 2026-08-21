@@ -224,28 +224,28 @@ body{font-family:'Inter',sans-serif;background:#fafafa;color:#111827;margin:0}
     <h3>SUMIFS returns 0 even though data clearly matches</h3>
     <p class="problem">Problem: criteria range is 98 rows, sum range is 99 rows — Excel rejects mismatched ranges silently.</p>
     <p class="solution">Fix: Claude identifies the row mismatch and rewrites with aligned ranges → returns £5,100.</p>
-    <a href="/claude-excel-sumifs.html" class="link">See the full SUMIFS workflow →</a>
+    <a href="/sumifs-not-working.html" class="link">See the full SUMIFS workflow →</a>
   </div>
 
   <div class="fx-card">
     <h3>XLOOKUP returns #N/A — value clearly exists in the table</h3>
     <p class="problem">Problem: lookup key is number 1041, table stores it as text "EMP-1041" — different format, not just type.</p>
     <p class="solution">Fix: Claude spots the format mismatch and wraps the lookup with TEXT() to normalise → matched.</p>
-    <a href="/claude-excel-xlookup.html" class="link">See the full XLOOKUP workflow →</a>
+    <a href="/xlookup-not-working.html" class="link">See the full XLOOKUP workflow →</a>
   </div>
 
   <div class="fx-card">
     <h3>Circular reference error with no obvious loop</h3>
     <p class="problem">Problem: D4 depends on E4 which depends on F4 which depends on D4 — a 3-cell indirect loop.</p>
     <p class="solution">Fix: Claude traces the dependency chain, identifies the cycle, and anchors F4 to a fixed input.</p>
-    <a href="/claude-excel-circular-reference.html" class="link">See the full circular reference workflow →</a>
+    <a href="/excel-circular-reference.html" class="link">See the full circular reference workflow →</a>
   </div>
 
   <div class="fx-card">
     <h3>Inherited nested formula — nobody knows what it does</h3>
     <p class="problem">Problem: =IFERROR(INDEX(Sales!$C$2:$C$500,MATCH(1,(Sales!$A$2:$A$500=A2)*(Sales!$B$2:$B$500=B2),0)),"")</p>
     <p class="solution">Fix: Claude decomposes it layer by layer — IFERROR → INDEX → MATCH — and documents the risk (row 500 cap).</p>
-    <a href="/claude-excel-explain-formulas.html" class="link">See the full formula explanation workflow →</a>
+    <a href="/explain-excel-formulas.html" class="link">See the full formula explanation workflow →</a>
   </div>
 </div>
 

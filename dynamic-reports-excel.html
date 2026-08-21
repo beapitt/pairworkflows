@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Dynamic Excel Reports with Claude AI — PairWorkflows</title>
 <meta name="description" content="Use Claude AI to replace manual copy-paste Excel reports with formula-driven models using SUMIFS, XLOOKUP, and FILTER that update automatically.">
-<link rel="canonical" href="https://www.pairworkflows.com/claude-excel-dynamic-reports.html">
+<link rel="canonical" href="https://www.pairworkflows.com/dynamic-reports-excel.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I automate a monthly report in Excel?","acceptedAnswer":{"@type":"Answer","text":"You can automate reports by replacing static numbers with dynamic formulas like SUMIFS, XLOOKUP, and FILTER that pull data from a standardized raw data sheet. Claude AI can write these formulas once you describe your manual process."}},{"@type":"Question","name":"How do I make an Excel report update automatically?","acceptedAnswer":{"@type":"Answer","text":"Structure the source as an Excel Table with stable headers and reference it with formulas such as SUMIFS. Structured references adjust as table rows change. A fixed Summary category list does not expand automatically, so use UNIQUE in supported Excel versions or maintain that list manually when new categories appear. Clear old source rows before replacing an import and verify a control total."}},{"@type":"Question","name":"What formulas replace manual copy-paste in Excel?","acceptedAnswer":{"@type":"Answer","text":"Functions such as SUMIFS, COUNTIFS, XLOOKUP, FILTER, and UNIQUE can replace many manual aggregation, lookup, filtering, and category-list steps when they match the Excel version and business rules."}},{"@type":"Question","name":"Can Claude automate every step of my monthly report?","acceptedAnswer":{"@type":"Answer","text":"Not safely by default. Ask Claude to separate rule-based steps from steps that need human judgment, such as unusual exceptions, sign-offs, or context-dependent decisions, and review that classification yourself before automating consequential steps."}},{"@type":"Question","name":"What's the difference between SUMIFS and FILTER for dynamic reports?","acceptedAnswer":{"@type":"Answer","text":"SUMIFS aggregates numbers that meet criteria and is supported in current desktop Excel versions including Microsoft 365, Excel 2024, 2021, 2019, and 2016. FILTER returns the matching rows and is available in Microsoft 365, Excel 2024, and Excel 2021; it is not available in Excel 2019 or Excel 2016."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -595,7 +595,7 @@ Validate at least one region total against the source before going live. ✓</pr
     </div>
     <div class="step">
       <div class="step-n">4</div>
-      <div class="step-body"><h3>Build and test one section at a time</h3><p>Start with the most important parts — like using <a href="/claude-excel-sumifs.html" style="color:#0f6e56;font-weight:500">SUMIFS</a> for subtotals or <a href="/claude-excel-xlookup.html" style="color:#0f6e56;font-weight:500">XLOOKUP</a> for key lookups. Ask Claude for the formula, test it with real data, then move on. This prevents mistakes from compounding across the model.</p></div>
+      <div class="step-body"><h3>Build and test one section at a time</h3><p>Start with the most important parts — like using <a href="/sumifs-not-working.html" style="color:#0f6e56;font-weight:500">SUMIFS</a> for subtotals or <a href="/xlookup-not-working.html" style="color:#0f6e56;font-weight:500">XLOOKUP</a> for key lookups. Ask Claude for the formula, test it with real data, then move on. This prevents mistakes from compounding across the model.</p></div>
     </div>
     <div class="step">
       <div class="step-n">5</div>
@@ -632,19 +632,19 @@ Validate at least one region total against the source before going live. ✓</pr
   <!-- RELATED -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Related Excel workflows</h2>
   <div class="related-grid">
-    <a href="/claude-excel-sumifs.html" class="related-link">
+    <a href="/sumifs-not-working.html" class="related-link">
       <strong>Build Multi-Criteria SUMIFS Formulas</strong>
       <span>Aggregate data accurately based on multiple conditions.</span>
     </a>
-    <a href="/claude-excel-xlookup.html" class="related-link">
+    <a href="/xlookup-not-working.html" class="related-link">
       <strong>Write an XLOOKUP Formula with Claude</strong>
       <span>Replace VLOOKUP and INDEX/MATCH with this modern alternative.</span>
     </a>
-    <a href="/claude-excel-explain-formulas.html" class="related-link">
+    <a href="/explain-excel-formulas.html" class="related-link">
       <strong>Understand and Document Inherited Formulas</strong>
       <span>Get Claude to explain complex formulas layer by layer.</span>
     </a>
-    <a href="/month-end-close-excel-claude.html" class="related-link">
+    <a href="/month-end-close-excel.html" class="related-link">
       <strong>Automate Your Month-End Close Checklist</strong>
       <span>Standardize your month-end workflow with formulas.</span>
     </a>

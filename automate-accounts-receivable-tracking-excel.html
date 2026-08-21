@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Accounts Receivable Aging in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to build an accounts receivable aging tracker in Excel with Claude AI, including aging formulas, DSO calculations, and collection priority scoring.">
-<link rel="canonical" href="https://www.pairworkflows.com/automate-accounts-receivable-tracking-excel-claude.html">
+<link rel="canonical" href="https://www.pairworkflows.com/automate-accounts-receivable-tracking-excel.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What are accounts receivable aging buckets?","acceptedAnswer":{"@type":"Answer","text":"Aging buckets group outstanding invoices by how many days past the due date they are. Standard buckets are Current (not yet due), 1-30 days overdue, 31-60 days, 61-90 days, and 90+ days. Each bucket carries a different collection risk — the older the invoice, the harder it is to collect."}},{"@type":"Question","name":"How does Claude calculate the aging for each invoice?","acceptedAnswer":{"@type":"Answer","text":"Claude subtracts the invoice due date from the report date you specify to get the days overdue. It then assigns each invoice to the appropriate aging bucket using IF or IFS logic. Invoices not yet due go into the Current bucket. The formula is written out so you can verify the logic."}},{"@type":"Question","name":"Can Claude calculate DSO from the AR data?","acceptedAnswer":{"@type":"Answer","text":"Yes. DSO (days sales outstanding) is calculated as total accounts receivable divided by the average daily credit sales for the period. You provide the revenue figure and the number of days in the period. Claude computes DSO and can track it period over period for trend analysis."}},{"@type":"Question","name":"How do I handle partially paid invoices in the aging tracker?","acceptedAnswer":{"@type":"Answer","text":"Include a Balance Outstanding column that reflects the remaining amount after partial payments. The aging calculation uses the balance outstanding, not the original invoice amount. This ensures the aging report shows what is actually owed, not what was originally billed."}},{"@type":"Question","name":"Does this tracker replace an ERP accounts receivable module?","acceptedAnswer":{"@type":"Answer","text":"No. This is for teams that manage AR in spreadsheets or need a supplementary view outside their ERP. If your ERP produces aging reports, this template can serve as a secondary analysis tool — for example, adding collection priority scoring or customer-level summaries the ERP doesn't provide."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -500,19 +500,19 @@ Collections stable — no escalation needed. ✓</pre>
   <!-- RELATED -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Related Excel workflows</h2>
   <div class="related-grid">
-    <a href="/build-accounts-payable-aging-dashboard-excel-claude.html" class="related-link">
+    <a href="/build-accounts-payable-aging-dashboard-excel.html" class="related-link">
       <strong>Build an Accounts Payable Aging Dashboard</strong>
       <span>Track vendor invoices, DPO, and payment priority — the mirror image of AR aging.</span>
     </a>
-    <a href="/automate-cash-flow-dashboard-excel-claude.html" class="related-link">
+    <a href="/automate-cash-flow-dashboard-excel.html" class="related-link">
       <strong>Automate a Cash Flow Dashboard</strong>
       <span>Feed AR aging totals into a live weekly cash monitoring dashboard.</span>
     </a>
-    <a href="/build-financial-kpi-dashboard-excel-claude.html" class="related-link">
+    <a href="/build-financial-kpi-dashboard-excel.html" class="related-link">
       <strong>Build a Financial KPI Dashboard</strong>
       <span>Track DSO alongside gross margin, current ratio, and other core metrics.</span>
     </a>
-    <a href="/build-3-statement-financial-model-excel-claude.html" class="related-link">
+    <a href="/build-3-statement-financial-model-excel.html" class="related-link">
       <strong>Build a 3-Statement Financial Model</strong>
       <span>Link your income statement, balance sheet, and cash flow statement in Excel.</span>
     </a>

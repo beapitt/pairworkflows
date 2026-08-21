@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Bank Reconciliation in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to reconcile a bank statement against your general ledger in Excel with Claude AI, match transactions, and flag discrepancies.">
-<link rel="canonical" href="https://www.pairworkflows.com/bank-reconciliation-excel-claude.html">
+<link rel="canonical" href="https://www.pairworkflows.com/bank-reconciliation-excel.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude read my Excel bank statement directly?","acceptedAnswer":{"@type":"Answer","text":"Claude may support spreadsheet file uploads depending on the plan and current product features. If file upload is unavailable, paste the relevant columns as text. For best results, provide only the rows and columns needed for the reconciliation."}},{"@type":"Question","name":"How does Claude match bank transactions to ledger entries?","acceptedAnswer":{"@type":"Answer","text":"Claude compares rows across two datasets using the matching criteria you specify — typically date, amount, and reference number. It flags exact matches, partial matches (e.g. same amount but different date), and completely unmatched items on both sides."}},{"@type":"Question","name":"Will Claude invent matches that don't exist?","acceptedAnswer":{"@type":"Answer","text":"No prompt can guarantee error-free AI matching. Use explicit one-to-one row IDs, evidence and ambiguity rules, then verify every proposed match and the control totals against the original source data."}},{"@type":"Question","name":"Can I use this for multi-currency bank reconciliation?","acceptedAnswer":{"@type":"Answer","text":"Yes, but provide the approved FX basis explicitly. Keep original currency, rate, converted amount and ledger booked reporting-currency amount visible, and investigate conversion differences before deciding on any accounting entry."}},{"@type":"Question","name":"How often should I run this reconciliation?","acceptedAnswer":{"@type":"Answer","text":"Reconciliation frequency depends on transaction volume, risk, controls and close policy. Many organisations reconcile at least as part of month-end, while higher-risk or high-volume accounts may be reconciled more frequently."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -654,7 +654,7 @@ For real reconciliations, retain the original amount, rate and converted amount 
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How often should I run this reconciliation? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">Set the frequency according to transaction volume, risk and your accounting-control policy. Bank accounts are commonly included in month-end controls, while higher-volume or higher-risk accounts may need more frequent reconciliation. If you're building a broader close process, see the <a href="/month-end-close-excel-claude.html">month-end close checklist workflow</a>.</div>
+      <div class="faq-a">Set the frequency according to transaction volume, risk and your accounting-control policy. Bank accounts are commonly included in month-end controls, while higher-volume or higher-risk accounts may need more frequent reconciliation. If you're building a broader close process, see the <a href="/month-end-close-excel.html">month-end close checklist workflow</a>.</div>
     </div>
   </section>
 
@@ -662,7 +662,7 @@ For real reconciliations, retain the original amount, rate and converted amount 
   <section class="related-section">
     <div class="related-title"><h2>Related Excel workflows</h2></div>
     <div class="related-grid">
-      <a href="/month-end-close-excel-claude.html" class="related-link">
+      <a href="/month-end-close-excel.html" class="related-link">
         <strong>Automate Your Month-End Close Checklist</strong>
         <span>Build a close checklist in Excel that tracks tasks, deadlines, and sign-offs automatically.</span>
       </a>
@@ -674,7 +674,7 @@ For real reconciliations, retain the original amount, rate and converted amount 
         <strong>Automate Accounts Receivable Tracking</strong>
         <span>Track outstanding invoices and calculate days outstanding without manual formulas.</span>
       </a>
-      <a href="/automate-cash-flow-dashboard-excel-claude.html" class="related-link">
+      <a href="/automate-cash-flow-dashboard-excel.html" class="related-link">
         <strong>Build a Cash Flow Dashboard in Excel</strong>
         <span>Feed reconciliation outputs into a live cash monitoring dashboard.</span>
       </a>

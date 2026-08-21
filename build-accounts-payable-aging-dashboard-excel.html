@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>How to Prepare an Accounts Payable Aging Report in Excel — PairWorkflows</title>
 <meta name="description" content="Learn how to prepare an accounts payable aging report in Excel with Claude AI, including aging buckets, DPO, early-payment discounts, and payment priority scoring.">
-<link rel="canonical" href="https://www.pairworkflows.com/build-accounts-payable-aging-dashboard-excel-claude.html">
+<link rel="canonical" href="https://www.pairworkflows.com/build-accounts-payable-aging-dashboard-excel.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is an accounts payable aging report?","acceptedAnswer":{"@type":"Answer","text":"An AP aging report groups outstanding vendor invoices by how close they are to the due date or how far past due they are. Standard buckets are Current (not yet due), 1-30 days overdue, 31-60 days, 61-90 days, and 90+ days. It helps finance teams decide which invoices to pay first and identify overdue obligations that may damage vendor relationships."}},{"@type":"Question","name":"How is AP aging different from AR aging?","acceptedAnswer":{"@type":"Answer","text":"AR aging tracks what customers owe you. AP aging tracks what you owe vendors. The mechanics are similar — both use aging buckets based on due dates — but the priorities are opposite. AR aging asks who to chase for collection. AP aging asks who to pay first to protect relationships and avoid penalties."}},{"@type":"Question","name":"Can Claude calculate DPO from the AP data?","acceptedAnswer":{"@type":"Answer","text":"Yes. DPO (days payable outstanding) equals total accounts payable divided by average daily COGS for the period. You provide the COGS figure and the number of days. Claude computes DPO and can track it period over period. DPO feeds directly into your financial KPI dashboard."}},{"@type":"Question","name":"How do I handle early payment discounts in the AP aging tracker?","acceptedAnswer":{"@type":"Answer","text":"Include the discount terms in your invoice data — for example 2/10 Net 30 means a 2 percent discount if paid within 10 days. Claude adds a Discount Available column that flags invoices where the discount window is still open, plus the dollar value of the discount so you can prioritise accordingly."}},{"@type":"Question","name":"Should I pay the oldest invoices first?","acceptedAnswer":{"@type":"Answer","text":"Not necessarily. Payment priority depends on multiple factors: late payment penalties, early payment discounts available, vendor criticality, and cash position. The prompt in this course builds a priority score based on rules you define — not just age."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -514,19 +514,19 @@ Office Depot $840 correctly drops to Medium. ✓</pre>
   <!-- RELATED -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Related Excel workflows</h2>
   <div class="related-grid">
-    <a href="/automate-accounts-receivable-tracking-excel-claude.html" class="related-link">
+    <a href="/automate-accounts-receivable-tracking-excel.html" class="related-link">
       <strong>Automate Accounts Receivable Tracking</strong>
       <span>Track the collection side of your cash conversion cycle in Excel.</span>
     </a>
-    <a href="/automate-cash-flow-dashboard-excel-claude.html" class="related-link">
+    <a href="/automate-cash-flow-dashboard-excel.html" class="related-link">
       <strong>Automate a Cash Flow Dashboard</strong>
       <span>See overdue AP and upcoming payments feed directly into your weekly cash view.</span>
     </a>
-    <a href="/build-financial-kpi-dashboard-excel-claude.html" class="related-link">
+    <a href="/build-financial-kpi-dashboard-excel.html" class="related-link">
       <strong>Build a Financial KPI Dashboard</strong>
       <span>Track DPO alongside DSO, margins, and liquidity ratios in one dashboard.</span>
     </a>
-    <a href="/month-end-close-excel-claude.html" class="related-link">
+    <a href="/month-end-close-excel.html" class="related-link">
       <strong>Automate Your Month-End Close Checklist</strong>
       <span>AP review is typically one of the first tasks on the close checklist.</span>
     </a>

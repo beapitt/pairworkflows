@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>12-Month Rolling Forecast in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to build a 12-month rolling forecast in Excel with Claude AI, replacing forecasts with actuals as each month closes and keeping the horizon updated.">
-<link rel="canonical" href="https://www.pairworkflows.com/rolling-forecast-excel-claude.html">
+<link rel="canonical" href="https://www.pairworkflows.com/rolling-forecast-excel.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between a rolling forecast and an annual budget?","acceptedAnswer":{"@type":"Answer","text":"An approved annual budget is typically preserved as a fixed baseline for variance reporting, while a rolling forecast is updated periodically. In this monthly workflow: the closed month moves into historical actuals, that month leaves the active forecast horizon, and a new period is added at the far end so the model continues to look 12 months ahead. This keeps planning current with business conditions."}},{"@type":"Question","name":"How many months should a rolling forecast cover?","acceptedAnswer":{"@type":"Answer","text":"This workflow uses a constant 12-month forward horizon. Other planning processes may use a different horizon; if you change it, update the month-count and total-range controls accordingly."}},{"@type":"Question","name":"Can Claude automatically pull actuals into the forecast each month?","acceptedAnswer":{"@type":"Answer","text":"This workflow does not assume a live-data connection. Use the data-access method supported by your Claude/Excel environment, but preserve prior forecast versions and verify the actuals, formula changes, and forecast horizon each month."}},{"@type":"Question","name":"How do I handle seasonality in a rolling forecast?","acceptedAnswer":{"@type":"Answer","text":"Include a seasonality index or monthly weighting in your input data. The prompt instructs Claude to apply seasonal adjustments to the base forecast so that Q4 revenue projections reflect your historical uplift rather than a flat monthly average."}},{"@type":"Question","name":"Does this replace a 3-statement financial model?","acceptedAnswer":{"@type":"Answer","text":"No. A rolling forecast focuses on the P&L and key operating metrics. A 3-statement model links the income statement, balance sheet, and cash flow statement. They serve different purposes and can complement each other."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -684,7 +684,7 @@ Forecast 12M Total sums Jul 2025 through Jun 2026 only. ✓</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Does this replace a 3-statement financial model? <i class="ti ti-chevron-down"></i></div>
-      <div class="faq-a">No. A rolling forecast focuses on the P&amp;L and key operating metrics. A <a href="/build-3-statement-financial-model-excel-claude.html">3-statement model</a> links the income statement, balance sheet, and cash flow statement. They serve different purposes and complement each other well.</div>
+      <div class="faq-a">No. A rolling forecast focuses on the P&amp;L and key operating metrics. A <a href="/build-3-statement-financial-model-excel.html">3-statement model</a> links the income statement, balance sheet, and cash flow statement. They serve different purposes and complement each other well.</div>
     </div>
   </div>
 
@@ -695,15 +695,15 @@ Forecast 12M Total sums Jul 2025 through Jun 2026 only. ✓</pre>
       <strong>Automate a Cash Flow Dashboard in Excel</strong>
       <span>Feed rolling forecast outputs into a live cash monitoring dashboard.</span>
     </a>
-    <a href="/capex-planning-excel-claude.html" class="related-link">
+    <a href="/capex-planning-excel.html" class="related-link">
       <strong>Build a CapEx Planning Template in Excel</strong>
       <span>Add capital expenditure phasing to your rolling forecast model.</span>
     </a>
-    <a href="/multi-entity-financials-excel-claude.html" class="related-link">
+    <a href="/multi-entity-financials-excel.html" class="related-link">
       <strong>Consolidate Multi-Entity Financials in Excel</strong>
       <span>Build one rolling forecast per entity and consolidate across the group.</span>
     </a>
-    <a href="/build-3-statement-financial-model-excel-claude.html" class="related-link">
+    <a href="/build-3-statement-financial-model-excel.html" class="related-link">
       <strong>3-Statement Financial Model</strong>
       <span>Link the P&L forecast to a balance sheet and cash flow statement.</span>
     </a>

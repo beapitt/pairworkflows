@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>SUMIFS Returning 0 in Excel? How to Fix It — PairWorkflows</title>
 <meta name="description" content="Fix SUMIFS returning 0 in Excel with Claude AI. Diagnose mismatched ranges, text-formatted numbers, multiple criteria, and AND/OR logic errors.">
-<link rel="canonical" href="https://www.pairworkflows.com/claude-excel-sumifs.html">
+<link rel="canonical" href="https://www.pairworkflows.com/sumifs-not-working.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why does my SUMIFS return 0?","acceptedAnswer":{"@type":"Answer","text":"A SUMIFS formula can return 0 when its criteria match no rows, dates are stored as text instead of real Excel dates, values in the sum range are stored as text, or hidden spaces prevent an exact text match. A range-size mismatch is different: SUMIFS returns #VALUE! when its range arguments do not have matching dimensions."}},{"@type":"Question","name":"Can SUMIFS handle OR conditions?","acceptedAnswer":{"@type":"Answer","text":"Yes. SUMIFS combines its criteria with AND, so a clear way to handle OR is to add separate SUMIFS together. In current Excel you can also use an array constant with SUM(SUMIFS(...)) for compact OR logic."}},{"@type":"Question","name":"How do I use date ranges in SUMIFS?","acceptedAnswer":{"@type":"Answer","text":"Wrap the operator in quotes and use & to join the date: use >=\"&DATE(2026,1,1) or >=\"&A1 to sum values on or after a date."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -520,19 +520,19 @@ Total: £6,240 ✓</pre>
   <!-- RELATED -->
   <div class="related-title">Related Excel workflows</div>
   <div class="related-grid">
-    <a href="/claude-excel-xlookup.html" class="related-link">
+    <a href="/xlookup-not-working.html" class="related-link">
       <strong>Fix XLOOKUP Errors with Claude</strong>
       <span>Debug #N/A errors and write XLOOKUP formulas from a plain English description.</span>
     </a>
-    <a href="/claude-excel-if-ifs.html" class="related-link">
+    <a href="/excel-if-ifs-formulas.html" class="related-link">
       <strong>Write IF and IFS Formulas</strong>
       <span>Build clean conditional formulas — including nested IFs — without the syntax headache.</span>
     </a>
-    <a href="/claude-excel-clean-data.html" class="related-link">
+    <a href="/clean-data-in-excel.html" class="related-link">
       <strong>Clean Data in Excel with Claude</strong>
       <span>Fix text dates, remove extra spaces, and standardise inconsistent values fast.</span>
     </a>
-    <a href="/claude-excel-circular-reference.html" class="related-link">
+    <a href="/excel-circular-reference.html" class="related-link">
       <strong>Fix Circular Reference Errors</strong>
       <span>Identify and break circular dependencies without losing your formula logic.</span>
     </a>

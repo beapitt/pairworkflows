@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>How to Build a 3-Statement Model in Excel with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to build a linked 3-statement financial model in Excel with Claude AI, connecting the income statement, balance sheet, and cash flow with formulas.">
-<link rel="canonical" href="https://www.pairworkflows.com/build-3-statement-financial-model-excel-claude.html">
+<link rel="canonical" href="https://www.pairworkflows.com/build-3-statement-financial-model-excel.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What links the three financial statements together?","acceptedAnswer":{"@type":"Answer","text":"Net income from the income statement is the starting point for the cash flow statement (indirect method) and contributes to the retained earnings roll-forward on the balance sheet, together with dividends or distributions where applicable. Changes in balance sheet working capital items feed the operating section of the cash flow statement. CapEx on the cash flow statement increases PP&E on the balance sheet. The ending cash balance on the cash flow statement must equal cash on the balance sheet."}},{"@type":"Question","name":"Can Claude build a 3-statement model from scratch without historical data?","acceptedAnswer":{"@type":"Answer","text":"Claude can build the model structure and formulas without historical data, but the output will be a blank template. A base historical period can anchor the first forecast, but some drivers and validation checks are stronger with multiple historical periods. At minimum, provide a complete historical income statement and a balance sheet that already balances, plus all assumptions required for the forecast schedules."}},{"@type":"Question","name":"How does Claude handle the balance sheet check?","acceptedAnswer":{"@type":"Answer","text":"The prompt instructs Claude to add a balance check row that calculates Total Assets minus Total Liabilities and Equity. The check should be zero within the model's stated rounding tolerance. A non-zero value means the statements are internally inconsistent and the affected links or roll-forwards need to be traced."}},{"@type":"Question","name":"Should I use the direct or indirect method for the cash flow statement?","acceptedAnswer":{"@type":"Answer","text":"This workflow uses the indirect method, which starts with net income and adjusts for non-cash items and changes in operating assets/liabilities."}},{"@type":"Question","name":"Can I extend this to a 5-year projection?","acceptedAnswer":{"@type":"Answer","text":"Yes. The prompt defaults to a 3-year projection but you can change the horizon. Provide your growth and margin assumptions for each year, and Claude will extend the model accordingly."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -715,7 +715,7 @@ Balance Check must remain £0 in every added year.</pre>
   <!-- RELATED -->
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Related Excel workflows</h2>
   <div class="related-grid">
-    <a href="/rolling-forecast-excel-claude.html" class="related-link">
+    <a href="/rolling-forecast-excel.html" class="related-link">
       <strong>Create a Rolling Forecast Model</strong>
       <span>Build a month-by-month rolling forecast that updates automatically as actuals come in.</span>
     </a>
@@ -723,11 +723,11 @@ Balance Check must remain £0 in every added year.</pre>
       <strong>Automate a Cash Flow Dashboard</strong>
       <span>Feed 3-statement outputs into a live cash monitoring dashboard in Excel.</span>
     </a>
-    <a href="/multi-entity-financials-excel-claude.html" class="related-link">
+    <a href="/multi-entity-financials-excel.html" class="related-link">
       <strong>Consolidate Multi-Entity Financials</strong>
       <span>Build one model per entity and consolidate across the group with Claude.</span>
     </a>
-    <a href="/build-budget-variance-analysis-report-excel-claude.html" class="related-link">
+    <a href="/build-budget-variance-analysis-report-excel.html" class="related-link">
       <strong>Budget Variance Analysis Report</strong>
       <span>Compare actuals against budget and flag variances automatically in Excel.</span>
     </a>

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Excel #REF! Error: How to Fix It with Claude AI — PairWorkflows</title>
 <meta name="description" content="Learn how to fix #REF! errors in Excel with Claude AI by finding broken references, identifying the cause, and correcting the formula.">
-<link rel="canonical" href="https://www.pairworkflows.com/claude-excel-ref-errors.html">
+<link rel="canonical" href="https://www.pairworkflows.com/ref-error-in-excel.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What causes a #REF! error in Excel?","acceptedAnswer":{"@type":"Answer","text":"A #REF! error appears when a formula references a cell, range, or sheet that no longer exists. Common causes include deleting a row or column that a formula pointed to, removing a sheet used by a cross-sheet formula, and copying a relative formula to a position where one of its references would fall outside the worksheet."}},{"@type":"Question","name":"How do I fix #REF! after deleting a column?","acceptedAnswer":{"@type":"Answer","text":"First try pressing Ctrl+Z to undo the deletion — this restores the column and all formula references instantly. If undo is no longer available, click the cell showing #REF!, copy the formula from the formula bar, and paste it into Claude along with a description of what the formula was supposed to calculate and which column was deleted. Claude will reconstruct the correct reference."}},{"@type":"Question","name":"Can I recover the original formula after a #REF! error?","acceptedAnswer":{"@type":"Answer","text":"Excel does not store the original cell address once it has been replaced with #REF!. If you cannot undo the change with Ctrl+Z, the original reference is permanently lost from the formula bar. However, Claude can reconstruct the correct formula if you describe what the formula was supposed to calculate and what changed in the sheet structure."}},{"@type":"Question","name":"What's the fastest way to find every #REF! error in a sheet?","acceptedAnswer":{"@type":"Answer","text":"Press Ctrl+F and search for #REF! to locate every broken cell at once. Note how many cells are affected before you start fixing — a single deleted column can trigger dozens of cascading errors across dependent formulas."}},{"@type":"Question","name":"What if fixing one #REF! error still leaves others?","acceptedAnswer":{"@type":"Answer","text":"One deletion often breaks multiple formulas across a sheet. Paste all the broken formulas into Claude at once along with what changed, and it can fix the entire batch in a single response instead of one at a time. Then run Ctrl+F again to confirm none remain."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -498,19 +498,19 @@ recreate the sheet?</pre>
   <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Related Excel workflows</h2>
   <div class="related-title" aria-hidden="true">Related Excel workflows</div>
   <div class="related-grid">
-    <a href="/claude-excel-na-errors.html" class="related-link">
+    <a href="/na-error-in-excel.html" class="related-link">
       <strong>Fix #N/A Errors in Excel with Claude</strong>
       <span>Diagnose and fix every type of #N/A error in your lookup formulas.</span>
     </a>
-    <a href="/claude-excel-circular-reference.html" class="related-link">
+    <a href="/excel-circular-reference.html" class="related-link">
       <strong>Fix Circular Reference Errors</strong>
       <span>Identify and break circular dependencies in your formulas with Claude.</span>
     </a>
-    <a href="/claude-excel-explain-formulas.html" class="related-link">
+    <a href="/explain-excel-formulas.html" class="related-link">
       <strong>Understand and Document Inherited Formulas</strong>
       <span>Get Claude to explain complex formulas layer by layer.</span>
     </a>
-    <a href="/claude-excel-xlookup.html" class="related-link">
+    <a href="/xlookup-not-working.html" class="related-link">
       <strong>Write an XLOOKUP Formula with Claude</strong>
       <span>Replace fragile VLOOKUP references with this modern alternative.</span>
     </a>
