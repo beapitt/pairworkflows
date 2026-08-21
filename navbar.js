@@ -239,14 +239,14 @@
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
               </button>
               <div class="nav-dropdown-menu" id="navDropdownMenu-workflows" style="min-width:220px;">
-                <a href="https://www.pairworkflows.com/claude-excel-workflows.html">All Excel Workflows</a>
+                <a href="https://www.pairworkflows.com/excel-workflows.html">All Excel Workflows</a>
                 <div class="nav-dropdown-divider"></div>
                 <div class="nav-dropdown-label">By topic</div>
-                <a href="https://www.pairworkflows.com/excel-errors-claude.html">Fix Excel Errors</a>
-                <a href="https://www.pairworkflows.com/excel-formulas-claude.html">Formulas &amp; Functions</a>
-                <a href="https://www.pairworkflows.com/excel-data-cleaning-claude.html">Data Cleaning</a>
-                <a href="https://www.pairworkflows.com/excel-finance-models-claude.html">Finance Models</a>
-                <a href="https://www.pairworkflows.com/excel-reports-claude.html">Dynamic Reports</a>
+                <a href="https://www.pairworkflows.com/excel-errors.html">Fix Excel Errors</a>
+                <a href="https://www.pairworkflows.com/excel-formulas.html">Formulas &amp; Functions</a>
+                <a href="https://www.pairworkflows.com/excel-data-cleaning.html">Data Cleaning</a>
+                <a href="https://www.pairworkflows.com/excel-finance-models.html">Finance Models</a>
+                <a href="https://www.pairworkflows.com/excel-reports.html">Dynamic Reports</a>
               </div>
             </div>
 
@@ -301,12 +301,12 @@
     <div class="nav-mobile-menu" id="navMobileMenu">
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Excel Workflows</div>
-        <a href="https://www.pairworkflows.com/claude-excel-workflows.html">All Excel Workflows</a>
-        <a href="https://www.pairworkflows.com/excel-errors-claude.html">Fix Excel Errors</a>
-        <a href="https://www.pairworkflows.com/excel-formulas-claude.html">Formulas &amp; Functions</a>
-        <a href="https://www.pairworkflows.com/excel-data-cleaning-claude.html">Data Cleaning</a>
-        <a href="https://www.pairworkflows.com/excel-finance-models-claude.html">Finance Models</a>
-        <a href="https://www.pairworkflows.com/excel-reports-claude.html">Dynamic Reports</a>
+        <a href="https://www.pairworkflows.com/excel-workflows.html">All Excel Workflows</a>
+        <a href="https://www.pairworkflows.com/excel-errors.html">Fix Excel Errors</a>
+        <a href="https://www.pairworkflows.com/excel-formulas.html">Formulas &amp; Functions</a>
+        <a href="https://www.pairworkflows.com/excel-data-cleaning.html">Data Cleaning</a>
+        <a href="https://www.pairworkflows.com/excel-finance-models.html">Finance Models</a>
+        <a href="https://www.pairworkflows.com/excel-reports.html">Dynamic Reports</a>
       </div>
       <div class="nav-mobile-divider"></div>
       <div class="nav-mobile-section">
