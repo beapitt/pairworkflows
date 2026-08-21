@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>How to Remove Duplicates in Excel with Claude AI — PairWorkflows</title>
-<meta name="description" content="Remove duplicates in Excel without deleting valid rows. Use Claude AI to identify which columns define a duplicate, pick the right record to keep, and verify before deleting.">
+<title>How to Remove Duplicates in Excel Safely — PairWorkflows</title>
+<meta name="description" content="Remove duplicates in Excel with ChatGPT without deleting valid rows. Identify duplicate keys, choose which record to keep, and verify before deletion.">
 <link rel="canonical" href="https://www.pairworkflows.com/remove-duplicates-excel.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I remove duplicates in Excel?","acceptedAnswer":{"@type":"Answer","text":"Go to Data → Remove Duplicates. Select the columns that together define a unique record — for example, Customer + Date, not just Customer alone. Excel keeps the first occurrence and deletes the rest. Always work on a copy of your data first — removing duplicates deletes data from the selected range, so keep a separate copy of the original first."}},{"@type":"Question","name":"How do I remove duplicates from a specific column in Excel?","acceptedAnswer":{"@type":"Answer","text":"In the Remove Duplicates dialog, uncheck all columns except the one you want to deduplicate. For example, to remove rows where the Email column repeats, uncheck everything and leave only Email checked. Excel keeps the first occurrence of each unique email."}},{"@type":"Question","name":"How do I keep the most recent duplicate instead of the first one?","acceptedAnswer":{"@type":"Answer","text":"Excel's Remove Duplicates always keeps the first row. To keep the most recent, sort your data by date descending before running Remove Duplicates. The most recent record will then appear first, so it will be the one kept."}},{"@type":"Question","name":"Can Claude remove duplicates from my Excel file directly?","acceptedAnswer":{"@type":"Answer","text":"Claude can work with XLSX files when the relevant file and code features are enabled, and Claude for Excel can work inside supported Excel environments. From pasted headers and sample rows, Claude can propose a duplicate key, sort rule, and COUNTIFS checks, but the user should confirm the business rule before destructive deletion. Whether Claude edits the workbook directly depends on the Claude environment being used."}},{"@type":"Question","name":"What is the COUNTIFS formula to find duplicates in Excel?","acceptedAnswer":{"@type":"Answer","text":"Use =COUNTIFS($A$2:$A2,A2,$B$2:$B2,B2) in a helper column. This counts how many times the combination of columns A and B has appeared up to the current row. Any value greater than 1 is a duplicate of a row seen earlier. Filter on >1 and review before deleting."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -146,7 +146,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-copy-off" style="font-size:12px"></i> Excel · Claude AI</div>
-    <h1>How to Remove Duplicates in Excel with Claude AI</h1>
+    <h1>How to Remove Duplicates in Excel Safely with ChatGPT</h1>
     <p class="hero-sub">Excel's Remove Duplicates button deletes rows immediately and always keeps the first one. The hard part is deciding which columns define a duplicate, which record to keep, and whether a row is genuinely a duplicate or just looks like one. Paste your headers and a sample into Claude and get the exact column selection, sort order, and COUNTIFS formula to verify before you delete anything.</p>
   </div>
 
@@ -414,7 +414,7 @@ Nord Ltd occurrence 2 has no differing Notes in this sample, but still review ex
   </div>
 
   <!-- STEPS -->
-  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">How to Remove Duplicate Rows Safely</h2>
   <div class="steps-card">
     <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Remove duplicates in Excel safely — 5 steps</div>
     <div class="step">

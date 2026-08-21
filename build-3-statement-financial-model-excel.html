@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>How to Build a 3-Statement Model in Excel with Claude AI — PairWorkflows</title>
-<meta name="description" content="Learn how to build a linked 3-statement financial model in Excel with Claude AI, connecting the income statement, balance sheet, and cash flow with formulas.">
+<title>How to Build a 3-Statement Financial Model in Excel — PairWorkflows</title>
+<meta name="description" content="Build a linked 3-statement financial model in Excel with ChatGPT, connecting the income statement, balance sheet, and cash flow with formulas.">
 <link rel="canonical" href="https://www.pairworkflows.com/build-3-statement-financial-model-excel.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What links the three financial statements together?","acceptedAnswer":{"@type":"Answer","text":"Net income from the income statement is the starting point for the cash flow statement (indirect method) and contributes to the retained earnings roll-forward on the balance sheet, together with dividends or distributions where applicable. Changes in balance sheet working capital items feed the operating section of the cash flow statement. CapEx on the cash flow statement increases PP&E on the balance sheet. The ending cash balance on the cash flow statement must equal cash on the balance sheet."}},{"@type":"Question","name":"Can Claude build a 3-statement model from scratch without historical data?","acceptedAnswer":{"@type":"Answer","text":"Claude can build the model structure and formulas without historical data, but the output will be a blank template. A base historical period can anchor the first forecast, but some drivers and validation checks are stronger with multiple historical periods. At minimum, provide a complete historical income statement and a balance sheet that already balances, plus all assumptions required for the forecast schedules."}},{"@type":"Question","name":"How does Claude handle the balance sheet check?","acceptedAnswer":{"@type":"Answer","text":"The prompt instructs Claude to add a balance check row that calculates Total Assets minus Total Liabilities and Equity. The check should be zero within the model's stated rounding tolerance. A non-zero value means the statements are internally inconsistent and the affected links or roll-forwards need to be traced."}},{"@type":"Question","name":"Should I use the direct or indirect method for the cash flow statement?","acceptedAnswer":{"@type":"Answer","text":"This workflow uses the indirect method, which starts with net income and adjusts for non-cash items and changes in operating assets/liabilities."}},{"@type":"Question","name":"Can I extend this to a 5-year projection?","acceptedAnswer":{"@type":"Answer","text":"Yes. The prompt defaults to a 3-year projection but you can change the horizon. Provide your growth and margin assumptions for each year, and Claude will extend the model accordingly."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -199,7 +199,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
-   <h1>How to Build a 3-Statement Model in Excel with Claude AI</h1>
+   <h1>How to Build a 3-Statement Financial Model in Excel with ChatGPT</h1>
    <p class="hero-sub">Provide Claude with a complete historical base period, forecast assumptions, and model conventions, then use it to draft a linked income statement, balance sheet, cash flow statement, and supporting roll-forwards. Reconcile the historical period and validate every forecast year before relying on the model.</p>
   </div>
 
@@ -649,7 +649,7 @@ Balance Check must remain £0 in every added year.</pre>
 
   <!-- Steps: Debug -->
   <div class="steps-panel" id="steps-debug">
-    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Build the Core 3-Statement Model</h2>
     <div class="steps-card">
       <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Debug model balances — 3 steps</div>
       <div class="step">
@@ -669,7 +669,7 @@ Balance Check must remain £0 in every added year.</pre>
 
   <!-- Steps: Extend -->
   <div class="steps-panel" id="steps-extend">
-    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Check and Refine the Model</h2>
     <div class="steps-card">
       <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Extend projection timeline — 3 steps</div>
       <div class="step">

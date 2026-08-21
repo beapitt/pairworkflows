@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Depreciation Formula in Excel with Claude AI — PairWorkflows</title>
-<meta name="description" content="Learn how to calculate depreciation in Excel with Claude AI using straight-line, declining balance and SYD formulas, plus automatic NBV tracking.">
+<title>Depreciation Formulas in Excel: Straight-Line, DB & SYD — PairWorkflows</title>
+<meta name="description" content="Calculate fixed-asset depreciation in Excel with ChatGPT using straight-line, declining balance, and SYD formulas, with automatic net book value tracking.">
 <link rel="canonical" href="https://www.pairworkflows.com/fixed-asset-depreciation-excel.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Which Excel function does Claude use for straight-line depreciation?","acceptedAnswer":{"@type":"Answer","text":"Claude uses Excel's built-in SLN function, which takes three arguments: cost, salvage value, and useful life. The formula is =SLN(cost, salvage, life). Claude can also build the calculation manually as (Cost - Salvage) / Life if you prefer to see the logic explicitly."}},{"@type":"Question","name":"Can Claude handle mid-year asset additions in a depreciation schedule?","acceptedAnswer":{"@type":"Answer","text":"Yes, if you provide the in-service/available-for-use date and the exact proration rules. Claude can calculate the schedule, but labels such as half-year, mid-month or exact-day are not sufficient on their own when policies differ. Verify that cumulative depreciation still stops at the residual value."}},{"@type":"Question","name":"What is the difference between SLN, DDB, and SYD in Excel?","acceptedAnswer":{"@type":"Answer","text":"SLN returns straight-line depreciation for one period. DDB calculates accelerated depreciation for a specified period using a declining-balance factor (2 by default), while SYD uses the sum-of-years' digits method. Their period patterns differ, so verify each function with the supplied life, residual value, period and DDB factor rather than assuming identical behaviour."}},{"@type":"Question","name":"How do I handle fully depreciated assets in the template?","acceptedAnswer":{"@type":"Answer","text":"Use a remaining-depreciable-amount control so depreciation cannot push NBV below residual value. Once that remaining amount is zero, later periods should show zero depreciation; keep the asset in the register until your disposal/retirement process says otherwise."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -194,7 +194,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
-   <h1>How to Calculate Depreciation in Excel with Claude AI</h1>
+   <h1>How to Calculate Depreciation in Excel with ChatGPT</h1>
     <p class="hero-sub">Provide Claude with a controlled asset register, depreciation policy, in-service dates, opening accumulated depreciation and reporting period, then use it to draft an auditable Excel depreciation schedule. The workflow separates Excel formula mechanics from the accounting policy you have actually approved.</p>
   </div>
 

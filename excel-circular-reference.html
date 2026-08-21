@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>How to Find and Fix Circular References in Excel — PairWorkflows</title>
-<meta name="description" content="Learn how to find and fix circular references in Excel using Error Checking, Trace Precedents, and Claude AI to diagnose broken formula loops.">
+<meta name="description" content="Find and fix circular references in Excel with ChatGPT. Trace formula loops, identify self-references, and restructure calculations safely.">
 <link rel="canonical" href="https://www.pairworkflows.com/excel-circular-reference.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I find a circular reference in Excel?","acceptedAnswer":{"@type":"Answer","text":"Go to the Formulas tab, click Error Checking, and select Circular References. Excel will list the specific cell causing the loop."}},{"@type":"Question","name":"Why does Excel show a circular reference warning?","acceptedAnswer":{"@type":"Answer","text":"It means a formula references its own cell, either directly or indirectly, creating an infinite loop that Excel cannot calculate."}},{"@type":"Question","name":"Are circular references ever intentional in Excel?","acceptedAnswer":{"@type":"Answer","text":"Yes, they are used intentionally in financial modeling for 'iterative calculations' (e.g. calculating interest on a loan balance that includes interest), but this should only be done with extreme caution."}},{"@type":"Question","name":"What is the safest way to fix a circular reference?","acceptedAnswer":{"@type":"Answer","text":"Restructure the formula or use a helper cell so the loop no longer exists — for example, referencing a fixed input cell instead of a cell that depends on the result you are calculating."}},{"@type":"Question","name":"Should I enable iterative calculation to fix a circular reference?","acceptedAnswer":{"@type":"Answer","text":"Not as a quick fix. Iterative calculation forces the formula to recalculate a set number of times instead of solving the underlying problem — it hides the error rather than fixing it. It is only appropriate for genuinely intentional loops, like interest-on-interest calculations."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -211,7 +211,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-rotate" style="font-size:12px"></i> Excel · Claude AI</div>
-    <h1>How to Find and Fix Circular References in Excel with Claude AI</h1>
+    <h1>How to Find and Fix Circular References in Excel with ChatGPT</h1>
     <p class="hero-sub">A circular reference means a formula loops back to its own cell — directly, or through a chain of other formulas. Paste the flagged formula into Claude and it traces the chain, finds exactly where the loop closes, and gives you a fix that doesn't just mask the problem with iterative calculation.</p>
   </div>
 

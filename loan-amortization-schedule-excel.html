@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Loan Amortization Schedule in Excel Using Claude AI — PairWorkflows</title>
-<meta name="description" content="Generate a full loan amortization schedule in Excel using Claude AI or Gemini AI. See principal, interest, and remaining balance for every payment period.">
+<title>How to Build a Loan Amortization Schedule in Excel — PairWorkflows</title>
+<meta name="description" content="Build a loan amortization schedule in Excel with ChatGPT showing principal, interest, payment amount, and remaining balance for every payment period.">
 <link rel="canonical" href="https://www.pairworkflows.com/loan-amortization-schedule-excel.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude handle variable interest rates in an amortization schedule?","acceptedAnswer":{"@type":"Answer","text":"Yes, if you provide both the rate schedule and the loan's payment-reset rule. Some contracts recalculate payment at a reset; others keep payment fixed, use caps/floors, or create a different maturity/balloon effect. Claude should follow the supplied contract mechanics rather than assume a universal reset rule."}},{"@type":"Question","name":"How does Claude calculate the monthly payment amount?","acceptedAnswer":{"@type":"Answer","text":"For a regular fixed-rate annuity, Excel's PMT function uses the periodic rate, number of periods, present value, optional future value and payment timing. The periodic rate must be derived from the rate convention in the agreement; annual-rate/12 is appropriate only for a compatible nominal monthly convention."}},{"@type":"Question","name":"Can I model extra principal payments or lump-sum prepayments?","acceptedAnswer":{"@type":"Answer","text":"Yes. Supply the prepayment dates/periods, amounts, timing within the payment cycle, any penalties, and whether the lender shortens the term or recasts payments. Interest savings should be measured against a baseline schedule built from identical loan assumptions."}},{"@type":"Question","name":"Will the schedule work for quarterly or annual payment frequencies?","acceptedAnswer":{"@type":"Answer","text":"Yes, but the periodic-rate conversion still depends on the quoted rate convention. For example, a 6% nominal annual rate convertible quarterly corresponds to 1.5% per quarter and 20 payments over five years; an effective annual rate requires a different periodic-rate conversion."}},{"@type":"Question","name":"How do I verify Claude's amortization output?","acceptedAnswer":{"@type":"Answer","text":"Use Excel formulas for the schedule and independent controls for first-period interest, payment composition, principal reconciliation, prepayment/reset timing and ending balance. The model must preserve any contractual balloon/residual rather than forcing zero. Do not treat manually calculated chat totals as verified unless the formulas were actually executed."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -186,7 +186,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
-   <h1>How to Build a Loan Amortization Schedule in Excel with Claude AI</h1>
+   <h1>How to Build a Loan Amortization Schedule in Excel with ChatGPT</h1>
     <p class="hero-sub">Provide Claude with the exact loan contract terms, rate convention, payment timing, fees/prepayment rules, and any reset schedule, then use it to draft an auditable Excel amortization schedule. Verify the payment, interest, principal and ending balance against Excel formulas before relying on the result.</p>
   </div>
 
@@ -652,7 +652,7 @@ Ending balance at Period 60 = £0.00 ✓</pre>
   </div>
 
   <!-- STEPS -->
-  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Build Your Excel Amortization Schedule with Claude</h2>
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Build Your Excel Amortization Schedule with ChatGPT</h2>
   <div class="steps-card">
     <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build the schedule with Claude</div>
     <div class="step">

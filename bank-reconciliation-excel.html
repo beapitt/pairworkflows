@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Bank Reconciliation in Excel with Claude AI — PairWorkflows</title>
-<meta name="description" content="Learn how to reconcile a bank statement against your general ledger in Excel with Claude AI, match transactions, and flag discrepancies.">
+<title>Bank Reconciliation in Excel: Step-by-Step Guide — PairWorkflows</title>
+<meta name="description" content="Reconcile a bank statement against your general ledger in Excel with ChatGPT. Match transactions, identify discrepancies, and troubleshoot false mismatches.">
 <link rel="canonical" href="https://www.pairworkflows.com/bank-reconciliation-excel.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude read my Excel bank statement directly?","acceptedAnswer":{"@type":"Answer","text":"Claude may support spreadsheet file uploads depending on the plan and current product features. If file upload is unavailable, paste the relevant columns as text. For best results, provide only the rows and columns needed for the reconciliation."}},{"@type":"Question","name":"How does Claude match bank transactions to ledger entries?","acceptedAnswer":{"@type":"Answer","text":"Claude compares rows across two datasets using the matching criteria you specify — typically date, amount, and reference number. It flags exact matches, partial matches (e.g. same amount but different date), and completely unmatched items on both sides."}},{"@type":"Question","name":"Will Claude invent matches that don't exist?","acceptedAnswer":{"@type":"Answer","text":"No prompt can guarantee error-free AI matching. Use explicit one-to-one row IDs, evidence and ambiguity rules, then verify every proposed match and the control totals against the original source data."}},{"@type":"Question","name":"Can I use this for multi-currency bank reconciliation?","acceptedAnswer":{"@type":"Answer","text":"Yes, but provide the approved FX basis explicitly. Keep original currency, rate, converted amount and ledger booked reporting-currency amount visible, and investigate conversion differences before deciding on any accounting entry."}},{"@type":"Question","name":"How often should I run this reconciliation?","acceptedAnswer":{"@type":"Answer","text":"Reconciliation frequency depends on transaction volume, risk, controls and close policy. Many organisations reconcile at least as part of month-end, while higher-risk or high-volume accounts may be reconciled more frequently."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -205,7 +205,7 @@ section { margin-bottom: 2rem; }
   <!-- HERO -->
   <section class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
-    <h1>How to Do Bank Reconciliation in Excel with Claude AI</h1>
+    <h1>How to Do Bank Reconciliation in Excel with ChatGPT</h1>
     <h2>Reconcile bank transactions step by step</h2>
     <p class="hero-sub">Provide the bank statement and cash-ledger rows to Claude and use it to generate candidate matches, exceptions, and an Excel-ready reconciliation schedule. The workflow below requires one-to-one matching evidence and keeps ambiguous items unmatched for human review.</p>
   </section>
@@ -562,7 +562,7 @@ For real reconciliations, retain the original amount, rate and converted amount 
   <!-- Steps: Recon -->
   <div class="steps-panel on" id="steps-recon">
     <section class="steps-card">
-      <div class="steps-title"><h2><i class="ti ti-list-check" style="color:#1d9e75"></i> Run a bank reconciliation with Claude — 5 steps</h2></div>
+      <div class="steps-title"><h2><i class="ti ti-list-check" style="color:#1d9e75"></i> Run a Bank Reconciliation with ChatGPT — 5 Steps</h2></div>
       <div class="step">
         <div class="step-n">1</div>
         <div class="step-body"><h3>Export both datasets to Excel or CSV</h3><p>Export your bank statement and general-ledger cash account. Preserve the original exports, then create a working copy containing individual transaction rows only. Exclude running balances, subtotals and report headers from the matching dataset rather than deleting the only source copy.</p></div>

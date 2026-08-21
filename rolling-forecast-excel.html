@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>12-Month Rolling Forecast in Excel with Claude AI — PairWorkflows</title>
-<meta name="description" content="Learn how to build a 12-month rolling forecast in Excel with Claude AI, replacing forecasts with actuals as each month closes and keeping the horizon updated.">
+<title>How to Build a 12-Month Rolling Forecast in Excel — PairWorkflows</title>
+<meta name="description" content="Build a 12-month rolling forecast in Excel with ChatGPT. Replace forecasts with actuals as each month closes and keep the forecast horizon updated.">
 <link rel="canonical" href="https://www.pairworkflows.com/rolling-forecast-excel.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between a rolling forecast and an annual budget?","acceptedAnswer":{"@type":"Answer","text":"An approved annual budget is typically preserved as a fixed baseline for variance reporting, while a rolling forecast is updated periodically. In this monthly workflow: the closed month moves into historical actuals, that month leaves the active forecast horizon, and a new period is added at the far end so the model continues to look 12 months ahead. This keeps planning current with business conditions."}},{"@type":"Question","name":"How many months should a rolling forecast cover?","acceptedAnswer":{"@type":"Answer","text":"This workflow uses a constant 12-month forward horizon. Other planning processes may use a different horizon; if you change it, update the month-count and total-range controls accordingly."}},{"@type":"Question","name":"Can Claude automatically pull actuals into the forecast each month?","acceptedAnswer":{"@type":"Answer","text":"This workflow does not assume a live-data connection. Use the data-access method supported by your Claude/Excel environment, but preserve prior forecast versions and verify the actuals, formula changes, and forecast horizon each month."}},{"@type":"Question","name":"How do I handle seasonality in a rolling forecast?","acceptedAnswer":{"@type":"Answer","text":"Include a seasonality index or monthly weighting in your input data. The prompt instructs Claude to apply seasonal adjustments to the base forecast so that Q4 revenue projections reflect your historical uplift rather than a flat monthly average."}},{"@type":"Question","name":"Does this replace a 3-statement financial model?","acceptedAnswer":{"@type":"Answer","text":"No. A rolling forecast focuses on the P&L and key operating metrics. A 3-statement model links the income statement, balance sheet, and cash flow statement. They serve different purposes and can complement each other."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -175,7 +175,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Finance</div>
-    <h1>How to Build a 12-Month Rolling Forecast in Excel with Claude AI</h1>
+    <h1>How to Build a 12-Month Rolling Forecast in Excel with ChatGPT</h1>
     <p class="hero-sub">Provide Claude with reconciled historical actuals, explicit forecast drivers, and your current forecast layout, then use it to draft a formula-driven 12-month rolling forecast. Each close should preserve the prior forecast for variance analysis, move the closed month to actuals, and add one new far-end forecast month.</p>
   </div>
 
@@ -617,7 +617,7 @@ Forecast 12M Total sums Jul 2025 through Jun 2026 only. ✓</pre>
 
   <!-- Steps: Seasonal -->
   <div class="steps-panel" id="steps-seasonal">
-    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Build the Rolling Forecast</h2>
     <div class="steps-card">
       <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Add a seasonality index to your forecast — 4 steps</div>
       <div class="step">
@@ -641,7 +641,7 @@ Forecast 12M Total sums Jul 2025 through Jun 2026 only. ✓</pre>
 
   <!-- Steps: Update -->
   <div class="steps-panel" id="steps-update">
-    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Step-by-step workflow</h2>
+    <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Roll the Forecast Forward Each Month</h2>
     <div class="steps-card">
       <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Update model with closed actuals — 4 steps</div>
       <div class="step">

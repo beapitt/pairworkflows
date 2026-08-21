@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Accounts Receivable Aging in Excel with Claude AI — PairWorkflows</title>
-<meta name="description" content="Learn how to build an accounts receivable aging tracker in Excel with Claude AI, including aging formulas, DSO calculations, and collection priority scoring.">
+<title>Accounts Receivable Aging Report in Excel — PairWorkflows</title>
+<meta name="description" content="Build an accounts receivable aging tracker in Excel with ChatGPT using aging formulas, DSO calculations, overdue balances, and collection priority scoring.">
 <link rel="canonical" href="https://www.pairworkflows.com/automate-accounts-receivable-tracking-excel.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What are accounts receivable aging buckets?","acceptedAnswer":{"@type":"Answer","text":"Aging buckets group outstanding invoices by how many days past the due date they are. Standard buckets are Current (not yet due), 1-30 days overdue, 31-60 days, 61-90 days, and 90+ days. Each bucket carries a different collection risk — the older the invoice, the harder it is to collect."}},{"@type":"Question","name":"How does Claude calculate the aging for each invoice?","acceptedAnswer":{"@type":"Answer","text":"Claude subtracts the invoice due date from the report date you specify to get the days overdue. It then assigns each invoice to the appropriate aging bucket using IF or IFS logic. Invoices not yet due go into the Current bucket. The formula is written out so you can verify the logic."}},{"@type":"Question","name":"Can Claude calculate DSO from the AR data?","acceptedAnswer":{"@type":"Answer","text":"Yes. DSO (days sales outstanding) is calculated as total accounts receivable divided by the average daily credit sales for the period. You provide the revenue figure and the number of days in the period. Claude computes DSO and can track it period over period for trend analysis."}},{"@type":"Question","name":"How do I handle partially paid invoices in the aging tracker?","acceptedAnswer":{"@type":"Answer","text":"Include a Balance Outstanding column that reflects the remaining amount after partial payments. The aging calculation uses the balance outstanding, not the original invoice amount. This ensures the aging report shows what is actually owed, not what was originally billed."}},{"@type":"Question","name":"Does this tracker replace an ERP accounts receivable module?","acceptedAnswer":{"@type":"Answer","text":"No. This is for teams that manage AR in spreadsheets or need a supplementary view outside their ERP. If your ERP produces aging reports, this template can serve as a secondary analysis tool — for example, adding collection priority scoring or customer-level summaries the ERP doesn't provide."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -189,7 +189,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-file-invoice" style="font-size:12px"></i> Excel · Claude AI</div>
-    <h1>How to Build an Accounts Receivable Aging Tracker in Excel with Claude AI</h1>
+    <h1>How to Build an Accounts Receivable Aging Tracker in Excel with ChatGPT</h1>
     <p class="hero-sub">Paste your open invoice register into Claude and get back a full aging report in minutes — invoice-level buckets, customer summaries, DSO, and collection priority scoring, all built with formulas you can audit.</p>
   </div>
 

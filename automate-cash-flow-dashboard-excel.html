@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Cash Flow Dashboard in Excel with Claude AI — PairWorkflows</title>
-<meta name="description" content="Learn how to build a weekly cash flow dashboard in Excel with Claude AI, including categorized transactions, weekly totals, and cash runway calculations.">
+<title>How to Build a Cash Flow Dashboard in Excel — PairWorkflows</title>
+<meta name="description" content="Build a weekly cash flow dashboard in Excel with ChatGPT using categorized transactions, weekly cash totals, closing balances, and cash runway calculations.">
 <link rel="canonical" href="https://www.pairworkflows.com/automate-cash-flow-dashboard-excel.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between a cash flow dashboard and a cash flow statement?","acceptedAnswer":{"@type":"Answer","text":"A cash flow statement is a formal financial report prepared monthly or quarterly under accounting standards. A cash flow dashboard is an operational tool — it shows where cash is right now, where it went this week, and how many weeks of runway remain. The dashboard updates as often as you paste in new data; the statement is prepared at period-end."}},{"@type":"Question","name":"Can Claude categorise bank transactions into operating, investing, and financing?","acceptedAnswer":{"@type":"Answer","text":"Yes, if the transaction descriptions are reasonably clear. The prompt instructs Claude to categorise each transaction and flag any it cannot classify with confidence. You review the flagged items and assign them manually — Claude never guesses silently."}},{"@type":"Question","name":"How do I calculate cash runway from this dashboard?","acceptedAnswer":{"@type":"Answer","text":"The dashboard includes a runway formula: current cash balance divided by average weekly net cash burn over the trailing period you specify (typically 4-8 weeks). This gives you estimated weeks of runway at the current burn rate."}},{"@type":"Question","name":"Should I use bank data or general ledger data as input?","acceptedAnswer":{"@type":"Answer","text":"Bank data shows actual cash movements and is better for operational dashboards. GL data may include accruals that haven't settled yet. For a cash-focused dashboard, bank transactions are the cleaner input. Make sure to reconcile against the GL periodically."}},{"@type":"Question","name":"How often should I update the cash flow dashboard?","acceptedAnswer":{"@type":"Answer","text":"Weekly is the most common cadence for operational cash management. Daily updates are useful during cash-constrained periods. Monthly is sufficient if the dashboard is used primarily for board reporting rather than day-to-day management."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -196,7 +196,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-cash" style="font-size:12px"></i> Excel · Claude AI</div>
-    <h1>How to Build a Weekly Cash Flow Dashboard in Excel with Claude AI</h1>
+    <h1>How to Build a Weekly Cash Flow Dashboard in Excel with ChatGPT</h1>
     <p class="hero-sub">Paste a raw bank transaction export into Claude and get back a categorised cash flow dashboard — operating, investing, and financing totals by week, plus a runway calculation, in minutes instead of hours.</p>
   </div>
 

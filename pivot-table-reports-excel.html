@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>How to Create a Pivot Table in Excel with Claude AI — PairWorkflows</title>
-<meta name="description" content="Learn how to create Pivot Table reports in Excel with Claude AI, including field placement, calculated fields, date grouping, and slicer setup.">
+<title>How to Create a Pivot Table in Excel — PairWorkflows</title>
+<meta name="description" content="Create Pivot Table reports in Excel with ChatGPT, including field placement, calculated fields, date grouping, filters, and slicer setup.">
 <link rel="canonical" href="https://www.pairworkflows.com/pivot-table-reports-excel.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Claude build the actual pivot table inside Excel for me?","acceptedAnswer":{"@type":"Answer","text":"It depends on the Claude environment. In a normal chat, Claude can analyse pasted data and supported XLSX uploads when spreadsheet analysis is enabled. Claude for Excel can work directly in supported Excel environments. In all cases, verify field placement, source ranges, calculated metrics, and totals before relying on the report."}},{"@type":"Question","name":"What data format does Claude need for pivot table design?","acceptedAnswer":{"@type":"Answer","text":"Claude needs a flat table — one row per transaction or record, with consistent column headers. Merged cells, subtotal rows, and blank header columns will cause problems. Describe any structural issues in the prompt and Claude will suggest a cleaning step first."}},{"@type":"Question","name":"How do I add a calculated field like gross margin % to a pivot table?","acceptedAnswer":{"@type":"Answer","text":"Ask Claude to include it in the prompt. For a supported classic non-OLAP PivotTable, Claude can propose the field-name formula for PivotTable Analyze → Fields, Items & Sets → Calculated Field. For Data Model/OLAP PivotTables, use the appropriate measure/calculation method instead."}},{"@type":"Question","name":"My pivot table shows (blank) rows — how do I fix this?","acceptedAnswer":{"@type":"Answer","text":"A “(blank)” PivotTable item often indicates empty source values in that field, but confirm the source data and refresh state before assuming that is the only cause. Ask Claude to identify which column is causing the blanks and suggest a fix — typically a find-and-replace or a helper column that fills missing values before the pivot is built."}},{"@type":"Question","name":"Can I use Claude to redesign an existing pivot table report?","acceptedAnswer":{"@type":"Answer","text":"Yes. Describe the current layout and what is wrong with it — too many rows, wrong grouping, a missing metric — and Claude will specify a revised structure. Paste a sample of the underlying data so Claude can reference the actual column names."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -175,7 +175,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-table" style="font-size:12px"></i> Excel · Claude AI</div>
-    <h1>How to Create a Pivot Table in Excel with Claude AI</h1>
+    <h1>How to Create a Pivot Table in Excel with ChatGPT</h1>
     <p class="hero-sub">Describe your data, Excel version, PivotTable source type, and reporting goal. Claude can then propose a field layout, grouping steps, calculated-field or measure approach, and validation checks that you can apply and verify in Excel.</p>
   </div>
 
