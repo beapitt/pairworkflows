@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free AI Fine Dining Website Builder — Generate Your Prompt | PairWorkflows</title>
-<meta name="description" content="Answer 10 questions and get a ready-to-use AI prompt to build your fine dining restaurant website. Works with Claude, ChatGPT and more. Free, no signup.">
+<title>AI Fine Dining Website Builder — Generate a Website Prompt | PairWorkflows</title>
+<meta name="description" content="Answer a few questions and generate a detailed AI website prompt for your fine dining restaurant. Use it with ChatGPT, Claude or another AI coding tool.">
 <link rel="canonical" href="https://www.pairworkflows.com/ai-fine-dining-website-builder.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -322,8 +322,8 @@ input[type="color"]::-webkit-color-swatch{border:2px solid var(--border);border-
         <div class="how-step">
           <div class="how-num">3</div>
           <div class="how-step-text">
-            <h3>Paste into Claude</h3>
-            <p>Claude builds your complete site without asking any questions.</p>
+            <h3>Build your site with AI</h3>
+            <p>Use the generated prompt as a detailed starting brief for your AI coding tool or website builder.</p>
           </div>
         </div>
       </div>
@@ -556,7 +556,7 @@ input[type="color"]::-webkit-color-swatch{border:2px solid var(--border);border-
             <div class="form-group"><label class="form-label">Facebook</label><input type="text" class="form-input" id="social-facebook" placeholder="facebook.com/yourrestaurant"></div>
           </div>
           <div class="section-divider">Signature dishes <span style="font-weight:400;color:var(--text-light)">(optional)</span></div>
-          <div class="step-sub" style="margin-bottom:12px">Add your key dishes — Claude will present them beautifully.</div>
+          <div class="step-sub" style="margin-bottom:12px">Add your key dishes — the AI will present them beautifully.</div>
           <div class="dishes-list" id="dishes-list"></div>
           <button class="btn-add-dish" onclick="addDish()">+ Add a dish</button>
           <div class="nav">
@@ -592,9 +592,9 @@ input[type="color"]::-webkit-color-swatch{border:2px solid var(--border);border-
         <!-- OUTPUT -->
         <div class="step" id="step-output">
           <div class="step-eyebrow">Your prompt is ready ✨</div>
-          <div class="step-title">Copy and paste into Claude or ChatGPT</div>
-          <div class="step-sub">Start a new chat and paste. The AI builds your site without asking any questions.</div>
-          <div class="success-note">✅ This prompt tells the AI exactly what to build — no follow-up questions, no back-and-forth.</div>
+          <div class="step-title">Build your site with AI</div>
+          <div class="step-sub">Paste the generated prompt into ChatGPT, Claude or another AI coding tool or website builder to create your site.</div>
+          <div class="success-note">✅ This prompt gives the AI clear, detailed instructions to build your site.</div>
           <div class="output-label">Your generated prompt</div>
           <div class="prompt-box" id="prompt-output"></div>
           <div class="output-actions">
@@ -808,7 +808,7 @@ function showReview() {
     {label:'Restaurant name', value:state.name},
     {label:'Address', value:state.address||'—'},
     {label:'Opening hours', value:state.hours||'—'},
-    {label:'Dishes added', value:state.dishes.filter(function(d){return d.name;}).length ? state.dishes.filter(function(d){return d.name;}).length+' dish(es)' : 'Claude generates menu'},
+    {label:'Dishes added', value:state.dishes.filter(function(d){return d.name;}).length ? state.dishes.filter(function(d){return d.name;}).length+' dish(es)' : 'AI generates menu'},
   ];
   document.getElementById('review-list').innerHTML = rows.map(function(r){
     return '<div class="review-row"><span class="r-check">✓</span><span class="r-label">'+r.label+'</span><span class="r-value">'+r.value+'</span></div>';
