@@ -53,6 +53,78 @@
       gap: 4px;
       flex-shrink: 0;
     }
+    .nav-search-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      background: transparent;
+      border: 1px solid transparent;
+      cursor: pointer;
+      color: rgba(255,255,255,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .15s;
+      flex-shrink: 0;
+    }
+    .nav-search-btn:hover,
+    .nav-search-btn.open {
+      color: #ffffff;
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.15);
+    }
+    .nav-search-form {
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      max-width: 0;
+      opacity: 0;
+      transition: max-width .2s ease, opacity .15s ease;
+    }
+    .nav-search-form.open {
+      max-width: 220px;
+      opacity: 1;
+      margin-right: 6px;
+    }
+    .nav-search-input {
+      width: 200px;
+      max-width: 200px;
+      font-size: 13px;
+      font-family: 'Inter', sans-serif;
+      color: #ffffff;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px;
+      padding: 6px 10px;
+      outline: none;
+    }
+    .nav-search-input::placeholder {
+      color: rgba(255,255,255,0.45);
+    }
+    .nav-search-input:focus {
+      border-color: #1d9e75;
+    }
+    .nav-mobile-search {
+      margin-bottom: 1rem;
+    }
+    .nav-mobile-search input {
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      color: #111827;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 9px 12px;
+      outline: none;
+    }
+    .nav-mobile-search input:focus {
+      border-color: #1d9e75;
+    }
+    .nav-mobile-search input::placeholder {
+      color: #9ca3af;
+    }
     .nav-dropdown {
       position: relative;
     }
@@ -213,6 +285,8 @@
       .nav-left { gap: 12px; }
       .nav-desktop-links { display: none !important; }
       .nav-hamburger { display: flex; }
+      .nav-search-btn { display: none !important; }
+      .nav-search-form { display: none !important; }
     }
     @media(min-width:701px) {
       .nav-hamburger { display: none; }
@@ -287,8 +361,14 @@
           </div>
         </div>
 
-        <!-- RIGHT: hamburger only -->
-        <div class="nav-right">
+        <!-- RIGHT: search + hamburger -->
+        <div class="nav-right" id="navRight">
+          <form class="nav-search-form" id="navSearchForm" role="search">
+            <input type="text" class="nav-search-input" id="navSearchInput" placeholder="Search Excel workflows…" aria-label="Search PairWorkflows" autocomplete="off">
+          </form>
+          <button type="button" class="nav-search-btn" onclick="toggleNavSearch()" id="navSearchBtn" aria-label="Search PairWorkflows" aria-expanded="false">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </button>
           <button class="nav-hamburger" onclick="toggleMobileMenu()" id="navHamburger">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
           </button>
@@ -299,6 +379,9 @@
 
     <!-- MOBILE MENU -->
     <div class="nav-mobile-menu" id="navMobileMenu">
+      <form class="nav-mobile-search" id="navMobileSearchForm" role="search">
+        <input type="text" id="navMobileSearchInput" placeholder="Search Excel workflows…" aria-label="Search PairWorkflows" autocomplete="off">
+      </form>
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Excel Workflows</div>
         <a href="https://www.pairworkflows.com/excel-workflows.html">All Excel Workflows</a>
@@ -335,6 +418,87 @@
   if (placeholder) {
     placeholder.innerHTML = navbarHTML;
   }
+
+  var path = window.location.pathname;
+  var isHomepage = path === '/' || path === '/index.html';
+
+  if (isHomepage) {
+    var searchBtn = document.getElementById('navSearchBtn');
+    var searchForm = document.getElementById('navSearchForm');
+    var mobileSearch = document.getElementById('navMobileSearchForm');
+    if (searchBtn) searchBtn.style.display = 'none';
+    if (searchForm) searchForm.style.display = 'none';
+    if (mobileSearch) mobileSearch.style.display = 'none';
+  }
+
+  function doSearch(term) {
+    var q = (term || '').trim();
+    if (!q) return;
+    window.location.href = '/search.html?q=' + encodeURIComponent(q);
+  }
+
+  window.toggleNavSearch = function() {
+    var btn = document.getElementById('navSearchBtn');
+    var form = document.getElementById('navSearchForm');
+    var input = document.getElementById('navSearchInput');
+    if (!btn || !form || !input) return;
+    var isOpen = form.classList.contains('open');
+    if (isOpen) {
+      form.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    } else {
+      form.classList.add('open');
+      btn.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+      setTimeout(function() { input.focus(); }, 50);
+    }
+  };
+
+  var navSearchForm = document.getElementById('navSearchForm');
+  var navSearchInput = document.getElementById('navSearchInput');
+  if (navSearchForm) {
+    navSearchForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      doSearch(navSearchInput ? navSearchInput.value : '');
+    });
+  }
+  if (navSearchInput) {
+    navSearchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        doSearch(navSearchInput.value);
+      }
+    });
+  }
+
+  var navMobileSearchForm = document.getElementById('navMobileSearchForm');
+  var navMobileSearchInput = document.getElementById('navMobileSearchInput');
+  if (navMobileSearchForm) {
+    navMobileSearchForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      doSearch(navMobileSearchInput ? navMobileSearchInput.value : '');
+    });
+  }
+  if (navMobileSearchInput) {
+    navMobileSearchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        doSearch(navMobileSearchInput.value);
+      }
+    });
+  }
+
+  document.addEventListener('click', function(e) {
+    var form = document.getElementById('navSearchForm');
+    var btn = document.getElementById('navSearchBtn');
+    if (!form || !btn) return;
+    if (form.classList.contains('open') && !e.target.closest('.nav-search-form') && !e.target.closest('.nav-search-btn')) {
+      form.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  });
 
   window.toggleNavDropdown = function(id) {
     var toggle = document.getElementById('navDropdownToggle-' + id);
