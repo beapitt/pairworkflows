@@ -11,7 +11,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-<link rel="stylesheet" href="/global-fix.css">
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -213,7 +212,6 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 </style>
 </head>
 <body>
-
 <div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
   <div class="search-overlay-inner">
     <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
@@ -222,11 +220,9 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
     </form>
   </div>
 </div>
-
 <div id="navbar-placeholder"></div>
 <script src="/navbar.js"></script>
 <script src="/footer.js"></script>
-
 <noscript>
 <nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
 <a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
@@ -234,7 +230,6 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
 <a href="/excel-workflows.html" style="color:#6b9e8a;text-decoration:none">Finance</a>
 </nav>
 </noscript>
-
 <div class="page">
 
   <!-- HERO -->
@@ -595,9 +590,7 @@ label those as assumptions.</pre>
       <span>Convert manual copy-paste reports into formula-driven models.</span>
     </a>
   </div>
-
 </div>
-
 <script>
 function switchTab(btn,id){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
