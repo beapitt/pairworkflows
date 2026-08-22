@@ -73,6 +73,11 @@
       background: rgba(255,255,255,0.08);
       border-color: rgba(255,255,255,0.15);
     }
+    .nav-search-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
     .nav-search-form {
       display: flex;
       align-items: center;
@@ -104,7 +109,64 @@
     .nav-search-input:focus {
       border-color: #1d9e75;
     }
+    .nav-search-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      width: 260px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 6px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      z-index: 1000;
+      max-height: 320px;
+      overflow-y: auto;
+    }
+    .nav-search-dropdown.open {
+      display: block;
+    }
+    .nav-suggestion-item {
+      display: block;
+      font-size: 13px;
+      color: #374151;
+      text-decoration: none;
+      padding: 8px 10px;
+      border-radius: 6px;
+      transition: all .1s;
+      white-space: normal;
+      line-height: 1.35;
+    }
+    .nav-suggestion-item:hover,
+    .nav-suggestion-item:focus {
+      color: #111827;
+      background: #f3f4f6;
+      outline: none;
+    }
+    .nav-suggestion-seeall {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #1d9e75;
+      text-decoration: none;
+      padding: 8px 10px;
+      border-radius: 6px;
+      margin-top: 2px;
+      border-top: 1px solid #e5e7eb;
+    }
+    .nav-suggestion-seeall:hover,
+    .nav-suggestion-seeall:focus {
+      background: #f3f4f6;
+      outline: none;
+    }
+    .nav-suggestion-empty {
+      font-size: 12.5px;
+      color: #9ca3af;
+      padding: 8px 10px;
+    }
     .nav-mobile-search {
+      position: relative;
       margin-bottom: 1rem;
     }
     .nav-mobile-search input {
@@ -124,6 +186,24 @@
     }
     .nav-mobile-search input::placeholder {
       color: #9ca3af;
+    }
+    .nav-mobile-search-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 6px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      z-index: 1000;
+      max-height: 280px;
+      overflow-y: auto;
+    }
+    .nav-mobile-search-dropdown.open {
+      display: block;
     }
     .nav-dropdown {
       position: relative;
@@ -363,9 +443,12 @@
 
         <!-- RIGHT: search + hamburger -->
         <div class="nav-right" id="navRight">
-          <form class="nav-search-form" id="navSearchForm" role="search">
-            <input type="text" class="nav-search-input" id="navSearchInput" placeholder="Search Excel workflows…" aria-label="Search PairWorkflows" autocomplete="off">
-          </form>
+          <div class="nav-search-wrap" id="navSearchWrap">
+            <form class="nav-search-form" id="navSearchForm" role="search">
+              <input type="text" class="nav-search-input" id="navSearchInput" placeholder="Search Excel workflows…" aria-label="Search PairWorkflows" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="navSearchDropdown">
+            </form>
+            <div class="nav-search-dropdown" id="navSearchDropdown" role="listbox" aria-label="Search suggestions"></div>
+          </div>
           <button type="button" class="nav-search-btn" onclick="toggleNavSearch()" id="navSearchBtn" aria-label="Search PairWorkflows" aria-expanded="false">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           </button>
@@ -379,9 +462,12 @@
 
     <!-- MOBILE MENU -->
     <div class="nav-mobile-menu" id="navMobileMenu">
-      <form class="nav-mobile-search" id="navMobileSearchForm" role="search">
-        <input type="text" id="navMobileSearchInput" placeholder="Search Excel workflows…" aria-label="Search PairWorkflows" autocomplete="off">
-      </form>
+      <div class="nav-mobile-search" id="navMobileSearchWrap">
+        <form role="search" id="navMobileSearchForm">
+          <input type="text" id="navMobileSearchInput" placeholder="Search Excel workflows…" aria-label="Search PairWorkflows" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="navMobileSearchDropdown">
+        </form>
+        <div class="nav-mobile-search-dropdown" id="navMobileSearchDropdown" role="listbox" aria-label="Search suggestions"></div>
+      </div>
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Excel Workflows</div>
         <a href="https://www.pairworkflows.com/excel-workflows.html">All Excel Workflows</a>
@@ -424,11 +510,11 @@
 
   if (isHomepage) {
     var searchBtn = document.getElementById('navSearchBtn');
-    var searchForm = document.getElementById('navSearchForm');
-    var mobileSearch = document.getElementById('navMobileSearchForm');
+    var searchWrap = document.getElementById('navSearchWrap');
+    var mobileSearchWrap = document.getElementById('navMobileSearchWrap');
     if (searchBtn) searchBtn.style.display = 'none';
-    if (searchForm) searchForm.style.display = 'none';
-    if (mobileSearch) mobileSearch.style.display = 'none';
+    if (searchWrap) searchWrap.style.display = 'none';
+    if (mobileSearchWrap) mobileSearchWrap.style.display = 'none';
   }
 
   function doSearch(term) {
@@ -437,16 +523,148 @@
     window.location.href = '/search.html?q=' + encodeURIComponent(q);
   }
 
-  window.toggleNavSearch = function() {
+  // --- Live suggestions: reuses the same /search-index.json data source
+  // and scoring logic as search.html so results stay consistent. ---
+  var SUGGESTION_LIMIT = 6;
+  var searchIndexData = [];
+  var searchIndexLoaded = false;
+  var STOPWORDS = {'for':1,'the':1,'a':1,'an':1,'and':1,'or':1,'to':1,'in':1,'of':1,'is':1,'it':1,'at':1,'on':1,'how':1,'what':1,'with':1,'your':1,'you':1,'that':1,'this':1,'are':1,'can':1,'do':1,'by':1};
+
+  function scoreItem(item, terms) {
+    var titleLow = item.title.toLowerCase();
+    var descLow = item.description.toLowerCase();
+    var tagsLow = item.tags.join(' ').toLowerCase();
+    var catLow = item.category.toLowerCase();
+    var score = 0;
+    terms.forEach(function(t) {
+      if (t.length < 2) return;
+      if (titleLow.indexOf(t) !== -1) score += 10;
+      if (tagsLow.indexOf(t) !== -1) score += 6;
+      if (descLow.indexOf(t) !== -1) score += 3;
+      if (catLow.indexOf(t) !== -1) score += 2;
+    });
+    var significantTerms = terms.filter(function(t) { return t.length >= 3 && !STOPWORDS[t]; });
+    if (significantTerms.length > 0) {
+      var matched = significantTerms.filter(function(t) {
+        var full = titleLow + ' ' + tagsLow + ' ' + descLow;
+        return full.indexOf(t) !== -1;
+      });
+      if (matched.length >= Math.ceil(significantTerms.length / 2)) score += 5;
+    }
+    return score;
+  }
+
+  function searchSuggestions(query) {
+    var terms = query.toLowerCase().trim().split(/\s+/);
+    var scored = searchIndexData.map(function(item) { return { item: item, score: scoreItem(item, terms) }; });
+    return scored.filter(function(s) { return s.score > 0; })
+      .sort(function(a, b) { return b.score - a.score; })
+      .map(function(s) { return s.item; });
+  }
+
+  if (!isHomepage) {
+    fetch('/search-index.json')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        searchIndexData = data;
+        searchIndexLoaded = true;
+      })
+      .catch(function() {});
+  }
+
+  function closeDropdown(dropdownEl, inputEl) {
+    if (!dropdownEl) return;
+    dropdownEl.classList.remove('open');
+    dropdownEl.innerHTML = '';
+    if (inputEl) inputEl.setAttribute('aria-expanded', 'false');
+  }
+
+  function renderSuggestions(dropdownEl, inputEl, query) {
+    if (!dropdownEl || !inputEl) return;
+    var q = query.trim();
+    if (!q || !searchIndexLoaded) {
+      closeDropdown(dropdownEl, inputEl);
+      return;
+    }
+    var results = searchSuggestions(q);
+    dropdownEl.innerHTML = '';
+    if (results.length === 0) {
+      var empty = document.createElement('div');
+      empty.className = 'nav-suggestion-empty';
+      empty.textContent = 'No matches found.';
+      dropdownEl.appendChild(empty);
+      dropdownEl.classList.add('open');
+      inputEl.setAttribute('aria-expanded', 'true');
+      return;
+    }
+    var shown = results.slice(0, SUGGESTION_LIMIT);
+    shown.forEach(function(item) {
+      var a = document.createElement('a');
+      a.className = 'nav-suggestion-item';
+      a.href = item.url;
+      a.textContent = item.title;
+      a.setAttribute('role', 'option');
+      dropdownEl.appendChild(a);
+    });
+    if (results.length > shown.length) {
+      var seeAll = document.createElement('a');
+      seeAll.className = 'nav-suggestion-seeall';
+      seeAll.href = '/search.html?q=' + encodeURIComponent(q);
+      seeAll.textContent = 'See all ' + results.length + ' results';
+      dropdownEl.appendChild(seeAll);
+    }
+    dropdownEl.classList.add('open');
+    inputEl.setAttribute('aria-expanded', 'true');
+  }
+
+  function wireSearchInput(inputEl, dropdownEl) {
+    if (!inputEl || !dropdownEl) return;
+    inputEl.addEventListener('input', function() {
+      renderSuggestions(dropdownEl, inputEl, inputEl.value);
+    });
+    inputEl.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        doSearch(inputEl.value);
+      } else if (e.key === 'Escape') {
+        closeDropdown(dropdownEl, inputEl);
+        if (inputEl === navSearchInput) window.toggleNavSearch(true);
+      } else if (e.key === 'ArrowDown') {
+        var first = dropdownEl.querySelector('a');
+        if (first) { e.preventDefault(); first.focus(); }
+      }
+    });
+    dropdownEl.addEventListener('keydown', function(e) {
+      var items = Array.prototype.slice.call(dropdownEl.querySelectorAll('a'));
+      var idx = items.indexOf(document.activeElement);
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        var next = items[idx + 1] || items[0];
+        if (next) next.focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (idx <= 0) { inputEl.focus(); } else { items[idx - 1].focus(); }
+      } else if (e.key === 'Escape') {
+        closeDropdown(dropdownEl, inputEl);
+        inputEl.focus();
+        if (inputEl === navSearchInput) window.toggleNavSearch(true);
+      }
+    });
+  }
+
+  window.toggleNavSearch = function(forceClose) {
     var btn = document.getElementById('navSearchBtn');
     var form = document.getElementById('navSearchForm');
     var input = document.getElementById('navSearchInput');
+    var dropdown = document.getElementById('navSearchDropdown');
     if (!btn || !form || !input) return;
     var isOpen = form.classList.contains('open');
-    if (isOpen) {
+    if (isOpen || forceClose === true) {
       form.classList.remove('open');
       btn.classList.remove('open');
       btn.setAttribute('aria-expanded', 'false');
+      closeDropdown(dropdown, input);
+      input.value = '';
     } else {
       form.classList.add('open');
       btn.classList.add('open');
@@ -457,46 +675,41 @@
 
   var navSearchForm = document.getElementById('navSearchForm');
   var navSearchInput = document.getElementById('navSearchInput');
+  var navSearchDropdown = document.getElementById('navSearchDropdown');
   if (navSearchForm) {
     navSearchForm.addEventListener('submit', function(e) {
       e.preventDefault();
       doSearch(navSearchInput ? navSearchInput.value : '');
     });
   }
-  if (navSearchInput) {
-    navSearchInput.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        doSearch(navSearchInput.value);
-      }
-    });
-  }
+  wireSearchInput(navSearchInput, navSearchDropdown);
 
   var navMobileSearchForm = document.getElementById('navMobileSearchForm');
   var navMobileSearchInput = document.getElementById('navMobileSearchInput');
+  var navMobileSearchDropdown = document.getElementById('navMobileSearchDropdown');
   if (navMobileSearchForm) {
     navMobileSearchForm.addEventListener('submit', function(e) {
       e.preventDefault();
       doSearch(navMobileSearchInput ? navMobileSearchInput.value : '');
     });
   }
-  if (navMobileSearchInput) {
-    navMobileSearchInput.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        doSearch(navMobileSearchInput.value);
-      }
-    });
-  }
+  wireSearchInput(navMobileSearchInput, navMobileSearchDropdown);
 
   document.addEventListener('click', function(e) {
     var form = document.getElementById('navSearchForm');
     var btn = document.getElementById('navSearchBtn');
-    if (!form || !btn) return;
-    if (form.classList.contains('open') && !e.target.closest('.nav-search-form') && !e.target.closest('.nav-search-btn')) {
-      form.classList.remove('open');
-      btn.classList.remove('open');
-      btn.setAttribute('aria-expanded', 'false');
+    if (form && btn) {
+      if (!e.target.closest('.nav-search-wrap') && !e.target.closest('.nav-search-btn')) {
+        if (form.classList.contains('open')) {
+          form.classList.remove('open');
+          btn.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+        }
+        closeDropdown(document.getElementById('navSearchDropdown'), document.getElementById('navSearchInput'));
+      }
+    }
+    if (!e.target.closest('.nav-mobile-search')) {
+      closeDropdown(document.getElementById('navMobileSearchDropdown'), document.getElementById('navMobileSearchInput'));
     }
   });
 
