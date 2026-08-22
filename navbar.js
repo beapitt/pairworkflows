@@ -562,15 +562,27 @@
       .map(function(s) { return s.item; });
   }
 
-  if (!isHomepage) {
-    fetch('/search-index.json')
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        searchIndexData = data;
-        searchIndexLoaded = true;
-      })
-      .catch(function() {});
-  }
+  var searchReadyCallbacks = [];
+  // Shared search API: reused by the homepage hero search (index.html) so both
+  // experiences stay on the same /search-index.json data and scoring logic.
+  window.PWSearch = {
+    isLoaded: function() { return searchIndexLoaded; },
+    search: function(query) { return searchIndexLoaded ? searchSuggestions(query) : []; },
+    onReady: function(cb) {
+      if (searchIndexLoaded) cb();
+      else searchReadyCallbacks.push(cb);
+    }
+  };
+
+  fetch('/search-index.json')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      searchIndexData = data;
+      searchIndexLoaded = true;
+      searchReadyCallbacks.forEach(function(cb) { cb(); });
+      searchReadyCallbacks = [];
+    })
+    .catch(function() {});
 
   function closeDropdown(dropdownEl, inputEl) {
     if (!dropdownEl) return;

@@ -114,6 +114,60 @@ body {
   stroke: #fff; fill: none;
   stroke-width: 2.5; stroke-linecap: round;
 }
+.hero-search-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  z-index: 50;
+  text-align: left;
+  max-height: 360px;
+  overflow-y: auto;
+}
+.hero-search-dropdown.open { display: block; }
+.hero-suggestion-item {
+  display: block;
+  font-size: 14px;
+  color: #374151;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: all .1s;
+  line-height: 1.4;
+}
+.hero-suggestion-item:hover,
+.hero-suggestion-item:focus {
+  color: #111827;
+  background: #f3f4f6;
+  outline: none;
+}
+.hero-suggestion-seeall {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1d9e75;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-top: 2px;
+  border-top: 1px solid #e5e7eb;
+}
+.hero-suggestion-seeall:hover,
+.hero-suggestion-seeall:focus {
+  background: #f3f4f6;
+  outline: none;
+}
+.hero-suggestion-empty {
+  font-size: 13px;
+  color: #9ca3af;
+  padding: 10px 12px;
+}
 
 /* ── Suggestions ── */
 .search-suggestions {
@@ -295,10 +349,13 @@ footer {
     <input type="text" id="heroSearch"
       placeholder="e.g. XLOOKUP, fix #REF! error, pivot table…"
       autocomplete="off"
+      role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="heroSearchDropdown"
+      aria-label="Search PairWorkflows"
       onkeydown="if(event.key==='Enter')heroSearchGo()">
     <button onclick="heroSearchGo()" aria-label="Search">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
     </button>
+    <div class="hero-search-dropdown" id="heroSearchDropdown" role="listbox" aria-label="Search suggestions"></div>
   </div>
 
   <div class="search-suggestions">
@@ -420,6 +477,83 @@ function heroSearchGo() {
   const q = document.getElementById('heroSearch').value.trim();
   if (q) window.location.href = '/search.html?q=' + encodeURIComponent(q);
 }
+(function() {
+  var input = document.getElementById('heroSearch');
+  var dropdown = document.getElementById('heroSearchDropdown');
+  if (!input || !dropdown) return;
+  var LIMIT = 6;
+
+  function close() {
+    dropdown.classList.remove('open');
+    dropdown.innerHTML = '';
+    input.setAttribute('aria-expanded', 'false');
+  }
+
+  function render(query) {
+    var q = (query || '').trim();
+    if (!q || !window.PWSearch || !window.PWSearch.isLoaded()) {
+      close();
+      return;
+    }
+    var results = window.PWSearch.search(q);
+    dropdown.innerHTML = '';
+    if (results.length === 0) {
+      var empty = document.createElement('div');
+      empty.className = 'hero-suggestion-empty';
+      empty.textContent = 'No matches found.';
+      dropdown.appendChild(empty);
+      dropdown.classList.add('open');
+      input.setAttribute('aria-expanded', 'true');
+      return;
+    }
+    var shown = results.slice(0, LIMIT);
+    shown.forEach(function(item) {
+      var a = document.createElement('a');
+      a.className = 'hero-suggestion-item';
+      a.href = item.url;
+      a.textContent = item.title;
+      a.setAttribute('role', 'option');
+      dropdown.appendChild(a);
+    });
+    if (results.length > shown.length) {
+      var seeAll = document.createElement('a');
+      seeAll.className = 'hero-suggestion-seeall';
+      seeAll.href = '/search.html?q=' + encodeURIComponent(q);
+      seeAll.textContent = 'See all ' + results.length + ' results';
+      dropdown.appendChild(seeAll);
+    }
+    dropdown.classList.add('open');
+    input.setAttribute('aria-expanded', 'true');
+  }
+
+  input.addEventListener('input', function() { render(input.value); });
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      close();
+    } else if (e.key === 'ArrowDown') {
+      var first = dropdown.querySelector('a');
+      if (first) { e.preventDefault(); first.focus(); }
+    }
+  });
+  dropdown.addEventListener('keydown', function(e) {
+    var items = Array.prototype.slice.call(dropdown.querySelectorAll('a'));
+    var idx = items.indexOf(document.activeElement);
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      var next = items[idx + 1] || items[0];
+      if (next) next.focus();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (idx <= 0) { input.focus(); } else { items[idx - 1].focus(); }
+    } else if (e.key === 'Escape') {
+      close();
+      input.focus();
+    }
+  });
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.search-hero')) close();
+  });
+})();
 function copyLink() {
   navigator.clipboard.writeText(window.location.href).then(() => {
     const btn = document.getElementById('copyLinkBtn');
