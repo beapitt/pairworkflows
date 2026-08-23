@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Conditional Formatting Based on Another Cell in Excel with ChatGPT — PairWorkflows</title>
-<meta name="description" content="Use Excel conditional formatting based on another cell with tested ChatGPT prompts. Highlight rows, fix mixed references, and combine status with dates.">
+<title>Excel Conditional Formatting Based on Another Cell — PairWorkflows</title>
+<meta name="description" content="Learn Excel conditional formatting based on another cell with tested ChatGPT prompts. Highlight entire rows, fix reference errors, and combine status with dates.">
 <link rel="canonical" href="https://www.pairworkflows.com/conditional-formatting-based-on-another-cell.html">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I use conditional formatting based on another cell in Excel?","acceptedAnswer":{"@type":"Answer","text":"Select the range you want to format, create a formula-based Conditional Formatting rule, and reference the condition cell with the correct relative or mixed reference. For example, =$D2=\"Overdue\" can format A:E while checking column D for each row."}},{"@type":"Question","name":"How do I highlight an entire row based on another cell in Excel?","acceptedAnswer":{"@type":"Answer","text":"Select the full row range to format, such as A2:E100, then use a formula that locks the condition column but leaves the row relative, such as =$D2=\"Overdue\"."}},{"@type":"Question","name":"Why does conditional formatting highlight every row in Excel?","acceptedAnswer":{"@type":"Answer","text":"A common cause is locking the row in the formula. For example, =$D$2=\"Overdue\" makes every row check D2. If D2 is Overdue, every row in the Applies to range can be highlighted."}},{"@type":"Question","name":"What is the difference between $D2 and $D$2 in conditional formatting?","acceptedAnswer":{"@type":"Answer","text":"$D2 locks column D but lets the row change, so each row checks its own Status cell. $D$2 locks both column D and row 2, so every formatted row checks the same cell, D2."}},{"@type":"Question","name":"Can Excel conditional formatting use multiple conditions and dates?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use AND when every condition must be true. For example, =AND($D2=\"Open\",$C2&lt;DATE(2026,8,23)) highlights a row only when Status is Open and the Due Date is earlier than 23 August 2026."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -143,7 +143,7 @@ body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:
   <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow"><i class="ti ti-highlight" style="font-size:12px"></i> Excel · ChatGPT</div>
-    <h1>Excel Conditional Formatting Based on Another Cell with ChatGPT</h1>
+    <h1>Conditional Formatting Based on Another Cell in Excel</h1>
     <p class="hero-sub">Highlight rows from another cell, fix rules that use the wrong absolute reference, and combine status with due dates. These tested ChatGPT prompts focus on the reference logic that commonly breaks Excel Conditional Formatting.</p>
   </div>
 
@@ -452,7 +452,7 @@ Both conditions must be TRUE for the row to be highlighted.</pre></div>
   </div>
 
   <!-- STEPS -->
-  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">How to Use Conditional Formatting Based on Another Cell in Excel</h2>
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">How to Use Conditional Formatting Based on Another Cell with ChatGPT</h2>
   <div class="steps-card">
     <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build and verify the rule — 5 steps</div>
     <div class="step"><div class="step-n">1</div><div class="step-body"><h3>Select the full range you want Excel to format</h3><p>If the whole invoice row should change, select the full data range such as <code>A2:E6</code>, not only the Status cells. Keep the header row out of the Applies to range.</p></div></div>
