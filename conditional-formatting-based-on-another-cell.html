@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Conditional Formatting Based on Another Cell in Excel with ChatGPT — PairWorkflows</title>
+<meta name="description" content="Use Excel conditional formatting based on another cell with tested ChatGPT prompts. Highlight rows, fix mixed references, and combine status with dates.">
+<link rel="canonical" href="https://www.pairworkflows.com/conditional-formatting-based-on-another-cell.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I use conditional formatting based on another cell in Excel?","acceptedAnswer":{"@type":"Answer","text":"Select the range you want to format, create a formula-based Conditional Formatting rule, and reference the condition cell with the correct relative or mixed reference. For example, =$D2=\"Overdue\" can format A:E while checking column D for each row."}},{"@type":"Question","name":"How do I highlight an entire row based on another cell in Excel?","acceptedAnswer":{"@type":"Answer","text":"Select the full row range to format, such as A2:E100, then use a formula that locks the condition column but leaves the row relative, such as =$D2=\"Overdue\"."}},{"@type":"Question","name":"Why does conditional formatting highlight every row in Excel?","acceptedAnswer":{"@type":"Answer","text":"A common cause is locking the row in the formula. For example, =$D$2=\"Overdue\" makes every row check D2. If D2 is Overdue, every row in the Applies to range can be highlighted."}},{"@type":"Question","name":"What is the difference between $D2 and $D$2 in conditional formatting?","acceptedAnswer":{"@type":"Answer","text":"$D2 locks column D but lets the row change, so each row checks its own Status cell. $D$2 locks both column D and row 2, so every formatted row checks the same cell, D2."}},{"@type":"Question","name":"Can Excel conditional formatting use multiple conditions and dates?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use AND when every condition must be true. For example, =AND($D2=\"Open\",$C2&lt;DATE(2026,8,23)) highlights a row only when Status is Open and the Due Date is earlier than 23 August 2026."}}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="icon" type="image/png" href="/favicon.png">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:100vh;display:flex;flex-direction:column}
+.page{max-width:1300px;margin:0 auto;width:100%;padding:2rem 2.5rem 4rem;flex:1}
+.hero{margin-bottom:2rem}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#0f6e56;background:#e1f5ee;border:1px solid #a7f3d0;border-radius:20px;padding:4px 12px;margin-bottom:.9rem}
+.hero h1{font-size:32px;font-weight:700;line-height:1.2;color:#111827;margin-bottom:.6rem;letter-spacing:-.5px}
+.hero h1 span{color:#1d9e75}
+.hero-sub{font-size:15px;color:#6b7280;line-height:1.65;max-width:600px}
+.prompt-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.prompt-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.75rem}
+.prompt-card-label{font-size:13px;font-weight:600;color:#374151}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{padding:6px 14px;border-radius:7px;border:1.5px solid #e5e7eb;background:#f9fafb;font-size:12px;font-weight:500;color:#6b7280;cursor:pointer;transition:all .15s;font-family:inherit}
+.tab:hover{border-color:#1d9e75;color:#0f6e56}
+.tab.on{background:#1d9e75;border-color:#1d9e75;color:#fff;font-weight:600}
+.panel{display:none}
+.panel.on{display:block}
+.prompt-box{background:#0f172a;border-radius:10px;padding:1.25rem 1.25rem 1rem;position:relative}
+.prompt-box pre{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#e2e8f0;line-height:1.7;white-space:pre-wrap;word-break:break-word;padding-right:70px;max-height:220px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent}
+.prompt-box pre::-webkit-scrollbar{width:6px}
+.prompt-box pre::-webkit-scrollbar-track{background:transparent}
+.prompt-box pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:3px}
+.copy-btn{position:absolute;top:.75rem;right:.75rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-weight:500;font-family:inherit;cursor:pointer;padding:5px 12px;transition:all .15s;display:flex;align-items:center;gap:5px}
+.copy-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+.prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
+.prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
+.prompt-hint a:hover{text-decoration:underline}
+.ba-panel{display:none;margin-bottom:1.75rem}
+.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:start}
+.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.ba-col.before{border-color:#fca5a5}
+.ba-col.after{border-color:#6ee7b7}
+.ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
+.ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
+.ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
+.ba-body{padding:14px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+.xl-table{width:100%;min-width:650px;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
+.xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
+.xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
+.xl-table .err-cell{color:#dc2626;font-weight:700;background:#fef2f2}
+.xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
+.xl-table .hl{background:#fffbeb}
+.xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
+.xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.xl-table .del-row td{background:#fef2f2;color:#dc2626;text-decoration:line-through;opacity:.7}
+.chatgpt-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
+.chatgpt-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
+.chatgpt-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
+.diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.diag-header{background:#fef2f2;border-bottom:1px solid #fecaca;padding:12px 18px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#dc2626}
+.diag-row{display:grid;grid-template-columns:180px 1fr 90px;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid #f9fafb}
+.diag-row:last-child{border-bottom:none}
+.diag-row:nth-child(even){background:#fafafa}
+.diag-cause{font-size:13px;font-weight:600;color:#1f2937}
+.diag-example{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#6b7280;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.diag-example .bad{color:#dc2626;font-weight:600;background:#fef2f2;padding:1px 5px;border-radius:3px}
+.diag-example .good{color:#059669;font-weight:600;background:#f0fdf4;padding:1px 5px;border-radius:3px}
+.diag-badge{font-size:10px;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;white-space:nowrap}
+.badge-red{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+.badge-yellow{background:#fffbeb;color:#b45309;border:1px solid #fde68a}
+.steps-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.steps-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+.step{display:flex;gap:16px;padding:.9rem 0;border-bottom:1px solid #f3f4f6}
+.step:last-child{border-bottom:none}
+.step-n{width:28px;height:28px;border-radius:8px;background:#e1f5ee;color:#0f6e56;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body h3{font-size:13px;font-weight:600;color:#1f2937;margin-bottom:.25rem}
+.step-body p{font-size:13px;color:#6b7280;line-height:1.65}
+.step-body code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
+.tip{background:#fffbeb;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#92400e;line-height:1.65}
+.tip strong{color:#78350f}
+.warn{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#7f1d1d;line-height:1.65}
+.warn strong{color:#991b1b}
+.faq-section{margin-bottom:1.75rem}
+.faq-item{border-bottom:1px solid #f3f4f6;padding:.9rem 0}
+.faq-q{font-size:13px;font-weight:600;color:#1f2937;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-q i{color:#9ca3af;transition:transform .2s;flex-shrink:0}
+.faq-q.open i{transform:rotate(180deg)}
+.faq-a{font-size:13px;color:#6b7280;line-height:1.7;display:none;padding-top:.6rem}
+.faq-a.open{display:block}
+.faq-a code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.related-link{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:.9rem 1rem;text-decoration:none;transition:border-color .15s}
+.related-link:hover{border-color:#1d9e75}
+.related-link strong{display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem}
+.related-link span{display:block;font-size:12px;color:#9ca3af;line-height:1.4}
+#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
+#searchOverlay.open{display:flex}
+.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px}
+.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
+.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:inherit}
+.search-box input::placeholder{color:rgba(255,255,255,.35)}
+@media(max-width:640px){
+  .hero h1{font-size:24px}
+  .ba-panel.on{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
+  .diag-row{grid-template-columns:1fr;gap:6px}
+  .diag-example{display:flex}
+  .related-grid{grid-template-columns:1fr}
+  .page{padding:1.5rem 1rem 3rem}
+}
+
+.cf-hit td{background:#f0fdf4!important}.cf-all td{background:#fef2f2!important}.formula-line{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:7px 9px;margin-top:8px;color:#334155}.mini-note{font-size:10px;color:#9ca3af;margin-top:4px;line-height:1.5}
+</style>
+</head>
+<body>
+<div id="searchOverlay" onclick="if(event.target===this)closeSearch()">
+  <div class="search-overlay-inner">
+    <button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button>
+    <form action="/search.html" method="get">
+      <div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search workflows, prompts, and guides..." autocomplete="off"></div>
+    </form>
+  </div>
+</div>
+<div id="navbar-placeholder"></div>
+<script src="/navbar.js"></script>
+<script src="/footer.js"></script>
+<noscript>
+<nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;flex-wrap:wrap;gap:8px">
+<a href="/" style="color:#1d9e75;text-decoration:none;font-weight:600">PairWorkflows</a>
+<a href="/excel-workflows.html" style="color:#6b9e8a;text-decoration:none">Excel</a>
+</nav>
+</noscript>
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow"><i class="ti ti-highlight" style="font-size:12px"></i> Excel · ChatGPT</div>
+    <h1>Excel Conditional Formatting Based on Another Cell with ChatGPT</h1>
+    <p class="hero-sub">Highlight rows from another cell, fix rules that use the wrong absolute reference, and combine status with due dates. These tested ChatGPT prompts focus on the reference logic that commonly breaks Excel Conditional Formatting.</p>
+  </div>
+
+  <!-- PROMPT SELECTOR -->
+  <div class="prompt-card">
+    <div class="prompt-card-top">
+      <span class="prompt-card-label">Choose your situation — copy the tested prompt:</span>
+      <div class="tabs">
+        <button class="tab on" onclick="switchTab(this,'row')">🎯 Highlight entire row</button>
+        <button class="tab" onclick="switchTab(this,'reference')">🔒 Fix locked reference</button>
+        <button class="tab" onclick="switchTab(this,'multiple')">📅 Status + due date</button>
+      </div>
+    </div>
+
+    <div id="p-row" class="panel on">
+      <div class="prompt-box">
+        <pre>I have an Excel table of customer invoices.
+
+The data is in cells A2:E6:
+
+Row 2 — Acme Corp — INV-1001 — 05/08/2026 — Paid — 1200
+Row 3 — Beta Ltd — INV-1002 — 10/08/2026 — Overdue — 850
+Row 4 — Gamma Inc — INV-1003 — 28/08/2026 — Open — 2100
+Row 5 — Delta Services — INV-1004 — 15/08/2026 — Overdue — 675
+Row 6 — Northstar LLC — INV-1005 — 30/08/2026 — Paid — 1450
+
+The worksheet columns are:
+
+A = Customer
+B = Invoice #
+C = Due Date
+D = Status
+E = Amount
+
+I want to use Excel Conditional Formatting to highlight the entire row from A:E whenever the Status in column D is exactly `Overdue`.
+
+I do not want to add a helper column or change the source data.
+
+Please answer in exactly these 6 sections:
+
+1. Conditional Formatting formula — Give me the exact formula.
+2. Range to select — Tell me exactly what range to select before creating the rule.
+3. Why the reference is correct — Explain why `$D2` is correct and briefly explain what would happen with `$D$2`, `D$2`, and `D2`.
+4. Rows that should be highlighted — List each sample row and state Yes or No.
+5. What goes wrong with `$D$2` — Explain exactly what would happen in this sample if the rule used `=$D$2="Overdue"`.
+6. Exact Excel steps — Give the exact steps using Home → Conditional Formatting → New Rule → Use a formula to determine which cells to format.
+
+Formatting rules:
+- Use exactly six numbered section headings, 1 through 6.
+- Use plain text for formulas and ranges. Do not use code blocks.
+- Do not use Markdown tables.
+- In section 4, use one bullet point per row.
+- In section 6, use bullet points only.
+- Do not create nested numbered lists.
+- Keep the answer concise and practical.
+- Do not suggest helper columns.
+- Do not modify the original data.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
+      </div>
+      <p class="prompt-hint">Use this when you want Excel to format the full A:E row while checking one Status cell in column D.</p>
+    </div>
+
+    <div id="p-reference" class="panel">
+      <div class="prompt-box">
+        <pre>I have an Excel Conditional Formatting rule that is supposed to highlight the entire row when the Status is `Overdue`.
+
+My data is in A2:E6:
+
+Row 2 — Acme Corp — INV-1001 — 05/08/2026 — Overdue — 1200
+Row 3 — Beta Ltd — INV-1002 — 10/08/2026 — Paid — 850
+Row 4 — Gamma Inc — INV-1003 — 12/08/2026 — Overdue — 2100
+Row 5 — Delta Services — INV-1004 — 15/08/2026 — Open — 675
+Row 6 — Northstar LLC — INV-1005 — 18/08/2026 — Overdue — 1450
+
+The worksheet columns are:
+
+A = Customer
+B = Invoice #
+C = Due Date
+D = Status
+E = Amount
+
+The Conditional Formatting rule currently uses:
+
+=$D$2="Overdue"
+
+The rule applies to:
+
+=$A$2:$E$6
+
+Problem:
+
+Excel is highlighting every row, even though only rows 2, 4, and 6 have `Overdue` in column D.
+
+I want each row to be evaluated using its own Status cell.
+
+Please answer in exactly these 6 sections:
+
+1. Diagnosis — Explain why the current rule highlights every row.
+2. Correct formula — Give the exact Conditional Formatting formula I should use instead.
+3. Why the corrected reference works — Explain the difference between `$D$2` and `$D2` in this specific rule.
+4. Expected result — List each sample row and state whether it should be highlighted after the fix.
+5. How to fix the existing rule — Explain how to edit the current Conditional Formatting rule without recreating the data or adding helper columns.
+6. Quick reference check — Briefly explain what `$D$2`, `$D2`, `D$2`, and `D2` would do when the rule is applied across A2:E6.
+
+Formatting rules:
+- Use exactly six numbered section headings, 1 through 6.
+- Use plain text for formulas and ranges. Do not use code blocks.
+- Do not use Markdown tables.
+- In section 4, use one bullet point per row.
+- In section 5, use bullet points only.
+- Keep the answer concise and practical.
+- Do not suggest helper columns.
+- Do not modify the source data.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
+      </div>
+      <p class="prompt-hint">Use this when a rule highlights every row or only behaves correctly for the first row. The usual culprit is a locked row reference such as <code>$D$2</code>.</p>
+    </div>
+
+    <div id="p-multiple" class="panel">
+      <div class="prompt-box">
+        <pre>I have an Excel table of customer invoices.
+
+The data is in A2:E7:
+
+Row 2 — Acme Corp — INV-1001 — 05/08/2026 — Open — 1200
+Row 3 — Beta Ltd — INV-1002 — 10/08/2026 — Paid — 850
+Row 4 — Gamma Inc — INV-1003 — 20/08/2026 — Open — 2100
+Row 5 — Delta Services — INV-1004 — 25/08/2026 — Open — 675
+Row 6 — Northstar LLC — INV-1005 — 15/08/2026 — Overdue — 1450
+Row 7 — Apex Partners — INV-1006 — 12/08/2026 — Open — 980
+
+The worksheet columns are:
+
+A = Customer
+B = Invoice #
+C = Due Date
+D = Status
+E = Amount
+
+I want to use Excel Conditional Formatting to highlight the entire row from A:E only when BOTH of these conditions are true:
+
+- Status in column D is exactly `Open`
+- Due Date in column C is earlier than 23/08/2026
+
+Do not treat a row with Status `Overdue` as a match, even if its Due Date is earlier than 23/08/2026.
+
+I do not want to add helper columns or modify the source data.
+
+Please answer in exactly these 6 sections:
+
+1. Conditional Formatting formula — Give me the exact formula.
+2. Range to select — Tell me exactly what range to select before creating the rule.
+3. Why the formula works — Explain how the two conditions are combined and why the references to columns C and D should lock the columns but leave the row relative.
+4. Expected result — List each sample row and state whether it should be highlighted.
+5. Common mistakes — Explain briefly what could go wrong if I use OR instead of AND, use `$C$2` and `$D$2`, or compare the date to the text `"23/08/2026"` instead of using a proper Excel date value.
+6. Exact Excel steps — Give the exact steps to create the rule using Home → Conditional Formatting → New Rule → Use a formula to determine which cells to format.
+
+Formatting rules:
+- Use exactly six numbered section headings, 1 through 6.
+- Use plain text for formulas and ranges. Do not use code blocks.
+- Do not use Markdown tables.
+- In section 4, use one bullet point per row.
+- In section 6, use bullet points only.
+- Keep the answer concise and practical.
+- Do not suggest helper columns.
+- Do not modify the source data.</pre>
+        <button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy" style="font-size:12px"></i> Copy</button>
+      </div>
+      <p class="prompt-hint">Use this when the row should be highlighted only if multiple conditions are true, such as an Open status plus a due date before a cutoff.</p>
+    </div>
+  </div>
+
+  <!-- BEFORE / AFTER — ROW -->
+  <div class="before-after ba-panel on" id="ba-row">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — the condition lives in D, but the whole row needs formatting</div>
+      <div class="ba-body">
+        <table class="xl-table" style="min-width:650px">
+          <tr><th>Row</th><th>Customer</th><th>Due Date</th><th>Status</th><th>Amount</th></tr>
+          <tr><td>2</td><td>Acme Corp</td><td>05/08/2026</td><td>Paid</td><td>1200</td></tr>
+          <tr><td>3</td><td>Beta Ltd</td><td>10/08/2026</td><td class="err-cell">Overdue</td><td>850</td></tr>
+          <tr><td>4</td><td>Gamma Inc</td><td>28/08/2026</td><td>Open</td><td>2100</td></tr>
+          <tr><td>5</td><td>Delta Services</td><td>15/08/2026</td><td class="err-cell">Overdue</td><td>675</td></tr>
+          <tr><td>6</td><td>Northstar LLC</td><td>30/08/2026</td><td>Paid</td><td>1450</td></tr>
+        </table>
+        <div class="formula-line">Goal: format A:E, but evaluate the Status in column D for each row.</div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — mixed reference checks each row correctly</div>
+      <div class="ba-body">
+        <table class="xl-table" style="min-width:650px">
+          <tr><th>Row</th><th>Customer</th><th>Status</th><th>Formatting</th></tr>
+          <tr><td>2</td><td>Acme Corp</td><td>Paid</td><td>No</td></tr>
+          <tr class="cf-hit"><td>3</td><td>Beta Ltd</td><td>Overdue</td><td class="ok-cell">Highlight A3:E3 ✓</td></tr>
+          <tr><td>4</td><td>Gamma Inc</td><td>Open</td><td>No</td></tr>
+          <tr class="cf-hit"><td>5</td><td>Delta Services</td><td>Overdue</td><td class="ok-cell">Highlight A5:E5 ✓</td></tr>
+          <tr><td>6</td><td>Northstar LLC</td><td>Paid</td><td>No</td></tr>
+        </table>
+        <div class="chatgpt-fix"><div class="chatgpt-fix-label">Verified ChatGPT result</div><pre>Formula: =$D2="Overdue"
+Applies to: =$A$2:$E$6
+
+$D locks the Status column; the row stays relative.</pre></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEFORE / AFTER — REFERENCE -->
+  <div class="before-after ba-panel" id="ba-reference">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — $D$2 makes every row check the same cell</div>
+      <div class="ba-body">
+        <table class="xl-table" style="min-width:650px">
+          <tr><th>Row</th><th>Customer</th><th>Status</th><th>Result with =$D$2="Overdue"</th></tr>
+          <tr class="cf-all"><td>2</td><td>Acme Corp</td><td>Overdue</td><td class="err-cell">Highlighted</td></tr>
+          <tr class="cf-all"><td>3</td><td>Beta Ltd</td><td>Paid</td><td class="err-cell">Highlighted incorrectly</td></tr>
+          <tr class="cf-all"><td>4</td><td>Gamma Inc</td><td>Overdue</td><td class="err-cell">Highlighted</td></tr>
+          <tr class="cf-all"><td>5</td><td>Delta Services</td><td>Open</td><td class="err-cell">Highlighted incorrectly</td></tr>
+          <tr class="cf-all"><td>6</td><td>Northstar LLC</td><td>Overdue</td><td class="err-cell">Highlighted</td></tr>
+        </table>
+        <div class="formula-line">Because D2 is Overdue, the locked formula returns TRUE for every row in the Applies to range.</div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — remove the $ from the row number</div>
+      <div class="ba-body">
+        <table class="xl-table" style="min-width:650px">
+          <tr><th>Row</th><th>Status checked</th><th>Correct result</th></tr>
+          <tr class="cf-hit"><td>2</td><td>D2 = Overdue</td><td class="ok-cell">Highlighted ✓</td></tr>
+          <tr><td>3</td><td>D3 = Paid</td><td>Not highlighted</td></tr>
+          <tr class="cf-hit"><td>4</td><td>D4 = Overdue</td><td class="ok-cell">Highlighted ✓</td></tr>
+          <tr><td>5</td><td>D5 = Open</td><td>Not highlighted</td></tr>
+          <tr class="cf-hit"><td>6</td><td>D6 = Overdue</td><td class="ok-cell">Highlighted ✓</td></tr>
+        </table>
+        <div class="chatgpt-fix"><div class="chatgpt-fix-label">Verified ChatGPT diagnosis</div><pre>Wrong: =$D$2="Overdue"
+Correct: =$D2="Overdue"
+
+Keep column D fixed. Let the row change.</pre></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEFORE / AFTER — MULTIPLE -->
+  <div class="before-after ba-panel" id="ba-multiple">
+    <div class="ba-col before">
+      <div class="ba-header err"><i class="ti ti-alert-circle" style="font-size:14px"></i> Before — an early date alone is not enough</div>
+      <div class="ba-body">
+        <table class="xl-table" style="min-width:680px">
+          <tr><th>Row</th><th>Customer</th><th>Due Date</th><th>Status</th><th>Early?</th></tr>
+          <tr><td>2</td><td>Acme Corp</td><td>05/08/2026</td><td>Open</td><td>Yes</td></tr>
+          <tr><td>3</td><td>Beta Ltd</td><td>10/08/2026</td><td>Paid</td><td>Yes</td></tr>
+          <tr><td>4</td><td>Gamma Inc</td><td>20/08/2026</td><td>Open</td><td>Yes</td></tr>
+          <tr><td>5</td><td>Delta Services</td><td>25/08/2026</td><td>Open</td><td>No</td></tr>
+          <tr><td>6</td><td>Northstar LLC</td><td>15/08/2026</td><td class="err-cell">Overdue</td><td>Yes</td></tr>
+          <tr><td>7</td><td>Apex Partners</td><td>12/08/2026</td><td>Open</td><td>Yes</td></tr>
+        </table>
+        <div class="formula-line">Requirement: Status must be Open AND Due Date must be earlier than 23/08/2026.</div>
+      </div>
+    </div>
+    <div class="ba-arrow"><i class="ti ti-arrow-right" style="color:#1d9e75"></i></div>
+    <div class="ba-col after">
+      <div class="ba-header fix"><i class="ti ti-check" style="font-size:14px"></i> After — AND applies both tests to the same row</div>
+      <div class="ba-body">
+        <table class="xl-table" style="min-width:680px">
+          <tr><th>Row</th><th>Status</th><th>Due Date</th><th>Result</th></tr>
+          <tr class="cf-hit"><td>2</td><td>Open</td><td>05/08/2026</td><td class="ok-cell">Highlighted ✓</td></tr>
+          <tr><td>3</td><td>Paid</td><td>10/08/2026</td><td>Not highlighted</td></tr>
+          <tr class="cf-hit"><td>4</td><td>Open</td><td>20/08/2026</td><td class="ok-cell">Highlighted ✓</td></tr>
+          <tr><td>5</td><td>Open</td><td>25/08/2026</td><td>Not highlighted</td></tr>
+          <tr><td>6</td><td>Overdue</td><td>15/08/2026</td><td>Not highlighted</td></tr>
+          <tr class="cf-hit"><td>7</td><td>Open</td><td>12/08/2026</td><td class="ok-cell">Highlighted ✓</td></tr>
+        </table>
+        <div class="chatgpt-fix"><div class="chatgpt-fix-label">Verified ChatGPT result</div><pre>=AND($D2="Open",$C2&lt;DATE(2026,8,23))
+
+Both conditions must be TRUE for the row to be highlighted.</pre></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIAGNOSIS TABLE -->
+  <div class="diag-card">
+    <div class="diag-header"><i class="ti ti-zoom-question" style="font-size:15px"></i> Why Conditional Formatting based on another cell goes wrong — 4 common causes</div>
+    <div class="diag-row">
+      <div class="diag-cause">Row locked by mistake</div>
+      <div class="diag-example"><span class="bad">$D$2</span> always checks row 2 → use <span class="good">$D2</span> when each row needs its own Status</div>
+      <div class="diag-badge badge-red">Very common</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">Condition column can shift</div>
+      <div class="diag-example"><span class="bad">D2</span> can move across columns A:E → lock the condition column as <span class="good">$D2</span></div>
+      <div class="diag-badge badge-red">Reference issue</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">OR used instead of AND</div>
+      <div class="diag-example">Either condition becomes enough → use <span class="good">AND(...)</span> when every test must be TRUE</div>
+      <div class="diag-badge badge-yellow">Logic issue</div>
+    </div>
+    <div class="diag-row">
+      <div class="diag-cause">Date entered as text</div>
+      <div class="diag-example"><span class="bad">"23/08/2026"</span> can depend on locale → use <span class="good">DATE(2026,8,23)</span></div>
+      <div class="diag-badge badge-yellow">Date issue</div>
+    </div>
+  </div>
+
+  <!-- STEPS -->
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">How to Use Conditional Formatting Based on Another Cell in Excel</h2>
+  <div class="steps-card">
+    <div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Build and verify the rule — 5 steps</div>
+    <div class="step"><div class="step-n">1</div><div class="step-body"><h3>Select the full range you want Excel to format</h3><p>If the whole invoice row should change, select the full data range such as <code>A2:E6</code>, not only the Status cells. Keep the header row out of the Applies to range.</p></div></div>
+    <div class="step"><div class="step-n">2</div><div class="step-body"><h3>Write the formula from the first data row</h3><p>Conditional Formatting formulas are evaluated relative to the top-left cell of the selected range. If your data starts on row 2, write the rule using row 2 references such as <code>=$D2="Overdue"</code>.</p></div></div>
+    <div class="step"><div class="step-n">3</div><div class="step-body"><h3>Lock the condition column, not the row</h3><p>Use <code>$D2</code> when Excel must always check column D but move from row 2 to row 3, row 4, and so on. Using <code>$D$2</code> makes every row check the same cell.</p></div></div>
+    <div class="step"><div class="step-n">4</div><div class="step-body"><h3>Use AND when multiple conditions must all match</h3><p>For Status plus Due Date, combine the tests in one rule, for example <code>=AND($D2="Open",$C2&lt;DATE(2026,8,23))</code>. This prevents an early date alone from triggering the format.</p></div></div>
+    <div class="step"><div class="step-n">5</div><div class="step-body"><h3>Verify both the formula and Applies to range</h3><p>Open Conditional Formatting → Manage Rules and check the formula together with the range it applies to. A correct formula can still appear wrong if the Applies to range starts on a different row.</p></div></div>
+    <div class="warn"><strong>Reference rule:</strong> for whole-row formatting based on one condition column, the usual pattern is to lock the column and leave the row relative — for example <code>$D2</code>, not <code>$D$2</code>.</div>
+  </div>
+
+  <!-- FAQ -->
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Conditional Formatting Based on Another Cell — FAQs</h2>
+  <div class="faq-section">
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I use conditional formatting based on another cell in Excel? <i class="ti ti-chevron-down"></i></div><div class="faq-a">Select the range you want to format, create a formula-based Conditional Formatting rule, and reference the condition cell with the correct relative or mixed reference. For example, <code>=$D2="Overdue"</code> can format A:E while checking column D for each row.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I highlight an entire row based on another cell in Excel? <i class="ti ti-chevron-down"></i></div><div class="faq-a">Select the full row range to format, such as <code>A2:E100</code>, then use a formula that locks the condition column but leaves the row relative, such as <code>=$D2="Overdue"</code>.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Why does conditional formatting highlight every row in Excel? <i class="ti ti-chevron-down"></i></div><div class="faq-a">A common cause is locking the row in the formula. For example, <code>=$D$2="Overdue"</code> makes every row check D2. If D2 is Overdue, every row in the Applies to range can be highlighted.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is the difference between $D2 and $D$2 in conditional formatting? <i class="ti ti-chevron-down"></i></div><div class="faq-a"><code>$D2</code> locks column D but lets the row change, so each row checks its own Status cell. <code>$D$2</code> locks both column D and row 2, so every formatted row checks the same cell, D2.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can Excel conditional formatting use multiple conditions and dates? <i class="ti ti-chevron-down"></i></div><div class="faq-a">Yes. Use <code>AND</code> when every condition must be true. For example, <code>=AND($D2="Open",$C2&lt;DATE(2026,8,23))</code> highlights a row only when Status is Open and the Due Date is earlier than 23 August 2026.</div></div>
+  </div>
+
+  <!-- RELATED -->
+  <h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Related Excel workflows</h2>
+  <div class="related-grid">
+    <a href="/remove-spaces-excel.html" class="related-link"><strong>Remove Spaces in Excel</strong><span>Clean leading, trailing, extra, and hidden spaces before comparisons or lookups.</span></a>
+    <a href="/na-error-in-excel.html" class="related-link"><strong>Fix #N/A Errors in VLOOKUP and XLOOKUP</strong><span>Diagnose missing matches, type mismatches, and dirty lookup keys.</span></a>
+    <a href="/clean-data-in-excel.html" class="related-link"><strong>Clean and Standardise Imported Data in Excel</strong><span>Fix inconsistent text, dates, numbers, and formatting after an import.</span></a>
+    <a href="/excel-workflows.html" class="related-link"><strong>Browse All Excel Workflows</strong><span>Find tested ChatGPT prompts for Excel formulas, cleaning, errors, and reporting.</span></a>
+  </div>
+</div>
+<script>
+function switchTab(btn,id){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.ba-panel').forEach(function(p){p.classList.remove('on')});
+  btn.classList.add('on');
+  document.getElementById('p-'+id).classList.add('on');
+  document.getElementById('ba-'+id).classList.add('on');
+}
+function copyPrompt(btn){
+  var text=btn.previousElementSibling.innerText;
+  navigator.clipboard.writeText(text);
+  btn.innerHTML='<i class="ti ti-check" style="font-size:12px"></i> Copied!';
+  setTimeout(function(){btn.innerHTML='<i class="ti ti-copy" style="font-size:12px"></i> Copy';},2000);
+}
+function toggleFaq(q){
+  q.classList.toggle('open');
+  q.nextElementSibling.classList.toggle('open');
+}
+function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+</script>
+<footer></footer>
+</body>
+</html>
