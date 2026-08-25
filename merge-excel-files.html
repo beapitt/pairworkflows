@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Merge Excel Files with Power Query — PairWorkflows</title>
+<meta name="description" content="Merge Excel files with Power Query using tested ChatGPT prompts. Preserve source filenames, handle schema changes, and verify row counts and totals.">
+<link rel="canonical" href="https://www.pairworkflows.com/merge-excel-files.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I merge multiple Excel files into one workbook?","acceptedAnswer":{"@type":"Answer","text":"Use Power Query's From Folder connector, filter the files, extract the intended table from each workbook, append the rows, and load the result to a new table."}},{"@type":"Question","name":"Can Power Query merge files when columns are in a different order?","acceptedAnswer":{"@type":"Answer","text":"Yes. Power Query can align fields by column name. Define a canonical schema so reordered columns do not shift values into the wrong fields."}},{"@type":"Question","name":"What should happen when one Excel file is missing a column?","acceptedAnswer":{"@type":"Answer","text":"Add the missing field as null and flag the schema difference for review. Do not substitute zero when the source value is unknown."}},{"@type":"Question","name":"How can I keep the source filename after combining files?","acceptedAnswer":{"@type":"Answer","text":"Retain the folder query's Name field through the transformation and rename it Source File before expanding or loading the combined rows."}},{"@type":"Question","name":"How do I verify that merged Excel files are complete?","acceptedAnswer":{"@type":"Answer","text":"Reconcile the expected file count, final row count, distinct source filenames, and control totals such as Amount. Audit every removed header or duplicate separately."}}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="icon" type="image/png" href="/favicon.png">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#f8f9fa;color:#111827;min-height:100vh;display:flex;flex-direction:column}
+.page{max-width:1300px;margin:0 auto;width:100%;padding:2rem 2.5rem 4rem;flex:1}
+.hero{margin-bottom:2rem}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#0f6e56;background:#e1f5ee;border:1px solid #a7f3d0;border-radius:20px;padding:4px 12px;margin-bottom:.9rem}
+.hero h1{font-size:32px;font-weight:700;line-height:1.2;color:#111827;margin-bottom:.6rem;letter-spacing:-.5px}
+.hero h1 span{color:#1d9e75}
+.hero-sub{font-size:15px;color:#6b7280;line-height:1.65;max-width:600px}
+.prompt-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.prompt-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.75rem}
+.prompt-card-label{font-size:13px;font-weight:600;color:#374151}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{padding:6px 14px;border-radius:7px;border:1.5px solid #e5e7eb;background:#f9fafb;font-size:12px;font-weight:500;color:#6b7280;cursor:pointer;transition:all .15s;font-family:inherit}
+.tab:hover{border-color:#1d9e75;color:#0f6e56}
+.tab.on{background:#1d9e75;border-color:#1d9e75;color:#fff;font-weight:600}
+.panel{display:none}
+.panel.on{display:block}
+.prompt-box{background:#0f172a;border-radius:10px;padding:1.25rem 1.25rem 1rem;position:relative}
+.prompt-box pre{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#e2e8f0;line-height:1.7;white-space:pre-wrap;word-break:break-word;padding-right:70px;max-height:220px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent}
+.prompt-box pre::-webkit-scrollbar{width:6px}
+.prompt-box pre::-webkit-scrollbar-track{background:transparent}
+.prompt-box pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:3px}
+.copy-btn{position:absolute;top:.75rem;right:.75rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:rgba(255,255,255,.6);font-size:11px;font-weight:500;font-family:inherit;cursor:pointer;padding:5px 12px;transition:all .15s;display:flex;align-items:center;gap:5px}
+.copy-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+.prompt-hint{font-size:12px;color:#9ca3af;margin-top:.75rem}
+.prompt-hint a{color:#1d9e75;text-decoration:none;font-weight:500}
+.prompt-hint a:hover{text-decoration:underline}
+.ba-panel{display:none;margin-bottom:1.75rem}
+.ba-panel.on{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:start}
+.ba-col{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.ba-col.before{border-color:#fca5a5}
+.ba-col.after{border-color:#6ee7b7}
+.ba-header{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
+.ba-header.err{background:#fef2f2;color:#dc2626;border-bottom:1px solid #fecaca}
+.ba-header.fix{background:#e1f5ee;color:#059669;border-bottom:1px solid #a7f3d0}
+.ba-body{padding:14px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 .75rem;font-size:22px;color:#1d9e75;flex-shrink:0}
+.xl-table{width:100%;min-width:650px;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
+.xl-table th{background:#f1f5f9;color:#64748b;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;text-align:left;border:1px solid #e2e8f0}
+.xl-table td{padding:5px 8px;border:1px solid #e2e8f0;color:#374151}
+.xl-table .err-cell{color:#dc2626;font-weight:700;background:#fef2f2}
+.xl-table .ok-cell{color:#059669;font-weight:700;background:#f0fdf4}
+.xl-table .hl{background:#fffbeb}
+.xl-table .link-cell{background:#e8f0fe;color:#1f4e79;font-weight:600}
+.xl-table .section-row td{background:#f1f5f9;color:#374151;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.xl-table .del-row td{background:#fef2f2;color:#dc2626;text-decoration:line-through;opacity:.7}
+.chatgpt-fix{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:10px 12px;margin-top:10px}
+.chatgpt-fix-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#059669;margin-bottom:5px}
+.chatgpt-fix pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#065f46;line-height:1.6;white-space:pre-wrap}
+.diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.diag-header{background:#fef2f2;border-bottom:1px solid #fecaca;padding:12px 18px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#dc2626}
+.diag-row{display:grid;grid-template-columns:180px 1fr 90px;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid #f9fafb}
+.diag-row:last-child{border-bottom:none}
+.diag-row:nth-child(even){background:#fafafa}
+.diag-cause{font-size:13px;font-weight:600;color:#1f2937}
+.diag-example{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#6b7280;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.diag-example .bad{color:#dc2626;font-weight:600;background:#fef2f2;padding:1px 5px;border-radius:3px}
+.diag-example .good{color:#059669;font-weight:600;background:#f0fdf4;padding:1px 5px;border-radius:3px}
+.diag-badge{font-size:10px;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;white-space:nowrap}
+.badge-red{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+.badge-yellow{background:#fffbeb;color:#b45309;border:1px solid #fde68a}
+.steps-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.steps-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+.step{display:flex;gap:16px;padding:.9rem 0;border-bottom:1px solid #f3f4f6}
+.step:last-child{border-bottom:none}
+.step-n{width:28px;height:28px;border-radius:8px;background:#e1f5ee;color:#0f6e56;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body h3{font-size:13px;font-weight:600;color:#1f2937;margin-bottom:.25rem}
+.step-body p{font-size:13px;color:#6b7280;line-height:1.65}
+.step-body code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
+.tip{background:#fffbeb;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#92400e;line-height:1.65}
+.tip strong{color:#78350f}
+.warn{background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.25rem 0;font-size:13px;color:#7f1d1d;line-height:1.65}
+.warn strong{color:#991b1b}
+.faq-section{margin-bottom:1.75rem}
+.faq-item{border-bottom:1px solid #f3f4f6;padding:.9rem 0}
+.faq-q{font-size:13px;font-weight:600;color:#1f2937;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-q i{color:#9ca3af;transition:transform .2s;flex-shrink:0}
+.faq-q.open i{transform:rotate(180deg)}
+.faq-a{font-size:13px;color:#6b7280;line-height:1.7;display:none;padding-top:.6rem}
+.faq-a.open{display:block}
+.faq-a code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f0fdf4;color:#065f46;padding:1px 6px;border-radius:4px;border:1px solid #a7f3d0}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.related-link{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:.9rem 1rem;text-decoration:none;transition:border-color .15s}
+.related-link:hover{border-color:#1d9e75}
+.related-link strong{display:block;font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.15rem}
+.related-link span{display:block;font-size:12px;color:#9ca3af;line-height:1.4}
+#searchOverlay{display:none;position:fixed;inset:0;background:rgba(2,26,18,.95);z-index:9999;backdrop-filter:blur(6px);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:140px}
+#searchOverlay.open{display:flex}
+.search-overlay-inner{width:100%;max-width:720px;padding:0 2rem;position:relative}
+.search-close-btn{position:absolute;top:-52px;right:2rem;background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.45);font-size:22px}
+.search-box{display:flex;align-items:center;gap:12px;border:1.5px solid #1d9e75;border-radius:8px;padding:12px 16px;background:transparent}
+.search-box i{font-size:18px;color:#1d9e75;flex-shrink:0}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:#fff;font-size:17px;font-family:inherit}
+.search-box input::placeholder{color:rgba(255,255,255,.35)}
+@media(max-width:640px){
+  .hero h1{font-size:24px}
+  .ba-panel.on{grid-template-columns:1fr;gap:8px}
+  .ba-arrow{transform:rotate(90deg);padding:.5rem 0}
+  .diag-row{grid-template-columns:1fr;gap:6px}
+  .diag-example{display:flex}
+  .related-grid{grid-template-columns:1fr}
+  .page{padding:1.5rem 1rem 3rem}
+}
+
+.cf-hit td{background:#f0fdf4!important}.cf-all td{background:#fef2f2!important}.formula-line{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:7px 9px;margin-top:8px;color:#334155}.mini-note{font-size:10px;color:#9ca3af;margin-top:4px;line-height:1.5}
+</style>
+
+</head>
+<body>
+<div id="searchOverlay" onclick="if(event.target===this)closeSearch()"><div class="search-overlay-inner"><button class="search-close-btn" onclick="closeSearch()"><i class="ti ti-x"></i></button><form action="/search.html" method="get"><div class="search-box"><i class="ti ti-search"></i><input type="text" name="q" id="searchOverlayInput" placeholder="Search workflows, prompts, and guides..." autocomplete="off"></div></form></div></div>
+<div id="navbar-placeholder"></div>
+<script src="/navbar.js"></script>
+<script src="/footer.js"></script>
+<noscript><nav style="background:#021a12;padding:12px 2rem;font-size:13px;display:flex;gap:8px"><a href="/" style="color:#1d9e75">PairWorkflows</a><a href="/excel-workflows.html" style="color:#6b9e8a">Excel</a></nav></noscript>
+<div class="page">
+<div class="hero"><div class="hero-eyebrow"><i class="ti ti-files"></i> Excel · ChatGPT</div><h1>Merge Multiple Excel Files with Power Query</h1><p class="hero-sub">Append monthly Excel files without changing the source workbooks. Preserve provenance, align reordered or missing columns safely, detect repeated headers and duplicate files, then reconcile row counts and control totals.</p></div>
+<div class="prompt-card"><div class="prompt-card-top"><span class="prompt-card-label">Choose your situation — copy the tested prompt:</span><div class="tabs"><button class="tab on" onclick="switchTab(this,'uniform')">📁 Monthly files</button><button class="tab" onclick="switchTab(this,'schema')">🧩 Schema changes</button><button class="tab" onclick="switchTab(this,'duplicates')">🛡️ Headers & duplicates</button></div></div><div id="p-uniform" class="panel on"><div class="prompt-box"><pre>I need to append monthly Excel files with Power Query without changing the source workbooks.
+
+Each workbook is stored in the same folder and contains an Excel table named Sales with these columns:
+Date, OrderID, Amount
+
+Files and control totals:
+- Sales_Jan.xlsx: 2 data rows, Amount total 200.00
+- Sales_Feb.xlsx: 2 data rows, Amount total 250.00
+- Sales_Mar.xlsx: 1 data row, Amount total 150.00
+
+Give me exact Excel Power Query steps to:
+1. import every .xlsx file from the folder;
+2. read only the Sales table from each workbook;
+3. append the rows;
+4. retain the original filename in a column named Source File;
+5. exclude temporary files whose names begin with ~$;
+6. set Date, OrderID, and Amount to appropriate data types;
+7. load the combined result to a new table without editing the source files;
+8. verify the file count, row count, and Amount control total.
+
+State the exact expected final row count and Amount total. Warn me not to use the folder's sample-file transformation in a way that removes the filename before it is propagated to the combined rows.</pre><button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button></div><p class="prompt-hint">Test 1 of 3 — approved PASS and preserved as tested.</p></div>
+<div id="p-schema" class="panel"><div class="prompt-box"><pre>Help me safely append three Excel tables with Power Query when their column order is inconsistent and one file is missing a column.
+
+All workbooks contain a table named Sales:
+
+North.xlsx columns:
+OrderID, Region, Amount, Tax
+Rows:
+N-01 | North | 100 | 20
+N-02 | North | 50 | 10
+
+South.xlsx columns:
+Amount, OrderID, Tax, Region
+Rows:
+80 | S-01 | 16 | South
+
+West.xlsx columns:
+Region, Amount, OrderID
+Rows:
+West | 70 | W-01
+The West file has no Tax column.
+
+Design the append by column name, not column position. Give exact Power Query steps or M logic that:
+1. produces the canonical columns OrderID, Region, Amount, Tax, Source File;
+2. maps reordered columns correctly;
+3. creates Tax as null when it is absent instead of shifting another value into it;
+4. flags unexpected extra columns for review;
+5. preserves every source workbook;
+6. verifies row count and control totals.
+
+State the exact expected row count, Amount total, Tax total, and the expected Tax value for W-01. Do not invent zero tax when the source value is unknown.</pre><button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button></div><p class="prompt-hint">Test 2 of 3 — approved PASS and preserved as tested.</p></div>
+<div id="p-duplicates" class="panel"><div class="prompt-box"><pre>I am combining Excel exports with Power Query, but one export contains a repeated header row inside the data and the folder also contains a duplicate copy of a monthly file.
+
+April.xlsx:
+Date | OrderID | Amount
+2026-04-01 | A201 | 100
+Date | OrderID | Amount
+2026-04-02 | A202 | 150
+
+April_copy.xlsx contains the same valid transactions as April.xlsx.
+
+May.xlsx:
+Date | OrderID | Amount
+2026-05-01 | A203 | 200
+
+Give me a safe Power Query workflow that:
+1. keeps Source File;
+2. identifies and removes only rows that are demonstrably repeated headers, such as Date="Date", OrderID="OrderID", and Amount="Amount";
+3. does not remove legitimate data merely because one field happens to equal a column name;
+4. detects that April.xlsx and April_copy.xlsx may duplicate the same business records;
+5. reports duplicate OrderID groups before deciding which rows to retain;
+6. keeps an audit table of excluded header rows and potential duplicates;
+7. calculates row counts and Amount totals before and after each exclusion.
+
+Do not silently delete duplicates. Explain what result is safe before business confirmation, and state the expected result only if April_copy.xlsx is confirmed to be an accidental duplicate.</pre><button class="copy-btn" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button></div><p class="prompt-hint">Test 3 of 3 — approved PASS and preserved as tested.</p></div></div>
+<div class="before-after ba-panel on" id="ba-uniform"><div class="ba-col before"><div class="ba-header err"><i class="ti ti-alert-circle"></i> Before — Three monthly Sales tables</div><div class="ba-body"><table class="xl-table"><tr><th>Source condition</th><th>Risk</th></tr><tr><td>Three monthly Sales tables</td><td class="err-cell">5 data rows across Jan–Mar; no combined provenance or control check yet.</td></tr></table></div></div><div class="ba-arrow"><i class="ti ti-arrow-right"></i></div><div class="ba-col after"><div class="ba-header fix"><i class="ti ti-check"></i> After — verified result</div><div class="ba-body"><table class="xl-table"><tr><th>Output</th><th>Expected result</th></tr><tr><td>Combined query</td><td class="ok-cell">5 rows · Amount 600.00 · Source File on every row</td></tr></table></div></div></div>
+<div class="before-after ba-panel" id="ba-schema"><div class="ba-col before"><div class="ba-header err"><i class="ti ti-alert-circle"></i> Before — North, South, West schemas</div><div class="ba-body"><table class="xl-table"><tr><th>Source condition</th><th>Risk</th></tr><tr><td>North, South, West schemas</td><td class="err-cell">Columns reordered; West has no Tax column.</td></tr></table></div></div><div class="ba-arrow"><i class="ti ti-arrow-right"></i></div><div class="ba-col after"><div class="ba-header fix"><i class="ti ti-check"></i> After — verified result</div><div class="ba-body"><table class="xl-table"><tr><th>Output</th><th>Expected result</th></tr><tr><td>Canonical schema</td><td class="ok-cell">4 rows · Amount 300 · known Tax 46 · W-01 Tax = null</td></tr></table></div></div></div>
+<div class="before-after ba-panel" id="ba-duplicates"><div class="ba-col before"><div class="ba-header err"><i class="ti ti-alert-circle"></i> Before — Repeated header + April copy</div><div class="ba-body"><table class="xl-table"><tr><th>Source condition</th><th>Risk</th></tr><tr><td>Repeated header + April copy</td><td class="err-cell">Headers can become data and duplicate files can double revenue.</td></tr></table></div></div><div class="ba-arrow"><i class="ti ti-arrow-right"></i></div><div class="ba-col after"><div class="ba-header fix"><i class="ti ti-check"></i> After — verified result</div><div class="ba-body"><table class="xl-table"><tr><th>Output</th><th>Expected result</th></tr><tr><td>Audited result</td><td class="ok-cell">After duplicate confirmation: 3 orders · Amount 450 · exclusions retained</td></tr></table></div></div></div>
+<div class="diag-card"><div class="diag-header"><i class="ti ti-zoom-question"></i> Diagnosis — what can make this workflow unsafe</div><div class="diag-row"><div class="diag-cause">Filename lost</div><div class="diag-example">Sample transformation removes Name before expansion</div><div class="diag-badge badge-red">High risk</div></div>
+<div class="diag-row"><div class="diag-cause">Position-based append</div><div class="diag-example">Reordered columns shift values into the wrong fields</div><div class="diag-badge badge-red">Corruption</div></div>
+<div class="diag-row"><div class="diag-cause">Missing column</div><div class="diag-example">Unknown Tax is replaced with zero instead of null</div><div class="diag-badge badge-red">Review</div></div>
+<div class="diag-row"><div class="diag-cause">Silent deduplication</div><div class="diag-example">Legitimate transactions may be deleted without an audit</div><div class="diag-badge badge-red">High risk</div></div></div>
+<h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">How to Merge Multiple Excel Files with Power Query</h2>
+<div class="steps-card"><div class="steps-title"><i class="ti ti-list-check" style="color:#1d9e75"></i> Practical workflow — 5 steps</div><div class="step"><div class="step-n">1</div><div class="step-body"><h3>Inventory the folder</h3><p>Confirm file extensions, the Sales table name, expected files, row counts, and control totals before combining.</p></div></div>
+<div class="step"><div class="step-n">2</div><div class="step-body"><h3>Import without touching sources</h3><p>Use Data → Get Data → From File → From Folder; filter to .xlsx and exclude filenames beginning with ~$.</p></div></div>
+<div class="step"><div class="step-n">3</div><div class="step-body"><h3>Normalize by column name</h3><p>Keep Source File, select the canonical fields, align names rather than positions, and use null for genuinely missing fields.</p></div></div>
+<div class="step"><div class="step-n">4</div><div class="step-body"><h3>Separate exceptions</h3><p>Create review queries for unexpected columns, repeated header rows, and duplicate business keys instead of silently deleting them.</p></div></div>
+<div class="step"><div class="step-n">5</div><div class="step-body"><h3>Reconcile the output</h3><p>Compare file count, row count, Amount and other control totals before and after every exclusion, then load to a new table.</p></div></div><div class="warn"><strong>Verification rule:</strong> keep the source unchanged until the approved expected result, data types, row counts, and control checks agree with the workbook.</div></div>
+<h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Merge Multiple Excel Files with Power Query — FAQs</h2>
+<div class="faq-section"><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I merge multiple Excel files into one workbook? <i class="ti ti-chevron-down"></i></div><div class="faq-a">Use Power Query's From Folder connector, filter the files, extract the intended table from each workbook, append the rows, and load the result to a new table.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can Power Query merge files when columns are in a different order? <i class="ti ti-chevron-down"></i></div><div class="faq-a">Yes. Power Query can align fields by column name. Define a canonical schema so reordered columns do not shift values into the wrong fields.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What should happen when one Excel file is missing a column? <i class="ti ti-chevron-down"></i></div><div class="faq-a">Add the missing field as null and flag the schema difference for review. Do not substitute zero when the source value is unknown.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How can I keep the source filename after combining files? <i class="ti ti-chevron-down"></i></div><div class="faq-a">Retain the folder query's Name field through the transformation and rename it Source File before expanding or loading the combined rows.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I verify that merged Excel files are complete? <i class="ti ti-chevron-down"></i></div><div class="faq-a">Reconcile the expected file count, final row count, distinct source filenames, and control totals such as Amount. Audit every removed header or duplicate separately.</div></div></div>
+<h2 style="font-size:16px;font-weight:700;color:#111827;margin-bottom:.75rem">Related Excel workflows</h2>
+<div class="related-grid"><a href="/clean-data-in-excel.html" class="related-link"><strong>Clean Imported Data in Excel</strong><span>Diagnose inconsistent imported fields before consolidation.</span></a>
+<a href="/remove-duplicates-excel.html" class="related-link"><strong>Remove Duplicates in Excel Safely</strong><span>Review duplicate business keys before deleting records.</span></a>
+<a href="/compare-two-excel-sheets.html" class="related-link"><strong>Compare Two Excel Sheets</strong><span>Reconcile rows and values between workbook versions.</span></a>
+<a href="/excel-workflows.html" class="related-link"><strong>Browse All Excel Workflows</strong><span>Find tested prompts for Excel cleaning, formulas, and reporting.</span></a></div>
+</div>
+<script>
+function switchTab(btn,id){document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});document.querySelectorAll('.ba-panel').forEach(function(p){p.classList.remove('on')});btn.classList.add('on');document.getElementById('p-'+id).classList.add('on');document.getElementById('ba-'+id).classList.add('on');}
+function copyPrompt(btn){var text=btn.previousElementSibling.innerText;navigator.clipboard.writeText(text);btn.innerHTML='<i class="ti ti-check"></i> Copied!';setTimeout(function(){btn.innerHTML='<i class="ti ti-copy"></i> Copy';},2000);}
+function toggleFaq(q){q.classList.toggle('open');q.nextElementSibling.classList.toggle('open');}
+function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('searchOverlayInput').focus();},50);}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+</script>
+<footer></footer>
+</body>
+</html>
